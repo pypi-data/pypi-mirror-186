@@ -1,0 +1,2 @@
+class InvalidOSException(BaseException):
+   pass
