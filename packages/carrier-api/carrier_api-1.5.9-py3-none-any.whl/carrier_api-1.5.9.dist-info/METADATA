@@ -1,0 +1,26 @@
+Metadata-Version: 2.1
+Name: carrier-api
+Version: 1.5.9
+Summary: Carrier Api Wrapper
+Home-page: https://github.com/dahlb/carrier_api
+Author: Brendan Dahl
+Author-email: dahl.brendan@gmail.com
+Project-URL: Bug Reports, https://github.com/dahlb/carrier_api/issues
+Project-URL: Source, https://github.com/dahlb/carrier_api
+Keywords: carrier,api
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: MacOS :: MacOS X
+Requires-Python: >=3.10, <4
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: xmltodict
+Requires-Dist: requests-oauthlib
+Requires-Dist: requests
+
+Api Wrapper for Carrier Infinity API using async in python, this was inspired by [this guide](https://developers.home-assistant.io/docs/api_lib_index) to be a lightweight wrapper, with simple error handling.
+
+a lot of this is based on [homebridge-carrier-infinity](https://github.com/grivkees/homebridge-carrier-infinity).
