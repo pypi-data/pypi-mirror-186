@@ -1,0 +1,61 @@
+Metadata-Version: 2.1
+Name: lxd-tools
+Version: 0.5.0b2
+Summary: Some useful LXD console tools.
+Home-page: https://bitbucket.org/p-app/lxd_tools
+License: MIT
+Author: Vladimir V. Pivovarov
+Author-email: admin@p-app.ru
+Requires-Python: >=3.7,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: System :: Operating System
+Requires-Dist: click (>=8.1.3,<9.0.0)
+Requires-Dist: pylxd (>=2.3.1,<3.0.0)
+Requires-Dist: tabulate (>=0.9.0,<0.10.0)
+Project-URL: Repository, https://bitbucket.org/p-app/lxd_tools
+Description-Content-Type: text/markdown
+
+## Some useful LXD tools.
+
+Package provides cli tools for [LXD](https://linuxcontainers.org/lxd/introduction/) container virtualization manager. 
+
+
+### Purpose
+LXD has a powerful cli abilities. But, some of common operations, that you
+ may want to execute, are not available throught it`s cli. So, this package
+  extends LXD cli abilities.
+
+
+### Installation (standalone usage)
+```bash
+sudo -H python3 -m pip install -U pip
+sudo -H python3 -m pip install lxd_tools
+```
+*Updating pip is required for correct `cryptography` requirement installation.*
+
+
+### Usage
+There will be those scripts available after package installation:
+ - `lxd_print_resources`
+ 
+In order to display help message, you should use `--help` flag with any
+ script, that you needed. For example:
+```bash
+lxd_print_resources --help
+```
+
+
+### Compatibility
+
+This package is python 3.7 and higher compatible.
+
