@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: gqylpy_dict
+Version: 1.1.4
+Summary: 基于内置 dict，它是对内置 dict 的增强。dict 能做的它能做，dict 不能做的它更能做。
+Home-page: http://gqylpy.com
+Author: 竹永康
+Author-email: <gqylpy@outlook.com>
+License: WTFPL,Apache-2.0
+Project-URL: Source, https://github.com/gqylpy/gqylpy-dict
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Text Processing :: Indexing
+Classifier: Topic :: Utilities
+Classifier: Topic :: Internet
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.8, <4
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: NOTICE
+
+[<img alt="LOGO" src="http://www.gqylpy.com/static/img/favicon.ico" height="21" width="21"/>](http://www.gqylpy.com)
+[![Release](https://img.shields.io/github/release/gqylpy/gqylpy-dict.svg?style=flat-square")](https://github.com/gqylpy/gqylpy-dict/releases/latest)
+[![Python Versions](https://img.shields.io/pypi/pyversions/gqylpy_dict)](https://pypi.org/project/gqylpy_dict)
+[![License](https://img.shields.io/pypi/l/gqylpy_dict)](https://github.com/gqylpy/gqylpy-dict/blob/master/LICENSE)
+[![Downloads](https://pepy.tech/badge/gqylpy_dict/month)](https://pepy.tech/project/gqylpy_dict)
+
+# gqylpy-dict
+
+> `gqylpy-dict` 基于内置 `dict`，它是对内置 `dict` 的增强。`dict` 能做的它能做，`dict` 不能做的它更能做。
+
+<kbd>pip3 install gqylpy_dict</kbd>
+
+```python
+>>> from gqylpy_dict import gdict
+
+>>> gdict == dict
+True
+
+>>> gdict is dict
+False
+
+>>> x = {'a': [{'b': 'B'}]}
+>>> x = gdict(x)
+>>> x.a[0].b
+'B'
+
+>>> x.deepget('a[0].b')
+'B'
+```
