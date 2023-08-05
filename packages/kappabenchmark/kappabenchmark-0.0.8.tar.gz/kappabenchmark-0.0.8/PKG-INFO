@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: kappabenchmark
+Version: 0.0.8
+Summary: pytorch dataset wrappers for in-memory caching
+Home-page: https://github.com/BenediktAlkin/KappaBenchmark
+Project-URL: Source Code, https://github.com/BenediktAlkin/KappaBenchmark
+Project-URL: Bug Tracker, https://github.com/BenediktAlkin/KappaBenchmark/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# KappaBenchmark
+
+[![publish](https://github.com/BenediktAlkin/KappaBenchmark/actions/workflows/publish.yaml/badge.svg)](https://github.com/BenediktAlkin/KappaBenchmark/actions/workflows/publish.yaml)
+
+Utilities for benchmarking [pytorch](https://pytorch.org/) applications.
+
+- [Dataloading](https://github.com/BenediktAlkin/KappaBenchmark#dataloading)
+
+## Dataloading
+
+```
+import kappabenchmark as kbm
+dataloader = ...
+result = kbm.benchmark_dataloading(
+    dataloader=dataloader,
+    num_epochs=...,
+)
+```
+
+#### predefined benchmarks examples
+
+- `python main_benchmark_grid.py --benchmark imagefolder --root ROOT --num_epochs 5 --batch_size 256 --num_workers 8,16 --num_fetch_workers 0,2,4`
