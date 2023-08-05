@@ -1,0 +1,18 @@
+[build-system]
+# These are the assumed default build requirements from pip:
+# https://pip.pypa.io/en/stable/reference/pip/#pep-517-and-518-support
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# pyproject.toml
+[tool.pytest.ini_options]
+testpaths = "pydate"
+python_files = "test.py"
+
+# dev tools
+[tool.black]
+line-length = 150
+target-version = ['py39']
+
+[tool.isort]
+profile = "black"
