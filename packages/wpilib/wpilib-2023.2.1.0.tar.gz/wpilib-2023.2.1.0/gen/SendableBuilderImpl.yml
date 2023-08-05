@@ -1,0 +1,42 @@
+---
+classes:
+  SendableBuilderImpl:
+    methods:
+      SendableBuilderImpl:
+      SetTable:
+      GetTable:
+      IsPublished:
+      IsActuator:
+      Update:
+      StartListeners:
+      StopListeners:
+      StartLiveWindowMode:
+      StopLiveWindowMode:
+      ClearProperties:
+      SetSmartDashboardType:
+      SetActuator:
+      SetSafeState:
+      SetUpdateTable:
+        cpp_code: |
+          [](SendableBuilderImpl *self, std::function<void()> func) {
+            self->SetUpdateTable(std::move(func));
+          }
+      GetTopic:
+      AddBooleanProperty:
+      AddIntegerProperty:
+      AddFloatProperty:
+      AddDoubleProperty:
+      AddStringProperty:
+      AddBooleanArrayProperty:
+      AddIntegerArrayProperty:
+      AddFloatArrayProperty:
+      AddDoubleArrayProperty:
+      AddStringArrayProperty:
+      AddRawProperty:
+      AddSmallStringProperty:
+      AddSmallBooleanArrayProperty:
+      AddSmallIntegerArrayProperty:
+      AddSmallFloatArrayProperty:
+      AddSmallDoubleArrayProperty:
+      AddSmallStringArrayProperty:
+      AddSmallRawProperty:
