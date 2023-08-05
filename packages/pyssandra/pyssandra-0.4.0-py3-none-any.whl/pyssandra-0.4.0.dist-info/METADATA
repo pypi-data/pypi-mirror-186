@@ -1,0 +1,58 @@
+Metadata-Version: 2.1
+Name: pyssandra
+Version: 0.4.0
+Summary: Use pydantic models to create basic CQL queries.
+Home-page: https://gitlab.com/mburkard/pyssandra
+License: MIT
+Author: Matthew Burkard
+Author-email: matthewjburkard@gmail.com
+Requires-Python: >=3.9,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: case-switcher (>=1.3.4,<2.0.0)
+Requires-Dist: cassandra-driver (>=3.25.0,<4.0.0)
+Requires-Dist: pydantic (>=1.10.4,<2.0.0)
+Project-URL: Repository, https://gitlab.com/mburkard/pyssandra
+Description-Content-Type: text/markdown
+
+# Pyssandra
+
+Build simple CQL queries from Pydantic models.
+
+### Example
+
+```python
+import uuid
+
+from cassandra.auth import PlainTextAuthProvider
+from cassandra.cluster import Cluster
+from pydantic import BaseModel, Field
+
+from pyssandra import Pyssandra
+
+cloud_config = {"secure_connect_bundle": "/path/to/secure-connect-dbname.zip"}
+auth_provider = PlainTextAuthProvider(username="user", password="pass")
+cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
+session = cluster.connect()
+
+keyspace = "test"
+db = Pyssandra(session, keyspace)
+
+
+@db.table(keys=["id"])
+class User(BaseModel):
+    """Test user model."""
+
+    id: uuid.UUID = Field(default_factory=uuid.uuid4)
+    first: str
+    last: str
+
+
+user = User(first="Test", last="User")
+await db[User].insert(user)
+await db[User].find_one(uuid.uuid4())
+await db[User].update(user)
+```
+
