@@ -1,0 +1,9 @@
+recursive-include src/ms_deisotope *.pyx
+recursive-include src/ms_deisotope *.pxd
+recursive-include src/ms_deisotope *.c
+recursive-include src/ms_deisotope *.h
+recursive-include src/ms_deisotope/data_source/_vendor *
+include README.rst
+include pyproject.toml
+recursive-exclude src/ms_deisotope *.pyd
+recursive-exclude src/ms_deisotope/test/test_data *
