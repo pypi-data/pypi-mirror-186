@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: ephemetoot
+Version: 3.1.4
+Summary: A command line tool to delete your old toots
+Home-page: https://ephemetoot.hugh.run
+License: GPL-3.0-or-later
+Keywords: mastodon,api,microblogging
+Author: Hugh Rundle
+Author-email: ephemetoot@hugh.run
+Requires-Python: >=3.8,<4.0
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Communications
+Requires-Dist: mastodon.py (>=1.4.3,<2.0.0)
+Requires-Dist: pyyaml (>=5.0,<6.0)
+Requires-Dist: requests (>=2.22.0,<3.0.0)
+Project-URL: Repository, https://github.com/hughrun/ephemetoot
+Description-Content-Type: text/markdown
+
+# 🥳 ==> 🧼 ==> 😇
+
+## Prior work
+The initial `ephemetoot` script was based on [this tweet-deleting script](https://gist.github.com/flesueur/bcb2d9185b64c5191915d860ad19f23f) by [@flesueur](https://github.com/flesueur)
+
+`ephemetoot` relies heavily on the [Mastodon.py](https://pypi.org/project/Mastodon.py/) package by [@halcy](https://github.com/halcy)
+
+## Usage
+
+You can use `ephemetoot` to delete [Mastodon](https://github.com/tootsuite/mastodon) toots that are older than a certain number of days (default is 365). Toots can optionally be saved from deletion if:
+* they are pinned; or
+* they include certain hashtags; or
+* they have certain visibility; or
+* they are individually listed to be kept
+
+There are various options controlling timing, scheduling, and output.
+
+Run from the command line with `ephemetoot`.
+
+Run `ephemetoot --help` or read the docs for all options.
+
+## Contributing
+
+ephemetoot is packaged using `poetry` and tested using `pytest`.
+
+For all bugs, suggestions, pull requests or other contributions, please check the [contributing guide](https://github.com/hughrun/ephemetoot/blob/master/docs/contributing.md).
+
