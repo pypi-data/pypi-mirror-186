@@ -1,0 +1,83 @@
+[tool.poetry]
+name = "NEMED"
+version = "0.3.1"
+description = "NEM Emissions Data tool"
+authors = ["Declan Heim","Shayan Naderi"]
+license = "Licence"
+readme = "README.md"
+
+# Main dependencies for the package via poetry. Package users will need these dependencies.
+[tool.poetry.dependencies]
+python = ">= 3.8, <4.0"
+pandas = "^1.2"
+nemosis = "*"
+nempy = "*"
+datetime = "*"
+pathlib = "*"
+requests = "*"
+xmltodict = "*"
+tqdm = "*"
+joblib = "^1.2.0"
+plotly = "*"
+
+# Packages for developers for creating documentation
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+# MyST parser for Sphinx documentation with furo theme
+Sphinx = "4.5.0"
+myst-parser = "^0.18.0"
+myst-nb = "*"
+sphinx-copybutton = "*"
+sphinx_external_toc = "*"
+sphinx-book-theme = "*"
+sphinx-design = "*"
+jupytext = "*"
+
+
+# Packages for developers for linting/autoformatting
+[tool.poetry.group.style]
+optional = true
+
+[tool.poetry.group.style.dependencies]
+# static: flake8 (style)
+# autoformatter: black (style), isort (import sort)
+# pre-commit: tool to configure and install pre-commit hooks
+flake8 = "*"
+black = "^22.6.0"
+isort = "^5.10.1"
+pre-commit = "^2.20.0"
+
+# Packages for developers for testing
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+# pytest and pytest-cov for coverage
+pytest = "^7"
+pytest-cov = "3.0.0"
+
+# Config for pytest and pytest-cov
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.15.1"
+jupyter = "*"
+
+[tool.pytest.ini_options]
+# path to tests for pytest
+testpaths = ["tests"]
+# addopts = add options
+# -ra means show extra test summary info for all except passed tests
+# --cov points pytest-cov to the src/ dir
+# --cov-branch runs branch coverage. See https://breadcrumbscollector.tech/how-to-use-code-coverage-in-python-with-pytest/
+# --cov-repot html dumps HTML and xml summaries of pytest-cov in the "tests" folder
+addopts = "-ra --cov=src/nemed/ --cov-branch --cov-report html:tests/htmlcov"
+
+# Config isort to be compatible with black
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core>=1.1.0b2"]
+build-backend = "poetry.core.masonry.api"
