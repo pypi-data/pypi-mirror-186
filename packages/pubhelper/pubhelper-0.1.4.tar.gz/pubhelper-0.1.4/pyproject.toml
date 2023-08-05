@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "pubhelper"
+version = "0.1.4"
+description = ""
+authors = ["iulmt"]
+license = "GPL"
+readme = "README.md"
+
+[[tool.poetry.source]]
+name = 'bfsu'
+url = 'https://mirrors.bfsu.edu.cn/pypi/web/simple/'
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
