@@ -1,0 +1,53 @@
+graph {
+rankdir = BT
+  "Brisbane" [pos="1095.9,6947"]
+  "Camooweal" [pos="-432.1,7772.6"]
+  "Mount Isa" [pos="-283.33,7690"]
+  "Cloncurry" [pos="-176.97,7696.7"]
+  "Hughenden" [pos="208.62,7691.9"]
+  "Charters Towers" [pos="422.64,7779.8"]
+  "Townsville" [pos="480.76,7870.5"]
+  "Boulia" [pos="-228.33,7448.7"]
+  "Winton" [pos="91.948,7518.5"]
+  "Bedourie" [pos="-266.19,7288.1"]
+  "Birdsville" [pos="-267.5,7113.1"]
+  "Windorah" [pos="62.757,7181.4"]
+  "Longreach" [pos="219.59,7404.9"]
+  "Barcaldine" [pos="325.81,7393.9"]
+  "Blackall" [pos="344.54,7298.8"]
+  "Charleville" [pos="424.73,7079.6"]
+  "Roma" [pos="677.66,7060"]
+  "Emerald" [pos="618.88,7397.6"]
+  "Mackay" [pos="726.61,7660.5"]
+  "Rockhampton" [pos="858.85,7410.2"]
+
+  "Camooweal" -- "Mount Isa"
+  "Charters Towers" -- "Townsville"
+  "Longreach" -- "Winton"
+  "Winton" -- "Hughenden"
+  "Winton" -- "Boulia"
+  "Winton" -- "Windorah"
+  "Townsville" -- "Mackay"
+  "Boulia" -- "Mount Isa"
+  "Boulia" -- "Bedourie"
+  "Bedourie" -- "Birdsville"
+  "Birdsville" -- "Windorah"
+  "Bedourie" -- "Windorah"
+  "Mackay" -- "Rockhampton"
+  "Mackay" -- "Emerald"
+  "Rockhampton" -- "Brisbane"
+  "Rockhampton" -- "Emerald"
+  "Brisbane" -- "Roma"
+  "Roma" -- "Charleville"
+  "Charleville" -- "Blackall"
+  "Blackall" -- "Barcaldine"
+  "Blackall" -- "Windorah"
+  "Barcaldine" -- "Emerald"
+  "Cloncurry" -- "Winton"
+  "Barcaldine" -- "Hughenden"
+  "Mount Isa" -- "Cloncurry"
+  "Barcaldine" -- "Longreach"
+  "Cloncurry" -- "Hughenden"
+  "Hughenden" -- "Charters Towers"
+  "Longreach" -- "Windorah"
+}
