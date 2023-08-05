@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "lampip"
+version = "0.3.0"
+description = "Simple CLI tool for creating custom python lambda layers"
+authors = ["hayashiya18 <sei8haya@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/hayashiya18/lampip"
+readme = "README.md"
+keywords = ["aws", "lambda", "layer"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+click = "*"
+sh = "*"
+toml = "*"
+termcolor = "*"
+boto3 = "*"
+dataclasses = {version = "*", python = ">=3.6,<3.7"}
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+flake8 = "^3.9.2"
+pytest-cov = "^2.12.1"
+
+[tool.poetry.scripts]
+lampip = "lampip.entrypoint:main"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--cov lampip"
+testpaths = [
+    "tests",
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
