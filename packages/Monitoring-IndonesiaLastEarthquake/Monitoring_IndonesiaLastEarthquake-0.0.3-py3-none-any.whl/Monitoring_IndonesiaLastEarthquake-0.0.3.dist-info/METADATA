@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: Monitoring-IndonesiaLastEarthquake
+Version: 0.0.3
+Summary: This package will get the latest earthquake from Indonesia Meteorological, Climatological, and Geophysical Agency (BMKG).
+Home-page: https://github.com/Anugrahibra
+Author: Anugrah Ibra
+Author-email: anugrahibra88@gmail.com
+Project-URL: Medium, https://medium.com/@anugrahibra88
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 5 - Production/Stable
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: beautifulsoup4
+Requires-Dist: requests
+
+# Monitoring-IndonesiaLastEarthquake
+
+This package aims to provide an easy way to obtain the latest earthquake information in Indonesia, as reported by the Indonesian Meteorology, Climatology, and Geophysics Agency (BMKG). 
+
+## HOW IT WORK
+This package will scrape from BMKG to get latest earthquake happened in Indonesia
+
+This package will use BeautifulSoup4 and Requests to produce output in the form of JSON that is ready to be used in web or mobile application
+
+## HOW TO USE
+```python
+import lastearthquake
+
+if __name__ == '__main__':
+    print('Main Application')
+    result = data_extraction()
+    show_data(result)
+```
+
+## Author
+Anugrah Ibra Pramudya
