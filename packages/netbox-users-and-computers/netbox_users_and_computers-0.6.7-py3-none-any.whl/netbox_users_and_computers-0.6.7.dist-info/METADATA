@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: netbox-users-and-computers
+Version: 0.6.7
+Summary: Netbox plugin. Manage AD Users and Workstations
+Download-URL: https://pypi.org/project/netbox-users-and-computers/
+Author: Artur Shamsiev
+Author-email: me@z-lab.me
+Maintainer: Artur Shamsiev
+Maintainer-email: me@z-lab.me
+License: MIT
+Keywords: netbox,netbox-plugin
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Netbox plugin 'Users and Computers'
+
+Добавляет:
+- в Netbox объект "ADUsers"
+- в Netbox объект "Workstations"
+- в карточки объектов virtual machine, device секцию "Risks"
+
+Позволяет связывать активы с рисками ИБ и недопустимыми событиями.
+
+## Установка
+
+1. Установить плагин `pip3 install netbox-users-and-computers`
+2. Добавить плагин в `netbox/netbox/netbox/configuration.py` (обновить или добавить переменную):
+
+```
+PLUGINS=['users_and_computers']
+```
+
+3. Перейти в каталог с файлом `manage.py` и выполнить миграцию БД `python3 manage.py migrate`
+4. Перезапустить сервер netbox
+5. Проверить, что плагин появился в списке установленных плагинов в административном интерфейсе Django.
+
