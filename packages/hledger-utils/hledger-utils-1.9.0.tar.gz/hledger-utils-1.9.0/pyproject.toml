@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2023 Yann Büchau <nobodyinperson@posteo.de>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "hledger_utils/version.py"
+
+[tool.black]
+line-length = 79

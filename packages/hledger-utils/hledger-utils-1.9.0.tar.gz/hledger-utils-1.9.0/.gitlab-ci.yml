@@ -1,0 +1,88 @@
+# SPDX-FileCopyrightText: 2023 Yann Büchau <nobodyinperson@posteo.de>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+include:
+    # Python black and PEP8 code style check
+    - "https://gitlab.com/nobodyinperson/ci-templates/raw/master/python-black-pep8.yml"
+    # PyPI upload
+    - "https://gitlab.com/nobodyinperson/ci-templates/raw/master/pypi-upload.yml"
+    # REUSE compliance
+    - "https://gitlab.com/nobodyinperson/ci-templates/raw/master/reuse-lint.yml"
+
+image: python:latest
+
+stages:
+    - test
+    - package
+    - deploy
+
+python-black-pep8:
+    variables:
+      PYCODESTYLE_FLAGS: --show-source --show-pep8
+    stage: test
+
+# template
+.python-unittest:
+    before_script:
+      - "# Install a more recent hledger"
+      - "apt-get update -q && apt-get -y -q install wget"
+      - "wget -q https://github.com/simonmichael/hledger/releases/download/1.28/hledger-linux-x64.zip"
+      - "unzip hledger-linux-x64.zip"
+      - "tar -C /usr/bin -xvf hledger-linux-x64.tar"
+      - "pip install coverage ."
+    stage: test
+    needs: []
+    script:
+      - coverage run --source=hledger_utils -m unittest -v
+      - coverage report
+    coverage: '/TOTAL.*\s+(\d+\%)/'
+
+python-unittest:3.8:
+    extends: .python-unittest
+    image: python:3.8
+
+python-unittest:3.9:
+    extends: .python-unittest
+    image: python:3.9
+
+python-unittest:3.10:
+    extends: .python-unittest
+    image: python:3.10
+
+python-unittest:3.11:
+    extends: .python-unittest
+    image: python:3.11
+
+python-unittest:latest:
+    extends: .python-unittest
+    image: python:latest
+
+reuse-lint:
+    stage: test
+
+dist:
+    stage: package
+    dependencies: [] # no other artifacts needed
+    needs: [] # can start right away
+    before_script:
+        - apt-get update -qq
+        - apt-get install -y -qq gettext
+        - pip install build
+    script:
+        - python -m build
+    artifacts:
+        paths:
+            - dist/*
+        expire_in: 1 week
+
+pypi-upload:
+    stage: deploy
+    environment:
+        name: Python Package Index
+        url: https://pypi.org/project/hledger-utils
+    dependencies:
+        - dist
+    only:
+        - master
+    only:
+        - tags
