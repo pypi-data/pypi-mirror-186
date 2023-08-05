@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "pysportsdb"
+version = "0.1.0"
+description = "An simple Python interface to thesportsdb.com's API"
+authors = ["Colin Powell <colin@unbl.ink>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = "^2.28.2"
+mock = "^5.0.1"
+
+[tool.poetry.dev-dependencies]
+black = "^22.3"
+mypy = "^0.961"
+pytest = "^7.1"
+pytest-black = "^0.3.12"
+pytest-cov = "^3.0"
+pytest-flake8 = "^1.1"
+pytest-isort = "^3.0"
+pytest-runner = "^6.0"
+types-requests = "^2.27"
+bandit = "^1.7.4"
+requests-mock = "^1.10.0"
+
+[pytest]
+log_format = "%(asctime)s %(levelname)s %(message)s"
+log_date_format = "%Y-%m-%d %H:%M:%S"
+
+[tool.black]
+line-length = 79
+target-version = ["py37", "py38"]
+include = ".py$"
+exclude = "migrations"
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+combine_as_imports = true
+
+[tool.bandit]
+exclude_dirs = ["pysportsdb/tests/*"]
+
+#[tool.poetry.scripts]
+#pysportsdb = "pysportsdb.cli:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
