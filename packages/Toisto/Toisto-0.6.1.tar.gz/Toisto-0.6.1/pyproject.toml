@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Toisto"
+version = "0.6.1"
+authors = [
+  { name="Frank Niessink", email="frank@niessink.com" },
+]
+description = "Toisto is a command-line terminal app to practice languages."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: Apache Software License",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Topic :: Education",
+]
+dependencies = [
+    "gTTS >= 2.3.0",
+    "rich >= 12.6.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "black == 22.12.0",
+    "build == 0.9.0",
+    "coverage == 7.0.4",
+    "green == 3.4.3",
+    "mypy == 0.991",
+    "pip == 22.3.1",
+    "pylint == 2.15.9",
+    "twine == 4.0.2"
+]
+
+[project.scripts]
+toisto = "toisto.app:main"
+
+[project.urls]
+"Homepage" = "https://github.com/fniessink/toisto"
+"Issue tracker" = "https://github.com/fniessink/toisto/issues"
+"Changelog" = "https://github.com/fniessink/toisto/blob/main/CHANGELOG.md"
+
+[tool.black]
+line-length = 120
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+topics = ["*.json"]
+
+[tool.pylint.messages_control]
+max-line-length = 120
+
+[tool.coverage.run]
+branch = true
+source = ["src", "tests"]
+
+[tool.coverage.report]
+fail_under = 100
+skip_covered = true
+
+[[tool.mypy.overrides]]
+module = [
+    "gtts"
+]
+ignore_missing_imports = true
