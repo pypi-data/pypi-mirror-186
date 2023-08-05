@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cagen"
+version = "0.1.0-alpha1-dev8"
+authors = [{'name'="Xavier B."}]
+description = "A static site generator for cmpalgorithms project"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+        'Development Status :: 3 - Alpha',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
+        'Natural Language :: English',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.10',
+        'Topic :: Internet :: WWW/HTTP :: Site Management']
+dependencies = [
+	"python-frontmatter>=1.0.0",
+	"pypandoc>=1.10",
+	"Mako>=1.2.4"]
+[project.urls]
+"Homepage" = "https://sr.ht/~somenxavierb/cagen/"
+"Bug Tracker" = "https://todo.sr.ht/~somenxavierb/cagen-tasks"
+"Repository" = "https://git.sr.ht/~somenxavierb/cagen"
