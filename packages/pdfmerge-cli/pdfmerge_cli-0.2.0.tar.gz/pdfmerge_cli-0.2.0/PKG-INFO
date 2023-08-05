@@ -1,0 +1,46 @@
+Metadata-Version: 2.1
+Name: pdfmerge-cli
+Version: 0.2.0
+Summary: pdf merge command line
+Home-page: https://github.com/maguowei/pdfmerge
+License: MIT
+Keywords: pdfmerge,pdfmerge-cli
+Author: maguowei
+Author-email: i.maguowei@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: click (>=8.1.3,<9.0.0)
+Requires-Dist: pypdf (>=3.2.1,<4.0.0)
+Project-URL: Repository, https://github.com/maguowei/pdfmerge
+Description-Content-Type: text/markdown
+
+# PDF Merge CLI
+
+[![ci](https://github.com/maguowei/pdfmerge/actions/workflows/ci.yml/badge.svg)](https://github.com/maguowei/pdfmerge/actions/workflows/ci.yml)
+[![Upload Python Package](https://github.com/maguowei/pdfmerge/actions/workflows/python-publish.yml/badge.svg)](https://github.com/maguowei/pdfmerge/actions/workflows/python-publish.yml)
+
+## Build
+
+```bash
+$ poetry build
+$ pip install dist/pdfmerge-cli-x.x.x.tar.gz
+```
+
+## Install
+
+```bash
+$ pip install pdfmerge-cli
+```
+
+## Usage
+
+```bash
+$ pdfmerge --input-dir .
+```
+
