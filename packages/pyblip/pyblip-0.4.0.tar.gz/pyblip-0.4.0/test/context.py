@@ -1,0 +1,87 @@
+import os
+import sys
+
+# Add path to allow import of code
+file_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.split(file_directory)[0]
+sys.path.insert(0, os.path.abspath(parent_directory))
+
+# Import the actual stuff
+import pyblip
+
+# for generating synthetic data
+import numpy as np
+from scipy import stats
+
+# for profiling
+import inspect
+
+
+def run_all_tests(test_classes):
+	"""
+	Usage: 
+	context.run_all_tests(
+		[TestClass(), TestClass2()]
+	)
+	This is useful for making pytest play nice with cprofilev.
+	"""
+	def is_test(method):
+		return str(method).split(".")[1][0:4] == 'test'
+	for c in test_classes:
+		attrs = [getattr(c, name) for name in c.__dir__()]
+		test_methods = [
+			x for x in attrs if inspect.ismethod(x) and is_test(x)
+		]
+		for method in test_methods:
+			method()
+
+def generate_regression_data(
+	n=100,
+	p=500,
+	y_dist='gaussian', # one of gaussian, probit, binomial
+	coeff_size=1,
+	coeff_dist='normal',
+	sparsity=0.05,
+	a=5,
+	b=1,
+	max_corr=0.99,
+	permute=False,
+):
+	# Generate X-data
+	rhos = stats.beta.rvs(size=p-1, a=a, b=b)
+	rhos = np.minimum(rhos, max_corr)
+	X = np.random.randn(n, p)
+	for j in range(1, p):
+		X[:, j] = rhos[j-1]*X[:, j-1] + np.sqrt(1 - rhos[j-1]**2) * X[:, j]
+	
+	# Possibly permute to make slightly more realistic
+	if permute:
+		perminds = np.arange(p)
+		np.random.shuffle(perminds)
+		X = np.ascontiguousarray(X[:, perminds])
+
+	# Create sparse coefficients,
+	beta = np.zeros(p)
+	k = np.around(sparsity * p).astype(int)
+	if coeff_dist == 'normal':
+		nonnull_coefs = np.sqrt(coeff_size) * np.random.randn(k)
+	else:
+		nonnull_coefs = coeff_size * np.random.uniform(1/2, 1, size=k)
+		nonnull_coefs *= (1 - 2*np.random.binomial(1, 0.5, size=k))
+	beta[np.random.choice(np.arange(p), k, replace=False)] = nonnull_coefs
+
+	# Create Y
+	mu = np.dot(X, beta)
+	if y_dist == 'gaussian' or y_dist=='linear':
+		y = mu + np.random.randn(n)
+	elif y_dist == 'probit':
+		y = ((mu + np.random.randn(n)) < 0).astype(float)
+	elif y_dist == 'binomial':
+		probs = np.exp(mu)
+		probs = probs / (1.0 + probs)
+		y = np.random.binomial(1, probs)
+	else:
+		raise ValueError(f"unrecognized y_dist=={y_dist}")
+
+	return X, y, beta
+
