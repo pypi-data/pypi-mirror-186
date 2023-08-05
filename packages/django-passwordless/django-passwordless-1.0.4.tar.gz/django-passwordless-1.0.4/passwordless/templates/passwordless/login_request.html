@@ -1,0 +1,19 @@
+<p>Sign in to example.com</p>
+
+{% if registration_enabled %}
+<p>We'll create an account for you if you don't already have one</p>
+{% endif %}
+
+{% if fail_reason == "request_count_exceeded" %}
+<p><strong>Too many requests. Please try again later.</strong></p>
+{% endif %}
+
+{% if fail_reason == "registration_disabled" %}
+<p><strong>Sorry, we are not accepting new registrations at this time.</strong></p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Send me a link" />
+</form>

@@ -1,0 +1,11 @@
+<p>Change your example.com email address</p>
+
+{% if fail_reason == "account_exists" %}
+<p><strong>There is already an account with this email address. Please try a different address.</strong></p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Send me a link" />
+</form>

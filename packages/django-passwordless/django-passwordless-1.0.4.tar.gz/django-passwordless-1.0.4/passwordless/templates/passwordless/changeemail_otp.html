@@ -1,0 +1,16 @@
+<p>Check your inbox</p>
+<p>We sent an email to <strong>{{ email }}</strong></p>
+
+{% if bad_otp %}
+<p><strong>The code you entered was not recognized. Please try again.</strong></p>
+{% endif %}
+
+<p>Enter to the code into the form below to confirm <strong>{{ email }}</strong> as your new account email address.</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Update email address" />
+</form>
+
+<p>Can't find it? Check your spam folder and add us to your contacts</p>
