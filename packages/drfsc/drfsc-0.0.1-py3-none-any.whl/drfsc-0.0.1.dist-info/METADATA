@@ -1,0 +1,96 @@
+Metadata-Version: 2.1
+Name: drfsc
+Version: 0.0.1
+Summary: drfsc
+Home-page: https://github.com/markcc309/drfsc
+Author: Mark Chiu Chong
+Author-email: Mark Chiu Chong <mark.chiuchong@gmail.com>
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Bottleneck (==1.3.5)
+Requires-Dist: certifi (==2022.12.7)
+Requires-Dist: contourpy (==1.0.5)
+Requires-Dist: cycler (==0.11.0)
+Requires-Dist: fonttools (==4.25.0)
+Requires-Dist: joblib (==1.2.0)
+Requires-Dist: kiwisolver (==1.4.2)
+Requires-Dist: matplotlib (==3.6.2)
+Requires-Dist: mkl-fft (==1.3.1)
+Requires-Dist: mkl-random (==1.2.2)
+Requires-Dist: mkl-service (==2.4.0)
+Requires-Dist: munkres (==1.1.4)
+Requires-Dist: numexpr (==2.8.4)
+Requires-Dist: numpy (==1.23.4)
+Requires-Dist: packaging (==21.3)
+Requires-Dist: pandas (==1.5.2)
+Requires-Dist: patsy (==0.5.3)
+Requires-Dist: Pillow (==9.3.0)
+Requires-Dist: pip (==22.3.1)
+Requires-Dist: ply (==3.11)
+Requires-Dist: pyparsing (==3.0.9)
+Requires-Dist: PyQt5 (==5.15.7)
+Requires-Dist: PyQt5-sip (==12.11.0)
+Requires-Dist: python-dateutil (==2.8.2)
+Requires-Dist: pytz (==2022.1)
+Requires-Dist: scikit-learn (==1.1.2)
+Requires-Dist: scipy (==1.9.3)
+Requires-Dist: setuptools (==65.5.0)
+Requires-Dist: sip (==6.6.2)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: statsmodels (==0.13.2)
+Requires-Dist: threadpoolctl (==3.1.0)
+Requires-Dist: toml (==0.10.2)
+Requires-Dist: tornado (==6.2)
+Requires-Dist: wheel (==0.37.1)
+Requires-Dist: wincertstore (==0.2)
+
+# drfsc
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<!-- [![PyPI version](add here)(url)] -->
+
+An open-source library for a distributed randomised feature selection and classification algorithm.
+
+## Contributors
+
+[Mark Chiu Chong](https://github.com/markcc309)
+
+## Overview
+
+`drfsc` is an open-source Python implementation of the Distributed Randomised Feature Selection algorithm for Classification problems (D-RFSC). Beside addressing some of the shortcomings of the conventional FS method, its good performance has previously been shown on a range of benchmark datasets. However, to date no Python implementation is available. `drfsc` offers an easy to use, parallelized probabilistic population-based feature selection scheme that is flexible and can be adapted to a wide range of binary classification problems and is particularly useful for large data problems where model interpretability and model explainability is of high importance. It provides modules for model fitting, evaluation, and visualization. Tutorial notebooks are provided to demonstrate the use of the package.
+
+## Installation
+
+The easiest way to install is from PyPI: just use
+
+`pip install drfsc`
+
+To install from source: clone this git repo, enter the directory, and run
+
+`python setup.py install`
+
+## License
+
+We invite anyone interested to use and modify this code under a MIT license.
+
+## Dependencies
+
+`drfsc` depends on the following packages:
+
+- [numpy](https://numpy.org/)
+- [scipy](https://www.scipy.org/)
+- [pandas](https://pandas.pydata.org/)
+- [matplotlib](https://matplotlib.org/)
+- [scikit-learn](https://scikit-learn.org/stable/)
+- [statsmodels](https://www.statsmodels.org/stable/index.html)
+
+## References
+
+Brankovic, A., Falsone, A., Prandini, M., Piroddi, L. (2018). [A feature selection and classification algorithm based on randomized extraction of model populations](https://doi.org/10.1109/tcyb.2017.2682418)
+
+Brankovic, A., Piroddi, L. (2019). [A distributed feature selection scheme with partial information sharing](https://doi.org/10.1007/s10994-019-05809-y)
