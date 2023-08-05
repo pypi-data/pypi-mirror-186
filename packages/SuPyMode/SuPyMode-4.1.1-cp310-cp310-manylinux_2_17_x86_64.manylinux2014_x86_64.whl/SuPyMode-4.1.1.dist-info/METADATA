@@ -1,0 +1,167 @@
+Metadata-Version: 2.1
+Name: SuPyMode
+Version: 4.1.1
+Summary: A package for light propagation in fiber optics.
+Home-page: https://github.com/MartinPdeS/SuPyMode
+Author: Martin Poinsinet de Sivry
+Author-email: Martin.poinsinet.de.sivry@gmail.com
+License: MIT
+Platform: unix
+Platform: linux
+Platform: osx
+Platform: windows
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Development Status :: 3 - Alpha
+Classifier: Topic :: Scientific/Engineering :: Physics
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: MPSPlots
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: matplotlib
+Requires-Dist: DataVisual
+Requires-Dist: PyOptik
+Provides-Extra: devs_all
+Requires-Dist: MPSPlots ; extra == 'devs_all'
+Requires-Dist: PyFinitDiff ; extra == 'devs_all'
+Requires-Dist: FiberFusing ; extra == 'devs_all'
+Requires-Dist: setuptools ; extra == 'devs_all'
+Requires-Dist: wheel ; extra == 'devs_all'
+Requires-Dist: numpy ; extra == 'devs_all'
+Requires-Dist: scipy ; extra == 'devs_all'
+Requires-Dist: pyvista ; extra == 'devs_all'
+Requires-Dist: matplotlib ; extra == 'devs_all'
+Requires-Dist: Jinja2 (==3.1.2) ; extra == 'devs_all'
+Requires-Dist: numpydoc (==1.5.0) ; extra == 'devs_all'
+Requires-Dist: Sphinx (==5.1.1) ; extra == 'devs_all'
+Requires-Dist: sphinx-gallery (==0.11.1) ; extra == 'devs_all'
+Requires-Dist: sphinx-rtd-theme (==1.0.0) ; extra == 'devs_all'
+Requires-Dist: pytest (>=0.6) ; extra == 'devs_all'
+Requires-Dist: pytest-cov (>=2.0) ; extra == 'devs_all'
+Requires-Dist: pytest-json-report ; extra == 'devs_all'
+Requires-Dist: mypy (>=0.910) ; extra == 'devs_all'
+Requires-Dist: flake8 (>=3.9) ; extra == 'devs_all'
+Requires-Dist: tox (>=3.24) ; extra == 'devs_all'
+Requires-Dist: coverage ; extra == 'devs_all'
+Provides-Extra: docs
+Requires-Dist: MPSPlots ; extra == 'docs'
+Requires-Dist: PyFinitDiff ; extra == 'docs'
+Requires-Dist: FiberFusing ; extra == 'docs'
+Requires-Dist: wheel ; extra == 'docs'
+Requires-Dist: numpy ; extra == 'docs'
+Requires-Dist: scipy ; extra == 'docs'
+Requires-Dist: pyvista ; extra == 'docs'
+Requires-Dist: matplotlib ; extra == 'docs'
+Requires-Dist: Jinja2 (==3.1.2) ; extra == 'docs'
+Requires-Dist: numpydoc (==1.5.0) ; extra == 'docs'
+Requires-Dist: Sphinx (==5.1.1) ; extra == 'docs'
+Requires-Dist: sphinx-gallery (==0.11.1) ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme (==1.0.0) ; extra == 'docs'
+Provides-Extra: testing
+Requires-Dist: pytest-cov (>=2.0) ; extra == 'testing'
+Requires-Dist: pytest-json-report ; extra == 'testing'
+Requires-Dist: mypy (>=0.910) ; extra == 'testing'
+Requires-Dist: flake8 (>=3.9) ; extra == 'testing'
+Requires-Dist: tox (>=3.24) ; extra == 'testing'
+Requires-Dist: coverage ; extra == 'testing'
+
+SuPyMode
+========
+
+|python|
+|docs|
+|Citation|
+|Unittest|
+|PyPi|
+
+This project aims to produce an useful tool (python library) to simulate propagation mode in a very wide range of parameters and form.
+It also offer the possiblity to compute the coupling coefficient between those mode and hence is a pratical tool to simulate couplers.
+
+
+----
+
+Documentation
+**************
+All the latest available documentation is available `here <https://supymode.readthedocs.io/en/latest/>`_ or you can click the following badge:
+
+|docs|
+
+
+----
+
+
+Installation
+------------
+
+
+Pip installation
+****************
+
+The package have been uploaded as wheel for a few OS (Linux, MacOS) and need Python 3.10.
+As such, with the adequate configuration one can simply do
+
+.. code-block:: python
+
+   >>> pip3 install SuPyMode
+
+
+
+Manual installation
+*******************
+
+To install manually (os independent) you will need to install:
+
+1. cmake (3.16+)
+
+In order to use the SuPyMode Simulator Library, one must have installed the python dependencies:
+
+.. code-block:: python
+
+    >>> pip3 install -r requirements.txt
+
+Then, download and install the SuPyMode package:
+
+.. code-block:: python
+
+    >>> git clone https://github.com/MartinPdeS/SuPyMode.git
+    >>> cd SuPyMode && mkdir build && cd build
+    >>> cmake ..
+    >>> make install                    (Linux, MacOs)
+    >>> cd ..
+    >>> pip3 install .
+
+----
+
+
+Contact Information
+*******************
+
+As of 2021 the project is still under development if you want to collaborate it would be a pleasure. I encourage you to contact me.
+
+PyMieSim was written by `Martin Poinsinet de Sivry-Houle <https://github.com/MartinPdS>`_  .
+
+Email:`martin.poinsinet-de-sivry@polymtl.ca <mailto:martin.poinsinet-de-sivry@polymtl.ca?subject=PyMieSim>`_ .
+
+
+.. |python| image:: https://img.shields.io/badge/Made%20with-Python-1f425f.svg
+   :target: https://www.python.org/
+
+.. |docs| image:: https://readthedocs.org/projects/supymodes/badge/?version=master
+   :target: https://supymodes.readthedocs.io/en/master/?badge=master
+   :alt: Documentation Status
+
+.. |Citation| image:: https://zenodo.org/badge/366930899.svg
+   :target: https://zenodo.org/badge/latestdoi/366930899
+
+.. |Unittest| image:: https://github.com/MartinPdeS/SuPyMode/actions/workflows/Unittest.yml/badge.svg
+   :target: https://github.com/MartinPdeS/SuPyMode/actions/workflows/Unittest.yml
+
+.. |GithubPage| image:: https://github.com/MartinPdeS/SuPyMode/actions/workflows/GithubPage.yml/badge.svg
+   :target: https://github.com/MartinPdeS/SuPyMode/actions/workflows/GithubPage.yml
+
+.. |PyPi| image:: https://badge.fury.io/py/SuPyMode.svg
+   :target: https://pypi.org/project/SuPyMode/
+
