@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: np-config
+Version: 0.2.3
+Summary: Zookeeper configs with local backup, repackaging code from AIBS mpeconfig.
+Author: Ben Hardcastle
+Author-email: ben.hardcastle@alleninstitute.org
+Maintainer: Ben Hardcastle
+Maintainer-email: ben.hardcastle@alleninstitute.org
+Requires-Python: >=3.6,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: appdirs
+Requires-Dist: kazoo (>=2.8,<2.9)
+Requires-Dist: pyyaml (>=5.3.0,<6.0.0)
+Requires-Dist: types-PyYaml
+Project-URL: Bug Tracker, https://github.com/alleninstitute/np_config/issues
+Project-URL: Repository, https://github.com/alleninstitute/np_config
+Description-Content-Type: text/markdown
+
+**For use on internal Allen Institute network**
+
+- fetch configs from ZooKeeper or .yaml/.json file via their path:
+```python
+test_config: dict = np_config.fetch(
+    '/projects/np_logging_test/defaults/logging'
+)
+```
+
+- the Mindscope ZooKeeper server is at `eng-mindscope:2181`
+- configs can be added via ZooNavigator webview:
+  [http://eng-mindscope:8081](http://eng-mindscope:8081)
+- or more conveniently, via an extension for VSCode such as [gaoliang.visual-zookeeper](https://marketplace.visualstudio.com/items?itemName=gaoliang.visual-zookeeper)
+
+- configs are cached locally: if the ZooKeeper server is unavailable, the local copy will be used
