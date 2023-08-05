@@ -1,0 +1,60 @@
+Metadata-Version: 2.1
+Name: openget
+Version: 0.1.8
+Summary: A Spider FrameWork
+Home-page: https://github.com/dytttf/openget
+Author: Dytttf
+Author-email: dytttf@foxmail.com
+License: BSD
+Keywords: openget,spider,batch-spider
+Classifier: Development Status :: 3 - Alpha
+Classifier: Framework :: Scrapy
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: License :: OSI Approved :: BSD License
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: gevent
+Requires-Dist: pymysql
+Requires-Dist: mysqlclient
+Requires-Dist: redis (>=3.0.0)
+Requires-Dist: better-exceptions
+Requires-Dist: tqdm
+Requires-Dist: httpx[http2]
+Requires-Dist: user-agent2
+Requires-Dist: urllib3
+Requires-Dist: oss2
+
+# openget
+A Spider FrameWork.
+
+## Installation
+You can install openget by simply doing:
+
+    pip install openget
+    
+## Usage
+**Very Important Thing**
+This line must be the first line in code
+```
+from openget.spiders import *
+```
+
+
+## About Environment Variable
+> ~/.openget/.env < $(pwd)/.env
+
+
+## docker build
+```shell
+cd docekr
+bash build.sh
+```
+
+## TODO
+- ftp download
+- auto add task
+- statis crawl speed
+- browser support: zhipin.com tmall.com
+- sqlite.db rename
+- use cmd to create spider template
