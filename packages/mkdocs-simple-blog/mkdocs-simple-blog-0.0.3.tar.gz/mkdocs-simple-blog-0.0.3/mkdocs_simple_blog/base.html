@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+    <head>
+        {%- block site_meta %}
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            {% if page and page.is_homepage %}<meta name="description" content="{{ config['site_description'] }}">{% endif %}
+            {% if config.site_author %}<meta name="author" content="{{ config.site_author }}">{% endif %}
+            {% if page and page.canonical_url %}<link rel="canonical" href="{{ page.canonical_url }}">{% endif %}
+
+            {% if config.site_favicon %}
+                <link  rel="icon" type="image/x-icon" href="{{ config.site_favicon|url }}">
+            {% else %}
+                <link  rel="icon" type="image/x-icon" href="{{ 'img/favicon.ico'|url }}">
+            {% endif %}
+
+        {%- endblock %}
+
+        {%- block htmltitle %}
+            <title>{% if page and page.title and not page.is_homepage %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
+        {%- endblock %}
+
+        {%- block styles %}
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="{{ 'css/bootstrap.min.css'|url }}">
+            <link rel="stylesheet" href="{{ 'css/theme.css'|url }}">
+
+            {%- for path in extra_css %}
+                <link href="{{ path }}" rel="stylesheet">
+            {%- endfor %}
+
+        {%- endblock %}
+    </head>
+
+    <body>
+        <div class="container py-3">
+            <header>
+                {%- block header %}
+                    {% include "/modules/header.html" %}
+                {%- endblock %}
+            </header>
+
+            <main>
+                {%- block content %}
+                    {% include "/modules/content.html" %}
+                {%- endblock %}
+            </main>
+
+            {%- block footer %}
+                {% include "/modules/footer.html" %}
+            {%- endblock %}
+
+        </div>
+    
+        <script src="{{ 'js/jquery-3.3.1.slim.min.js"'|url }}"></script>
+        <script src="{{ 'js/bootstrap.bundle.min.js"'|url }}"></script>
+        <script src="{{ 'js/theme.js"'|url }}"></script>
+    </body>
+
+</html>
