@@ -1,0 +1,198 @@
+Metadata-Version: 2.1
+Name: bitwarden-to-keepass
+Version: 0.0.1
+Summary: A simple little script that backs up a Bitwarden vault to a local KeePass file.
+Author: Douglas Thor
+Author-email: Douglas Thor <doug.thor@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2022 Douglas Thor
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Source Code, https://github.com/dougthor42/bitwarden_to_keepass
+Project-URL: Changelog, https://github.com/dougthor42/bitwarden_to_keepass/blob/master/CHANGELOG.md
+Project-URL: Bug Tracker, https://github.com/dougthor42/bitwarden_to_keepass/issues
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: click (<9.0,>=8.1)
+Requires-Dist: pykeepass (<5.0,>=4.0)
+Provides-Extra: build
+Requires-Dist: build (==0.10.0) ; extra == 'build'
+Requires-Dist: setuptools (==65.5.0) ; extra == 'build'
+Requires-Dist: wheel (==0.37.1) ; extra == 'build'
+Provides-Extra: dev
+Requires-Dist: appdirs (==1.4.3) ; extra == 'dev'
+Requires-Dist: attrs (==19.3.0) ; extra == 'dev'
+Requires-Dist: cfgv (==3.1.0) ; extra == 'dev'
+Requires-Dist: coverage (==5.0.3) ; extra == 'dev'
+Requires-Dist: distlib (==0.3.6) ; extra == 'dev'
+Requires-Dist: filelock (==3.8.0) ; extra == 'dev'
+Requires-Dist: identify (==2.5.6) ; extra == 'dev'
+Requires-Dist: importlib-metadata (==1.5.0) ; extra == 'dev'
+Requires-Dist: importlib-resources (==1.0.2) ; extra == 'dev'
+Requires-Dist: more-itertools (==8.2.0) ; extra == 'dev'
+Requires-Dist: nodeenv (==1.3.5) ; extra == 'dev'
+Requires-Dist: packaging (==20.1) ; extra == 'dev'
+Requires-Dist: platformdirs (==2.5.2) ; extra == 'dev'
+Requires-Dist: pluggy (==0.13.1) ; extra == 'dev'
+Requires-Dist: pre-commit (==2.20.0) ; extra == 'dev'
+Requires-Dist: py (==1.10.0) ; extra == 'dev'
+Requires-Dist: pykeepass (==4.0.3) ; extra == 'dev'
+Requires-Dist: pyparsing (==2.4.6) ; extra == 'dev'
+Requires-Dist: pytest (==5.3.5) ; extra == 'dev'
+Requires-Dist: pytest-cov (==2.8.1) ; extra == 'dev'
+Requires-Dist: PyYAML (==5.4) ; extra == 'dev'
+Requires-Dist: six (==1.14.0) ; extra == 'dev'
+Requires-Dist: toml (==0.10.0) ; extra == 'dev'
+Requires-Dist: virtualenv (==20.16.5) ; extra == 'dev'
+Requires-Dist: wcwidth (==0.1.8) ; extra == 'dev'
+Requires-Dist: zipp (==3.0.0) ; extra == 'dev'
+
+# Bitwarden to KeePass
+
+A simple little script that backs up a Bitwarden vault to a local KeePass file.
+
+```console
+$ bitwarden_to_keepass --keepass-file /path/to/file.kdbx
+```
+
+
+## Installation and Usage
+
+1.  Install the Bitwarden CLI.
+2.  Install this code.
+3.  Run.
+
+
+### Install the Bitwarden CLI
+
+1.  Head to the [Bitwarden CLI page][bw-cli] page and download the native executable
+    for your system.
+2.  Place this file somewhere in your `PATH`. For example, on Linux you might
+    download it to `/usr/local/bin`. Make sure that the file is executable (eg:
+    `chmod a+x /usr/local/bin/bw`).
+
+For convenience, you can use this command to do all of the above (on Linux)
+
+```console
+wget https://github.com/bitwarden/cli/releases/download/v1.22.1/bw-linux-1.22.1.zip \
+&& sudo unzip -d /usr/local/bin bw-linux-1.22.1.zip \
+&& sudo chmod a+x /usr/local/bin/bw
+```
+
+
+### Install this code
+
+See [Development](#development).
+
+
+### Run
+
+Run `bitwarden_to_keepass`.
+
+You'll be prompted for all the secrets and whatnot. Each secret arg has an
+associated env var (see `bitwarden_to_keepass --help` for env var names). If
+that env var is found, the value from the env var will be used and you will
+not be prompted.
+
+You can also send in your secrets via command line, though this is not
+recommended.
+
+Personally I like to create a `secrets.sh` file:
+
+```shell
+#!/bin/bash
+export BW_MASTER_PW=<Bitwarden master password>
+export BW_CLIENTID=<Bitwarden API Client ID>
+export BW_CLIENTSECRET=<Bitwarden API Client Secret>
+
+# If you also want to backup your Organization data:
+export BW_ORG_ID=<Organization ID>
+```
+
+and source it before running:
+
+```console
+$ source secrets.sh
+$ bitwarden_to_keepass --keepass-file /c/foo/bar.kdbx
+```
+
+
+## Development
+
+Install the Bitwarden CLI and the KeePass CLI as mentioned above.
+
+1.  Clone the repo: `git clone https://github.com/dougthor42/bitwarden_to_keepass`
+2.  Move into that dir: `cd bitwarden-to-keepass`
+3.  Create a virtual environment: `python -m venv .venv`
+4.  Activate it: `. .venv/bin/activate`
+5.  Install python packages:
+    1.  `pip install -U pip setuptools wheel`
+    2.  `pip install -e .[dev]`
+6.  Run tests to verify: `pytest`
+7.  Install pre-commit hooks: `pre-commit install`
+8.  Ready to develop
+
+
+### Releasing
+
+1.  Update `CHANGELOG.md` by inserting a new heading:
+    ```diff
+    --- a/CHANGELOG.md
+    +++ b/CHANGELOG.md
+    @@ -3,6 +3,9 @@
+
+     ## Unreleased
+
+    +
+    +## v1.0.0 (2023-01-14)
+    +
+     + Finally decided to work on this again and got things to decent working state!
+       This should be usable now and ticks all of the original requirements.
+    ```
+
+2.  Update pyproject.toml with the new version:
+    ```diff
+    --- a/pyproject.toml
+    +++ b/pyproject.toml
+    @@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
+
+     [project]
+     name = "bitwarden_to_keepass"
+    -version = "0.0.1"
+    +version = "1.0.0"
+     description = "A simple little script that backs up a Bitwarden vault to a local KeePass file."
+     readme = "README.md"
+     requires-python = ">=3.8"
+    ```
+3.  Commit these changes.
+4.  Create a new git tag `git tag v1.0.0 -m "Release v1.0.0"`.
+
+Then push tags to github. CI will build the source distribution and wheel and
+upload them to PyPI.
+
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md).
+
+
+[bw-cli]: https://bitwarden.com/help/cli/
