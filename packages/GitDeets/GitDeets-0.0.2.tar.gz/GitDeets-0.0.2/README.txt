@@ -1,0 +1,1 @@
+Solution to integrating an API or scripting a scrapper, this package comes with a solution. Provides different methods to fetch details from github. Eg. User details, PR details, commit history, etc.
