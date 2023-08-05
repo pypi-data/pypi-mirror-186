@@ -1,0 +1,78 @@
+#!/bin/bash
+
+SHORT="c:,r:,f,h"
+LONG="cluster:,region:,force-cluster,help"
+OPTS=$(getopt -a -n create --options $SHORT --longoptions $LONG -- "$@")
+
+eval set -- "$OPTS"
+
+HERE=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+ROOT=$(dirname $(dirname ${HERE}))
+
+# Source shared helper scripts
+. $ROOT/shared/scripts/helpers.sh
+
+# Defaults
+CLUSTER_NAME="flux-cluster"
+FORCE_CLUSTER="false"
+REGION="us-east-1"
+
+function usage() {
+   echo "This is the Amazon EKS (Elastic Kubernetes Services)  cluster destroyer."
+   echo "usage: cluster-destroy --cluster <cluster-name> --region <region>"
+}
+
+while :
+do
+  case "$1" in
+    -c | --cluster)
+        CLUSTER_NAME=$2
+        shift 2
+        ;;
+    -r | --region)
+        REGION=$2
+        shift 2
+        ;;
+    -h | --help)
+      usage
+      exit 2
+      ;;
+    -f | --force-cluster)
+        FORCE_CLUSTER="true"
+        shift 1
+        ;;
+    --)
+      shift;
+      break
+      ;;
+    *)
+      echo "Unexpected option: $1"
+      ;;
+  esac
+done
+
+if [ -z ${REGION+x} ]; then
+    echo "Please provide your Amazon EKS region with --region";
+    exit 1
+fi
+
+echo "   cluster  : ${CLUSTER_NAME}"
+echo "    region   : ${REGION}"
+
+is_installed eksctl
+
+# The cluster must exist to delete it
+eksctl get clusters --name ${CLUSTER_NAME} --region ${REGION} --color fabulous
+retval=$?
+if [[ "${retval}" != "0" ]]; then
+    print_blue "${CLUSTER_NAME} in ${REGION} does not exist."
+    echo
+    exit 0
+fi
+
+if [[ "${FORCE_CLUSTER}" != "true" ]]; then
+    prompt "Are you sure you want to delete this cluster?"
+fi
+
+cmd="eksctl delete cluster --name=${CLUSTER_NAME} --region=${REGION} --wait --force"
+run_echo ${cmd}
