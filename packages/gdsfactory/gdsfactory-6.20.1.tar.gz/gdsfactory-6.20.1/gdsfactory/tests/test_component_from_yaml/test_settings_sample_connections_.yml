@@ -1,0 +1,92 @@
+name: sample_connections_93c0d1e7
+settings:
+  changed:
+    conf:
+      connections:
+        wgw,o1: wgn,o2
+      instances:
+        wgn:
+          component: straight
+          settings:
+            length: 0.5
+        wgw:
+          component: straight
+          settings:
+            length: 1
+      name: sample_connections
+  child: null
+  default:
+    label_instance_function:
+      function: add_instance_label
+    mode: layout
+    routing_strategy:
+      get_bundle:
+        function: get_bundle
+      get_bundle_electrical:
+        function: get_bundle
+        settings:
+          bend:
+            function: wire_corner
+          cross_section: metal_routing
+      get_bundle_from_steps:
+        function: get_bundle_from_steps
+      get_bundle_from_steps_electrical:
+        function: get_bundle_from_steps
+        settings:
+          bend:
+            function: wire_corner
+          cross_section: metal_routing
+      get_bundle_from_waypoints:
+        function: get_bundle_from_waypoints
+      get_bundle_path_length_match:
+        function: get_bundle_path_length_match
+      get_bundle_same_axis_no_grouping:
+        function: get_bundle_same_axis_no_grouping
+  full:
+    conf:
+      connections:
+        wgw,o1: wgn,o2
+      instances:
+        wgn:
+          component: straight
+          settings:
+            length: 0.5
+        wgw:
+          component: straight
+          settings:
+            length: 1
+      name: sample_connections
+    label_instance_function:
+      function: add_instance_label
+    mode: layout
+    routing_strategy:
+      get_bundle:
+        function: get_bundle
+      get_bundle_electrical:
+        function: get_bundle
+        settings:
+          bend:
+            function: wire_corner
+          cross_section: metal_routing
+      get_bundle_from_steps:
+        function: get_bundle_from_steps
+      get_bundle_from_steps_electrical:
+        function: get_bundle_from_steps
+        settings:
+          bend:
+            function: wire_corner
+          cross_section: metal_routing
+      get_bundle_from_waypoints:
+        function: get_bundle_from_waypoints
+      get_bundle_path_length_match:
+        function: get_bundle_path_length_match
+      get_bundle_same_axis_no_grouping:
+        function: get_bundle_same_axis_no_grouping
+  function_name: _from_yaml
+  info:
+    instances:
+    - wgw
+    - wgn
+  info_version: 2
+  module: gdsfactory.read.from_yaml
+  name: sample_connections_93c0d1e7
