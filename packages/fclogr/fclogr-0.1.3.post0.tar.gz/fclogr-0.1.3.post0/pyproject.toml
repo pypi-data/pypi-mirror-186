@@ -1,0 +1,78 @@
+# SPDX-FileCopyrightText: 2022 Maxwell G <gotmax@e.email>
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "fclogr"
+description = 'fclogr is a tool for managing RPM changelogs and updates'
+version = "0.1.3.post0"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "GPL-2.0-or-later"}
+# license-files.paths = ["LICENSES/GPL-2.0-or-later.txt"]
+keywords = []
+authors = [
+    { name = "Maxwell G", email = "gotmax@e.email" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Typing :: Typed",
+]
+dependencies = [
+    "pygit2",
+    "specfile",
+]
+
+[project.urls]
+Homepage = "https://git.sr.ht/~gotmax23/fclogr"
+
+[project.scripts]
+fclogr = "fclogr.cli:main"
+
+[project.optional-dependencies]
+lint = [
+    "black",
+    "isort",
+    "mypy",
+    "reuse",
+    "ruff",
+]
+
+[tool.flit.sdist]
+exclude = [
+    ".builds/*",
+    ".gitignore",
+]
+
+
+[tool.isort]
+profile = "black"
+
+[[tool.mypy.overrides]]
+module = ["pygit2"]
+ignore_missing_imports = true
+
+[tool.ruff]
+select = [
+    # flake8-builtins
+    "A",
+    # flake8-bugbear
+    "B",
+    # pycodestyle
+    "E",
+    "W",
+    # pyflakes
+    "F",
+    # flake8-simplify
+    "SIM",
+]
