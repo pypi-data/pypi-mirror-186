@@ -1,0 +1,21 @@
+name: napari-spreadsheet
+display_name: Spreadsheet
+contributions:
+  commands:
+    - id: napari-spreadsheet.make_qwidget
+      python_name: napari_spreadsheet._widget:MainWidget
+      title: Open spreadsheet
+    - id: napari-spreadsheet.read_table_data
+      title: Open table data
+      python_name: napari_spreadsheet._reader:get_reader
+  widgets:
+    - command: napari-spreadsheet.make_qwidget
+      display_name: Spreadsheet
+  readers:
+    - command: napari-spreadsheet.read_table_data
+      filename_patterns:
+      - '*.txt'
+      - '*.dat'
+      - '*.csv'
+      - '*.xlsx'
+      accepts_directories: false
