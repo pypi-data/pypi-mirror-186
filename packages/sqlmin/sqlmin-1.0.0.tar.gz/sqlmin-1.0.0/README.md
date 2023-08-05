@@ -1,0 +1,2 @@
+# sqlmin
+Minify SQL
