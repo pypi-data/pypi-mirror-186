@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Jiggypedia"
+version = "0.0.3"
+authors = [
+  { name="Bill Kish", email="bk@jiggy.ai" },
+  { name="Amy Wang",  email="why@jiggy.ai"},  
+]
+dependencies=['requests', 'pydantic']
+description = "Client library for Jiggypedia embedding search. For feeding your GPT a healthy diet of facts."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/jiggy-ai/jiggypedia"
+"Bug Tracker" = "https://github.com/jiggy-ai/jiggypedia/issues"
