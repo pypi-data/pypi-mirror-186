@@ -1,0 +1,63 @@
+Metadata-Version: 2.1
+Name: neurodocker
+Version: 0.9.2
+Summary: A generic generator of Dockerfiles and Singularity recipes
+Home-page: https://github.com/repronim/neurodocker
+Author: Neurodocker Developers
+Author-email: jakub.kaczmarzyk@gmail.com
+License: Apache License, 2.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+License-File: LICENSE
+Requires-Dist: click
+Requires-Dist: etelemetry (>=0.2.0)
+Requires-Dist: jinja2 (>=2.0)
+Requires-Dist: jsonschema (>=3.0)
+Requires-Dist: mypy-extensions
+Requires-Dist: pyyaml (>=5.0)
+Requires-Dist: typing-extensions
+Provides-Extra: all
+Requires-Dist: docker (>=4.4.1) ; extra == 'all'
+Requires-Dist: black (>=22.12.0) ; extra == 'all'
+Requires-Dist: codecov ; extra == 'all'
+Requires-Dist: flake8 ; extra == 'all'
+Requires-Dist: mypy ; extra == 'all'
+Requires-Dist: pre-commit ; extra == 'all'
+Requires-Dist: pytest (>=6.0) ; extra == 'all'
+Requires-Dist: pytest-cov (>=2.0.0) ; extra == 'all'
+Requires-Dist: pytest-reportlog (>=0.1.2) ; extra == 'all'
+Requires-Dist: pytest-xdist (>=2.2.0) ; extra == 'all'
+Requires-Dist: sphinx (>=3.4) ; extra == 'all'
+Requires-Dist: pydata-sphinx-theme ; extra == 'all'
+Requires-Dist: sphinxcontrib.apidoc (>=0.3) ; extra == 'all'
+Provides-Extra: dev
+Requires-Dist: docker (>=4.4.1) ; extra == 'dev'
+Requires-Dist: black (>=22.12.0) ; extra == 'dev'
+Requires-Dist: codecov ; extra == 'dev'
+Requires-Dist: flake8 ; extra == 'dev'
+Requires-Dist: mypy ; extra == 'dev'
+Requires-Dist: pre-commit ; extra == 'dev'
+Requires-Dist: pytest (>=6.0) ; extra == 'dev'
+Requires-Dist: pytest-cov (>=2.0.0) ; extra == 'dev'
+Requires-Dist: pytest-reportlog (>=0.1.2) ; extra == 'dev'
+Requires-Dist: pytest-xdist (>=2.2.0) ; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: sphinx (>=3.4) ; extra == 'docs'
+Requires-Dist: pydata-sphinx-theme ; extra == 'docs'
+Requires-Dist: sphinxcontrib.apidoc (>=0.3) ; extra == 'docs'
+Provides-Extra: minify
+Requires-Dist: docker (>=4.4.1) ; extra == 'minify'
+
