@@ -1,0 +1,85 @@
+Metadata-Version: 2.1
+Name: sky130
+Version: 0.4.0
+Summary: skywater130 pdk
+Keywords: python
+Author-email: gdsfactory <contact@gdsfactory.com>
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Operating System :: OS Independent
+Requires-Dist: gdsfactory==6.20.5
+Requires-Dist: PySpice
+Requires-Dist: gdsfactory[full] ; extra == "dev"
+Requires-Dist: autotyping ; extra == "dev"
+Requires-Dist: black>=21 ; extra == "dev"
+Requires-Dist: doc8 ; extra == "dev"
+Requires-Dist: mypy ; extra == "dev"
+Requires-Dist: pre-commit ; extra == "dev"
+Requires-Dist: pylsp-mypy ; extra == "dev"
+Requires-Dist: types-cachetools ; extra == "dev"
+Requires-Dist: flake8 ; extra == "dev"
+Requires-Dist: flake8-bugbear ; extra == "dev"
+Requires-Dist: ipykernel ; extra == "dev"
+Requires-Dist: pytest ; extra == "dev"
+Requires-Dist: pytest-cov ; extra == "dev"
+Requires-Dist: pytest_regressions ; extra == "dev"
+Requires-Dist: types-PyYAML ; extra == "dev"
+Requires-Dist: xdoctest ; extra == "dev"
+Requires-Dist: pyproject-flake8 ; extra == "dev"
+Requires-Dist: autodoc_pydantic ; extra == "docs"
+Requires-Dist: docutils==0.17.1 ; extra == "docs"
+Requires-Dist: matplotlib ; extra == "docs"
+Requires-Dist: myst-parser ; extra == "docs"
+Requires-Dist: nbsphinx ; extra == "docs"
+Requires-Dist: sphinx ; extra == "docs"
+Requires-Dist: sphinx-autodoc-typehints ; extra == "docs"
+Requires-Dist: sphinx-book-theme==0.3.3 ; extra == "docs"
+Requires-Dist: sphinx-click ; extra == "docs"
+Requires-Dist: sphinx-copybutton ; extra == "docs"
+Requires-Dist: sphinx-markdown-tables==0.0.16 ; extra == "docs"
+Requires-Dist: sphinxcontrib-video ; extra == "docs"
+Provides-Extra: dev
+Provides-Extra: docs
+
+# sky130 gdsfactory PDK 0.4.0
+
+[![pypi](https://img.shields.io/pypi/v/sky130)](https://pypi.org/project/sky130/)
+[![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+gdsfactory pdk based on [skywater130](https://github.com/google/skywater-pdk)
+
+![](https://i.imgur.com/xvnfEtZ.png)
+
+
+- [documentation](https://gdsfactory.github.io/skywater130/README.html)
+
+## Installation
+
+For users:
+
+```
+pip install sky130
+```
+
+For developers:
+
+```
+git clone https://github.com/gdsfactory/skywater130.git
+cd skywater130
+make install
+```
+
+Then you need to restart Klayout to make sure the new technology installed appears.
+
+## TODO
+
+- integrate with OpenRoad
+- add spice models
+- add sample netlist
+
