@@ -1,0 +1,440 @@
+{
+    "indicators": [
+        {
+            "identifier": "VFast_AG", 
+            "type": "stock", 
+            "name": "Very Fast Aboveground", 
+            "units": "tC", 
+            "description": "Carbon stored in Aboveground Very Fast DOM pool", 
+            "components": {
+                "additions": ["VFastAG"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "The L horizon comprised of foliar litter plus dead fine roots", 
+                "Approximately < 5 mm diameter"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        }, 
+        {
+            "identifier": "VFast_BG", 
+            "type": "stock", 
+            "name": "Very Fast Belowground", 
+            "units": "tC", 
+            "description": "Carbon stored in Belowground Very Fast DOM pool", 
+            "components": {
+                "additions": ["VFastBG"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Dead fine roots in mineral soil", 
+                "Approximately < 5 mm diameter"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        }, 
+        {
+            "identifier": "Fast_AG", 
+            "type": "stock", 
+            "name": "Fast Aboveground", 
+            "units": "tC", 
+            "description": "Carbon stored in Aboveground Fast DOM pool", 
+            "components": {
+                "additions": ["FastAG"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Fine and small woody debris plus dead coarse roots in the forest floor", 
+                "Approximately between >= 5 and < 75 mm diamater"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        },  
+        {
+            "identifier": "Fast_BG", 
+            "type": "stock", 
+            "name": "Fast Belowground", 
+            "units": "tC", 
+            "description": "Carbon stored in Belowgorund Fast DOM pool", 
+            "components": {
+                "additions": ["FastBG"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Dead coarse roots in the mineral soil", 
+                "Approximately >= 5 mm diameter"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            } 
+        }, 
+        {
+            "identifier": "Medium", 
+            "type": "stock", 
+            "name": "Medium", 
+            "units": "tC", 
+            "description": "Carbon stored in Medium DOM pool", 
+            "components": {
+                "additions": ["Medium"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Coarse woody debris on the ground"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        },  
+        {
+            "identifier": "Slow_AG", 
+            "type": "stock", 
+            "name": "Slow Aboveground", 
+            "units": "tC", 
+            "description": "Carbon stored in Aboveground Slow DOM pool", 
+            "components": {
+                "additions": ["SlowAG"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "F, H, and O horizons"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        },  
+        {
+            "identifier": "Slow_BG", 
+            "type": "stock", 
+            "name": "Slow Belowground", 
+            "units": "tC", 
+            "description": "Carbon stored in Belowground Slow DOM pool", 
+            "components": {
+                "additions": ["SlowBG"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Humified organic matter in the mineral soil"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        }, 
+        {
+            "identifier": "SW_Stem_Snag", 
+            "type": "stock", 
+            "name": "Softwood Stem Snag", 
+            "units": "tC", 
+            "description": "Carbon stored in Softwood Stem Snag DOM pool", 
+            "components": {
+                "additions": ["SWStemSnag"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Dead standing softwoood stemwood of merchantable size", 
+                "Includes bark"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        }, 
+        {
+            "identifier": "HW_Stem_Snag", 
+            "type": "stock", 
+            "name": "Hardwood Stem Snag", 
+            "units": "tC", 
+            "description": "Carbon stored in Hardwood Stem Snag DOM pool", 
+            "components": {
+                "additions": ["HWStemSnag"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Dead standing hardwood stemwood of merchantable size", 
+                "Includes bark"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        },
+        {
+            "identifier": "SW_Branch_Snag", 
+            "type": "stock", 
+            "name": "Softwood Branch Snag", 
+            "units": "tC", 
+            "description": "Carbon stored in Softwood Branch Snag DOM pool", 
+            "components": {
+                "additions": ["SWBranchSnag"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Softwood dead branches, stumps, and small trees", 
+                "Includes bark"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        }, 
+        {
+            "identifier": "HW_Branch_Snag", 
+            "type": "stock", 
+            "name": "Hardwood Branch Snag", 
+            "units": "tC", 
+            "description": "Carbon stored in Hardwood Branch Snag DOM pool", 
+            "components": {
+                "additions": ["HWBranchSnag"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Hardwood dead branches, stumps, and small trees", 
+                "Includes bark"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        }, 
+        {
+            "identifier": "SW_Merch", 
+            "type": "stock", 
+            "name": "Softwood Merchantable", 
+            "units": "tC", 
+            "description": "Carbon stored in Softwood Merchantable Biomass pool", 
+            "components": {
+                "additions": ["SW_Merch"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Live softwood stemwood of merchantable size", 
+                "Includes bark"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        }, 
+        {
+            "identifier": "HW_Merch", 
+            "type": "stock", 
+            "name": "Hardwood Merchantable", 
+            "units": "tC", 
+            "description": "Carbon stored in Hardwood Merchantable Biomass DOM pool", 
+            "components": {
+                "additions": ["HW_Merch"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Live hardwood stemwood of merchantable size", 
+                "Includes bark"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        }, 
+        {
+            "identifier": "SW_Foliage", 
+            "type": "stock", 
+            "name": "Softwood Foliage", 
+            "units": "tC", 
+            "description": "Carbon stored in Softwood Foliage Biomass pool", 
+            "components": {
+                "additions": ["SW_Foliage"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Live Softwood Foliage"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        },
+        {
+            "identifier": "HW_Foliage", 
+            "type": "stock", 
+            "name": "Hardwood Foliage", 
+            "units": "tC", 
+            "description": "Carbon stored in Hardwood Foliage Biomass pool", 
+            "components": {
+                "additions": ["HW_Foliage"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Live Hardwood Foliage"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        }, 
+        {
+            "identifier": "SW_Other", 
+            "type": "stock", 
+            "name": "Softwood Other", 
+            "units": "tC", 
+            "description": "Carbon stored in Softwood Other Wood Biomass pool", 
+            "components": {
+                "additions": ["SW_Other"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Live Softwood branches, stumps, and small trees", 
+                "Includes bark"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        },
+        {
+            "identifier": "HW_Other", 
+            "type": "stock", 
+            "name": "Hardwood Other", 
+            "units": "tC", 
+            "description": "Carbon stored in Hardwood Other Wood Biomass pool", 
+            "components": {
+                "additions": ["HW_Other"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Live Hardwood branches, stumps, and small trees", 
+                "Includes bark"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        },
+        {
+            "identifier": "SW_Coarse_Roots", 
+            "type": "stock", 
+            "name": "Softwood Coarse Roots", 
+            "units": "tC", 
+            "description": "Carbon stored in Softwood Coarse Roots Biomass pool", 
+            "components": {
+                "additions": ["SW_Coarse"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Live Softwood roots", 
+                "Approximately >= 5 mm diameter"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        }, 
+        {
+            "identifier": "HW_Coarse_Roots", 
+            "type": "stock", 
+            "name": "Hardwood Coarse Roots", 
+            "units": "tC", 
+            "description": "Carbon stored in Hardwood Coarse Roots Biomass pool", 
+            "components": {
+                "additions": ["HW_Coarse"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Live Hardwood roots", 
+                "Approximately >= 5 mm diameter"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        },  
+        {
+            "identifier": "SW_Fine_Roots", 
+            "type": "stock", 
+            "name": "Softwood Fine Roots", 
+            "units": "tC", 
+            "description": "Carbon stored in Softwood Fine Roots Biomass pool", 
+            "components": {
+                "additions": ["SW_Fine"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Live Softwood roots", 
+                "Approximately < 5 mm diameter"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        }, 
+        {
+            "identifier": "HW_Fine_Roots", 
+            "type": "stock", 
+            "name": "Hardwood Fine Roots", 
+            "units": "tC", 
+            "description": "Carbon stored in Hardwood Fine Roots Biomass pool", 
+            "components": {
+                "additions": ["HW_Fine"]
+            }, 
+            "actions": ["sum"], 
+            "notes": [
+                "Live Hardwood roots", 
+                "Approximately < 5 mm diameter"
+            ], 
+            "metadata": {
+                "author": "Hans Lam", 
+                "source": "CBM3 QAQC queries XML- QAQC_queries_29Sept2016.xml", 
+                "created": "September 12, 2022", 
+                "last_updated": "September 22, 2022"
+            }
+        }
+    ]
+}
