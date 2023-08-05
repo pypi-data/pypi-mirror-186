@@ -1,0 +1,108 @@
+# SPDX-FileCopyrightText: 2022 Maxwell G <gotmax@e.email>
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+[build-system]
+# >=3.7 is needed for external-data
+# It should be safe to downgrade this to >=3.2 if you can handle those
+# seperately
+requires = ["flit_core >=3.7,<4"]
+build-backend = "flit_core.buildapi"
+
+
+[project]
+name = "fedrq"
+description = "fedrq is a tool to query the Fedora and EPEL repositories"
+version = "0.2.0"
+authors = [{ name = "Maxwell G", email = "gotmax@e.email" }]
+readme = "README.md"
+license = { text = "GPL-2.0-or-later AND Unlicense AND MIT" }
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: POSIX :: Linux",
+    "Development Status :: 3 - Alpha",
+    "Typing :: Typed",
+    "Environment :: Console",
+]
+dependencies = [
+    # This cannot be installed from PyPI
+    # "dnf",
+    "pydantic",
+    "tomli; python_version<'3.11'",
+    "importlib_resources; python_version<'3.10'"
+    # Optional dependency for `fedrq check-config --dump`
+    # "tomli-w",
+]
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+lint = [
+    "black",
+    "isort",
+    "flake8",
+    "mypy",
+    "reuse",
+    "importlib_resources",
+    # Optional fedrq runtime dependency
+    "tomli-w",
+]
+test = [
+    "pytest",
+    "pytest-mock",
+    "tomli-w",
+    "typing_extensions",
+]
+dev = [
+    "fedrq[test]",
+    "fedrq[lint]",
+]
+
+[project.urls]
+Homepage = "https://sr.ht/~gotmax23/fedrq"
+Source = "https://git.sr.ht/~gotmax23/fedrq"
+"Mailing List" = "https://lists.sr.ht/~gotmax23/fedrq"
+
+[project.scripts]
+fedrq = "fedrq.cli:main"
+
+[tool.flit.sdist]
+include = [
+    "src/fedrq/data/"
+]
+exclude = [
+    # Not useful without the git repository
+    ".copr/",
+    "srpm.sh",
+    ".builds/",
+    # fedrq.spec and its associated license are not wanted in the sdist
+    "fedrq.spec", "changelog", "changelog.license", "LICENSES/MIT.txt",
+]
+
+[tool.flit.external-data]
+# Currently, this just contains share/licenses/fedrq to work around flit's lack
+# of proper support for including these files in dist-info.
+# To comply with the license, its must be included in the wheel.
+directory = ".data"
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["dnf.*", "hawkey.*"]
+ignore_missing_imports = true
+
+
+
+[tool.pytest.ini_options]
+markers = ["no_rpm_mock: Tests that cannot be run in a mock chroot w/o networking"]
+addopts = [
+    "--import-mode=importlib",
+]
+
+
+[tool.isort]
+profile = "black"
