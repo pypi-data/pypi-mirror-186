@@ -1,0 +1,164 @@
+[build-system]
+requires = ["maturin>=0.13,<0.14"]
+build-backend = "maturin"
+
+[project]
+name = "polars"
+dependencies = [
+  "typing_extensions >= 4.0.0; python_version < '3.10'",
+]
+requires-python = ">=3.7"
+
+[project.optional-dependencies]
+# the Arrow memory format is stable between 4.0 and 5.0-SNAPSHOTS
+# (which the Rust libraries use to take advantage of Rust API changes).
+# NOTE: keep this list in sync with show_versions()
+pyarrow = ["pyarrow>=4.0.0"]
+pandas = ["pyarrow>=4.0.0", "pandas"]
+numpy = ["numpy >= 1.16.0"]
+fsspec = ["fsspec"]
+connectorx = ["connectorx"]
+xlsx2csv = ["xlsx2csv >= 0.8.0"]
+deltalake = ["deltalake"]
+timezone = ["backports.zoneinfo; python_version < '3.9'", "tzdata; platform_system == 'Windows'"]
+matplotlib = ["matplotlib"]
+all = [
+  "polars[pyarrow,pandas,numpy,fsspec,connectorx,xlsx2csv,deltalake,timezone,matplotlib]",
+]
+
+[tool.mypy]
+files = ["polars", "tests"]
+namespace_packages = true
+show_error_codes = true
+strict = true
+enable_error_code = [
+  "redundant-expr",
+  "truthy-bool",
+  "ignore-without-code",
+]
+disable_error_code = [
+  "empty-body",
+]
+
+[[tool.mypy.overrides]]
+module = [
+  "backports",
+  "pyarrow.*",
+  "polars.polars",
+  "matplotlib.*",
+  "fsspec.*",
+  "connectorx",
+  "deltalake",
+  "IPython.*",
+  "zoneinfo",
+]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["polars.*"]
+# We exclude the polars module from warn_return_any, because the PyO3 api does not have Python
+# type annotations. See https://github.com/PyO3/pyo3/issues/1112 for a discussion on adding
+# this capability. We could add a stub file for polars.polars (the PyO3 api), but that
+# amounts to duplicating almost all type annotations on our api, as the Python api itself is a
+# thin wrapper around the PyO3 api to start with.
+warn_return_any = false
+
+[tool.pytest.ini_options]
+addopts = [
+  "--import-mode=importlib",
+]
+
+[tool.coverage.run]
+source = ["polars"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 85
+skip_covered = true
+show_missing = true
+exclude_lines = [
+  "pragma: no cover",
+  "@overload",
+  "except ImportError",
+  "if TYPE_CHECKING:",
+  "from typing_extensions import ",
+]
+
+[tool.ruff]
+# Assume Python 3.7.
+target-version = "py37"
+
+line-length = 88
+
+extend-exclude = [
+  # Automatically generated test artifacts
+  "venv/",
+  "target/",
+]
+
+select = [
+  # pycodestyle
+  "E",
+  "W",
+  # Pyflakes
+  "F",
+  # flake8-bugbear
+  "B",
+  # flake8-comprehensions
+  "C4",
+  # flake8-docstrings
+  "D",
+  # isort
+  "I001",
+  # flake8-simplify
+  "SIM",
+  # flake8-tidy-imports
+  "TID",
+  # flake8-quotes
+  "Q",
+  # pyupgrade
+  "UP",
+  # flake8-pytest-style
+  "PT",
+]
+ignore = []
+
+fix = true
+fixable = ["F401", "I001"]
+
+extend-select = ["D"]
+extend-ignore = [
+  # pydocstyle: http://www.pydocstyle.org/en/stable/error_codes.html
+  # numpy convention with a few additional lints
+  "D107",
+  "D203",
+  "D212",
+  "D402",
+  "D415",
+  "D416",
+  # flake8-pytest-style:
+  "PT011", # pytest.raises({exception}) is too broad, set the match parameter or use a more specific exception
+  # TODO: Remove errors below to further improve docstring linting
+  # Ordered from most common to least common errors.
+  "D105",
+  "D100",
+  "D103",
+  "D102",
+  "D104",
+  "D101",
+]
+
+[tool.ruff.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "double"
+docstring-quotes = "double"
+multiline-quotes = "double"
+
+[tool.ruff.per-file-ignores]
+"polars/datatypes.py" = ["B019"]
+"tests/*/*.py" = ["D100", "D103"]
+"tests/docs/run_doc_examples.py" = ["D101", "D102", "D103"]
+"tests/parametric/__init__.py" = ["D104"]
+"tests/slow/__init__.py" = ["D104"]

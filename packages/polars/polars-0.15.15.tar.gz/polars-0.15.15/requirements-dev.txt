@@ -1,0 +1,24 @@
+# We're pinning our tooling, because it's an environment we can strictly control.
+# We're not pinning package dependencies, because our tests need to pass with the
+# latest version of the packages.
+
+--prefer-binary
+
+# Dependencies
+numpy
+pandas
+pyarrow
+backports.zoneinfo; python_version < '3.9'
+tzdata; platform_system == 'Windows'
+xlsx2csv
+deltalake
+
+# Tooling
+hypothesis==6.57.1
+maturin==0.13.7
+mypy==0.991
+pytest==7.2.0
+pytest-cov==4.0.0
+
+# Stub files
+pandas-stubs==1.2.0.62
