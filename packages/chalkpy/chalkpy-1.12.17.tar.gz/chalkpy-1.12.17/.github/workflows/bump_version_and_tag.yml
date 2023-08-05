@@ -1,0 +1,65 @@
+name: Bump Version and Tag
+
+permissions: write-all
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Bump chalkpy to this version. Do not include the leading `v` -- example: 1.2.3"
+
+jobs:
+  bump_version_and_tag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Doppler CLI
+        uses: dopplerhq/cli-action@v1
+
+      - name: Fetch doppler secrets
+        uses: dopplerhq/secrets-fetch-action@v1.1.0
+        id: doppler
+        with:
+          doppler-token: ${{ secrets.DOPPLER_TOKEN }}
+
+      - name: Configure the SSH private key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: |
+            ${{ steps.doppler.outputs.CHALK_GITHUB_DEPLOY_PRIVATE_KEY }}
+            ${{ steps.doppler.outputs.CHALK_PRIVATE_GITHUB_DEPLOY_PRIVATE_KEY }}
+
+      - name: Validate version
+        run: |
+          #!/usr/bin/env bash
+          set -euxo pipefail
+
+          if [[ "$CHALKPY_VERSION" =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
+            echo "Version is valid"
+          else
+            echo "Invalid version string"
+            exit 1
+          fi
+        env:
+          CHALKPY_VERSION: ${{ inputs.version }}
+
+      - name: Set version
+        run: echo "__version__ = \"$CHALKPY_VERSION\"" > ./chalk/_version.py
+        env:
+          CHALKPY_VERSION: ${{ inputs.version }}
+
+      - name: Commit and publish to main and the release tag
+        run: |
+          git config --global user.name 'Chalk Bot'
+          git config --global user.email 'bot@chalk.ai'
+          git fetch --all
+          git checkout $GITHUB_REF_NAME
+          git commit -am "Bump Version"
+          git push
+          git tag -a v$CHALKPY_VERSION -m "Bump version to v$CHALKPY_VERSION"
+          git push origin v$CHALKPY_VERSION
+        env:
+          CHALKPY_VERSION: ${{ inputs.version }}
