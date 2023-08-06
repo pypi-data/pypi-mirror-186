@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>图图</title>
+    <link rel="shortcut icon" type="image/x-icon" href="tutu/favicon.ico" />
+    <link rel="stylesheet" href="tutu/style.css" />
+</head>
+
+<body>
+    <a href="soutu" target="_blank">Pixiv搜图</a>&emsp13;
+    <a href="{{ img_3 }}">三连发</a>&emsp13;
+    <a href="{{ img_10 }}">十连发</a><br />
+
+    {{ type_urls | safe }}
+    <a href="{{ img_api_url_fn }}">个人库</a>
+    &emsp13;
+    <a href="{{ img_api_url_random }}">随机</a>
+    <br />
+    <span>当前类型：{{ img_type }} &emsp13; 数量：{{ img_num }}</span>
+    <br /><br />
+
+    {{ img_list | safe }}
+
+    <a href="{{ next_group }}">不够看？点击下一批</a>
+    <br /><br /><br />
+</body>
+
+</html>
