@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: funcx-endpoint
+Version: 1.0.7a0
+Summary: funcX: High Performance Function Serving for Science
+Home-page: https://github.com/funcx-faas/funcx
+Author: funcX team
+Author-email: labs@globus.org
+License: Apache License, Version 2.0
+Keywords: funcX,FaaS,Function Serving
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.7
+License-File: LICENSE
+Requires-Dist: requests (<3,>=2.20.0)
+Requires-Dist: globus-sdk
+Requires-Dist: funcx (>=1.0.7a0)
+Requires-Dist: funcx-common (==0.0.23)
+Requires-Dist: texttable (<2,>=1.6.4)
+Requires-Dist: psutil (<6)
+Requires-Dist: python-daemon (<3,>=2)
+Requires-Dist: click (<9,>=8)
+Requires-Dist: pyzmq (!=22.3.0,<=23.2.0,>=22.0.0)
+Requires-Dist: parsl (>=2022.10.4)
+Requires-Dist: pika (>=1.2.0)
+Provides-Extra: test
+Requires-Dist: responses ; extra == 'test'
+Requires-Dist: pytest (>=7.2) ; extra == 'test'
+Requires-Dist: coverage (>=5.2) ; extra == 'test'
+Requires-Dist: pytest-mock (==3.2.0) ; extra == 'test'
+Requires-Dist: pyfakefs ; extra == 'test'
+
