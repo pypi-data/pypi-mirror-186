@@ -1,0 +1,89 @@
+Metadata-Version: 2.1
+Name: MCRP
+Version: 0.1.0
+Summary: Minecraft MITM proxy with function of rewriting packets, written in pure Python 3
+Home-page: https://gitlab.com/seeklay/MCRP
+Author: seeklay
+Author-email: rudeboy@seeklay.icu
+License: GNU General Public License v3.0
+Download-URL: https://gitlab.com/seeklay/MCRP
+Platform: OS Independent
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Natural Language :: English
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Internet
+Description-Content-Type: text/markdown
+Requires-Dist: cubelib (>=1.0.3-pre.1)
+Requires-Dist: ruamel.yaml (==0.17.21)
+
+# MCRP: Minecraft Rewrite Proxy
+
+Minecraft MITM proxy with function of rewriting packets, written in pure [Python 3](https://www.python.org/).
+
+![](https://img.shields.io/badge/Made%20with-Python-1f425f.svg) ![](https://img.shields.io/gitlab/license/seeklay/cubelib.svg) ![](https://tokei.rs/b1/gitlab/seeklay/MCRP) ![](https://gitlab.com/seeklay/cubelib/badges/main/pipeline.svg)  [![](https://gitlab.com/seeklay/MCRP/-/badges/release.svg)](https://gitlab.com/seeklay/cubelib/-/releases) ![](https://badgen.net/pypi/v/MCRP) ![](https://img.shields.io/pypi/dw/MCRP?style=flat&logo=pypi)
+
+## About
+
+**MCRP** provides cool interface to interact with minecraft packets goes via proxy.
+
+## MCWP
+> Minecraft Watching Proxy
+
+```bash
+$ mcwp -h
+ __  __   ____  ____   ____       __        __ ____
+|  \/  | / ___||  _ \ |  _ \  _   \ \      / /|  _ \
+| |\/| || |    | |_) || |_) |(_)   \ \ /\ / / | |_) |
+| |  | || |___ |  _ < |  __/  _     \ V  V /  |  __/
+|_|  |_| \____||_| \_\|_|    (_)     \_/\_/   |_| v0.1
+
+usage: mcwp [-h] [-v] [-l addr] [-u addr] config.yaml
+
+Minecraft Watching Proxy
+
+positional arguments:
+  config.yaml  Path to YAML config file
+
+optional arguments:
+  -h, --help   show this help message and exit
+  -v           If passed, enables verbose logging
+  -l addr      Proxy listen addr [default:25565]
+  -u addr      Proxy upstream server addr [default:25575]
+```
+MCWP is a python script written and distibuted with MCRP
+It allow you to view and filter packets in minecraft session
+*How to write filter conf see in examples*
+
+## Requirements
+
+* Python 3 (tested and developed under `Python 3.7.9`)
+* [cubelib](https://gitlab.com/seeklay/cubelib) >= 1.0.3-pre.1
+* [ruamel.yaml](https://pypi.org/project/ruamel.yaml/) == 0.17.21
+## Installation
+
+MCRP is published in [PyPI](https://pypi.org/project/cubelib/), so latest release can be installed with one simple command:
+```bash
+pip install -U MCRP
+```
+
+or bleeding edge from git sources (unstable) (may not work at all!):
+
+```bash
+git clone https://gitlab.com/seeklay/MCRP.git
+cd MCRP/
+python setup.py install
+```
+## Usage examples
+See [**examples/**](examples/)
+## Author
+* [seeklay](https://gitlab.com/seeklay)
+
+## License
+**[GNU GPL 3.0](LICENSE)**
+
