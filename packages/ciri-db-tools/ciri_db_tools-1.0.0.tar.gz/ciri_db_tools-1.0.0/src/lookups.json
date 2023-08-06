@@ -1,0 +1,139 @@
+{
+    "lookups": [
+        {
+            "name": "CBM project code to province/territory abbreviation",
+            "from": "CBM_project",
+            "to": "PT_Abbrev",
+            "eligibility_list": [
+                "Tables where the NFCMARS 1.0 CBM project name field is available."
+            ],
+            "mapping": {
+                "AB": "AB",
+                "BCB": "BC",
+                "BCMN": "BC",
+                "BCMS": "BC",
+                "BCP": "BC",
+                "MB": "MB",
+                "NB": "NB",
+                "LB": "NL",
+                "NF": "NL",
+                "NS": "NS",
+                "NWT": "NWT",
+                "ONE": "ONT",
+                "ONW": "ONT",
+                "PEI": "PEI",
+                "QCG": "QC",
+                "QCL": "QC",
+                "QCR": "QC",
+                "SK": "SK",
+                "SKH": "SK",
+                "YT": "YT",
+                "UF": "UF"
+            }
+        },
+        {
+            "name": "CBM project code to CanFI ID",
+            "from": "CBM_project",
+            "to": "CanFI_ID",
+            "eligibility_list": [
+                "Tables where the NFCMARS 1.0 CBM project name field is available."
+            ],
+            "mapping": {
+                "AB": 9,
+                "BCB": 10,
+                "BCMN": 10,
+                "BCMS": 10,
+                "BCP": 10,
+                "MB": 7,
+                "NB": 4,
+                "LB": 1,
+                "NF": 0,
+                "NS": 2,
+                "NWT": 12,
+                "ONE": 6,
+                "ONW": 6,
+                "PEI": 3,
+                "QCG": 5,
+                "QCL": 5,
+                "QCR": 5,
+                "SK": 8,
+                "YT": 11
+            }
+        },
+        {
+            "name": "CBM project code to ProjectID",
+            "from": "CBM_project",
+            "to": "ProjectID",
+            "eligibility_list": [
+                "Tables where the NFCMARS 1.0 CBM project name field is available."
+            ],
+            "mapping": {
+                "AB": 10,
+                "BCB": 111,
+                "BCMN": 113,
+                "BCMS": 115,
+                "BCP": 112,
+                "LB": 2,
+                "MB": 8,
+                "NB": 5,
+                "NF": 1,
+                "NS": 3,
+                "NWT": 13,
+                "ONE": 72,
+                "ONW": 71,
+                "PEI": 4,
+                "QCG": 64,
+                "QCL": 66,
+                "QCR": 65,
+                "SK": 9,
+                "SKH": 114,
+                "YT": 12
+            }
+        },
+        {
+            "name": "Province/territory full name to to CanFI_ID",
+            "from": "PT_Name",
+            "to": "CanFI_ID",
+            "eligibility_list": [
+                "Tables where the province/territory full name field is available."
+            ],
+            "mapping": {
+                "Newfoundland": 0,
+                "Labrador": 1,
+                "Nova Scotia": 2,
+                "Prince Edward Island": 3,
+                "New Brunswick": 4,
+                "Quebec": 5,
+                "Ontario": 6,
+                "Manitoba": 7,
+                "Saskatchewan": 8,
+                "Alberta": 9,
+                "British Columbia": 10,
+                "Yukon": 11,
+                "NWT": 12
+            }
+        },
+        {
+            "name": "Province/territory abbreviated name to province/territory full name",
+            "from": "PT_Abbrev",
+            "to": "PT_Name",
+            "eligibility_list": [
+                "Tables where the province/territory abbreviated name field is available."
+            ],
+            "mapping": {
+                "NL": "Newfoundland",
+                "NS": "Nova Scotia",
+                "PEI": "Prince Edward Island",
+                "NB": "New Brunswick",
+                "QC": "Quebec",
+                "ONT": "Ontario",
+                "MB": "Manitoba",
+                "SK": "Saskatchewan",
+                "AB": "Alberta",
+                "BC": "British Columbia",
+                "YT": "Yukon",
+                "NWT": "Northwest Territories"
+            }
+        }
+    ]
+}
