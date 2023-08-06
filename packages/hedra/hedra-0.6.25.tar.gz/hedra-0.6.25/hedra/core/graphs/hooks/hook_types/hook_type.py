@@ -1,0 +1,19 @@
+from enum import Enum
+
+
+class HookType(Enum):
+    ACTION='ACTION'
+    SETUP='SETUP'
+    TEARDOWN='TEARDOWN'
+    BEFORE='BEFORE'
+    AFTER='AFTER'
+    CHECK='CHECK'
+    METRIC='METRIC'
+    VALIDATE='VALIDATE'
+    INTERNAL='INTERNAL'
+    SAVE='SAVE'
+    TASK='TASK'
+    CHANNEL='CHANNEL'
+    EVENT='EVENT'
+    CONTEXT='CONTEXT'
+    RESTORE='RESTORE'
