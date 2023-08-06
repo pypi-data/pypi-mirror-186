@@ -1,0 +1,26 @@
+DATASET:
+  CLASS: refuse_classification
+  CLASSNAME: battery,cardboard,glass,metal,paper,plastic_bottle,plastic_other,rice,tomatoes
+  IMG: images
+  NAMES: Un_Masks,Masks
+  TEST: test
+  TRAIN: train.txt
+  VAL: val.txt
+  XML: xml
+MODEL:
+  CLASSNC: 9
+  INPUT_HEIGHT: 352
+  INPUT_WIDTH: 352
+  NC: 2
+TRAIN:
+  BATCH_SIZE: 8
+  CLASS_EPOCH: 30
+  DEVICE: cpu
+  END_EPOCH: 500
+  LR: 0.001
+  MILESTIONES:
+  - 100
+  - 200
+  - 250
+  THRESH: 0.25
+  WARMUP: true
