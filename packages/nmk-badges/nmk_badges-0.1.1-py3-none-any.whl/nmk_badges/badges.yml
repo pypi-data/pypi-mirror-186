@@ -1,0 +1,38 @@
+# Badges generation logic
+config:
+
+    # Target markdown file for badges generation
+    badgesTarget: ${PROJECTDIR}/README.md
+
+    # Badges generation stamp file
+    badgesStamp: ${outputDir}/.badges
+
+    # List of badges to be generated
+    # Each item in this list is expected to be an object with the following keys:
+    # - *alt*: Alternative text for the badge image
+    # - *img*: Badge image URL
+    # - *url*: Badge target link URL
+    badges: []
+
+    # Begin/End patterns for badges insertion in markdown file
+    badgesBeginPattern: "<!-- NMK-BADGES-BEGIN -->"
+    badgesEndPattern: "<!-- NMK-BADGES-END -->"
+
+tasks:
+
+    # Badges generation task
+    badges:
+        description: Generate README badges
+        emoji: ":admission_tickets: "
+        appendToDeps: setup
+        deps:
+            - out
+        builder: nmk_badges.builder.NmkBadgesBuilder
+        params:
+            badges: ${badges}
+            begin_pattern: ${badgesBeginPattern}
+            end_pattern: ${badgesEndPattern}
+        input:
+            - ${badgesTarget}
+        output:
+            - ${badgesStamp}

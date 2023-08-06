@@ -1,0 +1,19 @@
+# Badges plugin definition
+refs:
+    - path.yml    # Python path contrib
+    - badges.yml  # Badges generation logic
+
+# Extra config
+config:
+
+    # Plugin version
+    nmkBadgesPluginVersion:
+        __resolver__: nmk_badges.NmkBadgesVersionResolver
+
+    # Plugin versions dict
+    nmkPluginsVersions:
+        nmk-badges: ${nmkBadgesPluginVersion}
+
+    # Plugin help links dict
+    nmkPluginsDocs:
+        nmk-badges: https://github.com/dynod/nmk/wiki/nmk-badges-plugin
