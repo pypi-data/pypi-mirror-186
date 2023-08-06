@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "nibiru-proto"
+version = "0.17.0"
+description = "Nibiru Chain Python SDK"
+authors = [
+    "Nibiru Chain <dev@nibiru.fi>"
+]
+packages =[
+  { include = "nibiru_proto" }
+]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+grpcio = "^1.51.1"
+grpcio-tools = "^1.51.1"
+protobuf = "^4.21.11"
+types-protobuf = "^4.21.0.2"
+mypy-protobuf = "^3.4.0"
+bech32 = "^1.2.0"
+asyncio = "^3.4.3"
+
+[tool.poetry.dev-dependencies]
+black = "^22.6.0"
+pytest = "^7.1.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+skip-string-normalization = true
+include = '.*\.pyi?$'
+target-version = ['py39']
+extend-exclude = '''
+^/(
+    \.vscode
+  | nibiru_proto
+)$
+'''
