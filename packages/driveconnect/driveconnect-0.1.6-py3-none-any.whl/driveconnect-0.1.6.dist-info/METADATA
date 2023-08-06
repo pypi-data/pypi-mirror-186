@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: driveconnect
+Version: 0.1.6
+Summary: Test whether a Windows drive is connected, and connect it.
+Author: Gwang-Jin Kim
+Author-email: gwang.jin.kim.phd@gmail.com
+Requires-Python: >=3.6,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Description-Content-Type: text/markdown
+
+# Installation
+
+```
+pip install driveconnect
+```
+Or:
+```
+pip install git+https:\\github.com\gwangjinkim\driveconnect.git
+```
+
+# Usage
+
+```
+import driveconnect as dcn
+
+# test, wether a drive e.g. 'M:' is connected:
+dcn.is_drive_connected(drive_letter='M') # it works also with "M:"
+## False
+
+# set the credentials for the server in local folders
+dcn.pss.set_credentials('.\.user', '.\.pass')
+
+# connect to the server
+# leading '\\' can be left out in server address and the 'M:' as well as 'M' both work
+dcn.connect_drive('M:', '\\serveraddress\folder', '.\.user', '.\.pass')
+
+# disconnect from the server
+dcn.disconnect_drive('M:')
+```
+
