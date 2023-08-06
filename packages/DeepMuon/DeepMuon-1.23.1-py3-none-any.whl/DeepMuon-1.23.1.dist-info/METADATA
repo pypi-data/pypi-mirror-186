@@ -1,0 +1,91 @@
+Metadata-Version: 2.1
+Name: DeepMuon
+Version: 1.23.1
+Summary: DeepMuon Project Built for Simple and Direct Deep Learning Researches on Dark Matter Searching
+Home-page: https://airscker.github.io/DeepMuon/
+Author: Airscker/Yufeng Wang
+Author-email: airscker@gmail.com
+License: UNKNOWN
+Keywords: Deep Learning,Searching Dark Matter,Direct and Simple
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.6, <4
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: click
+Requires-Dist: tqdm
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: numba
+Requires-Dist: ptflops
+Requires-Dist: torchinfo
+Requires-Dist: captum
+Requires-Dist: monai
+Requires-Dist: pynvml
+Requires-Dist: psutil
+Requires-Dist: GPUtil
+Requires-Dist: timm
+
+# <center><img src="./Resources/DeepMuon.png" width =900px></center>
+
+## Introduction
+
+DeepMuon is a easy-using deep learning platform built for dark matter searching experiments, we are eager to provide advanced model training frame and excellent project management assistance.
+
+Here we list out the available features of DeepMuon:
+
+- DeepMuon support **Single GPU** training and **Distributed Data Parallel** training
+- Model Inference and analysis
+- Customize models
+- Customize datasets
+- Customize loss functions
+- Easy to train/inference
+- Tidy file system
+- Simple and direct tutorials
+
+## Installation
+
+```bash
+git clone https://github.com/Airscker/DeepMuon.git
+cd DeepMuon
+pip install -v -e ./ --user
+```
+
+## Tutorials
+
+- [Regulations](./Tutorial/1.Regulations.md)
+- [Customize Dataset](./Tutorial/2.Customize%20Dataset.md)
+- [Customize Model](./Tutorial/3.Customize%20Model.md)
+- [Configuration](./Tutorial/4.Configuration.md)
+- [Training and Inference](./Tutorial/5.Training%20and%20Inference.md)
+
+## CopyRight
+
+> GNU AFFERO GENERAL PUBLIC LICENSE
+>
+> Project: DeepMuon
+>
+> Dark Matter Searching Deep Learning Platform
+>
+> Author: Airscker/Yufeng Wang
+>
+> Contributors: Yufeng Wang, Yu Zhang, Shendong Su
+>
+> University of Science of Technology of China
+>
+> Internal supported sensor's dataset: Pandax-4T III, TRIDENT
+>
+> If you want to publish thesis using DeepMuon, please add bibliography:
+>
+> Copyright (C) 2023 by Airscker, All Rights Reserved.
+
+
