@@ -1,0 +1,163 @@
+name: CI
+
+on:
+  push:
+    branches: "*"
+  pull_request:
+    branches: main
+
+jobs:
+  linux:
+    name: ${{ matrix.CONDA_ENV }}-pytest
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        CONDA_ENV: [py38, py39, py310]
+    steps:
+      - name: APT
+        run: sudo apt-get install liblzo2-dev
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup conda
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: ci/environment-${{ matrix.CONDA_ENV }}.yml
+
+      - name: pip-install
+        shell: bash -l {0}
+        run: |
+          pip install -e . --no-deps
+
+      - name: Run Tests
+        shell: bash -l {0}
+        run: |
+          pytest --verbose --cov=fastparquet
+  v2:
+    name: v2-py38
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        CONDA_ENV: [py38]
+    steps:
+      - name: APT
+        run: sudo apt-get install liblzo2-dev
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup conda
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: ci/environment-${{ matrix.CONDA_ENV }}.yml
+
+      - name: pip-install
+        shell: bash -l {0}
+        run: |
+          pip install -e . --no-deps
+
+      - name: Run Tests
+        shell: bash -l {0}
+        env:
+          FASTPARQUET_DATAPAGE_V2: TRUE
+        run: |
+          echo "FASTPARQUET_DATAPAGE_V2=$FASTPARQUET_DATAPAGE_V2"
+          pytest --verbose --cov=fastparquet
+  dask:
+    name: dask
+    runs-on: ubuntu-latest
+    steps:
+      - name: APT
+        run: sudo apt-get install liblzo2-dev
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup conda
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: ci/environment-py38.yml
+
+      - name: pip-install
+        shell: bash -l {0}
+        run: |
+          git clone https://github.com/dask/dask
+          pip install pyarrow
+          pip install -e dask/
+          pip install -e . --no-deps
+
+      - name: Run Tests
+        shell: bash -l {0}
+        run: |
+          pytest --verbose dask/dask/dataframe/io/tests/test_parquet.py
+  
+  pandas:
+    name: pandas
+    runs-on: ubuntu-latest
+    steps:
+      - name: APT
+        run: sudo apt-get install liblzo2-dev
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup conda
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: ci/environment-py310.yml
+
+      - name: pip-install
+        shell: bash -l {0}
+        run: |
+          pip install Cython
+          pip install hypothesis
+          pip install pytest-xdist pytest-asyncio # Needed for a pandas test, also runs tests in parallel
+          pip install -e . --no-deps # Install fastparquet
+          git clone https://github.com/pandas-dev/pandas
+          cd pandas
+          python setup.py build_ext -j 4
+          pip install -e . --no-build-isolation --no-use-pep517
+
+      - name: Run Tests
+        shell: bash -l {0}
+        run: |
+          pytest -v  fastparquet/ # fastparquet test suite against dev pandas
+          pytest --verbose pandas/pandas/tests/io/test_parquet.py
+          # Test parquet with different filesystems
+          pytest --verbose pandas/pandas/tests/io/test_gcs.py pandas/pandas/tests/io/test_fsspec.py -k "parquet"
+
+  win:
+    name: win
+    runs-on: windows-2019
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup conda
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: ci/environment-py38win.yml
+
+      - name: pip-install
+        shell: bash -l {0}
+        run: |
+          pip install -e . --no-deps
+
+      - name: Run Tests
+        shell: bash -l {0}
+        run: |
+          pytest --verbose --cov=fastparquet
