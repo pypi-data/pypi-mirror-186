@@ -1,0 +1,21 @@
+{
+  "type": "record",
+  "name": "DataHubViewKey",
+  "namespace": "com.linkedin.pegasus2avro.metadata.key",
+  "doc": "Key for a DataHub View",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "doc": "A unique id for the View"
+    }
+  ],
+  "Aspect": {
+    "name": "dataHubViewKey",
+    "keyForEntity": "dataHubView",
+    "entityCategory": "core",
+    "entityAspects": [
+      "dataHubViewInfo"
+    ]
+  }
+}

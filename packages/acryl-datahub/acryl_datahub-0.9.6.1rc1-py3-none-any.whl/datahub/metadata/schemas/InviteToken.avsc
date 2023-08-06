@@ -1,0 +1,33 @@
+{
+  "type": "record",
+  "name": "InviteToken",
+  "namespace": "com.linkedin.pegasus2avro.identity",
+  "doc": "Aspect used to store invite tokens.",
+  "fields": [
+    {
+      "name": "token",
+      "type": "string",
+      "doc": "The encrypted invite token."
+    },
+    {
+      "name": "role",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "The role that this invite token may be associated with",
+      "default": null,
+      "Searchable": {
+        "fieldName": "role",
+        "fieldType": "KEYWORD",
+        "hasValuesFieldName": "hasRole"
+      },
+      "java": {
+        "class": "com.linkedin.pegasus2avro.common.urn.Urn"
+      }
+    }
+  ],
+  "Aspect": {
+    "name": "inviteToken"
+  }
+}
