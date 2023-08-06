@@ -1,0 +1,50 @@
+{% extends "skeleton.html" %}
+
+{% load static %}
+
+{% block title %}
+Kubefacets - API
+{% endblock %}
+
+{% block head_before %} {% endblock %}
+
+{% block head %}
+<script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
+{% endblock %}
+
+{% block body %}
+<script>
+function getCookie(name) {
+    let cookieValue = "";
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+window.addEventListener('DOMContentLoaded', (event) => {
+    const rapidocEl = document.querySelector('rapi-doc');
+    rapidocEl.addEventListener('before-try', (e) => {
+        e.detail.request.headers.append('X-CSRFToken', getCookie("csrftoken"));
+    });
+});
+</script>
+<rapi-doc
+    spec-url="{{ path }}"
+    theme="dark"
+    render-style="view"
+    primary-color="#fd4b2d"
+    allow-spec-url-load="false"
+    allow-spec-file-load="false">
+    <div slot="logo" style="font-size: 32px;">
+        Kubefacets <small>Rapidoc</small>
+    </div>
+</rapi-doc>
+{% endblock %}
