@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "westat"
+version = "0.0.7"
+authors = [
+  { name = 'py2cn', email='aboutlong@qq.com' },
+]
+description = "A package for stat and data miner,calculate woe and iv,and plot woe ,plot iv,calculate ks ,plot ks and auc,plot roc"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "numpy>=1.20.3; python_version<'3.10'",
+  "numpy>=1.21.0; python_version>='3.10'",
+  "numpy>=1.23.2; python_version>='3.11'",
+  "pandas>=1.5.2",
+  "matplotlib>=3.6.2",
+  "statsmodels>=0.13.5",
+  "scikit-learn>=1.0.2",
+]
+keywords = ["stat","woe","iv","roc","ks","auc","psi"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    'Topic :: Scientific/Engineering',
+    'Intended Audience :: Science/Research',
+    'Environment :: Console',
+    'Development Status :: 3 - Alpha',
+]
+
+[project.urls]
+homepage = 'http://www.pyminer.com'
+documentation = 'https://gitee.com/py2cn/pyminer/wikis'
+repository = 'https://gitee.com/py2cn/pyminer'
