@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "whoisxml"
+version = "0.0.1"
+authors = [
+  { name="Nguyen Khanh Thuan", email="khanhthuan1995@gmail.com" },
+]
+description = "a wrapper for whoisxml"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/khanhthuan1995/whois"
+"Bug Tracker" = "https://github.com/khanhthuan1995/whois/issues"
+
+[project.scripts]
+whoisxml = "whoisxml.cli:main"
