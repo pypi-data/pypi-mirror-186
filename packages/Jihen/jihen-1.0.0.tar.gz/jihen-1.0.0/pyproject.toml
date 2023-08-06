@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+#is a list of packages that are needed to build your package. You don’t need to install them; build frontends like pip will install them automatically in a temporary, isolated virtual environment for use during the build process.
+build-backend = "hatchling.build"
+#is the name of the Python object that frontends will use to perform the build.
+
+[project]
+name = "Jihen"
+version = "1.0.0"
+authors = [
+  { name="Jihen", email="jihene.stambouli@gmail.com" },
+]
+description = "Do you want?"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://www.facebook.com/jihen.stambouli.3/"
