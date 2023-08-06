@@ -1,0 +1,24 @@
+graft docs
+graft examples
+graft src
+graft ci
+graft tests
+
+include .coveragerc
+include .cookiecutterrc
+include .editorconfig
+
+include AUTHORS.rst
+include CHANGELOG.rst
+include CONTRIBUTING.rst
+include LICENSE
+include README.rst
+
+include *.txt
+include *.cfg
+include *.ini
+include *.yml
+include *.yaml
+
+global-exclude *.py[cod] __pycache__ *.so *.dylib
+exclude .python-version
