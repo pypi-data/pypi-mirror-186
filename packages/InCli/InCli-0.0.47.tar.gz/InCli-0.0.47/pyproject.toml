@@ -1,0 +1,19 @@
+[project]
+name = "InCli"
+version = "0.0.47"
+authors = [
+  {email = "unaior@gmail.com"},
+  {name = "Unaior"}
+]
+description = "CLI utilities for ..."
+dependencies = ["simplejson","requests","colorama","ansi2html"]
+
+[build-system]
+requires = ['setuptools>=61.0']
+build-backend = 'setuptools.build_meta'
+
+[project.scripts]
+InCli = "InCli.InCli:main"
+
+[project.urls]
+repository = "https://github.com/unaior/InCli"
