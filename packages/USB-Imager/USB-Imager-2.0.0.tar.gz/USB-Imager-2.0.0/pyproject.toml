@@ -1,0 +1,59 @@
+[build-system]
+requires = [
+    "setuptools",
+    "setuptools-scm",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "USB-Imager"
+version = "2.0.0"
+description = "GUI-Application to write bootable disk images to USB key."
+
+requires-python = ">=3.9"
+dependencies = [
+    "PySide6",
+    "PyGObject",
+]
+
+authors = [
+    {name = "Skynet-Devel", email = "skynet-devel@secure.mailbox.org"},
+]
+
+keywords = [
+    "usb", "image", "img", "iso", "write", "writer", "dd", "flash", "boot",
+]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Intended Audience :: End Users/Desktop",
+    "Topic :: System",
+    "Topic :: Utilities",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Natural Language :: English",
+]
+
+dynamic = ["readme"]
+
+[project.urls]
+GitLab = "https://gitlab.com/skynet-devel/usb-imager"
+PyPI = "https://pypi.org/project/usb-image"
+
+[project.scripts]
+usb-imager = "usb_imager.__main__:main"
+
+# BETA
+[tool.setuptools.dynamic]
+readme = {file = ["README.md", "CHANGELOG.md"], content-type = "text/markdown"}
+
+# Settings for flat-layout
+# BETA
+[tool.setuptools.packages]
+find = {}  # Scanning implicit namespaces is active by default
+# BETA
+[tool.setuptools.package-data]
+"usb_imager.resources" = ["*.ui", "*.ico"]
