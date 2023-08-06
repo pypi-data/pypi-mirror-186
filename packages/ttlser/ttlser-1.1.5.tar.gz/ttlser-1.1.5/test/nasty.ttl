@@ -1,0 +1,535 @@
+#lang rdf/turtle
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ns1: <http://myduplicateprefix.org/> .
+#@prefix ns2: <http://myduplicateprefix.org/> .  # test for choosing a namespace consistently (I though I had fixed this?!) and warning about duplicate prefixes
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix oboInOwl: <http://www.geneontology.org/formats/oboInOwl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix blx: <http://uri.binterlex.org/base/> .
+@prefix BLX: <http://uri.binterlex.org/base/blx_> .  # test for longest prefix wins
+@prefix doid: <http://purl.obolibrary.org/obo/doid#> .
+@prefix other: <http://FIXME.org/other_> .
+@prefix a: <http://a.org/prefix_> .
+@prefix b: <http://b.org/prefix_> .
+@prefix A: <http://Z.org/prefix_> .
+@prefix B: <http://X.org/prefix_> .
+@prefix C: <http://cc.org/prefix_> .
+@prefix c: <http://c.org/prefix_> .
+@prefix l: <http://list.org/> .
+@prefix p: <http://prefix.org/> .
+@prefix sco: <http://sco.lol/> .
+@prefix prefixA: <http://example.org/A/> .
+@prefix prefixZ: <http://example.org/Z/> .
+@prefix prefixa: <http://example.org/a/> .
+@prefix prefixz: <http://example.org/z/> .
+@prefix requestedBy: <http://uri.binterlex.org/base/blx_999> . #make sure we can manage prefixes that are full uris
+@prefix unused: <http://uri.binterlex.org/base/readable/unused> .  # test remove unused
+@base <http://ihavenoqname.org/> .  # this will be stripped and we prefer proper prefixes
+
+<http://testurl.org/filename.ttl> a owl:Ontology ;
+    rdfs:label "U WOT M8" .
+
+# test annotation properties
+requestedBy: a owl:AnnotationProperty .
+
+other:a a owl:AnnotationProperty ;
+    other:UsedAP "LOOK AT MEEEEE!" .
+other:A a owl:AnnotationProperty .
+other:UsedAP a owl:AnnotationProperty .  # if only used predicates are put first then this will incorrectly sort before BLX:a and BLX:A
+
+# test full uri shortening
+BLX:BB a owl:Class ;
+    <http://uri.binterlex.org/base/blx_999> "DIO!" .
+
+# test failure to shorten on underscore
+BLX:AAB a owl:Class ;
+    <http://FIXME.org/other_this_works> 0 ;
+    #<http://uri.binterlex.org/base/colons:too> 1 ;
+    <http://uri.binterlex.org/base/this_fails> 2 ;
+    <http://purl.obolibrary.org/obo/doid#this_too> 3 ;
+    #blx:colons:1234567 ;  # while we're here make sure this works going forward
+    #blx:colons:also  # not ready for prime time on the parsing side sadly
+    .
+
+# test consistent ordering with respect to case
+BLX:AA a owl:Class .
+blx:aa a owl:Class .
+blx:Aa a owl:Class .
+BLX:Aa a owl:Class .
+blx:AA a owl:Class .
+BLX:aa a owl:Class .
+blx:aA a owl:Class .
+BLX:aA a owl:Class .
+BLX:a a owl:Class .
+BLX:b a owl:Class .
+BLX:ab a owl:Class .
+BLX:Ab a owl:Class .
+BLX:AB a owl:Class .
+blx:a a owl:Class .
+blx:b a owl:Class .
+blx:ab a owl:Class .
+blx:Ab a owl:Class .
+blx:AB a owl:Class .
+
+# tests consistent case ordering 2
+other:aa a owl:Class .
+other:AA a owl:Class .
+other:BBb a owl:Class .
+other:bb a owl:Class .
+other:BB a owl:Class .
+other:cc a owl:Class .
+other:CC a owl:Class .
+
+# test qnames where the fragment is only numbers
+BLX:1234567 a owl:Class .
+blx:1234567 a owl:Class .
+
+# test generating qnames from iris
+<http://uri.binterlex.org/base/123> a owl:Class .
+<http://uri.binterlex.org/base/blx_123> a owl:Class .
+
+# test for iris with no qname
+<http://ihavenoqname.org/heuhuehue_12345678> a owl:Class .
+<http://ihavenoqname.org/heuhuehue_1234567> a owl:Class .
+<bbbbbbbb> a owl:Class .
+<aaaaaaaa> a owl:Class .
+
+# test ordering for capitalization
+b:1 a owl:Class .
+a:1 a owl:Class .
+
+# test ordering of multiple restrictions
+BLX:2 a owl:Class ;
+    rdfs:subClassOf 
+        [ a owl:Restriction ;
+            owl:onProperty other:b1 ;
+            owl:allValuesFrom other:4 ],
+        [ a owl:Restriction ;
+            owl:onProperty other:b1 ;
+            owl:allValuesFrom other:3 ],
+        BLX:1234567,
+        [ a owl:Restriction ;
+            owl:onProperty other:b1 ;
+            owl:someValuesFrom other:6 ],
+        [ a owl:Restriction ;
+            owl:onProperty other:b1 ;
+            owl:someValuesFrom other:5 ],
+        [ a owl:Restriction ;
+            owl:onProperty other:a1 ;
+            owl:someValuesFrom other:2 ],
+        [ a owl:Restriction ;
+            owl:onProperty other:a1 ;
+            owl:someValuesFrom other:1 ] .
+
+# test whether restrictions flip
+
+BLX:0 a owl:Class ;
+    rdfs:subClassOf BLX:1234567,
+        [ a owl:Restriction ;
+            owl:onProperty other:b1 ;
+            owl:allValuesFrom other:2 ],
+        [ a owl:Restriction ;
+            owl:onProperty other:b1 ;
+            owl:someValuesFrom other:2 ] .
+
+# test whether classes can flip (the actual construction is nonsense, and not valid owl...)
+BLX:0.5 a owl:Class ;
+    rdfs:subClassOf BLX:1234567,
+        [ a owl:Restriction ;
+            owl:onProperty other:b1 ;
+            owl:someValuesFrom other:2 ],
+        [ a owl:Class ;
+            owl:onProperty other:b1 ;
+            owl:someValuesFrom other:2 ] .
+
+# test that we are ordering classes based on their qname not their uri
+B:1 a owl:Class .
+A:1 a owl:Class .
+
+BLX:1 a owl:Class ;
+    rdfs:subClassOf B:1, A:1 .
+
+# test ordering of rdf:List
+BLX:3 a owl:Class ;
+    owl:disjointUnionOf ( BLX:AA BLX:aA blx:aa blx:Aa B:5 B:4 B:3 B:2 B:1 A:5 A:4 A:3 A:2 A:1 ) .
+
+# test conversion of unpacked lists to correct representation
+BLX:4 a owl:Class ;
+    owl:disjointUnionOf [ rdf:first B:1 ;
+        rdf:rest [ rdf:first A:2 ;
+            rdf:rest [ rdf:first A:1 ;
+                rdf:rest rdf:nil ] ] ] .
+
+# test conversion of unpacked lists with explitic rdf:List
+BLX:4.5 a owl:Class ;
+    owl:disjointUnionOf [ a rdf:List ;
+        rdf:first B:1 ;
+        rdf:rest [ a rdf:List ;
+            rdf:first A:2 ;
+            rdf:rest [ a rdf:List ;
+                rdf:first A:1 ;
+                rdf:rest rdf:nil ] ] ] .
+
+# test booleans in list
+BLX:5 a owl:Class ;
+    owl:oneOf [ rdf:first "true"^^xsd:boolean ;
+                rdf:rest [ rdf:first "false"^^xsd:boolean ;
+                    rdf:rest rdf:nil ] ] .
+
+# make sure rdfs:Datatype is not pulled out to the top level
+BLX:6 a owl:Class ;
+    rdfs:range [ a rdfs:Datatype ;
+        owl:oneOf ( A:1 A:2 A:3 ) ] .
+
+# general axioms tests
+[] rdf:type owl:AllDifferent ;  # this should appear further down the page
+    owl:distinctMembers ( A:0 A:prefix_1 A:prefix_2 A:prefix_3 A:1 A:2 A:3 ) .
+
+[] rdf:type owl:AllDifferent ;  # this should appear above the general axiom above
+    owl:distinctMembers ( A:prefix_4 A:prefix_5 A:prefix_6 A:4 A:5 A:6 ) .
+
+# test the effect of types on strings
+BLX:7 a owl:Class ;
+    rdfs:label "label1", "label1"^^xsd:string, "label1"@en .
+
+# test for literal ordering
+BLX:8 a owl:Class ;
+    rdfs:label "Label2", "label2" , "one should come?", "Two should come?", 2, 1, false, true, 1.1, 0.01, 1e10, 1e0, 1.0, 1.00, "2", "1", "1.000",
+        "2014-04-14T00:00:00-08:00"^^xsd:dateTime, "2014-04-14T00:00:00"^^xsd:dateTime .
+
+# datetime ordering
+BLX:8.5 a owl:Class ;
+    rdfs:label "2014-04-14T00:00:01-08:00"^^xsd:dateTime,
+        "2014-04-14T00:00:00-08"^^xsd:dateTime,
+        "2014-04-14T00:00:00-06"^^xsd:dateTime,
+        "2014-04-14T00:00:01"^^xsd:dateTime,
+        "2014-04-14T00:00:00"^^xsd:dateTime,
+        "2014-04-14T00:00:00-00"^^xsd:dateTime,
+        "2014-04-14T00:00:00-00:00"^^xsd:dateTime .
+
+# test for classes missing a owl:Class decleration
+BLX:9 rdfs:subClassOf [ a owl:Restriction ;
+    owl:someValuesFrom B:1 ;
+    owl:onProperty other:b1 ] .
+
+# test for consistent ordering of predicate lists vs identifiers
+skos:related a owl:ObjectProperty ;
+    owl:inverseOf skos:related,
+        [ owl:inverseOf skos:related ] .
+
+# duplicate prefixes
+ns1:1234 a owl:Class .
+ns1:12345 a owl:Class .
+
+# axiom ordering
+
+[] a owl:Axiom ;
+    BLX:hasDbXref "A"^^xsd:string,
+        "D"^^xsd:string ;
+    owl:annotatedProperty BLX:00 ;
+    owl:annotatedSource BLX:10 ;
+    owl:annotatedTarget "A"^^xsd:string .
+
+[] a owl:Axiom ;
+    BLX:hasDbXref "B"^^xsd:string,
+        "D"^^xsd:string ;
+    owl:annotatedProperty BLX:01 ;
+    owl:annotatedSource BLX:11 ;
+    owl:annotatedTarget "B"^^xsd:string .
+
+[] a owl:Axiom ;
+    BLX:hasDbXref "C"^^xsd:string,
+        "D"^^xsd:string ;
+    owl:annotatedProperty BLX:02 ;
+    owl:annotatedSource BLX:12 ;
+    owl:annotatedTarget "C"^^xsd:string .
+
+# more axiom ordering
+
+[] a owl:Axiom ;
+    oboInOwl:hasDbXref "CSP2005:0729-7208"^^xsd:string ;
+    owl:annotatedProperty oboInOwl:hasExactSynonym ;
+    owl:annotatedSource obo:DOID_65 ;
+    owl:annotatedTarget "connective tissue disorder"^^xsd:string .
+
+[] a owl:Axiom ;
+    oboInOwl:hasDbXref "CSP2005:2483-6681"^^xsd:string ;
+    owl:annotatedProperty oboInOwl:hasExactSynonym ;
+    owl:annotatedSource obo:DOID_1595 ;
+    owl:annotatedTarget "clinical depression"^^xsd:string .
+
+[] a owl:Axiom ;
+    oboInOwl:hasDbXref "CSP2005:2596-8861"^^xsd:string ;
+    owl:annotatedProperty oboInOwl:hasExactSynonym ;
+    owl:annotatedSource obo:DOID_11394 ;
+    owl:annotatedTarget "ARDS"^^xsd:string .
+
+[] a owl:Axiom ;
+    oboInOwl:hasDbXref "CSP2005:0638-2797"^^xsd:string ;
+    owl:annotatedProperty oboInOwl:hasExactSynonym ;
+    owl:annotatedSource obo:DOID_3820 ;
+    owl:annotatedTarget "chlamydiaceae infection"^^xsd:string .
+
+[] a owl:Axiom ;
+    oboInOwl:hasDbXref "CSP2005:4000-0117"^^xsd:string ;
+    owl:annotatedProperty oboInOwl:hasExactSynonym ;
+    owl:annotatedSource obo:DOID_3669 ;
+    owl:annotatedTarget "Charcot's syndrome"^^xsd:string .
+
+# list ordering
+
+BLX:18 a owl:ObjectProperty .
+
+BLX:19 a owl:ObjectProperty .
+
+BLX:21 a owl:ObjectProperty ;
+    owl:oneOf (
+            BLX:18
+            BLX:19
+            [ owl:inverseOf BLX:20 ]
+            [ owl:inverseOf BLX:19 ] ),
+        (
+            BLX:21
+            BLX:19 ),
+        (
+            BLX:21
+            BLX:18 ) .
+
+BLX:20 a owl:ObjectProperty ;
+    owl:oneOf (
+            BLX:21
+            BLX:20 ),
+        (
+            BLX:21  # sums to 39 total ranks will be equal
+            BLX:18 ),
+        (
+            BLX:20  # sums to 39 total ranks will be equal
+            BLX:19 ),
+        (
+            BLX:20
+            BLX:18
+            BLX:19 ) .
+
+# axiom list ordering parent rank and list rank fight to the death
+
+[] a owl:Axiom ;
+    owl:annotatedSource BLX:20 ;
+    owl:annotatedProperty owl:propertyChainAxiom ;
+    owl:annotatedTarget (
+            BLX:21
+            BLX:18 ) ;
+    rdfs:label "lol you have got to be kidding me" .
+
+[] a owl:Axiom ;
+    owl:annotatedSource BLX:21 ;
+    owl:annotatedProperty owl:propertyChainAxiom ;
+    owl:annotatedTarget (
+            BLX:21
+            BLX:18 ) ;
+    rdfs:label "lol you have got to be kidding me" .
+
+# local list ordering
+
+[] a owl:AllDifferent ;
+    owl:distinctMembers (
+            other:b
+            other:B
+            other:aa
+            other:aA
+            other:Aa
+            other:AA ) .
+
+# global list ordering
+
+[] a owl:AllDifferent ;
+    owl:distinctMembers (
+            other:aa
+            other:cc ) .
+
+[] a owl:AllDifferent ;
+    owl:distinctMembers (
+            other:AA
+            other:cc ) .
+
+[] a owl:AllDifferent ;
+    owl:distinctMembers (
+            other:bb
+            other:cc ) .
+
+[] a owl:AllDifferent ;
+    owl:distinctMembers (
+            other:BB
+            other:cc ) .
+
+[] a (other:bb other:cc) .
+
+[] a (other:BB other:cc) .
+
+# full list ordering example
+
+[] a ( "bb" "cc" other:bb other:cc
+        [ a ( other:xx other:yy) ]
+        (other:bb other:cc) ) .
+
+[] a ( "bb" "cc" other:bb other:cc
+        [ a ( other:XX other:yy) ]
+        (other:bb other:cc) ) .
+
+[] a ("BB" "cc" other:BB other:cc
+        [ a (other:BB other:cc) ]
+        (other:BB other:cc) ) .
+
+# identical list ordering
+
+l:0 rdfs:label (1 2 3 4), (1 2 3 4) .
+
+l:1 rdfs:label ( (1 2 3 4) (1 2 3 4) ) .
+
+l:2 rdfs:label (1 2 3 4), (1 2), (3 4) .
+
+l:3 rdfs:label (1 2), (3 4 1 2), (3 4) .
+
+l:4 rdfs:label ( (1 2 3 4) (1 2) (3 4) ) .
+
+l:5 rdfs:label ( (1 2) (3 4 1 2) (3 4) ) .
+
+[] rdfs:label (1 2 3 4), (1 2 3 4) .
+
+# collections as subjects
+
+# ("this" "is" "a" "bare" "list") a rdf:List .  # TODO check on what the spec says this should serialize to...
+("this" "is" "a" "bare" "list") other:UsedAP "huehuehuehue" .
+
+# trying to reveal issues with summing list ranks
+
+[] a owl:Class ;
+    rdfs:label ( ("1" "5") ("0" "6") ("1" "5") ) .
+
+[] a owl:Class ;
+    rdfs:label ( ("2" "4") ("1" "5") ) .
+
+# sub class of ordering additional tests
+
+sco:0 a owl:Ontology ;
+    owl:imports sco:1 .
+
+sco:1 a owl:Ontology .  # this should appear above sco:0
+
+sco:2 a owl:AnnotationProperty ;
+    rdfs:subPropertyOf sco:3 .
+
+sco:3 a owl:AnnotationProperty .
+
+sco:4 a owl:ObjectProperty ;
+    rdfs:subPropertyOf sco:5 .
+
+sco:5 a owl:ObjectProperty .
+
+sco:6 a owl:Class ;
+    rdfs:subClassOf sco:6 .
+
+sco:7 a owl:Class ;
+    rdfs:subClassOf sco:8 .
+
+sco:8 a owl:Class .
+
+# XMLLiteral ordering
+
+other:XMLLiteral_test a owl:Class ;
+    rdfs:label "<tag>a</tag>"^^rdf:XMLLiteral,
+    "<tag>A</tag>"^^rdf:XMLLiteral,
+    """<tag>some text</tag>
+<something-else>another tag</something-else>
+    """^^rdf:XMLLiteral,
+    """<tag>some text</tag> <something-else>another tag</something-else>
+    """^^rdf:XMLLiteral .
+
+# empty qname ordering
+
+prefixA:0 a owl:Class .
+prefixA: a owl:Class .
+
+prefixZ:0 a owl:Class .
+prefixZ: a owl:Class .
+
+prefixa:0 a owl:Class .
+prefixa: a owl:Class .
+
+prefixz:0 a owl:Class .
+prefixz: a owl:Class .
+
+# preserve ordering of certain predicate lists
+
+l:plistTest owl:propertyChainAxiom (blx:predicate3 blx:predicate1 blx:predicate2) .
+
+# property chain axiom ordering issue
+
+p:property a owl:ObjectProperty ;
+    owl:propertyChainAxiom ( p:R_3 p:B_1 ),
+                           ( p:B_1 p:R_3 ),
+                           ( p:R_3 p:B_2 ),
+                           ( p:R_3 p:R_1 ),
+                           ( p:R_2 p:R_3 ) .
+
+# symmetric predicates
+
+<b> owl:disjointWith <a> .
+
+[] owl:disjointWith <c> .
+
+[ a owl:Class ] owl:disjointWith <d> .
+
+<e> owl:disjointWith [ a owl:Class ] .
+
+[ a owl:Restriction ] owl:disjointWith <f> .
+
+<g> owl:disjointWith [ a owl:Restriction ] .
+
+[] a owl:Restriction ;
+    owl:onProperty p:same ;
+    owl:someValuesFrom <thing/2> ;
+    owl:disjointWith [ a owl:Restriction ;
+            owl:onProperty p:same ;
+            owl:someValuesFrom <thing/1> ] .
+
+
+# terminal bnode case (with the cryptic symmetric dangling case)
+
+<dangling> a [] .
+
+<dangling> owl:disjointWith [] .
+
+[] owl:disjointWith <dangling> .
+
+# anon classes issue
+#  otherwise known as why the heck do the examples above
+#  serialize correctly but this one gets split!??!
+#  ISSUE: anon classes not treated correctly if parent type is not a owl:Class
+
+<hrm1> a p:Class ;
+    p:maybe-a-thing
+        [ a owl:Class ;
+            owl:onProperty other:b1 ;
+            owl:someValuesFrom other:2 ] .
+
+<hrm2> a owl:Class ;
+    p:maybe-a-thing
+        [ a owl:Class ;
+            owl:onProperty other:b1 ;
+            owl:someValuesFrom other:2 ] .
+
+[] a owl:Axiom ;
+    p:p [ a owl:Class ;
+            owl:intersectionOf (
+            <thing>
+            [ a owl:Restriction ;
+                owl:onProperty <pred> ;
+                owl:someValuesFrom <other> ] ) ] ;
+    oboInOwl:source "hrm"^^xsd:string .
+
+# preserve prefixes needed for that part of the test
+c: C: xml: .

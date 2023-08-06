@@ -1,0 +1,18 @@
+@prefix ilxtr: <http://uri.interlex.org/tgbugs/uris/readable/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ilxtr:b0 rdf:first ilxtr:x ;
+    rdf:rest
+    ilxtr:b1 .
+
+ilxtr:b1 rdf:first ilxtr:y ;
+    rdf:rest
+    ilxtr:b2 .
+
+ilxtr:b2 rdf:first ilxtr:z ;
+    rdf:rest
+    ilxtr:b3 .
+
+ilxtr:b3 rdf:first ilxtr:e ;
+    rdf:rest
+    ilxtr:b1 .

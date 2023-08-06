@@ -1,0 +1,22 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix p: <http://prefix.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+### Object Properties
+
+p:property a owl:ObjectProperty ;
+    owl:propertyChainAxiom (
+            p:B_1
+            p:R_3 ),
+        (
+            p:R_2
+            p:R_3 ),
+        (
+            p:R_3
+            p:B_1 ),
+        (
+            p:R_3
+            p:B_2 ),
+        (
+            p:R_3
+            p:R_1 ) .
