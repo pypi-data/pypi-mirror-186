@@ -1,0 +1,160 @@
+{
+    "fieldSpec": {
+      "ID": {
+        "front": {
+          "title": "ID",
+          "type": "hidden"
+        },
+        "back": {
+          "type": "int",
+          "size": 10,
+          "auto": true
+        }
+      },
+      "addressID": {
+        "front": {
+          "title": "Address",
+          "type": "select",
+          "class": "select2"
+        },
+        "back": {
+          "type": "int",
+          "size": 10,
+          "required": true
+        },
+        "join": {
+          "table": "address",
+          "fields": [
+            "id",
+            "postcode",
+            "line_1",
+            "line_2",
+            "town"
+          ],
+          "key": "id"
+        },
+        "options": {
+          "table": "address",
+          "key": "id",
+          "value": "postcode"
+        }
+      },
+      "code": {
+        "front": {
+          "title": "Course Code",
+          "type": "text"
+        },
+        "back": {
+          "type": "varchar",
+          "size": 10,
+          "required": true
+        }
+      },
+      "title": {
+        "front": {
+          "title": "Name",
+          "type": "text"
+        },
+        "back": {
+          "type": "varchar",
+          "size": 55
+        }
+      },
+      "distance": {
+        "front": {
+          "title": "Distance",
+          "type": "text"
+        },
+        "back": {
+          "type": "int",
+          "size": 10
+        }
+      },
+      "type": {
+        "front": {
+          "title": "Type",
+          "type": "select",
+          "class": "select2"
+        },
+        "back": {
+          "arraytouse": "course_type",
+          "type": "varchar",
+          "size": 55
+        }
+      },
+      "am": {
+        "front": {
+          "title": "AM Required No.",
+          "type": "text",
+          "class": "touchspin"
+        },
+        "back": {
+          "type": "int",
+          "size": 10,
+          "default": 0
+        }
+      },
+      "rf": {
+        "front": {
+          "title": "Red Flag Required No.",
+          "type": "text",
+          "class": "touchspin"
+        },
+        "back": {
+          "type": "int",
+          "size": 10,
+          "default": 0
+        }
+      },
+      "neg": {
+        "front": {
+          "title": "NEG Required No.",
+          "type": "text",
+          "class": "touchspin"
+        },
+        "back": {
+          "type": "int",
+          "size": 10,
+          "default": 0
+        }
+      },
+      "com": {
+        "front": {
+          "title": "Coms Required No.",
+          "type": "text",
+          "class": "touchspin",
+          "value": 0
+        },
+        "back": {
+          "type": "int",
+          "size": 10,
+          "default": 0
+        }
+      },
+      "archive": {
+        "front": {
+          "title": "Archive",
+          "type": "select",
+          "class": "select2"
+        },
+        "back": {
+          "arraytouse": "yesno",
+          "type": "bit",
+          "size": 1,
+          "default": null
+        }
+      }
+    },
+    "tableSpec": {
+      "name": "course",
+      "pk": [
+        "ID"
+      ],
+      "page": 10000,
+      "auto": 0
+    },
+    "databaseSpec": {
+        "type": "postgres",
+        "name": "test"
+    }
+  }
