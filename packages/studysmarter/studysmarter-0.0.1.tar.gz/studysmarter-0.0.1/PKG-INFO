@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: studysmarter
+Version: 0.0.1
+Summary: An API Wrapper for StudySmarter
+Author: Issac
+Keywords: python,web surface,web scrape,http request,requests,studysmarter,anki,wrapper
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+
+# studysmarter
+API Wrapper for studysmarter.
+
+Developed by Issac (c) 2022
+
+Example use case:
+```python
+import studysmarter
+
+# login
+studysmarter_account = studysmarter.login("testemail123@gmail.com", "password123")
+
+# change studysmarter account name
+studysmarter_account.change_name("IssacLifts")
+
+# create new studyset
+stsudysmarter_account.create_studyset("Quantum Physics")
+
+# fetch all studysets (dictionary format)
+studysets = studysmarter_account.fetch_studysets()
+
+# prints all your studysets in dictionary format
+print(studysets.study_sets)
+
+# fetch the first studyset
+studyset = studysets.fetch_studyset(0)
+
+# fetches all flashcards
+flash_cards = studyset.fetch_flashcards()
+
+# adds a flashcard to set
+studyset.add_flashcard("What's the equation to find speed", "Disance / time")
+```
