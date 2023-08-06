@@ -1,0 +1,56 @@
+[build-system]
+build-backend = "flit_core.buildapi"
+requires = ["flit_core"]
+
+[project]
+authors = [{ name = "xinetzone", email = "735613050@qq.com" }]
+dynamic = ["version", "description"]
+license = { file = "LICENSE" }
+name = "sanic_book"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["d2py"]
+maintainers = [{ name = "xinetzone", email = "735613050@qq.com" }]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "Framework :: Sphinx",
+  "Framework :: Sphinx :: Theme",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+]
+
+[project.urls]
+Home = "https://github.com/xinetzone/sanic-book"
+
+[project.optional-dependencies]
+doc = [
+  "xyzstyle",
+  "myst-nb",
+  # "pytest-regressions",
+  # "sphinxext-rediraffe",
+  "sphinx-copybutton",
+  # "sphinx-intl",
+  "ablog",
+  "sphinx-thebe",
+  "sphinx-comments",
+  # "plotly",
+  # "pandas",
+  # "matplotlib",
+  "sphinx-design",
+  "sphinxcontrib-bibtex",
+  "sphinx-sitemap"
+]
+coverage = ["pytest-cov", "codecov", "xinetzone[test]"]
+dev = ["pyyaml", "pre-commit", "xinetzone[coverage]"]
+test = ["pytest", "xinetzone[doc]"]
+
+[tool.flit.module]
+name = "sanic_book"
+
+[project.entry-points]
+"sphinx.html_themes" = { xinetzone = "xinetzone" }
+
+[tool.flit.sdist]
+# include = ["doc/"]
+exclude = ['doc', '.git', '.github']
