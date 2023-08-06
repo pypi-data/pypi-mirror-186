@@ -1,0 +1,954 @@
+{
+  "total_oda_flow_net": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1010,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": ""
+  },
+  "total_oda_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 11010,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": ""
+  },
+  "total_oda_official_definition": {
+    "source": "dac1",
+    "type": "one_research",
+    "function": "total_oda_official_definition",
+    "share_of": "total_oda_official_definition"
+  },
+  "total_oda_bilateral_flow_net": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1015,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "total_oda_bilateral_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 11015,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_oda_multilateral_flow_net": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 2000,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "total_oda_multilateral_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 12000,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_oda_flow_gross": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1010,
+      "flows_code": 1120,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_gross"
+  },
+  "total_oda_flow_commitments": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1010,
+      "flows_code": 1150,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_commitments"
+  },
+  "total_oda_grants_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1010,
+      "flows_code": 1121,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "total_oda_grants_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": [
+        11016,
+        12100
+      ],
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge",
+    "group": true
+  },
+  "total_oda_non_grants_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1010,
+      "flows_code": 1122,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "total_oda_non_grants_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": [
+        11017,
+        12110,
+        11026,
+        11018
+      ],
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge",
+    "group": true
+  },
+  "total_covid_oda_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 8851,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_covid_oda_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 8851,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "total_covid_oda_ge_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "total_covid_oda_ge",
+      "secondary": "total_covid_oda_flow",
+      "new": "total_covid_oda_ge_linked"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_health_covid_oda_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 8852,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_health_covid_oda_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 8852,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "total_health_covid_oda_ge_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "total_covid_oda_ge",
+      "secondary": "total_health_covid_oda_flow",
+      "new": "total_health_covid_oda_ge_linked"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_covid_vaccine_donations_oda_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 8853,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_covid_vaccine_donations_oda_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 8853,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "total_covid_vaccine_donations_oda_ge_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "total_covid_oda_ge",
+      "secondary": "total_covid_vaccine_donations_oda_flow",
+      "new": "total_covid_vaccine_donations_oda_ge_linked"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_covid_vaccine_donations_domestic_supply_oda_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 8854,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_covid_vaccine_donations_domestic_supply_oda_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 8854,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "total_covid_vaccine_donations_domestic_supply_oda_ge_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "total_covid_oda_ge",
+      "secondary": "total_covid_vaccine_donations_domestic_supply_oda_flow",
+      "new": "total_covid_vaccine_donations_domestic_supply_oda_ge_linked"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_covid_vaccine_donations_dev_purchase_oda_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 8855,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_covid_vaccine_donations_dev_purchase_oda_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 8855,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "total_covid_vaccine_donations_dev_purchase_oda_ge_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "total_covid_oda_ge",
+      "secondary": "total_covid_vaccine_donations_dev_purchase_oda_flow",
+      "new": "total_covid_vaccine_donations_dev_purchase_oda_ge_linked"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_covid_ancillary_oda_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 8856,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_covid_ancillary_oda_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 8856,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "total_covid_ancillary_oda_ge_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "total_covid_oda_ge",
+      "secondary": "total_covid_ancillary_oda_flow",
+      "new": "total_covid_ancillary_oda_ge_linked"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "gni": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": ""
+  },
+  "oda_gni_flow": {
+    "source": "dac1",
+    "type": "one_research",
+    "function": "oda_gni_flow",
+    "share_of": ""
+  },
+  "oda_gni_ge": {
+    "source": "dac1",
+    "type": "one_research",
+    "function": "oda_gni_ge",
+    "share_of": ""
+  },
+  "total_in_donor_students_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1500,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "total_in_donor_students_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1500,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_in_donor_students_ge_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "total_in_donor_students_ge",
+      "secondary": "total_in_donor_students_flow",
+      "new": "total_in_donor_students_ge_linked"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "scholarships_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1510,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "scholarships_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1510,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "scholarships_ge_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "scholarships_ge",
+      "secondary": "scholarships_flow",
+      "new": "scholarships_ge_linked"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "imputed_students_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1520,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "imputed_students_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1520,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "imputed_students_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "imputed_students_ge",
+      "secondary": "imputed_students_flow",
+      "new": "imputed_students_ge_linked"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "debt_relief_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1600,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "debt_relief_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1600,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "idrc_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1820,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "idrc_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 1820,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "idrc_ge_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "idrc_ge",
+      "secondary": "idrc_flow",
+      "new": "idrc_ge_linked"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "eu_core_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 2102,
+      "flows_code": 1140,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "eu_core_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 2102,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "eu_core_ge_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "eu_core_ge",
+      "secondary": "eu_core_flow",
+      "new": "eu_core_ge_linked"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "one_non_core_oda_flow": {
+    "source": "dac1",
+    "type": "one",
+    "indicators": [
+      "debt_relief_flow",
+      "idrc_flow",
+      "total_in_donor_students_flow"
+    ],
+    "group_by": [
+      "aidtype_code"
+    ],
+    "share_of": "total_oda_flow_net"
+  },
+  "one_non_core_oda_ge": {
+    "source": "dac1",
+    "type": "one",
+    "indicators": [
+      "debt_relief_ge",
+      "idrc_ge",
+      "total_in_donor_students_ge"
+    ],
+    "group_by": [
+      "aidtype_code"
+    ],
+    "share_of": "total_oda_ge"
+  },
+  "one_non_core_oda_ge_linked": {
+    "source": "dac1",
+    "type": "one_research",
+    "function": "one_non_core_oda_ge_linked",
+    "share_of": "total_oda_ge"
+  },
+  "one_core_oda_flow": {
+    "source": "dac1",
+    "type": "one_research",
+    "function": "one_core_oda_flow",
+    "share_of": "total_oda_flow_net"
+  },
+  "one_core_oda_ge": {
+    "source": "dac1",
+    "type": "one_research",
+    "function": "one_core_oda_ge",
+    "share_of": "total_oda_ge"
+  },
+  "one_core_oda_ge_linked": {
+    "source": "dac1",
+    "type": "one_research",
+    "function": "one_core_oda_ge_linked",
+    "share_of": "total_oda_ge"
+  },
+  "total_psi_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 11030,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "total_psi_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 11030,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "total_psi_flow_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "total_psi_flow",
+      "secondary": "total_psi_ge",
+      "new": "total_psi_flow_linked"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "institutional_psi_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 11023,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "institutional_psi_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 11023,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "institutional_psi_flow_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "institutional_psi_flow",
+      "secondary": "institutional_psi_ge",
+      "new": "institutional_psi_flow_linked"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "instrument_psi_flow": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 11024,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "instrument_psi_ge": {
+    "source": "dac1",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 11024,
+      "flows_code": 1160,
+      "amounttype_code": "A"
+    },
+    "share_of": "total_oda_ge"
+  },
+  "instrument_psi_flow_linked": {
+    "source": "dac1",
+    "type": "one_linked",
+    "components": {
+      "main": "instrument_psi_flow",
+      "secondary": "instrument_psi_ge",
+      "new": "instrument_psi_flow_linked"
+    },
+    "share_of": "total_oda_flow_net"
+  },
+  "recipient_imputed_multi_flow_net": {
+    "source": "dac2a",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 106,
+      "datatype_code": "A"
+    },
+    "share_of": "recipient_total_flow_net"
+  },
+  "recipient_bilateral_flow_net": {
+    "source": "dac2a",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 206,
+      "datatype_code": "A"
+    },
+    "share_of": "recipient_total_flow_net"
+  },
+  "recipient_bilateral_flow_gross": {
+    "source": "dac2a",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 240,
+      "datatype_code": "A"
+    },
+    "share_of": ""
+  },
+  "recipient_loans_flow_gross": {
+    "source": "dac2a",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 204,
+      "datatype_code": "A"
+    },
+    "share_of": ""
+  },
+  "recipient_loans_flow_net": {
+    "source": "dac2a",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 218,
+      "datatype_code": "A"
+    },
+    "share_of": "recipient_total_flow_net"
+  },
+  "recipient_interest_received_flow": {
+    "source": "dac2a",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 209,
+      "datatype_code": "A"
+    },
+    "share_of": "recipient_total_flow_net"
+  },
+  "recipient_humanitarian_flow": {
+    "source": "dac2a",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 216,
+      "datatype_code": "A"
+    },
+    "share_of": "recipient_total_flow_net"
+  },
+  "recipient_grants_flow": {
+    "source": "dac2a",
+    "type": "dac",
+    "filters": {
+      "aidtype_code": 201,
+      "datatype_code": "A"
+    },
+    "share_of": "recipient_total_flow_net"
+  },
+  "recipient_total_flow_net": {
+    "source": "dac2a",
+    "type": "one",
+    "indicators": [
+      "recipient_imputed_multi_flow_net",
+      "recipient_bilateral_flow_net"
+    ],
+    "group_by": [
+      "aidtype_code"
+    ],
+    "share_of": "recipient_total_flow_net"
+  },
+  "crs_bilateral_flow_disbursement_gross": {
+    "source": "crs",
+    "type": "dac",
+    "filters": {
+      "category": 10
+    },
+    "value_column": "usd_disbursement",
+    "share_of": ""
+  },
+  "crs_bilateral_all_flows_disbursement_gross": {
+    "source": "crs",
+    "type": "dac",
+    "filters": {
+      "category": [
+        10,
+        21
+      ]
+    },
+    "value_column": "usd_disbursement"
+  },
+  "crs_gender_significant_flow_disbursement_gross": {
+    "source": "crs",
+    "type": "dac",
+    "filters": {
+      "category": 10,
+      "aid_t": [
+        "A02",
+        "B01",
+        "B03",
+        "B04",
+        "C01",
+        "D01",
+        "D02",
+        "E01"
+      ],
+      "gender": "1"
+    },
+    "value_column": "usd_disbursement",
+    "share_of": "crs_gender_allocable_flow_disbursement_gross"
+  },
+  "crs_gender_principal_flow_disbursement_gross": {
+    "source": "crs",
+    "type": "dac",
+    "filters": {
+      "category": 10,
+      "aid_t": [
+        "A02",
+        "B01",
+        "B03",
+        "B04",
+        "C01",
+        "D01",
+        "D02",
+        "E01"
+      ],
+      "gender": "2"
+    },
+    "value_column": "usd_disbursement",
+    "share_of": "crs_gender_allocable_flow_disbursement_gross"
+  },
+  "crs_gender_not_targeted_flow_disbursement_gross": {
+    "source": "crs",
+    "type": "dac",
+    "filters": {
+      "category": 10,
+      "aid_t": [
+        "A02",
+        "B01",
+        "B03",
+        "B04",
+        "C01",
+        "D01",
+        "D02",
+        "E01"
+      ],
+      "gender": "0"
+    },
+    "value_column": "usd_disbursement",
+    "share_of": "crs_gender_allocable_flow_disbursement_gross"
+  },
+  "crs_gender_not_screened_flow_disbursement_gross": {
+    "source": "crs",
+    "type": "dac",
+    "filters": {
+      "category": 10,
+      "aid_t": [
+        "A02",
+        "B01",
+        "B03",
+        "B04",
+        "C01",
+        "D01",
+        "D02",
+        "E01"
+      ],
+      "gender": "99"
+    },
+    "value_column": "usd_disbursement",
+    "share_of": "crs_gender_allocable_flow_disbursement_gross"
+  },
+  "crs_gender_allocable_flow_disbursement_gross": {
+    "source": "crs",
+    "type": "dac",
+    "filters": {
+      "category": 10,
+      "aid_t": [
+        "A02",
+        "B01",
+        "B03",
+        "B04",
+        "C01",
+        "D01",
+        "D02",
+        "E01"
+      ]
+    },
+    "value_column": "usd_disbursement",
+    "share_of": "crs_gender_allocable_flow_disbursement_gross"
+  },
+  "crs_gender_allocable_total_flow_disbursement_gross": {
+    "source": "crs",
+    "type": "one",
+    "indicators": [
+      "crs_gender_allocable_flow_disbursement_gross"
+    ],
+    "group_by": [
+      "category",
+      "aid_t",
+      "finance_t",
+      "flow_code",
+      "sector_code",
+      "gender",
+      "environment",
+      "nutrition",
+      "climate_mitigation",
+      "climate_adaptation",
+      "biodiversity",
+      "desertification"
+    ],
+    "share_of": "crs_gender_allocable_flow_disbursement_gross"
+  },
+  "crs_gender_total_flow_gross": {
+    "source": "crs",
+    "type": "one",
+    "indicators": [
+      "crs_gender_significant_flow_disbursement_gross",
+      "crs_gender_principal_flow_disbursement_gross"
+    ],
+    "group_by": [
+      "category",
+      "aid_t",
+      "finance_t",
+      "flow_code",
+      "sector_code",
+      "gender",
+      "environment",
+      "nutrition",
+      "climate_mitigation",
+      "climate_adaptation",
+      "biodiversity",
+      "desertification"
+    ],
+    "share_of": "crs_gender_allocable_flow_disbursement_gross"
+  },
+  "crs_bilateral_total_flow_gross_by_purpose": {
+    "source": "crs",
+    "type": "one",
+    "indicators": [
+      "crs_bilateral_flow_disbursement_gross"
+    ],
+    "group_by": [
+      "category",
+      "aid_t",
+      "finance_t",
+      "flow_code",
+      "sector_code",
+      "gender",
+      "environment",
+      "nutrition",
+      "climate_mitigation",
+      "climate_adaptation",
+      "biodiversity",
+      "desertification"
+    ],
+    "share_of": "total_bi_multi_flow_disbursement_gross"
+  },
+  "multisystem_multilateral_contributions_disbursement_gross": {
+    "source": "multisystem",
+    "type": "dac",
+    "filters": {
+      "aid_to_or_thru": [
+        "Core contributions to"
+      ]
+    },
+    "value_column": "usd_extended",
+    "share_of": "total_bi_multi_flow_disbursement_gross"
+  },
+  "multisystem_multilateral_contributions_commitments_gross": {
+    "source": "multisystem",
+    "type": "dac",
+    "filters": {
+      "aid_to_or_thru": [
+        "Core contributions to"
+      ]
+    },
+    "value_column": "usd_commitment",
+    "share_of": "total_bi_multi_flow_disbursement_gross"
+  },
+  "imputed_multi_flow_disbursement_gross": {
+    "source": "multisystem",
+    "type": "one_research",
+    "function": "multilateral_imputed_flows",
+    "share_of": "total_bi_multi_flow_disbursement_gross"
+  },
+  "total_bi_multi_flow_disbursement_gross": {
+    "source": "crs",
+    "type": "one_research",
+    "function": "total_bi_multi_flows",
+    "share_of": "total_bi_multi_flow_disbursement_gross"
+  }
+}
