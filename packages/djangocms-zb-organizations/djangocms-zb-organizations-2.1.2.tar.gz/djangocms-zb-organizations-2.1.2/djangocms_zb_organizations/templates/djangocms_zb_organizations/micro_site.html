@@ -1,0 +1,134 @@
+{% extends CMS_TEMPLATE %}
+{% load i18n cms_tags easy_thumbnails_tags %}
+{% block content %}
+    {% render_model_block micro_site %}
+        <div class="container my-5">
+            {% if disclaimer != "" %}
+                <div class="alert alert-info" role="alert">
+                    <p>{{ disclaimer }}</p>
+                </div>
+            {% endif %}
+            <h2 class="text-center">{% if micro_site.organization.logo %}
+                <img src="{{ micro_site.organization.logo.url }}" alt="" style="width: 14%">
+                | {% endif %}{{ micro_site.organization.name }}</h2>
+            {% for picture in pictures %}
+                {% if forloop.first %}
+                    <div id="carouselExampleIndicators" class="carousel slide shadow" data-ride="carousel"
+                         data-interval="8000">
+                    <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter|add:-1 }}"
+                        class="active"></li>
+                {% else %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter|add:-1 }}"></li>
+                {% endif %}
+            {% if forloop.last %}
+                </ol>
+            {% endif %}
+            {% endfor %}
+            {% for picture in pictures %}
+                {% if forloop.first %}
+                    <div class="carousel-inner">
+                    <div class="carousel-item active" data-interval="8000">
+                        {% thumbnail picture.picture 2880x960 crop="smart" upscale as thumb %}
+                        <img src="{{ thumb.url }}" class="d-block w-100" alt="...">
+                    </div>
+                {% else %}
+                    <div class="carousel-item" data-interval="8000">
+                        {% thumbnail picture.picture 2880x960 crop="smart" upscale as thumb %}
+                        <img src="{{ thumb.url }}" class="d-block w-100" alt="...">
+                    </div>
+                {% endif %}
+            {% if forloop.last %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                </div>
+            {% endif %}
+            {% endfor %}
+            <div class="jumbotron jumbotron-fluid mt-5 p-4">
+                <div class="container">
+                    {% if micro_site.abstract %}
+                        {{ micro_site.abstract|safe }}
+                    {% endif %}
+                    {{ micro_site.content|safe }}
+                </div>
+            </div>
+        {% if videos %}
+            <div id="videos">
+                <div class="row my-5 justify-content-center">
+                    {% for video in videos  %}
+                        <div class="col-xs-12 col-sm-12 col-md-6 my-3">
+                            <iframe src="{{ video }}" class="w-100" style="height: 400px" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        {% endif %}
+            <div id="content-events">
+                <h2>{% trans 'Catalog' %}</h2>
+                {% for catalog in catalogs %}
+                    {% if forloop.first %}
+                        <div id="carouselExampleIndicators2" class="carousel slide pb-5" data-interval="8000"
+                             data-ride="carousel">
+                        <ol class="carousel-indicators">
+                    {% endif %}
+                {% if forloop.counter|divisibleby:3 %}
+                    {% widthratio forloop.counter 3 1 as contador %}
+                    <li data-target="#carouselExampleIndicators2" data-slide-to="{{ contador|add:-1 }}"
+                            {% if forloop.counter == 3 %} class="active"{% endif %} ></li>
+                {% endif %}
+                {% if forloop.last %}
+                    {% if not forloop.counter|divisibleby:3 %}
+                        <li data-target="#carouselExampleIndicators2" data-slide-to="{{ contador }}"
+                                {% if forloop.counter == 3 %} class="active"{% endif %} ></li>
+                    {% endif %}
+                    </ol>
+                {% endif %}
+                {% endfor %}
+                {% for catalog in micro_site.catalog_micro_site.all %}
+                    {% if forloop.first %}
+                        <div class="carousel-inner">
+                        <div class="carousel-item active" data-interval="8000">
+                        <div class="card-deck mb-5">
+                    {% endif %}
+                <div class="col-4">
+                    <div class="card shadow h-100">
+                        {% thumbnail catalog.picture 400x250 crop="smart" upscale as thumb %}
+                        <img src="{{ thumb.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ catalog.name }}</h5>
+                            <p class="card-text">{{ catalog.description|safe }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% if forloop.counter|divisibleby:3 %}
+                    </div>
+                    </div>
+                    {% if forloop.last %}
+                        </div>
+                    {% else %}
+                        <div class="carousel-item " data-interval="8000">
+                        <div class="card-deck mb-5">
+                    {% endif %}
+                {% else %}
+                {% if forloop.last %}
+                    </div>
+                    </div>
+                    </div>
+                {% endif %}
+                {% endif %}
+                    {% empty %}
+                    <p class="blog-empty">{% trans "No catalog found." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+        </div>
+    {% endrender_model_block %}
+{% endblock %}
