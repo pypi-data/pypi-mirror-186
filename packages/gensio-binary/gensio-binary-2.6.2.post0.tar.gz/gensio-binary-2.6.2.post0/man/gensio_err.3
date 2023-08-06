@@ -1,0 +1,86 @@
+.TH gensio_err 3 "24 Feb 2019"
+.SH NAME
+gensio_err \- Error reporting values for gensio functions
+.SH SYNOPSIS
+.B #include <gensio/gensio_err.h>
+.br
+.B const char *gensio_err_to_str(int err)
+.SH "DESCRIPTION"
+The return values for gensio functions that return errors and the
+reported values in callbacks from the gensio library are all gensio
+errors.  Possible values are:
+.IP
+GE_NOERR                 No error
+.br
+GE_NOMEM                 Out of memory
+.br
+GE_NOTSUP                Operation not supported
+.br
+GE_INVAL                 Invalid data to parameter
+.br
+GE_NOTFOUND              Value or file not found
+.br
+GE_EXISTS                Value already exists
+.br
+GE_OUTOFRANGE            Value out of range
+.br
+GE_INCONSISTENT          Parameters inconsistent in call
+.br
+GE_NODATA                No data was available for the function
+.br
+GE_OSERR                 OS error, see logs
+.br
+GE_INUSE                 Object was already in use
+.br
+GE_INPROGRESS            Operation is in progress
+.br
+GE_NOTREADY              Object was not ready for operation
+.br
+GE_TOOBIG                Value was too large for data
+.br
+GE_TIMEDOUT              Operation timed out
+.br
+GE_RETRY                 Retry operation later
+.br
+GE_KEYNOTFOUND           Unable to find the given key
+.br
+GE_CERTREVOKED           Key was revoked
+.br
+GE_CERTEXPIRED           Key was expired
+.br
+GE_KEYINVALID            Key is not valid
+.br
+GE_NOCERT                Certificate not provided
+.br
+GE_CERTINVALID           Certificate is not valid
+.br
+GE_PROTOERR              Protocol error
+.br
+GE_COMMERR               Communication error
+.br
+GE_IOERR                 Internal I/O error
+.br
+GE_REMCLOSE              Remote end closed connection
+.br
+GE_HOSTDOWN              Host could not be reached
+.br
+GE_CONNREFUSE            Connection refused
+.br
+GE_DATAMISSING           Data was missing
+.br
+GE_CERTNOTFOUND          Unable to find given certificate
+.br
+GE_AUTHREJECT            Authentication tokens rejected
+.br
+GE_ADDRINUSE             Address already in use
+.br
+GE_INTERRUPTED           Operation was interrupted by a signal
+.PP
+GE_SHUTDOWN              Operation on shutdown file descriptor
+.PP
+GE_LOCALCLOSED           Local side closed connection
+.PP
+.B gensio_err_to_str
+converts an integer error value to the given string.
+.SH "SEE ALSO"
+gensio(5), gensio_err(3), gensio_log(3)

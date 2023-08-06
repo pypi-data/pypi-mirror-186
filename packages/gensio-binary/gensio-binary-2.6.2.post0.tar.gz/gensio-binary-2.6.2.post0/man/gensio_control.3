@@ -1,0 +1,324 @@
+.TH gensio_control 3 "27 Feb 2019"
+.SH NAME
+gensio_control \- Perform gensio-specific actions
+.SH SYNOPSIS
+.B #include <gensio/gensio.h>
+.TP 20
+.B int gensio_control(struct gensio *io, int depth, bool get,
+.br
+.B                    unsigned int option,
+.br
+.B                    char *data, gensiods *datalen);
+.SH "DESCRIPTION"
+.B gensio_control
+performs a gensio-specific operation on the gensio (if
+.I depth
+is 0) or
+one of its children (
+.I depth > 0).  If depth is
+.I GENSIO_CONTROL_DEPTH_ALL,
+then call all the children with the data.
+.I GE_NOTSUP
+error returns from individual gensios are ignored in that case, but it
+will stop at the first error besides that.  If depth is
+GENSIO_CONTROL_DEPTH_FIRST, it will return on the first gensio that
+doesn't return
+.I GE_NOTSUP.
+It returns
+.I GE_NOTFOUND
+if nothing handled it.
+
+If you specify a depth >= 0, and depth is greater than the number of
+gensios in the stack, this will return
+.I GE_NOTFOUND.
+This way you can know if you reached the bottom of the stack.
+
+Most controls use normal strings for configuration, a control will be
+this way unless othersise specified.  Some controls allow binary
+information to be passed.
+
+If
+.I get
+is
+.I GENSIO_CONTROL_GET
+(true), attempt to fetch the option.  You cannot use
+.I GENSIO_CONTROL_DEPTH_ALL
+with a fetch.  To fetch an option, you must pass in data long
+enough to hold the output and set
+.I datalen
+to the number of bytes available in
+.I data
+for the output.  It will return the length of the string (like strlen,
+not including the terminating nil) or binary data in
+.I datalen.
+
+An operation with
+.I get
+set to
+.I GENSIO_CONTROL_SET
+(false) is a set operation, it will set values or controls in the gensio.
+For string values,
+.I datalen
+is not used in a put operation or for determining the length
+of the input string in
+.I data,
+it must be a nil terminated string.  For binary values,
+.I datalen
+must be provided.
+
+A get operation is alway indepotent (it won't change anything, so
+multiple calls will not have any effect on the state of the system).
+A get operation may or may not use information passed in
+.I data,
+and returns information in the
+.I data
+field.
+
+If the output does not fit in a get operation,
+.I datalen
+is updated to where it would have been if it had enough bytes (one
+less than the total number of bytes required for string controls), but
+the output in
+.I data
+is truncated (and nil terminated if possible for string controls).
+This can be used to probe to see how long a buffer is required by
+passing in a zero
+.I *datalen,
+and then allocating
+.I *datalen
+(+ 1 for string gensios) and calling the function again with that data.
+
+gensio control operations in
+.I option
+depend on the particular gensio.  Below some are documented, but there
+may be other controls available.  See the gensio documentation in
+gensio(5) for details.
+.SS "GENSIO_CONTROL_NODELAY"
+Set the enable/disable for any NAGLE type algorithms.
+For put the
+.I data
+should be a string "1" to disable delay, or "0" to enable delay.
+Return value from a get is a string "1" or "0".
+.SS "GENSIO_CONTROL_STREAMS"
+Return information about incoming and outgoing streams for the gensio.
+This is read(get)-only and returns the value in the data in the form
+"instream=<n>,ostream=<n>".  Used by SCTP.
+.SS "GENSIO_CONTROL_SEND_BREAK"
+Request that a break be sent over the line (primarily for telnet).
+.SS "GENSIO_CONTROL_GET_PEER_CERT_NAME"
+Return the object from the certificate from the remote end.  This is
+primarily for SSL and certauth so the application can validate the
+certificate's common name, but it can fetch any object from the
+certificate.
+
+There are two ways to use this interface: fetch by index or fetch
+by object type.
+
+To fetch by index, just pass in a number in the data, like "0"
+and it will fetch the value at that index.
+
+To fetch by object type, pass in a number and the object type
+separated by a comma.  The object type to fetch is SN (short name) or
+LN (long name) descriptor per /usr/include/openssl/object.h.  Like
+"CN" or "commonName".  The index should be one less than the start
+search, you should use -1, for instance to fetch the first index.
+
+The data returned is in the form: "<index>,<sn>,<value>".
+Where sn is the short name.
+
+In fetch by object type mode, there may be more than one of an
+object in a certificate, so this interface can handle that.
+just pass in the index returned by the first into the second
+call and it will start after that index.  For instance, to
+fetch the first common name, do (with error checking removed for
+clarity):
+.IP
+strcpy(data, "-1,CN");
+.br
+gensio_control(io, 0, true, data, &len)
+.PP
+Say it returns "3,CN,MyName.org"  You would use
+.IP
+strcpy(data, "3,CN");
+.br
+gensio_control(io, 0, true, data, &len)
+.PP
+to get the next common name, which might be "4,CN,MyName2.org".
+You get an GE_NOTFOUND at the end.
+
+Returns
+.I GE_NOCERT if there is no remote certificate,
+.I GE_CERTINVAL
+if the passed in object name is not valid, and
+.I GE_NOTFOUND
+if the object was not available in the certificate.
+.SS "GENSIO_CONTROL_CERT_AUTH"
+Set the certificate authority file to the string in
+.I data.
+If it ends in '/', it is assumed to be a directory, otherwise it is
+assumed to be a file.  This generally must be done before
+authorization is done, generally before open or in the
+.I GENSIO_EVENT_PRECERT_VERIFY
+event (see gensio_event(3) for details).
+.SS "GENSIO_CONTROL_USERNAME"
+Get/set the username for the gensio, generally the username sent from
+the client end on a certauth gensio.  This is always a string.
+.SS "GENSIO_CONTROL_PASSWORD"
+Get/set the password for the gensio, generally the password sent from
+the client end on a certauth gensio.  This is always a string.  On the
+server side this will only be available in the
+.I GENSIO_EVENT_PASSWORD_VERIFY
+event. and is cleared outside of that.
+.SS "GENSIO_CONTROL_2FA"
+Get/set the 2-factor auth data for the gensio, generally the data sent
+from the client end on a certauth gensio.  This is non-nil terminated
+binary data, generally.  On the server side this will only be
+available in the GENSIO_EVENT_PASSWORD_VERIFY event or the
+.I GENSIO_2FA_VERIFY
+event and is cleared outside of that.
+.SS "GENSIO_CONTROL_SERVICE"
+On a client, set the service data passed by the gensio to the server.
+On a server, et the service sent from the gensio client, generally
+available on a certauth server.  Returns
+.I GE_DATAMISSING
+if a service was not sent.
+.PP
+This is a binary control, so arbitrary data can be passed in the
+service.
+.SS "GENSIO_CONTROL_CERT"
+Get the full certificate in text form sent from the other end.
+.SS "GENSIO_CONTROL_CERT_FINGERPRINT"
+Get the fingerprint for the certificate from the other end.
+.SS "GENSIO_CONTROL_ENVIRONMENT"
+Set the environment pointer for an exec.  For pty and stdio connecter
+gensios.  The data is a pointer to an argv array (char * const envp[])
+.SS "GENSIO_CONTROL_ARGS"
+Set the arguments for an exec.  For pty and stdio connecter gensios.
+The data is a pointer to an argv array (char * const argv[])
+.SS "GENSIO_CONTROL_MAX_WRITE_PACKET"
+On a packet gensio, return the maximum packet size that can be sent.
+Any write of this amount or less will be sent as a single message
+that will be delivered as one read on the other end, or it will
+not be sent at all (zero-byte send count).
+.SS "GENSIO_CONTROL_EXIT_CODE"
+On a stdio connectors and pty gensios, the exit code of the process
+that ran.  This is only valid after close has completed.  An integer
+string is returned.
+.SS "GENSIO_CONTROL_KILL_TASK"
+Attempt to terminate the task.  The passed in string is converted
+(strtol) to an integer, if if it non-zero, a forced kill (kill -9) is
+done, otherwise a normal terminate is done.
+.SS "GENSIO_CONTROL_WAIT_TASK"
+On a stdio connectors and pty gensios, do a waitpid on the process.
+If it has closed, this will return success and the exit code in the
+string.  Otherwise it will return GE_NOTREADY.
+.SS "GENSIO_CONTROL_ADD_MCAST"
+On UDP connections, add a multicast address that the socket will
+receive packets on.
+.SS "GENSIO_CONTROL_DEL_MCAST"
+On UDP connections, delete a multicast address that the socket will
+receive packets on.
+.SS "GENSIO_CONTROL_MCAST_LOOP"
+On UDP connections, sets whether multicast packets sent on the socket
+will be received by the same machine.  Takes/returns string boolean
+"true" or "false".  Defaults to false.
+.SS "GENSIO_CONTROL_MCAST_TTL"
+Sets the multicast time-to-live.  Takes/returns a string integer. The
+default is 1, meaning multicast stays in the local network.
+Increasing this value increases the number of hops over multicast
+routers a send packet will traverse.
+.SS "GENSIO_CONTROL_LADDR"
+Return the local address for the connection.  Only for network
+connections.  Since a single gensio may have more than one local
+address, this control provides a means to tell which one.  The
+.I data
+string passed in should be the string representation of a the number (like
+created with snprintf()) for the particular index you want to fetch.  If
+you specify a number larger than the number of open listen sockets,
+.I GE_NOTFOUND
+is returned.  The return data is a string holding the address.
+
+Note that a single fetched string may contain more than one address.
+These will be separated by semicolons.  In some cases addresses may
+change dynamically (like with SCTP), so you get a single set of
+addresses.
+.SS "GENSIO_CONTROL_RADDR"
+Like
+.B GENSIO_CONTROL_LADDR
+but gets the remote addresses on a gensio.  The gensio may need to be
+open.  This is only implemented on bottom-level gensios, like
+serialdev, network interfaces, echo, file, ipmisol, etc.
+.SS "GENSIO_CONTROL_RADDR_BIN"
+Return the binary remote address for the given gensio.  Only
+implemented for network gensios and pty.
+.SS "GENSIO_CONTROL_LPORT"
+Return the local port for the connection.  Only for network
+connections.  This is useful if you pass in "0" for the port to let
+the OS chose; you can get the actual port chosen.
+.SS "GENSIO_CONTROL_CLOSE_OUTPUT"
+Close writing to the gensio, but leave reading along.  This is only
+for stdio gensios; it lets you close stdin to the subprogram without
+affecting the subprogram's stdout.
+.SS "GENSIO_CONTROL_CONNECT_ADDRESS_STR"
+Return the address the connection was made to.  For SCTP.
+.B gensio_raddr_to_str()
+returns all the remote addresses in SCTP's current state.  This will
+return the addresses that the original connectx was done to.
+.SS "GENSIO_CONTROL_REMOTE_ID"
+Return some sort of remote id for what is on the other end of the
+connection.  Not implemented for most gensios, only for getting the
+pid on a pty and stdio and the file descriptor on serialdev.
+.SS "GENSIO_CONTROL_AUX_DATA"
+Return auxiliary sent on the connection.  On certauth, this will be
+sent to the remote end and be available for them.
+.SS "GENSIO_CONTROL_REM_AUX_DATA"
+Return auxiliary received from the other end of the connection.  On
+certauth, this will be received from the remote end.
+.SS "GENSIO_CONTROL_IOD"
+Used to get the IOD pointer for the gensio as a raw pointer.  For
+gensios that have more than one IOD, the string you pass in will be a
+string number representing which IOD, "0" for the first (stdin), "1"
+for the second (stdout), and "2" for the third, (stderr).
+.SS "GENSIO_CONTROL_EXTRAINFO"
+This enables extra info to be returned on a received UDP packet.  If
+this is set to non-zero (normal string like "1" passed in), extra
+fields will be added to the auxdata in received packets.  These field
+are: "daddr:<address>" with the destination address from the packet
+and "ifidx:<n>" with the integer interface index the packet was
+received on.
+.SS "GENSIO_CONTROL_ENABLE_OOB"
+Out of band (OOB) data is disabled by default on all gensios and
+setting this to non-zero (normal string like "1" passed in) will
+enable it.  Note that you should only set this on the gensio you are
+directly communicating with, it is used between some gensios.
+.SS "GENSIO_CONTROL_WIN_SIZE"
+For pty gensios, sets the window size of the virtual window.  The
+value is a string with four values separated by ":".  The first two
+are the number of rows and number of columns.  The second two are
+number of horizontal pixels and number of vertical pixels.  The pixel
+values are currently ignored by windows.  pixel values do not have to
+be given, if there are less than 4 values, pixels values are ignored
+and set to zero.  datalen is ignored.
+.SS "GENSIO_CONTROL_START_DIR"
+For pty and stdio gensios (that start another program), this will
+cause the new program to run in the given directory instead of the
+current directory.
+.SS "GENSIO_CONTROL_IN_RATE", "GENSIO_CONTROL_OUT_RATE"
+For sound gensios, return the sample rate for the gensio for input or output.
+.SS "GENSIO_CONTROL_IN_BUFSIZE", "GENSIO_CONTROL_OUTBUFSIZE"
+For sound gensios, return the buffer size in bytes for input our
+output.  The data will be delivered to upper layer in chunks of this
+size.
+.SS "GENSIO_CONTROL_IN_NR_CHANS", "GENSIO_CONTROL_OUT_NR_CHANS"
+For sound gensios, return the number of channels for the interface for
+input or output.
+.SS "GENSIO_CONTROL_IN_FORMAT", "GENSIO_CONTROL_OUT_FORMAT"
+For sound gensios, return the format of the user data.  Like "float",
+"int16be", etc.
+.SS "GENSIO_CONTROL_DRAIN_COUNT"
+The amount of data left to be transmitted.  For sound, this is in
+frames.
+.SH "RETURN VALUES"
+Zero is returned on success, or a gensio error on failure.
+.SH "SEE ALSO"
+gensio_err(3), gensio(5)

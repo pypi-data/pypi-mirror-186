@@ -1,0 +1,2361 @@
+.TH gensio 5 01/02/19  "Specifying a gensio"
+.SH NAME
+gensio \- How to specify a gensio
+.SH SYNOPSIS
+.B <type>[(options)][,gensio|terminaloptions]
+.SH DESCRIPTION
+.BR gensio
+stands for GENeral Stream Input Output.  It provides an abstraction
+for all kinds of stream I/O, and even makes some packet I/O look like
+stream I/O (like UDP).  In particular, gensio makes it easy to create
+encrypted and authenticated connections.
+
+The
+.BR gensio
+library specifies a connection (gensio) using a string format.  This
+consists of a gensio type, optional options in parenthesis.  For a
+terminal gensio (one that is at the bottom of the stack), it may take
+more options separated by a comma.  For filter gensios (ones not on
+the bottom of the stack) another gensio must be specified after the
+comma.  For instance:
+.IP
+serialdev,/dev/ttyS0
+.PP
+specifies a serial port gensio.  Or:
+.IP
+tcp(readbuf=100),localhost,4000
+.PP
+specifies a TCP connection with a 100 byte read buffer, to connect to
+port 4000 on localhost.  Or:
+.IP
+telnet,tcp,localhost,4000
+.PP
+specifies a telnet filter on top of a TCP connection.
+
+When specifying a gensio, you can add quotes (single or double) to
+remove the special meaning for some characters, so you can have commas
+in options and such.  They may also be escaped with a "\e".  For instance,
+if you are specifying a laddr in an sctp address, you need to do this.
+The following address:
+.IP
+sctp(laddr=localhost,4001),localhost,3023
+.PP
+will result in a failure because the option splitting code will split
+at the commas.  Instead, do:
+.IP
+sctp(laddr="localhost,4001"),localhost,3023
+.PP
+and it will work.
+
+Accepter gensios, gensios used for accepting connections, as opposed
+to connecting gensios, are specified in the same way.  Each individual
+type can vary, and some gensios are only connecting gensios.  The
+options can vary from the accepter and connecting gensios of the same
+type.  For instance, an accepting TCP gensio does not have to have a
+hostname, but a connecting one does.
+
+When an accepter gensio receives a connection, it will create an
+accepted gensio.  This works mostly like a connecting gensio, except
+some functions may be limited.  You may not be able to close and then
+open an accepted gensio.
+
+The gensio library has a concept of client and server.  The accepted
+gensios are generally considered servers.  Connecting gensios are
+generally considered clients.  Some gensios may allow this to be
+overridden.
+
+A gensio may be reliable or not.  A reliable gensio will reliably
+deliver all data in sequence, like TCP.  An gensio that is not
+reliable may drop data or deliver data out of sequence, like UDP.
+This can be queried with
+.B gensio_is_reliable().
+
+A gensio may be packet or not.  A packet gensio will exactly match up
+writes and reads.  So if you write 15 bytes into one side, a 15 byte
+read for that data will appear on the other side.  A gensio that is
+not packet will not respect write boundaries, that 15 byte write may
+result in multiple reads or it may be combined with another write into
+more than 15 bytes.  Packet I/O requires careful use to make it work
+correctly.  If the gensio doesn't have room for another packet, a
+write will succeed but write 0 bytes.  Otherwise if you write larger
+than a packet size, it will only take the number of bytes that can fit
+into a packet, so it will truncate.  This is useful if you want to
+stream over a packet interface, but if you really want packets you
+have to make sure all the sizes are set properly. Particularly, you
+must set the max read and write size to the same value.  You should
+check on writes that it wrote all the data.  You can do partial read
+handling, if you like, but you will only get the rest of the packet on
+the second and following read.
+
+A gensio may be message oriented.  This implementation is stolen from
+SCTP (even though it's not really supported on Linux at the moment).
+It basically means you can explicitly mark message boundaries when
+sending data, and that explicit mark will be set on the read side.
+You do this by adding an "eom" auxdata on the write; the end of that
+write it assumed to be the end of a message.  If the write does not
+accept all the data, the "eom" is ignored, you must write the remaining
+data again with "eom" set.  You may also do partial write of messages
+and set "eom" at the end.  On the receive side, "eom" will be set when
+the end of a message is delivered.  The data delivered in the receive
+callback will be only the data for that message.  If the user does not
+accept all the data, the data left in the message is again presented
+to the user with "eom" set.
+
+The options vary greatly between the different gensios.  Each gensio
+type will be covered in a separate section.  Also note that gensio
+types can be dynamically added by the user, so there may be gensios
+available that are not described here.
+
+Unless otherwise noted, every gensio takes a:
+
+.TP
+.B readbuf=<n>
+option to specify the read buffer size.
+.SH "DEFAULTS"
+Every option to a gensio (including the serialdev and ipmisol
+options), unless othersize stated, is available as a default for the
+gensios.  You can use gensio_set_default() to set the default value
+used by all gensios allocated after that point.  If you leave the
+class NULL, it will set the base default, which will affect all
+gensios unless they have an override.  If you set the class, it will
+only affect gensios with that class name.
+
+Be very careful with some defaults.  Setting "mode" default, for
+instance, could really screw things up.
+
+For string defaults, setting the default value to NULL causes
+the gensio to use it's backup default.
+.SH "Serial gensios"
+Some gensio types support serial port setting options.  Standard
+serial ports, IPMI Serial Over LAN, and telnet with RFC2217 enabled.
+
+A client serial gensio can set and get serial port options using the
+.B sergensio_xxx()
+functions.  Server serial gensios receive requests from the client via
+.I GENSIO_EVENT_SER_xxx
+events in the callback.
+.SH "Streams and Channels"
+Some gensios support the concept of a stream and/or a channel.
+
+A stream is delivered as part of the normal data stream of a gensio.
+The "default" stream will be treated normally.  All other streams will
+have "stream=<x>" given in the auxdata to specify which stream to
+write on or which stream was read from.  Streams cannot be
+individually flow controlled.
+
+A channel is a flow of data like a stream, but it can be individually
+flow controlled.  It appears as a new gensio in the
+.I GENSIO\_EVENT\_NEW\_CHANNEL
+callback.  You can create a channel with
+.B gensio\_alloc\_channel()
+and then open it with
+.B gensio\_open().
+Once open, a channel works like a normal gensio.  If you close the
+main channel for a gensio, the other channels will stay open; the
+resources for the main channel will still be kept around until all
+channels are closed.
+
+See the indvidual gensio description for more information on streams
+and channels.
+.SH "PUBLIC KEY CRYPTOGRAPHY"
+The ssl and certauth gensios use public key cryptography.  This
+section gives a little overview of how that works.  You can safely
+skip this section if you already understand these concepts.
+
+Public key cryptography is used to authenticate and encrypt
+information at the beginning of a session.  It is a fairly expensive
+operation and is not generally used to encrypt information after the
+beginning.
+
+In public key cryptography, you have three basic things: A private
+key, a certificate (or public key), and a certificate authority (CA).
+
+The private key is just that: private.  You don't even send your
+private key to a certificate authority for signing of your
+certificate.  Keep it private, non-readable by everyone else.  Protect
+it, if it becomes known your certificate becomes useless to you, anyone
+can impersonate you.
+
+The certificate is the public key, and is mathematically associated
+with a single private key.  It's just that, public, anyone can use it
+to test that you have the private key by asking you to sign some data.
+The data in the certificate (like the Common Name) is part of the
+certificate.  If that data is modified, the certificate validation
+will fail.
+
+The CA is generally a trusted third-party that validates you and signs
+your certificate (generally for a fee).  CAs issue their own public
+certificates that are well-known and generally available on your system.
+The CA certificates are used to prove that your certificate is valid.
+.SS "SIGNING"
+The process if signing has been mentioned already, but not described.
+Basically, you use your private key to generate a value over some
+given data that proves you have the private key.  The certificate is
+ised to mathematically verify the signature.
+
+Two things are normally done with this:
+
+In a public key exchange, the entity wishing to be authorized sends a
+certificate.  The authorizing entity will look through it's CA for a
+certificate that has signed the sent certificate.  If the authorizing
+entity finds a certificate that can be used to validate the sent
+certificate, the sent certificate is valid.
+
+After that, the authorizing entity sends some generally random data
+to the other entity.  The other entity will take that data, perhaps
+some other important data that it want to make sure is not modified
+in the transfer, and signs that data.  It sends the signature back
+to the authorizing entity.  The authorizing entity can then use
+the data and the signature to validate that the sending entity has
+the private key associated with the certificate.
+
+This is basically how https works.  Note it is the
+.B web client
+that authenticates the
+.B web server,
+not the other way around.  This proves that you are connecting to the
+entity you say you are connecting to.  The authentication of a web
+client to the web server is generally done via a different mechanism
+(though SSL/TLS used by the ssl gensio has a way to do it, it is not
+generally used for that purpose).
+
+In the web server scenario, data in the certificate (specifically the
+Common Name and Subject Alternate Name) must match the name of the web
+page to which you are connecting.  The ssl and certauth gensios do not
+do this authentication, that is up to the user if it is necessary.
+.SS "ENCRYPTING"
+The certificate can be used to encrypt data that can only be decrypted
+with the private key.  When establishing an encrypted connection, this
+is generally used to transfer a symmetric cryptography key from one
+entity to another (the authorizing entity to the requesting entity in
+the case above).  You could encrypt all the data with the public key,
+but that is very expensive and in our example above would require
+certificates and private keys on both ends.
+.SS "SELF-SIGNED CERTIFICATES"
+It is possible to create a certificate that can act as its own
+certificate authority.  This is how ssh works.  You create a public
+and private key.  You put the public key in the .ssh/authorized_keys
+directory on systems where you want to log in.  The certificate acts
+as both the public key (as part of the initial transfer) and the CA
+(in the authorized_key directory) for authorizing you use of the
+system you are logging in to.
+
+ssh also stores places it has connected to in .ssh/known_hosts, which
+is the CA in the opposite direction.  This is why it asks you if you
+have never connected to a system before, it doesn't have the key in
+its CA.  Or why, if you connect to a system you have connected to
+before and the certificates don't match or fail validation, it
+complains about it.
+
+So if you are using self-signed certificates, you need to be careful
+to put only ones you trust in the CA.  This is obviously not possible
+in a large system like the world wide web, thus the creation of
+third-party trusted CAs.
+.SS "TRUST AND CRYPTOGRAPHY"
+The above discussions mention trust several times.  Cryptography does
+not remove the need for trust.  It just makes trust more convenient.
+If someone sends you a certificate, you need to validate that it was
+actually them that sent you the certificate, and that it was not
+modified in transit.  If you add that certificate to your CA, you are
+trusting the certificate, and you better make sure (with fingerprints,
+generally, see the openssl docs for details) that it came from a
+trusted entity.
+
+The hardest part of cryptography in general is key management.
+Breaking cryptographic algorithms is really hard.  Getting people to
+divulge private keys or use the wrong keys is a lot easier.
+
+For more on cryptography in general, and cryptography and trust, Bruce
+Schneier has some excellent books on the subject.
+.SH "IPv6, IPv4, and host names"
+Note that a single hostname may result in more than one address.  For
+instance, it may have both an IPv4 and IPv6 address.  These are
+treated just like multiple hostnames.  For instance, if you use localhost as a host name, you generally get the IPv4 and IPv6 version:
+.IP
+$ gensiot -a -p tcp,localhost,1234
+.br
+Address 0(0): ipv6,::1,1234
+.br
+Address 1(0): ipv4,127.0.0.1,1234
+.PP
+The hostname may be prefixed
+with ipv4 or ipv6, which will force the connections to those
+protocols.  Specifying ipv6n4 will create a socket that is IPv6 but
+will handle IPv4 connections.
+
+Note that using ipv6n4 will not automatically create a socket that is
+available to IPv4.  You can do, say
+.B tcp,ipv6n4,::1,1234
+and it will work, but since
+.B ::1
+is not IPv4, you won't be able to get to it from IPv4.  You have to
+specify an IPv4 address, like:
+.B tcp,ipv6n4,127.0.0.1,1234
+which will result in a single IPv6 socket mapped into IPv4 space:
+.IP
+$ gensiot -a -p tcp,ipv6n4,localhost,1234
+.br
+Address 0(0): ipv6,::ffff:127.0.0.1,1234
+.PP
+If you do not specify a hostname on an accepting gensio (like
+sctp,1234) it will only create an IPv6 socket that is IPv4 mapped.
+This way it will accept both IPv4 and IPv6 connections.  Even though
+getaddrinfo would normally return two addresses, only the IPv6 one is
+used unless there are no IPv6 addresses configured where it will
+return an IPv4 address.
+
+In general, for connecting gensios only the first address that is
+found will be used.  SCTP is the exception, it will do multi-homing on
+all the addresses that come up.  Do you may need to be fairly specific
+with addresses.
+
+In general IPv6 addresses are preferred if both are available.
+.SH "gtime"
+Time consists of a set of numbers each followed by a single letter.
+That letter may be 'D', 'H', 'M', 's', 'm', 'u', or 'n', meaning days,
+hours, minutes, seconds, milliseconds, microseconds, or nanoseconds.
+So, for instance, "10D5H4M9s100u" would be ten days, 5 hours, 4
+minutes, 9 seconds, 100 microseconds.  If a plain number with no
+letter at the end is given, the value may default to a specific unit.
+That will be specified by the specific gensio.
+.SH "TCP"
+.B tcp[(<options>)][,<hostname>],<port>[[,<hostname>],<port>[...]]
+.br
+.B hostname = [ipv4|ipv6|ipv6n4,]<name>
+
+A TCP connecting gensio must have the hostname specified.  Mulitiple
+hostname/port pairs may be specified.  For a connecting TCP gensio,
+each one will be tried in sequence until a connection is established.
+For acceptor gensios, every specified hostname/port pair will be
+listened to.
+.SS Dynamic Ports
+For accepters, if the port is specified as zero, a random port in the
+dynamic port range specified by IANA will be chosen.  If more than one
+address is present, the same port will be chosen for all addresses.
+You can fetch the port using the gensio_acc_control() function with
+the option GENSIO_ACC_CONTROL_LPORT.
+
+.SS Out Of Band Data
+TCP supports out of band (oob) data, which is data that will be
+delivered out of order as soon as possible.  This comes in a normal
+read, but with "oob" in the auxdata.  You can send oob data by adding
+"oob" to the write auxdata, but oob writes are limited to 1 byte and
+writing any more than this results in undefined behavior.  Note that
+"oobtcp" is also delivered and accepted in auxdata, so you can tell
+TCP oob data from other oob data.
+.SS Options
+In addition to readbuf, the tcp gensio takes the following options:
+.TP
+.B nodelay[=true|false]
+Sets nodelay on the socket.
+.TP
+.B laddr=<addr>
+An address specification to bind to on the local socket to set the
+local address.
+.TP
+.B reuseaddr[=true|false]
+Set SO_REUSEADDR on the socket, good for accepting gensios only.
+Defaults to true.
+.TP
+.B tcpd=on|print|off
+Accepter only, sets tcpd handling on the socket.  If "on", tcpd is
+enforced and the connection is just closed on a tcpd denial.  "print"
+is like on, except it writes "Access Denied" on the socket before
+closing it.  "off" disabled tcpd handling on the socket.  Defaults to
+on.  Not available if tcpd is disabled at compile time.
+.TP
+.B tcpdname=<name>
+Accepter only, sets the name to use for tcpd access control.  This
+defaults to "gensio", and the default can be overridden with
+gensio_set_progname().  This option allows you to override it on a
+per-gensio accepter basis.  Not available if tcpd is disabled at
+compile time.
+.SS Remote Address String
+The remote address will be in the format "[ipv4|ipv6],<addr>,<port>" where the
+address is in numeric format, IPv4, or IPv6.
+.SS Remote Address
+TCP returns a standard struct sockaddr for GENSIO_CONTROL_RADDR_BIN
+control.
+.SS "Direct Allocation"
+Allocated as a terminal gensio with gdata as a "const struct
+gensio_addr *"
+.SH "UDP"
+.B udp[(<options>)][,<hostname>],<port>[[,<hostname>],<port>[...]]
+.br
+.B hostname = [ipv4|ipv6|ipv6n4,]<name>
+
+A UDP gensio creates a UDP socket, but it makes it look like an
+unrealiable stream of data.  The specification is the same as a TCP
+socket, except that a UDP socket is created, obviously.
+
+The semantics of a UDP socket are a little bit strange.  A connecting
+UDP socket is fairly straightforward, it opens a local socket and
+sends data to the remote socket.
+
+An accepter gensio is not so straightforward.  The accepter gensio
+will create a new accepted gensio for any packet it receives from a
+new remote host.  If you disable read on any of the accepted gensio or
+disable accepts on the accepting gensio, it will stop all reads on all
+gensios associated with that accepting gensio.
+
+Note that UDP accepter gensios are not really required for using UDP,
+the are primarily there for handling ser2net accepter semantics.  You
+can create two connecting UDP gensios and communicate between them.
+
+UDP gensios are not reliable, but are obviously packet-oriented.
+
+Port 0 is supported just like TCP for accepters, see Dynamic Ports in
+the TCP section above for details.
+
+The destination address defaults to the one specified on the gensio
+specifier (for connecting gensios) or the remote address that
+initiated the connection (for accepting gensios), but may be
+overridden using "addr:<addr>" in the write auxdata.
+.SS Options
+In addition to readbuf, the udp gensio takes the following options:
+.TP
+.B laddr=<addr>
+An address specification to bind to on the local socket to set the
+local address.
+.TP
+.B nocon[=true|false]
+Don't be connection oriented, just receive all packets and deliver
+them without establishing connections.  Only valid for the client
+gensio.  The receive address is passed into the auxdata prefixed by
+"addr:", this is the address formatted by gensio_addr_to_str().
+.TP
+.B mloop[=true|false]
+If false, multicast packets transmitted will not be received on the
+local host.  If true, they will.
+.TP
+.B mttl=[1-255]
+Set the multicast time-to-live value.  The default is 1, meaning
+multicast stays in the local network.  Increasing this value increases
+the number of hops over multicast routers a send packet will traverse.
+.TP
+.B mcast=<addr>
+Add an address to receive multicast packets on.  There is no port
+number, this is just addresses.  You can specify multiple addresses in
+a single multicast option and/or the multicast option can be used
+multiple times to add multiple multicast addresses.
+.TP
+.B reuseaddr[=true|false]
+Set SO_REUSEADDR on the socket, good for connecting and accepting
+gensios.  Defaults to false.
+.SS "Remote Address String"
+The remote address will be in the format "[ipv4|ipv6],<addr>,<port>" where the
+address is in numeric format, IPv4, or IPv6.
+.SS "Remote Address"
+UDP returns a standard struct sockaddr for GENSIO_CONTROL_RADDR_BIN
+control.
+.SS "UDP Multicast"
+Multicast can be used on UDP gensios with the
+.B nocon, maddr
+and
+.B laddr
+options.  To set up a multicast, create a client UDP gensio and set
+the laddr for the receive port and the destination address to the
+multicast and enable nocon, like:
+.IP
+"udp(mcast='ff02::1',laddr='ipv6,3000',nocon),ff02::1,3000"
+.PP
+and you will receive and send data on the multicast address.  The
+.B laddr
+option is required to set the port to receive on.  It means you will
+have a local address, too, and will receive packets on that, too.
+.SS "Direct Allocation"
+Allocated as a terminal gensio with gdata as a "const struct
+gensio_addr *"
+.SH "SCTP"
+.B sctp[(<options>)][,<hostname>],<port>[[,<hostname>],<port>[...]]
+.br
+.B hostname = [ipv4|ipv6|ipv6n4,]<name>
+
+An SCTP gensio is specified like a UDP or TCP one.  However, the
+semantics are different.  For a connecting gensio, it will attempt to
+create a multi-homed connect with all the specified hostnames and
+ports.  All the ports must be the same.
+
+For an accepter gensio, it will create a single socket with all the
+specified addresses as possible destinations.  Again, all the ports
+must be the same.
+
+SCTP gensios are reliable.  They are not, at the moment, packet
+oriented.  There is currently no support of SCTP_EXPLICIT_EOR in the
+Linux implementation of SCTP, and without that it would be hard to
+make it packet oriented.
+
+When specifying IPv6 addresses that might map to IPv4, you must be
+careful.  If one side can do IPv4 and the other side can only do IPv6,
+the connection may come up, but will disconnect quickly because it
+cannot communicate on the IPv4 side.  For instance, the following
+accepter:
+.IP
+tools/gensiot -a "sctp,ipv6,::,1234"
+.PP
+and the following connector:
+.IP
+tools/gensiot "sctp,::1,1234"
+.PP
+will fail this way because the connector will support IPv4 add but the
+accepter will not.
+.SS Nagle and SCTP
+SCTP implements the Nagle algorithm by default, which can interact
+badly if
+.B sack_freq
+is set to more than one.  At least Linux defaults
+.B sack_freq
+to 2, but the gensio overrides this to avoid surprising behaviour.
+What happens is in some situations you can get an outstanding packet
+that is unacked, since
+.B sack_freq
+is greater than one.  The Nagle algorithm will not send any new data
+until any already sent data is acked.  So one end is waiting for a new
+packet to send a sack, and the other end is holding data until it gets
+a sack.  So you get stuck waiting for the
+.B sack_delay
+where the sack will go out and kick things back off again.
+
+You need to be aware of this if you modify sack_freq.
+.SS Options
+In addition to readbuf, the sctp gensio takes the following options:
+.TP
+.B instreams=<n>
+.TP
+.B ostreams=<n>
+These specify the number of incoming and outgoing streams for the
+connection.  The default is one.  The stream is given in the auxdata
+for read and write in the format "stream=<n>".
+.TP
+.B sack_freq=<n>
+.TP
+.B sack_delay=<n>
+These specify the handling of selective acknowledgements (sacks).
+.B sack_freq
+sets the number of outstanding packets that must be received before
+sending a sack.  The default is 1, meaning it doesn't wait at all.
+.B sack_delay
+sets the maximum time before a sack is sent if outstanding packets are
+present, in milliseconds.  The default is 10, but this is disabled if
+.B sack_freq
+is set to 1.  Setting either of these to 0 enables the system
+defaults.
+.TP
+.B nodelay[=true|false]
+Sets nodelay on the socket.
+.TP
+.B laddr=<addr>
+An address specification to bind to on the local socket to set the
+local address.
+.TP
+.B reuseaddr[=true|false]
+Set SO_REUSEADDR on the socket, good for accepting gensios only.
+Defaults to true.
+
+Port 0 is supported just like TCP for accepters, see Dynamic Ports in
+the TCP section above for details.
+
+SCTP support out of band (oob) data, which is data that will be
+delivered out of order as soon as possible.  This comes in a normal
+read, but with "oob" in the auxdata.  You can send oob data by adding
+"oob" to the write auxdata.
+
+See documentation on SCTP for more details.
+.SS "Remote Address String"
+The remote address will be in the format
+"[ipv4|ipv6],<addr>,<port>[;[ipv4|ipv6],<addr>,<port>[...]]"
+where the address is in numeric
+format, IPv4, or IPv6.  Each remote address for the SCTP connection is
+listed.
+.SS "Remote Address"
+SCTP returns a packed struct sockaddr for GENSIO_CONTROL_RADDR_BIN
+control, per SCTP semantics.
+.SS "Direct Allocation"
+Allocated as a terminal gensio with gdata as a "const struct
+gensio_addr *"
+.SH "UNIX"
+.B unix[(<options>)],<socket_path>
+
+Create a unix domain socket as an accepter, or connect to a unix
+domain socket as a connecter.
+
+A file will be created with the given socket path, you must have
+permissions to create a writeable file in that location.  If the file
+already exists, an error will be returned on an accepter socket unless
+you specify
+.I delsock
+which will cause the file to be deleted.
+
+You should read the unix(7) man page for details on the semantics of
+these sockets, especially permissions.  The options below allow
+setting various permission and ownership of the file, but this may not
+have any effect on who can open socket depending on the particular
+operating system.
+.B Portable programs should not rely on these permissions for security.
+Also note that Linux remote credentials are not
+currently implemented.
+.SS Options
+In addition to readbuf, the unix gensio takes the following options:
+.TP
+.B delsock[=true|false]
+If the socket path already exists, delete it before opening the socket.
+.TP
+.B umode=[0-7|[rwx]*]
+Set the user file mode for the unix socket file.  This is the usual
+read(4)/write(2)/execute(2) bitmask per chmod, but only for the user
+portion.  If a mode is specified, all other modes default to "6" (rw)
++unless they are specified, and the final mode is modified by the umask
++per standard *nix semantics.  If no mode is specified, it is set to
++the default and not modified.  Note that the perm option below is
++probably a better way to set this.
+.TP
+.B gmode=[0-7|[rwx]*]
+Set the group file mode for the unix socket file, see umode for details.
+.TP
+.B omode=[0-7|[rwx]*]
+Set the other file mode for the uix socket file, see umode for details.
+.TP
+.B perm=[0-7][0-7][0-7]
+Set the full mode for the unix socket file per standard *nix
+semantics, modified by umask as the above mode operations are.
+.TP
+.B owner=<name>
+Set the owner of the unix socket file to the given user.
+.TP
+.B group=<name>
+Set the group of the unix socket file to the given group.
+.SS Remote Address String
+The remote address will be: "unix,<socket path>".
+.SS Remote Address
+UNIX returns a standard struct sockaddr_un for GENSIO_CONTROL_RADDR_BIN
+control.
+.SS "Direct Allocation"
+Allocated as a terminal gensio with gdata as a "const struct
+gensio_addr *"
+.SH "serialdev"
+.B serialdev[(<options>)],<device>[,<serialoption>[,<serialoption>]]
+
+A serialdev connection is a local serial port.  The device is a
+.B /dev/xxx
+type, and should be real stream device of some type that normal
+termios work on (except for wronly).
+
+This is, no surprise, a serial gensio.
+
+One problem with serialdev and UUCP locking is that if you fork() a
+process while one is open, the forked process will have the serialdev
+but the value in the UUCP lockfile will be incorrect.  There's not
+much that can be done about this, so be careful.
+.SS Options
+In addition to readbuf, the serialdev gensio takes the following options:
+.TP
+.B nouucplock[=true|false]
+disables UUCP locking on the device.  Useful for /dev/tty, which shouldn't
+use locking.  This is not available as a default.
+.TP
+.B drain_time=off|<time in 100ths of a second>
+The total amount of time to wait for the data to be sent on the serial
+port at close time.  Close will be delayed this amount of time, or
+until all the data is transmitted.  Default is off.  When setting the
+default value for this, "off" will not be accepted, use -1 instead.
+.TP
+.B char_drain_wait=off|<time in 100ths of a second>
+At close time, if this much time elapses and no character is sent,
+finish the close.  Default is 50 (.5 seconds).  Note that if both this and
+.B drain_time
+are off, if the serial port is hung on flow control, it will never
+close.  When setting the default value for this, "off" will not be
+accepted, use -1 instead.
+.PP
+There are a plethora of serialoptions, available as defaults:
+.TP
+.B [speed=]<speed><parity><databits><stopbits>
+This is a normal serial port configuration specification, like
+"9600N81".  The "speed=" at the beginning is optional, but "speed" is
+a default type for this.
+.TP
+.B wronly[=true|false]
+Set the device to write only.  No termios definition is done on the
+port.  This can be done to talk to a line printer port, for instance.
+False by default.
+.TP
+.B nobreak[=true|false]
+Clear the break line at start (or don't clear it).  Default it to not
+clear it (false).
+.TP
+.B rs485=off|<delay rts before send>:<delay rts after send>[:<conf>[:<conf>]]
+Set up RS-485 for the serial port.  The first two parameters set the
+RTS delay (in milliseconds) of RTS before and after sending.  The conf
+values can be: "rts_on_send" - RTS set when sending, "rts_after_send" -
+RTS set after sending, "rx_during_tx" - can receive and transmit at
+the same time, and "terminate_bus" - enable bus termination.
+
+Using "off" will disable rs485; that is useful for overriding a
+user-defined default setting.  Default is "off".
+.TP
+.B xonxoff[=true|false]
+Enable/disable xon/xoff flow control.  Default is false.
+.TP
+.B rtscts[=true|false]
+Enable/disable rts/cts flow control.  Default is false.
+.TP
+.B local[=true|false]
+Ignore/don't ignore the modem control lines.  The default it to not
+ignore them (false).  However, if you don't ignore the modem control
+lines, it can result in long shutdown delays.
+.TP
+.B dtr[=on|off]
+Force the DTR line to be on or off when the gensio is opened.
+Note that the order of the
+.B dtr
+and
+.B rts
+options matter.  Whichever comes first in the options will be set
+first.  This can be useful if the lines need to be sequenced in a
+certain order for the piece of hardware involved.
+.TP
+.B rts[=on|off]
+Force the RTS line to be on or off when the gensio is opened.  See the
+.B dtr
+section above for notes on ordering of lines.
+.TP
+.B hangup-when-done[=true|false]
+Lower/don't lower the modem control lines when the gensio is closed.
+The default is to not lower the modem control lines on close (false).
+.B custspeed[=true|false]
+Allow/don't allow setting of custom baud rates.  Ignored if custom
+baud rates are not supported.  Normally only standard baud rates are
+supported (1200, 2400, etc).  If supported by the hardware, this
+allows any arbitrary value to be set.
+.SS "Remote Address String"
+The remote address string is the device and serial parms, in a format
+like "9600N81[,<option>[,<option>[...]]]".  Options are one of:
+XONXOFF, RTSCTS, CLOCAL, HANGUP_WHEN_DONE, RTSHI, RTSLO, DTRHI, DRLO,
+offline.
+.SS "Remote ID"
+The remote ID for the serial dev is the file descriptor returned as an
+integer.
+.SS "Direct Allocation"x
+Allocated as a terminal gensio with gdata as a "const char *" with the
+device and parameters string.
+.SH "stdio"
+accepter =
+.B stdio[(options)]
+.br
+connecting =
+.B stdio[(options)],<program>
+
+The stdio gensio is a fairly strange one, but it's fairly useful.
+
+A connecting stdio gensio runs the given program (unless self is set
+as an option) and connects its standard input and output to the
+gensio's main channel.  So it's easy to run a program and interact
+with it.  If you want to get stderr from the gensio, open a channel on
+the main channel gensio, see below.
+
+.B NOTE:
+Though epoll() doesn't work with normal files, the stdio gensio has
+special handling for normal files so they mostly work.  This can have
+surprising side effects if you use stdin as a normal file.  When you
+hit the end of stdin, the stdio gensio will return GE_REMCLOSE and you
+may shut down the gensio and possibly lose any output going to
+stdout.  Use the file gensio if you can.
+
+For connecting gensios, in the forked process, the code will set the
+effective (and saved) uid and guid to the current real uid and guid if
+the effective and real uids are different.  This way a user can set
+the real uid and gid to what they want the program to run under, but
+keep the effective uid and gid to the (probably root) values so they
+can be restored to those values after opening the pty.  The group list
+is also set to the groups the real userid is in.  Note that nothing is
+done if the effective and real userids are the same.
+
+If you have both stdin/stdout and stderr opened, you must close both
+of them to completely close the gensio.  You cannot re-open the gensio
+until both are closed.
+
+The connecting gensio support the GENSIO_CONTROL_ENVIRONMENT control
+to allow the environment to be set for the new process.
+
+An accepting gensio immediately does a connection when started and
+connection stdin and stdout of the running program to the gensio.
+.SS Options
+In addition to readbuf, a connecting stdio takes the following options:
+.TP
+.B self[=true|false]
+Instead of starting a program, connect to the running program's stdio.
+This is the same as an accepting stdio gensio, except you don't have
+to go through the accept process.
+.TP
+.B console[=true|false]
+Like self, except connect to the running program's console device,
+/dev/tty on Unix and CONIN$/CONOUT$ on Windows.  Useful for reading
+passwords and such.
+.TP
+.B start-dir=path
+Start the subprogram in the given path instead of the current
+directory.
+.TP
+.B raw[=true|false]
+For a "self", console, or accepter version of the gensio, put the I/O
+in "raw" mode, meaning character at a time, turn off ^C, etc.  This
+will fail on pipes or files.
+.TP
+.B stderr-to-stdout
+Send standard error output to standard out instead of having a separate
+channel for it.
+.TP
+.B noredir-stderr
+Do not modify the stderr for the program, use the calling program's
+stderr.  This can be useful if you want to see stderr output from a
+program.
+.SS "Channels"
+The stdio connecting gensio that start another program does not
+provide stderr as part of the main gensio. You must create a channel
+with
+.B gensio_alloc_channnel()
+and then open it get stderr output.  The args for
+.B gensio_alloc_channel()
+may be an optional "readbuf=<num>" and sets the size of the input
+buffer.
+.SS "Remote Address String"
+The remote address string is either "stdio,<args>" for the main channel or
+"stderr,<args>" for the error channel.  The args will be a set of quoted
+strings with a space between each string, one for each argument,
+with '"' around each argument, each '"' in the string converted
+to '\e"' and each '\e' in the string converted to '\e\e'.
+.SS "Remote ID"
+The remote ID is the pid for the remote device, only for connecting
+gensios that start a program, not for any other type.
+.SS "Direct Allocation"
+Allocated as a terminal gensio with gdata as a "const char * const args[]"
+for the gensio.  gdata is not used for the accepter.
+.SH "echo"
+connecting =
+.B echo[(options)]
+
+The echo gensio just echos back all the data written to it.  Useful
+for testing.
+.SS Options
+In addition to readbuf, a connecting echo takes the following options:
+.TP
+.B noecho[=true|false]
+Instead of echoing the data, just become a data sink.
+.TP
+.B data=<str>
+Supply the given data as the data to be read.  When combined with
+noecho, it will create a gensio that just supplies the given data then
+returns a GE_REMCLOSE when done.
+.SS "Remote Address String"
+The remote address string is "echo".
+.SS "Direct Allocation"
+Allocated as a terminal gensio, gdata is not used.
+.SH "file"
+connecting =
+.B file[(options)]
+
+The file gensio opens an (optional) input file and (optional) output
+file for the gensio.  If you need to read/write a file in gensio, you
+.B must
+use this.  Semantics on files for stdio do not alway work correctly.
+
+If an input file is specified, data will be read from the input file
+and delivered on the read interface of the gensio until end of file,
+when the GE_REMCLOSE error will be returned.
+
+If an output file is specified, data will be written to the output
+file on writes.  The output file is always ready to receive data.
+.SS Options
+In addition to readbuf, a connecting file takes the following options:
+.TP
+.B infile=filename
+Set the input filename.
+.TP
+.B outfile=filename
+Set the output filename.
+.TP
+.B read_close[=true|false]
+If this is true (the default), cause a GE_REMCLOSE error on read when
+all the file data is ready.  If false, just stop returning data and
+don't do the GE_REMCLOSE.  This is useful if you just want to inject a
+bunch of data then do nothing.
+.TP
+.B create[=true|false]
+Create the output file if it does not exist.
+.TP
+.B umode=[0-7|[rwx]*]
+Set the user file mode for the file if the file is created.  This is
+the usual read(4)/write(2)/execute(2) bitmask per chmod, but only for
+the user portion.  If a mode is specified, all other modes default to "6" (rw)
++unless they are specified, and the final mode is modified by the umask
++per standard *nix semantics.  If no mode is specified, it is set to
++the default and not modified.  Note that the perm option below is
++probably a better way to set this.
+.TP
+.B gmode=[0-7|[rwx]*]
+Set the group file mode for the file if the file is created, see umode
+for details.
+.TP
+.B omode=[0-7|[rwx]*]
+Set the other file mode for the file if the file is created, see umode
+for details.
+.TP
+.B perm=[0-7][0-7][0-7]
+Set the full mode for the file per standard *nix semantics, modified
+by umask as the above mode operations are.
+.SS "Remote Address String"
+The remote address string is "file([infile=<filename][,][outfile=<filename>])".
+.SS "Direct Allocation"
+Allocated as a terminal gensio, gdata is not used.
+.SH "dummy"
+accepter =
+.B dummy
+
+The dummy gensio accepter is useful for place holding, where you don't
+want a real working accepter but need to put something.
+
+As you might guess, it doesn't do anything.
+.SS "Direct Allocation"
+Allocated as a terminal gensio, gdata is not used.
+.SH "ipmisol"
+.B ipmisol[(options)],<openipmi arguments>[,ipmisol option[,...]]
+
+An ipmisol gensio creates an IPMI Serial Over LAN connection to an
+IPMI server.  See the OpenIPMI documentation for information on the
+arguments.
+
+This is a serial gensio, but the baud rate settings are fairly limited.
+.SS Options
+In addition to readbuf, the ipmisol gensio takes the following options:
+.TP
+.B writebuf=<n>
+to set the size of the write buffer.
+.PP
+It also takes the following ipmisol options:
+.TP
+.B 9600, 19200, 38400, 57600, 115200
+Baud rate, 9600 by default.  Anything after the number is ignored, for
+compatibility with things like "N81".  You cannot set those values for
+ipmisol, they are fixed at "N81".
+.TP
+.B nobreak[=true|false]
+Disable break processing.  False by default.
+.TP
+.B authenticated[=true|false]
+Enable or disable authentication.  True by default.
+.TP
+.B encrypted[=true|false]
+Enable or disable encrypted.  True by default.
+.TP
+.B deassert-CTS-DCD-DSR-on-connect[=true|false]
+False by default
+.TP
+.B shared-serial-alert=fail|deferred|succeed
+Behavior of handling serial alerts.  fail by default.
+.TP
+.B ack-timeout=<number>
+The time (in microseconds) when an ack times out.  1000000 by default.
+.TP
+.B ack-retries=<number>
+The number of times (ack-timeouts) an ack is re-sent before giving up.
+10 by default.
+.SS "Direct Allocation"
+Allocated as a terminal gensio with gdata as a "const char *".
+.SH "telnet"
+accepter =
+.B telnet[(options)]
+.br
+connecting =
+.B telnet[(options)]
+
+A telnet gensio is a filter that sits on top of another gensio.  It
+runs the standard telnet protocol andn support RFC2217.
+.SS Options
+In addition to readbuf, the telnet gensio takes the following options:
+.TP
+.B writebuf=<n>
+set the size of the write buffer.
+.TP
+.B rfc2217[=true|false]
+enable or disable RFC2217 mode for this gensio.  If this is enabled
+and the remote end of the connection supports RFC2217 also, the gensio
+will be set up as a serial gensio and you can do normal serial gensio
+handling on it.
+.TP
+.B mode=client|server
+Set the telnet mode to client or server.  This lets you run a telnet
+server on a connecting gensio, or a telnet client on an accepter
+gensio.
+.SS "Remote info"
+telnet passes remote id, remote address, and remote string to the child
+gensio.
+.SH "ssl"
+accepter =
+.B ssl[(options)]
+.br
+connecting =
+.B ssl[(options)]
+
+An SSL gensio runs the SSL/TLS protocol on top of another gensio.
+That gensio must be reliable.
+
+Use is pretty straightforward.  The hardest part about using the SSL
+gensio is the certificates.  A server SSL gensio must be given a
+certificate and a key.  A client SSL gensio must be given a
+certificate authority.  A client will user the certificate authority
+to verify that the server has the proper certificate and keys.
+
+The gensio has options to have the server request the certificate from
+the client and validate it.
+
+SSL gensios are reliable.  They are also packet-oriented.
+.SS Options
+In addition to readbuf, the SSL gensio takes the following options:
+.TP
+.B writebuf=<n>
+set the size of the write buffer.
+.TP
+.B CA=<filepath>
+Set a place to look for certificates for authorization.  If this ends
+in a "/", then this is expected to be a directory that contains files
+with certificates that must be hashed per OpenSSL (see the "openssl
+rehash" command for details.  Otherwise it is a single file that
+contains one or more certificates.  The default CA path is used
+if not specified.  Note that setting this to an empty string disables
+it, so you can override a default value if necessary.
+.TP
+.B key=<filename>
+Specify the file to get the private key for the server.  This is
+required for servers.  It may be specified for clients, and is required
+for the client if the server requires a certificate (it has CA set).
+.TP
+.B cert=<filename>
+Specify the file that contains the certificate used for the
+connection.  If this is not specified, the certificate is expected to
+be in the key file.  Note that setting this to an empty string disables
+it, so you can override a default value if necessary.
+.TP
+.B mode=client|server
+Normally an accepter gensio is in server mode and a connecting gensio
+is in client mode.  This can be used to switch the roles and run in
+SSL server mode on a connecting gensio, or vice versa.
+.TP
+.B clientauth[=true|false]
+Normally a client is not authorized by the server.  This requires
+that the client provide a certificate and authorizes that certificate.
+Ignored for client mode.
+.TP
+.B allow-authfail[=true|false]
+Normally if the remote end certificate is not valid, the SSL gensio
+will close the connection.  This open allows the open to succeed with
+an invalid or missing certificate.  Note that the user should verify
+that authentication is set using gensio_is_authenticated().
+
+Verification of the common name is
+.B not
+done.  The application should do this, it can fetch the common name
+and other certificate data through a control interface.
+
+You can use self-signed certificates in this interface.  Just be aware
+of the security ramifications.  This gensio is fairly flexible, but
+you must use it carefully to have a secure interface.
+
+The SSL gensio will call the gensio event callback (client) or the
+gensio acceptor event callback (server) after the certificate is
+received but before it is validated with the
+GENSIO_EVENT_PRECERT_VERIFY or GENSIO_ACC_EVENT_PRECERT_VERIFY events.
+This allows the user to validate data from the certificate (like
+common name) with GENSIO_CONTROL_GET_PEER_CERT_NAME or set a
+certificate authority for the validation with GENSIO_CONTROL_CERT_AUTH.
+.SS "Remote info"
+ssl passes remote id, remote address, and remote string to the child
+gensio.
+.SH "certauth"
+accepter =
+.B certauth[(options)]
+.br
+connecting =
+.B certauth[(options)]
+
+A certauth gensio runs an authentication protocol to on top of
+another gensio.  That gensio must be reliable and encrypted.
+
+This is like the reverse of SSL.  The client has a key and certificate,
+the server has a certificate authority (CA).  This also supports password
+authentication.
+
+Once authentication occurs, this gensio acts as a passthrough.  The
+readbuf option is not available in the gensio.
+.SS Options
+The certauth gensio takes the following options:
+.TP
+.B CA=<filepath>
+Set a place to look for certificates for authorization.  If this ends
+in a "/", then this is expected to be a directory that contains files
+with certificates that must be hashed per OpenSSL, see the gensio-keygen(1)
+in the rehash section for details.  Otherwise it is a single file that
+contains one or more certificates.  The default CA path for openssl is used
+if not specified.  This is used on the server only, it is ignored
+on clients.  Note that setting this to an empty string disables
+it, so you can override a default value if necessary.
+.TP
+.B key=<filename>
+Specify the file to get the private key for the client.  This is
+required for clients.  It is ignored on server.
+.TP
+.B cert=<filename>
+Specify the file to get the private key for the client.  This is
+required for clients.  It is ignored on server.  If this is not
+specified, the certificate is expected to be in the key file.  Note
+that setting this to an empty string disables it, so you can override
+a default value if necessary.
+.TP
+.B username=<name>
+Specify a username to authenticate with on the remote end.  This is
+required for the client.  It is ignored on the server.
+.TP
+.B service=<string>
+Set the remote service requested by the client.  Optional, but the
+other end may reject the connection if it is not supplied. Ignored on
+the server.
+.TP
+.B password=<string>
+Specify the password to use for password authentication.  This is not
+recommended, the callback is more secure to use.
+.TP
+.B mode=client|server
+Normally an accepter gensio is in server mode and a connecting gensio
+is in client mode.  This can be used to switch the roles and run in
+server mode on a connecting gensio, or vice versa.
+.TP
+.B allow-authfail[=true|false]
+Normally if the remote end certificate is not valid, the certauth gensio
+will close the connection.  This open allows the open to succeed with
+an invalid or missing certificate.  Note that the user should verify
+that authentication is set using gensio_is_authenticated().
+.TP
+.B use-child-auth[=true|false]
+If the child gensio is authenticated, then do not run the protocol, just
+go straight into passthrough mode and don't do any authentication.
+.TP
+.B enable-password[=true|false]
+On the server, allow passwords for login.  On the client, send a
+password if asked for one.  By default passwords are disabled.
+Use of passwords is much less secure than certificates, so this
+is discouraged.
+.TP
+.B enable-2fa[=true|false]
+On the server, request 2-factor authentication data from the client.
+This is only useful for situations where the 2-factor data is known
+before startup, like Google Authenticator or other things of that
+nature.  It is not useful for text/email types of things that send
+the data after the connection is initiated.  But those are usually
+interactive and can be handled with interactive methods.
+.TP
+.B 2fa=<string>
+On the client, provide the given 2-factor authentication data to the
+server if it asks for it.
+.PP
+Verification of the common name is
+.B not
+done.  The application should do this, it can fetch the common name
+and other certificate data through a control interface.  It may also
+use the username fetched through the control interface.
+
+You can use self-signed certificates in this interface.  Just be aware
+of the security ramifications.  This gensio is fairly flexible, but
+you must use it carefully to have secure authentication.
+
+The certauth gensio has 4 major callbacks dealing with authentication
+of the user.  They may or may not be called depending on the
+circumstances.  The normal events come in if you have allocated a
+gensio and are doing an open.  The _ACC_ events come in if it is
+coming in from an accept and there is no gensio reported yet.  In the
+_ACC_ case, be careful, do not use the given gensio for anything but
+checking certificate and username parameters, and do not save it.
+
+All these calls should return 0 if they want the authentication to
+immediately succeed, EKEYREJECTED if they reject the authentication,
+ENOTSUP if they want certauth to ignore that part of the authentication,
+or any other errno will result in the connetion being shut down.
+
+The callbacks are:
+.TP
+.B GENSIO_EVENT_AUTH_BEGIN / GENSIO_ACC_EVENT_AUTH_BEGIN
+On the server side, this is called when to authentication is requested
+buy the client.  The username will be available if the user provided
+it via GENSIO_CONTROL_USERNAME.
+.TP
+.B GENSIO_EVENT_PRECERT_VERIFY / GENSIO_ACC_EVENT_PRECERT_VERIFY
+On the server side, thi is called after the certificate has been
+received but before it is verified.  The user can use this to query
+the certificate and update the certificate authority based on username
+or certificate information.
+.TP
+.B GENSIO_EVENT_VERIFY_PASSWORD / GENSIO_ACC_EVENT_VERIFY_PASSWORD
+On the server side, this is called if the certificate verification has
+failed and after the password has been requested from the remote end.
+The password is passed in, it is cleared immediately after this call.
+.TP
+.B GENSIO_EVENT_REQUEST_PASSWORD / GENSIO_ACC_EVENT_REQUEST_PASSWORD
+On the client side, this is called if the server requests that a
+password be sent and the password is not already set for the gensio.
+The requested password is immediately cleared after being sent to
+the server.
+.SS "Remote info"
+certauth passes remote id, remote address, and remote string to the child
+gensio.
+.SH "mux"
+accepter =
+.B mux[(options)]
+.br
+connecting =
+.B mux[(options)]
+
+A mux gensio is a gensio filter that allows one or more channels to be
+created on top of a single gensio, multiplexing the connection.  Each
+channel has full individual flow-control.  The channels are message
+oriented as described above, and use can use a mux without additional
+channels to just do message demarcation.  They also support out-of-bounds
+messages.
+.SS Options
+A mux gensio takes the following options:
+.TP
+.B max_channels=<n>
+Allow at most <n> channels to be created in the mux.  The default is 1000.
+The minimum value of <n> is 1, the maximum is 65536.
+.TP
+.B service=<string>
+Set the remote service requested by the client.  Optional, but the
+other end may reject the connection if it is not supplied. Ignored on
+the server.
+.TP
+.B mode=client|server
+By default a mux accepter is a server and a mux connecter is a client.
+The protocol is mostly symmetric, but it's hard to kick things off
+properly if both sides try to start things.  This option lets you
+override the default mode in case you have some special need to do so.
+.PP
+When the open is complete on the mux gensio, it will work just like a
+transparent filter with message demarcation.  In effect, you have
+one channel open.
+.SS "Creating Channels"
+To create a channel, call the
+.B gensio_alloc_channel()
+function on the mux gensio.  This will return a new gensio that is a
+channel on the mux gensio.  You can pass in arguments, which is an
+array of strings, currently
+.B readbuf, writebuf,
+and
+.B service
+are accepted.  The service you set here will be set on the remote channel
+so the other end can fetch it.  The new channel needs to be opened with
+.B gensio_open()
+before it can be used.
+
+As you might imaging, the other end of a mux needs to know about the
+new channel.  If one end (either end, doesn't matter) calls
+.B gensio_alloc_channel()
+and then opens the new channel, the other end will get a
+.I GENSIO\_EVENT\_NEW\_CHANNEL
+event as described in the
+.B Streams and Channels
+section.  You can call it using any mux channel.  The first element in
+the auxdata is the service.
+
+You can modify the service value after you allocate the channel but
+before you open it.
+.SS "Out Of Band Messages"
+mux support out of band (oob) data, which is data that will be
+delivered normally.  This comes in a normal read, but with "oob" in
+the auxdata.  You can send oob data by adding "oob" to the write
+auxdata.  You should normally use the "eom" flag so the end of the out
+of band messages ismarked.
+
+This is so you can send special data outside of the normal processing
+of data.
+.SS "Mux Events"
+As you might imaging, normal data events come through the gensio
+channel they are associated with.  Close events will, too.  If a mux
+gensio closes abnormally (like the underlying connection fails) you
+will get a read error on each channel.
+
+New channel events (and other global events coming from lower gensios,
+like if you are running over ssl or telnet) come in through the
+original gensio normally.  However, you can close that, another
+channel will be chosen to receive those event.  In general, it's best
+to handle the global events on all channels and not assume.
+.SS "Closing and Freeing a Mux"
+To close a mux gensio, just close all channels associated with it.
+There is no global close mechanism (you would not believe the complexity
+that adds).  Once you have closed a mux gensio, you can re-open it with
+.B gensio_open().
+It will not recreate all the channels for you, you will have one channel,
+and the channel you use to call
+.B gensio_open()
+will become the first channel.
+
+You cannot re-open individual channels.
+
+To free a mux gensio, you must free all the channels on it.
+.SH "pty"
+connecting =
+.B pty[(options)][,<program>]
+
+Create a pty and optionally run a program on the other end of it.
+With a program specified, this is sort of like stdio, but the program
+is running on a terminal.  Only connection gensios are supported.
+
+pty has some unusual handling to allow execution of login shells of
+users from root.
+
+In Unix type systems, if the first character of the program is '-', it
+is removed from the execution of the command but left in argv[0].
+This will cause a shell to act as a login shell.
+
+On Unix type systems, in the forked process, the code will set the
+effective (and saved) uid and guid to the current real uid and guid if
+the effective and real uids are different.  This way a user can set
+the real uid and gid to what they want the program to run under, but
+keep the effective uid and gid to the (probably root) values so they
+can be restored to those values after opening the pty.  The group list
+is also set to the groups the real userid is in.  Note that nothing is
+done if the effective and real userids are the same.
+
+On Windows, the new process is set to the user in the impersonation
+token if it is set.  In that case, the new process will be run in a
+new process group.  If no impersonation token is set, the new process
+will run as the user of calling process in the same process group as
+the calling process.
+
+The pty gensio supports the GENSIO_CONTROL_ENVIRONMENT control to
+allow the environment to be set for the new process.
+GENSIO_CONTROL_ARGS sets the arguments as an argv array.
+GENSIO_CONTROL_WIN_SIZE sets the terminal size in characters.
+GENSIO_CONTROL_START_DIR sets the directory the new process runs in.
+
+If no program is specified, when the pty gensio is opened it will just
+create the pty but won't attach anything to it.  Another program can
+open the pty.  You can get the slave pty device by getting the local
+address string.
+.SS Options
+In addition to readbuf, the pty gensio takes the following options.
+These options are only allowed if the pty is unattached.  ptys with
+programs run on them need to follow the standard semantics.
+.TP
+.B link=<filename>
+create a symbolic link from filename to the pty name.  This way you
+can have a fixed reference to refer to the pty.  Standard permissions
+apply.  Without forcelink the open will file if filename already
+exists.  Unix only.
+.TP
+.B forcelink[=true|false]
+if link is specified, if a file already exists where the symbolic link
+is, replace it.  Be careful, it deletes whatever is there
+indiscriminately.
+.TP
+.B start-dir=path
+Start the subprogram in the given path instead of the current
+directory.
+.TP
+.B raw[=true|false]
+causes the pty to be set in raw mode at startup.  This is important for
+anything that will start writing immediately to the pty.  If you don't
+set this, echo will be on and writes on the master will be echoed back.
+In general, this is useful for unattached ptys.  It was added for testing,
+but will be usedful in many situations.
+.TP
+.B umode=[0-7|[rwx]*]
+Set the user file mode for the pty slave.  This is the usual
+read(4)/write(2)/execute(2) bitmask per chmod, but only for the user
+portion.  If a mode is specified, all other modes default to "6" (rw)
++unless they are specified, and the final mode is modified by the umask
++per standard *nix semantics.  If no mode is specified, it is set to
++the default and not modified.  Note that the perm option below is
++probably a better way to set this.
+.TP
+.B gmode=[0-7|[rwx]*]
+Set the group file mode for the pty slave, see umode for details.
+.TP
+.B omode=[0-7|[rwx]*]
+Set the other file mode for the pty slave, see umode for details.
+.TP
+.B perm=[0-7][0-7][0-7]
+Set the full mode for the pty per standard *nix semantics, modified
+by umask as the above mode operations are.
+.TP
+.B owner=<name>
+Set the owner of the slave pty to the given user.
+.TP
+.B group=<name>
+Set the group of the slave pty to the given group.
+.TP
+.B user=<name>
+Windows only, create the process under the given user instead of the
+calling process' user.  This generally required special privileges.
+.TP
+.B passwd=<name>
+Windows only, user must be specified to use.  Log on the user with the
+given password.  If a password is not given, an S4U logon will be
+attempted, but that may not work so well as some things are missing
+from the access token of the user.
+
+NOTE: There are significant security issues with passing a password
+this way.  You must use proper password handling.
+.B module=<name>
+Windows only, user must be specified to use.  Create the new user
+token with the given module.  If not specified, "gensio" is used.
+.SS "Remote Address String"
+The remote address string the program and arguments run on the pty.
+The argiuments will be a set of quoted strings with a space between each
+string, one for each argument, with '"' around each argument, each '"'
+in the string converted to '\e"' and each '\e' in the string
+converted to '\e\e'.
+.SS "Remote Address"
+The address is a pointer to an integer, the ptym file descriptor is
+returned.  addrlen must be set to sizeof(int) when passed in.
+.SS "Local Address String"
+This returns the device of the pty, generally /dev/pts/<n>.  This is
+useful for pty gensios with no program, it allows you to get the value
+for the other end to connect to.  Note that if you close and re-open a
+pty gensio, you may be a different local address string.
+.SS "Direct Allocation"
+Allocated as a terminal gensio with gdata as a "const char * const args[]".
+.SH "msgdelim"
+accepter =
+.B msgdelim[(options)]
+.br
+connecting =
+.B msgdelim[(options)]
+
+A message delimiter converts an unreliable stream (like a serial port)
+into an unreliable packet interface.  This is primarily to allow a
+reliable packet interface like relpkt to run on top of a serial port.
+It does not support streaming of data, so it's not very useful by itself.
+
+Messages are delimited with a start of message and end of message and
+have a CRC16 on the end of them.
+
+This is primarily for use on serial ports and other streams that can
+munge up the data.  Use the mux gensio for TCP and such.
+
+THe default buffer size is 128 bytes, which is ok for a reasonably
+fast serial port interface.
+.SS Options
+In addition to readbuf, the msgdelim gensio takes the following options:
+.TP
+.B writebuf=<n>
+set the size of the write buffer.
+.TP
+.B crc[=on|off]
+Enable/disable the CRC at the end of the packet.  Useful if you are
+running over a reliable protocol, and especially for testing relpkt so
+you can fuzz it and bypass the crc errors.
+.SH "relpkt"
+accepter =
+.B relpkt[(options)]
+.br
+connecting =
+.B relpkt[(options)]
+
+Converts an unreliable packet interface (currently only UDP and
+msgdelim) into a reliable packet interface.  This lets you have a
+reliable connection over a serial port (with msgdelim) or UDP.
+
+Note that UDP is not recommended, it doesn't handle flow control and
+such in a friendly manner.
+
+relpkt is unusual in dealing with clients and servers.  The protocol
+is symmetric, for the most part, you can start two clients and they
+will connect to each other, if they are started relatively close in
+time to avoid one timing out.  A relpkt server will simply wait
+forever for an incoming connection on an open.
+
+relpkt does not support readbuf.  It supports the following:
+.TP
+.B max_pktsize=<n>
+Sets the maximum size of a packet.  This may be reduced by the remote
+end, but will never be exceeded.  This must be at least 5 bytes
+shorter than the maximum packet size of the interface below it.  This
+defaults to 123 (msgdelim max packet size - 5).  If run over UDP, this
+should probably be increased for performance.
+.TP
+.B max_packets=<n>
+Sets the maximum number of outstanding packets.  This may be reduced
+by the remote end, but will never be exceeded.
+.TP
+.B mode=client|server
+By default a relpkt is a server on an accepter and a client on a
+connecter.  See the discussion above on clients and servers.
+.SH "ratelimit"
+accepter =
+.B ratelimit[(options)]
+.br
+connecting =
+.B ratelimit[(options)]
+
+Limit the transmit rate of data going through this filter gensio.  A
+number of bytes is let through, then transmit is delayed until the
+given delay has passed.  Receive is not currently rate limited, but
+that may be added in the future.
+.TP
+.B xmit_len=<n>
+The number of bytes to allow before a delay.  Note that the delay
+occurs after a single write succeeds, so if a single byte is written
+it will delay.  If a write is done of more than this length, it will
+be limited to this length.  Defaults to one.
+.TP
+.B xmit_delay=<gtime>
+The amount of time to wait between writes.  See the "gtime" section
+for information for this time specification.  This must be supplied.
+.SH "trace"
+accepter =
+.B trace[(options)]
+.br
+connecting =
+.B trace[(options)]
+
+A transparent gensio that allows the data passing through it to be
+sent to a file.  Useful for debugging.  It can also block data in
+either direction.
+
+Note that the trace gensio only prints data that is accepted by the
+other end.  So, for instance, if the trace gensio receives 100 bytes
+of read data, it will deliver it immediately to the gensio above it.
+If that only accepts 40 bytes, trace will only print 40 bytes and will
+only accept 40 bytes from the gensio below it.  Same for sent data.
+.SS Options
+trace does not support readbuf.  It supports the following options:
+.TP
+.B dir=none|read|write|both
+Sets what data is traced.  "none" means no data is traced (the
+default), "read" traces data flowing up the gensio stack (read by the
+parent), write traces data flowing down the gensio stack (written by
+the parent), and "both" traces reads and writes.
+.TP
+.B block=none|read|write|both
+Blocks data in one or both directions.  "none" means data flows both
+directions (the default), "read" means data flowing up the gensio
+stack is discarded, write means data flowing down the gensio
+stack is discarded, and "both" discards both reads and writes.
+Data that is discarded is not traced.
+.TP
+.B raw[=yes|no]
+If set, traced data will be written as raw bytes.  If not set, traced
+data will be written in human-readable form.
+.TP
+.B file=<filename>
+The filename to write trace data to.  If not supplied, tracing is
+disabled.  Note that unless
+.B delold
+is specified, the file is opened append, so it will add new trace data
+onto the end of an existing file.
+.TP
+.B stderr[=yes|no]
+Send the trace output to standard error.  Overrides file.
+.TP
+.B stdout[=yes|no]
+Send the trace output to standard output.  Overrides file and stderr.
+.TP
+.B delold[=yes|no]
+Delete the old data in the file instead of appending to the file.
+.SH "perf"
+accepter =
+.B perf[(options)]
+.br
+connecting =
+.B perf[(options)]
+
+A gensio for measuring throughput for a connection.  This allows the
+performance of a connection to be measured.  It does not pass any data
+through.  Instead, it writes raw data to the lower layer (if
+.B write_len
+is set) and reads data from the lower layer, counting the bytes and
+measuring the time.
+
+To the upper layer, perf prints out statistics about the data
+transfer.  It prints out the number of bytes written and read each
+second, and at the end it prints a total.
+
+If
+.B write_len
+and/or
+.B expect_len
+is non-zero, then the filter will return GE_REMCLOSE when it runs out
+of write data and has received all expected data.  If both are zero,
+the connection will not be closed by the gensio.
+.SS Options
+perf does not support readbuf.  It supports the following options:
+.TP
+.B writebuf=<n>
+Sets the size of the buffer to write to the child gensio.  Each write
+will be this size.  This defaults to zero.
+.TP
+.B write_len=<n>
+The number of bytes to write.
+.TP
+.B expect_len=<n>
+The number of bytes to expect from the other end.
+.SH "conacc"
+accepter =
+.B conacc[(options)],<gensio string>
+
+.B conacc
+is a gensio accepter that takes a gensio as a child.  When the
+accepter is started, it opens the child gensio.  When the child gensio
+finishes the open, it reports a new child for the accepter.  The
+reported gensio can be used normally.
+
+When the gensio is closed, when the close completes the accepter will
+attempt to re-open the gensio immediately and will disable itself if
+the connect fails, unless retry-time is set.  This means that if the
+gensio has some sort of random address (like a pty or a tcp address
+with the port set to zero) you can get a different address for the
+re-opened gensio.  So you must refetch the local address or local port
+in this case.
+.SS Options
+The readbuf option is not accepted.
+.TP
+.B retry-time=<gtime>
+Instead of restarting a closed connection immediately, this will cause
+a delay between the close and the re-open.  Also, if the connect
+fails, it will not disable itself, it will wait another retry-time
+period and try the connect again.  See the section on gtime above.
+The unit defaults to milliseconds.  The default value is zero.
+.SS "Direct Allocation"
+Allocated as a terminal gensio with gdata as a "const char *".  That is
+the specification of the gensio below it.
+.SH "mdns"
+connecting =
+.B mdns[(options)][,<name>]
+
+This gensio uses mDNS to find a service and then attempts to connect
+to it.  This can be convenient, it finds the connection type, address,
+and port for you, automatically adds telnet and rfc2217 if it's
+available.  The mDNS name can be set as an option or as the string
+after the comma show above.
+
+The name, type, host, and domain strings can be wildcarded in various
+ways.  See "STRING VALUES FOR WATCHES" in gensio_mdns(3) for details.
+.SS Options
+The readbuf option is accepted, but if it is not specified the default
+value for readbuf will be taken for the sub-gensio is taken.  In
+addition to readbuf, the mdns gensio takes the following options:
+.TP
+.B nostack[=true|false]
+By default the mdns gensio will attempt to use the "gensiostack" text
+string from the mDNS service.  If you don't want it to do this,
+setting this option will turn it off.
+.TP
+.B name=<mdnsstr>
+Set the mdns name to search for.  You generally want to set this,
+otherwise you will get the first thing that comes up from the search.
+.TP
+.B type=<mdnsstr>
+Set the mdns type to search for.
+.TP
+.B domain=<mdnsstr>
+Set the mdns domain to search for.  You generally don't use this.
+.TP
+.B host=<mdnsstr>
+Set the mdns host to search for.  You generally don't use this.
+.TP
+.B interface=<num>
+Set the network interface number to search on.  The default is -1,
+which means all interfaces.
+.TP
+.B nettype=unspec|ipv4|ipv6
+The network type to search for.  unspec means any type, otherwise you
+can choose to limit it to ipv4 and ipv6.
+.TP
+.B nodelay[=true|false]
+Sets nodelay on the socket.  This will be ignored for udp.  Note that
+the default value for mdns is ignored, if you don't set it here it will
+take the default value for the sub-gensio that gets chosen.
+.B laddr=<addr>
+An address specification to bind to on the local socket to set the
+local address.
+.SS "Direct Allocation"
+Allocated as a terminal gensio with gdata as a "const char *".  That is
+the specification of the mdns as a string.
+.SH "kiss"
+accepter =
+.B kiss[(options)]
+.br
+connecting =
+.B kiss[(options)]
+
+A gensio that implements the KISS amateur radio protocol for
+transferring data between a TNC and AX25.  See
+http://www.ax25.net/kiss.aspx for details.  It contains a number of
+tunable parameters, you probably shouldn't mess with most of them.
+
+This is a normal packet-oriented interface.
+
+KISS supports multiple TNCs underneath it.  To write to a specific
+TNC, you must use the auxdata string "tnc:<n>" when writing.  If you
+don't set that, the TNC is assumed to be zero.  On reading, "tnc:<n>"
+will always be in one of the auxdata fields.  You shouldn't set a TNC
+larger than the configured number of TNCs.
+
+There is a 8-bit protocol field in the AX25 frame call the PID.  This
+is not passed in the data, it is also in the auxdata with the format
+"pid:<n>".  And to set the pid, pass it in the auxdata on write.  If
+you don't set the pid, it defaults to 240 (0xf0).
+
+.SS Options
+kiss supports the following options:
+.TP
+.B readbuf=<n>
+Sets the maximum packet size that can be read from the TNC.  Defaults
+to 256.
+.TP
+.B writebuf=<n>
+Sets the maximum packet size that can be written to the TNC.  Defaults
+to 256.
+.TP
+.B tncs=<n>
+The number of supported TNCs.  Defaults to 1.
+.TP
+.B server[=yes|no]
+Is this a KISS server or client.  A client will set the tunable
+parameters on the TNC.  A server is expected to be a TNC, but this
+isn't fully implemented yet as you can't get the tunable parameters.
+.TP
+.B setupstr=<string>
+Send the given string at startup to set up the device.
+.TP
+.B setup-delay=<n milliseconds>
+Wait for the given number of milliseconds after sending the setup
+string before continuing operation.
+.TP
+.B d710[=yes|no]
+If set to yes or just "d710" is given, set the setupstr to a value for
+the Kenwood D710 radio.  This is the same as doing:
+setupstr='xflow on\\rhbaud 1200\\rkiss on\\rrestart\\r'
+.TP
+.B d710-9600[=yes|no]
+If set to yes or just "d710-9600" is given, set the setupstr to a
+value for the Kenwood D710 radio at 9600 bps.  This is the same as
+doing: setupstr='xflow on\\rhbaud 9600\\rkiss on\\rrestart\\r'
+.TP
+.B txdelay=<n>
+The KISS txdelay parameter, in milliseconds, rounded to the nearest
+power of ten.  The maximum values is 2550.  Default is 50ms.
+.TP
+.B persist=<n>
+The KISS "P" parameter, ranging from 0-255.  I don't know what this
+means, the spec isn't clear.  You'll have to figure it out on your
+own.  Default is 63.
+.TP
+.B slottime=<n>
+The KISS slot time parameter, in milliseconds, rounded to the nearest
+power of 10.  The maximum value is 2550ms, the default is 100ms.
+.TP
+.B fullduplex[=yes|no]
+Set's full duplex on the connection.
+.TP
+.B sethardware=<n>
+A hardware-specific control value ranging from 0-255.  It's meaning
+depends on the hardware.  By default it is not set.
+.SH "ax25"
+accepter =
+.B ax25[(options)]
+.br
+connecting =
+.B ax25[(options)]
+
+A gensio that implements the AX25 amateur radio protocol for
+transferring data.  You would generally run this on top of a KISS
+gensio.  See http://www.ax25.net for details.
+
+This is a normal packet-oriented interface.
+
+It is also a channel-based implementation.  Each AX25 connection to a
+remote system is implemented as a channel.  You can also have an
+unconnected channel if you want to just receive UI frames.
+
+There is no server/client setting on an ax25 gensio.  The protocol is
+symmetric, so it's not necessary.  An ax25 accepter will take the
+first connection that comes in and deliver it as a gensio, but after
+that there's really no difference.
+
+When running as an accepter, incoming connections will be delivered as
+new connections, not new channels.  This allows you to use an ax25
+gensio more naturally underneath a server without having to know about
+ax25 in the code.  For instance, to create a simple AX25 server that
+reflects all incoming data, you could create a reflector:
+.IP
+greflector -t kiss,tcp,1234
+.PP
+then you could create the server:
+.IP
+gensiot -i 'echo' --server -a \\
+.br
+    'ax25(laddr=test-1),conacc,kiss,tcp,localhost,1234'
+.PP
+then you could connect to it:
+.IP
+gensiot 'ax25(laddr=test-2,addr="0,test-1,test-2"),kiss,tcp,localhost,1234'
+.PP
+
+So to use this, allocate an ax25 gensio.  If you want to make a
+connection, you must set the addr to a destination address.  By
+default the laddr will be set from the addr if the addr is supplied.
+If you just want UI frames, you don't need to set an address (more on
+that later).  Then you open the gensio.  An ax25 gensio without an
+address will just open immediately and start receiving UI packets as
+directed.  With an addr set, it will attempt to make a connection.
+Once that is up (or fails), the open callback is called.
+.SS AX25 Addresses
+A gensio AX25 address string is in the form:
+.IP
+[ax25:]tncport,dest[:c|r],src[:c|r][,extra1[:h]
+.br
+[,extra2[:h][..]]]
+.PP
+.B tncport
+is a number from 0-15 specifying which TNC to use.
+.B dest
+and
+.B src
+and subaddresses specifying the destination and source addresses.
+Note that the source address better match an laddr, or the connection
+won't work.
+.B extra
+fields are also subaddresses.  These are used for routing (a function
+that is deprecated and no longer use) and by APRS for it's own
+purposes, see the APRS spec for details.  The
+.B c, r,
+and
+.B h
+values are bits in the address that you generally don't care about,
+except for the
+.B h
+field for APRS.
+
+Subaddresses are in the form
+.IP
+callsign-n
+.PP
+where
+.B callsign
+is a set of alphanumeric digits (a-zA-Z0-9) and
+.B n
+is a number 0-15.  Lower case digits are converted to upper case
+in the address and not converted back on receipt.
+.SS Handling unconnected packets (UI frames)
+To receive UI frames, you must enable the
+.B GENSIO\_CONTROL\_ENABLE\_OOB
+control on the gensio.  If you set the value to 1, you will receive UI
+frames where the destination matches one of your laddrs.  If you set
+it to 2, you will receive all UI frames (promiscuous mode).  0
+disables receipt of UI frames.
+
+UI frames are reported with the "oob" in the auxdata, like out of band
+data.  Note that you must completely handle all the UI frame in the
+call.  If you don't consume all the data, it will not be called again.
+
+You can have a channel that receives both connected data and UI
+frames, but you would generally have a separate channel with no addr
+set for receiving UI frames.  If you don't set the laddr field, that
+channel can only be used for promiscuous mode.
+
+On received packets, the auxdata will contain a field starting with
+"addr:" and the rest is the gensio AX25 address in the packet.  When
+sending a UI frame, you must set "oob" and "addr:" fields in the
+auxdata, with a valid address in the "addr:" field.
+.SS Options
+Option values for channels are all inherited from the options used to
+create the first channel, except for addr (which must be supplied for
+each channel if you care) and laddr (which is only used on the first
+channel.  ax25 supports the following options:
+.TP
+.B readbuf=<n>
+Sets the maximum packet size that can be read.  Defaults to 256.
+.TP
+.B writebuf=<n>
+Sets the maximum packet size that can be written.  Defaults to 256.
+.TP
+.B readwindow=<n>
+Sets the maximum packet size that can be received and unacked.
+Defaults to 7 for extended and 4 for non-extended.
+.TP
+.B writewindow=<n>
+Sets the maximum number of packets that can be sent unacked to the
+remote side.  Defaults to 7 for extended and 4 for non-extended.
+.TP
+.B extended=<n>
+Set the extended mode.  Setting it to 1 will enable 7-bit sequence
+numbers, the connection will first attempt to use 7-bit sequence
+number.  If that fails, it will fall back to 3-bit sequence numbers.
+
+Setting the value to 2 will enable a non-standard operation that will
+add parameter negotiation to the connection startup.  Setting the
+readbuf, writebuf, readwindow, and writewindow without extended=2
+really isn't very useful as without the negotiation it will be forced
+to fall back to the defaults.  If extended=2 fails, it will fall back
+to extended=1.
+.TP
+.B laddr=<subaddr>[;<subaddr[...]]
+Set the addresses the ax25 gensio will receive packets for.  Except
+for promiscuous UI mode, the destination of a packet must match one of
+these addresses to be handled.  This can only be set on the accepter
+or on the first connection and applies to all channels.
+
+If you do not set this, but addr is set, the laddr will be set from
+the source address of addr.
+.TP
+.B addr=<ax25addr>
+Set the address of the remote end of the connection.  Packets will be
+sent to this address.
+.TP
+.B crc[=yes|no]
+Enable CRC checking.  Default is off.
+.TP
+.B ign_emb_ua[=yes|no]
+Some AX.25 stacks do not properly reset themselves when they get a
+second SABM (due to a timeout) but they still send a UA.  If you are
+getting errors about receiving a UA while connected and the connection
+hangs, try enabling this option.
+.TP
+.B srt=<n>
+The initial smoothed round trip time for the connection, in
+milliseconds.  See the spec for details, you probably don't need to
+mess with it.  Note that this value you set here is multiplied by the
+number of digipeaters between the source and the destination for the
+actual value.  Defaults to 1500.
+.TP
+.B t2=<n>
+The timer 2 value for the connection, in milliseconds.  See the spec
+for details, you probably don't need to mess with it.  Defaults to 2
+seconds.
+.TP
+.B t3=<n>
+The timer 3 value for the connection, in milliseconds.  See the spec
+for details, you probably don't need to mess with it.  Defaults to 300
+seconds.
+.TP
+.B retries=<n>
+Number of retries on a send before giving up and dropping the
+connection.  See the spec for details, you probably don't need to mess
+with it.  Defaults to 10.
+.SH "xlt"
+accepter =
+.B xlt[(options)]
+.br
+connecting =
+.B xlt[(options)]
+
+A gensio that translates characters.  This is primarily for
+translating line feeds and carraige returns, but may eventually be
+extended to do string substitutions and such.
+
+The readbuf option is not available in this gensio.
+.SS Options
+.TP
+.B in=<n>:<m>
+Translate character n (a number, 0xnn for hex, 0nnn  for octal, or nn for
+decimal) to character m on data read from the gensio.
+.TP
+.B out=<n>:<m>
+Like in, but translate character n to character m on data written to the
+gensio.
+.TP
+.B nlcr
+Translate new lines to carraige returns on data read from the gensio, and
+carraige returns to new lines on data written to the gensio.
+.TP
+.B crnl
+Translate carraige returns to new lines on data read from the gensio, and
+new lines to carraige returns on data written to the gensio.
+.SH "keepopen"
+connecting =
+.B keepopen[(options)]
+
+A filter gensio that makes it appear to the user that the gensios
+below it are always open.  If the gensio below it goes away, this will
+attempt to re-open it periodically.
+
+The readbuf option is not available in this gensio.
+.SS Options
+.TP
+.B retry-time=<gtime>
+Set the retry interval.  See the section on gtime for detail on this.
+Defaults to milliseconds it no unit given.  The default is 1 second.
+.TP
+.B discard-badwrites[=yes|no]
+Normally this gensio will flow-control the upper layer when the lower
+gensio is not open.  If you enable this, it will just throw write
+data away if the lower gensio is not open.
+.SH "script"
+connecting =
+.B script[(options)]
+accepting =
+.B script[(options)]
+
+A filter gensio that allows an external program to interact with the
+child gensio before reporting that it is open.  The external program
+runs with its stdio connected to the child of this gensio, so writes
+from the external program get written to the child and reads from the
+child get written to the external program's stdin.  If the program
+returns without error, the open for this gensio succeeds.  If the
+program returns an error, GE_LOCALCLOSED is reported as an open error.
+
+The readbuf option is not available in this gensio.
+.SS Options
+.TP
+.B script=<string>
+Run the program given in the string as the external program.  This is
+equivalent to doing: gensio=stdio(noredir-stderr),<string>, it just a
+shortcut.
+.TP
+.B gensio=<string>
+Instead of running a program, run the given gensio.  When the gensio
+closes, handle an error.  If the gensio supported getting an error
+code, that is done.
+.SH "sound"
+connecting =
+.B sound[(options)],<device>
+
+The sound gensio provides access to sound devices on the platform.
+It's an unusual gensio in many respects.  It's not terribly useful for
+normal streaming operation.  It is a streaming operation, though, so
+it still fits.  But to avoid underruns and overruns, the stream has to
+be continuously supplied or consumed.
+
+The stream consists of bytes of binary data in the host's byte order.
+If the low-level sound interface uses a different byte order, it is
+converted to the host's order in the gensio.  The gensio can also
+convert data types.  If you ask for a float format and the low level
+driver can only do integers, the gensio will convert for you.  Each
+data item (byte, int16, etc) is called a sample.  So the driver has a
+user format (what the user sees) and a PCM format (what the driver
+uses).
+
+A stream has a number of channels, at least one.  Stereo, for instance,
+has two channels.  A frame consists of samples for all channels.
+Frames are always interleaved; the individual channels appear as
+successive data items in the stream.  So in stereo, sample1 is channel
+1 in the first frame, sample2 is channel 2 in the first frame, sample
+3 is channel 1 in the second frame, etc.
+
+A buffer is a set of frames.  A buffers's size is specified in frames,
+not bytes.  Reads are always provided in buffer size chunks.  If you
+do not comsume all the data in a buffer, it will give you the rest of
+the buffer the next read, until the buffer is consumed.  Writes can be
+written in any size, but it's generally most efficient to always write
+buffer sized chunks.
+
+A number of buffers can also be specified.  You generally want a large
+enough number that data can be smoothly written into the device
+without delay if the program lags a bit, but too large and you end up
+with lag if you want to change the data being written..
+
+A sound gensio may have input, output, or both.  You specify which you
+want by setting the number of channels to a non-zero value.  Most of
+the parameters can be prefixed with "in" or "out" to specify that the
+parameter only applies to the input and output device.  If you don't
+have that prefix, it will apply to both the input and output.  Note
+that the input and output streams are completely independent; they can
+have different type, format, rates, etc. 
+
+Different sound interfaces are available on platforms.  For Linux,
+alsa and file interfaces are available.  On Windows, win and file
+interfaces are available.
+
+The device is specified on the command line.  The name is
+system-dependent.  For alsa, the name must match exactly.  You can use
+"aplay -L" or "arecord -L" to list input and output devices available.
+Or you can use the "gsound -L" program.
+
+For Windows, the name just has to match the first part of the device's
+name.  Windows names always start with a number.  So, for instance, if
+the output of "gsound -L" on your windows platform is:
+.IP
+    0:Microphone (Realtek(R) Audio)     input,inchans=2
+.br
+    0:Speakers (Realtek(R) Audio)       output,outchans=2
+.PP
+then "0:" will match the the microphone for an input device, and "0:"
+will match the speakers for an output device.  On Windows, you must
+generally specify the input and output device, as the numbers don't
+always line up as nicely as above.
+
+For file type, the device name is a filename; data is streamed to/from
+the file in the PCM format.  If the filename is "-", then stdio is
+used instead of opening a file.
+
+The readbuf option is not available in this gensio, obviously.
+.SS Options
+.TP
+.B <samplerate>-<channels>-<format>
+For simple applications, the sound gensio takes a compact and simple
+format as an option.  It specifies those things for both the input and
+output channel.  So, for instance, "sound(44100-2-float)" would be
+CD-rate two channel using floating point numbers.
+.TP
+.B list[=yes|no]
+Instead of opening a sound device, the gensio will provide data about
+the various sound interfaces available.  Every other option but "type"
+is ignored.  If "type" is supplied, list the interfaces for that type.
+If "type" is not supplied, list the interfaces for the default one.
+
+The data will be a string with each interfaces separated by a newline.
+There will be an interface name, a tab, and the interface
+specification.
+.TP
+.B outdev=<str>
+If the output device has a different name than the input device, it
+must be specified separately.
+.TP
+.B inbufsize=<n>, outbufsize=<n>, bufsize=<n>
+Specify the buffer size, in samples.  This defaults to 1024.
+.TP
+.B innbufs=<n>, outnbufs=<n>, nbufs=<n>
+Specify the number of buffers to use.  This may or may not be used
+depending on the interface type.  It's ignored for file, for instance.
+Defaults to 100.
+.TP
+.B chans=<n>, inchans=<n>, outchans=<n>
+Set the number of input and output channels.  One of these must be
+specified, if you say
+.B chans
+it will set both the input and output number of channels.  If you only
+specify in or out, the other is not enabled.
+.TP
+.B inrate=<n>, outrate=<n>, rate=<n>
+The sample rate, in samples per second.  Common ones are 44100 (CD),
+48000 (DAT).
+.TP
+.B intype=<n>, outtype=<n>, type=<n>
+Set the interface type.  Must be "alsa" (Linux only), "win" (Windows
+only) or "file".  If not set, this default to alsa on Linux and win on
+Windows.
+.TP
+.B informat=<n>, outformat=<n>, format=<n>
+Set the type of data to supply to the user.  This is one of: float64,
+float, s32, s32, s16, or s8.  User samples are always signed
+and either floating point or integer.  Floating point is normalized
+from -1.0 to 1.0.  You must specify this.
+.TP
+.B inpformat=<n>, outpformat=<n>, pformat=<n>
+The data format on the PCM size.  You have all the data formats
+specified for format above.  The integer ones can be prefixed with "u"
+instead of "s" to make them unsigned (like u16), and all may be
+suffixed with "le" or "be" to make them little or big endian (like
+float64_le).  If you do not specify this, the gensio will attempt the
+same format as the user format.  If that doesn't work, it will attempt
+to pick the best matching format and convert.
+.SH "afskmdm"
+connecting =
+.B afskmcm[(options)]
+
+A filter gensio that sits on top of the sound gensio and implements an
+Audio Frequency Shift Keying modem, like is used on AX.25 amateur
+radio.  It must sit on top of a sound gensio.  Or, more accurately a
+gensio that implements the GENSIO_CONTROL_IN_BUFSIZE,
+GENSIO_CONTROL_OUT_BUFSIZE, GENSIO_CONTROL_IN_FORMAT, and
+GENSIO_CONTROL_OUT_FORMAT controls.
+
+Note that the sound gensio must supply a float user format.
+.SS Keying the Transmitter
+By default,
+.B afskmcm
+will not do anything specific to turn the transmitter on and off. In
+this case the keying must be VOX, like a SignaLink.
+
+If you need some other way to key the transmitter, afskmcm provide a
+.B key
+option.  This create a gensio that is used to turn the transmitter on
+and off.  It will send the
+.B keyon
+string and the
+.B keyoff
+string for this purpose.
+
+For instance, you could create your own program to do the keying and
+add:
+.IP
+key="stdio,mykeyprog --parm1 --parm2",keyon="1",keyoff="0"
+.PP
+to your
+.B afskmdm
+option and it would run the mykeyprog program when opened.  When it
+needed to transmit, it would write a "1" (no newline or anything sent)
+to the stdin of the program.  When the transmission was complete, it
+would write a "0".  Not numbers, these are "0" and "1" characters.
+
+If you program sends output to stderr, you probably want to add
+stderr-to-stdout to the stdin so the stderr buffers doesn't fill up
+and block the program.  Then stderr data will be ignored.
+
+You can use rigctld with this.  I have the following rigctld setup on my
+system:
+.IP
+rigctld -m 1022 -r /dev/ttyUSB0 -s 4800 -P CM108 -p /dev/hidraw1
+.PP
+And I use the following in my configuration:
+.IP
+afskmdm(key="tcp,localhost,4532",keyon="T 1\\n",keyoff="T 0\\n")
+.PP
+You have to be careful of the quoting here, as the key specification
+must be in quotes because it will have commas.  Notice the use of
+"\\n" in the strings for a new line.  Normal C "\\" escape sequences
+are handled.
+
+Anything read in from the key gensio is ignored.
+.SS Options
+.TP
+.B readbuf=<n>
+Sets the maximum packet size that can be read.  Defaults to 256.
+.TP
+.B writebuf=<n>
+Sets the maximum packet size that can be written.  Defaults to 256.
+.TP
+.B nchans=<n>, in_nchans=<n>, out_nchans=<n>
+Specify how many channels are coming from/going to the sound gensio.
+The sound gensio interleaves the sound for multiple channels.  By
+default this is fetched from the sound gensio.
+.TP
+.B chan=<n>, in_chan=<n>, out_chan=<n>
+Which specific channel to use.  One one channel is used for input
+sound and output sound, the others are ignored or filled with zeros.
+By default this is zero.
+.TP
+.B out_chans=<n>
+Specify a bitmask of which channels to output sound on.  The same
+sound will be output for all selected channel.  So n=1 will only
+output on channel 0, n=3 will output on channels 0 and 1, etc.  By
+default only channel 0 is output on.
+.TP
+.B samplerate=<n>, in_samplerate=<n>, out_samplerate=<n>
+The sample rate, samples per second, of the data.  By default this is
+fetched from the sound gensio.
+.TP
+.B wmsgs=<n>
+The number of working messages at the same time.  If the bit fails the
+certainty test (see below), for every current working message, two are
+created, one with each bit possibility, up to the count specified in
+this option.  These are kept until a message is correctly received
+(with CRC) or the series of bits is not valid.
+
+This way, if wmsg is 2^n, a message can be correctly decoded if up to
+n bits are wrong.  So it's sort of an error correction code without a
+code.
+Defaults to 32.
+.TP
+.B wmsg-extra=<n>
+Sets the number of extra amplification levels for the mark and space
+frequencies to try.  If set to 1, an extra complete detection is done
+with the space frequency amplified by 3db, then the mark frequency
+amplified by 3db.  If set to 2, it will do this with3db then 6db, and
+so on.  This can help compensate for filtering on the different
+frequencies.
+Defaults to 1.
+.TP
+.B min-certainty=<float>
+A floating point number that specifies the minimum certainty above
+which a bit is considered good.  The ratio of the signal power for the
+mark and space frequencies is calculated as the certainty.  If that
+certainty is below min-certainty, it does the wmsgs procedure above.
+Defaults to 2.0.
+.TP
+.B filttype=[fir|iir|none]
+A 2nd-order low-pass Butterworth IIR filter or a low-pass FIR filter
+is implemented on the input.  This selects which filter, or no filter.
+The IIR filter doesn't use very much CPU, the FIR filter uses a lot of
+CPU at higher sample rates.  This is mostly for experimentation.  The
+default is IIR for sample rates above 30000Hz and FIR for lower sample
+rates.  Lower sample rates don't work well with the IIR filter, but
+there's not much difference at higher sample rates.
+.TP
+.B lpcutoff=<n>
+This sets the cutoff frequency for the input filter.  Setting it to
+zero disables it.  The default is 2500Hz.
+.TP
+.B trfreq=<n>
+This sets the transition frequency width for the FIR filter.  This is
+ignored for the IIR filter.  The default is 500Hz.  Smaller numbers
+make a sharper cutoff but result in more CPU being used.
+.TP
+.B tx-preamble=<n>
+The time in milliseconds at the beginning of a message that is just
+flags.  This lets the receiver turn on and the other end synchronize.
+Default is 300.
+.TP
+.B tx-tail=<n>
+The time in milliseconds at the end of the message that is just flags.
+Default is 100.
+.TP
+.B tx-predelay=<n>
+The amount of time to wait after another sender has finished sending a
+message before the transmit is started.  Default is 500ms.
+.TP
+.B volume=<float>
+Sets the transmit volume, from 0.0-1.0.  Values above 1.0 will clip.
+Default is .75.
+.TP
+.B key=<gensio string>
+.TP
+This creates a gensio that will be used to key the transmitter on and
+off.  See the discussion above on keying for more details.  If you set this, you must set
+.B keyon
+and
+.B keyoff.
+Disabled by default.
+.B keyon=<string>, keyoff=<string>
+.TP
+The strings to send to the key gensio to turn the transmitter on and
+off.
+.B full-duplex[=yes|no]
+.TP
+Treat the read and write streams as completely independent.  Transmit
+does not check if something is being received before sending, all
+sends just start immediately.
+.SH "Forking and gensios"
+Unlike normal file descriptors, when you fork with a gensio, you now
+have two unassociated copies of the gensios.  So if you do operations
+on one, it might mess up the other.  Even a close might cause issues,
+if you close an SSL connection, it sends data to the other end to
+close the connection, even if the other fork doesn't want that.
+
+To avoid issues with this, you should generally first make sure that
+no thread is in a wait, service call, or any type of thing that would
+examine file descriptors or timers and act on them.  This is
+.B very
+important, and you must do it
+.B before
+you fork.
+
+Then after you fork, you should call:
+.IP
+gensio_disable(io)
+.PP
+on all the gensios that fork is not using, then free the gensios.
+Don't use close, use free.  Then you should call:
+.IP
+gensio_acc_disable(acc)
+.PP
+on every gensio accepter that fork is not using, then free them.  If a
+connection is in progress and has not been reported to the user, it
+will be disabled then closed.
+
+You cannot share a gensio between two different processes.  If a
+gensio is used in one fork, it must be disabled and closed in the
+other fork.
+
+Another issue with forking on Linux is epoll.  An epoll fd is not
+duplicated on a fork, both forks get the same epoll fd.  If you close
+the epoll fd in one for, it will close it for the other.  To avoid
+this issue, the os handler has a handle_fork() function that you must
+call after a fork in the new fork (not the old one).  It will handle
+any cleanup required after the fork.  Other systems may require other
+cleanups after a fork, so you should always call this after a fork.
+.SH "SEE ALSO"
+gensiot(1), sctp(7), udp(7), tcp(7), unix(7)
+.SH "KNOWN PROBLEMS"
+None.
+.SH AUTHOR
+.PP
+Corey Minyard <minyard@acm.org>

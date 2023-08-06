@@ -1,0 +1,394 @@
+//
+//  gensio - A library for abstracting stream I/O
+//  Copyright (C) 2021  Corey Minyard <minyard@acm.org>
+//
+//  SPDX-License-Identifier: LGPL-2.1-only
+
+// This is the go-specific raw gensio wrapper
+
+%module(directors="1") gensio
+
+%go_import("reflect")
+
+// Renaming gensio_time doesn't, as the base code renames it.  Just
+// live with it.
+%rename(rawOs_Funcs) gensios::Os_Funcs;
+%rename("raw%s") gensios::Os_Funcs::log;
+%rename(rawGensio) gensios::Gensio;
+%rename(rawSerial_Gensio) gensios::Serial_Gensio;
+%rename(rawAccepter) gensios::Accepter;
+%rename(rawEvent) gensios::Event;
+%rename(rawSerial_Event) gensios::Serial_Event;
+%rename(rawGensio_Open_Done) gensios::Gensio_Open_Done;
+%rename(rawGensio_Close_Done) gensios::Gensio_Close_Done;
+%rename(rawSerial_Op_Done) gensios::Serial_Op_Done;
+%rename(rawSerial_Op_Sig_Done) gensios::Serial_Op_Sig_Done;
+%rename(rawAccepter_Event) gensios::Accepter_Event;
+%rename(rawAccepter_Shutdown_Done) gensios::Accepter_Shutdown_Done;
+%rename(rawAccepter_Enable_Done) gensios::Accepter_Enable_Done;
+%rename(rawWaiter) gensios::Waiter;
+%rename(rawWait) gensios::Waiter::wait;
+%rename(rawgensio_alloc) gensios::gensio_alloc;
+%rename(rawgensio_acc_alloc) gensios::gensio_acc_alloc;
+%rename(RawMDNS_Free_Done) gensios::MDNS_Free_Done;
+%rename(RawMDNS) gensios::MDNS;
+%rename(RawMDNS_Service) gensios::MDNS_Service;
+%rename(RawMDNS_Watch_Free_Done) gensios::MDNS_Watch_Free_Done;
+%rename(RawMDNS_Watch_Event) gensios::MDNS_Watch_Event;
+%rename(RawMDNS_Watch) gensios::MDNS_Watch;
+
+%ignore gensios::Addr::operator==;
+%ignore gensios::MDNS::add_service;
+%ignore gensios::MDNS::add_watch;
+
+%include <std_string.i>
+%include <gensio_base.i>
+
+%typemap(throws) gensios::gensio_error %{
+  std::string errstr = "gensio_error: ";
+  errstr += $1.what();
+  _swig_gopanic(errstr.c_str());
+%}
+
+// We use the simple uchar vector for go
+%ignore gensios::Gensio::write(const std::vector<unsigned char> data,
+			      const char *const *auxdata);
+%ignore gensios::Gensio::read_s(std::vector<unsigned char> &rvec,
+			       gensio_time *timeout = NULL, bool intr = false);
+
+// We do our own version of read_s that returns the new length.
+%ignore gensios::Gensio::read_s(SimpleUCharVector &data,
+			       gensio_time *timeout = NULL, bool intr = false);
+%ignore gensios::Gensio::control(int depth, bool get, unsigned int option,
+				char *data, gensiods *datalen);
+%ignore gensios::Accepter::control(int depth, bool get, unsigned int option,
+				  char *data, gensiods *datalen);
+
+// Convert betwen byte arrays and unsigned char vectors.
+%typemap(gotype) (std::vector<unsigned char>) "[]byte";
+%typemap(in) (std::vector<unsigned char>) {
+    $1.assign((unsigned char *) $input.array,
+	      ((unsigned char *) $input.array) + $input.len);
+}
+%typemap(directorin) (std::vector<unsigned char>) {
+    $input.array = (void *) $1.data();
+    $input.len = $1.size();
+    $input.cap = $input.len;
+}
+%typemap(gotype) (gensios::SimpleUCharVector) "[]byte";
+%typemap(in) (gensios::SimpleUCharVector) {
+    $1.setbuf((unsigned char *) $input.array, $input.len);
+}
+%typemap(directorin) (gensios::SimpleUCharVector) {
+    $input.array = (void *) $1.data();
+    $input.len = $1.size();
+    $input.cap = $input.len;
+}
+
+%typemap(gotype) (std::vector<unsigned char> &) "*[]byte";
+%typemap(directorin) (std::vector<unsigned char> &) (_goslice_ temp) {
+    $input = &temp;
+    temp.array = (void *) $1.data();
+    temp.len = $1.size();
+    temp.cap = temp.len;
+}
+%typemap(directorargout) (std::vector<unsigned char> &) {
+    _goslice_ *tmp = (_goslice_ *) $input;
+    $1.assign((unsigned char *) tmp->array,
+	      ((unsigned char *) tmp->array) + tmp->len);
+}
+
+%typemap(directorin) std::string &retval (_gostring_ temp) {
+    $input = &temp;
+    temp.p = (char *) $1.data();
+    temp.n = $1.size();
+}
+%typemap(directorargout) std::string &retval {
+    _gostring_ *tmp = (_gostring_ *) $input;
+    $1.assign(tmp->p, tmp->p + tmp->n);
+}
+
+%typemap(directorin) gensios::Gensio *tmpg {
+    $input = $1;
+    gensio_ref($1->get_gensio());
+}
+
+// Return data from read_s.  You can't update an existing vector's
+// (well, you can, but it's ugly), but you can update the data.  So
+// instead, create our own read_s function that takes the data and
+// returns a length, and on the go wrapper side you can slice and
+// return the data based on the return length.
+%typemap(gotype) (gensios::SimpleUCharVector &data) "[]byte";
+%typemap(in) (gensios::SimpleUCharVector &data) (gensios::SimpleUCharVector temp) {
+    $1 = &temp;
+    $1->setbuf((unsigned char *) $input.array, $input.cap);
+}
+%extend gensios::Gensio {
+    int read_s(SimpleUCharVector &data, gensiods *rlen,
+	       gensio_time *timeout = NULL, bool intr = false) {
+	int rv = self->read_s(data, timeout, intr);
+	*rlen = data.size();
+	return rv;
+    }
+}
+
+// Data handling for control
+%typemap(gotype) (char *data, gensiods len) "[]byte";
+%typemap(in) (char *data, gensiods len) {
+    $1 = (char *) $input.array;
+    $2 = $input.cap;
+}
+%extend gensios::Gensio {
+    int control(int depth, bool get, unsigned int option,
+		char *data, gensiods len, gensiods *rlen) {
+	int rv = self->control(depth, get, option, data, &len);
+	*rlen = len;
+	return rv;
+    }
+    void ref() {
+	gensio_ref(self->get_gensio());
+    }
+}
+
+%extend gensios::Accepter {
+    int control(int depth, bool get, unsigned int option,
+		char *data, gensiods len, gensiods *rlen) {
+	int rv = self->control(depth, get, option, data, &len);
+	*rlen = len;
+	return rv;
+    }
+}
+
+// Handle auxdata
+%inline %{
+#include <stdlib.h>
+void *gensio_alloc_ptr_array(unsigned int len)
+{
+    return calloc(len, sizeof(void *));
+}
+void gensio_set_ptr_array(void *ain, unsigned int pos, void *val)
+{
+    void **a = (void **) ain;
+    a[pos] = val;
+}
+void *gensio_get_ptr_array(void *ain, unsigned int pos)
+{
+    void **a = (void **) ain;
+    return a[pos];
+}
+void gensio_free_ptr_array(void *ain)
+{
+    void **a = (void **) ain;
+    unsigned int i;
+
+    if (!a)
+        return;
+    for (i = 0; a[i]; i++) {
+        free(a[i]);
+    }
+    free(a);
+}
+char *gensio_uintptr_to_string(void *in)
+{
+    return (char *) in;
+}
+void *gensio_string_to_uintptr(char *in)
+{
+    return strdup(in);
+}
+%}
+%typemap(gotype) (const char * const *) "[]string";
+%typemap(imtype) (const char * const *) "uintptr";
+%typemap(goin) (const char * const *) {
+	if $input == nil || len($input) == 0 {
+		$result = 0
+	} else {
+		$result = Gensio_alloc_ptr_array(uint(len($input) + 1))
+		defer func() {
+			Gensio_free_ptr_array($result)
+		}()
+		var i uint
+		for i = 0; i < uint(len($input)); i++ {
+			Gensio_set_ptr_array($result, i,
+				Gensio_string_to_uintptr($input[i]))
+		}
+	}
+}
+%typemap(in) (const char * const *) {
+    $1 = (char **) $input;
+}
+%typemap(godirectorin) (const char * const *) {
+	if ($input == 0) {
+		$result = nil
+	} else {
+		var i uint
+		for i = 0; ; i++ {
+			var v uintptr = Gensio_get_ptr_array($input, i)
+			if v == 0 {
+				break
+			}
+		}
+		if i == 0 {
+			$result = nil
+		} else {
+			$result = make([]string, i)
+			for i = 0; ; i++ {
+				var v uintptr = Gensio_get_ptr_array($input, i)
+				if v == 0 {
+					break
+				}
+				$result[i] = Gensio_uintptr_to_string(v)
+			}
+		}
+	}
+}
+
+// Make sure a nil gensio time is handled correctly
+%typemap(imtype) (gensio_time *) "uintptr"
+%typemap(goin) (gensio_time *) {
+    if ! reflect.ValueOf($input).IsValid() {
+	$result = 0
+    } else if reflect.ValueOf($input).IsNil() {
+	$result = 0
+    } else {
+	$result = $input.Swigcptr()
+    }
+}
+
+%typemap(imtype) (gensios::Os_Funcs_Log_Handler *) "uintptr"
+%typemap(goin) (gensios::Os_Funcs_Log_Handler *) {
+    if ! reflect.ValueOf($input).IsValid() {
+	$result = 0
+    } else if reflect.ValueOf($input).IsNil() {
+	$result = 0
+    } else {
+	$result = $input.Swigcptr()
+    }
+}
+
+%typemap(in) (const std::string *) (std::string temp) {
+    if ($input) {
+	temp.assign($input->p, $input->n);
+	$1 = &temp;
+    } else {
+	$1 = NULL;
+    }
+}
+%typemap(argout) (const std::string *) {
+    if ($1) {
+	*$input = Swig_AllocateString($1->data(), $1->length());
+    }
+}
+%typemap(goargout) (const std::string *) { }
+
+%extend gensios::Gensio {
+    Serial_Gensio *to_serial_gensio() {
+	gensio_ref(self->get_gensio());
+	return dynamic_cast<Serial_Gensio *>(self);
+    }
+}
+
+%extend gensios::Waiter {
+    int service(gensio_time *timeout) {
+	int err;
+	Os_Funcs o = self->get_os_funcs();
+
+	do {
+	    err = gensio_os_funcs_service(o, timeout);
+	    if (err == GE_INTERRUPTED)
+		continue;
+	    break;
+	} while(true);
+	return err;
+    }
+}
+
+%extend gensios::Os_Funcs {
+    void cleanup_mem() {
+	gensio_cleanup_mem(*self);
+    }
+}
+
+%rename("%s") gensios::MDNS::add_watch;
+%rename("%s") gensios::MDNS::add_service;
+
+// Take string * for the strings and do the proper translation on the
+// go side.
+%extend gensios::MDNS {
+    MDNS_Service *add_service(int interfacenum, int ipdomain,
+			      const std::string *name,
+			      const std::string *mtype,
+			      const std::string *domain,
+			      const std::string *host,
+			      int port, const char * const *txt) {
+	// string types from go are not nil terminated.
+	std::string nname, nmtype, ndomain, nhost;
+
+	if (name) {
+	    nname = *name;
+	    name = &nname;
+	}
+	if (mtype) {
+	    nmtype = *mtype;
+	    mtype = &nmtype;
+	}
+	if (domain) {
+	    ndomain = *domain;
+	    domain = &ndomain;
+	}
+	if (host) {
+	    nhost = *host;
+	    host = &nhost;
+	}
+	return self->add_service(interfacenum, ipdomain,
+				 name ? name->c_str() : NULL,
+				 mtype ? mtype->c_str() : NULL,
+				 domain ? domain->c_str() : NULL,
+				 host ? host->c_str() : NULL,
+				 port, txt);
+    }
+
+    MDNS_Watch *add_watch(int interfacenum, int ipdomain,
+			  const std::string *name,
+			  const std::string *mtype,
+			  const std::string *domain,
+			  const std::string *host,
+			  MDNS_Watch_Event *event)
+    {
+	// string types from go are not nil terminated.
+	std::string nname, nmtype, ndomain, nhost;
+
+	if (name) {
+	    nname = *name;
+	    name = &nname;
+	}
+	if (mtype) {
+	    nmtype = *mtype;
+	    mtype = &nmtype;
+	}
+	if (domain) {
+	    ndomain = *domain;
+	    domain = &ndomain;
+	}
+	if (host) {
+	    nhost = *host;
+	    host = &nhost;
+	}
+	return self->add_watch(interfacenum, ipdomain,
+			       name ? name->c_str() : NULL,
+			       mtype ? mtype->c_str() : NULL,
+			       domain ? domain->c_str() : NULL,
+			       host ? host->c_str() : NULL,
+			       event);
+    }
+}
+
+#define GENSIOOSH_DLL_PUBLIC // For some reason this doesn't get set in swig
+%include <gensio/gensio_err.h>
+%include <gensio/gensio_control.h>
+#define GENSIOOSHCPP_DLL_PUBLIC // For some reason this doesn't get set in swig
+%include <gensio/gensioosh>
+%include <gensio/gensio>
+%include <gensio/gensiomdns>
+
+int gensio_num_alloced();

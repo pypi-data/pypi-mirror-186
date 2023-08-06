@@ -1,0 +1,26 @@
+.TH gensio_alloc_channel 3 "27 Feb 2019"
+.SH NAME
+gensio_alloc_channel \- Create a new channel on a
+channel-capable gensio
+.SH SYNOPSIS
+.B #include <gensio/gensio.h>
+.TP 20
+.B int gensio_alloc_channel(struct gensio *io, const char * const args[],
+.br
+.B                          gensio_event cb, void *user_data,
+.br
+.B                          struct gensio **new_io);
+.SH "DESCRIPTION"
+.B gensio_alloc_channel
+creates a new channel on a channel-capable gensio.  The exact meaning
+of channel, and the meaning of
+.I args
+depends on the particular gensio, see the the particular gensio class
+in gensio(5). The new gensio created will be closed and you must
+call
+.B gensio_open
+on it to start it up.
+.SH "RETURN VALUES"
+Zero is returned on success, or a gensio error on failure.
+.SH "SEE ALSO"
+gensio_err(3), gensio(5), gensio_os_funcs(3), gensio_event(3), gensio_open(3)
