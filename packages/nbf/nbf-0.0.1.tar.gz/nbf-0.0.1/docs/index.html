@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Cascade of Notebooks &mdash; jai 1 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/jai/docs/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="python" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> jai
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">python</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">jai</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">A Cascade of Notebooks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="a-cascade-of-notebooks">
+<h1>A Cascade of Notebooks<a class="headerlink" href="#a-cascade-of-notebooks" title="Permalink to this headline"></a></h1>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#module-epc" title="epc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">epc</span></code></a></p></td>
+<td><p>basic dict-based config with optional encrypted string for sensitive data</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="epc.html">epc module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<span class="target" id="module-epc"></span><p>basic dict-based config with optional encrypted string for sensitive data</p>
+<dl class="py function">
+<dt id="epc.cmd_from_template">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">cmd_from_template</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conf_args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_cmd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_cmd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#epc.cmd_from_template" title="Permalink to this definition"></a></dt>
+<dd><p>uses <cite>api_templates[template](conf)</cite> to get an executable command
+using stored conf: <cite>conf=decode(c[epc])[key_name]</cite></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.config_dict">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">config_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cxtern</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#epc.config_dict" title="Permalink to this definition"></a></dt>
+<dd><p>local variables via optional Colab form into config</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.decode">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">decode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encrypted_string</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#epc.decode" title="Permalink to this definition"></a></dt>
+<dd><p>decodes an AES passphrase-encrypted JSON string into a dict</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.do_setup">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">do_setup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#epc.do_setup" title="Permalink to this definition"></a></dt>
+<dd><p>convenience method, combines <cite>config_dict(c)</cite> (uses <cite>path_logic(c)</cite>),
+Google Drive mount (if True), and n <cite>make_request()</cite> from c[resources];
+will run os.system(cmd) on any <cite>c[setup_commands]</cite></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.encode">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">encode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decoded</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#epc.encode" title="Permalink to this definition"></a></dt>
+<dd><p>convert dict to JSON and AES encode with a passphrase</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.exclamation">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">exclamation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#epc.exclamation" title="Permalink to this definition"></a></dt>
+<dd><p>takes str or list, approximation of <cite>!command</cite> syntax for .py exports</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.get_epcw">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">get_epcw</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#epc.get_epcw" title="Permalink to this definition"></a></dt>
+<dd><p>the most basic pass input “system”, set get_epcw=your_preference()</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.get_input_prompt">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">get_input_prompt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_masked</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#epc.get_input_prompt" title="Permalink to this definition"></a></dt>
+<dd><p>text prompt for <cite>input()</cite> based on context</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.get_letter_options">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">get_letter_options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#epc.get_letter_options" title="Permalink to this definition"></a></dt>
+<dd><p>turns a list, of, options into a [l]ist, [o]f, [o]ptions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.get_logger">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">get_logger</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_level</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#epc.get_logger" title="Permalink to this definition"></a></dt>
+<dd><p>named loggers for notebooks</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.get_token">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">get_token</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#epc.get_token" title="Permalink to this definition"></a></dt>
+<dd><p>primitve token fetch</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.get_user_config_input">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">get_user_config_input</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoded</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#epc.get_user_config_input" title="Permalink to this definition"></a></dt>
+<dd><p>uses global api_fields[name] to loop over fields and get input() for vals</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.make_request">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">make_request</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#epc.make_request" title="Permalink to this definition"></a></dt>
+<dd><p>wrapper around cmd_from_template to catch and add missing data;
+recovery from missing key_name via <cite>update_epc()</cite></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.path_free">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">path_free</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bool</span><a class="headerlink" href="#epc.path_free" title="Permalink to this definition"></a></dt>
+<dd><p>basic isdir/isfile checking, will use global c if config not passed, also
+useful with <cite>do_setup</cite> if encrypted key_name is a path relative to <cite>projects_dir</cite></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.path_logic">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">path_logic</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xconf</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#epc.path_logic" title="Permalink to this definition"></a></dt>
+<dd><p>sets up paths in config; system environment vars &gt; xconf &gt; defaults
+<cite>active_project</cite> precidence: <cite>xconf</cite> &gt; first <cite>xconf[‘resources’]</cite> &gt; <cite>path_templates</cite></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.redact_output">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">redact_output</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#epc.redact_output" title="Permalink to this definition"></a></dt>
+<dd><p>replace output from hidden_fields list with &lt;REDACTED&gt;</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="epc.update_epc">
+<code class="sig-prename descclassname"><span class="pre">epc.</span></code><code class="sig-name descname"><span class="pre">update_epc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#epc.update_epc" title="Permalink to this definition"></a></dt>
+<dd><p>work with epc; accepts None, dict, or an encrypted string
+:returns decrypted dict</p>
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-right" title="python" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, jaciss.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

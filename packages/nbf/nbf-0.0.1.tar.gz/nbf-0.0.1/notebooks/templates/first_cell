@@ -1,0 +1,10 @@
+try:
+  c
+except:
+  c={'resources':{'jai':{}},'use_google_drive':True}
+  !wget -qO epc.py https://maya.software/epc.txt
+  import epc
+  c = epc.do_setup(c)
+  %run {c.get('nb_dir')}notebooks_as_features.ipynb
+
+!cd {c['projects_dir']}{c['active_project']} && git pull
