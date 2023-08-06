@@ -1,0 +1,29 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "selenium_compounds"
+version = "1.0.0"
+description = "Making selenium life easy"
+readme = "README.md"
+authors = [{ name = "Selenium Compounds", email = "deb.moreno@pm.me" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["feed", "reader", "tutorial"]
+dependencies = [
+    "selenium>=4.5.0", 
+]
+requires-python = ">=3.9"
+
+[project.urls]
+Homepage = "https://google.com"
+
+[project.scripts]
+selenium_compounds = "selenium_compounds.__main__:main"
