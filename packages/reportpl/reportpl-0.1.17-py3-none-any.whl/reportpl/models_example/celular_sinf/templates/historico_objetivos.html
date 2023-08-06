@@ -1,0 +1,24 @@
+<h1>HISTÓRICO</h1>
+<P>
+    Em atendimento à requisição de perícia realizada via sistema ODIN (ocorrência nº {{ ctx.ocorrencia_odin }}), 
+    datada de {{ ctx.data_odin|data_mes_extenso }}, por meio do quesito número {{ ctx.n_quesito }}, 
+    que tem como responsável a pessoa de {{ ctx.autoridade }}, foi procedido exame pericial {% if ctx.n_objetos > 1 %}nos objetos descritos no item 3 
+    deste laudo, que foram apresentados {% else %}no objeto descrito  no item 3 deste laudo, que foi apresentado{% endif %} 
+    à Seção de Informática Forense em {{ ctx.data_recebimento|data_mes_extenso }}.  
+</P>
+<h1>OBJETIVO/QUESITO</h1>
+<P>
+    {% if ctx.n_objetos > 1 %}
+    O presente trabalho tem por objetivo transcrever os dados dos objetos encaminhados.
+    {% else %}
+    O presente trabalho tem por objetivo transcrever os dados do objeto encaminhado.
+    {% endif %}
+</P>
+<H1>OBJETOS EXAMINADOS</H1>
+<P>
+    {% if ctx.n_objetos > 1 %}
+    Os objetos recebidos pelo perito estavam acondicionados em um saco plástico com lacre de número {{ ctx.lacre_entrada|xxx }}
+    {% else %}
+    O objeto recebido pelo perito estava acondicionado em um saco plástico com lacre de número {{ ctx.lacre_entrada|xxx }}
+    {% endif %}.
+</P>
