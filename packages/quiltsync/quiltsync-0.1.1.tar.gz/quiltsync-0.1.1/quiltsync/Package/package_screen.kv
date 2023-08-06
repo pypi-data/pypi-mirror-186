@@ -1,0 +1,62 @@
+<PackageDetail@MDLabel>:
+    font_size: small_font
+    pos_hint: {'top': 0.5}
+    size_hint_y: .08
+
+<PackageView>:
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: app.theme_cls.bg_dark
+        padding: [rel_space]
+
+        MDTopAppBar:
+            id: pkg_toolbar
+            elevation: widget_elevation
+            title: root.name
+            anchor_title: "left"
+            left_action_items: [["home", lambda ref: root.close(ref)]]
+            right_action_items: [["download", lambda ref: root.do_download(ref)]]
+
+        MDBoxLayout:
+            orientation: "vertical"
+
+            PackageDetail:
+                id: pkg_detail
+                text: f"\n{root.uri}\n{root.local_dir}"
+
+            ScrollView:
+                size_hint_y: .8
+
+                MDList:
+                    id: pkg_content
+                    adaptive_height: True
+                    spacing: list_space
+                    md_bg_color: app.theme_cls.bg_dark
+
+    MDSpinner:
+        id: pkg_loading
+        size_hint: None, None
+        size: dp(46), dp(46)
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        active: False 
+
+
+<PackageContent>:
+    size_hint_y: None
+    height: pkg_item.height
+
+    MDCardSwipeLayerBox:
+        padding: [dp(16)]
+
+        MDIconButton:
+            id: get_file
+            icon: 'download'
+            pos_hint: {"center_y": .5}
+            on_release: root.do_download(root.name)
+
+    MDCardSwipeFrontBox:
+        TwoLineIconListItem:
+            id: pkg_item
+            text: root.name
+            secondary_text: root.path
+            on_release: root.do_download(root.name)
