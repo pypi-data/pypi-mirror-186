@@ -1,0 +1,4010 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../../docs/media/blueye_b.svg">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
+    
+    
+      
+        <title>Camera - Blueye SDK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8b42a75e.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffffff">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-blueyesdkcamera" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Blueye SDK" class="md-header__button md-logo" aria-label="Blueye SDK" data-md-component="logo">
+      
+  <img src="../../../docs/media/blueye_b.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Blueye SDK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Camera
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/BluEye-Robotics/blueye.sdk/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Blueye SDK" class="md-nav__button md-logo" aria-label="Blueye SDK" data-md-component="logo">
+      
+  <img src="../../../docs/media/blueye_b.svg" alt="logo">
+
+    </a>
+    Blueye SDK
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/BluEye-Robotics/blueye.sdk/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        About the Blueye Drones
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/quick_start.html" class="md-nav__link">
+        Quick Start
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Movement
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Movement" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Movement
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/movement/from-the-CLI.html" class="md-nav__link">
+        Control from the CLI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/movement/with-a-gamepad.html" class="md-nav__link">
+        Control with a gamepad
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Video
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Video" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Video
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/video/gstreamer-for-video-streaming.html" class="md-nav__link">
+        GStreamer for video streaming
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/video/downloading.html" class="md-nav__link">
+        Downloading videos and images
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Logs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Logs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Logs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/logs/listing-and-downloading.html" class="md-nav__link">
+        Listing and downloading log files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/logs/log-file-format.html" class="md-nav__link">
+        Log file format
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/logs/plotting.html" class="md-nav__link">
+        Plotting log files
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/configuration.html" class="md-nav__link">
+        Configure drone parameters
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/http-api.html" class="md-nav__link">
+        HTTP API
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1" type="checkbox" id="__nav_8_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1">
+          Blueye
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Blueye" data-md-level="2">
+        <label class="md-nav__title" for="__nav_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          Blueye
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_1" type="checkbox" id="__nav_8_1_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_1">
+          Sdk
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Sdk" data-md-level="3">
+        <label class="md-nav__title" for="__nav_8_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Sdk
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Camera
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="camera.html" class="md-nav__link md-nav__link--active">
+        Camera
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#camera" class="md-nav__link">
+    Camera
+  </a>
+  
+    <nav class="md-nav" aria-label="Camera">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#take_picture" class="md-nav__link">
+    take_picture
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depthunitoverlay" class="md-nav__link">
+    DepthUnitOverlay
+  </a>
+  
+    <nav class="md-nav" aria-label="DepthUnitOverlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fontsizeoverlay" class="md-nav__link">
+    FontSizeOverlay
+  </a>
+  
+    <nav class="md-nav" aria-label="FontSizeOverlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro_1" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_1" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logooverlay" class="md-nav__link">
+    LogoOverlay
+  </a>
+  
+    <nav class="md-nav" aria-label="LogoOverlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro_2" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_2" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overlay" class="md-nav__link">
+    Overlay
+  </a>
+  
+    <nav class="md-nav" aria-label="Overlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables_1" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete_logo" class="md-nav__link">
+    delete_logo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download_logo" class="md-nav__link">
+    download_logo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload_logo" class="md-nav__link">
+    upload_logo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperatureunitoverlay" class="md-nav__link">
+    TemperatureUnitOverlay
+  </a>
+  
+    <nav class="md-nav" aria-label="TemperatureUnitOverlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro_3" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_3" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tilt" class="md-nav__link">
+    Tilt
+  </a>
+  
+    <nav class="md-nav" aria-label="Tilt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables_2" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_2" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_speed" class="md-nav__link">
+    set_speed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#toggle_stabilization" class="md-nav__link">
+    toggle_stabilization
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="constants.html" class="md-nav__link">
+        Constants
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="drone.html" class="md-nav__link">
+        Drone
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logs.html" class="md-nav__link">
+        Logs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="motion.html" class="md-nav__link">
+        Motion
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utils.html" class="md-nav__link">
+        Utils
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#camera" class="md-nav__link">
+    Camera
+  </a>
+  
+    <nav class="md-nav" aria-label="Camera">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#take_picture" class="md-nav__link">
+    take_picture
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depthunitoverlay" class="md-nav__link">
+    DepthUnitOverlay
+  </a>
+  
+    <nav class="md-nav" aria-label="DepthUnitOverlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fontsizeoverlay" class="md-nav__link">
+    FontSizeOverlay
+  </a>
+  
+    <nav class="md-nav" aria-label="FontSizeOverlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro_1" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_1" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logooverlay" class="md-nav__link">
+    LogoOverlay
+  </a>
+  
+    <nav class="md-nav" aria-label="LogoOverlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro_2" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_2" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overlay" class="md-nav__link">
+    Overlay
+  </a>
+  
+    <nav class="md-nav" aria-label="Overlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables_1" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete_logo" class="md-nav__link">
+    delete_logo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download_logo" class="md-nav__link">
+    download_logo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload_logo" class="md-nav__link">
+    upload_logo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperatureunitoverlay" class="md-nav__link">
+    TemperatureUnitOverlay
+  </a>
+  
+    <nav class="md-nav" aria-label="TemperatureUnitOverlay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro_3" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables_3" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tilt" class="md-nav__link">
+    Tilt
+  </a>
+  
+    <nav class="md-nav" aria-label="Tilt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables_2" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_2" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_speed" class="md-nav__link">
+    set_speed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#toggle_stabilization" class="md-nav__link">
+    toggle_stabilization
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/BluEye-Robotics/blueye.sdk/edit/main/reference/blueye/sdk/camera.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="module-blueyesdkcamera">Module blueye.sdk.camera</h1>
+<p>None</p>
+<p>None</p>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>from __future__ import annotations
+
+import re
+
+import warnings
+
+from collections import namedtuple
+
+from enum import Enum
+
+from typing import TYPE_CHECKING, NamedTuple
+
+import numpy as np
+
+import requests
+
+# Necessary to avoid cyclic imports
+
+if TYPE_CHECKING:
+
+    from .drone import Drone
+
+class Tilt:
+
+    @staticmethod
+
+    def _tilt_angle_from_debug_flags(flags: int) -&gt; float:
+
+        """Helper function for decoding tilt angle from debug flags
+
+        The tilt angle is encoded as an int8, with 0 at 0 degrees, and each increment representing
+
+        0.5 degrees in either direction. A positive angle is upwards, and negative is downwards.
+
+        """
+
+        TILT_ANGLE_MASK = 0x0000FF0000000000
+
+        TILT_ANGLE_OFFSET = 40
+
+        tilt_angle_array = np.array(
+
+            np.right_shift(np.bitwise_and(flags, TILT_ANGLE_MASK), TILT_ANGLE_OFFSET),
+
+            dtype=[("tilt_angle", np.int8)],
+
+        ).astype([("tilt_angle", float)])
+
+        return tilt_angle_array["tilt_angle"] / 2
+
+    @staticmethod
+
+    def _tilt_stabilization_status_from_debug_flags(flags: int) -&gt; bool:
+
+        """Helper function for decoding tilt stabilization status from debug flags"""
+
+        TILT_STABILIZATION_MASK = 0x100
+
+        return bool(flags &amp; TILT_STABILIZATION_MASK)
+
+    def __init__(self, parent_drone: Drone):
+
+        self._parent_drone = parent_drone
+
+    def _verify_tilt_in_features(self):
+
+        """Checks that the connected drone has the tilt feature
+
+        Raises a RuntimeError if it does not.
+
+        """
+
+        if "tilt" not in self._parent_drone.features:
+
+            raise RuntimeError("The connected drone does not support tilting the camera.")
+
+    def set_speed(self, speed: float):
+
+        """Set the speed and direction of the camera tilt
+
+        *Arguments*:
+
+        * speed (float): Speed and direction of the tilt. 1 is max speed up, -1 is max speed down.
+
+        Requires a drone with the tilt feature, and software version 1.5 or newer.
+
+        A RuntimeError is raised if either of those requirements are not met.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.5")
+
+        self._verify_tilt_in_features()
+
+        # The tilt command is grouped together with the thruster commands, so to avoid messing with
+
+        # the thruster setpoint while tilting we need to get the current setpoint and send it with
+
+        # the tilt command.
+
+        with self._parent_drone.motion.thruster_lock:
+
+            thruster_setpoints = self._parent_drone.motion.current_thruster_setpoints.values()
+
+            self._parent_drone._tcp_client.motion_input_tilt(*thruster_setpoints, 0, 0, speed)
+
+    @property
+
+    def angle(self) -&gt; float:
+
+        """Return the current angle of the camera tilt
+
+        Requires a drone with the tilt feature, and software version 1.5 or newer.
+
+        A RuntimeError is raised if either of those requirements are not met.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.5")
+
+        self._verify_tilt_in_features()
+
+        debug_flags = self._parent_drone._state_watcher.general_state["debug_flags"]
+
+        return self._tilt_angle_from_debug_flags(debug_flags)
+
+    @property
+
+    def stabilization_enabled(self) -&gt; bool:
+
+        """Get the state of active camera stabilization
+
+        Use the `toggle_stabilization` method to turn stabilization on or off
+
+        *Returns*:
+
+        * Current state of active camera stabilization (bool)
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.6.42")
+
+        self._verify_tilt_in_features()
+
+        debug_flags = self._parent_drone._state_watcher.general_state["debug_flags"]
+
+        return self._tilt_stabilization_status_from_debug_flags(debug_flags)
+
+    def toggle_stabilization(self):
+
+        """Toggle active camera stabilization on or off
+
+        Requires a drone with the tilt feature, and Blunux version 1.6.42 or newer.
+
+        A RuntimeError is raised if either of those requirements are not met.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.6.42")
+
+        self._verify_tilt_in_features()
+
+        self._parent_drone._tcp_client.toggle_tilt_stabilization()
+
+class LogoOverlay(Enum):
+
+    DISABLED = 0
+
+    BLUEYE = 1
+
+    CUSTOM = 2
+
+class DepthUnitOverlay(Enum):
+
+    METERS = 0
+
+    FEET = 1
+
+class TemperatureUnitOverlay(Enum):
+
+    CELSIUS = 0
+
+    FAHRENHEIT = 1
+
+class FontSizeOverlay(Enum):
+
+    PX15 = 15
+
+    PX20 = 20
+
+    PX25 = 25
+
+    PX30 = 30
+
+    PX35 = 35
+
+    PX40 = 40
+
+class Overlay:
+
+    """Control the overlay on videos and pictures"""
+
+    def __init__(self, parent_drone: Drone):
+
+        self._parent_drone = parent_drone
+
+    def _get_named_overlay_parameters(self) -&gt; NamedTuple:
+
+        """Get overlay parameters from drone and convert them to a named tuple"""
+
+        NamedParameters = namedtuple(
+
+            "Parameters",
+
+            [
+
+                "returned_parameter",
+
+                "temperature_enabled",
+
+                "depth_enabled",
+
+                "heading_enabled",
+
+                "tilt_enabled",
+
+                "date_enabled",
+
+                "logo_index",
+
+                "depth_unit",
+
+                "temperature_unit",
+
+                "tz_offset",
+
+                "margin_width",
+
+                "margin_height",
+
+                "font_size",
+
+                "title",
+
+                "subtitle",
+
+                "date_format",
+
+            ],
+
+        )
+
+        parameters = self._parent_drone._tcp_client.get_overlay_parameters()
+
+        return NamedParameters(*parameters)
+
+    @property
+
+    def temperature_enabled(self) -&gt; bool:
+
+        """Get or set the state of the temperature overlay
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return bool(self._get_named_overlay_parameters().temperature_enabled)
+
+    @temperature_enabled.setter
+
+    def temperature_enabled(self, enable_temperature: bool):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        self._parent_drone._tcp_client.set_overlay_temperature_enabled(
+
+            1 if enable_temperature else 0
+
+        )
+
+    @property
+
+    def depth_enabled(self) -&gt; bool:
+
+        """Get or set the state of the depth overlay
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return bool(self._get_named_overlay_parameters().depth_enabled)
+
+    @depth_enabled.setter
+
+    def depth_enabled(self, enable_depth: bool):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        self._parent_drone._tcp_client.set_overlay_depth_enabled(1 if enable_depth else 0)
+
+    @property
+
+    def heading_enabled(self) -&gt; bool:
+
+        """Get or set the state of the heading overlay
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return bool(self._get_named_overlay_parameters().heading_enabled)
+
+    @heading_enabled.setter
+
+    def heading_enabled(self, enable_heading: bool):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        self._parent_drone._tcp_client.set_overlay_heading_enabled(1 if enable_heading else 0)
+
+    @property
+
+    def tilt_enabled(self) -&gt; bool:
+
+        """Get or set the state of the tilt overlay
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return bool(self._get_named_overlay_parameters().tilt_enabled)
+
+    @tilt_enabled.setter
+
+    def tilt_enabled(self, enable_tilt: bool):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        self._parent_drone._tcp_client.set_overlay_tilt_enabled(1 if enable_tilt else 0)
+
+    @property
+
+    def date_enabled(self) -&gt; bool:
+
+        """Get or set the state of the date overlay
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return bool(self._get_named_overlay_parameters().date_enabled)
+
+    @date_enabled.setter
+
+    def date_enabled(self, enable_date: bool):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        self._parent_drone._tcp_client.set_overlay_date_enabled(1 if enable_date else 0)
+
+    @property
+
+    def logo(self) -&gt; LogoOverlay:
+
+        """Get or set logo overlay selection
+
+        Needs to be set to an instance of the `LogoOverlay` class, if not a RuntimeWarning is
+
+        raised.
+
+        Requires Blunux version 1.8.72 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        return LogoOverlay(self._get_named_overlay_parameters().logo_index)
+
+    @logo.setter
+
+    def logo(self, logo_index: LogoOverlay):
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        if not isinstance(logo_index, LogoOverlay):
+
+            warnings.warn("Invalid logo index, ignoring", RuntimeWarning)
+
+        elif logo_index.value not in range(3):
+
+            warnings.warn("Logo index out of range, ignoring", RuntimeWarning)
+
+        else:
+
+            self._parent_drone._tcp_client.set_overlay_logo_index(logo_index.value)
+
+    @property
+
+    def depth_unit(self) -&gt; DepthUnitOverlay:
+
+        """Get or set the depth unit for the overlay
+
+        Needs to be set to an instance of the `DepthUnitOverlay` class, if not a RuntimeWarning is
+
+        raised.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return DepthUnitOverlay(self._get_named_overlay_parameters().depth_unit)
+
+    @depth_unit.setter
+
+    def depth_unit(self, unit_index: DepthUnitOverlay):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        if not isinstance(unit_index, DepthUnitOverlay):
+
+            warnings.warn("Invalid depth unit index, ignoring", RuntimeWarning)
+
+        elif unit_index.value not in range(2):
+
+            warnings.warn("Depth unit index out of range, ignoring", RuntimeWarning)
+
+        else:
+
+            self._parent_drone._tcp_client.set_overlay_depth_unit(unit_index.value)
+
+    @property
+
+    def temperature_unit(self) -&gt; TemperatureUnitOverlay:
+
+        """Get or set the temperature unit for the overlay
+
+        Needs to be set to an instance of the `TemperatureUnitOverlay` class, if not a
+
+        RuntimeWarning is raised.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return TemperatureUnitOverlay(self._get_named_overlay_parameters().temperature_unit)
+
+    @temperature_unit.setter
+
+    def temperature_unit(self, unit_index: TemperatureUnitOverlay):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        if not isinstance(unit_index, TemperatureUnitOverlay):
+
+            warnings.warn("Invalid temperature unit index, ignoring", RuntimeWarning)
+
+        elif unit_index.value not in range(2):
+
+            warnings.warn("Temperature unit index out of range, ignoring", RuntimeWarning)
+
+        else:
+
+            self._parent_drone._tcp_client.set_overlay_temperature_unit(unit_index.value)
+
+    @property
+
+    def timezone_offset(self) -&gt; int:
+
+        """Get or set the timezone offset for the overlay
+
+        Set to the number of minutes (either positive or negative) the timestamp should be offset.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return self._get_named_overlay_parameters().tz_offset
+
+    @timezone_offset.setter
+
+    def timezone_offset(self, offset: int):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        self._parent_drone._tcp_client.set_overlay_tz_offset(offset)
+
+    @property
+
+    def margin_width(self) -&gt; int:
+
+        """Get or set the margin width for the overlay
+
+        The amount of pixels to use as margin on the right and left side of the overlay. Needs to
+
+        be a positive integer.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return self._get_named_overlay_parameters().margin_width
+
+    @margin_width.setter
+
+    def margin_width(self, width: int):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        if width &lt; 0:
+
+            warnings.warn("Invalid margin width, ignoring", RuntimeWarning)
+
+        else:
+
+            self._parent_drone._tcp_client.set_overlay_margin_width(width)
+
+    @property
+
+    def margin_height(self) -&gt; int:
+
+        """Get or set the margin height for the overlay
+
+        The amount of pixels to use as margin on the top and bottom side of the overlay. Needs to be
+
+        a positive integer.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return self._get_named_overlay_parameters().margin_height
+
+    @margin_height.setter
+
+    def margin_height(self, height: int):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        if height &lt; 0:
+
+            warnings.warn("Invalid margin height, ignoring", RuntimeWarning)
+
+        else:
+
+            self._parent_drone._tcp_client.set_overlay_margin_height(height)
+
+    @property
+
+    def font_size(self) -&gt; FontSizeOverlay:
+
+        """Get or set the font size for the overlay
+
+        Needs to be an instance of the `FontSizeOverlay` class, if not a RuntimeWarning is raised.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return FontSizeOverlay(self._get_named_overlay_parameters().font_size)
+
+    @font_size.setter
+
+    def font_size(self, size: FontSizeOverlay):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        if not isinstance(size, FontSizeOverlay):
+
+            warnings.warn("Invalid font size, ignoring", RuntimeWarning)
+
+        elif size.value not in range(15, 41):
+
+            warnings.warn("Font size out of range, ignoring", RuntimeWarning)
+
+        else:
+
+            self._parent_drone._tcp_client.set_overlay_font_size(size.value)
+
+    @property
+
+    def title(self) -&gt; str:
+
+        """Get or set the title for the overlay
+
+        The title needs to be a string of only ASCII characters with a maximum length of 63
+
+        characters. If a longer title is passed it will be truncated, and a RuntimeWarning is
+
+        raised.
+
+        Set to an empty string to disable title.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return self._get_named_overlay_parameters().title.decode("utf-8").rstrip("\x00")
+
+    @title.setter
+
+    def title(self, input_title: str):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        new_title = input_title
+
+        if len(input_title) &gt; 63:
+
+            warnings.warn("Too long title, truncating to 63 characters", RuntimeWarning)
+
+            new_title = new_title[:63]
+
+        try:
+
+            encoded_title = bytes(new_title, "ascii")
+
+        except UnicodeEncodeError:
+
+            warnings.warn("Title can only contain ASCII characters, ignoring", RuntimeWarning)
+
+            return
+
+        self._parent_drone._tcp_client.set_overlay_title(encoded_title + b"\x00")
+
+    @property
+
+    def subtitle(self) -&gt; str:
+
+        """Get or set the subtitle for the overlay
+
+        The subtitle needs to be a string of only ASCII characters with a maximum length of 63
+
+        characters. If a longer subtitle is passed it will be truncated, and a RuntimeWarning is
+
+        raised.
+
+        Set to an empty string to disable the subtitle.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return self._get_named_overlay_parameters().subtitle.decode("utf-8").rstrip("\x00")
+
+    @subtitle.setter
+
+    def subtitle(self, input_subtitle: str):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        new_subtitle = input_subtitle
+
+        if len(input_subtitle) &gt; 63:
+
+            warnings.warn("Too long subtitle, truncating to 63 characters", RuntimeWarning)
+
+            new_subtitle = new_subtitle[:63]
+
+        try:
+
+            encoded_subtitle = bytes(new_subtitle, "ascii")
+
+        except UnicodeEncodeError:
+
+            warnings.warn("Subtitle can only contain ASCII characters, ignoring", RuntimeWarning)
+
+            return
+
+        self._parent_drone._tcp_client.set_overlay_subtitle(encoded_subtitle + b"\x00")
+
+    @property
+
+    def date_format(self) -&gt; str:
+
+        """Get or set the format string for the time displayed in the overlay
+
+        Must be a string containing only ASCII characters, with a max length of 63 characters.
+
+        The format codes are defined by the C89 standard, see
+
+        https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
+
+        for an overview of the available codes.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return self._get_named_overlay_parameters().date_format.decode("utf-8").rstrip("\x00")
+
+    @date_format.setter
+
+    def date_format(self, input_format_str: str):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        format_str = input_format_str
+
+        if len(format_str) &gt; 63:
+
+            warnings.warn(
+
+                "Too long date format string, truncating to 63 characters", RuntimeWarning
+
+            )
+
+            format_str = format_str[:63]
+
+        try:
+
+            encoded_format_str = bytes(format_str, "ascii")
+
+        except UnicodeEncodeError:
+
+            warnings.warn(
+
+                "Date format string can only contain ASCII characters, ignoring", RuntimeWarning
+
+            )
+
+            return
+
+        self._parent_drone._tcp_client.set_overlay_date_format(encoded_format_str + b"\x00")
+
+    def upload_logo(self, path_to_logo: str):
+
+        """Upload user selectable logo for watermarking videos and pictures
+
+        Set the logo-property to `LogoOverlay.CUSTOM` to enable this logo.
+
+        Allowed filetype: JPG or PNG.
+
+        Max resolution: 2000 px.
+
+        Max file size: 5 MB.
+
+        Requires Blunux version 1.8.72 or newer.
+
+        *Exceptions*:
+
+        * `requests.exceptions.HTTPError` : Status code 400 for invalid files
+
+        * `requests.exceptions.ConnectTimeout` : If unable to create a connection within 1s
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        with open(path_to_logo, "rb") as f:
+
+            url = f"http://{self._parent_drone._ip}/asset/logo"
+
+            files = {"image": f}
+
+            response = requests.post(url, files=files, timeout=1)
+
+        response.raise_for_status()
+
+    def download_logo(self, output_directory="."):
+
+        """Download the original user uploaded logo (PNG or JPG)
+
+        Select the download directory with the output_directory parameter.
+
+        *Exceptions*:
+
+        * `requests.exceptions.HTTPError` : If no custom logo is uploaded.
+
+        * `requests.exceptions.ConnectTimeout` : If unable to create a connection within 1s
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        response = requests.get(f"http://{self._parent_drone._ip}/asset/logo", timeout=1)
+
+        response.raise_for_status()
+
+        filename = re.findall('filename="(.+)"', response.headers["Content-Disposition"])[0]
+
+        with open(f"{output_directory}/{filename}", "wb") as f:
+
+            f.write(response.content)
+
+    def delete_logo(self):
+
+        """Delete the user uploaded logo from the drone
+
+        *Exceptions*:
+
+        * `requests.exceptions.HTTPError` : If an error occurs during deletion
+
+        * `requests.exceptions.ConnectTimeout` : If unable to create a connection within 1s
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        response = requests.delete(f"http://{self._parent_drone._ip}/asset/logo", timeout=1)
+
+        response.raise_for_status()
+
+class Camera:
+
+    def __init__(self, parent_drone: Drone):
+
+        self._state_watcher = parent_drone._state_watcher
+
+        self._parent_drone = parent_drone
+
+        self.tilt = Tilt(parent_drone)
+
+        self.overlay = Overlay(parent_drone)
+
+    @property
+
+    def is_recording(self) -&gt; bool:
+
+        """Start or stop a camera recording
+
+        *Arguments*:
+
+        * is_recording (bool): Set to True to start a recording, set to False to stop the current recording
+
+        *Returns*:
+
+        * is_recording (bool): True if the camera is currently recording, False if not
+
+        """
+
+        state = self._state_watcher.general_state
+
+        if state["camera_record_time"] != -1:
+
+            return True
+
+        else:
+
+            return False
+
+    @is_recording.setter
+
+    def is_recording(self, start_recording: bool):
+
+        if start_recording:
+
+            self._parent_drone._tcp_client.start_recording()
+
+        else:
+
+            self._parent_drone._tcp_client.stop_recording()
+
+    @property
+
+    def bitrate(self) -&gt; int:
+
+        """Set or get the camera bitrate
+
+        *Arguments*:
+
+        * bitrate (int): Set the camera bitrate in bits, Valid values are in range &lt;1 000 000, 16 000 000&gt;
+
+        *Returns*:
+
+        * bitrate (int): Get the camera bitrate
+
+        """
+
+        camera_parameters = self._parent_drone._tcp_client.get_camera_parameters()
+
+        bitrate = camera_parameters[1]
+
+        return bitrate
+
+    @bitrate.setter
+
+    def bitrate(self, bitrate: int):
+
+        self._parent_drone._tcp_client.set_camera_bitrate(bitrate)
+
+    @property
+
+    def exposure(self) -&gt; int:
+
+        """Set or get the camera exposure
+
+        *Arguments*:
+
+        * exposure (int): Set the camera exposure_value: 1 = 1/1000th of a second, 5 = 1/200th of a second. Valid values are in the range &lt;1, 5000&gt;
+
+        *Returns*:
+
+        * exposure (int): Get the camera exposure
+
+        """
+
+        camera_parameters = self._parent_drone._tcp_client.get_camera_parameters()
+
+        exposure = camera_parameters[2]
+
+        return exposure
+
+    @exposure.setter
+
+    def exposure(self, exposure: int):
+
+        self._parent_drone._tcp_client.set_camera_exposure(exposure)
+
+    @property
+
+    def whitebalance(self) -&gt; int:
+
+        """Set or get the camera white balance
+
+        *Arguments*:
+
+        * whitebalance (int): Set the camera white balance. Valid values are in the range &lt;2800, 9300&gt;
+
+        *Returns*:
+
+        * whitebalance (int): Get the camera white balance
+
+        """
+
+        camera_parameters = self._parent_drone._tcp_client.get_camera_parameters()
+
+        whitebalance = camera_parameters[3]
+
+        return whitebalance
+
+    @whitebalance.setter
+
+    def whitebalance(self, whitebalance: int):
+
+        self._parent_drone._tcp_client.set_camera_whitebalance(whitebalance)
+
+    @property
+
+    def hue(self) -&gt; int:
+
+        """Set or get the camera hue
+
+        *Arguments*:
+
+        * hue (int): Set the camera hue. Valid values are in the range &lt;-40, 40&gt;
+
+        *Returns*:
+
+        * hue (int): Get the camera hue
+
+        """
+
+        camera_parameters = self._parent_drone._tcp_client.get_camera_parameters()
+
+        hue = camera_parameters[4]
+
+        return hue
+
+    @hue.setter
+
+    def hue(self, hue: int):
+
+        self._parent_drone._tcp_client.set_camera_hue(hue)
+
+    @property
+
+    def resolution(self) -&gt; int:
+
+        """Set or get the camera resolution
+
+        *Arguments*:
+
+        * resolution (int): Set the camera in vertical pixels. Valid values are 720 or 1080
+
+        *Returns*:
+
+        * resolution (int): Get the camera resolution
+
+        """
+
+        camera_parameters = self._parent_drone._tcp_client.get_camera_parameters()
+
+        resolution = camera_parameters[5]
+
+        return resolution
+
+    @resolution.setter
+
+    def resolution(self, resolution: int):
+
+        self._parent_drone._tcp_client.set_camera_resolution(resolution)
+
+    @property
+
+    def framerate(self) -&gt; int:
+
+        """Set or get the camera frame rate
+
+        *Arguments*:
+
+        * framerate (int): Set the camera frame rate in frames per second. Valid values are 25 or 30
+
+        *Returns*:
+
+        * framerate (int): Get the camera frame rate
+
+        """
+
+        camera_parameters = self._parent_drone._tcp_client.get_camera_parameters()
+
+        framerate = camera_parameters[6]
+
+        return framerate
+
+    @framerate.setter
+
+    def framerate(self, framerate: int):
+
+        self._parent_drone._tcp_client.set_camera_framerate(framerate)
+
+    @property
+
+    def record_time(self) -&gt; int:
+
+        """Set or get the duration of the current camera recording
+
+        *Returns*:
+
+        * record_time (int): The length in seconds of the current recording, -1 if the camera is not currently recording
+
+        """
+
+        return self._state_watcher.general_state["camera_record_time"]
+
+    def take_picture(self):
+
+        """Takes a still picture and stores it locally on the drone
+
+        These pictures can be downloaded with the Blueye App, or by any WebDAV compatible client.
+
+        This feature was added with drone version 1.4.7, so if you try to use it with an older
+
+        version this method will raise a RunTimeError.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.4.7")
+
+        self._parent_drone._tcp_client.take_still_picture()
+</code></pre>
+</details>
+<h2 id="variables">Variables</h2>
+<div class="highlight"><pre><span></span><code><span class="n">TYPE_CHECKING</span>
+</code></pre></div>
+<h2 id="classes">Classes</h2>
+<h3 id="camera">Camera</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Camera</span><span class="p">(</span>
+    <span class="n">parent_drone</span><span class="p">:</span> <span class="s1">&#39;Drone&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>class Camera:
+
+    def __init__(self, parent_drone: Drone):
+
+        self._state_watcher = parent_drone._state_watcher
+
+        self._parent_drone = parent_drone
+
+        self.tilt = Tilt(parent_drone)
+
+        self.overlay = Overlay(parent_drone)
+
+    @property
+
+    def is_recording(self) -&gt; bool:
+
+        """Start or stop a camera recording
+
+        *Arguments*:
+
+        * is_recording (bool): Set to True to start a recording, set to False to stop the current recording
+
+        *Returns*:
+
+        * is_recording (bool): True if the camera is currently recording, False if not
+
+        """
+
+        state = self._state_watcher.general_state
+
+        if state["camera_record_time"] != -1:
+
+            return True
+
+        else:
+
+            return False
+
+    @is_recording.setter
+
+    def is_recording(self, start_recording: bool):
+
+        if start_recording:
+
+            self._parent_drone._tcp_client.start_recording()
+
+        else:
+
+            self._parent_drone._tcp_client.stop_recording()
+
+    @property
+
+    def bitrate(self) -&gt; int:
+
+        """Set or get the camera bitrate
+
+        *Arguments*:
+
+        * bitrate (int): Set the camera bitrate in bits, Valid values are in range &lt;1 000 000, 16 000 000&gt;
+
+        *Returns*:
+
+        * bitrate (int): Get the camera bitrate
+
+        """
+
+        camera_parameters = self._parent_drone._tcp_client.get_camera_parameters()
+
+        bitrate = camera_parameters[1]
+
+        return bitrate
+
+    @bitrate.setter
+
+    def bitrate(self, bitrate: int):
+
+        self._parent_drone._tcp_client.set_camera_bitrate(bitrate)
+
+    @property
+
+    def exposure(self) -&gt; int:
+
+        """Set or get the camera exposure
+
+        *Arguments*:
+
+        * exposure (int): Set the camera exposure_value: 1 = 1/1000th of a second, 5 = 1/200th of a second. Valid values are in the range &lt;1, 5000&gt;
+
+        *Returns*:
+
+        * exposure (int): Get the camera exposure
+
+        """
+
+        camera_parameters = self._parent_drone._tcp_client.get_camera_parameters()
+
+        exposure = camera_parameters[2]
+
+        return exposure
+
+    @exposure.setter
+
+    def exposure(self, exposure: int):
+
+        self._parent_drone._tcp_client.set_camera_exposure(exposure)
+
+    @property
+
+    def whitebalance(self) -&gt; int:
+
+        """Set or get the camera white balance
+
+        *Arguments*:
+
+        * whitebalance (int): Set the camera white balance. Valid values are in the range &lt;2800, 9300&gt;
+
+        *Returns*:
+
+        * whitebalance (int): Get the camera white balance
+
+        """
+
+        camera_parameters = self._parent_drone._tcp_client.get_camera_parameters()
+
+        whitebalance = camera_parameters[3]
+
+        return whitebalance
+
+    @whitebalance.setter
+
+    def whitebalance(self, whitebalance: int):
+
+        self._parent_drone._tcp_client.set_camera_whitebalance(whitebalance)
+
+    @property
+
+    def hue(self) -&gt; int:
+
+        """Set or get the camera hue
+
+        *Arguments*:
+
+        * hue (int): Set the camera hue. Valid values are in the range &lt;-40, 40&gt;
+
+        *Returns*:
+
+        * hue (int): Get the camera hue
+
+        """
+
+        camera_parameters = self._parent_drone._tcp_client.get_camera_parameters()
+
+        hue = camera_parameters[4]
+
+        return hue
+
+    @hue.setter
+
+    def hue(self, hue: int):
+
+        self._parent_drone._tcp_client.set_camera_hue(hue)
+
+    @property
+
+    def resolution(self) -&gt; int:
+
+        """Set or get the camera resolution
+
+        *Arguments*:
+
+        * resolution (int): Set the camera in vertical pixels. Valid values are 720 or 1080
+
+        *Returns*:
+
+        * resolution (int): Get the camera resolution
+
+        """
+
+        camera_parameters = self._parent_drone._tcp_client.get_camera_parameters()
+
+        resolution = camera_parameters[5]
+
+        return resolution
+
+    @resolution.setter
+
+    def resolution(self, resolution: int):
+
+        self._parent_drone._tcp_client.set_camera_resolution(resolution)
+
+    @property
+
+    def framerate(self) -&gt; int:
+
+        """Set or get the camera frame rate
+
+        *Arguments*:
+
+        * framerate (int): Set the camera frame rate in frames per second. Valid values are 25 or 30
+
+        *Returns*:
+
+        * framerate (int): Get the camera frame rate
+
+        """
+
+        camera_parameters = self._parent_drone._tcp_client.get_camera_parameters()
+
+        framerate = camera_parameters[6]
+
+        return framerate
+
+    @framerate.setter
+
+    def framerate(self, framerate: int):
+
+        self._parent_drone._tcp_client.set_camera_framerate(framerate)
+
+    @property
+
+    def record_time(self) -&gt; int:
+
+        """Set or get the duration of the current camera recording
+
+        *Returns*:
+
+        * record_time (int): The length in seconds of the current recording, -1 if the camera is not currently recording
+
+        """
+
+        return self._state_watcher.general_state["camera_record_time"]
+
+    def take_picture(self):
+
+        """Takes a still picture and stores it locally on the drone
+
+        These pictures can be downloaded with the Blueye App, or by any WebDAV compatible client.
+
+        This feature was added with drone version 1.4.7, so if you try to use it with an older
+
+        version this method will raise a RunTimeError.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.4.7")
+
+        self._parent_drone._tcp_client.take_still_picture()
+</code></pre>
+</details>
+<hr />
+<h4 id="instance-variables">Instance variables</h4>
+<div class="highlight"><pre><span></span><code><span class="n">bitrate</span>
+</code></pre></div>
+<p>Set or get the camera bitrate</p>
+<p><em>Arguments</em>:</p>
+<ul>
+<li>bitrate (int): Set the camera bitrate in bits, Valid values are in range &lt;1 000 000, 16 000 000&gt;</li>
+</ul>
+<p><em>Returns</em>:</p>
+<ul>
+<li>bitrate (int): Get the camera bitrate</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">exposure</span>
+</code></pre></div>
+<p>Set or get the camera exposure</p>
+<p><em>Arguments</em>:</p>
+<ul>
+<li>exposure (int): Set the camera exposure_value: 1 = 1/1000<sup>th</sup> of a second, 5 = 1/200<sup>th</sup> of a second. Valid values are in the range &lt;1, 5000&gt;</li>
+</ul>
+<p><em>Returns</em>:</p>
+<ul>
+<li>exposure (int): Get the camera exposure</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">framerate</span>
+</code></pre></div>
+<p>Set or get the camera frame rate</p>
+<p><em>Arguments</em>:</p>
+<ul>
+<li>framerate (int): Set the camera frame rate in frames per second. Valid values are 25 or 30</li>
+</ul>
+<p><em>Returns</em>:</p>
+<ul>
+<li>framerate (int): Get the camera frame rate</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">hue</span>
+</code></pre></div>
+<p>Set or get the camera hue</p>
+<p><em>Arguments</em>:</p>
+<ul>
+<li>hue (int): Set the camera hue. Valid values are in the range &lt;-40, 40&gt;</li>
+</ul>
+<p><em>Returns</em>:</p>
+<ul>
+<li>hue (int): Get the camera hue</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">is_recording</span>
+</code></pre></div>
+<p>Start or stop a camera recording</p>
+<p><em>Arguments</em>:</p>
+<ul>
+<li>is_recording (bool): Set to True to start a recording, set to False to stop the current recording</li>
+</ul>
+<p><em>Returns</em>:</p>
+<ul>
+<li>is_recording (bool): True if the camera is currently recording, False if not</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">record_time</span>
+</code></pre></div>
+<p>Set or get the duration of the current camera recording</p>
+<p><em>Returns</em>:</p>
+<ul>
+<li>record_time (int): The length in seconds of the current recording, -1 if the camera is not currently recording</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">resolution</span>
+</code></pre></div>
+<p>Set or get the camera resolution</p>
+<p><em>Arguments</em>:</p>
+<ul>
+<li>resolution (int): Set the camera in vertical pixels. Valid values are 720 or 1080</li>
+</ul>
+<p><em>Returns</em>:</p>
+<ul>
+<li>resolution (int): Get the camera resolution</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">whitebalance</span>
+</code></pre></div>
+<p>Set or get the camera white balance</p>
+<p><em>Arguments</em>:</p>
+<ul>
+<li>whitebalance (int): Set the camera white balance. Valid values are in the range &lt;2800, 9300&gt;</li>
+</ul>
+<p><em>Returns</em>:</p>
+<ul>
+<li>whitebalance (int): Get the camera white balance</li>
+</ul>
+<h4 id="methods">Methods</h4>
+<h4 id="take_picture">take_picture</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">take_picture</span><span class="p">(</span>
+    <span class="bp">self</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Takes a still picture and stores it locally on the drone</p>
+<p>These pictures can be downloaded with the Blueye App, or by any WebDAV compatible client.
+This feature was added with drone version 1.4.7, so if you try to use it with an older
+version this method will raise a RunTimeError.</p>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>    def take_picture(self):
+
+        """Takes a still picture and stores it locally on the drone
+
+        These pictures can be downloaded with the Blueye App, or by any WebDAV compatible client.
+
+        This feature was added with drone version 1.4.7, so if you try to use it with an older
+
+        version this method will raise a RunTimeError.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.4.7")
+
+        self._parent_drone._tcp_client.take_still_picture()
+</code></pre>
+</details>
+<h3 id="depthunitoverlay">DepthUnitOverlay</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">DepthUnitOverlay</span><span class="p">(</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
+</code></pre></div>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>class DepthUnitOverlay(Enum):
+
+    METERS = 0
+
+    FEET = 1
+</code></pre>
+</details>
+<hr />
+<h4 id="ancestors-in-mro">Ancestors (in MRO)</h4>
+<ul>
+<li>enum.Enum</li>
+</ul>
+<h4 id="class-variables">Class variables</h4>
+<div class="highlight"><pre><span></span><code><span class="n">FEET</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">METERS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">name</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">value</span>
+</code></pre></div>
+<h3 id="fontsizeoverlay">FontSizeOverlay</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">FontSizeOverlay</span><span class="p">(</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
+</code></pre></div>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>class FontSizeOverlay(Enum):
+
+    PX15 = 15
+
+    PX20 = 20
+
+    PX25 = 25
+
+    PX30 = 30
+
+    PX35 = 35
+
+    PX40 = 40
+</code></pre>
+</details>
+<hr />
+<h4 id="ancestors-in-mro_1">Ancestors (in MRO)</h4>
+<ul>
+<li>enum.Enum</li>
+</ul>
+<h4 id="class-variables_1">Class variables</h4>
+<div class="highlight"><pre><span></span><code><span class="n">PX15</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">PX20</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">PX25</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">PX30</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">PX35</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">PX40</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">name</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">value</span>
+</code></pre></div>
+<h3 id="logooverlay">LogoOverlay</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">LogoOverlay</span><span class="p">(</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
+</code></pre></div>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>class LogoOverlay(Enum):
+
+    DISABLED = 0
+
+    BLUEYE = 1
+
+    CUSTOM = 2
+</code></pre>
+</details>
+<hr />
+<h4 id="ancestors-in-mro_2">Ancestors (in MRO)</h4>
+<ul>
+<li>enum.Enum</li>
+</ul>
+<h4 id="class-variables_2">Class variables</h4>
+<div class="highlight"><pre><span></span><code><span class="n">BLUEYE</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">CUSTOM</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">DISABLED</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">name</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">value</span>
+</code></pre></div>
+<h3 id="overlay">Overlay</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Overlay</span><span class="p">(</span>
+    <span class="n">parent_drone</span><span class="p">:</span> <span class="s1">&#39;Drone&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>class Overlay:
+
+    """Control the overlay on videos and pictures"""
+
+    def __init__(self, parent_drone: Drone):
+
+        self._parent_drone = parent_drone
+
+    def _get_named_overlay_parameters(self) -&gt; NamedTuple:
+
+        """Get overlay parameters from drone and convert them to a named tuple"""
+
+        NamedParameters = namedtuple(
+
+            "Parameters",
+
+            [
+
+                "returned_parameter",
+
+                "temperature_enabled",
+
+                "depth_enabled",
+
+                "heading_enabled",
+
+                "tilt_enabled",
+
+                "date_enabled",
+
+                "logo_index",
+
+                "depth_unit",
+
+                "temperature_unit",
+
+                "tz_offset",
+
+                "margin_width",
+
+                "margin_height",
+
+                "font_size",
+
+                "title",
+
+                "subtitle",
+
+                "date_format",
+
+            ],
+
+        )
+
+        parameters = self._parent_drone._tcp_client.get_overlay_parameters()
+
+        return NamedParameters(*parameters)
+
+    @property
+
+    def temperature_enabled(self) -&gt; bool:
+
+        """Get or set the state of the temperature overlay
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return bool(self._get_named_overlay_parameters().temperature_enabled)
+
+    @temperature_enabled.setter
+
+    def temperature_enabled(self, enable_temperature: bool):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        self._parent_drone._tcp_client.set_overlay_temperature_enabled(
+
+            1 if enable_temperature else 0
+
+        )
+
+    @property
+
+    def depth_enabled(self) -&gt; bool:
+
+        """Get or set the state of the depth overlay
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return bool(self._get_named_overlay_parameters().depth_enabled)
+
+    @depth_enabled.setter
+
+    def depth_enabled(self, enable_depth: bool):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        self._parent_drone._tcp_client.set_overlay_depth_enabled(1 if enable_depth else 0)
+
+    @property
+
+    def heading_enabled(self) -&gt; bool:
+
+        """Get or set the state of the heading overlay
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return bool(self._get_named_overlay_parameters().heading_enabled)
+
+    @heading_enabled.setter
+
+    def heading_enabled(self, enable_heading: bool):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        self._parent_drone._tcp_client.set_overlay_heading_enabled(1 if enable_heading else 0)
+
+    @property
+
+    def tilt_enabled(self) -&gt; bool:
+
+        """Get or set the state of the tilt overlay
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return bool(self._get_named_overlay_parameters().tilt_enabled)
+
+    @tilt_enabled.setter
+
+    def tilt_enabled(self, enable_tilt: bool):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        self._parent_drone._tcp_client.set_overlay_tilt_enabled(1 if enable_tilt else 0)
+
+    @property
+
+    def date_enabled(self) -&gt; bool:
+
+        """Get or set the state of the date overlay
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return bool(self._get_named_overlay_parameters().date_enabled)
+
+    @date_enabled.setter
+
+    def date_enabled(self, enable_date: bool):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        self._parent_drone._tcp_client.set_overlay_date_enabled(1 if enable_date else 0)
+
+    @property
+
+    def logo(self) -&gt; LogoOverlay:
+
+        """Get or set logo overlay selection
+
+        Needs to be set to an instance of the `LogoOverlay` class, if not a RuntimeWarning is
+
+        raised.
+
+        Requires Blunux version 1.8.72 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        return LogoOverlay(self._get_named_overlay_parameters().logo_index)
+
+    @logo.setter
+
+    def logo(self, logo_index: LogoOverlay):
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        if not isinstance(logo_index, LogoOverlay):
+
+            warnings.warn("Invalid logo index, ignoring", RuntimeWarning)
+
+        elif logo_index.value not in range(3):
+
+            warnings.warn("Logo index out of range, ignoring", RuntimeWarning)
+
+        else:
+
+            self._parent_drone._tcp_client.set_overlay_logo_index(logo_index.value)
+
+    @property
+
+    def depth_unit(self) -&gt; DepthUnitOverlay:
+
+        """Get or set the depth unit for the overlay
+
+        Needs to be set to an instance of the `DepthUnitOverlay` class, if not a RuntimeWarning is
+
+        raised.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return DepthUnitOverlay(self._get_named_overlay_parameters().depth_unit)
+
+    @depth_unit.setter
+
+    def depth_unit(self, unit_index: DepthUnitOverlay):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        if not isinstance(unit_index, DepthUnitOverlay):
+
+            warnings.warn("Invalid depth unit index, ignoring", RuntimeWarning)
+
+        elif unit_index.value not in range(2):
+
+            warnings.warn("Depth unit index out of range, ignoring", RuntimeWarning)
+
+        else:
+
+            self._parent_drone._tcp_client.set_overlay_depth_unit(unit_index.value)
+
+    @property
+
+    def temperature_unit(self) -&gt; TemperatureUnitOverlay:
+
+        """Get or set the temperature unit for the overlay
+
+        Needs to be set to an instance of the `TemperatureUnitOverlay` class, if not a
+
+        RuntimeWarning is raised.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return TemperatureUnitOverlay(self._get_named_overlay_parameters().temperature_unit)
+
+    @temperature_unit.setter
+
+    def temperature_unit(self, unit_index: TemperatureUnitOverlay):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        if not isinstance(unit_index, TemperatureUnitOverlay):
+
+            warnings.warn("Invalid temperature unit index, ignoring", RuntimeWarning)
+
+        elif unit_index.value not in range(2):
+
+            warnings.warn("Temperature unit index out of range, ignoring", RuntimeWarning)
+
+        else:
+
+            self._parent_drone._tcp_client.set_overlay_temperature_unit(unit_index.value)
+
+    @property
+
+    def timezone_offset(self) -&gt; int:
+
+        """Get or set the timezone offset for the overlay
+
+        Set to the number of minutes (either positive or negative) the timestamp should be offset.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return self._get_named_overlay_parameters().tz_offset
+
+    @timezone_offset.setter
+
+    def timezone_offset(self, offset: int):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        self._parent_drone._tcp_client.set_overlay_tz_offset(offset)
+
+    @property
+
+    def margin_width(self) -&gt; int:
+
+        """Get or set the margin width for the overlay
+
+        The amount of pixels to use as margin on the right and left side of the overlay. Needs to
+
+        be a positive integer.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return self._get_named_overlay_parameters().margin_width
+
+    @margin_width.setter
+
+    def margin_width(self, width: int):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        if width &lt; 0:
+
+            warnings.warn("Invalid margin width, ignoring", RuntimeWarning)
+
+        else:
+
+            self._parent_drone._tcp_client.set_overlay_margin_width(width)
+
+    @property
+
+    def margin_height(self) -&gt; int:
+
+        """Get or set the margin height for the overlay
+
+        The amount of pixels to use as margin on the top and bottom side of the overlay. Needs to be
+
+        a positive integer.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return self._get_named_overlay_parameters().margin_height
+
+    @margin_height.setter
+
+    def margin_height(self, height: int):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        if height &lt; 0:
+
+            warnings.warn("Invalid margin height, ignoring", RuntimeWarning)
+
+        else:
+
+            self._parent_drone._tcp_client.set_overlay_margin_height(height)
+
+    @property
+
+    def font_size(self) -&gt; FontSizeOverlay:
+
+        """Get or set the font size for the overlay
+
+        Needs to be an instance of the `FontSizeOverlay` class, if not a RuntimeWarning is raised.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return FontSizeOverlay(self._get_named_overlay_parameters().font_size)
+
+    @font_size.setter
+
+    def font_size(self, size: FontSizeOverlay):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        if not isinstance(size, FontSizeOverlay):
+
+            warnings.warn("Invalid font size, ignoring", RuntimeWarning)
+
+        elif size.value not in range(15, 41):
+
+            warnings.warn("Font size out of range, ignoring", RuntimeWarning)
+
+        else:
+
+            self._parent_drone._tcp_client.set_overlay_font_size(size.value)
+
+    @property
+
+    def title(self) -&gt; str:
+
+        """Get or set the title for the overlay
+
+        The title needs to be a string of only ASCII characters with a maximum length of 63
+
+        characters. If a longer title is passed it will be truncated, and a RuntimeWarning is
+
+        raised.
+
+        Set to an empty string to disable title.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return self._get_named_overlay_parameters().title.decode("utf-8").rstrip("\x00")
+
+    @title.setter
+
+    def title(self, input_title: str):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        new_title = input_title
+
+        if len(input_title) &gt; 63:
+
+            warnings.warn("Too long title, truncating to 63 characters", RuntimeWarning)
+
+            new_title = new_title[:63]
+
+        try:
+
+            encoded_title = bytes(new_title, "ascii")
+
+        except UnicodeEncodeError:
+
+            warnings.warn("Title can only contain ASCII characters, ignoring", RuntimeWarning)
+
+            return
+
+        self._parent_drone._tcp_client.set_overlay_title(encoded_title + b"\x00")
+
+    @property
+
+    def subtitle(self) -&gt; str:
+
+        """Get or set the subtitle for the overlay
+
+        The subtitle needs to be a string of only ASCII characters with a maximum length of 63
+
+        characters. If a longer subtitle is passed it will be truncated, and a RuntimeWarning is
+
+        raised.
+
+        Set to an empty string to disable the subtitle.
+
+        Requires Blunux version 1.7.60 or newer.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return self._get_named_overlay_parameters().subtitle.decode("utf-8").rstrip("\x00")
+
+    @subtitle.setter
+
+    def subtitle(self, input_subtitle: str):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        new_subtitle = input_subtitle
+
+        if len(input_subtitle) &gt; 63:
+
+            warnings.warn("Too long subtitle, truncating to 63 characters", RuntimeWarning)
+
+            new_subtitle = new_subtitle[:63]
+
+        try:
+
+            encoded_subtitle = bytes(new_subtitle, "ascii")
+
+        except UnicodeEncodeError:
+
+            warnings.warn("Subtitle can only contain ASCII characters, ignoring", RuntimeWarning)
+
+            return
+
+        self._parent_drone._tcp_client.set_overlay_subtitle(encoded_subtitle + b"\x00")
+
+    @property
+
+    def date_format(self) -&gt; str:
+
+        """Get or set the format string for the time displayed in the overlay
+
+        Must be a string containing only ASCII characters, with a max length of 63 characters.
+
+        The format codes are defined by the C89 standard, see
+
+        https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
+
+        for an overview of the available codes.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        return self._get_named_overlay_parameters().date_format.decode("utf-8").rstrip("\x00")
+
+    @date_format.setter
+
+    def date_format(self, input_format_str: str):
+
+        self._parent_drone._verify_required_blunux_version("1.7.60")
+
+        format_str = input_format_str
+
+        if len(format_str) &gt; 63:
+
+            warnings.warn(
+
+                "Too long date format string, truncating to 63 characters", RuntimeWarning
+
+            )
+
+            format_str = format_str[:63]
+
+        try:
+
+            encoded_format_str = bytes(format_str, "ascii")
+
+        except UnicodeEncodeError:
+
+            warnings.warn(
+
+                "Date format string can only contain ASCII characters, ignoring", RuntimeWarning
+
+            )
+
+            return
+
+        self._parent_drone._tcp_client.set_overlay_date_format(encoded_format_str + b"\x00")
+
+    def upload_logo(self, path_to_logo: str):
+
+        """Upload user selectable logo for watermarking videos and pictures
+
+        Set the logo-property to `LogoOverlay.CUSTOM` to enable this logo.
+
+        Allowed filetype: JPG or PNG.
+
+        Max resolution: 2000 px.
+
+        Max file size: 5 MB.
+
+        Requires Blunux version 1.8.72 or newer.
+
+        *Exceptions*:
+
+        * `requests.exceptions.HTTPError` : Status code 400 for invalid files
+
+        * `requests.exceptions.ConnectTimeout` : If unable to create a connection within 1s
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        with open(path_to_logo, "rb") as f:
+
+            url = f"http://{self._parent_drone._ip}/asset/logo"
+
+            files = {"image": f}
+
+            response = requests.post(url, files=files, timeout=1)
+
+        response.raise_for_status()
+
+    def download_logo(self, output_directory="."):
+
+        """Download the original user uploaded logo (PNG or JPG)
+
+        Select the download directory with the output_directory parameter.
+
+        *Exceptions*:
+
+        * `requests.exceptions.HTTPError` : If no custom logo is uploaded.
+
+        * `requests.exceptions.ConnectTimeout` : If unable to create a connection within 1s
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        response = requests.get(f"http://{self._parent_drone._ip}/asset/logo", timeout=1)
+
+        response.raise_for_status()
+
+        filename = re.findall('filename="(.+)"', response.headers["Content-Disposition"])[0]
+
+        with open(f"{output_directory}/{filename}", "wb") as f:
+
+            f.write(response.content)
+
+    def delete_logo(self):
+
+        """Delete the user uploaded logo from the drone
+
+        *Exceptions*:
+
+        * `requests.exceptions.HTTPError` : If an error occurs during deletion
+
+        * `requests.exceptions.ConnectTimeout` : If unable to create a connection within 1s
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        response = requests.delete(f"http://{self._parent_drone._ip}/asset/logo", timeout=1)
+
+        response.raise_for_status()
+</code></pre>
+</details>
+<hr />
+<h4 id="instance-variables_1">Instance variables</h4>
+<div class="highlight"><pre><span></span><code><span class="n">date_enabled</span>
+</code></pre></div>
+<p>Get or set the state of the date overlay</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">date_format</span>
+</code></pre></div>
+<p>Get or set the format string for the time displayed in the overlay</p>
+<p>Must be a string containing only ASCII characters, with a max length of 63 characters.</p>
+<p>The format codes are defined by the C89 standard, see
+<a href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes">https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes</a>
+for an overview of the available codes.</p>
+<div class="highlight"><pre><span></span><code><span class="n">depth_enabled</span>
+</code></pre></div>
+<p>Get or set the state of the depth overlay</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">depth_unit</span>
+</code></pre></div>
+<p>Get or set the depth unit for the overlay</p>
+<p>Needs to be set to an instance of the <code>DepthUnitOverlay</code> class, if not a RuntimeWarning is
+raised.</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">font_size</span>
+</code></pre></div>
+<p>Get or set the font size for the overlay</p>
+<p>Needs to be an instance of the <code>FontSizeOverlay</code> class, if not a RuntimeWarning is raised.</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">heading_enabled</span>
+</code></pre></div>
+<p>Get or set the state of the heading overlay</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">logo</span>
+</code></pre></div>
+<p>Get or set logo overlay selection</p>
+<p>Needs to be set to an instance of the <code>LogoOverlay</code> class, if not a RuntimeWarning is
+raised.</p>
+<p>Requires Blunux version 1.8.72 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">margin_height</span>
+</code></pre></div>
+<p>Get or set the margin height for the overlay</p>
+<p>The amount of pixels to use as margin on the top and bottom side of the overlay. Needs to be
+a positive integer.</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">margin_width</span>
+</code></pre></div>
+<p>Get or set the margin width for the overlay</p>
+<p>The amount of pixels to use as margin on the right and left side of the overlay. Needs to
+be a positive integer.</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">subtitle</span>
+</code></pre></div>
+<p>Get or set the subtitle for the overlay</p>
+<p>The subtitle needs to be a string of only ASCII characters with a maximum length of 63
+characters. If a longer subtitle is passed it will be truncated, and a RuntimeWarning is
+raised.</p>
+<p>Set to an empty string to disable the subtitle.</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">temperature_enabled</span>
+</code></pre></div>
+<p>Get or set the state of the temperature overlay</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">temperature_unit</span>
+</code></pre></div>
+<p>Get or set the temperature unit for the overlay</p>
+<p>Needs to be set to an instance of the <code>TemperatureUnitOverlay</code> class, if not a
+RuntimeWarning is raised.</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">tilt_enabled</span>
+</code></pre></div>
+<p>Get or set the state of the tilt overlay</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">timezone_offset</span>
+</code></pre></div>
+<p>Get or set the timezone offset for the overlay</p>
+<p>Set to the number of minutes (either positive or negative) the timestamp should be offset.</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">title</span>
+</code></pre></div>
+<p>Get or set the title for the overlay</p>
+<p>The title needs to be a string of only ASCII characters with a maximum length of 63
+characters. If a longer title is passed it will be truncated, and a RuntimeWarning is
+raised.</p>
+<p>Set to an empty string to disable title.</p>
+<p>Requires Blunux version 1.7.60 or newer.</p>
+<h4 id="methods_1">Methods</h4>
+<h4 id="delete_logo">delete_logo</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">delete_logo</span><span class="p">(</span>
+    <span class="bp">self</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Delete the user uploaded logo from the drone</p>
+<p><em>Exceptions</em>:</p>
+<ul>
+<li>
+<p><code>requests.exceptions.HTTPError</code> : If an error occurs during deletion</p>
+</li>
+<li>
+<p><code>requests.exceptions.ConnectTimeout</code> : If unable to create a connection within 1s</p>
+</li>
+</ul>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>    def delete_logo(self):
+
+        """Delete the user uploaded logo from the drone
+
+        *Exceptions*:
+
+        * `requests.exceptions.HTTPError` : If an error occurs during deletion
+
+        * `requests.exceptions.ConnectTimeout` : If unable to create a connection within 1s
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        response = requests.delete(f"http://{self._parent_drone._ip}/asset/logo", timeout=1)
+
+        response.raise_for_status()
+</code></pre>
+</details>
+<h4 id="download_logo">download_logo</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">download_logo</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">output_directory</span><span class="o">=</span><span class="s1">&#39;.&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Download the original user uploaded logo (PNG or JPG)</p>
+<p>Select the download directory with the output_directory parameter.</p>
+<p><em>Exceptions</em>:</p>
+<ul>
+<li>
+<p><code>requests.exceptions.HTTPError</code> : If no custom logo is uploaded.</p>
+</li>
+<li>
+<p><code>requests.exceptions.ConnectTimeout</code> : If unable to create a connection within 1s</p>
+</li>
+</ul>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>    def download_logo(self, output_directory="."):
+
+        """Download the original user uploaded logo (PNG or JPG)
+
+        Select the download directory with the output_directory parameter.
+
+        *Exceptions*:
+
+        * `requests.exceptions.HTTPError` : If no custom logo is uploaded.
+
+        * `requests.exceptions.ConnectTimeout` : If unable to create a connection within 1s
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        response = requests.get(f"http://{self._parent_drone._ip}/asset/logo", timeout=1)
+
+        response.raise_for_status()
+
+        filename = re.findall('filename="(.+)"', response.headers["Content-Disposition"])[0]
+
+        with open(f"{output_directory}/{filename}", "wb") as f:
+
+            f.write(response.content)
+</code></pre>
+</details>
+<h4 id="upload_logo">upload_logo</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">upload_logo</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">path_to_logo</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Upload user selectable logo for watermarking videos and pictures</p>
+<p>Set the logo-property to <code>LogoOverlay.CUSTOM</code> to enable this logo.</p>
+<p>Allowed filetype: JPG or PNG.
+Max resolution: 2000 px.
+Max file size: 5 MB.</p>
+<p>Requires Blunux version 1.8.72 or newer.</p>
+<p><em>Exceptions</em>:</p>
+<ul>
+<li>
+<p><code>requests.exceptions.HTTPError</code> : Status code 400 for invalid files</p>
+</li>
+<li>
+<p><code>requests.exceptions.ConnectTimeout</code> : If unable to create a connection within 1s</p>
+</li>
+</ul>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>    def upload_logo(self, path_to_logo: str):
+
+        """Upload user selectable logo for watermarking videos and pictures
+
+        Set the logo-property to `LogoOverlay.CUSTOM` to enable this logo.
+
+        Allowed filetype: JPG or PNG.
+
+        Max resolution: 2000 px.
+
+        Max file size: 5 MB.
+
+        Requires Blunux version 1.8.72 or newer.
+
+        *Exceptions*:
+
+        * `requests.exceptions.HTTPError` : Status code 400 for invalid files
+
+        * `requests.exceptions.ConnectTimeout` : If unable to create a connection within 1s
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.8.72")
+
+        with open(path_to_logo, "rb") as f:
+
+            url = f"http://{self._parent_drone._ip}/asset/logo"
+
+            files = {"image": f}
+
+            response = requests.post(url, files=files, timeout=1)
+
+        response.raise_for_status()
+</code></pre>
+</details>
+<h3 id="temperatureunitoverlay">TemperatureUnitOverlay</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">TemperatureUnitOverlay</span><span class="p">(</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
+</code></pre></div>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>class TemperatureUnitOverlay(Enum):
+
+    CELSIUS = 0
+
+    FAHRENHEIT = 1
+</code></pre>
+</details>
+<hr />
+<h4 id="ancestors-in-mro_3">Ancestors (in MRO)</h4>
+<ul>
+<li>enum.Enum</li>
+</ul>
+<h4 id="class-variables_3">Class variables</h4>
+<div class="highlight"><pre><span></span><code><span class="n">CELSIUS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">FAHRENHEIT</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">name</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">value</span>
+</code></pre></div>
+<h3 id="tilt">Tilt</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Tilt</span><span class="p">(</span>
+    <span class="n">parent_drone</span><span class="p">:</span> <span class="s1">&#39;Drone&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>class Tilt:
+
+    @staticmethod
+
+    def _tilt_angle_from_debug_flags(flags: int) -&gt; float:
+
+        """Helper function for decoding tilt angle from debug flags
+
+        The tilt angle is encoded as an int8, with 0 at 0 degrees, and each increment representing
+
+        0.5 degrees in either direction. A positive angle is upwards, and negative is downwards.
+
+        """
+
+        TILT_ANGLE_MASK = 0x0000FF0000000000
+
+        TILT_ANGLE_OFFSET = 40
+
+        tilt_angle_array = np.array(
+
+            np.right_shift(np.bitwise_and(flags, TILT_ANGLE_MASK), TILT_ANGLE_OFFSET),
+
+            dtype=[("tilt_angle", np.int8)],
+
+        ).astype([("tilt_angle", float)])
+
+        return tilt_angle_array["tilt_angle"] / 2
+
+    @staticmethod
+
+    def _tilt_stabilization_status_from_debug_flags(flags: int) -&gt; bool:
+
+        """Helper function for decoding tilt stabilization status from debug flags"""
+
+        TILT_STABILIZATION_MASK = 0x100
+
+        return bool(flags &amp; TILT_STABILIZATION_MASK)
+
+    def __init__(self, parent_drone: Drone):
+
+        self._parent_drone = parent_drone
+
+    def _verify_tilt_in_features(self):
+
+        """Checks that the connected drone has the tilt feature
+
+        Raises a RuntimeError if it does not.
+
+        """
+
+        if "tilt" not in self._parent_drone.features:
+
+            raise RuntimeError("The connected drone does not support tilting the camera.")
+
+    def set_speed(self, speed: float):
+
+        """Set the speed and direction of the camera tilt
+
+        *Arguments*:
+
+        * speed (float): Speed and direction of the tilt. 1 is max speed up, -1 is max speed down.
+
+        Requires a drone with the tilt feature, and software version 1.5 or newer.
+
+        A RuntimeError is raised if either of those requirements are not met.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.5")
+
+        self._verify_tilt_in_features()
+
+        # The tilt command is grouped together with the thruster commands, so to avoid messing with
+
+        # the thruster setpoint while tilting we need to get the current setpoint and send it with
+
+        # the tilt command.
+
+        with self._parent_drone.motion.thruster_lock:
+
+            thruster_setpoints = self._parent_drone.motion.current_thruster_setpoints.values()
+
+            self._parent_drone._tcp_client.motion_input_tilt(*thruster_setpoints, 0, 0, speed)
+
+    @property
+
+    def angle(self) -&gt; float:
+
+        """Return the current angle of the camera tilt
+
+        Requires a drone with the tilt feature, and software version 1.5 or newer.
+
+        A RuntimeError is raised if either of those requirements are not met.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.5")
+
+        self._verify_tilt_in_features()
+
+        debug_flags = self._parent_drone._state_watcher.general_state["debug_flags"]
+
+        return self._tilt_angle_from_debug_flags(debug_flags)
+
+    @property
+
+    def stabilization_enabled(self) -&gt; bool:
+
+        """Get the state of active camera stabilization
+
+        Use the `toggle_stabilization` method to turn stabilization on or off
+
+        *Returns*:
+
+        * Current state of active camera stabilization (bool)
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.6.42")
+
+        self._verify_tilt_in_features()
+
+        debug_flags = self._parent_drone._state_watcher.general_state["debug_flags"]
+
+        return self._tilt_stabilization_status_from_debug_flags(debug_flags)
+
+    def toggle_stabilization(self):
+
+        """Toggle active camera stabilization on or off
+
+        Requires a drone with the tilt feature, and Blunux version 1.6.42 or newer.
+
+        A RuntimeError is raised if either of those requirements are not met.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.6.42")
+
+        self._verify_tilt_in_features()
+
+        self._parent_drone._tcp_client.toggle_tilt_stabilization()
+</code></pre>
+</details>
+<hr />
+<h4 id="instance-variables_2">Instance variables</h4>
+<div class="highlight"><pre><span></span><code><span class="n">angle</span>
+</code></pre></div>
+<p>Return the current angle of the camera tilt</p>
+<p>Requires a drone with the tilt feature, and software version 1.5 or newer.
+A RuntimeError is raised if either of those requirements are not met.</p>
+<div class="highlight"><pre><span></span><code><span class="n">stabilization_enabled</span>
+</code></pre></div>
+<p>Get the state of active camera stabilization</p>
+<p>Use the <code>toggle_stabilization</code> method to turn stabilization on or off</p>
+<p><em>Returns</em>:</p>
+<ul>
+<li>Current state of active camera stabilization (bool)</li>
+</ul>
+<h4 id="methods_2">Methods</h4>
+<h4 id="set_speed">set_speed</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">set_speed</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">speed</span><span class="p">:</span> <span class="s1">&#39;float&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Set the speed and direction of the camera tilt</p>
+<p><em>Arguments</em>:</p>
+<ul>
+<li>speed (float): Speed and direction of the tilt. 1 is max speed up, -1 is max speed down.</li>
+</ul>
+<p>Requires a drone with the tilt feature, and software version 1.5 or newer.
+A RuntimeError is raised if either of those requirements are not met.</p>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>    def set_speed(self, speed: float):
+
+        """Set the speed and direction of the camera tilt
+
+        *Arguments*:
+
+        * speed (float): Speed and direction of the tilt. 1 is max speed up, -1 is max speed down.
+
+        Requires a drone with the tilt feature, and software version 1.5 or newer.
+
+        A RuntimeError is raised if either of those requirements are not met.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.5")
+
+        self._verify_tilt_in_features()
+
+        # The tilt command is grouped together with the thruster commands, so to avoid messing with
+
+        # the thruster setpoint while tilting we need to get the current setpoint and send it with
+
+        # the tilt command.
+
+        with self._parent_drone.motion.thruster_lock:
+
+            thruster_setpoints = self._parent_drone.motion.current_thruster_setpoints.values()
+
+            self._parent_drone._tcp_client.motion_input_tilt(*thruster_setpoints, 0, 0, speed)
+</code></pre>
+</details>
+<h4 id="toggle_stabilization">toggle_stabilization</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">toggle_stabilization</span><span class="p">(</span>
+    <span class="bp">self</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Toggle active camera stabilization on or off</p>
+<p>Requires a drone with the tilt feature, and Blunux version 1.6.42 or newer.
+A RuntimeError is raised if either of those requirements are not met.</p>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>    def toggle_stabilization(self):
+
+        """Toggle active camera stabilization on or off
+
+        Requires a drone with the tilt feature, and Blunux version 1.6.42 or newer.
+
+        A RuntimeError is raised if either of those requirements are not met.
+
+        """
+
+        self._parent_drone._verify_required_blunux_version("1.6.42")
+
+        self._verify_tilt_in_features()
+
+        self._parent_drone._tcp_client.toggle_tilt_stabilization()
+</code></pre>
+</details>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <nav class="md-footer__inner md-grid" aria-label="Footer">
+    
+    
+    <a href="../../../docs/http-api.html" class="md-footer__link md-footer__link--prev"
+      aria-label="Previous: HTTP API" rel="prev">
+      <div class="md-footer__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </div>
+      <div class="md-footer__title">
+        <div class="md-ellipsis">
+          <span class="md-footer__direction">
+            Previous
+          </span>
+          HTTP API
+        </div>
+      </div>
+    </a>
+    
+    
+    
+    <a href="constants.html" class="md-footer__link md-footer__link--next"
+      aria-label="Next: Constants" rel="next">
+      <div class="md-footer__title">
+        <div class="md-ellipsis">
+          <span class="md-footer__direction">
+            Next
+          </span>
+          Constants
+        </div>
+      </div>
+      <div class="md-footer__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+      </div>
+    </a>
+    
+  </nav>
+  
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.f8263e09.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.4fc53ad4.min.js"></script>
+      
+    
+  </body>
+</html>
