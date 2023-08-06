@@ -1,0 +1,107 @@
+Metadata-Version: 2.1
+Name: harborapi
+Version: 0.5.0
+Summary: Async Harbor API v2.0 client
+Project-URL: Source, https://github.com/pederhan/harborapi
+Project-URL: Documentation, https://pederhan.github.io/harborapi/
+Project-URL: Changelog, https://github.com/pederhan/harborapi/blob/main/CHANGELOG.md
+Project-URL: Issues, https://github.com/pederhan/harborapi/issues
+Author-email: pederhan <pederhan@uio.no>
+License-Expression: MIT
+License-File: LICENSE
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.8
+Requires-Dist: backoff>=2.1.2
+Requires-Dist: httpx>=0.23.0
+Requires-Dist: loguru>=0.6.0
+Requires-Dist: pydantic>=1.9.1
+Provides-Extra: rich
+Requires-Dist: rich>=12.6.0; extra == 'rich'
+Description-Content-Type: text/markdown
+
+# harborapi
+
+[![PyPI - Version](https://img.shields.io/pypi/v/harborapi.svg)](https://pypi.org/project/harborapi)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/harborapi.svg)](https://pypi.org/project/harborapi)
+
+-----
+
+
+Python async client for the Harbor REST API v2.0.
+
+## Features
+
+- Async API
+- Fully typed
+- Data validation with [Pydantic](https://pydantic-docs.helpmanual.io/)
+- HTTP handled by [HTTPX](https://www.python-httpx.org/)
+- Extensive test coverage powered by [Hypothesis](https://hypothesis.works/)
+
+## Installation
+
+```bash
+pip install harborapi
+```
+
+## Documentation
+
+Documentation is available [here](https://pederhan.github.io/harborapi/)
+
+## Implemented endpoints
+
+<!-- - [ ] Products
+- [ ] Chart Repository
+- [ ] Label -->
+- [x] user
+- [x] gc
+- [x] scanAll
+- [x] configure
+- [x] usergroup
+- [ ] preheat
+- [x] replication
+- [ ] label
+- [x] robot
+- [ ] webhookjob
+- [ ] icon
+- [x] project
+- [ ] webhook
+- [x] scan
+- [ ] member
+- [x] ldap
+- [x] registry
+- [x] search
+- [x] artifact
+- [ ] immutable
+- [ ] retention
+- [x] scanner
+- [x] systeminfo**
+- [x] statistic
+- [x] quota
+- [x] repository
+- [x] ping
+- [x] oidc
+- [x] SystemCVEAllowlist
+- [x] Health
+- [ ] robotv1
+- [x] projectMetadata
+- [x] auditlog
+
+\*\* `/systeminfo/getcert` NYI
+## [Unreleased]
+## [0.5.0](https://github.com/pederhan/harborapi/tree/harborapi-v0.5.0) - 2023-xx-yy
+
+### Added
+
+- Changelog
+
+### Changed
+
+Use Hatch as build system.
+
+<!-- ### Fixed -->
