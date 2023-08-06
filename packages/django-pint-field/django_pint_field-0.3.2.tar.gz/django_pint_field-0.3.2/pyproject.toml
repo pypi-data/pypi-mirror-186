@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "django-pint-field"
+version = "0.3.2"
+description = "Pint Fields for Django and Postgres"
+authors = ["Jack Linke <jack@watervize.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "django_pint_field"}]
+
+homepage = "https://github.com/jacklinke/django-pint-field"
+repository = "https://github.com/jacklinke/django-pint-field"
+keywords = ["django",]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4",
+    "Framework :: Django :: 4.0",
+    "Framework :: Django :: 4.1",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = ">=3.2"
+pint = ">=0.19"
+psycopg2-binary = "^2.9"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+black = {version = "^23.1a1", allow-prereleases = true}
+django-extensions = "^3.2"
+werkzeug = "^2.2"
+pytest = "^7.2"
+django-cachalot = "^2.5"
+django-redis = "^5.2"
+redis = { version = "^4.4", extras = ["hiredis"] }
+djangorestframework = "^3.12"
+markdown = "^3.3"
+django-filter = "^22.1"
+pydantic = "^1.10"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
