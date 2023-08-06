@@ -1,0 +1,18 @@
+[package]
+name = "setpwef"
+version = "0.1.2"
+authors = [
+  "Jess <dev.bearabbit@gmail.com>"
+]
+description = "set password excel file in python"
+repository = "https://github.com/Hyeonji-Ryu/setpwef"
+license = "MIT"
+edition = "2021"
+
+[lib]
+name = "setpwef"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.17.3", features = ["extension-module"] }
+umya-spreadsheet = "0.8"
