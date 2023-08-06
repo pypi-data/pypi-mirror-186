@@ -1,0 +1,79 @@
+# syntax=docker/dockerfile:1.2
+
+FROM fdi:latest
+# 0.2-6 M. Huang <mhuang@nao.cas.cn>
+# 0.1 yuxin<syx1026@qq.com>
+
+USER root
+RUN apt-get update \
+&& DEBIAN_FRONTEND=noninteractive apt-get install -y curl \
+&& rm -rf /var/lib/apt/lists/*
+
+# rebuild mark
+ARG re=rebuild
+RUN echo ${re} > /tmp/rebuild_mark
+
+# setup user
+ARG USR=fdi
+# home is fdi git home
+ARG UHOME=/home/${USR}
+
+ARG LOGGER_LEVEL=10
+ENV PNS_LOGGER_LEVEL=${LOGGER_LEVEL}
+ARG LOGGER_LEVEL_EXTRAS=30
+ENV PNS_LOGGER_LEVEL_EXTRAS=${LOGGER_LEVEL_EXTRAS}
+
+WORKDIR ${UHOME}
+# use fdi's virtual env path. this effectively activates fdi's virtuakenv
+RUN echo ${PATH}
+
+# setup config files
+ARG SERVER_LOCAL_POOLPATH=/tmp/data
+ENV PNS_SERVER_LOCAL_POOLPATH=${SERVER_LOCAL_POOLPATH}
+ARG BASEURL=/fdi/v0.15
+ENV PNS_BASEURL=${BASEURL}
+RUN mkdir -p ${PNS_SERVER_LOCAL_POOLPATH}
+
+# remote-pdb https://stackoverflow.com/a/46436653/13472124
+
+# convinience aliases
+# /var/log will on volume and the touched log files here will not be accessible.
+RUN mkdir -p /var/log/uwsgi \
+&& touch /var/log/uwsgi/uwsgi.log \
+&& touch /var/log/uwsgi/access.log \
+&& touch /var/log/uwsgi/error.log \
+&& ln -s /var/log/uwsgi/uwsgi.log . \
+&& ln -s /var/log/uwsgi/access.log . \
+&& ln -s /var/log/uwsgi/error.log . \
+&& ln -s  ${PNS_SERVER_LOCAL_POOLPATH} data
+
+# Change user, configure permission
+RUN for i in  ${PNS_SERVER_LOCAL_POOLPATH}/.. /var/log/uwsgi ${UHOME}/*; \
+do chown ${USR}:${USR} $i; echo $i; done ;echo  owner ${USR}
+
+USER ${USR}
+
+# config software
+RUN cp ./fdi/fdi/httppool/resources/httppool_server_entrypoint_uwsgi.sh . \
+&& chmod 755 ./httppool_server_entrypoint_uwsgi.sh; ls -l 
+
+RUN env
+
+RUN cp fdi/fdi/httppool/resources/httppool_server_uwsgi.ini . \
+&& ln fdi/wsgi.py .
+
+VOLUME /var/log ${PNS_SERVER_LOCAL_POOLPATH}/..
+
+RUN /bin/ls -la; echo $PATH \
+date > build
+
+ENTRYPOINT  ["/home/fdi/httppool_server_entrypoint_uwsgi.sh"]
+
+#CMD ["uwsgi --master --module wsgi:app --processes 1"]
+#CMD ["uwsgi --http-socket 0.0.0.0:9885 --master --module wsgi:app --touch-reload /home/fdi/reload --logger file:/var/log/uwsgi/uwsgi.log --processes 1 --threads 2 --stats 0.0.0.0:9999 --buffer-size 16384 --http-connect-timeout 600"]
+
+CMD ["uwsgi", "--ini", "httppool_server_uwsgi.ini"]
+
+ARG SERVER_VERSION
+LABEL PoolServer ${SERVER_VERSION}
+ENV PNS_SERVER_VERSION=${SERVER_VERSION}
