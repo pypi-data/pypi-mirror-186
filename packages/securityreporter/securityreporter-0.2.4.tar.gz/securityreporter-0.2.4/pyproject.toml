@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "securityreporter"
+version = "v0.2.4"
+description = "A Python wrapper for the Reporter API."
+authors = [
+    "Alexander Krigsman <alexander.krigsman@dongit.nl>",
+]
+maintainers = [
+    "Stefan van der Lugt <stefan.vanderlugt@dongit.nl>",
+]
+readme = "README.rst"
+homepage = "https://securityreporter.app/"
+repository = "https://github.com/dongit-org/python-reporter"
+documentation = "https://python-reporter.readthedocs.io/"
+packages = [
+    { include = "reporter" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.7.2"
+requests = "^2.27.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+black = "^22.1.0"
+mypy = "^0.931"
+pytest-docker = "^0.12.0"
+docker = "^6.0.0"
+docker-compose = "^1.29.2"
+responses = "^0.21.0"
+types-requests = "^2.28.0"
+coverage = "^6.4.2"
+Sphinx = "^5.0.0"
+sphinx-autodoc-typehints = "^1.19.2"
+pylint = "^2.14.5"
+tox = "^3.26.0"
+sphinx-rtd-theme = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
