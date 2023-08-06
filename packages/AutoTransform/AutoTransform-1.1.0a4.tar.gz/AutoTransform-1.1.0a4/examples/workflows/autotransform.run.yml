@@ -1,0 +1,62 @@
+name: Run AutoTransform
+
+on:
+  workflow_dispatch:
+    inputs:
+      schema:
+        description: "The name of a Schema in the schema_map"
+        required: true
+        type: string
+      max_submissions:
+        description: "The maximum number of submissions when running the schema"
+        type: string
+        required: false
+      filter:
+        description: "A filter to add to the schema"
+        type: string
+        required: false
+      target_repo_name:
+        description: "The name of the repo to checkout"
+        type: string
+        required: false
+      target_repo_ref:
+        description: "The ref of the repo to checkout"
+        type: string
+        required: false
+
+jobs:
+  run-autotransform:
+    runs-on: ubuntu-latest
+    name: Run AutoTransform
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.AUTO_TRANSFORM_BOT_GITHUB_TOKEN }}
+        repository: ${{ github.event.inputs.target_repo_name}}
+        ref: ${{ github.event.inputs.target_repo_ref}}
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Update pip
+      run: pip install --upgrade pip
+    - name: Install AutoTransform
+      run: pip install AutoTransform
+    - name: Install requirements
+      run: pip install -r <CONFIG DIR>/requirements.txt
+    - name: Set up options
+      run: |
+        options="--verbose --name"
+        if [[ ! -z "${MAX_SUBMISSIONS}" ]]; then
+          options="$options --max-submissions $MAX_SUBMISSIONS"
+        fi
+        echo "OPTIONS=$options" >> $GITHUB_ENV
+      env:
+        MAX_SUBMISSIONS: ${{ github.event.inputs.max_submissions }}
+    - name: Run AutoTransform
+      run: autotransform run ${{ env.OPTIONS }} --filter "$FILTER" "${{ github.event.inputs.schema }}"
+      env:
+        AUTO_TRANSFORM_CONFIG: environment
+        AUTO_TRANSFORM_GITHUB_TOKEN: ${{ secrets.AUTO_TRANSFORM_BOT_GITHUB_TOKEN }}
+        AUTO_TRANSFORM_COMPONENT_DIRECTORY: <CUSTOM COMPONENTS>
+        FILTER: ${{ github.event.inputs.filter }}

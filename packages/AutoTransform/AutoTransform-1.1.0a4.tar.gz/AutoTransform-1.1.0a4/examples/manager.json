@@ -1,0 +1,37 @@
+{
+    "repo": {
+        "name": "github",
+        "base_branch": "<BASE BRANCH>",
+        "full_github_name": "<GITHUB REPO>"
+    },
+    "steps": [
+        {
+            "name": "conditional",
+            "actions": [
+                {
+                    "name": "merge"
+                }
+            ],
+            "condition": {
+                "name": "change_state",
+                "comparison": "equal",
+                "value": "approved"
+            },
+            "continue_if_passed": false
+        },
+        {
+            "name": "conditional",
+            "actions": [
+                {
+                    "name": "abandon"
+                }
+            ],
+            "condition": {
+                "name": "change_state",
+                "comparison": "equal",
+                "value": "changes_requested"
+            },
+            "continue_if_passed": false
+        }
+    ]
+}
