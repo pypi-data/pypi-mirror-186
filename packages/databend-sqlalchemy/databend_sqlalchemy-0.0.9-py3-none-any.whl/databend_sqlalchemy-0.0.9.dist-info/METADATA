@@ -1,0 +1,62 @@
+Metadata-Version: 2.1
+Name: databend-sqlalchemy
+Version: 0.0.9
+Summary: Databend dialect for SQLAlchemy.
+Home-page: https://github.com/databendcloud/databend-sqlalchemy
+Author: Databend Cloud Team
+Author-email: hantmac@outlook.com
+License: Apache License
+Keywords: databend db database cloud analytics SQLAlchemy.
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: SQL
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Database
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Requires-Python: >=3.4, <4
+License-File: LICENSE
+Requires-Dist: databend-py (==0.2.7)
+Requires-Dist: mysql.connector
+Requires-Dist: sqlalchemy
+
+databend-sqlalchemy
+===================
+
+Databend dialect for SQLAlchemy.
+
+Installation
+------------
+
+The package is installable through PIP::
+
+   pip install databend-sqlalchemy
+
+Usage
+-----
+
+The DSN format is similar to that of regular Postgres::
+
+        import connector
+        cursor = connector.connect('http://root:@localhost:8081').cursor()
+        cursor.execute('SELECT * FROM test')
+        # print(cursor.fetchone())
+        # print(cursor.fetchall())
+        for i in cursor.next():
+            print(i)
+
+
+
