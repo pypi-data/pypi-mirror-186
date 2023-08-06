@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: sequential-functions
+Version: 0.0.1
+Summary: Compose functions and sequentially call them. Also allow mutiprocessing!
+Author: Thomas Rowntree
+Project-URL: Homepage, https://github.com/ChainBreak/sequential_functions
+Project-URL: Bug Tracker, https://github.com/ChainBreak/sequential_functions/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# sequential_functions
+
+```Python
+import sequential_functions as sf
+
+funciton = sf.compose([
+    add,
+    multiply,
+    print_number
+])
+
+
+```
