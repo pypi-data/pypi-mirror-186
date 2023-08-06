@@ -1,0 +1,63 @@
+Metadata-Version: 2.1
+Name: scanplan-lidar-toolkit
+Version: 0.0.4
+Summary: ScanPlan LiDAR Tool Kit
+Home-page: https://github.com/bimbuildings/ltk
+Author: scan-plan.nl
+Author-email: shayan@scan-plan.nl
+License: Licensed to ScanPlan
+Keywords: lidar gis las
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: open3d
+Requires-Dist: laspy[lazrs]
+Requires-Dist: numpy
+Requires-Dist: setuptools
+Requires-Dist: azure-identity
+Requires-Dist: azure-storage-blob
+
+# Scan Plan Lidar Tool Kit (spltk)
+Collection of methods to process lidar data.
+
+### Installation
+
+See the `Makefile`
+
+``
+pip install dist/scanplan-lidar-toolkit
+``
+
+### Contribution
+Clone the repository and create a virtualenv
+and add your methods in main or dev branch with a proper documentation and unittests.
+
+
+`/usr/bin/python3.10 -m venv /path/to/myvenv`
+
+OR<br />
+
+`virtualenv --python="/usr/bin/python3.10" /path/to/myvenv`
+
+Install requirements<br />
+
+`source /myvenv/bin/activate`
+
+`pip3 install -r requirements.txt`
+
+
+
+### How to use?
+see examples and tests (coming soon)
+
+### TODO
+- add docs
+- notebooks
+
+
+### Authors
+Shayan Nikoohemat [shayan@scan-plan.nl](shayan@scan-plan.nl)
