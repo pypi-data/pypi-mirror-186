@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extrahead %}
+	<link rel="stylesheet" type="text/css" href="{% static "NEMO_reports/NEMO_reports.css" %}"/>
+{% endblock %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+	<h3>Available reports:</h3>
+	<ul>
+	{% for report in report_dict.values %}
+		<li>
+			<a href="{% url report.report_url %}">{{ report.report_title }}</a>{% if report.report_description %}: <span class="help-block">{{ report.report_description|safe }}</span>{% endif %}
+		</li>
+	{% endfor %}
+	</ul>
+{% endblock %}

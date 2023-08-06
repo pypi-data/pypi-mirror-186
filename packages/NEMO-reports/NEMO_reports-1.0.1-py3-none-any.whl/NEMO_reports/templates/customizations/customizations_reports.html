@@ -1,0 +1,31 @@
+{% load custom_tags_and_filters %}
+<div class="panel-body">
+    <h3 class="customization-section-title">Report settings</h3>
+    <form method="POST" action="{% url 'customize' 'reports' %}" class="form-horizontal">
+        {% csrf_token %}
+		<div class="form-group">
+            <label class="control-label col-md-3" >First day of the week</label>
+            <div class="col-md-9">
+                <div class="radio">
+                    <label><input type="radio" id="reports_first_day_of_week" name="reports_first_day_of_week" {% if not reports_first_day_of_week or reports_first_day_of_week == '1' %}checked{% endif %} value="1"> Monday</label>
+                    <label><input type="radio" id="reports_first_day_of_week" name="reports_first_day_of_week" {% if reports_first_day_of_week == '0' %}checked{% endif %} value="0"> Sunday</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3" for="reports_default_daterange">Default daterange</label>
+            <div class="col-md-9">
+                <div class="radio">
+                    <label><input type="radio" id="reports_default_daterange" name="reports_default_daterange" {% if not reports_default_daterange %}checked{% endif %} value=""> Today</label>
+                    <label><input type="radio" name="reports_default_daterange" {% if reports_default_daterange == 'yesterday' %}checked{% endif %} value="yesterday"> Yesterday</label>
+                    <label><input type="radio" name="reports_default_daterange" {% if reports_default_daterange == 'this_week' %}checked{% endif %} value="this_week"> This week</label>
+                    <label><input type="radio" name="reports_default_daterange" {% if reports_default_daterange == 'this_month' %}checked{% endif %} value="this_month"> This month</label>
+                    <label><input type="radio" name="reports_default_daterange" {% if reports_default_daterange == 'this_year' %}checked{% endif %} value="this_year"> This year</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-offset-2">
+            {% button value="Save settings" type="save" %}
+        </div>
+    </form>
+</div>

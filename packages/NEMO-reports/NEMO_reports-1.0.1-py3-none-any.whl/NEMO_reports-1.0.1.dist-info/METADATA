@@ -1,0 +1,46 @@
+Metadata-Version: 2.1
+Name: NEMO-reports
+Version: 1.0.1
+Summary: Install reports plugin for NEMO
+Home-page: https://gitlab.com/nemo-community/prometheus-computing/nemo-reports
+Author: Prometheus Computing LLC
+Author-email: nemo@prometheuscomputing.com
+License: MIT
+Keywords: NEMO
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: NEMO (>=4.3.0)
+Requires-Dist: django (<4.0,>=3.2)
+Requires-Dist: python-dateutil
+
+# NEMO Reports
+
+This plugin for NEMO adds a variety of reports.
+
+# Installation
+
+`pip install NEMO-reports`
+
+# Add NEMO Reports
+
+in `settings.py` add to `INSTALLED_APPS`:
+
+```python
+INSTALLED_APPS = [
+    '...',
+    'NEMO_reports', # This needs to be before NEMO_billing (if installed) and NEMO
+    '...'
+    'NEMO_billing', # Optional
+    '...'
+    'NEMO',
+    '...'
+]
+```
+
+# Usage
+Simply navigate to the `Reports` page in the `Administration` menu.
