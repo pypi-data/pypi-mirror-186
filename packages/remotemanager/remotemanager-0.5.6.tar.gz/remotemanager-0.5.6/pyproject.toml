@@ -1,0 +1,48 @@
+[project]
+name = "remotemanager"
+authors = [
+    {name = "Louis Beal", email = "louis.j.beal@gmail.com"}
+]
+requires-python = ">=3.7"
+description = "remote run management tool"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3.9",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    'pyyaml',
+    'numpy',
+]
+dynamic = ['version']
+
+[project.optional-dependencies]
+dill = ["dill"]
+jsonpickle = ["jsonpickle"]
+all = ["dill", "jsonpickle"]
+dev = [
+    "dill",
+    "jsonpickle",
+    'sphinx',
+    "nbsphinx",
+    "sphinx-rtd-theme",
+    "pytest",
+    "pytest-cov",
+    "nbval"
+]
+
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = 'remotemanager.__version__'}
+
+#[tool.setuptools]
+#packages = ["remotemanager"]
+
+[tool.pytest.ini_options]
+addopts = "--nbval --cov=remotemanager --cov-report term-missing --cov-append --sanitize-with ./tests/uuid_sanitise.cfg"
+
+[tool.coverage.report]
+omit = ["remotemanager/connection/computers/*"]
