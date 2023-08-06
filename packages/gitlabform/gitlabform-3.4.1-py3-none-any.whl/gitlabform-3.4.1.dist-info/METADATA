@@ -1,0 +1,63 @@
+Metadata-Version: 2.1
+Name: gitlabform
+Version: 3.4.1
+Summary: 🏗 Specialized configuration as a code tool for GitLab projects, groups and more using hierarchical configuration written in YAML
+Home-page: https://gitlabform.github.io/gitlabform
+Author: Greg Dubicki and Contributors
+Keywords: cli,yaml,gitlab,configuration-as-code
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Topic :: Software Development :: Version Control :: Git
+Requires-Python: >=3.7.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: certifi
+Requires-Dist: requests (==2.28.2)
+Requires-Dist: types-requests (==2.28.11.7)
+Requires-Dist: Jinja2 (==3.1.2)
+Requires-Dist: MarkupSafe (==2.1.1)
+Requires-Dist: ruamel.yaml (==0.17.21)
+Requires-Dist: luddite (==1.0.2)
+Requires-Dist: cli-ui (==0.17.2)
+Requires-Dist: packaging (==23.0)
+Requires-Dist: mergedeep (==1.3.4)
+Requires-Dist: yamlpath (==3.7.0)
+Requires-Dist: ez-yaml (==1.2.0)
+Provides-Extra: docs
+Requires-Dist: mkdocs ; extra == 'docs'
+Requires-Dist: mkdocs-material ; extra == 'docs'
+Provides-Extra: test
+Requires-Dist: pytest (==7.2.1) ; extra == 'test'
+Requires-Dist: xkcdpass (==1.19.3) ; extra == 'test'
+Requires-Dist: pre-commit (==2.21.0) ; extra == 'test'
+Requires-Dist: coverage (==7.0.5) ; extra == 'test'
+Requires-Dist: pytest-cov (==4.0.0) ; extra == 'test'
+Requires-Dist: deepdiff (==6.2.3) ; extra == 'test'
+Requires-Dist: pytest-rerunfailures (==11.0) ; extra == 'test'
+Requires-Dist: cryptography (==39.0.0) ; extra == 'test'
+Requires-Dist: mypy (==0.991) ; extra == 'test'
+Requires-Dist: mypy-extensions (==0.4.3) ; extra == 'test'
+
+[![version](https://badge.fury.io/py/gitlabform.svg)](https://badge.fury.io/py/gitlabform)
+![release date](https://img.shields.io/github/release-date/gitlabform/gitlabform)
+[![Downloads](https://pepy.tech/badge/gitlabform/month)](https://pepy.tech/project/gitlabform)
+[![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![codecov](https://codecov.io/gh/gitlabform/gitlabform/branch/main/graph/badge.svg?token=NOMttkpB2A)](https://codecov.io/gh/gitlabform/gitlabform)
+[![gitlabform](https://snyk.io/advisor/python/gitlabform/badge.svg)](https://snyk.io/advisor/python/gitlabform)
+
+<img src="https://raw.githubusercontent.com/gitlabform/gitlabform/main/docs/images/gitlabform-logo.png" width="600px" alt="logo">
+
+🏗 GitLabForm is a specialized configuration as a code tool for GitLab projects, groups and more
+using hierarchical configuration written in YAML.
+
+Please see <a href="https://gitlabform.github.io/gitlabform/">the project site</a> for more information.
