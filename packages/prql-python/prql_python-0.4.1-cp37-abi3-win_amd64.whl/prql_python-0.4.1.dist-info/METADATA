@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: prql-python
+Version: 0.4.1
+Classifier: Programming Language :: Rust
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+License: Apache-2.0
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+Project-URL: Source Code, https://github.com/PRQL/prql
+
+# prql-python
+
+`prql-python` offers rust bindings to the `prql-compiler` rust library. It
+exposes a python method `compile(query: str) -> str`.
+
+This is consumed by [PyPrql](https://github.com/prql/PyPrql) &
+[dbt-prql](https://github.com/prql/dbt-prql).
+
+The crate is not published to crates.io; only to PyPI.
+
+## Installation
+
+`pip install prql-python`
+
+## Usage
+
+```python
+import prql_python as prql
+
+prql_query = """
+    from employees
+    join salaries [==emp_id]
+    group [employees.dept_id, employees.gender] (
+      aggregate [
+        avg_salary = average salaries.salary
+      ]
+    )
+"""
+
+sql = prql.compile(prql_query)
+```
+
+Relies on [pyo3](https://github.com/PyO3/pyo3) for all the magic.
+
