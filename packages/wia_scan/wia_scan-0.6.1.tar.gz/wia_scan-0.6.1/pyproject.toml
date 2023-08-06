@@ -1,0 +1,57 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "wia_scan"
+authors = [{name = "Jonas Zehnder", email = "12305646+JonasZehn@users.noreply.github.com"}]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: Microsoft :: Windows",
+]
+
+dependencies = [
+	"pywin32",
+	"Pillow",
+	"numpy",
+	"docopt",
+]
+dynamic = ["version", "description"]
+
+[project.optional-dependencies]
+dev = ["bumpver", "pip-tools"]
+
+[project.urls]
+Home = "https://github.com/JonasZehn/python_wia_scan"
+Source = "https://github.com/JonasZehn/python_wia_scan"
+
+[project.scripts]
+wia_scan = "wia_scan:main"
+
+[tool.flit.sdist]
+include = ["res/"]
+
+[tool.bumpver]
+current_version = "0.6.1"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+]
+"src/wia_scan/__init__.py" = [
+    'wia_scan {version}',
+    '__version__ = "{version}"',
+]
+"src/wia_scan/scan_main.py" = [
+    'wia_scan {version}',
+]
