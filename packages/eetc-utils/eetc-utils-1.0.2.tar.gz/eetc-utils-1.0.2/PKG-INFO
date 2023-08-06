@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: eetc-utils
+Version: 1.0.2
+Summary: EETC Utils Library
+Author-email: East Empire Trading Company <eastempiretradingcompany2019@gmail.com>, Stefan Delic <einfach.jung1@gmail.com>, Milos Dovedan <dovedanmilosh@gmail.com>
+Maintainer-email: East Empire Trading Company <eastempiretradingcompany2019@gmail.com>, Stefan Delic <einfach.jung1@gmail.com>, Milos Dovedan <dovedanmilosh@gmail.com>
+License: Copyright (c) 2018 The Python Packaging Authority
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/east-empire-trading-company/eetc-utils
+Project-URL: Bug Tracker, https://github.com/east-empire-trading-company/eetc-utils/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# EETC Utils
+
+Library of useful Python code to help with development of software under the EETC umbrella.
+
+This library will contain all code that we come up with during development of other projects
+that we think can be reused in more than one project continuously.
+
+# Installation
+```commandline
+pip install eetc-utils
+```
+
+# Development
+
+## System requirements
+To run the project locally and work on it, you need the following:
+- Python 3.8+
+
+## Project setup
+```commandline
+sudo apt-get install build-essential
+make update_and_install_python_requirements
+```
+
+## Adding a new Python package
+1. Add the package name to `requirements.in`
+2. Run:
+```commandline
+make update_and_install_python_requirements
+```
+
+## Publishing new package versions to PyPi
+1. Update `[build_system]` section in `pyproject.toml` in case new dependencies are added or existing dependency versions were updated.
+2. Update `version` field in `[project]` section in `pyproject.toml` whenever there is a new change to the project.
+3. Build the project using command:
+```commandline
+python -m build
+```
+4. Publish package on PyPi Test, run command:
+```commandline
+python -m twine upload --repository testpypi dist/*
+```
+5. If everything is ok on PyPi Test, publish on "real" PyPi using the command:
+```commandline
+python -m twine upload --repository pypi dist/*
+```
