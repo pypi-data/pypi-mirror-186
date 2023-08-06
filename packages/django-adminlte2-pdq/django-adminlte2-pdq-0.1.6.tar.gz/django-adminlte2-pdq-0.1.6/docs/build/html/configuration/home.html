@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Configuration &mdash; Django-AdminLTE2-PDQ 0.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Menu Configuration" href="menu.html" />
+    <link rel="prev" title="Examples" href="../menu/examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Django-AdminLTE2-PDQ
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Templates</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../templates/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_filters.html">Template Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_tags.html">Template Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/fields.html">Fields</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Menu</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../menu/general_information.html">General Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/building_blocks.html">Building Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/admin.html">Admin Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Home Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#base-configuration">Base Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adminlte2-home-route">ADMINLTE2_HOME_ROUTE</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#logo-skin-color-configuration">Logo &amp; Skin Color Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adminlte2-logo-text">ADMINLTE2_LOGO_TEXT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adminlte2-logo-text-small">ADMINLTE2_LOGO_TEXT_SMALL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adminlte2-skin-class">ADMINLTE2_SKIN_CLASS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Menu Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="admin.html">Admin Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authorization.html">Authentication &amp; Authorization Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form.html">Form and Field Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Authentication &amp; Authorization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/policies.html">Authentication and Authorization Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/function_views.html">Authorizing Function Based Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/class_views.html">Authorizing Class Based Views</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../demo_css.html">Demo CSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Django-AdminLTE2-PDQ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Home Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/configuration/home.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="home-configuration">
+<h1>Home Configuration<a class="headerlink" href="#home-configuration" title="Permalink to this heading"></a></h1>
+<p><a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/settings/">Django settings</a> can
+be used to customize and control the overall look, feel, and functionality of
+the <strong>Django-AdminLTE2-PDQ</strong> package.</p>
+<p>All settings are listed here for reference, even though some of these settings
+(such as the <a class="reference internal" href="../menu/general_information.html"><span class="doc">General Information</span></a> and
+<a class="reference internal" href="../authorization/policies.html"><span class="doc">Authorization</span></a>) can become quite complex,
+to the point that they have dedicated documentation pages to better explain
+the full extent of these settings.</p>
+<hr class="docutils" />
+<section id="base-configuration">
+<h2>Base Configuration<a class="headerlink" href="#base-configuration" title="Permalink to this heading"></a></h2>
+<section id="adminlte2-home-route">
+<h3>ADMINLTE2_HOME_ROUTE<a class="headerlink" href="#adminlte2-home-route" title="Permalink to this heading"></a></h3>
+<p>Set the “Home” route for your project. This tells the package where to redirect
+users when they click a link that is designed to take the user home.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">adminlte2_pdq:home</span></code></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_HOME_ROUTE</span> <span class="o">=</span> <span class="s1">&#39;adminlte2_pdq:home&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="logo-skin-color-configuration">
+<h2>Logo &amp; Skin Color Configuration<a class="headerlink" href="#logo-skin-color-configuration" title="Permalink to this heading"></a></h2>
+<section id="adminlte2-logo-text">
+<h3>ADMINLTE2_LOGO_TEXT<a class="headerlink" href="#adminlte2-logo-text" title="Permalink to this heading"></a></h3>
+<p>Set the Logo text for your site. This will be shown in the top left of the top
+bar, when the sidebar is expanded.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you would like to include HTML in your text, you will need to import
+and use <code class="docutils literal notranslate"><span class="pre">mark_safe</span></code> from <code class="docutils literal notranslate"><span class="pre">django.utils.safestring</span></code>. Otherwise, your
+HTML will be escaped.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">AdminLTE</span></code></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_LOGO_TEXT</span> <span class="o">=</span> <span class="s1">&#39;My Awesome Site&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="adminlte2-logo-text-small">
+<h3>ADMINLTE2_LOGO_TEXT_SMALL<a class="headerlink" href="#adminlte2-logo-text-small" title="Permalink to this heading"></a></h3>
+<p>Set the small Logo text for your site. This will be shown in the top left of the
+top bar, when the sidebar is collapsed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you would like to include HTML in your text, you will need to import
+and use <code class="docutils literal notranslate"><span class="pre">mark_safe</span></code> from <code class="docutils literal notranslate"><span class="pre">django.utils.safestring</span></code>. Otherwise, your
+HTML will be escaped.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ALTE</span></code></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_LOGO_TEXT</span> <span class="o">=</span> <span class="s1">&#39;MAS&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="adminlte2-skin-class">
+<h3>ADMINLTE2_SKIN_CLASS<a class="headerlink" href="#adminlte2-skin-class" title="Permalink to this heading"></a></h3>
+<p>Set the skin class to use for the site. Valid skin classes can be found on the
+<a class="reference external" href="https://adminlte.io/themes/AdminLTE/documentation/">AdminLTE documentation</a>
+page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">skin-blue</span></code></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_SKIN_CLASS</span> <span class="o">=</span> <span class="s1">&#39;skin-green-light&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../menu/examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="menu.html" class="btn btn-neutral float-right" title="Menu Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, David Barnes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

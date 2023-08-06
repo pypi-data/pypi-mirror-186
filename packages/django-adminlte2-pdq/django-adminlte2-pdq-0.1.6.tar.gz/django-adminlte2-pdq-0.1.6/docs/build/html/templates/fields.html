@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fields &mdash; Django-AdminLTE2-PDQ 0.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="General Information" href="../menu/general_information.html" />
+    <link rel="prev" title="Forms" href="forms.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Django-AdminLTE2-PDQ
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Templates</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_filters.html">Template Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_tags.html">Template Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Fields</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#enhancements">Enhancements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#datetimefield">DateTimeField</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#datefield">DateField</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timefield">TimeField</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#text-field-properties">Text Field Properties</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#phone-info">phone_info</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setting-phone-info-in-a-form-class">Setting phone_info in a Form class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-phone-info-in-a-view-class">Setting phone_info in a View class</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#range-min-max">range_min_max</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setting-range-min-max-in-a-form-class">Setting range_min_max in a Form class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-range-min-max-in-a-view-class">Setting range_min_max in a View class</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#is-color">is_color</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setting-is-color-in-a-form-class">Setting is_color in a Form class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-is-color-in-a-view-class">Setting is_color in a View class</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#datalist">datalist</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setting-datalist-in-a-form-class">Setting datalist in a Form class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-datalist-in-a-view-class">Setting datalist in a View class</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-datalist-examples">Additional Datalist Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setting-datalist-and-range-min-max-in-a-form-class">Setting datalist and range_min_max in a Form class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-datalist-and-range-min-max-in-a-view-class">Setting datalist and range_min_max in a View class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Menu</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../menu/general_information.html">General Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/building_blocks.html">Building Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/admin.html">Admin Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/home.html">Home Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/menu.html">Menu Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/admin.html">Admin Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/authorization.html">Authentication &amp; Authorization Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/form.html">Form and Field Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Authentication &amp; Authorization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/policies.html">Authentication and Authorization Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/function_views.html">Authorizing Function Based Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/class_views.html">Authorizing Class Based Views</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../demo_css.html">Demo CSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Django-AdminLTE2-PDQ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Fields</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/templates/fields.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fields">
+<h1>Fields<a class="headerlink" href="#fields" title="Permalink to this heading"></a></h1>
+<p>There are no additional fields provided by this package.
+However, there are some <a class="reference internal" href="#enhancements"><span class="std std-ref">Enhancements</span></a> to existing
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/forms/fields/">Django Fields</a>
+as well as a few <a class="reference internal" href="#text-field-properties"><span class="std std-ref">Text Field Properties</span></a> that can be set
+on a Django field to add additional rendered functionality.
+Those enhancements and properties are explained below.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Some of the enhancements listed here might not be fully supported in all
+browsers yet. However, as time moves on, adoption should increase.</p>
+</div>
+<hr class="docutils" />
+<section id="enhancements">
+<h2>Enhancements<a class="headerlink" href="#enhancements" title="Permalink to this heading"></a></h2>
+<section id="datetimefield">
+<h3>DateTimeField<a class="headerlink" href="#datetimefield" title="Permalink to this heading"></a></h3>
+<p>Any <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/forms/fields/#datetimefield">DateTimeField</a>
+will be rendered out with the input type set to
+<code class="docutils literal notranslate"><span class="pre">datetime-local</span></code>, which will allow an automatic DateTime picker widget
+provided by the browser per the HTML5 spec.</p>
+</section>
+<section id="datefield">
+<h3>DateField<a class="headerlink" href="#datefield" title="Permalink to this heading"></a></h3>
+<p>Any <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/forms/fields/#datefield">DateField</a>
+will be rendered out with the input type set to
+<code class="docutils literal notranslate"><span class="pre">date</span></code>, which will allow an automatic date picker widget
+provided by the browser per the HTML5 spec.</p>
+</section>
+<section id="timefield">
+<h3>TimeField<a class="headerlink" href="#timefield" title="Permalink to this heading"></a></h3>
+<p>Any <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/forms/fields/#timefield">TimeField</a>
+will be rendered out with the input type set to
+<code class="docutils literal notranslate"><span class="pre">time</span></code>, which will allow an automatic time picker widget
+provided by the browser per the HTML5 spec.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="text-field-properties">
+<h2>Text Field Properties<a class="headerlink" href="#text-field-properties" title="Permalink to this heading"></a></h2>
+<p>With HTML5 there are a lot of use cases for the input element that accepts
+text. Django handles some of these for us. Such as
+EmailField and
+URLField.
+However, there are some other types that Django does not support out of the box.
+Rather than making a whole new field that would have to be imported from this
+package rather than the default Django forms module, we choose to do some extra
+processing on a standard TextField if you set a specific property on the form
+field. This extra processing will make the TextField behave with some extra
+added functionality.</p>
+<section id="phone-info">
+<h3>phone_info<a class="headerlink" href="#phone-info" title="Permalink to this heading"></a></h3>
+<p>If you would like to make a text field render as a phone input, you can add a
+<code class="docutils literal notranslate"><span class="pre">phone_info</span></code> property that is defined as a dictionary with keys <code class="docutils literal notranslate"><span class="pre">inputmask</span></code>
+and <code class="docutils literal notranslate"><span class="pre">pattern</span></code>.
+This property will make the field render with both
+an inputmask and regex phone pattern to use as validation.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pattern</span></code> key will have a value that is a JavaScript regular expression
+that the entered phone number must pass to be submitted.
+More information about <code class="docutils literal notranslate"><span class="pre">pattern</span></code> can be found via the
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel#pattern">Mozilla Pattern Documentation</a></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">inputmask</span></code> is specified as a string.
+Information about making a valid format can be found in the repository for
+<a class="reference external" href="https://github.com/RobinHerbots/Inputmask">Inputmask</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The pattern and inputmask should not be a replacement for server-side
+validation. You should still use a clean method on the phone field
+server-side to ensure that the field does have a correct value.
+The enhancements provided by this property are all client-side and can be
+circumvented. Thus it cannot be fully trusted to be accurate.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are two examples below. One sets the property in the form class.
+The other sets it in the View class. You should choose one way or the other.
+You do <strong>NOT</strong> need to set the property in both locations.</p>
+</div>
+<section id="setting-phone-info-in-a-form-class">
+<h4>Setting phone_info in a Form class<a class="headerlink" href="#setting-phone-info-in-a-form-class" title="Permalink to this heading"></a></h4>
+<p><strong>forms.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SampleForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sample Form with phone field type&quot;&quot;&quot;</span>
+    <span class="n">sample_phone</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;sample_phone&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">phone_info</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;pattern&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\([0-9]</span><span class="si">{3}</span><span class="s1">\) [0-9]</span><span class="si">{3}</span><span class="s1">-[0-9]</span><span class="si">{4}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;inputmask&#39;</span><span class="p">:</span> <span class="s1">&#39;(999) 999-9999&#39;</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-phone-info-in-a-view-class">
+<h4>Setting phone_info in a View class<a class="headerlink" href="#setting-phone-info-in-a-view-class" title="Permalink to this heading"></a></h4>
+<p><strong>views.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">form</span> <span class="o">=</span> <span class="n">SampleForm</span><span class="p">()</span>
+<span class="n">form</span><span class="p">[</span><span class="s1">&#39;sample_phone&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">phone_info</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;pattern&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\([0-9]</span><span class="si">{3}</span><span class="s1">\) [0-9]</span><span class="si">{3}</span><span class="s1">-[0-9]</span><span class="si">{4}</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;inputmask&#39;</span><span class="p">:</span> <span class="s1">&#39;(999) 999-9999&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="range-min-max">
+<h3>range_min_max<a class="headerlink" href="#range-min-max" title="Permalink to this heading"></a></h3>
+<p>If you would like to make a text field render as a range input, you can add a
+<code class="docutils literal notranslate"><span class="pre">range_min_max</span></code> property that is defined as a dictionary with keys <code class="docutils literal notranslate"><span class="pre">min</span></code>
+and <code class="docutils literal notranslate"><span class="pre">max</span></code>.
+This property will make the field render with both a min and max value
+that can be selected via the range.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">min</span></code> key will provide the lowest value that can be submitted via the
+input.
+More information about <code class="docutils literal notranslate"><span class="pre">min</span></code> can be found via the
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range#min">Mozilla Min Range Documentation</a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">max</span></code> key will provide the highest value that can be submitted via the
+input.
+More information about <code class="docutils literal notranslate"><span class="pre">max</span></code> can be found via the
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range#max">Mozilla Max Range Documentation</a>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are two examples below. One sets the property in the form class.
+The other sets it in the View class. You should choose one way or the other.
+You do <strong>NOT</strong> need to set the property in both locations.</p>
+</div>
+<section id="setting-range-min-max-in-a-form-class">
+<h4>Setting range_min_max in a Form class<a class="headerlink" href="#setting-range-min-max-in-a-form-class" title="Permalink to this heading"></a></h4>
+<p><strong>forms.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SampleForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sample Form with range field type&quot;&quot;&quot;</span>
+    <span class="n">sample_range</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;sample_range&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">range_min_max</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span><span class="mi">9</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-range-min-max-in-a-view-class">
+<h4>Setting range_min_max in a View class<a class="headerlink" href="#setting-range-min-max-in-a-view-class" title="Permalink to this heading"></a></h4>
+<p><strong>views.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">form</span> <span class="o">=</span> <span class="n">SampleForm</span><span class="p">()</span>
+<span class="n">form</span><span class="p">[</span><span class="s1">&#39;sample_range&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">range_min_max</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span><span class="mi">9</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="is-color">
+<h3>is_color<a class="headerlink" href="#is-color" title="Permalink to this heading"></a></h3>
+<p>If you would like to make a text field render as a color input, you can add a
+<code class="docutils literal notranslate"><span class="pre">is_color</span></code> property with a value of <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+This property will make the field render as a color selector.
+More information about <code class="docutils literal notranslate"><span class="pre">color</span></code> can be found via the
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color">Mozilla Color Documentation</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are two examples below. One sets the property in the form class.
+The other sets it in the View class. You should choose one way or the other.
+You do <strong>NOT</strong> need to set the property in both locations.</p>
+</div>
+<section id="setting-is-color-in-a-form-class">
+<h4>Setting is_color in a Form class<a class="headerlink" href="#setting-is-color-in-a-form-class" title="Permalink to this heading"></a></h4>
+<p><strong>forms.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SampleForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sample Form with color field type&quot;&quot;&quot;</span>
+    <span class="n">sample_color</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;sample_color&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">is_color</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-is-color-in-a-view-class">
+<h4>Setting is_color in a View class<a class="headerlink" href="#setting-is-color-in-a-view-class" title="Permalink to this heading"></a></h4>
+<p><strong>views.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">form</span> <span class="o">=</span> <span class="n">SampleForm</span><span class="p">()</span>
+<span class="n">form</span><span class="p">[</span><span class="s1">&#39;sample_color&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">is_color</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="datalist">
+<h3>datalist<a class="headerlink" href="#datalist" title="Permalink to this heading"></a></h3>
+<p>If you would like to add a datalist to a text field, you can add a
+<code class="docutils literal notranslate"><span class="pre">datalist</span></code> property with a value of dictionary with keys <code class="docutils literal notranslate"><span class="pre">name</span></code> and
+<code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">name</span></code> key should define the name of the datalist that
+will be used both as the value for the list attribute and the id in the
+rendered datalist.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">data</span></code> key should define the data for the datalist.
+This should be a list of values.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This property can be applied to any text field. This includes but is not
+limited to:</p>
+<ul class="simple">
+<li><p>text</p></li>
+<li><p>email</p></li>
+<li><p>url</p></li>
+<li><p>phone</p></li>
+<li><p>range</p></li>
+<li><p>color</p></li>
+</ul>
+<p>More information about how a datalist will work with the particular text
+input you have can be found at the
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">Mozilla Datalist Documentation</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are two examples below. One sets the property in the form class.
+The other sets it in the View class. You should choose one way or the other.
+You do <strong>NOT</strong> need to set the property in both locations.</p>
+</div>
+<section id="setting-datalist-in-a-form-class">
+<h4>Setting datalist in a Form class<a class="headerlink" href="#setting-datalist-in-a-form-class" title="Permalink to this heading"></a></h4>
+<p><strong>forms.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SampleForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sample Form with range field type&quot;&quot;&quot;</span>
+    <span class="n">sample_text</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;sample_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">datalist</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;my_fancy_datalist&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s1">&#39;My First Option&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;My Final Option&#39;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-datalist-in-a-view-class">
+<h4>Setting datalist in a View class<a class="headerlink" href="#setting-datalist-in-a-view-class" title="Permalink to this heading"></a></h4>
+<p><strong>views.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">form</span> <span class="o">=</span> <span class="n">SampleForm</span><span class="p">()</span>
+<span class="n">form</span><span class="p">[</span><span class="s1">&#39;sample_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">datalist</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;my_fancy_datalist&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;My First Option&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;My Final Option&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="additional-datalist-examples">
+<h3>Additional Datalist Examples<a class="headerlink" href="#additional-datalist-examples" title="Permalink to this heading"></a></h3>
+<p>It is also possible to combine the work of adding a datalist with one of the
+other properties to enhance the field further. In the below examples we are
+using the datalist on the range input to add tickmarks to the range input at
+the values in the datalist. As you can see, it is only a matter of setting
+both properties on the field.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are two examples below. One sets the property in the form class.
+The other sets it in the View class. You should choose one way or the other.
+You do <strong>NOT</strong> need to set the property in both locations.</p>
+</div>
+<section id="setting-datalist-and-range-min-max-in-a-form-class">
+<h4>Setting datalist and range_min_max in a Form class<a class="headerlink" href="#setting-datalist-and-range-min-max-in-a-form-class" title="Permalink to this heading"></a></h4>
+<p><strong>forms.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SampleForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sample Form with range field type&quot;&quot;&quot;</span>
+    <span class="n">sample_range</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;sample_range&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">range_min_max</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span><span class="mi">9</span><span class="p">}</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;sample_range&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">datalist</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;my_fancy_datalist&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-datalist-and-range-min-max-in-a-view-class">
+<h4>Setting datalist and range_min_max in a View class<a class="headerlink" href="#setting-datalist-and-range-min-max-in-a-view-class" title="Permalink to this heading"></a></h4>
+<p><strong>views.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">form</span> <span class="o">=</span> <span class="n">SampleForm</span><span class="p">()</span>
+<span class="n">form</span><span class="p">[</span><span class="s1">&#39;sample_range&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">range_min_max</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span><span class="mi">9</span><span class="p">}</span>
+<span class="n">form</span><span class="p">[</span><span class="s1">&#39;sample_range&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">datalist</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;my_fancy_datalist&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="forms.html" class="btn btn-neutral float-left" title="Forms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../menu/general_information.html" class="btn btn-neutral float-right" title="General Information" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, David Barnes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

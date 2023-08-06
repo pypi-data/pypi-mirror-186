@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu Configuration &mdash; Django-AdminLTE2-PDQ 0.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Admin Configuration" href="admin.html" />
+    <link rel="prev" title="Home Configuration" href="home.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Django-AdminLTE2-PDQ
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Templates</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../templates/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_filters.html">Template Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_tags.html">Template Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/fields.html">Fields</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Menu</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../menu/general_information.html">General Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/building_blocks.html">Building Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/admin.html">Admin Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="home.html">Home Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Menu Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adminlte2-include-main-nav-on-admin-pages">ADMINLTE2_INCLUDE_MAIN_NAV_ON_ADMIN_PAGES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adminlte2-include-admin-nav-on-main-pages">ADMINLTE2_INCLUDE_ADMIN_NAV_ON_MAIN_PAGES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adminlte2-use-menu-group-separator">ADMINLTE2_USE_MENU_GROUP_SEPARATOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adminlte2-menu">ADMINLTE2_MENU</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="admin.html">Admin Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authorization.html">Authentication &amp; Authorization Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form.html">Form and Field Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Authentication &amp; Authorization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/policies.html">Authentication and Authorization Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/function_views.html">Authorizing Function Based Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/class_views.html">Authorizing Class Based Views</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../demo_css.html">Demo CSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Django-AdminLTE2-PDQ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Menu Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/configuration/menu.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="menu-configuration">
+<h1>Menu Configuration<a class="headerlink" href="#menu-configuration" title="Permalink to this heading"></a></h1>
+<section id="adminlte2-include-main-nav-on-admin-pages">
+<h2>ADMINLTE2_INCLUDE_MAIN_NAV_ON_ADMIN_PAGES<a class="headerlink" href="#adminlte2-include-main-nav-on-admin-pages" title="Permalink to this heading"></a></h2>
+<p>By default, the main navigation (non-admin) menu is not part of the sidebar when
+the user is viewing a
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/admin/">Django Admin page</a>.
+If you would like users to be able to see all of the main nav links regardless
+of what page they are on, set this value to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_INCLUDE_MAIN_NAV_ON_ADMIN_PAGES</span> <span class="o">=</span> <span class="p">{</span><span class="kc">True</span><span class="o">|</span><span class="kc">False</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="adminlte2-include-admin-nav-on-main-pages">
+<h2>ADMINLTE2_INCLUDE_ADMIN_NAV_ON_MAIN_PAGES<a class="headerlink" href="#adminlte2-include-admin-nav-on-main-pages" title="Permalink to this heading"></a></h2>
+<p>By default, the admin navigation menu is not part of the sidebar when the user
+is viewing a main navigation
+(non-<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/admin/">Django-Admin</a>)
+page. If you would like users to be able to see all of the admin nav links
+regardless of what page they are on, set this value to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Visibility is still subject to a user having the <code class="docutils literal notranslate"><span class="pre">is_staff</span></code> property.
+Without that property, the admin section of the sidebar will still be
+hidden to the user, regardless of this setting.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_INCLUDE_ADMIN_NAV_ON_MAIN_PAGES</span> <span class="o">=</span> <span class="p">{</span><span class="kc">True</span><span class="o">|</span><span class="kc">False</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="adminlte2-use-menu-group-separator">
+<h2>ADMINLTE2_USE_MENU_GROUP_SEPARATOR<a class="headerlink" href="#adminlte2-use-menu-group-separator" title="Permalink to this heading"></a></h2>
+<p>By default, there will be an implicit separator bar rendered between each menu
+group.
+These groups include: <strong>MENU_FIRST</strong>, <strong>MENU</strong>, <strong>MENU_LAST</strong>, and the
+<strong>Admin Menu</strong>.
+More information about these groups can be found on the
+<a class="reference internal" href="../menu/admin.html"><span class="doc">Admin Menu</span></a> page. If you would like to disable this
+separator from being automatically rendered, set this value to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_USE_MENU_GROUP_SEPARATOR</span> <span class="o">=</span> <span class="p">{</span><span class="kc">True</span><span class="o">|</span><span class="kc">False</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="adminlte2-menu">
+<h2>ADMINLTE2_MENU<a class="headerlink" href="#adminlte2-menu" title="Permalink to this heading"></a></h2>
+<p>This setting is the definition for the main navigation menu.
+There are a lot of options when creating this menu.
+See the <a class="reference internal" href="../menu/admin.html"><span class="doc">Admin Menu</span></a> section for a detailed explanation of how to
+create this menu and all of the available options that can be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_MENU</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="home.html" class="btn btn-neutral float-left" title="Home Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="admin.html" class="btn btn-neutral float-right" title="Admin Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, David Barnes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

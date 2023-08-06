@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building Blocks &mdash; Django-AdminLTE2-PDQ 0.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Advanced" href="advanced.html" />
+    <link rel="prev" title="General Information" href="general_information.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Django-AdminLTE2-PDQ
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Templates</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../templates/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_filters.html">Template Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_tags.html">Template Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/fields.html">Fields</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Menu</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="general_information.html">General Information</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building Blocks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#section">Section</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#section-keys">Section Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#section-example">Section Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#separator">Separator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#separator-keys">Separator Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#separator-example">Separator Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#node">Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#node-keys">Node Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#node-example">Node Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#complex-node-example">Complex Node Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tree">Tree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tree-keys">Tree Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tree-example">Tree Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tree-example-with-a-node">Tree Example with a Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tree-example-with-sub-tree-and-a-node">Tree Example with sub-tree and a Node</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="admin.html">Admin Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/home.html">Home Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/menu.html">Menu Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/admin.html">Admin Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/authorization.html">Authentication &amp; Authorization Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/form.html">Form and Field Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Authentication &amp; Authorization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/policies.html">Authentication and Authorization Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/function_views.html">Authorizing Function Based Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/class_views.html">Authorizing Class Based Views</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../demo_css.html">Demo CSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Django-AdminLTE2-PDQ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Building Blocks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/menu/building_blocks.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="building-blocks">
+<h1>Building Blocks<a class="headerlink" href="#building-blocks" title="Permalink to this heading"></a></h1>
+<p>The menu is built using a combination of the following 4 types of
+building blocks:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#section">Section</a></p></li>
+<li><p><a class="reference internal" href="#separator">Separator</a></p></li>
+<li><p><a class="reference internal" href="#node">Node</a></p></li>
+<li><p><a class="reference internal" href="#tree">Tree</a></p></li>
+</ul>
+<hr class="docutils" />
+<section id="section">
+<h2>Section<a class="headerlink" href="#section" title="Permalink to this heading"></a></h2>
+<p>A section is a grouping of other related navigational elements. Technically,
+a section is simply a Python dictionary, with a specific set of expected values.</p>
+<p>A section will consist of section text and any nodes that
+make up the remaining parts of the section. Neither the text nor the
+nodes are required.</p>
+<p>For Example:</p>
+<ul class="simple">
+<li><p>You can have no text and no nodes if you just want some extra space in the
+sidebar between other sections.</p></li>
+<li><p>You can have text with no nodes if you only want a header.</p></li>
+<li><p>You can have nodes without text if you want a blank header.</p></li>
+</ul>
+<p>Generally speaking, the most common implementation will consist of defining both
+text and nodes.</p>
+<hr class="docutils" />
+<section id="section-keys">
+<h3>Section Keys<a class="headerlink" href="#section-keys" title="Permalink to this heading"></a></h3>
+<p>The following are accepted keys used when defining a section menu block.</p>
+<p><strong>text</strong></p>
+<p>A string that represents the section text that a user will see.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<p><strong>nodes</strong></p>
+<p>A list of <a class="reference internal" href="#node">node</a> dictionaries that will render out each sidebar link,
+and/or a <a class="reference internal" href="#tree">tree</a> definition that contains additional nodes to render links.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">nodes</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="section-example">
+<h3>Section Example<a class="headerlink" href="#section-example" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;nodes&#39;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="separator">
+<h2>Separator<a class="headerlink" href="#separator" title="Permalink to this heading"></a></h2>
+<p>A separator is a physical line separating one section from the next.</p>
+<p>Technically, this is a <a class="reference internal" href="#section">section</a> block with very specific properties. It has no
+text or node keys, and instead has a key called <code class="docutils literal notranslate"><span class="pre">separator</span></code> that is set to
+<code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<hr class="docutils" />
+<section id="separator-keys">
+<h3>Separator Keys<a class="headerlink" href="#separator-keys" title="Permalink to this heading"></a></h3>
+<p>The following are required keys used when defining a separator menu block.</p>
+<p><strong>text</strong></p>
+<p>A blank string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+<p><strong>nodes</strong></p>
+<p>An empty list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">nodes</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+<p><strong>separator</strong></p>
+<p>Defined as <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">separator</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="separator-example">
+<h3>Separator Example<a class="headerlink" href="#separator-example" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;nodes&#39;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s1">&#39;separator&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="node">
+<h2>Node<a class="headerlink" href="#node" title="Permalink to this heading"></a></h2>
+<p>A node is a python dictionary that will create a clickable sidebar link. This
+includes a name and an icon in the sidebar.</p>
+<hr class="docutils" />
+<section id="node-keys">
+<h3>Node Keys<a class="headerlink" href="#node-keys" title="Permalink to this heading"></a></h3>
+<p>The following are accepted keys used when defining a node menu block.</p>
+<p><strong>route</strong></p>
+<p>A valid Django route. If you are scaffolding your menu out and do
+not have a valid route yet, just enter a <code class="docutils literal notranslate"><span class="pre">#</span></code> as a placeholder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">route</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+<p><strong>route_args</strong></p>
+<p>Any required args needed to be able to reverse the route.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">route_args</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<p><strong>route_kwargs</strong></p>
+<p>Any required kwargs needed to be able to reverse the route.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">route_kwargs</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<p><strong>text</strong></p>
+<p>A string that represents what will be rendered for the user to see.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<p><strong>icon</strong></p>
+<p>Either a <a class="reference external" href="https://fontawesome.com/v4/icons/">Font-Awesome 4</a> or
+<a class="reference external" href="https://fontawesome.com/v5/search?m=free">Font-Awesome 5</a> set of CSS classes.
+All required classes needed to make the icon show up must be listed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">icon</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<p><strong>hook</strong></p>
+<p>An optional string that represents the name of a fully qualified function.
+This function will be called to return the text to render for the node.
+This allows the ability to dynamically create the node’s text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">hook</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Django-AdminLTE2-PDQ will try to import the value for this key as a function
+and then invoke the function and use its results as the text for the node.</p>
+<p>The function should return either a string that will be used for both the
+text and the title text of the node, or a 2-tuple with string values for
+both text and title separately.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This hook is best used for making a few nodes in an otherwise static menu
+dynamic. If you need a lot of dynamic nodes, the information in the
+<a class="reference internal" href="advanced.html"><span class="doc">Advanced</span></a> section might be more useful.</p>
+</div>
+<p><strong>url</strong></p>
+<p>An optional string representing the URL for the link. If provided, it will take
+precedence over the URL generated from the required route key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">url</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This key is generally reserved for providing external URLs.</p>
+<p>When defining internal URLs, it is <strong>strongly</strong> recommended that you avoid
+this key and instead, use the node’s route key.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you decide to use the <code class="docutils literal notranslate"><span class="pre">url</span></code> key, you must still provide the route key with
+a value of <code class="docutils literal notranslate"><span class="pre">&quot;#&quot;</span></code> as well since the sidebar is expecting that every node
+will have a route key.</p>
+<p>Additionally, if this key is used, it will take precedence over the route key.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This <code class="docutils literal notranslate"><span class="pre">url</span></code> key is useful if you need to link to an external website rather
+then an internal link. External links must define any permissions directly
+on the node as there is no associated view to be able to pull permissions
+from. See the <a class="reference internal" href="../authorization/policies.html"><span class="doc">Authentication and Authorization Policy</span></a> page for more information.</p>
+</div>
+<p><strong>permissions</strong></p>
+<p>An optional list of permissions as strings. The user must have all listed
+permissions to see the node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">url</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In general, you should use the functionality defined on the
+<a class="reference internal" href="../authorization/policies.html"><span class="doc">Authorization</span></a> pages to add permissions
+to a view rather than directly to a node. Defining the permissions directly
+on the view will handle both:</p>
+<ul class="simple">
+<li><p>Hiding a node in the sidebar.</p></li>
+<li><p>Preventing direct URL navigation, without the need to additionally set the
+permissions on this node key.</p></li>
+</ul>
+<p>This key will <strong>NOT</strong> fully protect the link that the node is associated
+with.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This key may be useful when you have an external link that needs to also
+be shown or hidden based on a list of permissions.</p>
+</div>
+<p><strong>one_of_permissions</strong></p>
+<p>An optional list of permissions as strings. The user must have at least one of
+these order to see the node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">url</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In general, you should use the functionality defined on the
+<a class="reference internal" href="../authorization/policies.html"><span class="doc">Authorization</span></a> pages to add permissions
+to a view rather than directly to a node. Defining the permissions directly
+on the view will handle both:</p>
+<ul class="simple">
+<li><p>Hiding a node in the sidebar.</p></li>
+<li><p>Preventing direct URL navigation, without the need to additionally set the
+permissions on this node key.</p></li>
+</ul>
+<p>This key will <strong>NOT</strong> fully protect the link that the node is associated
+with.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This key may be useful when you have an external link that needs to also
+be shown or hidden based on a list of permissions.</p>
+</div>
+<p><strong>login_required</strong></p>
+<p>An optional key on the node specifying whether a user must be logged in to
+the system to see the node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">url</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In general, you should use the functionality defined on the
+<a class="reference internal" href="../authorization/policies.html"><span class="doc">Authorization</span></a> pages to add a login
+required criteria to a view, rather than directly to a node. Defining
+login_required on the view will handle both:</p>
+<ul class="simple">
+<li><p>Hiding a node in the sidebar.</p></li>
+<li><p>Preventing direct URL navigation without the need to additionally define
+that login is required on this node.</p></li>
+</ul>
+<p>This key will <strong>NOT</strong> fully protect the link that the node is associated
+with.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This key may be useful when you have an external link that needs to also
+be shown or hidden based on the user being logged in.</p>
+</div>
+</section>
+<section id="node-example">
+<h3>Node Example<a class="headerlink" href="#node-example" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;adminlte2_pdq:home&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-dashboard&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="complex-node-example">
+<h3>Complex Node Example<a class="headerlink" href="#complex-node-example" title="Permalink to this heading"></a></h3>
+<p><strong>Node</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;#&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Github&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-github&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://github.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hook&#39;</span><span class="p">:</span> <span class="s1">&#39;core.utils.home_link_text&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;permissions&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;is_developer&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>core/utils.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">home_link_text</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="s2">&quot;Custom home link text&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;Home&#39;</span>
+    <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_staff</span><span class="p">:</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;Home!!!!!&#39;</span>
+    <span class="k">return</span> <span class="n">text</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tree">
+<h2>Tree<a class="headerlink" href="#tree" title="Permalink to this heading"></a></h2>
+<p>A tree is a python dictionary that will create an expandable entry with text
+and an icon in the sidebar. In addition, the tree will contain other nodes
+and/or trees as the children of the tree.</p>
+<p>Trees can make a very large menu fit into a smaller space by utilizing the
+ability to expand and collapse each tree section.</p>
+<hr class="docutils" />
+<section id="tree-keys">
+<h3>Tree Keys<a class="headerlink" href="#tree-keys" title="Permalink to this heading"></a></h3>
+<p><strong>text</strong></p>
+<p>A string that represents what will be rendered for the user to see.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<p><strong>icon</strong></p>
+<p>Either a <a class="reference external" href="https://fontawesome.com/v4/icons/">Font-Awesome 4</a> or
+<a class="reference external" href="https://fontawesome.com/v5/search?m=free">Font-Awesome 5</a> set of CSS classes.
+All required classes needed to make the icon show up must be listed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">icon</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<p><strong>nodes</strong></p>
+<p>A list of node dictionaries that will render out each sidebar link,
+or a tree that will contain more nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Key</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">nodes</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+<dt class="field-odd">Required</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="tree-example">
+<h3>Tree Example<a class="headerlink" href="#tree-example" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sample Tree&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-leaf&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;nodes&#39;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+</section>
+<section id="tree-example-with-a-node">
+<h3>Tree Example with a Node<a class="headerlink" href="#tree-example-with-a-node" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sample Tree&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-leaf&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;nodes&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;adminlte2_pdq:sample2&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sample2&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-building&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">],</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+</section>
+<section id="tree-example-with-sub-tree-and-a-node">
+<h3>Tree Example with sub-tree and a Node<a class="headerlink" href="#tree-example-with-sub-tree-and-a-node" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sample Tree&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-leaf&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;nodes&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sub Tree&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-box&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;nodes&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;adminlte2_pdq:sample2&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sample2&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-building&#39;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+    <span class="p">],</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="general_information.html" class="btn btn-neutral float-left" title="General Information" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="advanced.html" class="btn btn-neutral float-right" title="Advanced" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, David Barnes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

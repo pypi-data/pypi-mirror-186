@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Authorizing Class Based Views &mdash; Django-AdminLTE2-PDQ 0.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Demo CSS" href="../demo_css.html" />
+    <link rel="prev" title="Authorizing Function Based Views" href="function_views.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Django-AdminLTE2-PDQ
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Templates</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../templates/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_filters.html">Template Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_tags.html">Template Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/fields.html">Fields</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Menu</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../menu/general_information.html">General Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/building_blocks.html">Building Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/admin.html">Admin Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/home.html">Home Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/menu.html">Menu Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/admin.html">Admin Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/authorization.html">Authentication &amp; Authorization Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/form.html">Form and Field Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Authentication &amp; Authorization</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="policies.html">Authentication and Authorization Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function_views.html">Authorizing Function Based Views</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Authorizing Class Based Views</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mixins">Mixins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#login-required-mixin">Login Required Mixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#permission-required-mixin">Permission Required Mixin</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#permission-required-attribute">Permission Required Attribute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#permission-required-one-attribute">Permission Required One Attribute</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mixin-examples">Mixin Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#loose-mixin-example">Loose Mixin Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#strict-mixin-example">Strict Mixin Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../demo_css.html">Demo CSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Django-AdminLTE2-PDQ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Authorizing Class Based Views</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/authorization/class_views.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="authorizing-class-based-views">
+<h1>Authorizing Class Based Views<a class="headerlink" href="#authorizing-class-based-views" title="Permalink to this heading"></a></h1>
+<section id="mixins">
+<h2>Mixins<a class="headerlink" href="#mixins" title="Permalink to this heading"></a></h2>
+<p>There are two mixins provided by Django-AdminLTE2-PDQ that can be used on a
+class-based view to control whether a user:</p>
+<ul class="simple">
+<li><p>Has access to both the protected view.</p></li>
+<li><p>Can see links in the sidebar, relating to the protected view.</p></li>
+</ul>
+<p>Those mixins are:</p>
+<ul>
+<li><p><a class="reference internal" href="#login-required-mixin"><span class="std std-ref">Login Required Mixin</span></a> imported with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adminlte2_pdq.mixins</span> <span class="kn">import</span> <span class="n">LoginRequiredMixin</span>
+</pre></div>
+</div>
+</li>
+<li><p><a class="reference internal" href="#permission-required-mixin"><span class="std std-ref">Permission Required Mixin</span></a> imported with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adminlte2_pdq.mixins</span> <span class="kn">import</span> <span class="n">PermissionRequiredMixin</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<section id="login-required-mixin">
+<h3>Login Required Mixin<a class="headerlink" href="#login-required-mixin" title="Permalink to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></p>
+<p>This mixin will enforce that a user is logged into the system before they
+can access the view. Django’s default
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/auth/default/#the-loginrequired-mixin">LoginRequiredMixin</a>
+is used behind the scenes and is only recreated in this package to add
+the magic of automatic sidebar link rendering.</p>
+<p>When using this mixin on a class based view, if the user is not logged in,
+the user will not be able to access this view nor will they see a sidebar menu
+entry that maps to this view. However, if the user is logged in,
+they will see the sidebar link and have access.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adminlte2_pdq.mixins</span> <span class="kn">import</span> <span class="n">LoginRequiredMixin</span>
+
+<span class="k">class</span> <span class="nc">DemoCss</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show examples of extra-features.css&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/demo_css.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;bootstrap_types&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;primary&#39;</span><span class="p">],</span>
+        <span class="p">})</span>
+</pre></div>
+</div>
+</section>
+<section id="permission-required-mixin">
+<h3>Permission Required Mixin<a class="headerlink" href="#permission-required-mixin" title="Permalink to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></p>
+<p>This mixin will enforce that a user has either all or one of a list of
+permissions before they can access the view. Django’s default
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/auth/default/#the-permissionrequiredmixin-mixin">PermissionRequired</a>
+is used behind the scenes and is only recreated in this package to add
+the magic of automatic sidebar link rendering.</p>
+<p>There are two class attributes used in conjunction with this mixin.
+They are called <code class="docutils literal notranslate"><span class="pre">permission_required</span></code> and <code class="docutils literal notranslate"><span class="pre">permission_required_one</span></code>.
+You will use one or the other depending on whether users should have all listed
+permissions to gain view access, or if they only need one of many listed
+permissions to gain view access.</p>
+<section id="permission-required-attribute">
+<h4>Permission Required Attribute<a class="headerlink" href="#permission-required-attribute" title="Permalink to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adminlte2_pdq.mixins</span> <span class="kn">import</span> <span class="n">PermissionRequiredMixin</span>
+
+<span class="k">class</span> <span class="nc">Sample1</span><span class="p">(</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+<span class="sd">&quot;&quot;&quot;Show sample1 page&quot;&quot;&quot;</span>
+
+    <span class="c1"># Require that the user has all three permissions to access.</span>
+    <span class="n">permission_required</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;auth.add_permission&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;auth.change_permission&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;auth.delete_permission&#39;</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/sample1.html&#39;</span><span class="p">,</span> <span class="p">{})</span>
+</pre></div>
+</div>
+</section>
+<section id="permission-required-one-attribute">
+<h4>Permission Required One Attribute<a class="headerlink" href="#permission-required-one-attribute" title="Permalink to this heading"></a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Django does not provide a similar class level attribute by default.
+This attribute and its functionality are exclusive to this package.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This class level attribute is good when you have a landing page for a
+section of your site and don’t care whether the user can only read or has
+full edit permissions. Either one should allow the user to see the sidebar
+link and gain access to the landing page where further restrictions can be
+used as needed.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adminlte2_pdq.mixins</span> <span class="kn">import</span> <span class="n">PermissionRequiredMixin</span>
+
+<span class="k">class</span> <span class="nc">Sample2</span><span class="p">(</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show sample2 page&quot;&quot;&quot;</span>
+
+    <span class="c1"># Require that the user has at least one of the three permissions to access.</span>
+    <span class="n">permission_required_one</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;auth.add_permission&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;auth.change_permission&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;auth.delete_permission&#39;</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/sample2.html&#39;</span><span class="p">,</span> <span class="p">{})</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="mixin-examples">
+<h2>Mixin Examples<a class="headerlink" href="#mixin-examples" title="Permalink to this heading"></a></h2>
+<section id="loose-mixin-example">
+<h3>Loose Mixin Example<a class="headerlink" href="#loose-mixin-example" title="Permalink to this heading"></a></h3>
+<p>In this example, there are five routes, views, and sidebar entries. To
+demonstrate how our package works, we intentionally mess up the <strong>Sample 2</strong>
+permissions at first, then show how to correct it. The views are as follows:</p>
+<ul class="simple">
+<li><p><strong>Home</strong> - Should be visible to all users, regardless of being logged in or
+having permission.</p></li>
+<li><p><strong>Sample Form</strong> - Requires simply being logged in to see and access.</p></li>
+<li><p><strong>Sample 1</strong> - Requires two permissions (and thus being logged in) to see and
+access.</p></li>
+<li><p><strong>Sample 2</strong> - Should require at least one of the listed permissions
+(and be logged in) to see and access. But we intentionally
+forgot to add that permission to demonstrate what will happen.</p></li>
+<li><p><strong>Demo CSS</strong> - Should be visible to all users, regardless of being logged in
+or having permission.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the below files, we have purposely made a mistake in regards to the
+<strong>Sample2</strong> view to not only demonstrate how the various files and
+contents work, but also to show what sort of side effects to expect when
+using the <strong>Loose Policy</strong>.</p>
+<p>Below this initial attempt, we correct our initial mistake and show the
+proper configuration, as well as what users will see.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>For this example, we have turned off the global
+<a class="reference internal" href="policies.html#login-required"><span class="std std-ref">Login Required</span></a> setting and instead choose
+to define whether or not a view requires being logged in directly on
+the view rather than globally. This way we can demonstrate all three options
+available from the various mixins.</p>
+</div>
+<p id="loose-mixin-settings-py"><strong>settings.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sidebar menu definition.</span>
+<span class="n">ADMINLTE2_MENU</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;nodes&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;home&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-dashboard&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;sample_form&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sample Form&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-list-alt&#39;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;sample1&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sample1&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-bank&#39;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;sample2&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sample2&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-building&#39;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;demo-css&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Demo CSS&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-file&#39;</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+<span class="c1"># Ensures that we are using the Loose Policy.</span>
+<span class="n">ADMINLTE2_USE_STRICT_POLICY</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p id="loose-mixin-urls-py"><strong>urls.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;home/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">Home</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;home&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;sample_form/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">sample_form</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sample_form&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;sample1/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">Sample1</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sample1&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;sample2/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">Sample2</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sample2&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;demo-css/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">DemoCss</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;demo-css&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p id="loose-mixin-views-py"><strong>views.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.views</span> <span class="kn">import</span> <span class="n">View</span>
+<span class="kn">from</span> <span class="nn">adminlte2_pdq.mixins</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">LoginRequiredMixin</span><span class="p">,</span>
+    <span class="n">PermissionRequiredMixin</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Home</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show home page&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/home.html&#39;</span><span class="p">,</span> <span class="p">{})</span>
+
+<span class="k">class</span> <span class="nc">SampleForm</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show Sample Form Page&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">SampleForm</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/sample_form.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span><span class="n">form</span><span class="p">})</span>
+
+<span class="k">class</span> <span class="nc">Sample1</span><span class="p">(</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show sample1 page&quot;&quot;&quot;</span>
+
+    <span class="n">permission_required</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;auth.add_permission&#39;</span><span class="p">,</span> <span class="s1">&#39;auth.view_permission&#39;</span><span class="p">,]</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/sample1.html&#39;</span><span class="p">,</span> <span class="p">{})</span>
+
+<span class="k">class</span> <span class="nc">Sample2</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show sample2 page&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/sample2.html&#39;</span><span class="p">,</span> <span class="p">{})</span>
+
+<span class="k">class</span> <span class="nc">DemoCss</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show examples of extra-features.css&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/demo_css.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;bootstrap_types&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;primary&#39;</span><span class="p">],</span>
+        <span class="p">})</span>
+</pre></div>
+</div>
+<p><strong>What logged out anonymous users can see and access:</strong></p>
+<img alt="Loose Policy with anonymous user and missed mixin." src="../_images/loose_policy_anonymous_wrong.png" />
+<p><strong>What logged in users without correct permissions can see and access:</strong></p>
+<img alt="Loose Policy with no permission user and missed mixin." src="../_images/loose_policy_no_perms_wrong.png" />
+<p><strong>What logged in users with correct perm can see and access:</strong></p>
+<img alt="Loose Policy with full permission user and missed mixin." src="../_images/loose_policy_with_perms_wrong.png" />
+<p><strong>What logged in superusers can see and access:</strong></p>
+<img alt="Loose Policy with superuser and missed mixin." src="../_images/loose_policy_superuser_wrong.png" />
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>We wanted to prevent the <strong>Sample2</strong> view from being accessed by people that
+do not have at least one permission, but forgot to add that to our view.</p>
+<p>Because we are using a Loose policy, everyone can see and have access to this
+view. This is the <strong>“Loose”</strong> part of the loose policy as it defaults to
+everyone being able to see every view unless a permission is explicitly
+set on that view.</p>
+</div>
+<p>Let’s fix our mistake so that <strong>Sample2</strong> is protected and see the difference.</p>
+<p id="loose-mixin-fixed-views-py"><strong>views.py</strong></p>
+<p>Add the missing <code class="docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code> mixin and the
+<code class="docutils literal notranslate"><span class="pre">permission_required_one</span></code> attribute to the Sample2 view.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Sample2</span><span class="p">(</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show sample2 page&quot;&quot;&quot;</span>
+
+    <span class="n">permission_required_one</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;auth.add_permission&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;auth.view_permission&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/sample2.html&#39;</span><span class="p">,</span> <span class="p">{})</span>
+</pre></div>
+</div>
+<p><strong>What logged out users can see and access now:</strong></p>
+<img alt="Loose Policy with anonymous user and correct mixin." src="../_images/loose_policy_anonymous_correct.png" />
+<p><strong>What logged in users without correct permissions can see and access now:</strong></p>
+<img alt="Loose Policy with no permission user and correct mixin." src="../_images/loose_policy_no_perms_correct.png" />
+<p><strong>What logged in user with correct perms can see and access now:</strong></p>
+<img alt="Loose Policy with full permission user and correct mixin." src="../_images/loose_policy_with_perms_correct.png" />
+<p><strong>What logged in superusers can see and access now:</strong></p>
+<img alt="Loose Policy with superuser and correct mixin." src="../_images/loose_policy_superuser_correct.png" />
+<p>The pages in our example are now displaying as they’re supposed to be.</p>
+</section>
+<section id="strict-mixin-example">
+<h3>Strict Mixin Example<a class="headerlink" href="#strict-mixin-example" title="Permalink to this heading"></a></h3>
+<p>In this example, there are five routes, views, and sidebar entries. To
+demonstrate how our package works, we intentionally mess up the <strong>Sample2</strong> and
+<strong>Demo CSS</strong> routes at first, then show how to correct them. The views are as
+follows:</p>
+<ul class="simple">
+<li><p><strong>Home</strong> - Should be shown to all users, regardless of being logged in or
+having permission.</p></li>
+<li><p><strong>Sample Form</strong> - Requires simply being logged in to see and access.</p></li>
+<li><p><strong>Sample 1</strong> - Requires two permissions (and thus being logged in) to see and
+access.</p></li>
+<li><p><strong>Sample 2</strong> - Should require at least one of the listed permissions
+(and be logged in) to see and access. But we intentionally
+forgot to add that permission to demonstrate what will happen.</p></li>
+<li><p><strong>Demo CSS</strong> - Should be visible to all users, regardless of being logged in
+or having permission. But we intentionally forgot to add that view’s route to
+the
+<a class="reference internal" href="../configuration/authorization.html#adminlte2-strict-policy-whitelist"><span class="std std-ref">ADMINLTE2_STRICT_POLICY_WHITELIST</span></a>
+to demonstrate what will happen.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the below files, we have purposely made a mistake in regards to the
+<strong>Sample2</strong> and <strong>Demo CSS</strong> views to not only demonstrate how the
+various files and contents work, but also to show what sort of side effects
+to expect when using the <strong>Strict Policy</strong>.</p>
+<p>Below this initial attempt, we correct our mistake and show the proper
+configuration as well as what users will see.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>For this example, we have turned off the global
+<a class="reference internal" href="policies.html#login-required"><span class="std std-ref">Login Required</span></a> setting and instead choose
+to define whether or not a view requires being logged in directly on
+the view rather than globally. This way we can demonstrate all three of
+the various mixins.</p>
+</div>
+<p id="strict-mixin-settings-py"><strong>settings.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sidebar menu definition.</span>
+<span class="n">ADMINLTE2_MENU</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;nodes&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;home&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-dashboard&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;sample_form&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sample Form&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-list-alt&#39;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;sample1&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sample1&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-bank&#39;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;sample2&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sample2&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-building&#39;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;demo-css&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Demo CSS&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-file&#39;</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+<span class="c1"># Ensures that we are using the Strict Policy.</span>
+<span class="n">ADMINLTE2_USE_STRICT_POLICY</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p id="strict-mixin-urls-py"><strong>urls.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;home/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">Home</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;home&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;sample_form/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">sample_form</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sample_form&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;sample1/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">Sample1</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sample1&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;sample2/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">Sample2</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sample2&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;demo-css/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">DemoCss</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;demo-css&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p id="strict-mixin-views-py"><strong>views.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.views</span> <span class="kn">import</span> <span class="n">View</span>
+<span class="kn">from</span> <span class="nn">adminlte2_pdq.mixins</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">LoginRequiredMixin</span><span class="p">,</span>
+    <span class="n">PermissionRequiredMixin</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Home</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show home page&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/home.html&#39;</span><span class="p">,</span> <span class="p">{})</span>
+
+<span class="k">class</span> <span class="nc">SampleForm</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show Sample Form Page&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">SampleForm</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/sample_form.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span><span class="n">form</span><span class="p">})</span>
+
+<span class="k">class</span> <span class="nc">Sample1</span><span class="p">(</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show sample1 page&quot;&quot;&quot;</span>
+
+    <span class="n">permission_required</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;auth.add_permission&#39;</span><span class="p">,</span> <span class="s1">&#39;auth.view_permission&#39;</span><span class="p">,]</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/sample1.html&#39;</span><span class="p">,</span> <span class="p">{})</span>
+
+<span class="k">class</span> <span class="nc">Sample2</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show sample2 page&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/sample2.html&#39;</span><span class="p">,</span> <span class="p">{})</span>
+
+<span class="k">class</span> <span class="nc">DemoCss</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show examples of extra-features.css&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/demo_css.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;bootstrap_types&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;primary&#39;</span><span class="p">],</span>
+        <span class="p">})</span>
+</pre></div>
+</div>
+<p><strong>What logged out users can see and access:</strong></p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As seen in the following screenshots, the <strong>Home</strong> route still works and
+the user still has access to it.</p>
+<p>This is because the <strong>Home</strong> route is one of the routes that are
+automatically included as part of the
+<a class="reference internal" href="../configuration/authorization.html#adminlte2-strict-policy-whitelist"><span class="std std-ref">ADMINLTE2_STRICT_POLICY_WHITELIST</span></a>.
+For more information about the automatically included routes, check out
+the <a class="reference internal" href="policies.html#strict-policy"><span class="std std-ref">Strict Policy</span></a> section.</p>
+</div>
+</div></blockquote>
+<img alt="Strict Policy with anonymous user and missed mixin and setting." src="../_images/strict_policy_anonymous_wrong.png" />
+<p><strong>What logged in users without correct permissions can see and access:</strong></p>
+<img alt="Strict Policy with no permission user and missed mixin/setting." src="../_images/strict_policy_no_perms_wrong.png" />
+<p><strong>What logged in users with correct perm can see and access:</strong></p>
+<img alt="Strict Policy with full permission user and missed mixin/setting." src="../_images/strict_policy_with_perms_wrong.png" />
+<p><strong>What logged in superusers can see and access:</strong></p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Even though we forgot to add the <strong>Demo CSS</strong> route to the whitelist and
+add permissions to the <strong>Sample2</strong> view, the superuser can still see those
+sidebar entries and has access to those pages as superusers can always see
+everything.</p>
+</div>
+</div></blockquote>
+<img alt="Strict Policy with superuser and missed mixin/setting." src="../_images/strict_policy_superuser_wrong.png" />
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>We wanted the <strong>Demo CSS</strong> view to be visible and accessible to all users.
+But as configured, it is not visible to anyone (other than superusers).
+In addition, the <strong>Sample2</strong> page is also not visible to anyone
+(other than superusers).</p>
+<p>Because we are using the Strict Policy, all sidebar menu links are hidden
+by default. This is the <strong>“Strict”</strong> part of the Strict Policy as it
+defaults to everyone not being able to see every sidebar menu link unless a
+mixin is explicitly used on that view or the route for that view is
+added to the
+<a class="reference internal" href="../configuration/authorization.html#adminlte2-strict-policy-whitelist"><span class="std std-ref">ADMINLTE2_STRICT_POLICY_WHITELIST</span></a>.</p>
+<p>In the case of the <strong>Demo CSS</strong> view, we add the route to the
+<code class="docutils literal notranslate"><span class="pre">ADMINLTE2_STRICT_POLICY_WHITELIST</span></code> as we don’t want to require
+any criteria to see it and instead want to ensure that everyone will be
+able to see the link and page regardless of their permissions or being
+logged in.</p>
+<p>In the case of <strong>Sample2</strong>, we are going to add the missing permissions that
+we accidentally omitted earlier.</p>
+</div>
+<p>Let’s fix our mistake so that <strong>Demo CSS</strong> and <strong>Sample2</strong> are visible to those
+who they are supposed to be.</p>
+<p id="strict-mixin-fixed-settings-py"><strong>settings.py</strong></p>
+<p>Add the missing whitelist to the settings file and ensure it includes the
+demo-css route.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lists the routes that do not need permissions to be seen by all users.</span>
+<span class="n">ADMINLTE2_STRICT_POLICY_WHITELIST</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;demo-css&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p id="strict-mixin-fixed-views-py"><strong>views.py</strong></p>
+<p>Add the missing <code class="docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code> mixin and
+<code class="docutils literal notranslate"><span class="pre">permission_required_one</span></code> attribute to the Sample2 view.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Sample2</span><span class="p">(</span><span class="n">PermissionRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show sample2 page&quot;&quot;&quot;</span>
+
+    <span class="n">permission_required_one</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;auth.add_permission&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;auth.view_permission&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;adminlte2/sample2.html&#39;</span><span class="p">,</span> <span class="p">{})</span>
+</pre></div>
+</div>
+<p><strong>What logged out users can see and access now:</strong></p>
+<img alt="Strict Policy with anonymous user and correct mixin/setting." src="../_images/strict_policy_anonymous_correct.png" />
+<p><strong>What logged in users without correct permissions can see and access now:</strong></p>
+<img alt="Strict Policy with no permission user and correct mixin/setting." src="../_images/strict_policy_no_perms_correct.png" />
+<p><strong>What logged in user with correct perms can see and access now:</strong></p>
+<img alt="Strict Policy with full permission user and correct mixin/setting." src="../_images/strict_policy_with_perms_correct.png" />
+<p><strong>What logged in superusers can see and access now:</strong></p>
+<img alt="Strict Policy with superuser and correct mixin/setting." src="../_images/strict_policy_superuser_correct.png" />
+<p>The pages in our example are now displaying as they’re supposed to be.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="function_views.html" class="btn btn-neutral float-left" title="Authorizing Function Based Views" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../demo_css.html" class="btn btn-neutral float-right" title="Demo CSS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, David Barnes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

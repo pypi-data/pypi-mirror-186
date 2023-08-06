@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Configuration &mdash; Django-AdminLTE2-PDQ 0.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Authentication &amp; Authorization Configuration" href="authorization.html" />
+    <link rel="prev" title="Menu Configuration" href="menu.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Django-AdminLTE2-PDQ
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Templates</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../templates/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_filters.html">Template Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_tags.html">Template Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/fields.html">Fields</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Menu</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../menu/general_information.html">General Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/building_blocks.html">Building Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/admin.html">Admin Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="home.html">Home Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Menu Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Admin Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adminlte2-include-admin-home-link">ADMINLTE2_INCLUDE_ADMIN_HOME_LINK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adminlte2-admin-index-use-app-list">ADMINLTE2_ADMIN_INDEX_USE_APP_LIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adminlte2-admin-menu-in-tree">ADMINLTE2_ADMIN_MENU_IN_TREE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adminlte2-admin-control-sidebar-tabs">ADMINLTE2_ADMIN_CONTROL_SIDEBAR_TABS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="authorization.html">Authentication &amp; Authorization Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form.html">Form and Field Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Authentication &amp; Authorization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/policies.html">Authentication and Authorization Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/function_views.html">Authorizing Function Based Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/class_views.html">Authorizing Class Based Views</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../demo_css.html">Demo CSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Django-AdminLTE2-PDQ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Admin Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/configuration/admin.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="admin-configuration">
+<h1>Admin Configuration<a class="headerlink" href="#admin-configuration" title="Permalink to this heading"></a></h1>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>All of the settings in this section manipulate the admin section of the
+sidebar.</p>
+<p>However, by default, the admin sidebar section is only shown on
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/admin/">Django Admin pages</a>
+. If you would like to change this behavior so that the admin sidebar
+section is available on all pages, please see the
+<a class="reference internal" href="menu.html#adminlte2-include-admin-nav-on-main-pages"><span class="std std-ref">ADMINLTE2_INCLUDE_ADMIN_NAV_ON_MAIN_PAGES</span></a> section for
+more information.</p>
+</div>
+<section id="adminlte2-include-admin-home-link">
+<h2>ADMINLTE2_INCLUDE_ADMIN_HOME_LINK<a class="headerlink" href="#adminlte2-include-admin-home-link" title="Permalink to this heading"></a></h2>
+<p>By default, the admin menu sidebar will not have a link to the admin index page.
+If you would like to append a link to the admin index page in the sidebar,
+set this value to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In essence, this is another admin link and as such will be treated like
+all other admin links. If you do not see this link in your sidebar after
+enabling, please refer to the
+<a class="reference internal" href="menu.html#adminlte2-include-admin-nav-on-main-pages"><span class="std std-ref">ADMINLTE2_INCLUDE_ADMIN_NAV_ON_MAIN_PAGES</span></a>
+setting for more information.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_INCLUDE_ADMIN_HOME_LINK</span> <span class="o">=</span> <span class="p">{</span><span class="kc">True</span><span class="o">|</span><span class="kc">False</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="adminlte2-admin-index-use-app-list">
+<h2>ADMINLTE2_ADMIN_INDEX_USE_APP_LIST<a class="headerlink" href="#adminlte2-admin-index-use-app-list" title="Permalink to this heading"></a></h2>
+<p>By default, Django-AdminLTE2-PDQ will put the Apps on the Admin Index page
+into AdminLTE Info Boxes. Setting this to <code class="docutils literal notranslate"><span class="pre">True</span></code> will change that look
+to the traditional Django list view, but still within the main AdminLTE site
+styling.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you do not see a link for the admin index page in the sidebar, please
+refer to the <a class="reference internal" href="#adminlte2-include-admin-home-link"><span class="std std-ref">ADMINLTE2_INCLUDE_ADMIN_HOME_LINK</span></a>
+setting for information on how to enable it.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_ADMIN_INDEX_USE_APP_LIST</span> <span class="o">=</span> <span class="p">{</span><span class="kc">True</span><span class="o">|</span><span class="kc">False</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="adminlte2-admin-menu-in-tree">
+<h2>ADMINLTE2_ADMIN_MENU_IN_TREE<a class="headerlink" href="#adminlte2-admin-menu-in-tree" title="Permalink to this heading"></a></h2>
+<p>When displaying the admin menu on the navigation sidebar, it will render a root
+entry for each app in the project. Each of these entries will be a
+<a class="reference internal" href="../menu/building_blocks.html#tree"><span class="std std-ref">Tree</span></a> that can be collapsed and expanded to reveal
+entries for the models in that app.</p>
+<p>Additionally, the entire admin sidebar section can be grouped into a single,
+larger tree, which will allow the entire admin menu section to be collapsible.
+To enable this “larger tree” behavior, set this value to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_ADMIN_MENU_IN_TREE</span> <span class="o">=</span> <span class="p">{</span><span class="kc">True</span><span class="o">|</span><span class="kc">False</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="adminlte2-admin-control-sidebar-tabs">
+<h2>ADMINLTE2_ADMIN_CONTROL_SIDEBAR_TABS<a class="headerlink" href="#adminlte2-admin-control-sidebar-tabs" title="Permalink to this heading"></a></h2>
+<p>This setting controls the visibility of sections and tabs for the
+<a class="reference internal" href="../menu/admin.html#admin-tri-cog"><span class="std std-ref">Admin Tri-Cog</span></a> page element. Since the control sidebar can
+contain between zero and three sections/tabs, this single setting controls the
+visibility of all three of those tabs.</p>
+<p>The main setting is called <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_ADMIN_CONTROL_SIDEBAR_TABS</span></code>, which is
+a dictionary of additional sub-settings. Each of which will either turn on or
+off one of the tabs in the sidebar.</p>
+<p>The additional sub-settings consist of:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SHOW_RECENT_ACTIVITY_TAB</span></code> - Shows the “Recent Activity” section of the
+admin.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SHOW_SETTINGS_TAB</span></code> - A good place for any admin-related additional
+settings.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SHOW_EXTRA_TABS</span></code> - An extra tab for whatever else you might need.</p></li>
+</ul>
+<p>The <strong>RECENT_ACTIVITY_TAB</strong> content is automatically generated by the admin.
+The content for the other optional tabs must be created by overriding some of
+the templates that come with this package. The templates that you would need to
+look at and potentially override are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">admin/partials/_control_sidebar.html</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">admin/partials/_control_sidebar/_tabs.html</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">admin/partials/_control_sidebar/_recent_activity_tab_pane.html</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">admin/partials/_control_sidebar/_settings_tab_pane.html</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">admin/partials/_control_sidebar/_extra_tab_panes.html</span></code></p></li>
+</ul>
+<p>See the project
+<a class="reference external" href="https://github.com/DJBarnes/django-adminlte2-pdq/tree/master/adminlte2_pdq/templates">GitHub files</a>
+for the current implementation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">{'SHOW_RECENT_ACTIVITY_TAB':</span> <span class="pre">True,}</span></code></p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_ADMIN_CONTROL_SIDEBAR_TABS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;SHOW_RECENT_ACTIVITY_TAB&#39;</span><span class="p">:</span> <span class="p">{</span><span class="kc">True</span><span class="o">|</span><span class="kc">False</span><span class="p">},</span>
+    <span class="s1">&#39;SHOW_SETTINGS_TAB&#39;</span><span class="p">:</span> <span class="p">{</span><span class="kc">True</span><span class="o">|</span><span class="kc">False</span><span class="p">},</span>
+    <span class="s1">&#39;SHOW_EXTRA_TABS&#39;</span><span class="p">:</span> <span class="p">{</span><span class="kc">True</span><span class="o">|</span><span class="kc">False</span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="menu.html" class="btn btn-neutral float-left" title="Menu Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="authorization.html" class="btn btn-neutral float-right" title="Authentication &amp; Authorization Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, David Barnes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced &mdash; Django-AdminLTE2-PDQ 0.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Admin Menu" href="admin.html" />
+    <link rel="prev" title="Building Blocks" href="building_blocks.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Django-AdminLTE2-PDQ
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Templates</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../templates/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_filters.html">Template Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_tags.html">Template Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/fields.html">Fields</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Menu</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="general_information.html">General Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_blocks.html">Building Blocks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general">General</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#moving-the-menu-outside-settings">Moving The Menu Outside Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#making-part-of-the-menu-dynamic">Making Part Of The Menu Dynamic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adminlte2-menu-first-and-adminlte2-menu-last">ADMINLTE2_MENU_FIRST and ADMINLTE2_MENU_LAST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#main-menu-via-context">Main Menu Via Context</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#making-the-entire-menu-dynamic">Making The Entire Menu Dynamic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="admin.html">Admin Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/home.html">Home Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/menu.html">Menu Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/admin.html">Admin Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/authorization.html">Authentication &amp; Authorization Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/form.html">Form and Field Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Authentication &amp; Authorization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/policies.html">Authentication and Authorization Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/function_views.html">Authorizing Function Based Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/class_views.html">Authorizing Class Based Views</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../demo_css.html">Demo CSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Django-AdminLTE2-PDQ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Advanced</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/menu/advanced.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="advanced">
+<h1>Advanced<a class="headerlink" href="#advanced" title="Permalink to this heading"></a></h1>
+<section id="general">
+<h2>General<a class="headerlink" href="#general" title="Permalink to this heading"></a></h2>
+<p>This section will cover some advanced concepts for defining your menu.
+The full menu definition technically consists of more than just what can be
+defined in the settings file. In total, there are 4 main sections of the menu.
+They are listed below and are rendered out in the order listed.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU_FIRST</span></code> - Manually defined. Must be provided via a template
+context variable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU</span></code> - Manually defined, via either the Django settings or a
+template context variable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Admin_Menu</span></code> - Automatically generated from installed Apps and models.
+Shown/hidden via a settings toggle. See <a class="reference internal" href="admin.html"><span class="doc">Admin Menu</span></a> for more details.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU_LAST</span></code> - Manually defined. Must be provided via a template
+context variable.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the below sections, the <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU</span></code> section is generally referred
+to as the “main menu”, with the other menu sections being supplementary to
+support it.</p>
+</div>
+<p>Some of the topics here will include all 4 parts, while others will focus on
+only some of those parts. The advanced topics include:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#moving-the-menu-outside-settings"><span class="std std-ref">Moving The Menu Outside Settings</span></a></p></li>
+<li><p><a class="reference internal" href="#making-part-of-the-menu-dynamic"><span class="std std-ref">Making Part Of The Menu Dynamic</span></a></p></li>
+<li><p><a class="reference internal" href="#making-the-entire-menu-dynamic"><span class="std std-ref">Making The Entire Menu Dynamic</span></a></p></li>
+</ul>
+</section>
+<section id="moving-the-menu-outside-settings">
+<h2>Moving The Menu Outside Settings<a class="headerlink" href="#moving-the-menu-outside-settings" title="Permalink to this heading"></a></h2>
+<p>More than likely, your menu will grow in size over time and become a little
+large to be living directly in the settings file. Although the menu variable
+does technically have to live in the settings, some workarounds
+allow defining the menu outside of the direct settings file.</p>
+<p>The most common approach is to make a separate file that will contain your
+menu definition, and then just import that definition in your settings file.</p>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading"></a></h3>
+<p><strong>my_django_project/menu.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_MENU</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;nodes&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;route&#39;</span><span class="p">:</span> <span class="s1">&#39;home&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;fa fa-dashboard&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>my_django_project/settings.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.menu</span> <span class="kn">import</span> <span class="n">ADMINLTE2_MENU</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="making-part-of-the-menu-dynamic">
+<h2>Making Part Of The Menu Dynamic<a class="headerlink" href="#making-part-of-the-menu-dynamic" title="Permalink to this heading"></a></h2>
+<p>It’s possible to make the menu dynamic and generate it from the database (or
+some other dynamic data source) on each page load. This is accomplished by
+sending the dynamic menu to the template, via the page context.</p>
+<p>If the menu is defined in both settings and the context, the context version
+will always take precedence and override the settings version.</p>
+<p>In addition, two menu sections are specifically meant to be
+dynamic, and can only be delivered by a template’s context. Those sections are
+called <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU_FIRST</span></code> and <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU_LAST</span></code>.</p>
+<section id="adminlte2-menu-first-and-adminlte2-menu-last">
+<h3>ADMINLTE2_MENU_FIRST and ADMINLTE2_MENU_LAST<a class="headerlink" href="#adminlte2-menu-first-and-adminlte2-menu-last" title="Permalink to this heading"></a></h3>
+<p>The two new menu definitions that can be sent via a template context are
+<code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU_FIRST</span></code>, and <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU_LAST</span></code>, which render before or
+after all other menu elements, respectively.</p>
+<p>To rephrase, the menu sections render in the following order:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU_FIRST</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Admin_Menu</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU_LAST</span></code></p></li>
+</ul>
+<p>A practical use for this would be to define the main static menu using
+the <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU</span></code> setting, and then define dynamic content
+for the page via the context for a template, using either the
+<code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU_FIRST</span></code> or <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU_LAST</span></code> key (or both keys).</p>
+<p>You can see an example of this in the
+<a class="reference internal" href="examples.html#dynamic-and-static-menu-example"><span class="std std-ref">Dynamic and Static Menu Example</span></a></p>
+</section>
+<section id="main-menu-via-context">
+<h3>Main Menu Via Context<a class="headerlink" href="#main-menu-via-context" title="Permalink to this heading"></a></h3>
+<p>If you need the main menu to change dynamically, vs just adding dynamic content
+before or after the static menu, you can send a template context variable
+called <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU</span></code> to the template. This will override the static entry
+defined in the Django settings, allowing this section to be dynamically defined
+as well.</p>
+<p>For an example, look at the
+<a class="reference internal" href="examples.html#dynamic-and-static-menu-example"><span class="std std-ref">Dynamic and Static Menu Example</span></a> and pretend that rather
+than using the <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU_FIRST</span></code> as the context variable in <code class="docutils literal notranslate"><span class="pre">views.py</span></code>,
+you are using <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_MENU</span></code>.</p>
+</section>
+</section>
+<section id="making-the-entire-menu-dynamic">
+<h2>Making The Entire Menu Dynamic<a class="headerlink" href="#making-the-entire-menu-dynamic" title="Permalink to this heading"></a></h2>
+<p>If you need your menu to be fully dynamic with zero static content, you may
+consider creating a menu context processor that could run on every request.
+This can be used to send the needed menu context variable to each and every
+template on every single request.</p>
+<p>More information about how to make a context processor can be found in the
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/templates/api/#writing-your-own-context-processors">Django docs</a>
+.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="building_blocks.html" class="btn btn-neutral float-left" title="Building Blocks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="admin.html" class="btn btn-neutral float-right" title="Admin Menu" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, David Barnes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

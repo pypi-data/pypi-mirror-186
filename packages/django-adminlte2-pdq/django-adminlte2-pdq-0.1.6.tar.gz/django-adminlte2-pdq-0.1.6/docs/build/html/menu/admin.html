@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Menu &mdash; Django-AdminLTE2-PDQ 0.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Advanced" href="advanced.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Django-AdminLTE2-PDQ
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Templates</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../templates/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_filters.html">Template Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_tags.html">Template Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/fields.html">Fields</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Menu</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="general_information.html">General Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_blocks.html">Building Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Admin Menu</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#displaying-the-admin-menu">Displaying the Admin Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customizing-icons">Customizing Icons</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#first-party-app-example">First-party App Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#third-party-app-example">Third-Party App Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin-home-link">Admin Home Link</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#admin-tri-cog">Admin Tri-Cog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/home.html">Home Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/menu.html">Menu Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/admin.html">Admin Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/authorization.html">Authentication &amp; Authorization Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/form.html">Form and Field Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Authentication &amp; Authorization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/policies.html">Authentication and Authorization Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/function_views.html">Authorizing Function Based Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/class_views.html">Authorizing Class Based Views</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../demo_css.html">Demo CSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Django-AdminLTE2-PDQ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Admin Menu</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/menu/admin.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="admin-menu">
+<h1>Admin Menu<a class="headerlink" href="#admin-menu" title="Permalink to this heading"></a></h1>
+<section id="displaying-the-admin-menu">
+<h2>Displaying the Admin Menu<a class="headerlink" href="#displaying-the-admin-menu" title="Permalink to this heading"></a></h2>
+<p>As mentioned previously, the Django-AdminLTE2-PDQ package can
+<a class="reference internal" href="general_information.html#auto-built-admin-menu"><span class="std std-ref">Auto-Build an Admin Page menu</span></a>.
+By default, this will appear on all
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/admin/">Django Admin pages</a>.</p>
+<p>To configure this admin menu to also show on non-admin pages, refer to
+<a class="reference internal" href="../configuration/menu.html#adminlte2-include-admin-nav-on-main-pages"><span class="std std-ref">ADMINLTE2_INCLUDE_ADMIN_NAV_ON_MAIN_PAGES</span></a>.</p>
+</section>
+<section id="customizing-icons">
+<h2>Customizing Icons<a class="headerlink" href="#customizing-icons" title="Permalink to this heading"></a></h2>
+<p>By default, the admin menu is rendered out with a filled circle
+(<code class="docutils literal notranslate"><span class="pre">fa-circle</span></code>) as the icon for each app, and an empty circle (<code class="docutils literal notranslate"><span class="pre">fa-circle-o</span></code>)
+for each model.</p>
+<p>These default icons can be changed via some additional lines in the
+corresponding
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/admin/">Django Admin pages</a>
+<code class="docutils literal notranslate"><span class="pre">admin.py</span></code> definition file.</p>
+<section id="first-party-app-example">
+<h3>First-party App Example<a class="headerlink" href="#first-party-app-example" title="Permalink to this heading"></a></h3>
+<p>See the below example where a fictitious Blog app and, Post and Comment models
+have their icons updated to be something more useful.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Django <code class="docutils literal notranslate"><span class="pre">admin.site.register</span></code> lines have been included for clarity.</p>
+</div>
+<p><strong>blog/admin.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adminlte2_pdq.admin_menu</span> <span class="kn">import</span> <span class="n">AdminMenu</span>
+
+<span class="o">...</span>
+
+<span class="c1"># Register Post model with admin.</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Post</span><span class="p">)</span>
+<span class="c1"># Update icon for Post model in admin menu.</span>
+<span class="n">AdminMenu</span><span class="o">.</span><span class="n">set_model_icon</span><span class="p">(</span><span class="s1">&#39;Post&#39;</span><span class="p">,</span> <span class="s1">&#39;fa fa-pencil-square-o&#39;</span><span class="p">)</span>
+
+<span class="c1"># Register Comment model with admin.</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Post</span><span class="p">)</span>
+<span class="c1"># Update icon for Comment model in admin menu.</span>
+<span class="n">AdminMenu</span><span class="o">.</span><span class="n">set_model_icon</span><span class="p">(</span><span class="s1">&#39;Comment&#39;</span><span class="p">,</span> <span class="s1">&#39;fa fa-comment&#39;</span><span class="p">)</span>
+
+<span class="c1"># Update icon for Blog app in admin menu.</span>
+<span class="n">AdminMenu</span><span class="o">.</span><span class="n">set_app_icon</span><span class="p">(</span><span class="s1">&#39;Blog&#39;</span><span class="p">,</span> <span class="s1">&#39;fa fa-newspaper-o&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="third-party-app-example">
+<h3>Third-Party App Example<a class="headerlink" href="#third-party-app-example" title="Permalink to this heading"></a></h3>
+<p>Setting the icons does not need to be in the <code class="docutils literal notranslate"><span class="pre">admin.py</span></code> file for the app it
+is configuring.</p>
+<p>If you would like to update the icons for apps that you do not control,
+such as the <strong>User</strong> and <strong>Group</strong> under the
+<strong>Authentication and Authorization</strong> app, you can do that same work as
+above, but in any <code class="docutils literal notranslate"><span class="pre">admin.py</span></code> file.</p>
+<p>In this case, the <strong>User</strong> and <strong>Group</strong> model icons can be configured from
+the <code class="docutils literal notranslate"><span class="pre">admin.py</span></code> file in our example Blog app.</p>
+<p><strong>blog/admin.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adminlte2_pdq.admin_menu</span> <span class="kn">import</span> <span class="n">AdminMenu</span>
+
+<span class="o">...</span>
+
+<span class="c1"># Update icon for User model in admin menu.</span>
+<span class="n">AdminMenu</span><span class="o">.</span><span class="n">set_model_icon</span><span class="p">(</span><span class="s1">&#39;User&#39;</span><span class="p">,</span> <span class="s1">&#39;fa fa-user&#39;</span><span class="p">)</span>
+<span class="c1"># Update icon for Group model in admin menu.</span>
+<span class="n">AdminMenu</span><span class="o">.</span><span class="n">set_model_icon</span><span class="p">(</span><span class="s1">&#39;Group&#39;</span><span class="p">,</span> <span class="s1">&#39;fa fa-group&#39;</span><span class="p">)</span>
+<span class="c1"># Update icon for Authentication and Authorization app in admin menu.</span>
+<span class="n">AdminMenu</span><span class="o">.</span><span class="n">set_app_icon</span><span class="p">(</span><span class="s1">&#39;Authentication and Authorization&#39;</span><span class="p">,</span> <span class="s1">&#39;fa fa-user&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="admin-home-link">
+<h3>Admin Home Link<a class="headerlink" href="#admin-home-link" title="Permalink to this heading"></a></h3>
+<p>If you have configured your site to show the Admin Home link in the sidebar,
+there will be a link in the sidebar with the <code class="docutils literal notranslate"><span class="pre">fa-superpowers</span></code> icon.
+You can change the icon for that link as well.</p>
+<p>For information on how to enable the Admin Home link see
+<a class="reference internal" href="../configuration/admin.html#adminlte2-include-admin-home-link"><span class="std std-ref">ADMINLTE2_INCLUDE_ADMIN_HOME_LINK</span></a>.</p>
+<p>In any <code class="docutils literal notranslate"><span class="pre">admin.py</span></code> file, call one additional method on the
+<strong>AdminMenu</strong> to set the Admin Home link icon.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adminlte2_pdq.admin_menu</span> <span class="kn">import</span> <span class="n">AdminMenu</span>
+
+<span class="o">...</span>
+
+<span class="c1"># Update icon for the Admin Home link.</span>
+<span class="n">AdminMenu</span><span class="o">.</span><span class="n">set_admin_icon</span><span class="p">(</span><span class="s1">&#39;fa fa-magic&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="admin-tri-cog">
+<h2>Admin Tri-Cog<a class="headerlink" href="#admin-tri-cog" title="Permalink to this heading"></a></h2>
+<p>By default when viewing a
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/admin/">Django Admin page</a>,
+there is a tri-cog icon in the top right corner of the top bar.</p>
+<p>This cog can be clicked to show additional information, via a popup sidebar.
+Within this sidebar, there will be between zero and three different sections
+shown, depending on the value defined for
+<a class="reference internal" href="../configuration/admin.html#adminlte2-admin-control-sidebar-tabs"><span class="std std-ref">ADMINLTE2_ADMIN_CONTROL_SIDEBAR_TABS</span></a>.</p>
+<p>Each of these three sections will show different content. If only one section is
+enabled, then it automatically spans the area of the entire sidebar. If more
+then one section is displayed, then navigational tabs are automatically created
+at the top of the sidebar, to allow easy switching between the displayed
+sections.</p>
+<p>If all of the tabs are turned off, the entire tri-cog icon and its associated
+button will be removed and the user dropdown will shift to the right.</p>
+<p>The default behavior is to populate this popup sidebar with the
+“Recent Activity” section of the Django admin. The other two sections are hidden
+by default.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="advanced.html" class="btn btn-neutral float-left" title="Advanced" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, David Barnes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

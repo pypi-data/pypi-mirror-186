@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Authentication and Authorization Policy &mdash; Django-AdminLTE2-PDQ 0.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Authorizing Function Based Views" href="function_views.html" />
+    <link rel="prev" title="Form and Field Configuration" href="../configuration/form.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Django-AdminLTE2-PDQ
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Templates</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../templates/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_filters.html">Template Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_tags.html">Template Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/fields.html">Fields</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Menu</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../menu/general_information.html">General Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/building_blocks.html">Building Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/admin.html">Admin Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/home.html">Home Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/menu.html">Menu Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/admin.html">Admin Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/authorization.html">Authentication &amp; Authorization Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/form.html">Form and Field Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Authentication &amp; Authorization</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Authentication and Authorization Policy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#authentication">Authentication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#login-required">Login Required</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#authorization">Authorization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#choosing-a-policy">Choosing a Policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loose-policy">Loose Policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#strict-policy">Strict Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#handling-404s-and-permission-denied">Handling 404s and Permission Denied</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="function_views.html">Authorizing Function Based Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_views.html">Authorizing Class Based Views</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../demo_css.html">Demo CSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Django-AdminLTE2-PDQ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Authentication and Authorization Policy</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/authorization/policies.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="authentication-and-authorization-policy">
+<h1>Authentication and Authorization Policy<a class="headerlink" href="#authentication-and-authorization-policy" title="Permalink to this heading"></a></h1>
+<p>The <strong>Django-AdminLTE2-PDQ</strong> package comes with built-in functionality to make it
+easy to customize and manage various user
+<a class="reference internal" href="#authentication"><span class="std std-ref">Authentication</span></a> and
+<a class="reference internal" href="#authorization"><span class="std std-ref">Authorization</span></a>
+policies and scenarios.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This functionality is heavily based on the
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/auth/default/">standard Django practices</a>
+to manage view access and user permissions.
+We recommend reviewing that information before reading this section.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Django-AdminLTE2-PDQ provides a middleware that is required for some of the
+available authentication and authorization functionality this package
+provides.</p>
+<p>If you haven’t already done so, reference the <a class="reference internal" href="../quickstart.html#quickstart"><span class="std std-ref">Quickstart</span></a>
+to add this middleware to your middleware list in <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> so that
+you can use the full potential of this package.</p>
+</div>
+<section id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this heading"></a></h2>
+<p>Authentication is the handling of user login, and view access when logged in
+or anonymous.</p>
+<p>Setting up authentication for the package requires choosing if your site will:</p>
+<ul class="simple">
+<li><p>Require users to be logged in to gain access to the majority of site views.</p></li>
+<li><p>Allow anonymous users to see site views by default (this is the default Django
+handling).</p></li>
+</ul>
+<p>If you would like to require that users are logged in to
+visit the majority of your site, see the
+<a class="reference internal" href="#login-required"><span class="std std-ref">Login Required</span></a>
+section for more information on how to enable that.</p>
+<section id="login-required">
+<h3>Login Required<a class="headerlink" href="#login-required" title="Permalink to this heading"></a></h3>
+<p>If you would like to prevent anonymous users from accessing the majority of
+the views in your site, you can require login by
+setting the <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_USE_LOGIN_REQUIRED</span></code> setting in your <code class="docutils literal notranslate"><span class="pre">settings.py</span></code>
+file to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p><strong>settings.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_USE_LOGIN_REQUIRED</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>When enabled, the included middleware will redirect all requests made by an
+anonymous user to the login page unless the URL that they are trying to access
+is explicitly listed in a whitelist.
+The default whitelist contains the following standard anonymous routes:</p>
+<ul class="simple">
+<li><p>login - As defined via the <code class="docutils literal notranslate"><span class="pre">LOGIN_URL</span></code> setting in <code class="docutils literal notranslate"><span class="pre">settings.py</span></code></p></li>
+<li><p>logout</p></li>
+<li><p>password_reset</p></li>
+<li><p>password_reset_done</p></li>
+<li><p>password_reset_confirm</p></li>
+<li><p>password_reset_complete</p></li>
+<li><p>media url - As defined via the <code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code> setting in <code class="docutils literal notranslate"><span class="pre">settings.py</span></code>
+so long as it is not the default value of <code class="docutils literal notranslate"><span class="pre">''</span></code>. See note below.</p></li>
+</ul>
+<p>If you would like to add additional routes to this list, you can do so by
+adding either the route name or URL for the endpoint to the
+<code class="docutils literal notranslate"><span class="pre">ADMINLTE2_LOGIN_EXEMPT_WHITELIST</span></code> setting in your <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> file.</p>
+<p><strong>settings.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_LOGIN_EXEMPT_WHITELIST</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;two_factor_confirm&#39;</span><span class="p">,</span>  <span class="c1"># url_name of route to two factor confirmation</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If the majority of your routes do not require being logged in and you only
+have a handful of routes that do, it is better to leave the
+<code class="docutils literal notranslate"><span class="pre">ADMINLTE2_USE_LOGIN_REQUIRED</span></code> undefined or set to <code class="docutils literal notranslate"><span class="pre">False</span></code> and instead
+use the
+<a class="reference internal" href="function_views.html#login-required-decorator"><span class="std std-ref">Login Required Decorator</span></a> or
+<a class="reference internal" href="class_views.html#login-required-mixin"><span class="std std-ref">Login Required Mixin</span></a> on the specific
+views that do require being logged in.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code> is exempt from the login required processing so long as
+it has a value other than the default.</p>
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code> setting is set to <code class="docutils literal notranslate"><span class="pre">''</span></code>, the blank string.
+This automatically gets converted to the root URL <code class="docutils literal notranslate"><span class="pre">'/'</span></code> to ensure that
+it is a valid URL and that there will be no issues when running your app.</p>
+<p>If you leave the <code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code> setting as the default and then try to
+serve media files from that location with the login required turned on,
+those files will not be able to be served to anonymous users.</p>
+</div>
+</section>
+</section>
+<section id="authorization">
+<h2>Authorization<a class="headerlink" href="#authorization" title="Permalink to this heading"></a></h2>
+<p>Authorization is the handling of user view access, based on the permissions
+and groups of a given logged in user.</p>
+<p>Setting up authorization for the package requires
+<a class="reference internal" href="#choosing-a-policy"><span class="std std-ref">Choosing a Policy</span></a> and then properly using
+<a class="reference internal" href="function_views.html#decorators"><span class="std std-ref">Decorators</span></a> or
+<a class="reference internal" href="class_views.html#mixins"><span class="std std-ref">Mixins</span></a>
+provided by this package to set permissions on various views.</p>
+<p>Setting the permissions on the view with the
+<a class="reference internal" href="function_views.html#decorators"><span class="std std-ref">Decorators</span></a> and
+<a class="reference internal" href="class_views.html#mixins"><span class="std std-ref">Mixins</span></a>
+provided by this package will prevent a user from accessing a view that
+they do not have permission to. Just like the ones provided by
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/auth/default/#limiting-access-to-logged-in-users">Django</a>.
+But they will additionally dynamically show/hide any menu sidebar links for the
+protected view, in the, provided AdminLTE menus.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Within this documentation and in the context of
+<a class="reference internal" href="#choosing-a-policy"><span class="std std-ref">Choosing a Policy</span></a> the
+<a class="reference internal" href="function_views.html#login-required-decorator"><span class="std std-ref">Login Required Decorator</span></a> and
+<a class="reference internal" href="class_views.html#login-required-mixin"><span class="std std-ref">Login Required Mixin</span></a> are included.
+Although these are not typically considered part of authorization they have
+been included in these sections because they will also handle showing and
+hiding a sidebar link depending on whether or not the user meets the
+criteria of being logged in.</p>
+</div>
+<section id="choosing-a-policy">
+<h3>Choosing a Policy<a class="headerlink" href="#choosing-a-policy" title="Permalink to this heading"></a></h3>
+<p>The first step in using and configuring authorization for views and sidebar
+menu links are to determine what general policy you want to adhere to.
+Regardless of whether you have the global
+<a class="reference internal" href="#login-required"><span class="std std-ref">Login Required</span></a>
+turned on or off, knowing what type of policy you want to achieve is critical.</p>
+<p>Your choices are:</p>
+<ol class="arabic">
+<li><p><a class="reference internal" href="#loose-policy"><span class="std std-ref">Loose Policy</span></a> - Has the following
+characteristics:</p>
+<ul class="simple">
+<li><p>Majority of sidebar links and associated views are visible to all users.</p></li>
+<li><p>Sidebar links and associated views will still be visible and accessible
+if you set required permissions or the login required criteria on that
+route’s view and that user meets the required criteria to access that
+view.</p></li>
+<li><p>Sidebar links and associated views will be hidden / blocked if you set a
+required permission or the login required criteria on that route’s view
+and the user does not meet the required criteria to access that view.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you have the global <a class="reference internal" href="#login-required"><span class="std std-ref">Login Required</span></a>
+setting turned off and you opt for the
+<a class="reference internal" href="#loose-policy"><span class="std std-ref">Loose Policy</span></a>
+you  will be allowing all users, both logged in and anonymous, access
+to every view on your site that does not have a required permission
+or the login required criteria defined on the view.</p>
+</div>
+</li>
+<li><p><a class="reference internal" href="#strict-policy"><span class="std std-ref">Strict Policy</span></a> - Has the following
+characteristics:</p>
+<ul class="simple">
+<li><p>Majority of sidebar links and associated views are hidden to all users.</p></li>
+<li><p>Sidebar links and associated views will become visible and accessible if
+you set required permissions or the login required criteria on a route’s
+view and the user meets the required criteria.</p></li>
+<li><p>Sidebar links and associated views will become visible and accessible if
+you put the route in an explicit whitelist defined in the settings.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>With the <a class="reference internal" href="#strict-policy"><span class="std std-ref">Strict Policy</span></a>, if you forget to
+add permissions to a view, the view will be inaccessible to everyone
+except for superusers.
+This is a good way to ensure that you don’t accidentally create
+features that everyone automatically has access to.
+You have to explicitly think about what permissions are required for
+each feature, set them on the view, and then assign the permissions to
+the users that need them before anyone can gain access to it.</p>
+</div>
+</li>
+</ol>
+<p>Once you have determined what general policy you want to follow, use
+the corresponding section to properly set up and configure authorization.</p>
+</section>
+<section id="loose-policy">
+<h3>Loose Policy<a class="headerlink" href="#loose-policy" title="Permalink to this heading"></a></h3>
+<p>This policy assumes users should be able to see and access all links and views,
+by default.</p>
+<p>When enabled, all views that do not use one of the included
+<a class="reference internal" href="function_views.html#decorators"><span class="std std-ref">Decorators</span></a> or
+<a class="reference internal" href="class_views.html#mixins"><span class="std std-ref">Mixins</span></a> will be accessible to everyone.
+Additionally, if the sidebar menu contains an entry for the view, the link to
+that view will be visible to everyone.</p>
+<p>Views will only be hidden if one of the
+<a class="reference internal" href="function_views.html#decorators"><span class="std std-ref">Decorators</span></a> or
+<a class="reference internal" href="class_views.html#mixins"><span class="std std-ref">Mixins</span></a>
+are used and the user does not meet the required criteria.
+This will both prevent the user from being able to go directly to the view as
+well as hide any sidebar link that links to that view.</p>
+<p>Refer to the <a class="reference internal" href="../configuration/authorization.html"><span class="doc">Authentication &amp; Authorization Configuration</span></a> section for information about
+the specific settings in <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> mentioned below.</p>
+<ol class="arabic">
+<li><p>Ensure that the <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_USE_STRICT_POLICY</span></code>
+is either not defined in <code class="docutils literal notranslate"><span class="pre">settings.py</span></code>, or is set to <code class="docutils literal notranslate"><span class="pre">False</span></code> if it is
+defined.</p>
+<p><strong>settings.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_USE_STRICT_POLICY</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</li>
+<li><p>If you are using function based views, read the <a class="reference internal" href="function_views.html"><span class="doc">Authorizing Function Based Views</span></a>
+page and follow the steps in the
+<a class="reference internal" href="function_views.html#loose-decorator-example"><span class="std std-ref">Loose Decorator Example</span></a> section to
+add view permissions that require permission to access.</p></li>
+<li><p>If you are using class based views, read the <a class="reference internal" href="class_views.html"><span class="doc">Authorizing Class Based Views</span></a> page
+and follow the steps in the
+<a class="reference internal" href="class_views.html#loose-mixin-example"><span class="std std-ref">Loose Mixin Example</span></a> section to add
+view permissions that require permission to access.</p></li>
+</ol>
+</section>
+<section id="strict-policy">
+<h3>Strict Policy<a class="headerlink" href="#strict-policy" title="Permalink to this heading"></a></h3>
+<p>This policy assumes users should have restricted access to links and views, by
+default.</p>
+<p>When enabled, all views that do not use one of the included
+<a class="reference internal" href="function_views.html#decorators"><span class="std std-ref">Decorators</span></a> or
+<a class="reference internal" href="class_views.html#mixins"><span class="std std-ref">Mixins</span></a> will redirect all requests to the
+<a class="reference internal" href="../configuration/home.html#adminlte2-home-route"><span class="std std-ref">ADMINLTE2_HOME_ROUTE</span></a> unless the route or url that
+they are trying to access is explicitly listed in a whitelist.
+The default whitelist contains the following standard anonymous routes as well
+as the password change, <a class="reference internal" href="../configuration/home.html#adminlte2-home-route"><span class="std std-ref">ADMINLTE2_HOME_ROUTE</span></a>, media
+routes, and websocket routes:</p>
+<ul class="simple">
+<li><p>login - As defined via the <code class="docutils literal notranslate"><span class="pre">LOGIN_URL</span></code> setting in <code class="docutils literal notranslate"><span class="pre">settings.py</span></code></p></li>
+<li><p>logout</p></li>
+<li><p>password_reset</p></li>
+<li><p>password_reset_done</p></li>
+<li><p>password_reset_confirm</p></li>
+<li><p>password_reset_complete</p></li>
+<li><p>password_change</p></li>
+<li><p>password_change_done</p></li>
+<li><p>home - As defined via the <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_HOME_ROUTE</span></code> setting in <code class="docutils literal notranslate"><span class="pre">settings.py</span></code></p></li>
+<li><p>media url - As defined via the <code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code> setting in <code class="docutils literal notranslate"><span class="pre">settings.py</span></code>
+so long as it is not the default value of <code class="docutils literal notranslate"><span class="pre">''</span></code>. See note below.</p></li>
+<li><p>websocket url - As defined via the <code class="docutils literal notranslate"><span class="pre">WEBSOCKET_URL</span></code> setting in
+<code class="docutils literal notranslate"><span class="pre">settings.py</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">/ws/</span></code>.</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The Home route is included in the whitelist because we believe that there
+should be at least one view that a logged in user can access after logging
+in.
+Even if they do not have any required permissions to see anything else on the site.
+The alternative would be to send them to the login page after a successful
+login, which we believe, even with messages, would be confusing to the
+user.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code> is exempt from the login required
+processing so long as it has a value other than the default.</p>
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code> setting is set to <code class="docutils literal notranslate"><span class="pre">''</span></code>, the blank string.
+This automatically gets converted to the root URL <code class="docutils literal notranslate"><span class="pre">'/'</span></code> to ensure that
+it is a valid URL and that there will be no issues when running your app.</p>
+<p>If you leave the <code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code> setting as the default and then try to
+serve media files from that location with the login required turned on,
+those files will not be able to be served to anonymous users.</p>
+</div>
+<p>Additionally, if a view does have required permissions or login required
+criteria defined on the view, and the user does not meet that criteria, they
+will be redirected to the
+<a class="reference internal" href="../configuration/home.html#adminlte2-home-route"><span class="std std-ref">ADMINLTE2_HOME_ROUTE</span></a>
+route.</p>
+<p>Refer to the <a class="reference internal" href="../configuration/authorization.html"><span class="doc">Authentication &amp; Authorization Configuration</span></a> section for information about
+the specific settings in settings.py mentioned below.</p>
+<ol class="arabic">
+<li><p>Ensure that the <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_USE_STRICT_POLICY</span></code>
+is defined in <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> and is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p><strong>settings.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_USE_STRICT_POLICY</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</li>
+<li><p>If you are using function based views, read the <a class="reference internal" href="function_views.html"><span class="doc">Authorizing Function Based Views</span></a>
+page and follow the steps in the
+<a class="reference internal" href="function_views.html#strict-decorator-example"><span class="std std-ref">Strict Decorator Example</span></a> section
+to add view permissions that require permission to access.</p></li>
+<li><p>If you are using class based views, read the <a class="reference internal" href="class_views.html"><span class="doc">Authorizing Class Based Views</span></a> page
+and follow the steps in the
+<a class="reference internal" href="class_views.html#strict-mixin-example"><span class="std std-ref">Strict Mixin Example</span></a> section to add
+view permissions that require permission to access.</p></li>
+<li><p>Add any routes that do not require specific permissions and should
+be available to everyone to the <code class="docutils literal notranslate"><span class="pre">ADMINLTE2_STRICT_POLICY_WHITELIST</span></code>
+in <code class="docutils literal notranslate"><span class="pre">settings.py</span></code></p>
+<p><strong>settings.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ADMINLTE2_STRICT_POLICY_WHITELIST</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;tutorial&#39;</span>  <span class="c1"># url_name of the route to the tutorial view.</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="handling-404s-and-permission-denied">
+<h2>Handling 404s and Permission Denied<a class="headerlink" href="#handling-404s-and-permission-denied" title="Permalink to this heading"></a></h2>
+<p>This section shows a common way that you could handle 404 errors and
+a Permission Denied exception being thrown (403).</p>
+<p>For starters, Permission Denied can be raised in one of two ways.</p>
+<ol class="arabic simple">
+<li><p>You are using the <a class="reference internal" href="#strict-policy"><span class="std std-ref">Strict Policy</span></a>
+and you have not defined any permissions on a view that a user is
+trying to access.</p></li>
+<li><p>You have defined some required permissions on a view but the user does not
+meet the required criteria.</p></li>
+</ol>
+<p>When this happens, we believe that it is good to do something different than
+the default behavior that Django provides of just returning a 403 error.
+We believe that it may be better to handle it as if it were a 404 so
+that users are unaware that the location they are trying to access has an
+actual endpoint that they do not have permission to access. It will make it
+harder for bad actors to phish for endpoints that they should not know exist.</p>
+<p>This package comes with a view that can be used for 404s and optionally 403s.
+This view will add a warning message via the
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/messages/">Django messages framework</a>
+indicating that the page does not exist as well as adding a debug message with
+specifics about what caused the exception. It then redirects to the
+<a class="reference internal" href="../configuration/home.html#adminlte2-home-route"><span class="std std-ref">ADMINLTE2_HOME_ROUTE</span></a>
+where the user can see those messages.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The actual exception specifics are only rendered in a Debug message.
+This means that developers who have their message level set to include
+debug messages can see it, but in production where debug messages should
+not be shown, it will be not rendered.</p>
+</div>
+<p>If you like this behavior and would like to enable it on your site, you can
+add the following to your root urls.py file:</p>
+<p><strong>urls.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">handler404</span> <span class="o">=</span> <span class="s1">&#39;adminlte2_pdq.views.view_404&#39;</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="o">...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It must be added to the root urls.py file. It can not be in an app’s urls.py
+file. More information can be found in the
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/http/urls/#error-handling">Django Docs</a></p>
+</div>
+<p>Additionally, if you would like to also have your 403s for Permission Denied
+exceptions use the same behavior, you can make the 403s also use this same view.</p>
+<p><strong>urls.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">handler403</span> <span class="o">=</span> <span class="s1">&#39;adminlte2_pdq.views.view_404&#39;</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="o">...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../configuration/form.html" class="btn btn-neutral float-left" title="Form and Field Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="function_views.html" class="btn btn-neutral float-right" title="Authorizing Function Based Views" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, David Barnes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

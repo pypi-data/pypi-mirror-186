@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>django_adminlte2_pdq.templatetags package &mdash; Django-AdminLTE-2 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Django-AdminLTE-2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Templates</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../templates/templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_filters.html">Template Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/template_tags.html">Template Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/fields.html">Fields</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Menu</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../menu/general_information.html">General Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/building_blocks.html">Building Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/admin.html">Admin Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/home.html">Home Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/menu.html">Menu Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/admin.html">Admin Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/authorization.html">Authentication &amp; Authorization Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Authentication &amp; Authorization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/policies.html">Authentication and Authorization Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/function_views.html">Authorizing Function Based Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/class_views.html">Authorizing Class Based Views</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../demo_css.html">Demo CSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Django-AdminLTE-2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>django_adminlte2_pdq.templatetags package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api_reference/django_adminlte2_pdq.templatetags.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="django-adminlte2-pdq-templatetags-package">
+<h1>django_adminlte2_pdq.templatetags package<a class="headerlink" href="#django-adminlte2-pdq-templatetags-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="django_adminlte2_pdq.templatetags.admin.html">django_adminlte2_pdq.templatetags.admin package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="django_adminlte2_pdq.templatetags.admin.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django_adminlte2_pdq.templatetags.admin.html#django-adminlte2-pdq-templatetags-admin-admin-control-sidebar-module">django_adminlte2_pdq.templatetags.admin.admin_control_sidebar module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django_adminlte2_pdq.templatetags.admin.html#django-adminlte2-pdq-templatetags-admin-admin-header-module">django_adminlte2_pdq.templatetags.admin.admin_header module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django_adminlte2_pdq.templatetags.admin.html#django-adminlte2-pdq-templatetags-admin-admin-index-module">django_adminlte2_pdq.templatetags.admin.admin_index module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django_adminlte2_pdq.templatetags.admin.html#django-adminlte2-pdq-templatetags-admin-admin-menu-module">django_adminlte2_pdq.templatetags.admin.admin_menu module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="django-adminlte2-pdq-templatetags-adminlte-filters-module">
+<h2>django_adminlte2_pdq.templatetags.adminlte_filters module<a class="headerlink" href="#django-adminlte2-pdq-templatetags-adminlte-filters-module" title="Permalink to this heading"></a></h2>
+<span class="target" id="module-django_adminlte2_pdq.templatetags.adminlte_filters"></span><p>Django AdminLTE2 Template Filters</p>
+<p>Various filters that can be used to work with a django form to add missing
+attributes that the user would like the form fields to have.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.dictionary">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">dictionary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.dictionary" title="Permalink to this definition"></a></dt>
+<dd><p>Return the result of calling __dict__ on an object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field</strong> – Form field to run __dict__ on.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>__dict__ of the field passed in.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.directory">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.directory" title="Permalink to this definition"></a></dt>
+<dd><p>Return the result of calling dir on an object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field</strong> – Form field to run dir on.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dir of the field passed in.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.fieldtype">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">fieldtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.fieldtype" title="Permalink to this definition"></a></dt>
+<dd><p>Get a string representation of what fieldtype a given field is.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field</strong> – Form Field to get the type of.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String representation of form field type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.unslugify">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">unslugify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.unslugify" title="Permalink to this definition"></a></dt>
+<dd><p>Return a string that converts dash to spaces and capitalizes first letter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field</strong> – Form field to unslugify.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dir of the field passed in.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.unsnake">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">unsnake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.unsnake" title="Permalink to this definition"></a></dt>
+<dd><p>Return a string that converts underscore to spaces and capitalizes first letter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field</strong> – Form field to unsnake.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>unsnaked string of the field passed in.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.with_attrs">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">with_attrs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs_as_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.with_attrs" title="Permalink to this definition"></a></dt>
+<dd><p>Add generic attributes to a form field and return the form field so filters can be chained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> – Form field to add attributes to.</p></li>
+<li><p><strong>attrs_as_json</strong> – The attrs to add to the field. Must be in the form of json.
+Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Field that was passed in with attrs added.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">adminlte_filters</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span><span class="o">|</span><span class="n">with_attrs</span><span class="p">:</span><span class="s1">&#39;{&quot;attribute-1&quot;:&quot;value-1&quot;, &quot;attribute-2&quot;:&quot;value-2&quot;}&#39;</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="n">Which</span> <span class="n">will</span> <span class="n">update</span> <span class="n">the</span> <span class="n">form</span> <span class="n">field</span> <span class="n">to</span> <span class="n">look</span> <span class="n">like</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+
+<span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;field&quot;</span> <span class="n">attribute</span><span class="o">-</span><span class="mi">1</span><span class="o">=</span><span class="s2">&quot;value-1&quot;</span> <span class="n">attribute</span><span class="o">-</span><span class="mi">2</span><span class="o">=</span><span class="s2">&quot;value-2&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;id_field&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.with_class">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">with_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.with_class" title="Permalink to this definition"></a></dt>
+<dd><p>Add a class attribute to a form field and return the form field so filters can be chained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> – Form field to add attributes to.</p></li>
+<li><p><strong>class_name</strong> – Class name to add to add to the field. Defaults to blank string.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Field that was passed in with classes added.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">adminlte_filters</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span><span class="o">|</span><span class="n">with_class</span><span class="p">:</span><span class="s1">&#39;my-added-class&#39;</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="n">Which</span> <span class="n">will</span> <span class="n">update</span> <span class="n">the</span> <span class="n">form</span> <span class="n">field</span> <span class="n">to</span> <span class="n">look</span> <span class="n">like</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+
+<span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;field&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;my-added-class&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;id_field&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.with_data">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">with_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_attrs_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.with_data" title="Permalink to this definition"></a></dt>
+<dd><p>Add data attributes to a form field and return the form field so filters can be chained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> – Form field to add data attributes to.</p></li>
+<li><p><strong>data_attrs_json</strong> – The data fields to add. Must be in the form of json. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Field that was passed in with data attributes added.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">adminlte_filters</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span><span class="o">|</span><span class="n">with_data</span><span class="p">:</span><span class="s1">&#39;{&quot;attribute-1&quot;:&quot;value-1&quot;, &quot;attribute-2&quot;:&quot;value-2&quot;}&#39;</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="n">Which</span> <span class="n">will</span> <span class="n">update</span> <span class="n">the</span> <span class="n">form</span> <span class="n">field</span> <span class="n">to</span> <span class="n">look</span> <span class="n">like</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+
+<span class="o">&lt;</span><span class="nb">input</span>
+    <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;field&quot;</span>
+    <span class="n">data</span><span class="o">-</span><span class="n">attribute</span><span class="o">-</span><span class="mi">1</span><span class="o">=</span><span class="s2">&quot;value-1&quot;</span>
+    <span class="n">data</span><span class="o">-</span><span class="n">attribute</span><span class="o">-</span><span class="mi">2</span><span class="o">=</span><span class="s2">&quot;value-2&quot;</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;id_field&quot;</span>
+<span class="o">/&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.with_input_type">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">with_input_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.with_input_type" title="Permalink to this definition"></a></dt>
+<dd><p>Change widget input_type to passed value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field</strong> – Form field to change type on.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Field that was passed in with input_type changed to passed value.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">adminlte_filters</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span><span class="o">|</span><span class="n">as_input_type</span><span class="p">:</span><span class="s1">&#39;date&#39;</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="n">Which</span> <span class="n">will</span> <span class="n">update</span> <span class="n">the</span> <span class="n">form</span> <span class="n">field</span> <span class="n">to</span> <span class="n">look</span> <span class="n">like</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+
+<span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;date&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;field&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;id_field&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.with_inputmask">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">with_inputmask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputmask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.with_inputmask" title="Permalink to this definition"></a></dt>
+<dd><p>Add inputmask to a form field and return the form field so filters can be chained.
+Depending on the complexity of inputmask, the Django template engine may
+not be able to handle parsing the mask. If this is the case, the inputmask
+will need to be stored in a variable where the variable can be sent to the
+filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> – Form field to add attributes to.</p></li>
+<li><p><strong>inputmask</strong> – The inputmask pattern to use.
+Defaults to “(999) 999-9999” if value not passed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Field that was passed in with a inputmask data attribute added.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">adminlte_filters</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span><span class="o">|</span><span class="n">with_inputmask</span><span class="p">:</span><span class="s1">&#39;(999) 999-9999&#39;</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="n">Which</span> <span class="n">will</span> <span class="n">update</span> <span class="n">the</span> <span class="n">form</span> <span class="n">field</span> <span class="n">to</span> <span class="n">look</span> <span class="n">like</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+
+<span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;tel&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;field&quot;</span> <span class="n">data</span><span class="o">-</span><span class="n">inputmask</span><span class="o">=</span><span class="s2">&quot;&#39;mask&#39;:&#39;(999) 999-9999&#39;&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;id_field&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.with_list">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">with_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.with_list" title="Permalink to this definition"></a></dt>
+<dd><p>Add list attribute to a form field and return the form field so filters can be chained.
+This will not automatically create the datalist elements. It will only add
+the list attribute to the element with name provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> – Form field to add attributes to.</p></li>
+<li><p><strong>name</strong> – The datalist name.
+Defaults to ‘_list’ appended to end of field name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Field that was passed in with list attribute added.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">adminlte_filters</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span><span class="o">|</span><span class="n">with_list</span><span class="p">:</span><span class="s2">&quot;my_awesome_list&quot;</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="n">Which</span> <span class="n">will</span> <span class="n">update</span> <span class="n">the</span> <span class="n">form</span> <span class="n">field</span> <span class="n">to</span> <span class="n">look</span> <span class="n">like</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+
+<span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;field&quot;</span> <span class="nb">list</span><span class="o">=</span><span class="s2">&quot;my_awesome_list&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;id_field&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.with_max">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">with_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.with_max" title="Permalink to this definition"></a></dt>
+<dd><p>Add max attribute to a form field and return the form field so filters can be chained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> – Form field to add attributes to.</p></li>
+<li><p><strong>max_val</strong> – The max value to use.
+Defaults to 100 if value not passed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Field that was passed in with max attribute added.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">adminlte_filters</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span><span class="o">|</span><span class="n">with_max</span><span class="p">:</span><span class="mi">9</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="n">Which</span> <span class="n">will</span> <span class="n">update</span> <span class="n">the</span> <span class="n">form</span> <span class="n">field</span> <span class="n">to</span> <span class="n">look</span> <span class="n">like</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+
+<span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;range&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;field&quot;</span> <span class="nb">max</span><span class="o">=</span><span class="s2">&quot;9&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;id_field&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.with_min">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">with_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.with_min" title="Permalink to this definition"></a></dt>
+<dd><p>Add min attribute to a form field and return the form field so filters can be chained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> – Form field to add attributes to.</p></li>
+<li><p><strong>min_val</strong> – The min value to use.
+Defaults to 0 if value not passed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Field that was passed in with min attribute added.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">adminlte_filters</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span><span class="o">|</span><span class="n">with_min</span><span class="p">:</span><span class="mi">5</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="n">Which</span> <span class="n">will</span> <span class="n">update</span> <span class="n">the</span> <span class="n">form</span> <span class="n">field</span> <span class="n">to</span> <span class="n">look</span> <span class="n">like</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+
+<span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;range&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;field&quot;</span> <span class="nb">min</span><span class="o">=</span><span class="s2">&quot;5&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;id_field&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.with_pattern">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">with_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.with_pattern" title="Permalink to this definition"></a></dt>
+<dd><p>Add pattern to a form field and return the form field so filters can be chained.
+Unfortunately, the Django template engine can’t handle parsing a string
+regex passed to this filter. Therefore, the regex string needs to be stored
+in a variable that can be sent to the filter.</p>
+<p>NOTE: The default regex in this method is written as a regular string and
+not a raw string (regex with r prefix) so that the documentation will match.
+This docstring can not contain a single backslash as python will think it
+is invalid syntax and raise a warning.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> – Form field to add attributes to.</p></li>
+<li><p><strong>pattern</strong> – The JavaScript regex pattern to use.
+Defaults to “([0-9]{3}) [0-9]{3}-[0-9]{4}” if value not passed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Field that was passed in with pattern attribute added.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assuming the field has a property called pattern with a string value</span>
+<span class="c1"># that is the needed regex: &quot;\([0-9]{3}\) [0-9]{3}-[0-9]{4}&quot;</span>
+<span class="c1"># We can send that variable to the filter.</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">adminlte_filters</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span><span class="o">|</span><span class="n">with_pattern</span><span class="p">:</span><span class="n">field</span><span class="o">.</span><span class="n">pattern</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="n">Which</span> <span class="n">will</span> <span class="n">update</span> <span class="n">the</span> <span class="n">form</span> <span class="n">field</span> <span class="n">to</span> <span class="n">look</span> <span class="n">like</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+
+<span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;tel&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;field&quot;</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;[0-9]</span><span class="si">{3}</span><span class="s2">-[0-9]</span><span class="si">{3}</span><span class="s2">-[0-9]</span><span class="si">{4}</span><span class="s2">&quot;</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;id_field&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_filters.with_placeholder">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_filters.</span></span><span class="sig-name descname"><span class="pre">with_placeholder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">placeholder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_filters.with_placeholder" title="Permalink to this definition"></a></dt>
+<dd><p>Add placeholder to a form field and return the form field so filters can be chained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> – Form field to add placeholder to.</p></li>
+<li><p><strong>placeholder</strong> – Placeholder text to use. Defaults to fields label if nothing provided.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Field that was passed in with placeholder added.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">adminlte_filters</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span><span class="o">|</span><span class="n">with_placeholder</span> <span class="s1">&#39;My Placeholder Text&#39;</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">field</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="n">Which</span> <span class="n">will</span> <span class="n">update</span> <span class="n">the</span> <span class="n">form</span> <span class="n">field</span> <span class="n">to</span> <span class="n">look</span> <span class="n">like</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+
+<span class="o">&lt;</span><span class="nb">input</span>
+    <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;field&quot;</span>
+    <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;My Placeholder Text&quot;</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;id_field&quot;</span>
+<span class="o">/&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="django-adminlte2-pdq-templatetags-adminlte-helpers-module">
+<h2>django_adminlte2_pdq.templatetags.adminlte_helpers module<a class="headerlink" href="#django-adminlte2-pdq-templatetags-adminlte-helpers-module" title="Permalink to this heading"></a></h2>
+<span class="target" id="module-django_adminlte2_pdq.templatetags.adminlte_tags"></span><p>Django AdminLTE2 Template Tags</p>
+<p>Collection of template tags to make rendering things easier.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.get_avatar_url">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">get_avatar_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mp'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.get_avatar_url" title="Permalink to this definition"></a></dt>
+<dd><p>Get a gravatar image url.
+If no image is found, gravatar will return an image based on the ‘default’
+keyword. See <a class="reference external" href="http://en.gravatar.com/site/implement/images/">http://en.gravatar.com/site/implement/images/</a> for more info.</p>
+<dl class="simple">
+<dt>This function will get the profile email in this order:</dt><dd><p>The ‘email’ argument,
+The ‘user’ argument if it has an ‘email’ attribute.</p>
+</dd>
+</dl>
+<p>NOTE: Method does not work if context is not taken in despite it not using it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> – Context that is not used.</p></li>
+<li><p><strong>user</strong> – User that may have an email that can be used for gravatar.</p></li>
+<li><p><strong>email</strong> – Email that can be used for gravatar.</p></li>
+<li><p><strong>size</strong> – Size if it needs to be overridden.</p></li>
+<li><p><strong>default</strong> – The default gravatar that will be used if no email.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.get_home_url">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">get_home_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.get_home_url" title="Permalink to this definition"></a></dt>
+<dd><p>Get the home URL from the settings and default to the django_adminlte2_pdq home.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.get_logo_text">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">get_logo_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.get_logo_text" title="Permalink to this definition"></a></dt>
+<dd><p>Get the logo text from the settings and default to AdminLTE</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.get_logo_text_small">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">get_logo_text_small</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.get_logo_text_small" title="Permalink to this definition"></a></dt>
+<dd><p>Get the logo text small from the settings and default to ALTE</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.get_logout_url">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">get_logout_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.get_logout_url" title="Permalink to this definition"></a></dt>
+<dd><p>Get the log out URL from the settings.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.get_skin_class">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">get_skin_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.get_skin_class" title="Permalink to this definition"></a></dt>
+<dd><p>Get the skin class to use from the settings and default to skin-blue</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.render_fields">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">render_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">fields_to_render</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">media</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.render_fields" title="Permalink to this definition"></a></dt>
+<dd><p>Render given fields with optional labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fields_to_render</strong> – List or tuple of fields to render out.</p></li>
+<li><p><strong>labels</strong> – Whether to use labels for fields. Defaults to True.</p></li>
+<li><p><strong>media</strong> – Media that needs to be used in the form. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Context to use with template.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.render_form">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">render_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">media</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.render_form" title="Permalink to this definition"></a></dt>
+<dd><p>Render a vertical form where fields are always below the label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>form</strong> – Form to render.</p></li>
+<li><p><strong>labels</strong> – Whether to use labels for fields. Defaults to True.</p></li>
+<li><p><strong>media</strong> – Media that needs to be used in the form. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Fields to render.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.render_form_error_summary">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">render_form_error_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.render_form_error_summary" title="Permalink to this definition"></a></dt>
+<dd><p>Determine if the context contains forms or formsets that should be
+checked for errors, and then add any found errors to the context so they
+can be rendered out at the top of the page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> – Context for the template.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Context for the template.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.render_horizontal_fields">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">render_horizontal_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">fields_to_render</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">media</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.render_horizontal_fields" title="Permalink to this definition"></a></dt>
+<dd><p>Render given fields with optional labels horizontally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fields_to_render</strong> – List or tuple of fields to render.</p></li>
+<li><p><strong>labels</strong> – Whether to use labels for fields. Defaults to True.</p></li>
+<li><p><strong>media</strong> – Media that needs to be used in the form. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Context to use with template.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.render_horizontal_form">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">render_horizontal_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">media</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.render_horizontal_form" title="Permalink to this definition"></a></dt>
+<dd><p>Render a horizontal form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>form</strong> – The form to render.</p></li>
+<li><p><strong>labels</strong> – Whether to use labels for fields. Defaults to True.</p></li>
+<li><p><strong>media</strong> – Media that needs to be used in the form. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Context for the template.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.render_horizontal_formset">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">render_horizontal_formset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">section_heading</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.render_horizontal_formset" title="Permalink to this definition"></a></dt>
+<dd><p>Render a horizontal formset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>formset</strong> – The formset to render.</p></li>
+<li><p><strong>section_heading</strong> – The section header to render.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Context for the template.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.adminlte_tags.user_image_initials">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.adminlte_tags.</span></span><span class="sig-name descname"><span class="pre">user_image_initials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.adminlte_tags.user_image_initials" title="Permalink to this definition"></a></dt>
+<dd><p>Show user gravatar, initials, or gravatar default mystery person as image</p>
+<p>Attempt to use/create initials of the user in the style of a profile picture.
+Overlay with the user’s gravatar image or a blank one if the user does not
+exist. If initials can not be created, change the gravatar default from blank
+to the standard mystery person.</p>
+<p>If the user is passed in, the user will be used for the base information.
+Information can be overridden by other key word arguments.
+If the user is NOT passed in, key word arguments for each piece of information
+should be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> – Context for the template.</p></li>
+<li><p><strong>user</strong> – The user to use for information.</p></li>
+<li><p><strong>email</strong> – The email to use for information.</p></li>
+<li><p><strong>initials</strong> – The initials to use in place of generated ones.</p></li>
+<li><p><strong>first_name</strong> – The first name to use in place of the users.</p></li>
+<li><p><strong>last_name</strong> – The last name to use in place of the users.</p></li>
+<li><p><strong>size</strong> – Size if it needs to be overridden. Default is 25x25.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Context for template.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="django-adminlte2-pdq-templatetags-sidebar-menu-module">
+<h2>django_adminlte2_pdq.templatetags.sidebar_menu module<a class="headerlink" href="#django-adminlte2-pdq-templatetags-sidebar-menu-module" title="Permalink to this heading"></a></h2>
+<span class="target" id="module-django_adminlte2_pdq.templatetags.sidebar_menu"></span><p>Django AdminLTE2 Sidebar Template Tags</p>
+<p>Template tags and logic for rendering sidebar menu</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.check_for_all_permissions">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">check_for_all_permissions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permissions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.check_for_all_permissions" title="Permalink to this definition"></a></dt>
+<dd><p>Check to see if the passed user has all of the permissions</p>
+<p>that are listed in the passed permissions.
+If the user does not have all of them, false is returned.
+If the passed permission list is empty, the method returns false.
+Even though empty permission lists return false here, they are checked
+with the whitelist methods in the is_allowed_node method.
+Unless you know what you are doing, consider using is_allowed_node
+for true permission checking on a node.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.check_for_login_whitelisted_node">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">check_for_login_whitelisted_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.check_for_login_whitelisted_node" title="Permalink to this definition"></a></dt>
+<dd><p>Check to see if the route property on the node is in the login whitelist</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.check_for_node_that_matches_request_path">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">check_for_node_that_matches_request_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.check_for_node_that_matches_request_path" title="Permalink to this definition"></a></dt>
+<dd><p>Check for a node that matches the request path</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.check_for_one_permission">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">check_for_one_permission</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permissions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.check_for_one_permission" title="Permalink to this definition"></a></dt>
+<dd><p>Check to see if the passed user has at least one of the permissions</p>
+<p>that are listed in the passed permissions.
+If the user does not have one of them, false is returned.
+If the passed permission list is empty, the method returns false.
+Even though empty permission lists return false here, they are checked
+with the whitelist methods in the is_allowed_node method.
+Unless you know what you are doing, consider using is_allowed_node
+for true permission checking on a node.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.check_for_one_permission_in_node_list">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">check_for_one_permission_in_node_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.check_for_one_permission_in_node_list" title="Permalink to this definition"></a></dt>
+<dd><p>Check user has one permission in the entire node list</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.check_for_strict_whitelisted_node">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">check_for_strict_whitelisted_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.check_for_strict_whitelisted_node" title="Permalink to this definition"></a></dt>
+<dd><p>Check to see if the route property on the node is in the whitelist</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.ensure_node_has_url_property">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">ensure_node_has_url_property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.ensure_node_has_url_property" title="Permalink to this definition"></a></dt>
+<dd><p>Ensure that a node has a url property</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.get_permissions_from_node">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">get_permissions_from_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.get_permissions_from_node" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the permissions required from the node</p>
+<p>by using either the ‘route’ or ‘url’ key on the node to determine the
+associated view for the route/url. Then checks the view to see if it
+contains properties for the required permissions and returns them if found.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.get_permissions_from_view">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">get_permissions_from_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">view</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.get_permissions_from_view" title="Permalink to this definition"></a></dt>
+<dd><p>Get the permissions and login_required from a view</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.get_view_from_node">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">get_view_from_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.get_view_from_node" title="Permalink to this definition"></a></dt>
+<dd><p>Get the view from the node</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.is_allowed_node">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">is_allowed_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.is_allowed_node" title="Permalink to this definition"></a></dt>
+<dd><p>Checks to ensure a node is valid for rendering.</p>
+<p>An all encompassing method that checks all permissions, one of permissions
+and the whitelist settings to know whether or not a given node is valid
+for rendering to the user.
+Any new code that needs to check permissions should use this method.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.render_link">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">render_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.render_link" title="Permalink to this definition"></a></dt>
+<dd><p>Render out a menu link</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.render_menu">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">render_menu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.render_menu" title="Permalink to this definition"></a></dt>
+<dd><p>Render out the sidebar menu</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.render_nodes">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">render_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.render_nodes" title="Permalink to this definition"></a></dt>
+<dd><p>Render out a list of nodes</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.render_section">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">render_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">section</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.render_section" title="Permalink to this definition"></a></dt>
+<dd><p>Render out an entire sidebar section</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.render_tree">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">render_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.render_tree" title="Permalink to this definition"></a></dt>
+<dd><p>Render out a menu tree</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.strip_hash_bookmark_from_url">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">strip_hash_bookmark_from_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.strip_hash_bookmark_from_url" title="Permalink to this definition"></a></dt>
+<dd><p>Strip the hash bookmark from a string url</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="django_adminlte2_pdq.templatetags.sidebar_menu.url_starts_with">
+<span class="sig-prename descclassname"><span class="pre">django_adminlte2_pdq.templatetags.sidebar_menu.</span></span><span class="sig-name descname"><span class="pre">url_starts_with</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#django_adminlte2_pdq.templatetags.sidebar_menu.url_starts_with" title="Permalink to this definition"></a></dt>
+<dd><p>Determine if a url starts with a sub string</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, David Barnes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

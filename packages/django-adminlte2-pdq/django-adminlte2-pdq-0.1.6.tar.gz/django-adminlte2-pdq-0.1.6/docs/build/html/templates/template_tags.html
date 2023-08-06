@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Tags &mdash; Django-AdminLTE2-PDQ 0.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Forms" href="forms.html" />
+    <link rel="prev" title="Template Filters" href="template_filters.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Django-AdminLTE2-PDQ
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Templates</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_filters.html">Template Filters</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Template Tags</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#render-form-error-summary">render_form_error_summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#render-fields">render_fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#render-form">render_form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#render-horizontal-fields">render_horizontal_fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#render-horizontal-form">render_horizontal_form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#render-horizontal-formset">render_horizontal_formset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-logout-url">get_logout_url</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-home-url">get_home_url</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-logo-text">get_logo_text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-logo-text-small">get_logo_text_small</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-skin-class">get_skin_class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-datetime-widget">get_datetime_widget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-date-widget">get_date_widget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-time-widget">get_time_widget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-avatar-url">get_avatar_url</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-image-initials">user_image_initials</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fields.html">Fields</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Menu</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../menu/general_information.html">General Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/building_blocks.html">Building Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/admin.html">Admin Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/home.html">Home Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/menu.html">Menu Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/admin.html">Admin Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/authorization.html">Authentication &amp; Authorization Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/form.html">Form and Field Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Authentication &amp; Authorization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/policies.html">Authentication and Authorization Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/function_views.html">Authorizing Function Based Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/class_views.html">Authorizing Class Based Views</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../demo_css.html">Demo CSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Django-AdminLTE2-PDQ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Template Tags</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/templates/template_tags.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-tags">
+<h1>Template Tags<a class="headerlink" href="#template-tags" title="Permalink to this heading"></a></h1>
+<p>This package includes some template tags that are designed to add some useful
+features to any project.</p>
+<p>To use any of the following template tags you first need to load them at the
+top of your template.</p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">load</span> <span class="nv">adminlte_tags</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<section id="render-form-error-summary">
+<h2>render_form_error_summary<a class="headerlink" href="#render-form-error-summary" title="Permalink to this heading"></a></h2>
+<p>Determine if the context contains forms or formsets that should be
+checked for errors, and then add any found errors to the context so they
+can be rendered out at the top of the page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">inclusion</span></code></p>
+</dd>
+<dt class="field-even">Template</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">adminlte2/partials/_form_error_summary.html</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">render_form_error_summary</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="render-fields">
+<h2>render_fields<a class="headerlink" href="#render-fields" title="Permalink to this heading"></a></h2>
+<p>Render given fields with optional labels vertically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param fields_to_render</dt>
+<dd class="field-odd"><p>List or tuple of fields to render out.</p>
+</dd>
+<dt class="field-even">param labels</dt>
+<dd class="field-even"><p>Whether to use labels for fields. Defaults to True.</p>
+</dd>
+<dt class="field-odd">param media</dt>
+<dd class="field-odd"><p>Media that needs to be used in the form. Defaults to None.</p>
+</dd>
+<dt class="field-even">return</dt>
+<dd class="field-even"><p>Context for the template.</p>
+</dd>
+<dt class="field-odd">Tag Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">inclusion</span></code></p>
+</dd>
+<dt class="field-even">Template</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">adminlte2/partials/_form.html</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">render_fields</span> <span class="nv">fields</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="render-form">
+<h2>render_form<a class="headerlink" href="#render-form" title="Permalink to this heading"></a></h2>
+<p>Render a vertical form where fields are always below the label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param form</dt>
+<dd class="field-odd"><p>Form to render.</p>
+</dd>
+<dt class="field-even">param labels</dt>
+<dd class="field-even"><p>Whether to use labels for fields. Defaults to True.</p>
+</dd>
+<dt class="field-odd">param media</dt>
+<dd class="field-odd"><p>Media that needs to be used in the form. Defaults to None.</p>
+</dd>
+<dt class="field-even">return</dt>
+<dd class="field-even"><p>Fields to render.</p>
+</dd>
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">inclusion</span></code></p>
+</dd>
+<dt class="field-even">Template</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">adminlte2/partials/_form.html</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">render_form</span> <span class="nv">form</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="render-horizontal-fields">
+<h2>render_horizontal_fields<a class="headerlink" href="#render-horizontal-fields" title="Permalink to this heading"></a></h2>
+<p>Render given fields with optional labels horizontally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param fields_to_render</dt>
+<dd class="field-odd"><p>List or tuple of fields to render.</p>
+</dd>
+<dt class="field-even">param labels</dt>
+<dd class="field-even"><p>Whether to use labels for fields. Defaults to True.</p>
+</dd>
+<dt class="field-odd">param media</dt>
+<dd class="field-odd"><p>Media that needs to be used in the form. Defaults to None.</p>
+</dd>
+<dt class="field-even">return</dt>
+<dd class="field-even"><p>Context for the template.</p>
+</dd>
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">inclusion</span></code></p>
+</dd>
+<dt class="field-even">Template</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">adminlte2/partials/_horizontal_form.html</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">render_horizontal_fields</span> <span class="nv">field</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="render-horizontal-form">
+<h2>render_horizontal_form<a class="headerlink" href="#render-horizontal-form" title="Permalink to this heading"></a></h2>
+<p>Render a horizontal form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param form</dt>
+<dd class="field-odd"><p>The form to render.</p>
+</dd>
+<dt class="field-even">param labels</dt>
+<dd class="field-even"><p>Whether to use labels for fields. Defaults to True.</p>
+</dd>
+<dt class="field-odd">param media</dt>
+<dd class="field-odd"><p>Media that needs to be used in the form. Defaults to None.</p>
+</dd>
+<dt class="field-even">return</dt>
+<dd class="field-even"><p>Context for the template.</p>
+</dd>
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">inclusion</span></code></p>
+</dd>
+<dt class="field-even">Template</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">adminlte2/partials/_horizontal_form.html</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">render_horizontal_form</span> <span class="nv">form</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="render-horizontal-formset">
+<h2>render_horizontal_formset<a class="headerlink" href="#render-horizontal-formset" title="Permalink to this heading"></a></h2>
+<p>Render a horizontal formset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param formset</dt>
+<dd class="field-odd"><p>The formset to render.</p>
+</dd>
+<dt class="field-even">param section_heading</dt>
+<dd class="field-even"><p>The section header to render.</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Context for the template.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">inclusion</span></code></p>
+</dd>
+<dt class="field-odd">Template</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">adminlte2/partials/_horizontal_formset.html</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">render_horizontal_formset</span> <span class="nv">formset</span> <span class="nv">section_heading</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-logout-url">
+<h2>get_logout_url<a class="headerlink" href="#get-logout-url" title="Permalink to this heading"></a></h2>
+<p>Get the logout URL from the settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">simple</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">get_logout_url</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-home-url">
+<h2>get_home_url<a class="headerlink" href="#get-home-url" title="Permalink to this heading"></a></h2>
+<p>Get the home URL from the settings and default to the adminlte2_pdq home.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">simple</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">get_home_url</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-logo-text">
+<h2>get_logo_text<a class="headerlink" href="#get-logo-text" title="Permalink to this heading"></a></h2>
+<p>Get the Logo Text from the settings and default to &lt;b&gt;Admin&lt;/b&gt;LTE.
+Used internally by the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">simple</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">get_logo_text</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-logo-text-small">
+<h2>get_logo_text_small<a class="headerlink" href="#get-logo-text-small" title="Permalink to this heading"></a></h2>
+<p>Get the Small Logo Text from the settings and default to &lt;b&gt;A&lt;/b&gt;LTE.
+Used internally by the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">simple</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">get_logo_text_small</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-skin-class">
+<h2>get_skin_class<a class="headerlink" href="#get-skin-class" title="Permalink to this heading"></a></h2>
+<p>Get the AdminLTE2 skin-class from the settings and default to skin-blue.
+Used internally by the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">simple</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">get_skin_class</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-datetime-widget">
+<h2>get_datetime_widget<a class="headerlink" href="#get-datetime-widget" title="Permalink to this heading"></a></h2>
+<p>Get the HTML5 / JS datetime widget from the settings and default to ‘native’
+This will get the widget to use when showing a DateTime field in a form.
+Used internally by the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">simple</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">get_datetime_widget</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-date-widget">
+<h2>get_date_widget<a class="headerlink" href="#get-date-widget" title="Permalink to this heading"></a></h2>
+<p>Get the HTML5 / JS date widget from the settings and default to ‘native’
+This will get the widget to use when showing a DateTime field in a form.
+Used internally by the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">simple</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">get_date_widget</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-time-widget">
+<h2>get_time_widget<a class="headerlink" href="#get-time-widget" title="Permalink to this heading"></a></h2>
+<p>Get the HTML5 / JS time widget from the settings and default to ‘native’
+This will get the widget to use when showing a DateTime field in a form.
+Used internally by the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">simple</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">get_time_widget</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-avatar-url">
+<h2>get_avatar_url<a class="headerlink" href="#get-avatar-url" title="Permalink to this heading"></a></h2>
+<p>Get a gravatar image URL.
+If no image is found, gravatar will return an image based on the ‘default’
+keyword. See <a class="reference external" href="http://en.gravatar.com/site/implement/images/">http://en.gravatar.com/site/implement/images/</a> for more info.</p>
+<p>This function will get the profile email in this order:</p>
+<ol class="arabic simple">
+<li><p>The ‘email’ argument,</p></li>
+<li><p>The ‘user’ argument if it has an ‘email’ attribute.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">param context</dt>
+<dd class="field-odd"><p>Context that is not used.</p>
+</dd>
+<dt class="field-even">param user</dt>
+<dd class="field-even"><p>User that may have an email that can be used for gravatar.</p>
+</dd>
+<dt class="field-odd">param email</dt>
+<dd class="field-odd"><p>Email that can be used for gravatar.</p>
+</dd>
+<dt class="field-even">param size</dt>
+<dd class="field-even"><p>Size if it needs to be overridden.</p>
+</dd>
+<dt class="field-odd">param default</dt>
+<dd class="field-odd"><p>The default gravatar that will be used if no email.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">simple</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">get_avatar_url</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="user-image-initials">
+<h2>user_image_initials<a class="headerlink" href="#user-image-initials" title="Permalink to this heading"></a></h2>
+<p>Show user gravatar, initials, or gravatar default mystery person as the image</p>
+<p>Attempt to use/create initials of the user in the style of a profile picture.
+Overlay with the user’s gravatar image or a blank one if the user does not
+exist. If initials can not be created, change the gravatar default from blank
+to the standard mystery person.</p>
+<p>If the user is passed in, the user will be used for the base information.
+Information can be overridden by other keyword arguments.
+If the user is NOT passed in, keyword arguments for each piece of information
+should be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param context</dt>
+<dd class="field-odd"><p>Context for the template.</p>
+</dd>
+<dt class="field-even">param user</dt>
+<dd class="field-even"><p>The user to use for information.</p>
+</dd>
+<dt class="field-odd">param email</dt>
+<dd class="field-odd"><p>The email to use for information.</p>
+</dd>
+<dt class="field-even">param initials</dt>
+<dd class="field-even"><p>The initials to use in place of generated ones.</p>
+</dd>
+<dt class="field-odd">param first_name</dt>
+<dd class="field-odd"><p>The first name to use in place of the users.</p>
+</dd>
+<dt class="field-even">param last_name</dt>
+<dd class="field-even"><p>The last name to use in place of the users.</p>
+</dd>
+<dt class="field-odd">param size</dt>
+<dd class="field-odd"><p>Size if it needs to be overridden. Default is 25x25.</p>
+</dd>
+<dt class="field-even">return</dt>
+<dd class="field-even"><p>Context for template.</p>
+</dd>
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">inclusive</span></code></p>
+</dd>
+<dt class="field-even">Template</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">adminlte2/partials/_user_image_initials.html</span></code></p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">user_image_initials</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="template_filters.html" class="btn btn-neutral float-left" title="Template Filters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="forms.html" class="btn btn-neutral float-right" title="Forms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, David Barnes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

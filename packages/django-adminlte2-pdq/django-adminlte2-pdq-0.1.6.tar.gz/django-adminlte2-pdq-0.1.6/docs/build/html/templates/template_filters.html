@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Filters &mdash; Django-AdminLTE2-PDQ 0.1.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Template Tags" href="template_tags.html" />
+    <link rel="prev" title="Templates" href="templates.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Django-AdminLTE2-PDQ
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Templates</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Template Filters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fieldtype">fieldtype</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#with-attrs">with_attrs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#with-class">with_class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#with-data">with_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#with-placeholder">with_placeholder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#with-list">with_list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#with-pattern">with_pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#with-inputmask">with_inputmask</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#with-min">with_min</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#with-max">with_max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#with-input-type">with_input_type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#directory">directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dictionary">dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unsnake">unsnake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unslugify">unslugify</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="template_tags.html">Template Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fields.html">Fields</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Menu</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../menu/general_information.html">General Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/building_blocks.html">Building Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/admin.html">Admin Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../menu/examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/home.html">Home Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/menu.html">Menu Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/admin.html">Admin Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/authorization.html">Authentication &amp; Authorization Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/form.html">Form and Field Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Authentication &amp; Authorization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/policies.html">Authentication and Authorization Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/function_views.html">Authorizing Function Based Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authorization/class_views.html">Authorizing Class Based Views</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../demo_css.html">Demo CSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Django-AdminLTE2-PDQ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Template Filters</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/templates/template_filters.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-filters">
+<h1>Template Filters<a class="headerlink" href="#template-filters" title="Permalink to this heading"></a></h1>
+<p>This package includes some template filters that are designed to add some
+useful features to any project.</p>
+<p>To use any of the following template filters you first need to load them at the
+top of your template.</p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">load</span> <span class="nv">adminlte_filters</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<section id="fieldtype">
+<h2>fieldtype<a class="headerlink" href="#fieldtype" title="Permalink to this heading"></a></h2>
+<p>Get a string representation of what field type a given field is.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form Field to get the type of.</p>
+</dd>
+<dt class="field-even">return</dt>
+<dd class="field-even"><p>String representation of form field type.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">fieldtype</span> <span class="nv">field</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="with-attrs">
+<h2>with_attrs<a class="headerlink" href="#with-attrs" title="Permalink to this heading"></a></h2>
+<p>Add generic attributes to a form field and return the form field so filters can
+be chained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to add attributes to.</p>
+</dd>
+<dt class="field-even">param attrs_as_json</dt>
+<dd class="field-even"><p>The attrs to add to the field.
+Must be in the form of JSON. Defaults to None.</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Field that was passed in with attrs added.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">load</span> <span class="nv">adminlte_filters</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">field</span> <span class="k">in</span> <span class="nv">form</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span><span class="o">|</span><span class="nf">with_attrs</span><span class="s1">:&#39;{&quot;attribute-1&quot;:&quot;value-1&quot;, &quot;attribute-2&quot;:&quot;value-2&quot;}&#39;</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Which will update the form field to look like the following:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;field&quot;</span> <span class="na">attribute-1</span><span class="o">=</span><span class="s">&quot;value-1&quot;</span> <span class="na">attribute-2</span><span class="o">=</span><span class="s">&quot;value-2&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;id_field&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="with-class">
+<h2>with_class<a class="headerlink" href="#with-class" title="Permalink to this heading"></a></h2>
+<p>Add a <code class="docutils literal notranslate"><span class="pre">class</span></code> attribute to a form field and return the form field so filters can
+be chained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to add attributes to.</p>
+</dd>
+<dt class="field-even">param class_name</dt>
+<dd class="field-even"><p>Class name to add to the field.
+Defaults to a blank string.</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Field that was passed in with classes added.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">load</span> <span class="nv">adminlte_filters</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">field</span> <span class="k">in</span> <span class="nv">form</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span><span class="o">|</span><span class="nf">with_class</span><span class="s1">:&#39;my-added-class&#39;</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Which will update the form field to look like the following:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;field&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-added-class&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;id_field&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="with-data">
+<h2>with_data<a class="headerlink" href="#with-data" title="Permalink to this heading"></a></h2>
+<p>Add data attributes to a form field and return the form field so filters can be
+chained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to add data attributes to.</p>
+</dd>
+<dt class="field-even">param data_attrs_json</dt>
+<dd class="field-even"><p>The data fields to add. Must be in the form of JSON.
+Defaults to None.</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Field that was passed in with data attributes added.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">load</span> <span class="nv">adminlte_filters</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">field</span> <span class="k">in</span> <span class="nv">form</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span><span class="o">|</span><span class="nf">with_data</span><span class="s1">:&#39;{&quot;attribute-1&quot;:&quot;value-1&quot;, &quot;attribute-2&quot;:&quot;value-2&quot;}&#39;</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Which will update the form field to look like the following:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span>
+    <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span>
+    <span class="na">name</span><span class="o">=</span><span class="s">&quot;field&quot;</span>
+    <span class="na">data-attribute-1</span><span class="o">=</span><span class="s">&quot;value-1&quot;</span>
+    <span class="na">data-attribute-2</span><span class="o">=</span><span class="s">&quot;value-2&quot;</span>
+    <span class="na">id</span><span class="o">=</span><span class="s">&quot;id_field&quot;</span>
+<span class="p">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="with-placeholder">
+<h2>with_placeholder<a class="headerlink" href="#with-placeholder" title="Permalink to this heading"></a></h2>
+<p>Add <code class="docutils literal notranslate"><span class="pre">placeholder</span></code> to a form field and return the form field so filters can be
+chained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to add the placeholder to.</p>
+</dd>
+<dt class="field-even">param placeholder</dt>
+<dd class="field-even"><p>Placeholder text to use.
+Defaults to the label of the field if nothing is provided.</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Field that was passed in with placeholder added.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">load</span> <span class="nv">adminlte_filters</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">field</span> <span class="k">in</span> <span class="nv">form</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span><span class="o">|</span><span class="nf">with_placeholder</span> <span class="s1">&#39;My Placeholder Text&#39;</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Which will update the form field to look like the following:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span>
+    <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span>
+    <span class="na">name</span><span class="o">=</span><span class="s">&quot;field&quot;</span>
+    <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;My Placeholder Text&quot;</span>
+    <span class="na">id</span><span class="o">=</span><span class="s">&quot;id_field&quot;</span>
+<span class="p">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="with-list">
+<h2>with_list<a class="headerlink" href="#with-list" title="Permalink to this heading"></a></h2>
+<p>Add <code class="docutils literal notranslate"><span class="pre">list</span></code> attribute to a form field and return the form field so filters can be chained.
+This is most commonly used when making a datalist.
+This will not automatically create the datalist elements.
+It will only add the list attribute to the element with the name provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to add attributes to.</p>
+</dd>
+<dt class="field-even">param name</dt>
+<dd class="field-even"><p>The datalist name.
+Defaults to None.</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Field that was passed in with list attribute added.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">load</span> <span class="nv">adminlte_filters</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">field</span> <span class="k">in</span> <span class="nv">form</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span><span class="o">|</span><span class="nf">with_list</span><span class="s2">:&quot;my_awesome_list&quot;</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Which will update the form field to look like the following:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span>
+    <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span>
+    <span class="na">name</span><span class="o">=</span><span class="s">&quot;field&quot;</span>
+    <span class="na">list</span><span class="o">=</span><span class="s">&quot;my_awesome_list&quot;</span>
+    <span class="na">id</span><span class="o">=</span><span class="s">&quot;id_field&quot;</span>
+<span class="p">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="with-pattern">
+<h2>with_pattern<a class="headerlink" href="#with-pattern" title="Permalink to this heading"></a></h2>
+<p>Add <code class="docutils literal notranslate"><span class="pre">pattern</span></code> attribute to a form field and return the form field so filters can be chained.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Unfortunately, the Django template engine can’t handle parsing a string
+regex passed to this filter. Therefore, the regex string needs to be stored
+in a variable that can be sent to the filter.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to add attributes to.</p>
+</dd>
+<dt class="field-even">param pattern</dt>
+<dd class="field-even"><p>The JavaScript regex pattern to use.
+Defaults to <code class="docutils literal notranslate"><span class="pre">r&quot;\([0-9]{3}\)</span> <span class="pre">[0-9]{3}-[0-9]{4}&quot;</span></code> if value not passed.</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Field that was passed in with pattern attribute added.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span># Assuming the field has a property called pattern with a string value
+# that is the needed regex: &quot;\([0-9]{3}\) [0-9]{3}-[0-9]{4}&quot;
+# We can send that variable to the filter.
+
+<span class="cp">{%</span> <span class="k">load</span> <span class="nv">adminlte_filters</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">field</span> <span class="k">in</span> <span class="nv">form</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span><span class="o">|</span><span class="nf">with_pattern</span><span class="o">:</span><span class="nv">field.pattern</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Which will update the form field to look like the following:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span>
+    <span class="na">type</span><span class="o">=</span><span class="s">&quot;tel&quot;</span>
+    <span class="na">name</span><span class="o">=</span><span class="s">&quot;field&quot;</span>
+    <span class="na">pattern</span><span class="o">=</span><span class="s">&quot;[0-9]{3}-[0-9]{3}-[0-9]{4}&quot;</span>
+    <span class="na">id</span><span class="o">=</span><span class="s">&quot;id_field&quot;</span>
+<span class="p">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="with-inputmask">
+<h2>with_inputmask<a class="headerlink" href="#with-inputmask" title="Permalink to this heading"></a></h2>
+<p>Add an inputmask data attribute to a form field and return the form field so filters can be chained.</p>
+<p>This inputmask is meant to work with the
+<a class="reference external" href="https://github.com/RobinHerbots/Inputmask">Inputmask</a>
+library. More information including how to form masks can be found on the
+<a class="reference external" href="https://github.com/RobinHerbots/Inputmask">Inputmask</a>
+site.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depending on the complexity of inputmask, the Django template engine may
+not be able to handle parsing the mask if it is provided as a string right
+inside the template.
+If this is the case, the inputmask will need to be stored in a variable
+where the variable can be sent to the filter.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to add attributes to.</p>
+</dd>
+<dt class="field-even">param inputmask</dt>
+<dd class="field-even"><p>The inputmask pattern to use.
+Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;(999)</span> <span class="pre">999-9999&quot;</span></code> if value not passed.</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Field that was passed in with an inputmask data attribute added.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span># Assuming the field has a property called pattern with a string value
+# that is the needed regex: &quot;\([0-9]{3}\) [0-9]{3}-[0-9]{4}&quot;
+# We can send that variable to the filter.
+
+<span class="cp">{%</span> <span class="k">load</span> <span class="nv">adminlte_filters</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">field</span> <span class="k">in</span> <span class="nv">form</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span><span class="o">|</span><span class="nf">with_inputmask</span><span class="s1">:&#39;(999) 999-9999&#39;</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Which will update the form field to look like the following:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span>
+    <span class="na">type</span><span class="o">=</span><span class="s">&quot;tel&quot;</span>
+    <span class="na">name</span><span class="o">=</span><span class="s">&quot;field&quot;</span>
+    <span class="na">data-inputmask</span><span class="o">=</span><span class="s">&quot;&#39;mask&#39;:&#39;(999) 999-9999&#39;&quot;</span>
+    <span class="na">id</span><span class="o">=</span><span class="s">&quot;id_field&quot;</span>
+<span class="p">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="with-min">
+<h2>with_min<a class="headerlink" href="#with-min" title="Permalink to this heading"></a></h2>
+<p>Add <code class="docutils literal notranslate"><span class="pre">min</span></code> attribute to a form field and return the form field so filters can be chained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to add attributes to.</p>
+</dd>
+<dt class="field-even">param min_val</dt>
+<dd class="field-even"><p>The min value to use.
+Defaults to 0 if value not passed.</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Field that was passed in with min attribute added.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span># Assuming that the field has a range_min_max property and it is set to the
+# following: {&#39;min&#39;:5, &#39;max&#39;:9}
+
+<span class="cp">{%</span> <span class="k">load</span> <span class="nv">adminlte_filters</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">field</span> <span class="k">in</span> <span class="nv">form</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span><span class="o">|</span><span class="nf">with_min</span><span class="o">:</span><span class="m">5</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Which will update the form field to look like the following:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;range&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;field&quot;</span> <span class="na">min</span><span class="o">=</span><span class="s">&quot;5&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;id_field&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="with-max">
+<h2>with_max<a class="headerlink" href="#with-max" title="Permalink to this heading"></a></h2>
+<p>Add <code class="docutils literal notranslate"><span class="pre">max</span></code> attribute to a form field and return the form field so filters can be chained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to add attributes to.</p>
+</dd>
+<dt class="field-even">param max_val</dt>
+<dd class="field-even"><p>The max value to use.
+Defaults to 100 if value not passed.</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Field that was passed in with max attribute added.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span># Assuming that the field has a range_min_max property and it is set to the
+# following: {&#39;min&#39;:5, &#39;max&#39;:9}
+
+<span class="cp">{%</span> <span class="k">load</span> <span class="nv">adminlte_filters</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">field</span> <span class="k">in</span> <span class="nv">form</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span><span class="o">|</span><span class="nf">with_max</span><span class="o">:</span><span class="m">9</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Which will update the form field to look like the following:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;range&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;field&quot;</span> <span class="na">max</span><span class="o">=</span><span class="s">&quot;9&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;id_field&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="with-input-type">
+<h2>with_input_type<a class="headerlink" href="#with-input-type" title="Permalink to this heading"></a></h2>
+<p>Change widget input_type to the passed value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to change type on.</p>
+</dd>
+<dt class="field-even">return</dt>
+<dd class="field-even"><p>Field that was passed in with input_type changed to the passed value.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">load</span> <span class="nv">adminlte_filters</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">field</span> <span class="k">in</span> <span class="nv">form</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span><span class="o">|</span><span class="nf">as_input_type</span><span class="s1">:&#39;date&#39;</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">field</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Which will update the form field to look like the following:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;date&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;field&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;id_field&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="directory">
+<h2>directory<a class="headerlink" href="#directory" title="Permalink to this heading"></a></h2>
+<p>Return the result of calling dir on an object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to run dir on.</p>
+</dd>
+<dt class="field-even">return</dt>
+<dd class="field-even"><p>dir of the field passed in.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">directory</span> <span class="nv">field</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="dictionary">
+<h2>dictionary<a class="headerlink" href="#dictionary" title="Permalink to this heading"></a></h2>
+<p>Return the result of calling __dict__ on an object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to run __dict__ on.</p>
+</dd>
+<dt class="field-even">return</dt>
+<dd class="field-even"><p>__dict__ of the field passed in.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">dictionary</span> <span class="nv">field</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="unsnake">
+<h2>unsnake<a class="headerlink" href="#unsnake" title="Permalink to this heading"></a></h2>
+<p>Return a string that converts underscore to spaces and capitalizes first
+letter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to unsnake.</p>
+</dd>
+<dt class="field-even">return</dt>
+<dd class="field-even"><p>unsnaked string of the field passed in.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">unsnake</span> <span class="nv">field</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+<section id="unslugify">
+<h2>unslugify<a class="headerlink" href="#unslugify" title="Permalink to this heading"></a></h2>
+<p>Return a string that converts dash to spaces and capitalizes the first letter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param field</dt>
+<dd class="field-odd"><p>Form field to unslugify.</p>
+</dd>
+<dt class="field-even">return</dt>
+<dd class="field-even"><p>dir of the field passed in.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-html+django notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">unslugify</span> <span class="nv">field</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="templates.html" class="btn btn-neutral float-left" title="Templates" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="template_tags.html" class="btn btn-neutral float-right" title="Template Tags" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, David Barnes.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
