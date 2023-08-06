@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "carrier-services"
+version = "0.1.0"
+description = "Get carrier services from shipping lines."
+authors = ["Alex Cheng <alex28.biz@gmail.com>"]
+maintainers = ["Alex Cheng <alex28.biz@gmail.com>"]
+readme = "README.md"
+license = "Proprietary"
+homepage = "https://github.com/alexcheng628/carrier-services"
+repository = "https://github.com/alexcheng628/carrier-services"
+documentation = "https://github.com/alexcheng628/carrier-services"
+keywords = ["carrier services"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+]
+packages = [{include = "carrier_services", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+tomli = "^2.0.1"
+selenium = "^4.7.2"
+pandas = "^1.5.2"
+bs4 = "^0.0.1"
+webdriver-manager = "^3.8.5"
+lxml = "^4.9.2"
+atlassian-python-api = "^3.32.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

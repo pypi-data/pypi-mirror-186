@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: carrier-services
+Version: 0.1.0
+Summary: Get carrier services from shipping lines.
+Home-page: https://github.com/alexcheng628/carrier-services
+License: Proprietary
+Keywords: carrier services
+Author: Alex Cheng
+Author-email: alex28.biz@gmail.com
+Maintainer: Alex Cheng
+Maintainer-email: alex28.biz@gmail.com
+Requires-Python: >=3.10,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3
+Requires-Dist: atlassian-python-api (>=3.32.2,<4.0.0)
+Requires-Dist: bs4 (>=0.0.1,<0.0.2)
+Requires-Dist: lxml (>=4.9.2,<5.0.0)
+Requires-Dist: pandas (>=1.5.2,<2.0.0)
+Requires-Dist: selenium (>=4.7.2,<5.0.0)
+Requires-Dist: tomli (>=2.0.1,<3.0.0)
+Requires-Dist: webdriver-manager (>=3.8.5,<4.0.0)
+Project-URL: Documentation, https://github.com/alexcheng628/carrier-services
+Project-URL: Repository, https://github.com/alexcheng628/carrier-services
+Description-Content-Type: text/markdown
+
+# carrier-services
+Get carrier services from shipping lines.
+
+## Installation
+From [PyPI](https://pypi.org/project/carrier-services/):
+
+    python -m pip install carrier-services
+
+## Setup
+The following setup must be done before running:
+1. Install Google Chrome. Chrome version 109 or newer is required.
+2. Create below environment variables in your OS environment:
+    * `CS_SMTP_HOST`: SMTP host for sending notification emails
+    * `CS_CONFLUENCE_TOKEN`: Token for uploading carrier service master to Wiki
+<br/><br/>
+3. Update below directory paths in `site-packages/carrier_services/utils/config.toml` for directory location of data files and log files. For example:
+    ```
+    [environment]
+    directory.data = ""    # /home/user1/carrier_services/data"
+    directory.log = ""     # /home/user1/carrier_services/log"
+    ```
+    If left empty, <user_home>/carrier_services/data & <user_home>/carrier_services/log will be used: 
+
+## How to Use
+carrier-services is a console application, named `carrier_services`.
+
+    >>> python -m carrier_services
+
