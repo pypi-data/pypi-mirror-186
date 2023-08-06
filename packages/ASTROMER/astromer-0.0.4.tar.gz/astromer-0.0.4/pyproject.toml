@@ -1,0 +1,60 @@
+# pyproject.toml
+[tool.bumpver]
+current_version = "0.0.4"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
+"src/ASTROMER/__init__.py" = ["{version}"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ASTROMER"
+version = "0.0.4"
+description = "Creates light curves embeddings using ASTROMER"
+readme = "README.md"
+authors = [{ name = "Cristobal Donoso-Oliva", email = "cridonoso@inf.udec.cl" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11"
+]
+keywords = [
+  "ASTROMER",
+  "embbedings",
+  "transformers",
+  "astronomy",
+  "photometry",
+  "light curves",
+  "deep learning"]
+dependencies = [
+  'tensorflow>=2.6',
+  'numpy',
+  'pandas',
+  'tqdm',
+  'seaborn',
+  'scipy',
+]
+requires-python = ">=3.7, <3.11"
+
+[project.optional-dependencies]
+dev = ["pip-tools", "pytest", "bumpver"]
+
+[project.urls]
+Homepage = "https://github.com/astromer-science/python-library"
+
+# [project.scripts]
+# astromer_test = "ASTROMER.__main__:main"
