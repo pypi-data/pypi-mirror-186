@@ -1,0 +1,127 @@
+Metadata-Version: 2.1
+Name: srtranslator
+Version: 0.1.6
+Summary: Traslate a .SRT file using any custom translator
+Home-page: https://github.com/sinedie/SRTranslator
+Author: EAR
+Author-email: sinedie@protonmail.com
+License: FREE
+Keywords: python,srt,languages,translator,subtitles
+Platform: UNKNOWN
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: ansicon (==1.89.0)
+Requires-Dist: async-generator (==1.10)
+Requires-Dist: attrs (==22.2.0)
+Requires-Dist: beautifulsoup4 (==4.11.1)
+Requires-Dist: blessed (==1.19.1)
+Requires-Dist: certifi (==2022.12.7)
+Requires-Dist: cffi (==1.15.1)
+Requires-Dist: charset-normalizer (==2.1.1)
+Requires-Dist: colorama (==0.4.6)
+Requires-Dist: exceptiongroup (==1.1.0)
+Requires-Dist: free-proxy (==1.1.0)
+Requires-Dist: h11 (==0.14.0)
+Requires-Dist: idna (==3.4)
+Requires-Dist: inquirer (==3.1.1)
+Requires-Dist: jinxed (==1.2.0)
+Requires-Dist: lxml (==4.9.2)
+Requires-Dist: outcome (==1.2.0)
+Requires-Dist: pycparser (==2.21)
+Requires-Dist: PySocks (==1.7.1)
+Requires-Dist: python-editor (==1.0.4)
+Requires-Dist: pyuseragents (==1.0.5)
+Requires-Dist: readchar (==4.0.3)
+Requires-Dist: requests (==2.28.1)
+Requires-Dist: safeIO (==1.2)
+Requires-Dist: selenium (==4.7.2)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: sniffio (==1.3.0)
+Requires-Dist: sortedcontainers (==2.4.0)
+Requires-Dist: soupsieve (==2.3.2.post1)
+Requires-Dist: srt (==3.5.2)
+Requires-Dist: tqdm (==4.64.1)
+Requires-Dist: translatepy (==2.3)
+Requires-Dist: trio (==0.22.0)
+Requires-Dist: trio-websocket (==0.9.2)
+Requires-Dist: urllib3 (==1.26.13)
+Requires-Dist: wcwidth (==0.2.5)
+Requires-Dist: webdriverdownloader (==1.1.0.3)
+Requires-Dist: wsproto (==1.2.0)
+
+# SRTranslator
+
+## Install
+
+[PyPI](https://pypi.org/project/srtranslator/)
+
+```
+pip install srtranslator
+```
+
+## Usage from script
+
+Import stuff
+
+```
+from srtranslator import SrtFile
+from srtranslator.translators.deepl import DeeplTranslator
+from srtranslator.translators.translatepy import TranslatePy
+```
+
+Initialize translator. It can be any translator, even your own, check the docs, there are instructions per translator and how to create your own.
+
+```
+translator = DeeplTranslator() # or TranslatePy()
+```
+
+Load, translate and save. For multiple recursive files in folder, check `examples folder`
+
+```
+filepath = "./filepath/to/srt"
+srt = SrtFile(filepath)
+srt.translate(translator, "en", "es")
+
+# Making the result subtitles prettier
+srt.wrap_lines()
+
+srt.save(f"{os.path.splitext(filepath)[0]}_translated.srt")
+```
+
+Quit translator
+
+```
+translator.quit()
+```
+
+## Usage command line
+
+```
+python -m srtranslator ./filepath/to/srt -i SRC_LANG -o DEST_LANG
+```
+
+## Advanced usage
+
+```
+usage: __main__.py [-h] [-i SRC_LANG] [-o DEST_LANG] [-v] [-vv] [-s] [-w WRAP_LIMIT] path
+
+Translate an .STR file
+
+positional arguments:
+  path                  File to translate
+
+options:
+  -h, --help            show this help message and exit
+  -i SRC_LANG, --src-lang SRC_LANG
+                        Source language. Default: auto
+  -o DEST_LANG, --dest-lang DEST_LANG
+                        Destination language. Default: es (spanish)
+  -v, --verbose         Increase output verbosity
+  -vv, --debug          Increase output verbosity for debugging
+  -s, --show-browser    Show browser window
+  -w WRAP_LIMIT, --wrap-limit WRAP_LIMIT
+                        Number of characters -including spaces- to wrap a line of text. Default: 50
+```
+
+
