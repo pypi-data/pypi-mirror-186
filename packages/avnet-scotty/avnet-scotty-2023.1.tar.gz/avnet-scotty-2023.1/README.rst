@@ -1,0 +1,250 @@
+***************
+The Scotty tool
+***************
+
+Scotty
+======
+
+``SimpleCore open technology tool for you`` or short ``Scotty`` is a tool used to
+operate with the SimpleCore BSP, helping to download sources and build BSP images. It
+relies on docker to provide a reproducible build environment.
+
+``Scotty`` can either be used as a single command to build a full image or as a
+helper to setup Yocto sources and open a shell with a Yocto environment.
+
+Getting started
+---------------
+
+The scotty tool relies on a docker container to embed as much as possible the
+software dependencies it relies on. As a consequence, you will need to make sure
+to install `Docker<https://www.docker.com/>` on your system and make sure your
+user has rights to use docker.
+The scotty tool also needs `OpenSSL<https://www.openssl.org/>` to function properly.
+
+On Ubuntu 20.04 platforms, they can be installed with following commands::
+
+    $ sudo apt install docker.io openssl
+    $ sudo gpasswd -a ${USER} docker
+
+In addition, if you plan to use QEMU images, it is advised to make sure the
+current user is able to use `KVM <https://www.linux-kvm.org/page/Main_Page>`_,
+having write permissions to ``/dev/kvm``. On Ubuntu 20.04, this can be done by
+adding your user to the ``kvm`` group, with the following command::
+
+    $ sudo gpasswd -a ${USER} kvm
+
+.. note::
+    After adding your user to the docker or kvm group with the ``gpasswd``
+    command, you will need to open a new session to apply your new privileges.
+
+Installing the scotty tool can be easily done with ``pip``
+
+.. code:: shell
+
+  pip install --user avnet-scotty
+
+upgrading an existing installation can be done with
+
+.. code:: shell
+
+  pip install --user --upgrade avnet-scotty
+
+
+Alternatively, the current development version can be obtained by cloning
+`<https://github.com/avnet-embedded/simplecore-tools>`_.
+
+.. note:: Remove the following paragraph once the BSP is open-sourced.
+
+To allow ``scotty`` to download the associated docker image, you will need to run
+a docker login command, as documented on
+`<https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry>`_
+
+
+Scotty subcommands
+------------------
+
+Several commands are supported by Scotty, with different goals:
+  - ``update``: download or update the Yocto sources. Will be triggered
+    implicitly with default parameters if no sources are found.
+  - ``setup``: Setup the build directory. Will be triggered implicitly with
+    default parameters if the build directory has not been setup.
+  - ``bitbake``: Build a Yocto target.
+  - ``shell``: Run a shell in the Yocto build environment.
+  - ``command``: Run a command in the Yocto build environment.
+  - ``docker-update``: Update Scotty build container.
+
+Building a full image
+---------------------
+
+A single command is enough to download the sources and build an image:
+
+.. code-block:: bash
+
+   $ scotty bitbake core-image-minimal
+
+Built images can then be found in ``build/build/tmp/deploy/images/``.
+
+The build target can be customized:
+
+.. code-block:: bash
+
+   $ scotty bitbake core-image-minimal
+   $ scotty bitbake -- core-image-minimal -c populate_sdk
+
+Using Scotty as a helper
+------------------------
+
+``Scotty`` can be used to open a shell with a sourced Yocto environment:
+
+.. code-block:: bash
+
+   $ scotty shell
+
+It can also be used to run a single command without opening a shell:
+
+.. code-block:: bash
+
+   # This is equivalent to scotty bitbake core-image-minimal
+   $ scotty command bitbake core-image-minimal
+
+   $ scotty command bitbake-layers show-appends
+
+Updating sources
+----------------
+
+Scotty will not modify downloaded sources by itself after the initial setup.
+Building an image with up-to-date sources can be done using following commands:
+
+.. code-block:: bash
+
+   $ scotty update
+   $ scotty bitbake core-image-minimal
+
+Advanced configuration
+----------------------
+
+Scotty can be used to download extra sources, add additional layers or tweak the
+configuration.
+
+Supported update arguments
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+- ``--manifest-branch``: Set repo branch used for repo init.
+- ``--manifest-url``: Set repo url used for repo init.
+- ``--manifest-name``: Set repo manifest used for repo init.
+- ``--extra-download``: Add an extra git to download. If this is a layer, it can
+  then be used in setup with ``--extra-layer``.
+
+Supported setup arguments
+^^^^^^^^^^^^^^^^^^^^^^^^^
+- ``--build-dir``: Set build subdirectory, subdirectory of ``build``. Can be
+  used to have different builds in the same ``build`` folder.
+- ``--machine-dir``: specify the directories where scotty should look for
+  supported machines.
+- ``--extra-layer``: Add an extra local layer.
+- ``--extra-conf``: Add an extra configuration entry in local.conf.
+- ``--extra-env``: Pass on additional environment variables.
+- ``--sstate-mirrors``: Do use any sstate mirror (default = false).
+- ``--features-layers-set``: The set of Avnet Embedded extra layers to use.
+  Supported values are:
+  - ``bsp``: Only BSP related layers.
+  - ``distro``: BSP and distro related layers.
+  - ``examples``: All above layers and example layers.
+  - ``simpleswitch``: BSP, distro and simpleswitch related layers.
+  - ``simpleswitch_examples``: All above layers and example layers.
+- ``--machine-dir``: specify the directories where scotty should look for
+  supported machines.
+
+Supported bitbake, shell and command arguments
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- ``--build-dir``: Set build subdirectory, subdirectory of ``build``. Can be
+  used to have different builds in the same ``build`` folder.
+
+Scripting configuration
+-----------------------
+
+It might be useful to skip the configuration menu, so Scotty can be used in a
+scripted way. To help with this, most configuration can be set either through
+arguments or environment variables.
+
+Supported arguments
+^^^^^^^^^^^^^^^^^^^
+
+The ``--features-layers-set`` of the ``setup`` subcommand can be used to bypass
+layer sets selection.
+
+
+Supported environment variables
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- ``DISTRO``: Can be used to select the Yocto distro and skip selection menu.
+- ``MACHINE``: Can be used to select the Yocto machine and skip selection menu.
+- ``ACCEPT_FSL_EULA``: Can be used to set the Freescale/NXP EULA status and skip
+  selection menu if applicable).
+- ``LICENSE_FLAGS_ACCEPTED``: Can be use to allow e.g. commercial licenses in the resulting images.
+- ``UBOOT_ENV_VARS``: Can be use to prepopulate the used u-boot environment (expects a key value list, separated by new lines). To disable pass " "
+
+Example
+^^^^^^^
+
+.. code-block:: bash
+
+   $ export ACCEPT_FSL_EULA=1
+   $ export LICENSE_FLAGS_ACCEPTED=commercial
+   $ DISTRO=simplecore-distro MACHINE=sm2s-imx8plus scotty setup --features-layers-set distro
+   $ scotty bitbake core-image-minimal
+
+In addition, it is possible to tweak Scotty behaviour using the environment:
+
+- ``SCOTTY_WHITELIST``: The list of host environment variables exposed in Yocto
+  environment.
+- ``DOCKER_EXTRA_ARGS``: Additional parameters for docker.
+
+Example
+
+.. code-block:: bash
+
+   $ export DOCKER_EXTRA_ARGS="-v /home/downloads:/home/scotty/build/downloads -v /home/sstate-cache:/home/scotty/build/sstate-cache"
+   $ scotty bitbake core-image-minimal
+
+
+Using Scotty on Windows
+-----------------------
+
+Scotty has been tested on Windows with WSL2 and `Docker Desktop`_.  It is not
+possible to build in a Windows NTFS partition, and you need to build it in an
+EXT partition (for example, in your WSL2 home directory).
+
+Building on Windows WSL2+Docker is as fast as building on Linux.  However,
+Windows can become quite unresponsive:
+
+* The task manager can stop refreshing,
+* The terminal may not refresh often,
+* Shortcuts like ``Win+R`` and ``Ctrl+Alt+Del`` can trigger several seconds
+  late.
+
+.. _Docker Desktop: https://docs.docker.com/docker-for-windows/install/
+
+Using Scotty without Docker
+---------------------------
+
+If needed, Scotty can be used without docker. In this case, you are in charge of
+providing a fully configured environment. This can be done by setting the
+``SCOTTY_USE_DOCKER`` environment variable::
+
+    $ SCOTTY_USE_DOCKER=0 scotty bitbake core-image-minimal
+
+Scotty Runqemu
+==============
+
+``Scotty Runqemu`` is an additional tool allowing to start QEMU to run a QEMU targeted build.
+
+Runqemu Example
+---------------
+
+.. code-block:: bash
+
+   $ export DISTRO=simplecore-distro MACHINE=qemux86-64
+   $ scotty setup --features-layers-set examples
+   $ scotty bitbake simplecore-weston-demo-image
+   $ scotty-runqemu simplecore-weston-demo-image
