@@ -1,0 +1,11 @@
+build:
+    context: {{ aux.docker.project_dir }}
+    dockerfile: devops/docker/{{ opts.full_name }}.dockerfile
+    cache_from:
+    - {{ opts.full_name }}
+    {%- if opts.get("pip_cred_vars",[]) | length or set_args %}
+    args:
+        {% for cred in opts.get("pip_cred_vars",[]) -%}
+            {{ cred }}: ${{ cred }}
+        {% endfor -%}
+    {%- endif %}

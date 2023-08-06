@@ -1,0 +1,8 @@
+{% if opts.script -%}
+# extra script
+RUN {% for line in opts.script -%}
+{{line}}{% if line == opts.script[-1] %}
+{% else %} \
+    && {%endif-%}
+{% endfor %}
+{% endif %}

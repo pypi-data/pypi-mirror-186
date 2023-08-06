@@ -1,0 +1,10 @@
+# pylint: disable=invalid-name, redefined-builtin, undefined-variable
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).resolve().parent{% for part in aux.docs.root.split("/") %}{% if part != "." %}.parent{% endif %}{% endfor %} / "devops/docs"))
+
+# pylint: disable=import-error
+from default_conf import *  # type: ignore # nopycln: import
+
+# use: intersphinx_mapping["my_module"] = download_from_artefact ... or ... from_meta (see default_conf)

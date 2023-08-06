@@ -1,0 +1,11 @@
+version: '3.6'
+{% import "macros.jinja2" as x %}
+services:
+    {{ opts.full_name }}:
+        {{ x.include_docker_build(aux, opts) }}
+        {{ x.include_platform(aux) }}
+        image: {{ opts.full_name }}
+        volumes:
+            - {{ aux.docker.project_dir }}:/home/container/workdir:rw
+        working_dir: /home/container/workdir
+        command: [pre-commit, run, --config=devops/pre-commit/config.yaml, --from-ref, HEAD~1, --to-ref, HEAD]

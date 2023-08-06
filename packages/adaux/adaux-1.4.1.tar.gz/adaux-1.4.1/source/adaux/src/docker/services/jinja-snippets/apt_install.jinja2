@@ -1,0 +1,8 @@
+{% if opts.apt_req -%}
+RUN apt-get update && apt-get install -y \
+    {% for pkg in opts.apt_req -%}
+        {{ pkg }} \
+    {% endfor -%}
+    --no-install-recommends && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+{% endif -%}

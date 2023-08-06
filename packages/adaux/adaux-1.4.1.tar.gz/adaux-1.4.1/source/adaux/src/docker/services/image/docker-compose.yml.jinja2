@@ -1,0 +1,14 @@
+version: '3.6'
+{% import "macros.jinja2" as x %}
+services:
+    {{ opts.full_name }}:
+        {{ x.include_docker_build(aux, opts) }}
+        {{ x.include_platform(aux) }}
+        image: {{ opts.full_name }}
+        {% if opts.get("mode") == "django" %}
+        ports:
+            - 80:8000
+        {% elif opts.get("mode") == "django+nginx" %}
+        ports:
+            - 8004:8004
+        {% endif %}

@@ -1,0 +1,18 @@
+version: '3.6'
+services:
+    {{ opts.full_name }}:
+        image: registry.gitlab.com/gitlab-org/release-cli:latest
+        command: [
+            release-cli,
+            --server-url, $CI_SERVER_URL,
+            --job-token, $CI_JOB_TOKEN,
+            --project-id, $CI_PROJECT_ID,
+            create,
+            --name, "Release ${RELEASE_TAG:-}",
+            --tag-name, "${RELEASE_TAG:-}",
+            --description, "${RELEASE_DESCRIPTION:-}",
+            {% for asset in opts.assets %}
+            --assets-link, "{{ asset }}",
+            {% endfor %}
+            --ref, $CI_COMMIT_SHA
+        ]
