@@ -1,0 +1,204 @@
+#+TITLE: [[https://thespianpy.com][@@html:<img src="thesplogo2.png" alt="Thespian" width="50%" style="inline" />@@]] Developer's Notes
+#+AUTHOR: Kevin Quick <quick@sparq.org>
+#+SETUPFILE: theme.setup
+#+HTML_HEAD: <link href="https://fonts.googleapis.com/css?family=Actor" rel="stylesheet">
+#+HTML_HEAD: <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+#+HTML_HEAD: <link href="thespian.css" rel="stylesheet" type="text/css"/>
+#+HTML_HEAD: <link href="thespian_developer.css" rel="stylesheet" type="text/css"/>
+#+LATEX_CLASS: thespian
+# #+LATEX_CLASS_OPTIONS: [a4paper]
+#+LATEX_HEADER: \product{Thespian}
+#+LATEX_HEADER: \component{Python Actor System}
+#+LATEX_HEADER: \doctype{Developer's Notes}
+#+LATEX_HEADER: \docrev{1.2}{2015 Sep 05}
+#+LATEX_HEADER: \docid{TheDoc-03}
+#+OPTIONS: ^:nil auto-id:t
+
+* Source
+  :PROPERTIES:
+  :CUSTOM_ID: hH-851aafed-d085-49ed-b189-3bfd90a8e573
+  :END:
+
+** Availability
+   :PROPERTIES:
+   :CUSTOM_ID: hH-273880cf-f38b-40bd-8ea0-95d03d668b29
+   :END:
+
+    Source code for Thespian is available at
+    https://github.com/kquick/Thespian under the MIT license.
+
+** Documentation
+   :PROPERTIES:
+   :CUSTOM_ID: hH-9ebe8005-1460-4634-bead-237826702ea2
+   :END:
+
+    Thespian documentation is maintained in the source tree under the
+    ~doc/~ directory.  Documentation is written in Emacs orgmode,
+    which allows export as PDF, HTML, text, and other formats.
+
+    HTML output uses the ~htmlize~ package for syntax coloring, and
+    the ~bigblow~ theme from Fabrice Niessen at
+    https://github.com/fniessen/org-html-themes.
+
+    Documentation should be generated using the ~doc/gen_html.sh~ or
+    ~doc/gen_pdf.sh~ bash script and specifying the source file for
+    the document to be generated; the results are generated in the
+    same ~doc/~ directory.
+
+#+BEGIN_EXAMPLE
+$ bash doc/gen_html.sh doc/using.org
+#+END_EXAMPLE
+
+** Issues
+   :PROPERTIES:
+   :CUSTOM_ID: hH-e9695953-86ef-420c-a33a-4a0db2455a04
+   :END:
+
+    Any issues should be posted via the [[https://github.com/kquick/Thespian][main Thespian github page]].
+
+** Contributions
+   :PROPERTIES:
+   :CUSTOM_ID: hH-a0f114cf-cfc2-4ae6-a852-a4db84986f57
+   :END:
+
+    Contributions (both source and documentation) should be in the
+    form of pull requests.  Contributions will not be accepted until
+    the contributor has agreed to the contributor's agreement.
+    Thespian uses the [[https://cla-assistant.io][cla-assistant.io]] which will automatically check
+    to see if a contributor has click-signed the contributor's
+    agreement; as a contributor you will automatically be given a link
+    to sign the agreement when you make your contribution.
+
+* Testing
+  :PROPERTIES:
+  :CUSTOM_ID: hH-701a67c8-8882-49ff-928c-14ae0b663cbf
+  :END:
+
+** Approach
+   :PROPERTIES:
+   :CUSTOM_ID: hH-1c7bb213-1e22-455e-b767-c9a6a1a5cd68
+   :END:
+
+  While there are some Thespian tests that use mocking to reduce the
+  effects of external elements, the main focus of Thespian testing is
+  *functional* testing to make sure that the ActorSystem is providing
+  proper functionality for the Actors that will be running.  Writing
+  mock'ed unit tests for Thespian is still a welcome contribution, we
+  have just focused our primary efforts on the functional tests.
+
+  This functional approach means that the tests will actually create
+  threads or processes (depending on the systembase) and that all
+  systembases are tested on the same set of tests.
+
+** Test Duration
+   :PROPERTIES:
+   :CUSTOM_ID: hH-f099ef66-5ab1-45d7-a700-b065f885ca75
+   :END:
+
+  Because of the approach above running the tests can take some time.
+  Test can even can hang if there is bad code or if system resources
+  become exhausted (e.g. no more sockets available), and there can be
+  spurious effects from the real world (e.g. timing failures if the
+  local system is excessively busy).
+
+  Every effort is made to have tests run quickly and reliably, but
+  validating functionality is the most important goal.
+
+  As of Thespian 3.7.0, the full test suite duration is approximately
+  1500 seconds.
+
+** Testing System Bases
+   :PROPERTIES:
+   :CUSTOM_ID: hH-1dfd22a5-0c88-4d8e-8e0d-5383a503678a
+   :END:
+
+  Because all systembases are tested, it is necessary to accomodate
+  the differences between those system bases.  For most Actors, there
+  should be no difference between systembases and they should be
+  unaware of which one is running, but it is not practical for all
+  systembases to support all features; the administrator starting the
+  ActorSystem is responsible for starting a system appropriate to the
+  task and Actors at hand.
+
+  Some of the system bases do not support some features (as detailed
+  [[https://thespianpy.com/doc/using.html#hH-2a5fa63d-e6eb-43b9-bea8-47223b27544e][here in the Using Thespian guide]]) and so there are inputs provided
+  to the tests to indicate which are viable and/or stable.  More on
+  this in the Running Tests section below.
+
+** Running Tests
+   :PROPERTIES:
+   :CUSTOM_ID: hH-a992a85a-623f-47c8-a810-deefcb82a521
+   :END:
+
+  Tests are written to fairly conventional Python unittest standards
+  without relying on plugins.  Tests are normally run via the pytest
+  package (run via ~$ py.test~), and the latter provides various
+  testing controls.
+
+  For simple, direct runs of specific tests, direct nose invocation of
+  those tests is usually sufficient:
+
+#+BEGIN_EXAMPLE
+$ py.test thespian/test/testSimpleActor.py::TestASimpleSystem
+#+END_EXAMPLE
+
+  As discussed above, all system bases are tested (by default) so the
+  ~simpleSystemBase~ is usually covered by the ~TestASimpleSystem~
+  testcase so that it is tested before any of the more complex system
+  bases (due to alphabetically appearing first).
+
+  The viability and focus of individual testcases is specified using
+  methods from the ~thespian/test/__init__.py~ file:
+
+  * unstable_test ::
+
+     Specifies that the test is unstable for the specified base and
+     should be skipped. The features tested may usually work, but are
+     not reliably supported by the underlying base (e.g. the UDP
+     transport does not provide delivery guarantees, so hi-traffic
+     tests are marked with ~unstable_test("multiprocUDPBase")~
+
+     #+BEGIN_EXAMPLE
+     unstable_test(asys, basename[, ...])
+     #+END_EXAMPLE
+
+  * actor_system_unsupported ::
+
+     Specifies that the functionality being tested is not supported by
+     this particular system base and the test should be skipped for
+     the indicated base(s).
+
+     #+BEGIN_EXAMPLE
+     actor_system_unsupported(asys, basename [,...])
+     #+END_EXAMPLE
+
+
+  When running the tests from the command line, the normal
+  pytest-based commands can be used, with optional attribute
+  specifiers to identify tests, categories ("Func" or "Unit"), and
+  system bases.  For example, to run all unit tests:
+
+#+BEGIN_EXAMPLE
+$ py.test -k Unit
+#+END_EXAMPLE
+
+The above is saved in ~scripts/run_unit_tests.sh~ for convenient
+re-use.  In addition, the ~scripts/run_main_functional_tests.sh~ file
+contains the following specification which is used to run all the
+stable functional tests for the standard set of testbases:
+
+#+BEGIN_EXAMPLE
+$ py.test -k Func
+#+END_EXAMPLE
+
+** Writing Tests
+   :PROPERTIES:
+   :CUSTOM_ID: hH-bf031295-256d-471e-922a-808a77c3fbec
+   :END:
+
+When writing tests for Thespian, there is an ~asys~ fixture for pytest
+that provides an initialized ActorSystem for each system base.
+Writing the test to accept ~asys~ as a parameter will cause pytest to
+run the test once for each system base type.
+
+# KWQ: talk about thespianshell
