@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tabmark"
+version = "0.0.3"
+authors = [
+  { name="Matthias Jakobs", email="matthias.jakobs@tu-dortmund.de" },
+]
+description = "A tabular dataset benchmark compatible with PyTorch"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "numpy",
+  "scikit-learn",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/MatthiasJakobs/tabmark"
