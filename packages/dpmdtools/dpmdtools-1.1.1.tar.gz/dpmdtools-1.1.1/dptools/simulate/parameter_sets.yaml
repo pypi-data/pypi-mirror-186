@@ -1,0 +1,76 @@
+spe:
+  type: spe
+opt:
+  type: opt
+  nsw: 500
+  ftol: 0.01
+  etol: 0.0
+  disp_freq: 10
+cellopt:
+  type: cellopt
+  nsw: 500
+  ftol: 0.01
+  etol: 0.0
+  opt_type: aniso
+  Ptarget: 0.0
+  disp_freq: 10
+nvt-md:
+  type: nvt-md
+  steps: 10000
+  timestep: 0.5
+  Ti: 298.0
+  Tf: 298.0
+  equil_steps: 1000
+  write_freq: 100
+  disp_freq: 100
+  pre_opt: false
+npt-md:
+  type: npt-md
+  steps: 10000
+  timestep: 0.5
+  Pi: 0.0
+  Pf: 0.0
+  Ti: 298.0
+  Tf: 298.0
+  equil_steps: 1000
+  write_freq: 100
+  disp_freq: 100
+  pre_opt: false
+eos:
+  type: eos
+  nsw: 500
+  N: 5
+  lo: 0.96
+  hi: 1.04
+  ftol: 0.01
+  etol: 0.0
+  disp_freq: 100
+  pre_opt: true
+vib:
+  type: vib
+  delta: 0.015
+  pre_opt: true
+gcmc:
+  type: gcmc
+  molecule: H2O
+  steps: 100
+  n_ex: 10
+  n_mc: 10
+  T: 298.0
+  P: 0.1
+  dmax: 1.0
+  equil_steps: 0
+  write_freq: 1
+  disp_freq: 5
+  pre_opt: false
+  pre_opt_mol: false
+nvt-md.900K:
+  type: nvt-md.900K
+  steps: 10000
+  timestep: 0.5
+  Ti: 900.0
+  Tf: 900.0
+  equil_steps: 1000
+  write_freq: 100
+  disp_freq: 100
+  pre_opt: false
