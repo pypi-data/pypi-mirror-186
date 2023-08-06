@@ -1,0 +1,10 @@
+{{ format.bold("Connect to Modelbit:") }}
+
+To authenticate this kernel, open: {{ linkUrl }}
+
+Learn More: https://doc.modelbit.com/
+{% include 'pip-upgrade.txt.j2'%}
+
+{%if isIPython %}
+Hi from IPython
+{% endif %}

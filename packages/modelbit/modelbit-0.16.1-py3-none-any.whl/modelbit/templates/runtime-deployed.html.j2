@@ -1,0 +1,17 @@
+<div style="{{ styles.container }}">
+  <div style="{{ styles.headerSuccess }}">Success!</div>
+  {% if deployTimeWords %}
+    <div style="{{ styles.base }}">
+      Deployment <span style="{{ styles.code }}">{{ deploymentName }}</span>
+      will be ready in {{ deployTimeWords }}
+    </div>
+  {% else %}
+    {% if deployMessage %}
+      <div style="{{ styles.base }}">{{ deployMessage }}</div>
+    {% endif %}
+  {% endif %}
+
+  <a style="{{ styles.link }}" href="{{ runtimeOverviewUrl }}" target="_blank">
+    View status and integration options.
+  </a>
+</div>
