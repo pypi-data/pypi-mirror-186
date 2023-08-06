@@ -1,0 +1,87 @@
+[tool.poetry]
+name = "brasil-data"
+packages = [
+    {include = "brdata"}
+]
+version = "v0.12.3"
+description = "Fontes de dados do mercado financeiro brasileiro"
+authors = ["Gabriel Guarisa <gabrielguarisa@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/gabrielguarisa/brdata"
+homepage = "https://github.com/gabrielguarisa/brdata"
+keywords = ["data", "dados", "brasil", "br", "brazil", "finance", "financeiro", "mercado"]
+
+[tool.poetry.dependencies]
+python = ">= 3.8, < 3.11"
+importlib_metadata = {version = "^4.5.0", python = "<3.8"}
+beautifulsoup4 = "^4.10.0"
+random-user-agent = "^1.0.1"
+cachier = "^1.5.3"
+appdirs = "^1.4.4"
+requests = "^2.23.0"
+xlrd = "^2.0.1"
+lxml = "^4.6.4"
+html5lib = "^1.1"
+pandas = "^1.5.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+pytest-cov = "^3.0.0"
+black = "^22.6.0"
+isort = "^5.10.1"
+
+[tool.black]
+# https://github.com/psf/black
+target-version = ["py37"]
+line-length = 88
+color = true
+
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | env
+    | venv
+)/
+'''
+
+[tool.isort]
+# https://github.com/timothycrosley/isort/
+py_version = 37
+line_length = 88
+
+known_typing = [
+  "typing",
+  "types",
+  "typing_extensions",
+  "mypy",
+  "mypy_extensions",
+]
+sections = [
+  "FUTURE",
+  "TYPING",
+  "STDLIB",
+  "THIRDPARTY",
+  "FIRSTPARTY",
+  "LOCALFOLDER",
+]
+include_trailing_comma = true
+profile = "black"
+multi_line_output = 3
+indent = 4
+color_output = true
+
+[tool.pytest.ini_options]
+addopts = "-p no:warnings --cov-report term-missing --cov=brdata"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
