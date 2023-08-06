@@ -1,0 +1,37 @@
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lost_cat_office"
+version = "0.0.1"
+authors = [
+  { name="Dreffed aka David Gloyn-Cox", email="dreffed@gmail.com" },
+  { name="Thoughtswin Systems Inc", email="david.gloyn-cox@thoughtswinsystems.com" },
+]
+description = "Lost cat Office is a package containing office document parsers"
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "lost_cat",
+    "pillow",
+    "pymupdf",
+    "python-docx",
+    "docx2txt",
+]
+
+[tool.setuptools.packages.find]
+include = ["lost_cat_office*"]
+
+[project.urls]
+"Homepage" = "https://github.com/thoughtswinsystems/lost_cat_office"
+"Bug Tracker" = "https://github.com/thoughtswinsystems/lost_cat_office/issues"
