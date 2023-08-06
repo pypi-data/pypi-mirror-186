@@ -1,0 +1,90 @@
+Change Log
+==========
+
+0.0.1 (15/12/2022)
+-------------------
+- Beta release
+
+0.0.2 (16/12/2022)
+-------------------
+- Minor fixes in project's description and configuration
+
+0.1 (06/01/2023)
+-------------------
+- Package reorganization. The code is now organized in submodules: cli, gui, utilities and workers
+- Added __init__.py file to the package and its submodules
+- Added new classes: WebWorker and statistics
+- Cli.safe_numeric_input implemented
+- New components added to the module guiLayout (GUIButton, GUIInput, GUITextbox, GUITable, GUIHyperlink, GUIImage)
+- The class cli.PromptForm has known bugs that will be fixed in the next patch
+- gui.guiLayout and workers.desktopWorker are being refactored due to circular dependencies
+- Minor fixes in project's description and documentation
+
+0.1.1 (07/01/2023)
+-------------------
+- cli.safe_list_input implemented
+- Fixed bugs in the component cli.PromptForm
+
+0.1.2 (07/01/2023)
+-------------------
+- Bug fixed in the component cli.Menu.add_entries() that did not allowed to pass a plain string list as a parameter
+
+0.1.3 (07/01/2023)
+-------------------
+- Bug fixed in the component cli.Menu.add_entries() that did not allowed to process lists of custom objects
+
+0.2 (09/01/2023)
+-------------------
+- Added utils.get_df_rows(). It retrieves a list of rows from a Pandas dataframe given their indexes
+
+0.2.1 (09/01/2022)
+-------------------
+- New fields in class cli.Menu: title and description. They provide some contextual info about the menu
+
+0.2.2 (09/01/2022)
+-------------------
+- Fixed a bug in the component cli.Menu.__init__() that forced all `MenuEntries.values` to be strings instead of objects
+
+0.2.3 (09/01/2022)
+-------------------
+- Fixed a bug in the component `cli.Menu.open` that duplicated the custom option entry
+- Updated `cli.selectable_list`. Dictionaries are now printed like tables for better reading (see utils.dict_to_table())
+- New function `cli.continue_or_exit`. Allows the user to continue or stop the execution immediately
+- New module: `utilities.dataframe`. Auxiliary functions to work with pandas dataframes
+
+0.2.4 (11/01/2022)
+-------------------
+- Fixed a bug in the component `cli.selectable_list` that did not use options' indexes correctly
+
+0.2.5 (11/01/2022)
+-------------------
+- Fixed a bug in the component `cli.selectable_list` that did not use options' indexes correctly
+
+0.2.6 (11/01/2022)
+-------------------
+- New component `utils.find_files`. Allows the user to search for files matching a regex within a folder
+- Updated 'utils.dict_to_table'. Now very large (overflowing) lines can be trimmed or wrapped
+
+0.2.7 (15/01/2022)
+-------------------
+- New functions `utils.assign_if_not_none`, `utils.split_list`, `utils.is_function` and `utils.chunk_filename`
+- New module: `utils.serializer`. Easy data serialization/deserialization. This version only implements JSON
+
+0.3.0 (16/01/2022)
+-------------------
+- Refactor `utils.chunk_file_name`. Function divided into 2: `utils.insert_str` and `utils.append_to_filename`
+    - `utils.insert_str` allows to insert any string in another string
+    - `utils.append_to_filename` ( based on `insert_str`) allows to insert any string into a filename,
+        keeping file extension and file path
+- New functions
+    - `utils.cast_list`
+- Code reorganization
+    - New subpackage `klsframe.system`. Interface with the system and the cmd
+    - New subpackage `klsframe.protypes`. Wrappers and enhanced functions for builtins types and collections
+    - Most functions from `utils` have been distributed among `protypes` modules
+- Beta version of switch statement (module `system`)
+
+0.3.1 (18/01/2022)
+-------------------
+- New class `dataframe.DataFrameCollection` will multiple functions. Check the docs for more information
+- New functions: `klist.list_wrap`, `dataframe.multi_merge`, `dataframe.group_and_count`
