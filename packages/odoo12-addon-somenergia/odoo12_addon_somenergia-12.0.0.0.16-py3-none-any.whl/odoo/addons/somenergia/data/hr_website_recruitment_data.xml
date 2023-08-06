@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- redirect hr recruitment_form -->
+        <record id="website_redirect_jobs_apply_rgpd" model="website.redirect">
+            <field name="type">301</field>
+            <field name="url_from">/jobs/apply/rgpd</field>
+            <field name="url_to">https://rgpd.lant-abogados.com/ExternalClausulesTreballador?codiClient=MDAyODM0&amp;idRegistre=Njc2&amp;secure=264200.0&amp;idioma=1&amp;firmar=1</field>
+            <field name="website_id" ref="website.default_website" />
+            <field name="active">True</field> 
+        </record>
+    </data>
+</odoo>

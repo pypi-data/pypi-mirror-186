@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="crm_case_form_view_job" model="ir.ui.view" >
+            <field name="name">Jobs - Recruitment Form</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_name']/.." position="replace">
+                    <div class="oe_edit_only">
+                            <label for="lastname" />
+                            <field name="lastname" attrs=
+                            "{'required': [('firstname', '=', False)]}"/>
+                    </div>
+                    <div class="oe_edit_only">
+                            <label for="firstname"/>
+                            <field name="firstname" attrs=
+                            "{'required': [('lastname', '=', False)]}"/>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='name']/.." position="after">
+                    <h1><field name="partner_name" readonly="True" /></h1>
+                </xpath>
+                <xpath expr="//field[@name='reference']" position="after">
+                    <field name="gender"/>
+                </xpath>
+                <xpath expr="//field[@name='description']" position="replace">
+                    <group>
+                    <field name="description"/>
+                    <field name="url_motivation_letter" widget="url"/>
+                    <field name="url_cv_doc" widget="url"/>
+                    <field name="able_to_work_in_girona" widget="selection"/>
+                    <field name="experience_years" widget="selection"/>
+                    <field name="self_management_experience"/>
+                    <field name="eco_feminism_experience"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

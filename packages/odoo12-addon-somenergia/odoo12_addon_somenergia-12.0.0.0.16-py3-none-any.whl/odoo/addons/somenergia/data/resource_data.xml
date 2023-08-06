@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="resource_calendar_som_40h_partida" model="resource.calendar">
+            <field name="name">SOM 40 Hores partida</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="hours_per_day">8.0</field>
+            <field name="attendance_ids"
+                eval="[
+                    (0, 0, {'name': 'Dilluns matí', 'dayofweek': '0', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dilluns tarda', 'dayofweek': '0', 'hour_from': 14, 'hour_to': 17, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Dimarts matí', 'dayofweek': '1', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimarts tarda', 'dayofweek': '1', 'hour_from': 14, 'hour_to': 17, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Dimecres matí', 'dayofweek': '2', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimecres tarda', 'dayofweek': '2', 'hour_from': 14, 'hour_to': 17, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Dijous matí', 'dayofweek': '3', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dijous tarda', 'dayofweek': '3', 'hour_from': 14, 'hour_to': 17, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Divendres matí', 'dayofweek': '4', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Divendres tarda', 'dayofweek': '4', 'hour_from': 14, 'hour_to': 17, 'day_period': 'afternoon'})
+                ]"
+            />
+        </record>
+        <record id="resource_calendar_som_32h_dll_div" model="resource.calendar">
+            <field name="name">SOM 32 Hores Dll-Dij</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="hours_per_day">8.0</field>
+            <field name="attendance_ids"
+                eval="[
+                    (0, 0, {'name': 'Dilluns matí', 'dayofweek': '0', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dilluns tarda', 'dayofweek': '0', 'hour_from': 14, 'hour_to': 17, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Dimarts matí', 'dayofweek': '1', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimarts tarda', 'dayofweek': '1', 'hour_from': 14, 'hour_to': 17, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Dimecres matí', 'dayofweek': '2', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimecres tarda', 'dayofweek': '2', 'hour_from': 14, 'hour_to': 17, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Dijous matí', 'dayofweek': '3', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dijous tarda', 'dayofweek': '3', 'hour_from': 14, 'hour_to': 17, 'day_period': 'afternoon'}),
+                ]"
+            />
+        </record>
+        <record id="resource_calendar_som_40h_intensiu" model="resource.calendar">
+            <field name="name">SOM 40 Hores intensiu</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="hours_per_day">8.0</field>
+            <field name="attendance_ids"
+                eval="[
+                    (0, 0, {'name': 'Dilluns', 'dayofweek': '0', 'hour_from': 7, 'hour_to': 15, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimarts', 'dayofweek': '1', 'hour_from': 7, 'hour_to': 15, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimecres', 'dayofweek': '2', 'hour_from': 7, 'hour_to': 15, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dijous', 'dayofweek': '3', 'hour_from': 7, 'hour_to': 15, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Divendres', 'dayofweek': '4', 'hour_from': 7, 'hour_to': 15, 'day_period': 'morning'}),
+                ]"
+            />
+        </record>
+        <record id="resource_calendar_som_35h" model="resource.calendar">
+            <field name="name">SOM 35 Hores partida</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="hours_per_day">7.0</field>
+            <field name="attendance_ids"
+                eval="[
+                    (0, 0, {'name': 'Dilluns matí', 'dayofweek': '0', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dilluns tarda', 'dayofweek': '0', 'hour_from': 14, 'hour_to': 16, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Dimarts matí', 'dayofweek': '1', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimarts tarda', 'dayofweek': '1', 'hour_from': 14, 'hour_to': 16, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Dimecres matí', 'dayofweek': '2', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimecres tarda', 'dayofweek': '2', 'hour_from': 14, 'hour_to': 16, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Dijous matí', 'dayofweek': '3', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dijous tarda', 'dayofweek': '3', 'hour_from': 14, 'hour_to': 16, 'day_period': 'afternoon'}),
+                    (0, 0, {'name': 'Divendres matí', 'dayofweek': '4', 'hour_from': 8, 'hour_to': 13, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Divendres tarda', 'dayofweek': '4', 'hour_from': 14, 'hour_to': 16, 'day_period': 'afternoon'})
+                ]"
+            />
+        </record>
+        <record id="resource_calendar_som_10h" model="resource.calendar">
+            <field name="name">SOM 10 Hores</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="hours_per_day">2.0</field>
+            <field name="attendance_ids"
+                eval="[
+                    (0, 0, {'name': 'Dilluns', 'dayofweek': '0', 'hour_from': 10, 'hour_to': 12, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimarts', 'dayofweek': '1', 'hour_from': 10, 'hour_to': 12, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimecres', 'dayofweek': '2', 'hour_from': 10, 'hour_to': 12, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dijous', 'dayofweek': '3', 'hour_from': 10, 'hour_to': 12, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Divendres', 'dayofweek': '4', 'hour_from': 10, 'hour_to': 12, 'day_period': 'morning'}),
+                ]"
+            />
+        </record>
+        <record id="resource_calendar_som_30h" model="resource.calendar">
+            <field name="name">SOM 30 Hores</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="hours_per_day">6.0</field>
+            <field name="attendance_ids"
+                eval="[
+                    (0, 0, {'name': 'Dilluns', 'dayofweek': '0', 'hour_from': 8, 'hour_to': 14, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimarts', 'dayofweek': '1', 'hour_from': 8, 'hour_to': 14, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimecres', 'dayofweek': '2', 'hour_from': 8, 'hour_to': 14, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dijous', 'dayofweek': '3', 'hour_from': 8, 'hour_to': 14, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Divendres', 'dayofweek': '4', 'hour_from': 8, 'hour_to': 14, 'day_period': 'morning'}),
+                ]"
+            />
+        </record>
+        <record id="resource_calendar_som_20h" model="resource.calendar">
+            <field name="name">SOM 20 Hores</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="hours_per_day">4.0</field>
+            <field name="attendance_ids"
+                eval="[
+                    (0, 0, {'name': 'Dilluns', 'dayofweek': '0', 'hour_from': 8, 'hour_to': 12, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimarts', 'dayofweek': '1', 'hour_from': 8, 'hour_to': 12, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dimecres', 'dayofweek': '2', 'hour_from': 8, 'hour_to': 12, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Dijous', 'dayofweek': '3', 'hour_from': 8, 'hour_to': 12, 'day_period': 'morning'}),
+                    (0, 0, {'name': 'Divendres', 'dayofweek': '4', 'hour_from': 8, 'hour_to': 12, 'day_period': 'morning'}),
+                ]"
+            />
+        </record>
+        <record id="resource_calendar_leaves_20210101" model="resource.calendar.leaves">
+            <field name="name">Inici d'any</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="date_from">2021-01-01</field>
+            <field name="date_to">2021-01-02</field>
+            <field name="time_type">leave</field>
+            <field name="calendar_id" ref="resource_calendar_som_35h"/>
+        </record>
+        <record id="resource_calendar_leaves_20210106" model="resource.calendar.leaves">
+            <field name="name">Reis</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="date_from">2021-01-06</field>
+            <field name="date_to">2021-01-07</field>
+            <field name="time_type">leave</field>
+            <field name="calendar_id" ref="resource_calendar_som_35h"/>
+        </record>
+        <record id="resource_calendar_leaves_20210501" model="resource.calendar.leaves">
+            <field name="name">Primer de maig</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="date_from">2021-05-01</field>
+            <field name="date_to">2021-05-02</field>
+            <field name="time_type">leave</field>
+            <field name="calendar_id" ref="resource_calendar_som_35h"/>
+        </record>
+    </data>
+</odoo>
+

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="apply_som" inherit_id="website_hr_recruitment.apply">
+
+        <xpath expr="//input[@type='file']/../.." position="replace"></xpath>
+        <xpath expr="//textarea[@name='description']/../.." position="replace"></xpath>
+
+        <xpath expr="//input[@name='partner_name']/../.." position="replace">
+            <div class="form-group row form-field o_website_form_required_custom" name="firstname_container">
+                <div class="col-lg-3 col-md-4 text-right">
+                    <label class="col-form-label" for="firstname">Your First Name</label>
+                </div>
+                <div class="col-lg-7 col-md-8">
+                    <input type="text" class="form-control o_website_form_input" name="firstname" required=""/>
+                </div>
+            </div>
+            <div class="form-group row form-field o_website_form_required_custom" name="lastname_container">
+                <div class="col-lg-3 col-md-4 text-right">
+                    <label class="col-form-label" for="lastname">Your Last Name</label>
+                </div>
+                <div class="col-lg-7 col-md-8">
+                    <input type="text" class="form-control o_website_form_input" name="lastname" required=""/>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//input[@name='partner_phone']/../.." position="replace">
+            <div class="form-group row form-field o_website_form_required_custom" name="mobile_phone_container">
+                <div class="col-lg-3 col-md-4 text-right">
+                    <label class="col-form-label" for="partner_mobile">Your Phone Number</label>
+                </div>
+                <div class="col-lg-7 col-md-8">
+                    <input type="text" class="form-control o_website_form_input" name="partner_mobile" required=""/>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//input[@name='partner_mobile']/../.." position="after">
+
+            <div class="form-group row form-field o_website_form_required_custom" name="url_motivation_letter_container">
+                <div class="col-lg-3 col-md-4 text-right">
+                    <label class="col-form-label" for="url_motivation_letter">Enllaça aquí la teva carta de motivació (utilitza enllaços que no caduquin, si us plau!)</label>
+                </div>
+                <div class="col-lg-7 col-md-8">
+                    <input type="text" class="form-control o_website_form_input" name="url_motivation_letter" 
+                    widget="url" required=""/>
+                </div>
+            </div>
+
+            <div class="form-group row form-field o_website_form_required_custom" name="url_cv_doc_container">
+                <div class="col-lg-3 col-md-4 text-right">
+                    <label class="col-form-label" for="url_cv_doc">Enllaça aquí el teu CV (utilitza enllaços que no caduquin, si us plau!)</label>
+                </div>
+                <div class="col-lg-7 col-md-8">
+                    <input type="text" class="form-control o_website_form_input" name="url_cv_doc" 
+                    widget="url"  required=""/>
+                </div>
+            </div>
+
+
+            <div class="form-group row form-field o_website_form_required_custom" name="able_to_work_in_girona_container">
+                <div class="col-lg-3 col-md-4 text-right">
+                    <label class="col-form-label" for="able_to_work_in_girona">Can you work in Girona?</label>
+                </div>
+                <div class="col-lg-7 col-md-8">
+                    <select
+                        class="form-control o_website_form_input"
+                        id="able_to_work_in_girona" name="able_to_work_in_girona"
+                        required="True"
+                    >
+                        <option value="">
+                            <t t-foreach="able_to_work_in_girona_options or []" t-as="type">
+                                <option
+                                    t-att-value="type[0]"
+                                    t-att-selected="type[0] == able_to_work_in_girona"
+                                >
+                                    <t t-esc="type[1]" />
+                                </option>
+                            </t>
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row form-field o_website_form_required_custom" name="experience_years_container">
+                <div class="col-lg-3 col-md-4 text-right">
+                    <label class="col-form-label" for="experience_years">Years of experience in this position</label>
+                </div>
+                <div class="col-lg-7 col-md-8">
+                    <select
+                        class="form-control o_website_form_input"
+                        id="experience_years" name="experience_years"
+                        required="True"
+                    >
+                        <option value="">
+                            <t t-foreach="experience_years_options or []" t-as="type">
+                                <option
+                                    t-att-value="type[0]"
+                                    t-att-selected="type[0] == experience_years"
+                                >
+                                    <t t-esc="type[1]" />
+                                </option>
+                            </t>
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row form-field o_website_form_required_custom" name="gender_container">
+                <div class="col-lg-3 col-md-4 text-right">
+                    <label class="col-form-label" for="gender">Your Gender</label>
+                </div>
+                <div class="col-lg-7 col-md-8">
+                    <select
+                        class="form-control o_website_form_input"
+                        id="gender" name="gender"
+                        required="True"
+                    >
+                        <option value="">
+                            <t t-foreach="genders or []" t-as="type">
+                                <option
+                                    t-att-value="type[0]"
+                                    t-att-selected="type[0] == gender"
+                                >
+                                    <t t-esc="type[1]" />
+                                </option>
+                            </t>
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row form-field o_website_form_required_custom">
+                    <div class="col-lg-3 col-md-4 text-right">
+                        <label class="col-form-label" for="description">Ens expliques, en menys de <t t-esc="size_contribution_text" /> caràcters, què creus que pots aportar a la cooperativa​ des d'aquesta posició​?</label>
+                    </div>
+                    <div class="col-lg-7 col-md-8">
+                        <textarea class="form-control o_website_form_input" name="description" 
+                        t-att-maxlength="size_contribution_text" required="True"></textarea>
+                    </div>
+            </div>
+            <div class="form-group row form-field o_website_form_required_custom">
+                    <div class="col-lg-3 col-md-4 text-right">
+                        <label class="col-form-label" for="self_management_experience">Has participat en espais autogestionats o de l'àmbit cooperatiu/associatiu? En cas afirmatiu, explica'ns breument la teva experiència</label>
+                    </div>
+                    <div class="col-lg-7 col-md-8">
+                        <textarea class="form-control o_website_form_input" name="self_management_experience" 
+                        t-att-maxlength="size_other_text" required="True"></textarea>
+                    </div>
+            </div>
+            <div class="form-group row form-field o_website_form_required_custom">
+                    <div class="col-lg-3 col-md-4 text-right">
+                        <label class="col-form-label" for="eco_feminism_experience">Tens coneixements i/o experiència en ecofeminisme? En cas afirmatiu, explica'ns breument la teva experiència</label>
+                    </div>
+                    <div class="col-lg-7 col-md-8">
+                        <textarea class="form-control o_website_form_input" name="eco_feminism_experience" 
+                        t-att-maxlength="size_other_text" required="True"></textarea>
+                    </div>
+            </div>
+          
+            <div class="form-group row form-field">
+                    <div class="col-lg-3 col-md-4 text-right">
+                        <p><b>Reglament General Protecció de Dades</b></p>
+                    </div>
+                    <div class="col-lg-7 col-md-8">
+                        <p>Per tal de participar en aquest procés de selecció, és imprescindible que segueixis aquest <a target="_blank" href="rgpd">enllaç</a> per revisar la clàusula de protecció de dades i que ens donis permís explícit per tractar les teves dades. Gràcies!</p>
+                    </div>
+            </div>
+        </xpath>
+
+    </template>
+</odoo>

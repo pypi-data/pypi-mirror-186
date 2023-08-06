@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_view_attendances">
+      <field name="groups_id" eval="[(6,0,[ref('hr.group_hr_user')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_manage_attendances">
+      <field name="groups_id" eval="[(6,0,[ref('hr.group_hr_user')])]"/>
+    </record>
+    <record model="ir.ui.view" id="view_attendance_tree_som">
+        <field name="name">hr.attendance.tree.inherit</field>
+        <field name="model">hr.attendance</field>
+		<field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+			<field name="check_out" position="after">
+				<field name="comments"/>
+			</field>
+		</field>
+        <field name="groups_id" eval="[(6,0,[ref('hr.group_hr_user')])]"/>
+    </record>
+    <record model="ir.ui.view" id="hr_attendance_view_form_som">
+        <field name="name">hr.attendance.form.inherit</field>
+        <field name="model">hr.attendance</field>
+		<field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+			<field name="check_out" position="after">
+				<field name="comments"/>
+			</field>
+		</field>
+    	<field name="groups_id" eval="[(6,0,[ref('hr.group_hr_user')])]"/>
+	</record>
+    <record id="hr_attendance.hr_attendance_action" model="ir.actions.act_window">
+	    <field name="domain">[('employee_id.user_id.id', '=', uid)]</field>
+        <field name="context">{'search_default_check_in_filter':1}</field>
+    </record>
+    <record id="hr_attendance_all_action" model="ir.actions.act_window">
+        <field name="name">All Attendances</field>
+        <field name="res_model">hr.attendance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{"search_default_today":1}</field>
+        <field name="search_view_id" ref="hr_attendance.hr_attendance_view_filter" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No attendance records found
+            </p><p>
+                The attendance records of your employees will be displayed here.
+            </p>
+        </field>
+    </record>
+    <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_kiosk_mode">
+        <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_view_employees_kanban">
+        <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+    </record>
+    <menuitem id="menu_hr_attendance_view__all_attendances" name="All Attendances"
+		parent="hr_attendance.menu_hr_attendance_manage_attendances"
+		sequence="20" groups="hr_attendance.group_hr_attendance_manager" action="hr_attendance_all_action"/>
+
+    <record id="hr_employee_view_form_inherit_timesheet_som" model="ir.ui.view">
+        <field name="name">hr.employee.form.timesheet.som</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_employee_view_form_inherit_timesheet"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='%(hr_timesheet.timesheet_action_from_employee)d']" position="replace"/>
+        </field>
+    </record>
+    <!-- Avui no vinc -->
+    <record id="account_invoice_download_credentials_form" model="ir.ui.view">
+        <field name="name">hr.attendance.absenceg.form</field>
+        <field name="model">hr.attendance.absence</field>
+        <field name="arch"  type="xml">
+            <form string="Account Absence Formulari">
+                <group name="main" >
+                    <field name="absence_message" />
+                </group>
+                <footer>
+                    <button name="run" type="object" string="Envia" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_attendance_absence_action" model="ir.actions.act_window">
+        <field name="name">Avui no vinc 🤒</field>
+        <field name="res_model">hr.attendance.absence</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_hr_attendance_avuinovinc_som" name="Avui no vinc 🤒" parent="hr_attendance.menu_hr_attendance_root" sequence="40" groups="hr_attendance.group_hr_attendance" action="hr_attendance_absence_action"/>
+
+    <record id="somenergia_action_custom_greeting_message" model="ir.actions.client">
+        <field name="name">Warning Message</field>
+        <field name="tag">somenergia_custom_greeting_message</field>
+    </record>
+</odoo>

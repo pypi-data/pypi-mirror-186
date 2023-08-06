@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_view_search_som" model="ir.ui.view">
+        <field name="name">hr.employee.search.view.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='department_id']" position="after">
+                <filter name="is_present" string="Present Today" domain="[('is_present', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
