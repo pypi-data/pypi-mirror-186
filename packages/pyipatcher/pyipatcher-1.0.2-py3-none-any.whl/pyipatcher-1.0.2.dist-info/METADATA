@@ -1,0 +1,53 @@
+Metadata-Version: 2.1
+Name: pyipatcher
+Version: 1.0.2
+Summary: iOS ARM64 patchfinder & iOS ARM64 bootchain patcher
+Home-page: https://github.com/Mini-Exploit/pyipatcher
+License: GPL-3.0-only
+Author: mini_exploit
+Author-email: 61931266+Mini-Exploit@users.noreply.github.com
+Requires-Python: >=3.7,<4.0
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: click (>=8.1.3,<9.0.0)
+Project-URL: Bug Tracker, https://github.com/Mini-Exploit/pyipatcher/issues
+Project-URL: Repository, https://github.com/Mini-Exploit/pyipatcher
+Description-Content-Type: text/markdown
+
+# pyipatcher
+Incomplete iOS bootchain patchers in Python
+## Notes
+* ~~It will be pushed to pip as a package later~~
+* You can now install it locally (see Installation)
+* patchfinder64 is ported from [xerub's patchfinder](https://github.com/xerub/patchfinder64)
+* kernelpatcher is ported from [palera1n team's fork of Kernel64Patcher](https://github.com/palera1n/Kernel64Patcher)
+## Installation
+```
+git clone https://github.com/Mini-Exploit/pyipatcher
+cd pyipatcher
+./install.sh
+```
+## Usage
+```
+$ pyipatcher
+pyipatcher version: 1.0.2
+Usage: pyipatcher [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  kernelpatcher
+  ramdiskpatcher
+```
+## Future plan
+* Complete kernel patcher
+* Add iBoot patcher, ASR patcher, restored_external patcher
+## Credits
+Thanks to [plx](https://github.com/justtryingthingsout) for helping me with many fixes
+
