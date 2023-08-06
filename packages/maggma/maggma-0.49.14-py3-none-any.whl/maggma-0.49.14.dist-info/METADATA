@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: maggma
+Version: 0.49.14
+Summary: Framework to develop datapipelines from files on disk to full dissemenation API
+Home-page: https://github.com/materialsproject/maggma
+Author: The Materials Project
+Author-email: feedback@materialsproject.org
+License: modified BSD
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: System Administrators
+Classifier: Intended Audience :: Information Technology
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Other/Nonlisted Topic
+Classifier: Topic :: Database :: Front-Ends
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: setuptools
+Requires-Dist: pymongo (>=4.2.0)
+Requires-Dist: monty (>=1.0.2)
+Requires-Dist: mongomock (>=3.10.0)
+Requires-Dist: pydash (>=4.1.0)
+Requires-Dist: jsonschema (>=3.1.1)
+Requires-Dist: tqdm (>=4.19.6)
+Requires-Dist: mongogrant (>=0.3.1)
+Requires-Dist: aioitertools (>=0.5.1)
+Requires-Dist: numpy (>=1.17.3)
+Requires-Dist: pydantic (>=0.32.2)
+Requires-Dist: fastapi (>=0.42.0)
+Requires-Dist: pyzmq (==24.0.1)
+Requires-Dist: dnspython (>=1.16.0)
+Requires-Dist: sshtunnel (>=0.1.5)
+Requires-Dist: msgpack (>=0.5.6)
+Requires-Dist: orjson (>=3.6.0)
+Requires-Dist: boto3 (>=1.20.41)
+Requires-Dist: python-dateutil (>=2.8.2)
+Provides-Extra: montydb
+Requires-Dist: montydb (>=2.3.12) ; extra == 'montydb'
+Provides-Extra: notebook_runner
+Requires-Dist: IPython (>=7.16) ; extra == 'notebook_runner'
+Requires-Dist: nbformat (>=5.0) ; extra == 'notebook_runner'
+Requires-Dist: regex (>=2020.6) ; extra == 'notebook_runner'
+Provides-Extra: vault
+Requires-Dist: hvac (>=0.9.5) ; extra == 'vault'
+
+
+# ![Maggma](docs/logo_w_text.svg)
+
+[![testing](https://github.com/materialsproject/maggma/workflows/testing/badge.svg)](https://github.com/materialsproject/maggma/actions?query=workflow%3Atesting) [![codecov](https://codecov.io/gh/materialsproject/maggma/branch/main/graph/badge.svg)](https://codecov.io/gh/materialsproject/maggma) [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/materialsproject/maggma.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/materialsproject/maggma/context:python)
+
+A files-to-API data pipeline for scientific applications using Python and MongoDB
+
+
