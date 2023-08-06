@@ -1,0 +1,185 @@
+/** PyOCD gRPC Debug Probe Protocol Buffer Definition
+  *
+  * This protobuf specification matches the abstract PyOCD DebugProbe class.
+  *
+  */
+syntax = "proto3";
+package debug_probe;
+
+service DebugProbeService {
+    rpc DebugProbeCommand (DebugProbeRequest) returns (DebugProbeResponse);
+}
+
+enum Command {
+    Connect = 0;
+    Disconnect = 1;
+    SwjSequence = 2;
+    SwdSequence = 3;
+    JtagSequence = 4;
+    SetClock = 5;
+    Reset = 6;
+    AssertReset = 7;
+    IsResetAsserted = 8;
+    ReadRegister = 9;
+    WriteRegister = 10;
+    SwoStart = 11;
+    SwoStop = 12;
+    SwoRead = 13;
+}
+
+enum ResponseStatus {
+    Ok = 0;
+    Error = 1;
+}
+
+/*  swj_sequence
+
+    Transfer some number of bits on SWDIO/TMS.
+
+    Request:
+        |length| defines the number of bits to transfer (max 256)
+        |bits| contains the bit values to send (LSB first)
+
+    Response:
+        None
+*/
+message SwjSequenceRequest {
+    uint32 length = 1;        // max 256 bits
+    repeated uint64 bits = 2; //
+}
+
+/*  swd_sequence
+
+    Send a sequence of bits on SWDIO.
+
+    Request:
+        |sequence.cycles| defines the number of bits to transfer (1-64)
+        |sequence.value| optional value for write request
+
+    Response:
+        |status| success/fail
+        |bits| is a sequece of bytes, one for each requested read where the length is ((cycles + 7) / 8)
+
+*/
+message SwdSequenceRequest {
+    message Sequence {
+        uint32 cycles = 1;  // 1-64 bits
+        uint64 value = 2;   // if present, indicates write
+    }
+    repeated Sequence sequence = 1;
+}
+
+message SwdSequenceResponse {
+    uint32 status = 1;        // response status
+    repeated bytes bits = 2;  // sequence of bytes objects, one for each input sequence
+}
+
+
+/*  set_clock
+
+    Set the frequency for the JTAG and SWD interface in Hz.
+
+    Request:
+        |frequency| in Hz
+
+*/
+message SetClockRequest {
+    uint32 frequency = 1;
+}
+
+
+/*  assert_reset
+
+    Assert or de-assert target's nRESET signal.
+
+    Because nRESET is negative logic and usually open drain, passing True will drive it low, and
+    passing False will stop driving so nRESET will be pulled up.
+
+    Request:
+        |asserted| the boolean state of the reset.
+
+*/
+message AssertResetRequest {
+    bool asserted = 1;
+}
+
+
+/*  is_reset_asserted
+
+    Returns True if nRESET is asserted or False if de-asserted.
+
+    Response:
+        |asserted| the boolean state of the reset.
+
+*/
+message IsResetAssertedResponse {
+    bool asserted = 1;
+}
+
+
+/*  read_dp and read_ap
+
+    Read one or more DP/AP registers.
+
+    Request:
+        |ap_n_dp| is a boolean that defines if the access should be directed to the DP or AP. True for AP.
+        |address| is the 2-bit register address.
+        |count| is the number of times to read the register.
+
+    Response:
+        |value| is the 32-bit value read from the register
+*/
+message ReadRegisterRequest {
+    bool ap_n_dp = 1;
+    uint32 address = 2;
+    uint32 count = 3;
+}
+
+message ReadRegisterResponse {
+    repeated uint32 values = 1;
+}
+
+
+/*  write_dp and write_ap
+
+    Write one or more DP/AP registers.
+
+    Request:
+        |ap_n_dp| is a boolean that defines if the access should be directed to the DP or AP. True for AP.
+        |address| is the 2-bit register address.
+        |count| is the number of times to write the register.
+        |value| is the 32-bit value to write
+
+*/
+message WriteRegisterRequest {
+        bool ap_n_dp = 1;
+        uint32 address = 2;
+        uint32 count = 3;
+        repeated uint32 values = 4;
+}
+
+
+/*
+*/
+message DebugProbeRequest {
+    uint32 id = 1;
+    Command command = 2;
+    oneof request {
+        SwjSequenceRequest swj_seq_req = 3;
+        SwdSequenceRequest swd_seq_req = 4;
+        ReadRegisterRequest read_reg_req = 5;
+        WriteRegisterRequest write_reg_req = 6;
+        SetClockRequest set_clock_req = 14;
+        AssertResetRequest assert_reset_req = 15;
+    }
+}
+
+message DebugProbeResponse {
+    uint32 id = 1;
+    ResponseStatus status = 2;
+    oneof response {
+        SwdSequenceResponse swd_seq_rsp = 3;
+        ReadRegisterResponse read_reg_rsp = 4;
+        IsResetAssertedResponse is_reset_asserted_rst = 15;
+    }
+}
