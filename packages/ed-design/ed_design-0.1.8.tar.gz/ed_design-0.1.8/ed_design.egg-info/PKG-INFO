@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: ed-design
+Version: 0.1.8
+Summary: Python package developed by Envidan A/S scoping to follow the design of the company brand. This package is only for internal use.
+Home-page: https://dev.azure.com/EnviDan-AS/ed_design
+Author: Martin Vidkjaer
+Author-email: mav@envidan.dk
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.0
+Description-Content-Type: text/markdown
+
+# Introduction 
+Design package for the company Envidan A/S intended for use with matplotlib and seaborn
+- Hardcoded palettes and colormaps with company design colors
+- Envidan logo in print and web form
+
+# Getting Started
+## Installation
+You can install this package using
+```
+pip install ed_design
+```
+## Dependencies
+Software dependencices are:
+```
+matplotlib
+numpy
+```
+
+## Use
+### Palettes and colormaps for matplotlib and seaborn
+```
+from ed_design import Colors
+
+colors = Colors()
+colors.show_palette('all')
+
+palette = colors.get_palette('blues')  # Use with categorical variabels
+cmap = colors.get_palette('BlGr')  # Use with continous variabels
+```
+
+### Envidan logo
+```
+from ed_design import ed_logo
+logo = ed_logo('print')
+```
+
+# Build and Test
+TODO:
+- Implementation of a matplotlib setup file to fix visualization style in plots
+- Implement Satoshi font
+
+# Contribute
+Only employees in Envidan has access to the repository
+
+# Author
+Martin VidkjÃ¦r, mav@envidan.dk
