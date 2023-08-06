@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: RelevanceAI-Workflows-Core
+Version: 0.18.0
+Home-page: https://tryrelevance.com/
+Author: Relevance AI
+Author-email: dev@tryrelevance.com
+License-File: LICENSE
+Requires-Dist: tqdm (>=4.49.0)
+Requires-Dist: requests (>=2.0.0)
+Requires-Dist: pandas (>=1.5.0)
+Requires-Dist: pydantic (==1.10.2)
+Provides-Extra: core_tests
+Requires-Dist: pytest ; extra == 'core_tests'
+Requires-Dist: pytest-xdist ; extra == 'core_tests'
+Requires-Dist: pytest-cov ; extra == 'core_tests'
+Provides-Extra: example_tests
+Requires-Dist: pytest ; extra == 'example_tests'
+Requires-Dist: pytest-xdist ; extra == 'example_tests'
+Requires-Dist: pytest-cov ; extra == 'example_tests'
+Requires-Dist: torch ; extra == 'example_tests'
+Requires-Dist: scikit-learn (>=0.20.0) ; extra == 'example_tests'
+Requires-Dist: transformers[torch] (==4.18.0) ; extra == 'example_tests'
+Provides-Extra: ray
+Requires-Dist: numpy (>=1.19.0) ; extra == 'ray'
+Requires-Dist: pyarrow (==9.0.0) ; extra == 'ray'
+Requires-Dist: ray (==2.0.0) ; extra == 'ray'
+
