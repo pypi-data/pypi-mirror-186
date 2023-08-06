@@ -1,0 +1,43 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "lmtk"
+authors = [{name = "Lucas Hansen", email = "lucashansen@gmail.com"}]
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = ["License :: OSI Approved :: MIT License"]
+dynamic = ["version", "description"]
+dependencies = [
+  "beautifulsoup4 >=4.0",
+  "dataclasses-json >=0.5",
+  "jsonpatch >=1.32",
+  "markdown-it-py[plugins] >=2.0",
+  "openai >=0.25",
+  "prompt_toolkit >=3.0",
+  "pyperclip >=1.0",
+  "requests >=2.0",
+  "rich >=12.0",
+  "tiktoken >=0.1",
+  "typer >=0.7",
+  "pyyaml >=6.0"
+]
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+extras = [
+  "guesslang-experimental >=2.2.3"
+]
+jupyter = [
+  "ipykernel >=6.0",
+]
+
+[project.urls]
+Home = "https://github.com/veered/lmtk"
+
+[project.scripts]
+lmtk = "lmtk.cli:run"
+
+[tool.flit.module]
+name = "lmtk"
