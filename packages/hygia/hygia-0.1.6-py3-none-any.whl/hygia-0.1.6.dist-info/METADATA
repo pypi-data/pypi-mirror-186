@@ -1,0 +1,166 @@
+Metadata-Version: 2.1
+Name: hygia
+Version: 0.1.6
+Summary: A short description of the package.
+Home-page: https://github.com/PDA-FGA/Playground
+License: MIT
+Keywords: packaging,poetry
+Author: PDA-FGA
+Author-email: rocha.carla@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: altair (==4.2.0)
+Requires-Dist: attrs (==22.2.0)
+Requires-Dist: bpemb (==0.3.4)
+Requires-Dist: certifi (==2022.12.7)
+Requires-Dist: charset-normalizer (==3.0.1)
+Requires-Dist: contourpy (==1.0.6)
+Requires-Dist: coverage (==7.0.2)
+Requires-Dist: cycler (==0.11.0)
+Requires-Dist: entrypoints (==0.4)
+Requires-Dist: exceptiongroup (==1.1.0)
+Requires-Dist: fonttools (==4.38.0)
+Requires-Dist: gensim (==3.8.3)
+Requires-Dist: idna (==3.4)
+Requires-Dist: importlib-resources (==5.10.2)
+Requires-Dist: iniconfig (==1.1.1)
+Requires-Dist: jinja2 (==3.1.2)
+Requires-Dist: joblib (==1.2.0)
+Requires-Dist: jsonschema (==4.17.3)
+Requires-Dist: kiwisolver (==1.4.4)
+Requires-Dist: markupsafe (==2.1.1)
+Requires-Dist: matplotlib (==3.6.2)
+Requires-Dist: numpy (==1.24.1)
+Requires-Dist: packaging (==23.0)
+Requires-Dist: pandas (==1.5.2)
+Requires-Dist: pillow (==9.4.0)
+Requires-Dist: pkgutil-resolve-name (==1.3.10)
+Requires-Dist: pluggy (==1.0.0)
+Requires-Dist: pyparsing (==3.0.9)
+Requires-Dist: pyrsistent (==0.19.3)
+Requires-Dist: pytest (==7.2.0)
+Requires-Dist: pytest-cov (==4.0.0)
+Requires-Dist: python-dateutil (==2.8.2)
+Requires-Dist: pytz (==2022.7)
+Requires-Dist: pyyaml (==6.0)
+Requires-Dist: requests (==2.28.2)
+Requires-Dist: scikit-learn (==1.2.0)
+Requires-Dist: scipy (==1.9.3)
+Requires-Dist: sentencepiece (==0.1.97)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: smart-open (==6.3.0)
+Requires-Dist: threadpoolctl (==3.1.0)
+Requires-Dist: tomli (==2.0.1)
+Requires-Dist: toolz (==0.12.0)
+Requires-Dist: tqdm (==4.64.1)
+Requires-Dist: urllib3 (==1.26.14)
+Requires-Dist: whatlies (==0.7.0)
+Requires-Dist: zipp (==3.11.0)
+Project-URL: Repository, https://github.com/PDA-FGA/Playground
+Description-Content-Type: text/markdown
+
+# Playground
+
+### Instaling Requirements
+
+```
+python -m venv env
+source env/bin/activate
+pip install -r requirements.txt
+```
+
+### Running
+
+```
+python src/main.py
+```
+
+### Testing
+
+```
+pytest --cov
+```
+
+### Metabase
+
+The metabase will help us visualize and monitor data processing, feature engineering and model monitoring, accompanying us throughout the cycle.
+
+| Keywords  | Description |
+|-----------|-------------|
+|   CSV     | A CSV file is a plain text file that stores table and spreadsheet information. CSV files can be easily imported and exported using programs that store data in tables.|
+| Collection| A collection is a grouping of MongoDB documents. Documents within a collection can have different fields. A collection is the equivalent of a table in a relational database system.|
+|  Database | A database stores one or more collections of documents.|
+| Mongo| It is a NoSQL database developed by MongoDB Inc. MongoDB database is built to store a huge amount of data and also perform fast.|
+
+**Environment check**
+
+Check if docker exists, if not then [install it](https://docs.docker.com/engine/install/ubuntu/) 
+```docker -v ```
+
+Check if docker-compose exists, if not then [install it](https://docs.docker.com/compose/install/) 
+```docker-compose -v ```
+
+when running the first time create the network 
+
+```make network```
+
+**Run metabase local**
+
+In the root folder, run the command
+
+```make up```
+
+**Loading data into a non-relational database**
+
+This command is used to load the .csv file into the local database, where it is necessary to pass the file path, database and collection as an argument
+
+- path = .csv file path
+- database = database name
+- collection = collection name
+
+exemple:
+
+
+```make migrate path=data/data_example.csv database=general  collection=order```
+
+
+
+**Connect the database to the metabase**
+
+- step 1: Open localhost:3000
+- step 2: Click Admin setting
+- step 3: Click Database
+- step 4: Add database authentication data
+
+![](https://raw.githubusercontent.com/francisco1code/Files/main/a.gif)
+
+**Exemple mongo connect metabase**
+|  metabase  | credential  |
+|------------|-------------|
+|    host    |  mongo  |
+|dabase_name | use the name you define in make migrate|
+|    user    |   lappis    |
+|  password  |   lappis    |
+
+
+### Documentation
+
+We used sphinx to write the documentation
+
+To run locally, you need to install sphinx:
+
+```pip install sphinx```
+
+Then install the theme used:
+
+```pip install pydata-sphinx-theme```
+
+And Run the project
+
+```sphinx-build -b html source ./``` 
+
+And open the index.html
