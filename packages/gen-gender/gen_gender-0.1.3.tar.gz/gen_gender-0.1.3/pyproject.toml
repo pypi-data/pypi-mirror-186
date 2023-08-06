@@ -1,0 +1,61 @@
+[tool.poetry]
+name = "gen-gender"
+version = "0.1.3"
+description = "Изменение рода ответа с мужского на женский"
+authors = ["vmerkurev <v.merkurev@promo-bot.ru>"]
+packages = [{include = "gen_gender", from = "src"}]
+readme = "README.md"
+maintainers = [
+    "VMerkurev <v.merkurev@promo-bot.ru>",
+    "ANosov <a.nosov@promo-bot.ru>",
+]
+repository = "https://git.promo-bot.ru/v.merkurev/gen_gender"
+keywords = ["promo-bot", "promobot"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+stanza = "^1.4.2"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.0.226"
+black = "^22.12.0"
+debugpy = "^1.6.5"
+pytest = "^7.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 110
+# Enable Pyflakes `E` and `F` codes by default.
+select = ["E", "F", "I"]
+ignore = ["F401"]
+
+# Always fix
+# Never try to fix `F401` (unused imports).
+fix = true
+unfixable = ["F401"]
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".git",
+    ".ruff_cache",
+    ".pytest_cache",
+    "tests/.pytest_cache",
+    ".idea",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "venv",
+]
+per-file-ignores = {}
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Assume Python 3.8
+target-version = "py38"
