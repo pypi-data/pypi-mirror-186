@@ -1,0 +1,19 @@
+{
+    "Enable": true,
+    "Debug": true,
+    "TrackerVersion": "0.0.1",
+    "EnvCode": "test",
+    "TenantCode": "te",
+    "UserCode": "ru",
+    "ProductCode": "fast",
+    "AppCode": "analysis",
+    "ServiceName": "天眼平台",
+    "SocketPath": "udp://fluent-bit:5140",
+    "BufferSize": 1,
+    "SocketTimeout": 1,
+    "Event": {"Components": {"SqlClient": true, "HttpClient": true}},
+    "TenantCodeReader": {"ReaderType": "Cookie", "ReaderKey": "tenant_code"},
+    "UserCodeReader": {"ReaderType": "Cookie", "ReaderKey": "user_code"},
+    "CarrierHeader": {"TrackerName": "fast-tracker", "TraceIdName": "x-fast-trace-id"},
+    "EnvCodeReader": {"ReaderType": "Cookie", "ReaderKey": "env"}
+}
