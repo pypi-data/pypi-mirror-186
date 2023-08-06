@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+from setuptools import setup
+
+packages = \
+['target_postgres',
+ 'target_postgres.tests',
+ 'target_postgres.tests.samples',
+ 'target_postgres.tests.samples.aapl',
+ 'target_postgres.tests.samples.sample_tap_countries']
+
+package_data = \
+{'': ['*'],
+ 'target_postgres.tests': ['data_files/*'],
+ 'target_postgres.tests.samples.sample_tap_countries': ['schemas/*']}
+
+install_requires = \
+['psycopg2-binary==2.9.5',
+ 'requests>=2.25.1,<3.0.0',
+ 'singer-sdk>=0.17.0,<0.18.0']
+
+entry_points = \
+{'console_scripts': ['target-postgres = '
+                     'target_postgres.target:TargetPostgres.cli']}
+
+setup_kwargs = {
+    'name': 'meltanolabs-target-postgres',
+    'version': '0.0.4',
+    'description': '`target-postgres` is a Singer target for Postgres, built with the Meltano SDK for Singer Targets.',
+    'long_description': '# `target-postgres`\n\nTarget for Postgres.\n\nBuilt with the [Meltano SDK](https://sdk.meltano.com) for Singer Taps and Targets. This target is in **development**, it probably doesn\'t work yet, stick with https://hub.meltano.com/loaders/target-postgres . Generally the goal here is to create a generalized target enough so that the SDK can automate >80% of testing for new targets, and potentially so taps can test very easily with a real local target.\n\n# Limitations\n1. Target is not working with Empty key properties. See https://github.com/MeltanoLabs/target-postgres/issues/54\n\n## Capabilities\n\n* `about`\n* `stream-maps`\n* `schema-flattening`\n\n## Settings\n\n| Setting              | Required |       Default       | Description                                                                                                                                                                                                                                                               |\n| :------------------- | :------: | :-----------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| host                 |  False   |        None         | Hostname for postgres instance. Note if sqlalchemy_url is set this will be ignored.                                                                                                                                                                                       |\n| port                 |  False   |        5432         | The port on which postgres is awaiting connection. Note if sqlalchemy_url is set this will be ignored.                                                                                                                                                                    |\n| user                 |  False   |        None         | User name used to authenticate. Note if sqlalchemy_url is set this will be ignored.                                                                                                                                                                                       |\n| password             |  False   |        None         | Password used to authenticate. Note if sqlalchemy_url is set this will be ignored.                                                                                                                                                                                        |\n| database             |  False   |        None         | Database name. Note if sqlalchemy_url is set this will be ignored.                                                                                                                                                                                                        |\n| sqlalchemy_url       |  False   |        None         | SQLAlchemy connection string. This will override using host, user, password, port, dialect. Note that you must esacpe password special characters properly see https://docs.sqlalchemy.org/en/20/core/engines.html#escaping-special-characters-such-as-signs-in-passwords |\n| dialect+driver       |  False   | postgresql+psycopg2 | Dialect+driver see https://docs.sqlalchemy.org/en/20/core/engines.html. Generally just leave this alone. Note if sqlalchemy_url is set this will be ignored.                                                                                                              |\n| stream_maps          |  False   |        None         | Config object for stream maps capability. For more information check out [Stream Maps](https://sdk.meltano.com/en/latest/stream_maps.html).                                                                                                                               |\n| stream_map_config    |  False   |        None         | User-defined config values to be used within map expressions.                                                                                                                                                                                                             |\n| flattening_enabled   |  False   |        None         | \'True\' to enable schema flattening and automatically expand nested properties.                                                                                                                                                                                            |\n| flattening_max_depth |  False   |        None         | The max depth to flatten schemas.                                                                                                                                                                                                                                         |\n\nA full list of supported settings and capabilities is available by running: `target-postgres --about`\n\n## Installation\n\n- [ ] `Developer TODO:` Come back to this re [#5](https://github.com/MeltanoLabs/target-postgres/issues/5)\n\n```bash\npipx install -e .\n```\n\n## Configuration\n\n### Configure using environment variables\n\nThis Singer target will automatically import any environment variables within the working directory\'s\n`.env` if the `--config=ENV` is provided, such that config values will be considered if a matching\nenvironment variable is set either in the terminal context or in the `.env` file.\n\n### Source Authentication and Authorization\n\nThe database account provided must have access to:\n1. Create schemas\n1. Create tables (DDL)\n1. Push Data to tables (DML)\n\n## Usage\n\nYou can easily run `target-postgres` by itself or in a pipeline using [Meltano](https://meltano.com/).\n\n### Executing the Target Directly\n\n```bash\ntarget-postgres --version\ntarget-postgres --help\n# Test using the "Carbon Intensity" sample:\npipx install git+https://gitlab.com/meltano/tap-carbon-intensity\ntap-carbon-intensity | target-postgres --config /path/to/target-postgres-config.json\n```\n\n## Developer Resources\n\n### Initialize your Development Environment\n\n```bash\npipx install poetry\npoetry install\npipx install pre-commit\npre-commit install\n```\n\n### Create and Run Tests\n\nCreate tests within the `target_postgres/tests` subfolder and\n  then run:\n\n```bash\npoetry run pytest\n```\n\nYou can also test the `target-postgres` CLI interface directly using `poetry run`:\n\n```bash\npoetry run target-postgres --help\n```\n\n### Testing with [Meltano](https://meltano.com/)\n\n_**Note:** This target will work in any Singer environment and does not require Meltano.\nExamples here are for convenience and to streamline end-to-end orchestration scenarios._\n\nYour project comes with a custom `meltano.yml` project file already created.\n\nNext, install Meltano (if you haven\'t already) and any needed plugins:\n\n```bash\n# Install meltano\npipx install meltano\n# Initialize meltano within this directory\nmeltano install\n```\n\nNow you can test and orchestrate using Meltano:\n\n```bash\n# Test invocation:\nmeltano invoke target-postgres --version\n```\n\n### SDK Dev Guide\n\nSee the [dev guide](https://sdk.meltano.com/en/latest/dev_guide.html) for more instructions on how to use the Meltano SDK to\ndevelop your own Singer taps and targets.\n',
+    'author': 'Meltano Team and Contributors',
+    'author_email': 'None',
+    'maintainer': 'Meltano Team and Contributors',
+    'maintainer_email': 'None',
+    'url': 'https://meltano.com',
+    'packages': packages,
+    'package_data': package_data,
+    'install_requires': install_requires,
+    'entry_points': entry_points,
+    'python_requires': '>=3.7.1,<3.12',
+}
+
+
+setup(**setup_kwargs)
