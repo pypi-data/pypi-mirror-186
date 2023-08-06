@@ -1,0 +1,110 @@
+Metadata-Version: 2.1
+Name: dagline
+Version: 0.0.9
+Summary: Use Python's multiprocessing module to execute tasks(python functon and windows bat script) of a DAG in parallel
+Author-email: Jason Liang <jasonliangyc@qq.com>
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: pyvis>=0.3.0
+Description-Content-Type: text/markdown
+
+## Overview
+
+Dagline is a package for executing multiple tasks of a DAG flow in parallel. The type of task can be python function and Windows bat script.
+
+### System Requirements
+
+*   Python 3.10+
+
+### Installation
+
+*   python -m pip install dagline
+
+### Use-cases
+
+*   **Create a folder where you put the dag files locally. You can name your folder/py whatever you want:**  
+    dags\\  
+            └──dag\_example.py  
+     
+*   **Define the DAG, open** _**dag\_example.py**_ **and enter the following content:**
+
+```python
+
+from dagline.models.dag import DAG
+from dagline.models.operators.winbat import WinbatOperator
+from dagline.models.operators.python import PythonOperator
+
+
+def read_excel():
+    '''Do your works here'''
+    print('call this func read_excel')
+    
+def read_csv():
+    '''Do your works here'''
+    print('call this func read_csv')
+    
+def load_to_db():
+    '''Do your works here'''
+    print('call this func load_to_db')
+
+
+task1 = PythonOperator(task_id = 'read_excel', python_callable = read_excel)
+task2 = PythonOperator(task_id = 'read_csv', python_callable = read_csv)
+task3 = PythonOperator(task_id = 'load_to_db', python_callable = load_to_db)
+task4 = WinbatOperator(task_id = 'housekeep', bat_command = r"C:\xxx\housekeep.bat")
+
+
+'''DAG graph, child task : [parent tasks]'''
+tasks_flow ={
+task1 : [],
+task2 : [],
+task3 : [task1, task2],
+task4 : [task3]
+}
+
+
+with DAG(
+    dag_id = 'dag_example',
+    tasks_flow = tasks_flow,
+    logfile = "C:\xxx\dag_example.log"
+) as dag:
+    pass
+
+
+```
+
+*   **Run a DAG in parallel or run a DAG from some specified tasks**
+
+_python -m dagline dags run \<dag\_files\_home> \<dag\_id> \< --start\_with\_task\_ids >_  
+         dag\_files\_home                     The folder of the DAG files  
+         dag\_id                                    The id of the dag  
+         --start\_with\_task\_ids            A list of the task ids, if it was provided, the DAG will start from these tasks, not from the beginning of the DAG
+
+```python
+>python -m dagline dags run C:\xxx\dags_tasks\dags dag_example1
+>python -m dagline dags run C:\xxx\dags_tasks\dags dag_example1 --start_with_task_ids read_csv
+```
+
+*   **Run a task of the DAG**
+
+_python -m dagline tasks run \<dag\_files\_home> \<dag\_id> \<task\_id>_  
+        dag\_files\_home                     The folder of the DAG files  
+        dag\_id                                    The id of the dag  
+        task\_id                                   The id of the task, only runs this task in the DAG
+
+```python
+>python -m dagline tasks run C:\xxx\dags_tasks\dags dag_example read_csv
+```
+
+*   **Visualize  a DAG on the html page**
+
+_python -m dagline dags show \<dag\_files\_home> \<dag\_id>_  
+        dag\_files\_home                     The folder of the DAG files  
+        dag\_id                                    The id of the dag
+
+```python
+>python -m dagline dags show C:\xxx\dags_tasks\dags dag_example
+```
