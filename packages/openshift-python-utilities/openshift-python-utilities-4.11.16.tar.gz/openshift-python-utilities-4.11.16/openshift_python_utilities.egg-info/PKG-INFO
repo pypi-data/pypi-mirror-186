@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: openshift-python-utilities
+Version: 4.11.16
+Summary: Wrapper around https://github.com/openshift/openshift-python-utilities
+Home-page: https://github.com/RedHatQE/openshift-python-utilities
+Download-URL: https://github.com/RedHatQE/openshift-python-utilities/archive/refs/tags/v4.11.16.tar.gz
+Author: Meni Yakove, Ruth Netser
+Author-email: rnetser@redhat.com
+License: apache-2.0
+Project-URL: Bug Tracker, https://github.com/RedHatQE/openshift-python-utilities/issues
+Project-URL: Documentation, https://openshift-python-utilities.readthedocs.io/en/latest/
+Keywords: Openshift
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+### TODO
+This repo is still WIP.
+
+## Release new version
+### requirements:
+* Export GitHub token
+```bash
+export GITHUB_TOKEN=<your_github_token>
+```
+* [release-it](https://github.com/release-it/release-it)
+```bash
+sudo npm install --global release-it
+npm install --save-dev @j-ulrich/release-it-regex-bumper
+rm -f package.json package-lock.json
+```
+### usage:
+* Create a release, run from the relevant branch.  
+To create a 4.11 release, run:
+```bash
+git checkout v4.11
+git pull
+release-it # Follow the instructions
+```
