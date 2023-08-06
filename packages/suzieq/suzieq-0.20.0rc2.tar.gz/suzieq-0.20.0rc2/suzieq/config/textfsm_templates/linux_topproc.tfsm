@@ -1,0 +1,9 @@
+Value pid (\d+)
+Value ppid (\d+)
+Value cmd (\S+)
+Value pmem (\d+.\d+)
+Value pcpu (\d+.\d+)
+
+Start
+  ^\s*PID\s*PPID.*$$
+  ^\s*${pid}\s+${ppid}\s+${cmd}.*${pmem}\s+${pcpu}.*$$ -> Record

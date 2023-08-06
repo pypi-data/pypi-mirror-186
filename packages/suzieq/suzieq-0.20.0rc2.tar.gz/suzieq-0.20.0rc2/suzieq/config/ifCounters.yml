@@ -1,0 +1,36 @@
+service: ifCounters
+type: counters
+keys:
+  - ifname
+show-fields:
+  - ifname
+apply:
+  cumulus:
+    copy: linux
+
+  eos:
+    version: all
+    command: show interfaces counters
+    normalize: 'interfaces/*/[
+    "name: ifname",
+    "interfaceCounters/inOctets: rxBytes?|0",
+    "interfaceCounters/inTotalPkts: rxPackets?|0",
+    "interfaceCounters/inDiscards: rxDrops?|0",
+    "interfaceCounters/totalInErrors: rxErrs?|0",
+    "interfaceCounters/outOctets: txBytes?|0",
+    "interfaceCounters/outUcastPkts: txPackets?|0",
+    "interfaceCounters/outMulticastPkts: txPackets+txPackets",
+    "interfaceCounters/outBroadcastPkts: txPackets+txPackets",
+    "interfaceCounters/totalOutErrors: txErrs?|0",
+    "interfaceCounters/outDiscards: txDrops?|0"
+    ]'
+
+  linux:
+    version: all
+    command: cat /proc/net/dev
+    textfsm: textfsm_templates/ifCounters.tfsm
+
+  sonic:
+    copy: linux
+
+    

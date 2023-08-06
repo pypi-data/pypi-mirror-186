@@ -1,0 +1,128 @@
+{
+    "namespace": "suzieq",
+    "name": "ospfNbr",
+    "type": "record",
+    "fields": [
+        {
+            "name": "sqvers",
+            "type": "string",
+            "partition": 0,
+            "default": "3.0",
+            "suppress": true,
+            "description": "Schema version, not selectable"
+        },
+        {
+            "name": "lastDownTime",
+            "type": "timestamp"
+        },
+        {
+            "name": "area",
+            "type": "string",
+            "display": 6
+        },
+        {
+            "name": "nbrPrio",
+            "type": "long"
+        },
+        {
+            "name": "lastUpTime",
+            "type": "timestamp"
+        },
+        {
+            "name": "instance",
+            "type": "string"
+        },
+        {
+            "name": "reason",
+            "type": "string"
+        },
+        {
+            "name": "areaStub",
+            "type": "boolean"
+        },
+        {
+            "name": "state",
+            "type": "string",
+            "display": 4
+        },
+        {
+            "name": "peerIP",
+            "type": "string",
+            "key": 4,
+            "display": 5
+        },
+        {
+            "name": "ipAddress",
+            "type": "string",
+            "display": 5
+        },
+        {
+            "name": "bfdStatus",
+            "type": "string"
+        },
+        {
+            "name": "numChanges",
+            "type": "long",
+            "display": 8
+        },
+        {
+            "name": "lastChangeTime",
+            "type": "timestamp",
+            "display": 7
+        },
+        {
+            "name": "peerHostname",
+            "type": "string",
+            "display": 9,
+            "depends": "hostname vrf peerIP ipAddress"
+        },
+        {
+            "name": "lsaRetxCnt",
+            "type": "long"
+        },
+        {
+            "name": "ifname",
+            "type": "string",
+            "key": 3,
+            "display": 3
+        },
+        {
+            "name": "vrf",
+            "type": "string",
+            "key": 2,
+            "display": 2
+        },
+        {
+            "name": "peerRouterId",
+            "type": "string"
+        },
+        {
+            "name": "deviceSession",
+            "type": "timestamp",
+            "suppress": true,
+            "description": "Device boot session id"
+        },
+        {
+            "name": "hostname",
+            "type": "string",
+            "key": 1,
+            "display": 1,
+            "partition": 2
+        },
+        {
+            "name": "namespace",
+            "type": "string",
+            "key": 0,
+            "display": 0,
+            "partition": 1
+        },
+        {
+            "name": "timestamp",
+            "type": "timestamp"
+        },
+        {
+            "name": "active",
+            "type": "boolean"
+        }
+    ]
+}

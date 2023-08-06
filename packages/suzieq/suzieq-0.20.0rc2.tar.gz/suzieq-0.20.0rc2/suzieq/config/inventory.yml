@@ -1,0 +1,93 @@
+service: inventory
+keys:
+  - name
+  - model
+  - partNum
+  - serialNum
+show-fields:
+  - ifname
+  - partNumber
+  - serialNumber
+  - description
+
+apply:
+  eos:
+    version: all
+    command: show inventory
+    normalize: '[
+    "xcvrSlots: _xcvrSlots",
+    "powerSupplySlots: _powerSupplySlots",
+    "fanTraySlots: _fanTraySlots",
+    "cardSlots: _cardSlots",
+    "systemInformation: _systemInfo"
+    ]'
+
+  junos-qfx:
+    version: all
+    command: show chassis hardware | display json| no-more 
+    normalize: 'chassis-inventory/[0]/chassis/[0]/chassis-module/*/[
+    "name/[0]/data: name?|",
+    "version/[0]/data: version?|",
+    "part-number/[0]/data: partNum?|",
+    "serial-number/[0]/data: serial?|",
+    "model-number/[0]/data: model?|",
+    "description/[0]/data: descr?|",
+    "chassis-sub-module: _chassisSubMod"
+    ]'
+
+  junos-mx:
+    copy: junos-qfx
+
+  junos-ex:
+    copy: junos-qfx
+
+  junos-es:
+    copy: junos-qfx
+
+  junos-qfx10k:
+    copy: junos-qfx
+
+  junos-evo:
+    copy: junos-qfx
+
+  iosxe:
+    version: all
+    command: show inventory
+    textfsm: textfsm_templates/iosxe_show_inventory.tfsm
+
+  ios:
+    copy: iosxe
+
+  nxos:
+   - version: < 9.3(0)
+     command:
+       - command: show inventory
+         textfsm: textfsm_templates/nxos_show_inventory.tfsm
+
+       - command: show interface transceiver
+         textfsm: textfsm_templates/nxos_show_int_xcvr.tfsm
+         _entryType: _textfsm
+      
+   - version: all
+     command: 
+       - command: show inventory | json native
+         normalize: 'TABLE_inv/ROW_inv/*/[
+         "name: name?|",
+         "desc: model?|",
+         "serialnum: serial?|",
+         "vendorid: version?|",
+         "productid: productId?|",
+         "type: type?|",
+         ]'
+         
+       - command: show interface transceiver | json native
+         normalize: 'TABLE_interface/ROW_interface/*/[
+         "interface: name?|",
+         "sfp: _sfp?|",
+         "name: model?|",
+         "type: partType?|",
+         "rev: version?|",
+         "partnum: partNum?|",
+         "serialnum: serial?|",
+         "cisco_product_id: productId?|",
+         ]'

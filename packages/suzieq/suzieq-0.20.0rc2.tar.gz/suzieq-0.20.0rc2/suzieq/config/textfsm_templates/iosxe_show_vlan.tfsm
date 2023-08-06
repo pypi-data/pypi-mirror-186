@@ -1,0 +1,13 @@
+Value Required vlan (\d+)
+Value Required vlanName (.*)
+Value Required state (active|act/unsup)
+Value List interfaces (.*)
+
+Start
+  ^VLAN -> Record
+  ^\d+ -> Continue.Record
+  ^${vlan}\s+${vlanName}\s+${state}\s+${interfaces}\s*$$
+  ^\s+${interfaces}
+  ^.*SAID -> End
+
+End

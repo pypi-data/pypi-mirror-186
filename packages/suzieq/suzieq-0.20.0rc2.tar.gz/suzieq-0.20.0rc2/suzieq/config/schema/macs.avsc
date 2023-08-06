@@ -1,0 +1,102 @@
+{
+    "namespace": "suzieq",
+    "name": "macs",
+    "type": "record",
+    "fields": [
+        {
+            "name": "sqvers",
+            "type": "string",
+            "partition": 0,
+            "default": "2.0",
+            "suppress": true,
+            "description": "Schema version, not selectable"
+        },
+        {
+            "name": "oif",
+            "type": "string",
+            "display": 4,
+            "description": "Outgoing interface name"
+        },
+        {
+            "name": "macaddr",
+            "type": "string",
+            "key": 3,
+            "display": 3,
+            "description": "MAC address"
+        },
+        {
+            "name": "mackey",
+            "type": "string",
+            "key": 2,
+            "description": "Internal table key uniquifier, not selectable",
+            "suppress": true
+        },
+        {
+            "name": "protocol",
+            "type": "string",
+            "description": "Protocol that populated this entry, if provided"
+        },
+        {
+            "name": "bd",
+            "type": "string",
+            "display": 6,
+            "description": "Bridge domain name, platform-appropriate"
+        },
+        {
+            "name": "vlan",
+            "type": "long",
+            "display": 2,
+            "description": "VLAN ID"
+        },
+        {
+            "name": "remoteVtepIp",
+            "type": "string",
+            "display": 5,
+            "description": "Remote VTEP IP address, for remote Vxlan MAC"
+        },
+        {
+            "name": "flags",
+            "type": "string",
+            "display": 7,
+            "description": "Flags, platform-appropriate"
+        },
+        {
+            "name": "moveCount",
+            "type": "long",
+            "description": "Number of times this MAC has moved for duration",
+            "depends": "namespace hostname mackey macaddr oif remoteVtepIp"
+        },
+        {
+            "name": "deviceSession",
+            "type": "timestamp",
+            "suppress": true,
+            "description": "Device boot session id"
+        },
+        {
+            "name": "hostname",
+            "type": "string",
+            "key": 1,
+            "display": 1,
+            "partition": 2,
+            "description": "Hostname associated with this record"
+        },
+        {
+            "name": "namespace",
+            "type": "string",
+            "key": 0,
+            "display": 0,
+            "partition": 1,
+            "description": "Namespace associated with this record"
+        },
+        {
+            "name": "timestamp",
+            "type": "timestamp",
+            "display": 8
+        },
+        {
+            "name": "active",
+            "type": "boolean",
+            "description": "If this entry is active or deleted"
+        }
+    ]
+}

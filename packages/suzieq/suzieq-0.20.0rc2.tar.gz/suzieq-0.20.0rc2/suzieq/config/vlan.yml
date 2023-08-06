@@ -1,0 +1,92 @@
+service: vlan
+keys:
+  - vlanName
+
+show-fields:
+  - vlanName
+  - vlan
+  - interfaces
+
+apply:
+  cumulus:
+    version: all
+    command: /sbin/bridge -c vlan show
+    textfsm: textfsm_templates/linux_vlan.tfsm
+
+  linux:
+    copy: cumulus
+
+  sonic:
+    copy: cumulus
+
+  eos:
+    version: all
+    command: show vlan brief
+    normalize: 'vlans/*:vlan/[
+    "interfaces/*: interfaces?|[]",
+    "name: vlanName",
+    "status: state",
+    ]'
+
+  ios:
+    version: all
+    merge: False
+    command:
+      - command: show vlan
+        textfsm: textfsm_templates/iosxe_show_vlan.tfsm
+        _entryType: vlan
+
+      - command: show interface trunk
+        textfsm: textfsm_templates/iosxe_show_int_trunk.tfsm
+        _entryType: trunk
+
+  iosxe:
+    copy: ios
+  
+  nxos:
+    - version: < 9.3(0)
+      command: show vlan brief
+      textfsm: textfsm_templates/nxos_show_vlan.tfsm
+      _entryType: tfsm
+      
+    - version: all
+      command: show vlan brief | json native
+      normalize: 'TABLE_vlanbriefxbrief/ROW_vlanbriefxbrief/*/[
+      "vlanshowbr-vlanid: vlan",
+      "vlanshowbr-vlanname: vlanName",
+      "vlanshowbr-vlanstate: state",
+      "vlanshowbr-shutstate: adminState",
+      "vlanshowplist-ifidx: interfaces?|",
+      ]'
+
+  junos-qfx:
+    version: all
+    command: show vlans detail | display json |no-more
+    normalize: 'l2ng-l2ald-vlan-instance-information/l2ng-l2ald-vlan-instance-group/*/[
+    "l2ng-l2rtb-vlan-tag/[0]/data: vlan",
+    "l2ng-l2rtb-vlan-member/[*]/l2ng-l2rtb-vlan-member-interface/[0]/data: interfaces?|[]",
+    "l2ng-l2rtb-vlan-name/[0]/data: vlanName",
+    "l2ng-l2rtb-instance-state/[0]/data: state",
+    ]'
+
+  junos-ex:
+    copy: junos-qfx
+
+  junos-es:
+    copy: junos-qfx
+
+  junos-mx:
+    version: all
+    command: show bridge domain detail | display json | no-more
+    normalize: 'l2ald-bridge-instance-information/l2ald-bridge-instance-group/*/[
+    "l2rtb-bridge-vlan/[0]/data: vlan",
+    "l2rtb-interface-name/*/data: interfaces?|",
+    "l2rtb-name/[0]/data: vlanName?|",
+    "l2rtb-instance-state/[0]/data: state",
+    ]'
+
+  junos-qfx10k:
+    copy: junos-qfx
+
+  junos-evo:
+    copy: junos-qfx

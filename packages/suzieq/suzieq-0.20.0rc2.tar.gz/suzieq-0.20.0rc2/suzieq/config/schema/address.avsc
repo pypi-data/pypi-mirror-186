@@ -1,0 +1,116 @@
+{
+    "namespace": "suzieq",
+    "name": "address",
+    "physicalTable": "interfaces",
+    "type": "derivedRecord",
+    "depends": [
+        "interfaces"
+    ],
+    "fields": [
+        {
+            "name": "sqvers",
+            "type": "string",
+            "partition": 0,
+            "default": "1.0",
+            "suppress": true,
+            "description": "Schema version, not selectable"
+        },
+        {
+            "name": "macaddr",
+            "type": "string",
+            "display": 4,
+            "description": "MAC address"
+        },
+        {
+            "name": "ipAddressList",
+            "type": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "name": "ipAddress"
+                }
+            },
+            "display": 3,
+            "description": "List of interface IPv4 addresses"
+        },
+        {
+            "name": "state",
+            "type": "string",
+            "display": 6,
+            "description": "Operational state of interface"
+        },
+        {
+            "name": "ifname",
+            "type": "string",
+            "key": 2,
+            "display": 2,
+            "description": "Interface name"
+        },
+        {
+            "name": "ip6AddressList",
+            "type": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "name": "ip6Address"
+                }
+            },
+            "display": 5,
+            "description": "List of interface IPv6 addresses"
+        },
+        {
+            "name": "vlan",
+            "type": "long"
+        },
+        {
+            "name": "vrf",
+            "type": "string",
+            "depends": "master",
+            "display": 7
+        },
+        {
+            "name": "type",
+            "type": "string",
+            "description": "Type of interface"
+        },
+        {
+            "name": "hostname",
+            "type": "string",
+            "key": 1,
+            "display": 1,
+            "partition": 2,
+            "description": "Hostname associated with this record"
+        },
+        {
+            "name": "namespace",
+            "type": "string",
+            "key": 0,
+            "display": 0,
+            "partition": 1,
+            "description": "Namespace associated with this record"
+        },
+        {
+            "name": "timestamp",
+            "type": "timestamp",
+            "display": 8,
+            "description": "Unix epach When this record was created, in ms"
+        },
+        {
+            "name": "active",
+            "type": "boolean",
+            "description": "If this entry is active or deleted"
+        },
+        {
+            "name": "ipAddress",
+            "type": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "name": "ipAddress"
+                }
+            },
+            "description": "List of interface IPv4 and IPv6 addresses",
+            "depends": "ipAddressList ip6AddressList"
+        }
+    ]
+}

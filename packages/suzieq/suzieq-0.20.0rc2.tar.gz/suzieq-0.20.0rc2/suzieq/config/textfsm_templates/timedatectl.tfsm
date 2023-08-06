@@ -1,0 +1,11 @@
+Value timezone (\S+)
+Value ntpEnabled (yes|no)
+Value ntpSync (yes|no)
+
+Start
+  ^\s*Local time:.*$$
+  ^\s*Universal time:.*$$
+  ^\s*RTC time:.*$$
+  ^\s*Time zone: ${timezone}.*$$
+  ^\s*NTP enabled: ${ntpEnabled}.*$$
+  ^\s*NTP synchronized: ${ntpSync}.*$$ -> Record

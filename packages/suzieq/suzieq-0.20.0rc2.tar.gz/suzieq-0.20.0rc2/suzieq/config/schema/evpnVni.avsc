@@ -1,0 +1,147 @@
+{
+    "namespace": "suzieq",
+    "name": "evpnVni",
+    "type": "record",
+    "fields": [
+        {
+            "name": "sqvers",
+            "type": "string",
+            "partition": 0,
+            "default": "2.0",
+            "suppress": true,
+            "description": "Schema version, not selectable"
+        },
+        {
+            "name": "routerMac",
+            "type": "string"
+        },
+        {
+            "name": "secVtepIp",
+            "type": "string",
+            "display": 9,
+            "description": "Secondary VTEP IP, some NOS--such as NXOS--require this"
+        },
+        {
+            "name": "remoteVtepCnt",
+            "type": "int",
+            "depends": "namespace hostname remoteVtepList",
+            "display": 7,
+            "description": "Augmented column, count of how many peers are seen for VNI"
+        },
+        {
+            "name": "vrf",
+            "type": "string"
+        },
+        {
+            "name": "advGateway",
+            "type": "boolean"
+        },
+        {
+            "name": "state",
+            "type": "string",
+            "display": 5
+        },
+        {
+            "name": "mcastGroup",
+            "type": "string",
+            "display": 6
+        },
+        {
+            "name": "ifname",
+            "type": "string"
+        },
+        {
+            "name": "vlan",
+            "type": "long",
+            "display": 4
+        },
+        {
+            "name": "replicationType",
+            "type": "string",
+            "description": "How is BUM traffic handled"
+        },
+        {
+            "name": "type",
+            "type": "string",
+            "display": 3
+        },
+        {
+            "name": "numArpNd",
+            "type": "long",
+            "description": "Number of ARP/ND entries associated with this VNI"
+        },
+        {
+            "name": "remoteVtepList",
+            "type": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "name": "remoteVtep"
+                }
+            }
+        },
+        {
+            "name": "vniFilter",
+            "type": "string"
+        },
+        {
+            "name": "vni",
+            "type": "long",
+            "key": 2,
+            "display": 2
+        },
+        {
+            "name": "l2VniList",
+            "type": {
+                "type": "array",
+                "items": {
+                    "type": "long",
+                    "name": "l2Vni"
+                }
+            }
+        },
+        {
+            "name": "numMacs",
+            "type": "long",
+            "description": "Number of MACs associated with this VNI"
+        },
+        {
+            "name": "priVtepIp",
+            "type": "string",
+            "display": 8,
+            "description": "Primary VTEP IP"
+        },
+        {
+            "name": "deviceSession",
+            "type": "timestamp",
+            "suppress": true,
+            "description": "Device boot session id"
+        },
+        {
+            "name": "hostname",
+            "type": "string",
+            "key": 1,
+            "display": 1,
+            "partition": 2,
+            "description": "Hostname associated with this record"
+        },
+        {
+            "name": "namespace",
+            "type": "string",
+            "key": 0,
+            "display": 0,
+            "partition": 1,
+            "description": "Namespace associated with this record"
+        },
+        {
+            "name": "timestamp",
+            "type": "timestamp",
+            "display": 10
+        },
+        {
+            "name": "active",
+            "type": "boolean",
+            "description": "If this entry is active or deleted"
+        }
+    ]
+}
