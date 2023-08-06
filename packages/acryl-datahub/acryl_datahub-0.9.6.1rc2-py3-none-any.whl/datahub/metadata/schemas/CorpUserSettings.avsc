@@ -1,0 +1,58 @@
+{
+  "type": "record",
+  "name": "CorpUserSettings",
+  "namespace": "com.linkedin.pegasus2avro.identity",
+  "doc": "Settings that a user can customize through the datahub ui",
+  "fields": [
+    {
+      "name": "appearance",
+      "type": {
+        "type": "record",
+        "name": "CorpUserAppearanceSettings",
+        "doc": "Settings for a user around the appearance of their DataHub UI",
+        "fields": [
+          {
+            "name": "showSimplifiedHomepage",
+            "type": [
+              "null",
+              "boolean"
+            ],
+            "doc": "Flag whether the user should see a homepage with only datasets, charts and dashboards. Intended for users\nwho have less operational use cases for the datahub tool.",
+            "default": null
+          }
+        ]
+      },
+      "doc": "Settings for a user around the appearance of their DataHub U"
+    },
+    {
+      "name": "views",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "CorpUserViewsSettings",
+          "doc": "Settings related to the 'Views' feature.",
+          "fields": [
+            {
+              "name": "defaultView",
+              "type": [
+                "null",
+                "string"
+              ],
+              "doc": "The default View which is selected for the user.\nIf none is chosen, then this value will be left blank.",
+              "default": null,
+              "java": {
+                "class": "com.linkedin.pegasus2avro.common.urn.Urn"
+              }
+            }
+          ]
+        }
+      ],
+      "doc": "User preferences for the Views feature.",
+      "default": null
+    }
+  ],
+  "Aspect": {
+    "name": "corpUserSettings"
+  }
+}
