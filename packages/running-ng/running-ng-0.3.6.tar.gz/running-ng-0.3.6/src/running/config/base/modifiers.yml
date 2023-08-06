@@ -1,0 +1,51 @@
+modifiers:
+  tph:
+    type: JVMArg
+    val: "-XX:+UseThirdPartyHeap"
+  c2:
+    type: JVMArg
+    val: "-XX:-TieredCompilation -Xcomp"
+    excludes:
+      # These two benchmarks exit with code 1
+      dacapochopin-29a657f:
+        - tradebeans
+        - tradesoap
+      dacapochopin-f480064:
+        - tradebeans
+        - tradesoap
+  ms:
+    type: JVMArg
+    val: "-XX:MetaspaceSize=500M -XX:+DisableExplicitGC"
+  s:
+    type: JVMArg
+    val: "-server"
+  # Select GC algorithm
+  ## Rust MMTk
+  mmtk_gc:
+    type: EnvVar
+    var: "MMTK_PLAN"
+    val: "{0}"
+  ss:
+    type: EnvVar
+    var: "MMTK_PLAN"
+    val: "SemiSpace"
+  ix:
+    type: EnvVar
+    var: "MMTK_PLAN"
+    val: "Immix"
+  ## OpenJDK HotSpot
+  hotspot_gc:
+    type: JVMArg
+    val: "-XX:-UseCompressedOops -XX:+UnlockExperimentalVMOptions -XX:+Use{0}GC"
+  sgc:
+    type: JVMArg
+    val: "-XX:+UseSerialGC"
+  g1:
+    type: JVMArg
+    val: "-XX:-UseCompressedOops -XX:+UseG1GC"
+  epsilon:
+    type: JVMArg
+    val: "-XX:-UseCompressedOops -XX:+UnlockExperimentalVMOptions -XX:+UseEpsilonGC -XX:-EpsilonElasticTLAB -XX:TLABSize=32K -XX:-ResizeTLAB"
+  cms:
+    type: JVMArg
+    val: "-XX:-UseCompressedOops -XX:+UseConcMarkSweepGC -XX:TLABSize=32K -XX:-ResizeTLAB"
