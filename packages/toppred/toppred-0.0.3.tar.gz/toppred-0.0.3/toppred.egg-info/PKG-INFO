@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: toppred
+Version: 0.0.3
+Summary: Extension to sklearn.metrics to allow metrics with multiple predictions. 
+Author-email: Thijs van Ede <t.s.vanede@utwente.nl>
+License: MIT License
+        
+        Copyright (c) 2022 Thijs van Ede
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/Thijsvanede/toppred
+Project-URL: Bug Tracker, https://github.com/Thijsvanede/toppred/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# toppred
+Extension to [sklearn.metrics](https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics) to allow metrics for classifiers that output a top `n` prediction.
+Some classifiers output confidence levels for each class.
+Oftentimes, you want to evaluate the performance of such classifiers assuming the correct prediction is the top `n` predictions with the highest confidence level.
+This library serves as an extension to the functions provided by [sklearn.metrics](https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics) to allow for evaluating classifiers that do not output a single prediction per sample, but rather a range of top predictions per sample.
+
+## Installation
+The most straightforward way of installing `toppred` is via pip:
+```bash
+pip3 install toppred
+```
+
+## Documentation
+We provide an extensive documentation including installation instructions and reference at [toppred.readthedocs.io](https://toppred.readthedocs.io).
+
