@@ -1,0 +1,31 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools >= 61.0"]
+
+[project]
+authors = [
+  {name = "Ingmar Mueller", email = "ingmar.mueller@kfw.de"},
+  {name = "Mario Macai", email = "mario.macai@accenture.com"},
+  {name = "Melissa Schmidt", email = "melissa.schmidt@accenture.com"},
+  {name = "Georgia Moldovan", email = "georgia.moldovan@accenture.com"},
+  {name = "Felix Stark", email = "felix.stark@kfw.de"},
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Operating System :: OS Independent",
+]
+dependencies = ["requests >= 2.27.1"]
+description = "A python library to access the Awattar Energy Price API."
+keywords = ["green_energy", "kfw", "api", "cloud"]
+name = "smart_energy.green_energy_api"
+readme = "README.md"
+requires-python = ">=3.7"
+version = "0.1.0"
+
+[project.optional-dependencies]
+dev = ["black", "pytest", "python-dotenv", "pre-commit"]
+
+[project.urls]
+"Bug Tracker" = "https://github.com/openkfw/smart_energy.green_energy_api/issues"
+"Homepage" = "https://github.com/openkfw/smart_energy.green_energy_api"
