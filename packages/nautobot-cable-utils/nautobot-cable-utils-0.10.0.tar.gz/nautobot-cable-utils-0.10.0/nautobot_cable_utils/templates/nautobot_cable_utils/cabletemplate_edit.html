@@ -1,0 +1,19 @@
+{% extends 'generic/object_edit.html' %}
+{% load static %}
+{% load form_helpers %}
+{% load helpers %}
+
+{% block tabs %}
+    {% if not editing %}
+        {% include 'nautobot_cable_utils/inc/cabletemplate_edit_header.html' with active_tab='add' %}
+    {% endif %}
+{% endblock %}
+
+{% block form %}
+    <div class="panel panel-default">
+        <div class="panel-heading"><strong>Cable Template</strong></div>
+        <div class="panel-body">
+            {% render_form form %}
+        </div>
+    </div>
+{% endblock form %}

@@ -1,0 +1,29 @@
+{% extends 'generic/object_edit.html' %}
+{% load static %}
+{% load form_helpers %}
+
+{% block title %}Bulk Add Cable Templates{% endblock %}
+
+{% block tabs %}
+    {% include 'nautobot_cable_utils/inc/cabletemplate_edit_header.html' with active_tab='bulk_add' %}
+{% endblock %}
+
+{% block form %}
+    <div class="panel panel-default">
+        <div class="panel-heading"><strong>Pattern</strong></div>
+        <div class="panel-body">
+            {% render_field form.pattern %}
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><strong>Cable Template</strong></div>
+        <div class="panel-body">
+            {% render_field model_form.owner %}
+            {% render_field model_form.type %}
+            {% render_field model_form.plug %}
+            {% render_field model_form.color %}
+            {% render_field model_form.length %}
+            {% render_field model_form.length_unit %}
+        </div>
+    </div>
+{% endblock %}

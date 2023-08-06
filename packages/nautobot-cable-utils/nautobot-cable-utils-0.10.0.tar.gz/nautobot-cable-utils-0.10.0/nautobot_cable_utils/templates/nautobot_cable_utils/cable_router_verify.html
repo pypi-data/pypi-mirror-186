@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load helpers %}
+{% load render_table from django_tables2 %}
+
+{% block header %}
+    <h1>{% block title %}Proposed Cable Trace{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-5 col-sm-12">
+            <div class="cable-trace">
+                {% for e in path %}
+                    {% if e.attachment_a %}
+                        {% include 'dcim/trace/termination.html' with termination=e.attachment_a %}
+                    {% endif %}
+                    {% if e.device %}
+                        {% include 'dcim/trace/device.html' with device=e.device %}
+                    {% endif %}
+                    {% if e.attachment_b %}
+                        {% include 'dcim/trace/termination.html' with termination=e.attachment_b %}
+                    {% endif %}
+                    {% if e.cable %}
+                        {% include 'dcim/trace/cable.html' with cable=e.cable %}
+                    {% endif %}
+                    {% if e.needed_cable %}
+                        {% include 'nautobot_cable_utils/trace/needed_cable.html' with cable=e.needed_cable %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <div class="panel panel-default">
+                {% render_table needed_cable_table 'inc/table.html' %}
+            </div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                {% for field in form.hidden_fields %}
+                    {{ field }}
+                {% endfor %}
+                <div class="panel panel-danger">
+                    <div class="panel-body">
+                        {% block message %}<p>Do you want to create the listed cables?</p>{% endblock %}
+                        <div class="text-right">
+                            <button type="submit" name="_confirm" class="btn btn-success">Create</button>
+                            <a href="{{ return_url }}" class="btn btn-default">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
