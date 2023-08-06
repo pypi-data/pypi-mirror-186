@@ -1,0 +1,20 @@
+# Python plugin definition
+refs:
+    - python.yml        # Python path contribution
+    - settings.yml      # VSCode settings generation
+    - launch.yml        # VSCode launch configs generation
+    - tasks.yml         # VSCode tasks generation
+    - extensions.yml    # VSCode recommended extensions generation
+
+config:
+    # Plugin version
+    nmkVSCodePluginVersion:
+        __resolver__: nmk_vscode.NmkVSCodeVersionResolver
+
+    # Plugin versions dict
+    nmkPluginsVersions:
+        nmk-vscode: ${nmkVSCodePluginVersion}
+
+    # Plugin help links dict
+    nmkPluginsDocs:
+        nmk-vscode: https://github.com/dynod/nmk/wiki/nmk-vscode-plugin
