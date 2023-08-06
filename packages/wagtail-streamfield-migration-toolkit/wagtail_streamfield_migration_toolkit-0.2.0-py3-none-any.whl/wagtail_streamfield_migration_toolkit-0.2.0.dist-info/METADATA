@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: wagtail-streamfield-migration-toolkit
+Version: 0.2.0
+Summary: A set of reusable utilities to allow Wagtail implementors to easily generate data migrations for changes to StreamField block structure.
+Home-page: 
+Author: Sandil Ranasinghe
+Author-email: sandilsranasinghe@gmail.com
+License: BSD
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Framework :: Django :: 4.1
+Classifier: Framework :: Wagtail
+Classifier: Framework :: Wagtail :: 3
+Classifier: Framework :: Wagtail :: 4
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Django (<4.2,>=3.2)
+Requires-Dist: Wagtail (<4.2,>=3.0)
+Provides-Extra: docs
+Requires-Dist: pydoc-markdown (==4.6.3) ; extra == 'docs'
+Provides-Extra: testing
+Requires-Dist: freezegun (>=0.3.8) ; extra == 'testing'
+Requires-Dist: wagtail-factories (<5.0,>=4.0.0) ; extra == 'testing'
+
+
+This package aims to make it easier for developers using StreamField who need to write data
+migrations when making changes involving blocks/block structure in the StreamField. We expose a
+custom migration operation class (`MigrateStreamData`) for migrations, which recurses through
+a streamfield to apply chosen sub-operations to all blocks matching a specific type. With it we also 
+supply a set of sub-operations to perform the most common changes, while also allowing you to
+write your own when needed.
+
+For more details, see https://github.com/sandilsranasinghe/wagtail-streamfield-migration-toolkit
