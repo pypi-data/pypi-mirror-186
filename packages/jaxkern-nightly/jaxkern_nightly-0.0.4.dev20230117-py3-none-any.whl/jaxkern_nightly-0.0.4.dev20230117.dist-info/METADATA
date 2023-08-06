@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: jaxkern-nightly
+Version: 0.0.4.dev20230117
+Summary: Kernels in Jax.
+Home-page: UNKNOWN
+Author: Daniel Dodd and Thomas Pinder
+Author-email: tompinder@live.co.uk
+License: LICENSE
+Project-URL: Documentation, https://JaxKern.readthedocs.io/en/latest/
+Project-URL: Source, https://github.com/JaxGaussianProcesses/JaxKern
+Keywords: gaussian-processes jax machine-learning bayesian
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+Requires-Dist: jax (>=0.4.1)
+Requires-Dist: jaxlib (>=0.4.1)
+Requires-Dist: jaxutils (>=0.0.8)
+Requires-Dist: jaxtyping (>=0.0.2)
+Requires-Dist: jaxlinop (>=0.0.3)
+Requires-Dist: deprecation
+Provides-Extra: cuda
+Requires-Dist: jax[cuda] ; extra == 'cuda'
+Provides-Extra: dev
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: isort ; extra == 'dev'
+Requires-Dist: pylint ; extra == 'dev'
+Requires-Dist: flake8 ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: networkx ; extra == 'dev'
+Requires-Dist: pytest-cov ; extra == 'dev'
+Requires-Dist: pytest-xdist ; extra == 'dev'
+
+<h1 align='center'>JaxKern</h1>
+<h2 align='center'>Kernels in Jax.</h2>
+
+[![codecov](https://codecov.io/gh/JaxGaussianProcesses/JaxKern/branch/main/graph/badge.svg?token=8WD7YYMPFS)](https://codecov.io/gh/JaxGaussianProcesses/JaxKern)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/JaxGaussianProcesses/JaxKern/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/JaxGaussianProcesses/JaxKern/tree/main)
+
+
