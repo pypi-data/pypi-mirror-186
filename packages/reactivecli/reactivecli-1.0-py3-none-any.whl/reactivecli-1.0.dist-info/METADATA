@@ -1,0 +1,114 @@
+Metadata-Version: 2.1
+Name: reactivecli
+Version: 1.0
+Summary: A CLI framework library to build responsive console interfaces
+Home-page: https://github.com/brunojunqueira/ReactiveCLI
+Author: Bruno Junuqeira
+Author-email: brunosdsj@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7.1
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: sshkeyboard
+
+# ReactiveCLI
+
+ReactiveCLI is a CLI framework library to build responsive console interfaces.
+
+- **Description:** ReactiveCLI makes it painless to create interactive interfaces on console. Change values, and states of components and they will simple update in your console menu. 
+- **Components-Based:** Using prefab components or build your own component make things easier to recicle code and avoid repetition code process.
+
+**Sumary**:
+
+1. [Installation](#installation)
+2. [Quick Start](#quick-start)
+3. [Documentation](#documentation)
+    1. [Core](#core)
+    2. [Components](#components)
+
+# Installation
+
+Install ReactiveCLI with pip:
+
+```bash
+  pip install reactivecli
+```
+    
+# Quick Start
+
+After install ReactiveCLI with pip.
+
+In your project create a `app.py` file and write a simple menu on it:
+```python
+#import component Title
+from reactivecli import Title
+#Create the menu callback
+def menu():
+    #Instantiate the Title component as menu_title
+    menu_title = Title("Hello ReactiveCLI!")
+    #Return a list with the components in desired order
+    return [
+        menu_title
+    ]
+```
+
+In the main file of the project create a root, pass the app menu and True[*remove on final build*] as arguments.
+
+Example in `main.py`:
+```python
+from reactivecli import create_root
+import app
+#Create root with the app menu and set dev mode to true
+create_root(app.menu, True)
+```
+
+Now open the console and run your code with `python main.py` command.
+
+This will be the expected output:
+
+*TO BE WRITTEN*
+## Documentation
+ReactiveCLI have a simple use methodology based on components.
+
+### Core
+ReactiveCLI core methods and builders
+
+#### create_root :
+-Create a menu flow root from a menu callback-
+
+Usage:
+```python
+from reactivecli import create_root
+import app
+create_root(app.menu, True)
+```
+
+| **arg**       | **type** | **description**                                                 |
+|:--------------|:---------|:----------------------------------------------------------------|
+| menu_callback | callable | Callback that returns a list with menu components.              |
+| dev           | bool     | If true the files changed will be recompiled in execution time. |
+
+
+### Components
+ReactiveCLI are based on components. So to build up an application you need to know what components to use.
+
+#### Input
+Text container that can be editable in execution time and saved to use the value as you wish.
+
+Usage:
+```python
+from reactivecli import Input, Text
+def menu():
+    name_input = Input()
+    age_input = Input("value")
+    return [
+        Text("Insert your name:"),
+        name_input,
+        Text("Insert your age:"),
+        age_input
+    ]
+```
+
+*TO BE WRITTEN*
