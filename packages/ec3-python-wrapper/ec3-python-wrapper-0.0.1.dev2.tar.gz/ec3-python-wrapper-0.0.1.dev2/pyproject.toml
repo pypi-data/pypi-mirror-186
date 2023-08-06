@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ec3-python-wrapper"
+authors = [
+  { name="Jared Friedman"},
+]
+description = "A python wrapper around the EC3 api by Building Transparency"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dynamic = [
+  "version",
+  "keywords",
+  "license"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/jbf1212/ec3-python-wrapper"
+"Bug Tracker" = "https://github.com/jbf1212/ec3-python-wrapper/issues"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
