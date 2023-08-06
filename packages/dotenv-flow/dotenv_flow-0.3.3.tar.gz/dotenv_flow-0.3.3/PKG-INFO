@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: dotenv-flow
+Version: 0.3.3
+Summary: Like the dotenv-flow NodeJS library, for Python
+Home-page: https://github.com/ChacheGS/dotenv_flow
+License: WTFPL
+Author: Carlos Gonzalez
+Author-email: gonsa.carlos@gmail.com
+Maintainer: Carlos Gonzalez
+Maintainer-email: gonsa.carlos@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: python-dotenv (>=0.21.0,<0.22.0)
+Project-URL: Repository, https://github.com/ChacheGS/dotenv_flow
+Description-Content-Type: text/markdown
+
+# dotenv_flow
+
+Loads different dotenv files based on the value of the `PY_ENV` variable.
+
+Values in more specific files override previous values.
+
+Files have 2 flavors:
+
+- public (ex: .env.dev) that should be committed to version control
+- private (ex: .env.dev.local) that has preference over the previous one if present, and should **NOT**
+
+This is the python version of Node's [dotenv-flow](https://www.npmjs.com/package/dotenv-flow)
+
+dotenv files are loaded with [python-dotenv](https://pypi.org/project/python-dotenv/)
+
+This should be added to version control ignore file:
+```
+# local .env* files
+.env.local
+.env.*.local
+```
+
