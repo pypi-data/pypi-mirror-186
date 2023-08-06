@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# [build-system]
+# requires = ["setuptools>=61.0"]
+# build-backend = "setuptools.build_meta"
+
+[project]
+name = "video2audio"
+version = "2023.1.14"
+authors = [
+  { name="Alex Page", email="a.t.page@gmail.com" },
+]
+description = "Extract audio tracks from A/V files using ffmpeg."
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/atpage/video2audio"
+"Bug Tracker" = "https://github.com/atpage/video2audio/issues"
+
+[project.scripts]
+video2audio = "video2audio.cli:main"
