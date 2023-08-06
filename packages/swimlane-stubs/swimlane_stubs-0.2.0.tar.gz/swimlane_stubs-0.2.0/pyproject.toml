@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "swimlane-stubs"
+version = "0.2.0"
+description = "A small library to help with type hinting for the Swimlane Python SDK"
+authors = ["Alex Way <alexwa@softcat.com>"]
+readme = "README.md"
+packages = [{include = "swimlane-stubs"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.group.dev.dependencies]
+swimlane = "^10.11.0"
+
+[tool.black]
+line-length = 120
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.isort]
+split-on-trailing-comma = false
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
