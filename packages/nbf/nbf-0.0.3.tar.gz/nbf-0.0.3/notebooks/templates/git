@@ -1,0 +1,18 @@
+#@title Git Actions { run: "auto", vertical-output: true }
+if c['running_nb'] == c['nb_name']:
+  github_index = 0 #@param ["0", "1", "2"] {type:"raw"}
+  git_action = "status" #@param ["","nb2repo*","pull","diff","diff origin --minimal","git_nbastatus*","commit -m {message}","push","ppush*","status","fetch","merge","push origin dev","diff main dev","merge main","merge dev","checkout main","checkout dev","diff --staged","restore","add .","branch -a","log -15 --graph --oneline --decorate","reset --hard HEAD","reset --hard HEAD~1","commit --amend -m {messaage}"]
+
+  print('repo indices: '+str(dict(zip(range(len(c['github'])),c['github']))))
+  if github_index > len(c['github'])-1:
+    print('no repo at that index')
+  else:
+    print('repo:',c['github'][github_index])
+  if git_action!='':
+    if git_action=='nb2repo*': nb2repo()
+    elif git_action=='ppush*': git_ppush(commit_message)
+    elif git_action=='git_nbastatus*': git_nbastatus(github_index)
+    else:
+      if git_action=="commit -m {message}": git_action = f"commit -m '{commit_message}'"
+      if git_action=="commit --amend -m {messaage}": git_action = f"commit --amend -m '{commit_message}'"
+      !cd {c['github'][github_index]} && git {git_action}

@@ -1,0 +1,8 @@
+try:
+  c
+except:
+  c = {'github':['jai'],'use_google_drive':False}
+  !wget -qO epc.py https://maya.software/epc.txt
+  import epc
+  c = epc.load_requests(c)
+  # %run {c.get('nb_dir')}setup_project.ipynb
