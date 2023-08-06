@@ -1,0 +1,69 @@
+// Entry point
+start: instructions*
+
+// Collection constructs
+?instructions: enum
+            | ruleset
+            | strict_ruleset
+            | schema_entry
+            | strict_schema_entry
+
+?values: INT -> integer
+       | FLOAT -> float
+       | string
+
+schema_entry: "schema" "{" rule+ "}"
+strict_schema_entry: "strict schema" "{" rule+ "}"
+
+ruleset: "ruleset" /[A-Z]{1}[a-zA-Z0-9_]+/ "{" rule+ "}"
+strict_ruleset: "strict ruleset" /[A-Z]{1}[a-zA-Z0-9_]+/ "{" rule+ "}"
+
+// Enum constructs
+enum: "enum" /[A-Z]{1}[a-zA-Z0-9_]+/ "{" enum_item+ "}"
+enum_item: /[A-Z0-9_]+/ "=" values
+
+// Rule definitions
+?rule: required_rule
+     | optional_rule
+
+rule_name: /[\S]+/
+         | /\"[\S ]+\"/
+
+required_rule: rule_name type "required" NEW_LINES
+             | rule_name type NEW_LINES
+optional_rule: rule_name type "optional" NEW_LINES
+
+// Data types for rules
+type: int_type
+     | float_type
+     | str_type
+     | list_type
+     | map_type
+     | any_type
+     | container_type
+     | regex_type
+     | bool_type
+
+str_type: "str"
+int_type: "int"
+any_type: "any"
+float_type: "float"
+bool_type: "bool"
+list_type: "list""(" type ")"
+map_type: "map""(" type ")"
+container_type: /[A-Z]{1}[a-zA-Z0-9_]+/
+regex_type: "regex""(" string ")"
+
+NEW_LINES: "\n"+
+
+string: ESCAPED_STRING
+
+%import common.SH_COMMENT
+%import common.ESCAPED_STRING
+%import common.INT
+%import common.FLOAT
+%import common.WS
+
+%ignore WS
+%ignore NEW_LINES
+%ignore SH_COMMENT
