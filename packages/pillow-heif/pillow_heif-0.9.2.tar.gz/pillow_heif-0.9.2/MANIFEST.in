@@ -1,0 +1,24 @@
+include README.md
+include CHANGELOG.md
+include pyproject.toml
+
+recursive-include pillow_heif *.c
+recursive-include pillow_heif *.h
+
+graft libheif
+graft tests
+graft examples
+
+exclude *.yaml
+exclude *.yml
+exclude CODE_OF_CONDUCT.md
+exclude SECURITY.md
+exclude .cirrus.star
+
+prune ci
+prune docs
+prune docker
+prune benchmarks
+
+recursive-exclude **/__pycache__ *
+recursive-exclude pi-heif *
