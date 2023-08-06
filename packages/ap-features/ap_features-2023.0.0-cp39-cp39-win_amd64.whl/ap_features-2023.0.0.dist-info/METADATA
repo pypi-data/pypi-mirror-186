@@ -1,0 +1,96 @@
+Metadata-Version: 2.1
+Name: ap-features
+Version: 2023.0.0
+Summary: Package to compute features of traces from action potential models
+Home-page: https://github.com/ComputationalPhysiology/ap_features
+Author: Henrik Finsberg, Kristian G. Hustad
+Author-email: henriknf@simula.no
+License: LGPL-2.1
+Keywords: action potential,cell models,features
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: matplotlib
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: tqdm
+Provides-Extra: dev
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: bump2version ; extra == 'dev'
+Requires-Dist: flake8 ; extra == 'dev'
+Requires-Dist: ipython ; extra == 'dev'
+Requires-Dist: mypy ; extra == 'dev'
+Requires-Dist: numba ; extra == 'dev'
+Requires-Dist: pdbpp ; extra == 'dev'
+Requires-Dist: pre-commit ; extra == 'dev'
+Requires-Dist: twine ; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: Sphinx ; extra == 'docs'
+Requires-Dist: jupyter-book ; extra == 'docs'
+Requires-Dist: numba ; extra == 'docs'
+Requires-Dist: pandoc ; extra == 'docs'
+Provides-Extra: numba
+Requires-Dist: numba ; extra == 'numba'
+Provides-Extra: plot
+Requires-Dist: matplotlib ; extra == 'plot'
+Provides-Extra: test
+Requires-Dist: black ; extra == 'test'
+Requires-Dist: dask[array] ; extra == 'test'
+Requires-Dist: flake8 ; extra == 'test'
+Requires-Dist: jupytext ; extra == 'test'
+Requires-Dist: matplotlib ; extra == 'test'
+Requires-Dist: mypy ; extra == 'test'
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+Requires-Dist: pytest-env ; extra == 'test'
+Requires-Dist: h5py ; (python_version < "3.11") and extra == 'test'
+Requires-Dist: numba ; (python_version < "3.11") and extra == 'test'
+
+[![image](https://img.shields.io/pypi/v/ap_features.svg)](https://pypi.python.org/pypi/ap_features)
+![CI](https://github.com/ComputationalPhysiology/ap_features/workflows/CI/badge.svg)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/ComputationalPhysiology/ap_features/main.svg)](https://results.pre-commit.ci/latest/github/ComputationalPhysiology/ap_features/main)
+[![github pages](https://github.com/ComputationalPhysiology/ap_features/actions/workflows/github-pages.yml/badge.svg)](https://github.com/ComputationalPhysiology/ap_features/actions/workflows/github-pages.yml)
+[![Build and upload to PyPI](https://github.com/ComputationalPhysiology/ap_features/actions/workflows/deploy.yml/badge.svg)](https://github.com/ComputationalPhysiology/ap_features/actions/workflows/deploy.yml)
+[![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/finsberg/a7290de789564f03eb6b1ee122fce423/raw/ap_features-coverage.json)](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/finsberg/a7290de789564f03eb6b1ee122fce423/raw/ap_features-coverage.json)
+# Action Potential features
+
+`ap_features` is package for computing features of action potential traces. This includes chopping, background correction and feature calculations.
+
+Parts of this library is written in `C` and `numba` and is therefore highly performant. This is useful if you want to do feature calculations on a large number of traces.
+
+## Install
+Install the package with pip
+```
+python -m pip install ap_features
+```
+See [installation instructions](https://computationalphysiology.github.io/ap_features/INSTALL.html) for more options.
+
+
+## Available features
+The list of currently implemented features are as follows
+- Action potential duration (APD)
+- Corrected action potential duration (cAPD)
+- Decay time (Time for the signal amplitude to go from maximum to (1 - a) * 100 % of maximum)
+- Time to peak (ttp)
+- Upstroke time (time from (1-a)*100 % signal amplitude to peak)
+- Beating frequency
+- APD up (The duration between first intersections of two APD lines)
+- Maximum relative upstroke velocity
+- Maximum upstroke velocity
+- APD integral (integral of the signals above the APD line)
+
+
+## Documentation
+Documentation is hosted at GitHub pages: <https://computationalphysiology.github.io/ap_features/>
+
+Note that the documentation is written using [`jupyterbook`](https://jupyterbook.org) and contains an [interactive demo](https://computationalphysiology.github.io/ap_features/demo_fitzhugh_nagumo.html)
+
+
+## License
+* Free software: LGPLv2.1
+
+## Source Code
+* <https://github.com/ComputationalPhysiology/ap_features>
