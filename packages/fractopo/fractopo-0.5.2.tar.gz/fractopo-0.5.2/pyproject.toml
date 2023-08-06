@@ -1,0 +1,179 @@
+[tool.poetry]
+name = "fractopo"
+version = "0.5.2"
+description = "Fracture Network Analysis"
+authors = ["nialov <nikolasovaskainen@gmail.com>"]
+readme = "README.rst"
+license = "MIT"
+# Make sure hyphens/underscores are correct in urls
+homepage = "https://github.com/nialov/fractopo"
+repository = "https://github.com/nialov/fractopo"
+documentation = "https://fractopo.readthedocs.io/en/latest/"
+# For inspiration: https://pydigger.com/keywords
+keywords = [
+    "data",
+    "gis",
+    "geology",
+    "fracture",
+    "topology",
+]
+# See https://pypi.org/classifiers/
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: GIS",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only"
+]
+include = ["CHANGELOG.md"]
+
+[tool.poetry.scripts]
+fractopo = "fractopo.__main__:APP"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/nialov/fractopo/issues"
+
+# Changes here should be kept in sync with ./environment.yml
+[tool.poetry.dependencies]
+python = ">=3.8,<3.12"
+click = "*"
+geopandas = ">=0.11.1,<1.0.0"
+joblib = ">=1.2.0,<2.0.0"
+matplotlib = "*"
+numpy = "*"
+pandas = ">=1.3,<2.0.0"
+powerlaw = "*"
+pygeos = ">=0.13.0,<1.0.0"
+python-ternary = "*"
+rich = ">=11.0.0"
+scikit-learn = "*"
+scipy = ">=1.9.1,<2.0.0"
+seaborn = "*"
+shapely = ">=1.8.0,<2.0.0"
+typer = ">=0.4,<1.0.0"
+
+# Extras
+# Coverage
+coverage = {version = "*", optional = true}
+coverage-badge = {version = "*", optional = true}
+
+# Docs
+sphinx = {version = "*", optional = true}
+sphinx-rtd-theme = {version = "*", optional = true}
+nbsphinx = {version = "*", optional = true}
+sphinx-gallery = {version = "*", optional = true}
+sphinx-autodoc-typehints = {version = "*", optional = true}
+sphinx-autobuild = {version = "*", optional = true}
+
+# Linting
+pylint = {version = "*", optional = true}
+rstcheck = {version = "*", optional = true}
+markupsafe = {version = "*", optional = true}
+
+# Typecheck
+mypy = {version = "*", optional = true}
+
+[tool.poetry.dev-dependencies]
+# TODO: copier could be installed outside the poetry environment
+codespell = "^2.2.2"
+cogapp = "^3.3.0"
+copier = "*"
+coverage = "^6.5.0"
+doit = "*"
+hypothesis = "*"
+ipython = "*"
+json5 = "*"
+jupyterlab = "*"
+nbstripout = "^0.6.1"
+nox = "*"
+pre-commit = "*"
+pyinstrument = "*"
+pytest = "*"
+pytest-regressions = "==2.2.0"
+toml = "*"
+
+[tool.poetry.extras]
+coverage = ["coverage", "coverage-badge"]
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme",
+    "nbsphinx",
+    "sphinx-gallery",
+    "sphinx-autodoc-typehints",
+    "sphinx-autobuild"
+]
+lint = [
+    "pylint",
+    "rstcheck",
+    "sphinx",
+    "markupsafe",
+]
+typecheck = ["mypy"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths =[
+    "tests",
+    "fractopo",
+    ]
+addopts = "--doctest-modules"
+doctest_optionflags =[
+    "NUMBER",
+    "NORMALIZE_WHITESPACE",
+    ]
+
+filterwarnings =[
+    "ignore:invalid value encountered in true_divide:RuntimeWarning",
+    "ignore:The Shapely GEOS version :UserWarning",
+    "ignore:invalid value encountered in double_scalars:RuntimeWarning",
+    "ignore:Mean of empty slice:RuntimeWarning",
+    "ignore:Degrees of freedom :RuntimeWarning",
+    "ignore:divide by zero encountered in double_scalars:RuntimeWarning",
+    "ignore:This method will be removed in future versions:DeprecationWarning",
+    "ignore:The default dtype for empty Series will be:DeprecationWarning",
+    "ignore:All-NaN slice encountered:RuntimeWarning",
+    ]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+src_paths = ["fractopo", "tests"]
+
+[tool.pylint.master]
+fail-under = "9.5"
+ignore = [".fractopo_cache", "examples"]
+
+[tool.pylint.report]
+output-format = "text"
+
+[tool.pylint.messages_control]
+max-line-length = 100
+disable = [
+    "C0103",
+    "C0302",
+    "R0902",
+    "R0913",
+    "R0914",
+    "R1735",
+    "W0212",
+    "W0621",
+    "W0703",
+    "W1203",
+    ]
+
+[tool.pylint.similarities]
+ignore-imports = true
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.codespell]
+ignore_words_list = [
+    "theses"
+]
