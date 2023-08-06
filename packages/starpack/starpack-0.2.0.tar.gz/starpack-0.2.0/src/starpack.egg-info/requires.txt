@@ -1,0 +1,14 @@
+typer[all]<1.0.0,>=0.6.1
+docker<7.0.0,>=6.0.0
+requests<3.0.0,>=2.28.1
+pydantic[dotenv]<1.11.0,>=1.10.2
+PyYAML<7.0,>=6.0
+
+[:platform_system == "Windows"]
+click>=8.0.0
+
+[dev]
+pytest<=8.0.0,>=7.1.2
+pytest-cov<=4.0.0,>=3.0.0
+requests-mock<=1.11.0,>=1.10.0
+black>=22.0.0

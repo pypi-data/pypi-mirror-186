@@ -1,0 +1,422 @@
+Metadata-Version: 2.1
+Name: starpack
+Version: 0.2.0
+Summary: A modular utility to package and deploy ML models
+Author: "Andromeda 360, Inc"
+Author-email: irvin.shen@andromeda360.ai
+License: Apache License Version 2.0
+Keywords: Swagger,OpenAPI,ModelOps,CLI,DataScience,DevOps,MLOps
+Classifier: Topic :: Utilities
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+License-File: LICENSE
+
+# ![Starpack](misc/starpack-dark.svg)
+
+[![PyPI version](https://badge.fury.io/py/starpack.svg)](https://badge.fury.io/py/starpack)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/starpack)
+[![codecov](https://codecov.io/gh/a360-starpack/starpack/branch/main/graph/badge.svg?token=N077SV8NA8)](https://codecov.io/gh/a360-starpack/starpack)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+
+Starpack is tool to package and deploy production-ready packages of machine learning models.
+
+This repository contains the code for the CLI and Python library for interacting with Starpack. To run Starpack locally, 
+you will need to install a Python version listed in the badge above and 
+[Docker Desktop](https://docs.docker.com/get-docker/) installed locally.
+
+Currently, Starpack only supports packaging and deployment in local Docker Desktop or Docker Engine environments, 
+but the generated Docker images can be pushed to remote repositories and deployed manually. 
+It is currently on our roadmap to support deployment through Andromeda 360 down the line.
+
+
+## Table of Contents
+
+<!-- TOC -->
+* [Starpack](#)
+  * [Table of Contents](#table-of-contents)
+  * [Quickstart](#quickstart)
+  * [Full Command List](#full-command-list)
+    * [Init](#init)
+    * [Upload](#upload)
+    * [Package](#package)
+      * [Metadata](#metadata)
+      * [Artifacts](#artifacts)
+      * [Steps](#steps)
+    * [Deploy](#deploy)
+    * [Engine](#engine)
+      * [Start](#start)
+      * [Terminate](#terminate)
+    * [Plugins](#plugins)
+  * [Examples](#examples)
+    * [Basic Example](#basic-example)
+  * [Troubleshooting](#troubleshooting)
+<!-- TOC -->
+
+## Quickstart
+
+To begin using Starpack, open a terminal and run 
+```bash
+pip install starpack
+```
+
+Then, you can initialize an existing or new directory with starter code and files by running the following in a terminal
+
+```bash
+starpack init ./path/you/want
+```
+
+Reconfigure your `starpack.yaml`, `predict.py`, and `requirements.txt` files to point to your model artifacts, properly ingest your data, and list your project dependencies, respectively. An example of these files can be found in the `examples` folder.
+
+Finally, run the following terminal command to package and deploy your model locally
+
+```bash
+starpack deploy ./path/you/want
+```
+
+
+
+or alternatively in Python (such as in a notebook), the process can be run as follows:
+
+```python
+import starpack
+from pathlib import Path
+
+desired_directory = Path("./path/you/want")
+
+starpack.initialize_directory(desired_directory)
+
+# Reconfigure your files that have been initialized for your specific project
+
+starpack.deploy_directory(desired_directory)
+```
+
+
+## Full Command List
+
+A full command list can be found by running
+
+```bash
+starpack --help
+```
+
+Currently, the following top-level flags are available:
+
+| Name               | Flag                   | Description                                                                                                     |
+|--------------------|------------------------|-----------------------------------------------------------------------------------------------------------------|
+| Version            | `--version`, `-v`      | Returns the version of the Starpack CLI installed in your environment                                           |
+| Install Completion | `--install-completion` | Installs the auto-complete definitions for Starpack in your current terminal environment                        |
+| Show Completion    | `--show-completion`    | Shows completion for your current shell so that you can copy or customize the configuration                     |
+| Help               | `--help`               | Shows a nicely formatted table displaying the currently available commands, their flags, and their descriptions |
+
+Additionally, we have a variety of commands to manage the Starpack Engine and generate packages.
+
+### Init
+
+The command, `starpack init`, when provided with a local path as an argument, will generate files to help you start developing your package definition. By default, Starpack will prompt for permission to overwrite existing files, unless the `--ovewrite/-o` flag is given.
+
+
+| Filename           | Usage                                                                                                                                                                                                                    |
+|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `requirements.txt` | Define your Python requirements that are necessary to run your deployment script. Dependencies are installed using `pip`.                                                                                                |
+| `predict.py`       | Python script that defines how to handle an ingested Pandas DataFrame of data and transform it into your prediction output. This script should handle any data transformations and model loading required for inference. |
+| `starpack.yaml`    | YAML definition of your Starpack packaging and deployment information. This file should define the locations of all necessary artifacts and build steps.                                                                 |
+
+
+### Upload
+
+The command, `starpack upload`, takes in a directory path and uploads its contents to the Starpack Engine. 
+The name of this directory will be the name of the artifacts location within the Engine for when you package and deploy your model.
+
+### Package
+
+The command, `starpack package`, takes in a path, either a directory or `starpack.yaml` in order to package your model. 
+If given a directory, Starpack will upload the contents to the Starpack Engine, then find any `starpack.yaml` file in 
+the given directory to send as a payload to the Starpack Engine.
+
+
+The `starpack.yaml` file contains two main sections, `package` and `deployment`. 
+Furthermore, the YAML packaging section contains three main subsections:
+
+1. Metadata
+2. Artifacts
+3. Steps
+
+
+#### Metadata
+
+Within the metadata section, you can define things such as the name, version, and author of the package. 
+These fields should be generated when creating a directory using [`starpack init`](#init)
+
+#### Artifacts
+
+This section defines the name of your model artifacts location in the Engine system, as well as where you can find files such as your validation data, prediction script, and dependencies.
+
+#### Steps
+
+This section is an ordered list of your build steps. Each of your build steps uses either built-in or 
+externally written plugins that can be called by name and optionally constrained by version of the plugin. 
+Some plugins may need additional data, which will be included within the step's definition.
+
+### Deploy
+
+The command, `starpack deploy`, takes in a path, either a directory or `starpack.yaml` in order to deploy your packaged model.
+If given a path, the assumption is made that the contents should be uploaded to the Engine, the YAML should be parsed for any packaging information, and finally, the deployment should be processed.
+If given just a starpack.yaml, only the `deployment` step will be run, with the assumption that the other steps have already been run previously.
+
+
+### Engine
+
+There are several 
+
+#### Start
+
+The command, `starpack engine start`, is used to ensure the Starpack Engine is running or force the creation of a new container.
+
+Finally, if you pass the `--force` or `-F` flags, you will force the deletion of any existing Starpack Engines and create a new Docker container for the Engine.
+
+#### Terminate
+
+The command, `starpack engine terminate`, is used to spin down any existing Starpack Engines running on your local machine. 
+Additionally, the `--all` or `-A` flag can be passed to additionally delete any existing Docker Volumes and associated data from your machine.
+
+### Plugins
+
+The following plugins are available to use in either packaging or deployment:
+
+| Name                 | Description                                                                              | Arguments                                                |
+|----------------------|------------------------------------------------------------------------------------------|----------------------------------------------------------|
+| docker_desktop_push  | Tags an image and stores it in   the local Docker repository                             | `image_name`, `image_tags` (list), `wrapper`             |
+| local_docker_deploy  | Deploys a packaged Starpack   model with a given wrapper to the local Docker environment | `port`, `wrapper` (list) with `name` and `port` for each |
+| local_docker_find    | Finds already packaged model   artifacts in the local Docker environment                 | `wrapper`, `image` with `name` and `tag` sub-arguments   |
+| fastapi              | Packages a set of model   artifacts with a FastAPI wrapper.                              |                                                          |
+| streamlit            | Packages a set of model   artifacts with a Streamlit wrapper.                            |                                                          |
+
+## Examples
+
+### Basic Example
+
+Under `examples/starpack_basic_example`, you can find a Jupyter notebook and associated files for deploying a Starpack package using both Streamlit and FastAPI. By following along with the notebook, then running `starpack deploy examples/starpack_basic_example` from the root of this repository, you will be able to see how one exports, defines, packages, and deploys a Starpack model.
+
+
+## Troubleshooting
+
+Before troubleshooting any issues, please run the two following commands in your terminal to ensure that you're running the latest version of both the Starpack CLI and Starpack Engine:
+
+```
+pip install starpack --upgrade
+starpack engine start --force
+```
+
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
