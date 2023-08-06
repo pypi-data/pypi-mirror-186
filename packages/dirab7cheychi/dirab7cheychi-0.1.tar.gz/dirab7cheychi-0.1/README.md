@@ -1,0 +1,5 @@
+The nik dirab 7cheychi  package allows you to easily plot mathematical functions using the matplotlib library. With nik dirab 7cheychi, you can pass any mathematical function as a string, and the package will take care of the rest. The package also provides several options to customize the plot, such as x and y axis labels, title, xlim and ylim. Additionally, the package uses sympy library to validate the function before passing it to numpy and matplotlib, it will raise an error if the passed function is not valid. This package is useful for anyone working with mathematical functions, and it can be used for educational or research purposes.
+
+You can use this package in your script with minimal setup, it is easy to use, and it saves a lot of time compared to manually setting up the plot using matplotlib library.
+
+nik dirab 7cheychi is compatible with python 3.6 or higher and it's available on PyPI, so you can easily install it using pip.
