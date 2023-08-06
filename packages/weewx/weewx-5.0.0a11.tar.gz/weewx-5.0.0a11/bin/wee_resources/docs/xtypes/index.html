@@ -1,0 +1,2178 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://www.weewx.com/xtypes/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>Extensible types (XTypes) - weewx documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,700,700i%7CInconsolata+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"Inconsolata Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/weewx_ui.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="white">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#extensible-types-xtypes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="weewx documentation" class="md-header__button md-logo" aria-label="weewx documentation" data-md-component="logo">
+      
+  <img src="../images/logo-weewx.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            weewx documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Extensible types (XTypes)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="white"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/weewx/weewx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WeeWX GitHub Repository
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../quickstart-overview/" class="md-tabs__link">
+        Quickstarts
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../usersguide/about-weewx/" class="md-tabs__link">
+        User's guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../custom/intro/" class="md-tabs__link">
+        Customization guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../guides-overview/" class="md-tabs__link">
+        Other guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../support/" class="md-tabs__link">
+        Support
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="weewx documentation" class="md-nav__button md-logo" aria-label="weewx documentation" data-md-component="logo">
+      
+  <img src="../images/logo-weewx.png" alt="logo">
+
+    </a>
+    weewx documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/weewx/weewx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WeeWX GitHub Repository
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Quickstarts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Quickstarts" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Quickstarts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart-overview/" class="md-nav__link">
+        Quickstart overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../debian/" class="md-nav__link">
+        Debian
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redhat/" class="md-nav__link">
+        RedHat
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../suse/" class="md-nav__link">
+        SUSE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pip/" class="md-nav__link">
+        pip
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v5-upgrade/" class="md-nav__link">
+        Migrating to V5
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          User's guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User's guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          User's guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/about-weewx/" class="md-nav__link">
+        About WeeWX
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/system-requirements/" class="md-nav__link">
+        System requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/installing-weewx/" class="md-nav__link">
+        Installing WeeWX
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/running-weewx/" class="md-nav__link">
+        Running WeeWX
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/webserver-integration/" class="md-nav__link">
+        Web server integration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/backing-up-weewx/" class="md-nav__link">
+        Backup & restore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/mysql-mariadb-config/" class="md-nav__link">
+        Configuring MySQL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/troubleshooting-guide/" class="md-nav__link">
+        Troubleshooting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Reference: options
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference: options" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Reference: options
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/general/" class="md-nav__link">
+        General options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stations-config/" class="md-nav__link">
+        [Station]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdrestful-config/" class="md-nav__link">
+        [StdRESTful]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdreport-config/" class="md-nav__link">
+        [StdReport]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdconvert-config/" class="md-nav__link">
+        [StdConvert]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdcalibrate-config/" class="md-nav__link">
+        [StdCalibrate]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdqc-config/" class="md-nav__link">
+        [StdQC]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdwxcalculate-config/" class="md-nav__link">
+        [StdWXCalculate]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdarchive/" class="md-nav__link">
+        [StdArchive]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdtimesynch/" class="md-nav__link">
+        [StdTimeSynch]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/data-bindings/" class="md-nav__link">
+        [DataBindings]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/databases/" class="md-nav__link">
+        [Databases]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/engine/" class="md-nav__link">
+        [Engine]
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Customization guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Customization guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Customization guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/custom_reports/" class="md-nav__link">
+        Customizing reports
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/cheetah/" class="md-nav__link">
+        The cheetah generator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/image_generator/" class="md-nav__link">
+        The image generator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/multiple_bindings/" class="md-nav__link">
+        Multiple data bindings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/localization/" class="md-nav__link">
+        Localization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/service_engine/" class="md-nav__link">
+        Customizing the service engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/database/" class="md-nav__link">
+        Customizing the database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/units/" class="md-nav__link">
+        Customizing units
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/derived/" class="md-nav__link">
+        Derived types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/drivers/" class="md-nav__link">
+        Custom drivers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/extensions/" class="md-nav__link">
+        Extensions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/options_ref/" class="md-nav__link">
+        Reference: options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/appendix/" class="md-nav__link">
+        Appendix
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Other guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Other guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Other guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides-overview/" class="md-nav__link">
+        Guides overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          weectl
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="weectl" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          weectl
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weectl/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weectl/station/" class="md-nav__link">
+        weectl station
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weectl/extension/" class="md-nav__link">
+        weectl extension
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weectl/daemon/" class="md-nav__link">
+        weectl daemon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities.htm#wee_database_utility" class="md-nav__link">
+        wee_database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities.htm#wee_debug_utility" class="md-nav__link">
+        wee_debug
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities.htm#wee_device_utility" class="md-nav__link">
+        wee_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities.htm#wee_import_utility" class="md-nav__link">
+        wee_import
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities.htm#wee_reports_utility" class="md-nav__link">
+        wee_reports
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities.htm#weewxd" class="md-nav__link">
+        weewxd
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading.htm" class="md-nav__link">
+        Upgrade guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changes/" class="md-nav__link">
+        Change log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware.htm" class="md-nav__link">
+        Hardware guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../devnotes/" class="md-nav__link">
+        Notes for developers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware.htm" class="md-nav__link">
+        Hardware comparison
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Support
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Support
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../support/" class="md-nav__link">
+        Support
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    Abstract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    Motivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-adding-new-types" class="md-nav__link">
+    Overview of adding new types
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview of adding new types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calculating-scalars" class="md-nav__link">
+    Calculating scalars
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calculating-series" class="md-nav__link">
+    Calculating series
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calculating-aggregates" class="md-nav__link">
+    Calculating aggregates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registering-your-subclass" class="md-nav__link">
+    Registering your subclass
+  </a>
+  
+    <nav class="md-nav" aria-label="Registering your subclass">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statically" class="md-nav__link">
+    Statically
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#as-a-service" class="md-nav__link">
+    As a service
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#including-in-loop-packets-and-archive-records" class="md-nav__link">
+    Including in loop packets and archive records
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-comprehensive-example" class="md-nav__link">
+    A comprehensive example
+  </a>
+  
+    <nav class="md-nav" aria-label="A comprehensive example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-extension" class="md-nav__link">
+    The extension
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registering-the-extension" class="md-nav__link">
+    Registering the extension
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-extension" class="md-nav__link">
+    Using the extension
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the extension">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cheetah" class="md-nav__link">
+    Cheetah
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot-images" class="md-nav__link">
+    Plot images
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#populate-packets-and-records" class="md-nav__link">
+    Populate packets and records
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xtypes-api" class="md-nav__link">
+    XTypes API
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subtlety" class="md-nav__link">
+    Subtlety
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-examples" class="md-nav__link">
+    Other examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternatives-to-the-chosen-design" class="md-nav__link">
+    Alternatives to the chosen design
+  </a>
+  
+    <nav class="md-nav" aria-label="Alternatives to the chosen design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alternative-register-functions-with-weewxconf" class="md-nav__link">
+    Alternative: register functions with weewx.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-register-functions-through-the-api" class="md-nav__link">
+    Alternative: register functions through the API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-declare-types" class="md-nav__link">
+    Alternative: declare types
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-issues" class="md-nav__link">
+    Open issues
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/weewx/weewx/edit/master/docs/xtypes.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="extensible-types-xtypes">Extensible types (XTypes)<a class="headerlink" href="#extensible-types-xtypes" title="Permanent link">&para;</a></h1>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link">&para;</a></h2>
+<p>This proposal allows new derived observation types to be added to WeeWX. </p>
+<h2 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link">&para;</a></h2>
+<p>Right now, the set of observation types is fixed:</p>
+<ul>
+<li>The set of types that <code>StdWXCalculate</code> knows how to calculate is limited to a set of "magic 
+types," such as <code>dewpoint</code>, or <code>heatindex</code>.</li>
+<li>Heating and cooling degree days are also special types, defined in subclass 
+<code>WXDaySummaryManager</code>.</li>
+<li>There is no way to add new types to the tag system, unless they appear in the "current" record, 
+or in the database.</li>
+</ul>
+<p>In theory, new types can be introduced by subclassing, but this allows only new types to be
+accreted in a linear fashion: it would not be possible for two extensions to both introduce new
+types. One would have to inherit from the other.</p>
+<p>The goal of XTypes is to allow the user to add new types to the system with a minimum of fuss. </p>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>A new module, <code>weewx.xtypes</code>, will be introduced. Similar to the existing <code>weewx.units</code>, it would
+be responsible for managing new types. New types can be added dynamically, using a Python API.</p>
+</li>
+<li>
+<p>The service <code>StdWXCalculate</code> will no longer have a fixed set of "special" types. Instead, it will
+be extensible, by using <code>weewx.xtypes</code>. The existing options of <code>hardware</code>, <code>prefer_hardware</code>, and
+<code>software</code> would continue. It would come out-of-the-box with the existing types it now handles
+(<code>dewpoint</code>, <code>heatindex</code>, etc.), but new types could be added by the user. This allows new types to
+appear in the current LOOP packet or archive record, allowing their use elsewhere in WeeWX.</p>
+</li>
+<li>
+<p>When resolving tags, the Cheetah generator would first look in the present record, then in the
+database, as it does now. But, then it would look to <code>weewx.types</code> to try and calculate any
+unresolved types. This would allow the products of <code>StdWXCalculate</code> to be used by <code>wee_reports</code>,
+resolving <a href="https://github.com/weewx/weewx/issues/95">Issue #95</a></p>
+</li>
+<li>
+<p>In a similar manner, the Image generator would first try the database to resolve any series. If
+that doesn't work, it would then try <code>weewx.xtypes</code>.</p>
+</li>
+<li>
+<p>The class <code>WXDaySummaryManager</code> would be deprecated, and the two types <code>heatdeg</code> and <code>cooldeg</code>
+would no longer depend on it. Instead, the tag system would use <code>weewx.xtypes</code> to calculate them.</p>
+</li>
+<li>
+<p>The schema system would be expanded to allow explicit declaration of the schema for the daily
+summaries. This replaces some functionality presently done by <code>WXDaySummaryManager</code>.</p>
+</li>
+</ul>
+<hr />
+<h2 id="overview-of-adding-new-types">Overview of adding new types<a class="headerlink" href="#overview-of-adding-new-types" title="Permanent link">&para;</a></h2>
+<p>Adding a new observation type is done by subclassing the abstract base class <code>XTypes</code>, then
+overriding one to three functions:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">XTypes</span><span class="p">:</span>
+    <span class="n">get_scalar</span><span class="p">(</span><span class="n">obs_type</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">db_manager</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">get_series</span><span class="p">(</span><span class="n">obs_type</span><span class="p">,</span> <span class="n">timespan</span><span class="p">,</span> <span class="n">db_manager</span><span class="p">,</span> <span class="n">aggregate_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">aggregate_interval</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">get_aggregate</span><span class="p">(</span><span class="n">obs_type</span><span class="p">,</span> <span class="n">timespan</span><span class="p">,</span> <span class="n">aggregate_type</span><span class="p">,</span> <span class="n">db_manager</span><span class="p">,</span> <span class="o">**</span><span class="n">option_dict</span><span class="p">)</span>
+</code></pre></div>
+<p>An instance of the subclass is then instantiated and registered with <code>weewx.xtypes</code>. Note that it
+is not always necessary to supply all three functions. Details follow</p>
+<h3 id="calculating-scalars">Calculating scalars<a class="headerlink" href="#calculating-scalars" title="Permanent link">&para;</a></h3>
+<p>To calculate a custom scalar value, the user should subclass <code>XTypes</code>, then override the member
+function <code>get_scalar</code>:</p>
+<div class="highlight"><pre><span></span><code>class MyTypes(XTypes):
+
+    def get_scalar(obs_type, record, db_manager):
+        ...
+</code></pre></div>
+<p>Where</p>
+<ul>
+<li><code>obs_type</code> is the name of type to be computed.</li>
+<li><code>record</code> is a WeeWX record. It will include at least types <code>dateTime</code> and <code>usUnits</code>.</li>
+<li><code>db_manager</code> is an instance of <code>weewx.manager.Manager</code>, or a subclass. The connection will be 
+open and usable.</li>
+</ul>
+<p>The function should return:</p>
+<ul>
+<li>A <code>ValueTuple</code> scalar. The value held by the <code>ValueTuple</code> can be <code>None</code>.</li>
+</ul>
+<p>The function should raise:</p>
+<ul>
+<li>An exception of type <code>weewx.UnknownType</code>, if the type <code>obs_type</code> is not known to the function. </li>
+<li>An exception of type <code>weewx.CannotCalculate</code> if the type is known to the function, but all the 
+information necessary to calculate the type is not there.  </li>
+</ul>
+<h3 id="calculating-series">Calculating series<a class="headerlink" href="#calculating-series" title="Permanent link">&para;</a></h3>
+<p>The user should subclass <code>XTypes</code>, then override the member function <code>get_series</code>:</p>
+<div class="highlight"><pre><span></span><code>class MyTypes(XTypes):
+
+    def get_series(obs_type, timespan, db_manager, aggregate_type, aggregate_interval):
+       ...
+</code></pre></div>
+<p>Where</p>
+<ul>
+<li><code>obs_type</code> is the name of type to be computed.</li>
+<li><code>timespan</code> is an instance of <code>weeutil.weeutil.TimeSpan</code>. It defines bounding start and ending
+  times of the series, exclusive on the left, inclusive on the right.</li>
+<li><code>db_manager</code> is an instance of <code>weewx.manager.Manager</code>, or a subclass. The connection will be
+  open and usable.</li>
+<li><code>aggregate_type</code> defines the type of aggregation, if any. Typically, it is one of <code>sum</code>, <code>avg</code>,
+  <code>min</code>, or <code>max</code>, although there is nothing stopping the user-defined extension from defining
+  new types of aggregation. If set to <code>None</code>, then no aggregation should occur, and the full series
+  should be returned.</li>
+<li><code>aggregate_interval</code> is an aggregation interval. If aggregation is to be done (<em>i.e.</em>,
+  <code>aggregate_type</code> is not <code>None</code>), then the series should be grouped by the aggregation interval.</li>
+</ul>
+<p>The function should return:</p>
+<ul>
+<li>
+<p>A three-way tuple:
+    <code>(start_list_vt, stop_list_vt, data_list_vt)</code> where</p>
+<ul>
+<li><code>start_list_vt</code> is a <code>ValueTuple</code>, whose first element is a list of start times;</li>
+<li><code>stop_list_vt</code> is a <code>ValueTuple</code>, whose first element is a list of stop times;</li>
+<li><code>data_list_vt</code> is a <code>ValueTuple</code>, whose first element is a list of aggregated values.</li>
+</ul>
+</li>
+</ul>
+<p>The function should raise:</p>
+<ul>
+<li>An exception of type <code>weewx.UnknownType</code>, if the type <code>obs_type</code> is not known to the function. </li>
+<li>An exception of type <code>weewx.UnknownAggregation</code> if the aggregation <code>aggregate_type</code> is not known
+  to the function. </li>
+<li>An exception of type <code>weewx.CannotCalculate</code> if the type and aggregation are known to the 
+  function, but all the information necessary to perform the calculate is not there.</li>
+</ul>
+<h3 id="calculating-aggregates">Calculating aggregates<a class="headerlink" href="#calculating-aggregates" title="Permanent link">&para;</a></h3>
+<p>To calculate a custom aggregation, the user should override the member function <code>get_aggregate</code>:</p>
+<div class="highlight"><pre><span></span><code>class MyTypes(XTypes):
+
+    def get_aggregate(obs_type, timespan, aggregate_type, db_manager, **option_dict):
+        ...
+</code></pre></div>
+<p>Where</p>
+<ul>
+<li><code>obs_type</code> is the type over which the aggregation is to be computed.</li>
+<li><code>timespan</code> is an instance of <code>weeutil.weeutil.TimeSpan</code>. It defines bounding start and ending 
+times of the aggregation, exclusive on the left, inclusive on the right.</li>
+<li><code>aggregate_type</code> is the type of aggregation to be performed, such as <code>avg</code>, or <code>last</code>, or it can
+be some new, user-defined aggregation.</li>
+<li><code>db_manager</code> is an instance of <code>weewx.manager.Manager</code>, or a subclass. The connection will be 
+open and usable.</li>
+<li><code>option_dict</code> is a dictionary containing any extra parameters used in the aggregation. For example, suppose you have
+defined a new aggregation that gives the percentage of observations greater than a specified number of standard 
+deviations from the mean:
+    <div class="highlight"><pre><span></span><code>$year.outTemp.deviation_percentage(sd=2.0)
+</code></pre></div>
+    then the parameter <code>option_dict</code> would include a key of <code>sd</code>, with a value of <code>2</code>.</li>
+</ul>
+<p>The function should return:</p>
+<ul>
+<li>A <code>ValueTuple</code> holding the aggregated value.</li>
+</ul>
+<p>The function should raise:</p>
+<ul>
+<li>An exception of type <code>weewx.UnknownType</code>, if the type <code>obs_type</code> is not known to the function.</li>
+<li>An exception of type <code>weewx.UnknownAggregation</code> if the aggregation <code>aggregate_type</code> is not known 
+to the function. </li>
+<li>An exception of type <code>weewx.CannotCalculate</code> if the type and aggregation are known to the 
+function, but all the information necessary to perform the aggregation is not there.</li>
+</ul>
+<p>See the extension <a href="https://github.com/tkeffer/weewx-xaggs">weewx-xaggs</a> for an example of how to
+add a new aggregate type.</p>
+<h3 id="registering-your-subclass">Registering your subclass<a class="headerlink" href="#registering-your-subclass" title="Permanent link">&para;</a></h3>
+<p>The next step is to tell the XTypes system about the existence of your extension. The module
+<code>weewx.xtypes</code> keeps a simple list of extensions. When it comes time to evaluate a derived
+type, the list is scanned, and the first entry that successfully resolves a type, is the one
+that is used.</p>
+<p><em>Order matters!</em> Your new class should be prepended or appended to the list, depending on whether
+you want it to override other extensions. If it is at the front of the list (prepended), it will be
+the first to be tried, and so will take precedence over anything further back in the list.
+See the section <a href="#xtypes-api">XTypes API</a>.</p>
+<p>There are two general ways of arranging to have your XTypes extension registered.</p>
+<h4 id="statically">Statically<a class="headerlink" href="#statically" title="Permanent link">&para;</a></h4>
+<p>In this approach, you create an instance of your class in a file, then add it to the <code>xtypes</code> list.
+This works well when a file is likely to get loaded for some other reasons, perhaps because
+a WeeWX service extension is in it. It does not work so well if it needs special
+information, such as information that can only be obtained from the configuration
+file <code>weewx.conf</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">weewx.xtypes</span>
+
+<span class="k">class</span> <span class="nc">MyXType</span><span class="p">(</span><span class="n">weewx</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">XType</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_type</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">db_manager</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Perform some calculation...</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+<span class="c1"># Instantiate an instance, and append it to the list:</span>
+<span class="n">weewx</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MyXType</span><span class="p">())</span>
+</code></pre></div>
+<h4 id="as-a-service">As a service<a class="headerlink" href="#as-a-service" title="Permanent link">&para;</a></h4>
+<p>In this approach, you explicitly create a WeeWX service, which will load and unload your extension.
+This is a good approach when you need information out of <code>weewx.conf</code>.</p>
+<p>Here's the general pattern. Take a look in the files <code>weewx/wxxtypes.py</code> for some other
+comprehensive examples used internally by WeeWX.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">weewx.engine</span> <span class="kn">import</span> <span class="n">StdService</span>
+<span class="kn">import</span> <span class="nn">weewx.xtypes</span>
+
+<span class="c1"># This is the actual XTypes extension:</span>
+<span class="k">class</span> <span class="nc">OtherXType</span><span class="p">(</span><span class="n">weewx</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">XType</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">info2</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info1</span> <span class="o">=</span> <span class="n">info1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info2</span> <span class="o">=</span> <span class="n">info2</span>
+    <span class="k">def</span> <span class="nf">get_scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_type</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">db_manager</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Perform some calculation involving info1 and info2</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+<span class="c1"># This is a WeeWX service, whose only job is to register and unregister the extension:</span>
+<span class="k">class</span> <span class="nc">MyService</span><span class="p">(</span><span class="n">StdService</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">config_dict</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyService</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">engine</span><span class="p">,</span> <span class="n">config_dict</span><span class="p">)</span>
+
+        <span class="c1"># Get some options out of the configuration dictionary</span>
+        <span class="n">info1</span> <span class="o">=</span> <span class="n">config_dict</span><span class="p">[</span><span class="s1">&#39;OtherXType&#39;</span><span class="p">][</span><span class="s1">&#39;info1&#39;</span><span class="p">]</span>
+        <span class="n">info2</span> <span class="o">=</span> <span class="n">config_dict</span><span class="p">[</span><span class="s1">&#39;OtherXtype&#39;</span><span class="p">][</span><span class="s1">&#39;info2&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Instantiate an instance of the class OtherXType, using the options:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xt</span> <span class="o">=</span> <span class="n">OtherXType</span><span class="p">(</span><span class="n">info1</span><span class="p">,</span> <span class="n">info2</span><span class="p">)</span>
+
+        <span class="c1"># Register the class</span>
+        <span class="n">weewx</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xt</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">shutDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Engine is shutting down. Remove the registration</span>
+        <span class="n">weewx</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xt</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="including-in-loop-packets-and-archive-records">Including in loop packets and archive records<a class="headerlink" href="#including-in-loop-packets-and-archive-records" title="Permanent link">&para;</a></h3>
+<p>With the previous step, the defined values can be used in templates (such as <code>index.html.tmpl</code>) and
+plots. However, if you want to see the values in loop packets and/or archive records, or want to
+publish them by MQTT, then you need to extend the section <code>[StdWXCalculate]</code>, subsection
+<a href="http://www.weewx.com/docs/usersguide.htm#[[Calculations]]"><code>[[Calculations]]</code></a>, in <code>weewx.conf</code>.</p>
+<p>For example, say the name of the new observation type defined in your extension is "bore_pressure", then you could
+write:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[StdWXCalculate]</span>
+<span class="w">    </span><span class="k">[[Calculations]]</span>
+<span class="w">        </span><span class="na">...</span>
+<span class="w">        </span><span class="na">bore_pressure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">prefer_hardware</span>
+<span class="w">        </span><span class="na">...</span>
+</code></pre></div>
+<p>where <code>prefer_hardware</code> means the value will be calculated by the extension if the hardware does not
+supply a value. See the section
+<a href="http://www.weewx.com/docs/usersguide.htm#[[Calculations]]"><em>[[Calculations]]</em></a> in the User's Guide
+for other options.</p>
+<p>With this addition, if a record comes in that does not include a value for <code>bore_pressure</code>, the record will be handed
+off to the XTypes system with a request to calculate <code>bore_pressure</code>. Because you registered your
+extension with the system, it will find your extension and calculate the value. The new value will then be put into the
+record, where it can be used like any other value.</p>
+<hr />
+<h2 id="a-comprehensive-example">A comprehensive example<a class="headerlink" href="#a-comprehensive-example" title="Permanent link">&para;</a></h2>
+<p>In this example, we are going to write an extension to calculate the 
+<a href="https://en.wikipedia.org/wiki/Vapour_pressure_of_water">vapor pressure of water</a>. The observation
+type will be called <code>vapor_p</code>, and we will offer two algorithms for calculating it. This example is
+included in WeeWX V4.3 and later in the <code>examples</code> subdirectory.</p>
+<h3 id="the-extension">The extension<a class="headerlink" href="#the-extension" title="Permanent link">&para;</a></h3>
+<p>Here's what the XTypes extension looks like:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># File user/vaporpressure.py</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">import</span> <span class="nn">weewx</span>
+<span class="kn">import</span> <span class="nn">weewx.units</span>
+<span class="kn">import</span> <span class="nn">weewx.xtypes</span>
+<span class="kn">from</span> <span class="nn">weewx.units</span> <span class="kn">import</span> <span class="n">ValueTuple</span>
+
+<span class="k">class</span> <span class="nc">VaporPressure</span><span class="p">(</span><span class="n">weewx</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">XType</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;simple&#39;</span><span class="p">):</span>
+        <span class="c1"># Save the algorithm to be used.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span> <span class="o">=</span> <span class="n">algorithm</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get_scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs_type</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">db_manager</span><span class="p">):</span>
+        <span class="c1"># We only know how to calculate &#39;vapor_p&#39;. For everything else, raise an exception UnknownType</span>
+        <span class="k">if</span> <span class="n">obs_type</span> <span class="o">!=</span> <span class="s1">&#39;vapor_p&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">weewx</span><span class="o">.</span><span class="n">UnknownType</span><span class="p">(</span><span class="n">obs_type</span><span class="p">)</span>
+
+        <span class="c1"># We need outTemp in order to do the calculation.</span>
+        <span class="k">if</span> <span class="s1">&#39;outTemp&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">record</span> <span class="ow">or</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;outTemp&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">weewx</span><span class="o">.</span><span class="n">CannotCalculate</span><span class="p">(</span><span class="n">obs_type</span><span class="p">)</span>
+
+        <span class="c1"># We have everything we need. Start by forming a ValueTuple for the outside temperature.</span>
+        <span class="c1"># To do this, figure out what unit and group the record is in ...</span>
+        <span class="n">unit_and_group</span> <span class="o">=</span> <span class="n">weewx</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">getStandardUnitType</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;usUnits&#39;</span><span class="p">],</span> <span class="s1">&#39;outTemp&#39;</span><span class="p">)</span>
+        <span class="c1"># ... then form the ValueTuple.</span>
+        <span class="n">outTemp_vt</span> <span class="o">=</span> <span class="n">ValueTuple</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;outTemp&#39;</span><span class="p">],</span> <span class="o">*</span><span class="n">unit_and_group</span><span class="p">)</span>
+
+        <span class="c1"># Both algorithms need temperature in Celsius, so let&#39;s make sure our incoming temperature</span>
+        <span class="c1"># is in that unit. Use function convert(). The results will be in the form of a ValueTuple</span>
+        <span class="n">outTemp_C_vt</span> <span class="o">=</span> <span class="n">weewx</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">outTemp_vt</span><span class="p">,</span> <span class="s1">&#39;degree_C&#39;</span><span class="p">)</span>
+        <span class="c1"># Get the first element of the ValueTuple. This will be in Celsius:</span>
+        <span class="n">outTemp_C</span> <span class="o">=</span> <span class="n">outTemp_C_vt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span> <span class="o">==</span> <span class="s1">&#39;simple&#39;</span><span class="p">:</span>
+            <span class="c1"># Use the &quot;Simple&quot; algorithm.</span>
+            <span class="c1"># We need temperature in Kelvin.</span>
+            <span class="n">outTemp_K</span> <span class="o">=</span> <span class="n">weewx</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">CtoK</span><span class="p">(</span><span class="n">outTemp_C</span><span class="p">)</span>
+            <span class="c1"># Now we can use the formula. Results will be in mmHg. Create a ValueTuple out of it:</span>
+            <span class="n">p_vt</span> <span class="o">=</span> <span class="n">ValueTuple</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">20.386</span> <span class="o">-</span> <span class="mf">5132.0</span> <span class="o">/</span> <span class="n">outTemp_K</span><span class="p">),</span> <span class="s1">&#39;mmHg&#39;</span><span class="p">,</span> <span class="s1">&#39;group_pressure&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span> <span class="o">==</span> <span class="s1">&#39;teters&#39;</span><span class="p">:</span>
+            <span class="c1"># Use Teter&#39;s algorithm.</span>
+            <span class="c1"># Use the formula. Results will be in kPa:</span>
+            <span class="n">p_kPa</span> <span class="o">=</span> <span class="mf">0.61078</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">17.27</span> <span class="o">*</span> <span class="n">outTemp_C_vt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">outTemp_C_vt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">237.3</span><span class="p">))</span>
+            <span class="c1"># Form a ValueTuple</span>
+            <span class="n">p_vt</span> <span class="o">=</span> <span class="n">ValueTuple</span><span class="p">(</span><span class="n">p_kPa</span><span class="p">,</span> <span class="s1">&#39;kPa&#39;</span><span class="p">,</span> <span class="s1">&#39;group_pressure&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Don&#39;t recognize the exception. Fail hard:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span><span class="p">)</span>
+
+        <span class="c1"># If we got this far, we were able to calculate a value. Return it.</span>
+        <span class="k">return</span> <span class="n">p_vt</span>
+</code></pre></div>
+<p>We have subclassed <code>XTypes</code> as a class called <code>VaporPressure</code>. By default, it uses a "simple"
+algorithm to calculate the vapor pressure, but the constructor for the class gives us a chance
+to use another algorithm, <em>Teter's</em> algorithm.</p>
+<h3 id="registering-the-extension">Registering the extension<a class="headerlink" href="#registering-the-extension" title="Permanent link">&para;</a></h3>
+<p>Now we need to register the extension with the XTypes system, and to provide some way of specifying
+which algorithm we want to use. We can accomplish both by writing a simple WeeWX service. Here's
+what it looks like:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">weewx.engine</span> <span class="kn">import</span> <span class="n">StdService</span>
+
+<span class="k">class</span> <span class="nc">VaporPressureService</span><span class="p">(</span><span class="n">StdService</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">config_dict</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">VaporPressureService</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">engine</span><span class="p">,</span> <span class="n">config_dict</span><span class="p">)</span>
+
+        <span class="c1"># Get the desired algorithm. Default to &quot;simple&quot;.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">algorithm</span> <span class="o">=</span> <span class="n">config_dict</span><span class="p">[</span><span class="s1">&#39;VaporPressure&#39;</span><span class="p">][</span><span class="s1">&#39;algorithm&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">algorithm</span> <span class="o">=</span> <span class="s1">&#39;simple&#39;</span>
+
+        <span class="c1"># Instantiate an instance of VaporPressure:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vp</span> <span class="o">=</span> <span class="n">VaporPressure</span><span class="p">(</span><span class="n">algorithm</span><span class="p">)</span>
+        <span class="c1"># Register it with the XTypes system:</span>
+        <span class="n">weewx</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vp</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">shutDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Remove the registered instance:</span>
+        <span class="n">weewx</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">xtypes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vp</span><span class="p">)</span>
+</code></pre></div>
+<p>Like any other WeeWX service, <code>VaporPressureService</code> needs to be added to the list of services to
+be run, so that the engine will instantiate it. We do this by adding it to the end of the service 
+group <code>xtype_services</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Engine]</span>
+
+<span class="w">    </span><span class="k">[[Services]]</span>
+<span class="w">        </span><span class="c1"># This section specifies the services that should be run. They are</span>
+<span class="w">        </span><span class="c1"># grouped by type, and the order of services within each group</span>
+<span class="w">        </span><span class="c1"># determines the order in which the services will be run.</span>
+<span class="w">        </span><span class="na">xtype_services</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">weewx.wxxtypes.StdWXXTypes, weewx.wxxtypes.StdPressureCooker, weewx.wxxtypes.StdRainRater, user.vaporpressure.VaporPressureService</span>
+<span class="w">        </span><span class="na">...</span>
+</code></pre></div>
+<p>The final step is to tell the unit system what group our new observation type, <code>vapor_p</code>, is in:</p>
+<div class="highlight"><pre><span></span><code><span class="n">weewx</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">obs_group_dict</span><span class="p">[</span><span class="s1">&#39;vapor_p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;group_pressure&quot;</span>
+</code></pre></div>
+<p>The resultant file, <code>vaporpressure.py</code>, can be found in the <code>examples</code> subdirectory.</p>
+<h3 id="using-the-extension">Using the extension<a class="headerlink" href="#using-the-extension" title="Permanent link">&para;</a></h3>
+<p>There are several different ways you can use your extension:
+1. In an expression in a Cheetah template;
+2. As a type to be plotted;
+3. To populate data packets and records;
+4. In other extensions.</p>
+<h4 id="cheetah">Cheetah<a class="headerlink" href="#cheetah" title="Permanent link">&para;</a></h4>
+<p>Suppose we want to show the current vapor pressure in a Cheetah template:</p>
+<div class="highlight"><pre><span></span><code>&lt;p&gt;The current vapor pressure is $current.vapor_p &lt;/p&gt;
+</code></pre></div>
+<p>The Cheetah engine will first look for the type <code>vapor_p</code> in the current record. It won't be there,
+because it's a derived type. Then it will look in the database. Unless we've made other
+arrangements, it won't be there either. Finally, the Cheetah engine invokes the XTypes system to
+see if it can calculate it. Because of our extension, this works.</p>
+<h4 id="plot-images">Plot images<a class="headerlink" href="#plot-images" title="Permanent link">&para;</a></h4>
+<p>We can also use our XTypes extension in a plot. For example, suppose we wanted to plot today's
+vapor pressure. Here's what the entry in the skin configuration file, <code>skin.conf</code> would look like:
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="na">...</span>
+<span class="w">    </span><span class="k">[[day_images]]</span>
+<span class="w">        </span><span class="na">...</span>
+<span class="w">        </span><span class="k">[[[dayvaporp]]]</span>
+<span class="w">            </span><span class="k">[[[[vapor_p]]]]</span>
+</code></pre></div></p>
+<p>This would instruct the plotting engine to create an image file <code>dayvaporp.png</code> containing a 
+plot with a single variable: <code>vapor_p</code>:</p>
+<p><img alt="image" src="../images/dayvaporp.png" /></p>
+<p>How does this work? The XTypes system includes a version of <code>get_series()</code>, which in the absence of
+a specialized version of <code>get_series()</code>, repeatedly calls our version of <code>get_scalar()</code>,
+synthesizing a series. However, this version <em>does not</em> know how to calculate aggregations
+(although there's no reason why this couldn't be added in the future).</p>
+<h4 id="populate-packets-and-records">Populate packets and records<a class="headerlink" href="#populate-packets-and-records" title="Permanent link">&para;</a></h4>
+<p>In the above examples, the type <code>vapor_p</code> was evaluated "just in time" to be used in a template or
+plot. If you want <code>vapor_p</code> to appear in packets and records, perhaps  because you want to store it
+in a database, you can ask the service <code>StdWXCalculate</code> to calculate it for you and put it in the
+packet / record.</p>
+<div class="highlight"><pre><span></span><code><span class="k">[StdWXCalculate]</span>
+<span class="w">    </span><span class="k">[[Calculations]]</span>
+<span class="w">        </span><span class="na">...</span>
+<span class="w">        </span><span class="na">vapor_p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">prefer_hardware</span>
+<span class="w">        </span><span class="na">...</span>
+</code></pre></div>
+<p>Like any other derived type, this will cause <code>StdWXCalculate</code> to first look in the packet or record
+to see if it already has a value for <code>vapor_p</code> from your hardware station. Most likely, it doesn't,
+so <code>StdWXCalculate</code> will arrange for the XTypes system to calculate a value, then puts it in
+record.</p>
+<p>If your database schema includes a slot for <code>vapor_p</code>, then the value would be put in the database.</p>
+<h4 id="xtypes-api">XTypes API<a class="headerlink" href="#xtypes-api" title="Permanent link">&para;</a></h4>
+<p>Getting a value from the XTypes system can also be useful inside an extension. Most XTypes users
+will not need to do this, but if you're writing an extension, it can be helpful.</p>
+<p>Module <code>weewx.xtypes</code> supplies 3 functions for using user-supplied extensions:</p>
+<div class="highlight"><pre><span></span><code><span class="n">get_scalar</span><span class="p">(</span><span class="n">obs_type</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">db_manager</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">get_series</span><span class="p">(</span><span class="n">obs_type</span><span class="p">,</span> <span class="n">timespan</span><span class="p">,</span> <span class="n">db_manager</span><span class="p">,</span> <span class="n">aggregate_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">aggregate_interval</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">get_aggregate</span><span class="p">(</span><span class="n">obs_type</span><span class="p">,</span> <span class="n">timespan</span><span class="p">,</span> <span class="n">aggregate_type</span><span class="p">,</span> <span class="n">db_manager</span><span class="p">,</span> <span class="o">**</span><span class="n">option_dict</span><span class="p">)</span>
+</code></pre></div>
+<p>Example: function <code>weewx.xtypes.get_scalar()</code> searches the list <code>weewx.xtypes.xtypes</code>, trying
+member function <code>get_scalar()</code> of each object in turn. If the member function raises
+<code>weewx.UnknownType</code> or <code>weewx.CannotCalculate</code>, then <code>weewx.xtypes.get_scalar()</code> moves on to the
+next object in the list. If no function can be found to do the evaluation, it raises
+<code>weewx.UnknownType</code>.</p>
+<p>The other functions work in a similar manner.</p>
+<h3 id="subtlety">Subtlety<a class="headerlink" href="#subtlety" title="Permanent link">&para;</a></h3>
+<p>One must be careful when sharing data structures across threads. Most of the time, this is not a
+problem in WeeWX because the only thing that is shared is the configuration dictionary, and it is
+treated as readonly.</p>
+<p>However, because XType extensions can be used within the main thread (by <code>StdWXCalculate</code>), and the
+reporting thread (by Cheetah, and the image generator), it is possible to end up sharing a data
+structure. In particular, this can happen when you use a WeeWX service to initialize the extension.</p>
+<p>For an example of this, see the class <code>wxxtypes.RainRater</code>. Its job is to calculate the rainfall
+rate, by calculating the amount of rain received per unit time. It binds to loop events, and uses
+it to update an internal cache of rain events. This happens in the main thread.</p>
+<p>However, it is possible that it could get used in the reporting thread if, say, the Cheetah
+template engine needs to evaluate <code>rainRate</code>, and it's not available in the database, nor in the
+present record. In this case, the extension will attempt to calculate <code>rainRate</code>, which involves
+scanning the internally cached list of rain events.</p>
+<p>The danger is if a thread context switch happens in the middle of that scan. The cached data
+structure could be in an unstable state. To guard agains this, <code>RainRater</code> locks the structure
+before using or changing it.</p>
+<p>This is a problem only because <code>RainRater</code> binds to something in the main thread. Most of the time,
+this is not an issue.</p>
+<h2 id="other-examples">Other examples<a class="headerlink" href="#other-examples" title="Permanent link">&para;</a></h2>
+<p>It's worth taking a look in file <code>weewx/wxxtypes.py</code> for examples of XTypes used by WeeWX itself.</p>
+<p>See the project <a href="https://github.com/tkeffer/weewx-xaggs"><code>weewx-xaggs</code></a> for examples of adding
+new aggregation types, such as the historical highs and lows for a date.</p>
+<p>The repository <a href="https://github.com/tkeffer/weepwr">weepwr</a> contains a more complex example. This is
+a device driver for the Brultech energy monitors. It registers many new types, and does this
+dynamically.</p>
+<hr />
+<h2 id="alternatives-to-the-chosen-design">Alternatives to the chosen design<a class="headerlink" href="#alternatives-to-the-chosen-design" title="Permanent link">&para;</a></h2>
+<h3 id="alternative-register-functions-with-weewxconf">Alternative: register functions with weewx.conf<a class="headerlink" href="#alternative-register-functions-with-weewxconf" title="Permanent link">&para;</a></h3>
+<p>The chosen design registered new types through a Python API. An alternative is to declare the types
+and function to be called in <code>weewx.conf</code>, in a manner similar to search list extensions. This
+approach has the advantage that it requires a bit less programming and, most importantly, it leaves
+a concise record of what extensions are being used in the configuration file <code>weewx.conf</code>.</p>
+<p>However, it has a big disadvantage: it is difficult to predict what data a user might need to write
+an extension. For example, what if we needed to know the station's altitude? WeeWX obtains this
+from the hardware, with a fallback to the configuration file. Information like this would have to
+be supplied by a standardized interface that would make all manner of information available to the
+extension. This means the user might potentially have to know everything, so you end up with a
+system where everything is connected to everything.</p>
+<p>This is avoided by supplying a Python API that the type must adhere to. The new type can get any
+information it wants, then register with the API.</p>
+<h3 id="alternative-register-functions-through-the-api">Alternative: register functions through the API<a class="headerlink" href="#alternative-register-functions-through-the-api" title="Permanent link">&para;</a></h3>
+<p>With this alternative, new types register with a Python API, but register functions, rather than
+instances of classes.</p>
+<p>The disadvantage is that this results in a proliferation of small functions. The chosen method has
+the advantage that all the functions needed for a type can be held held under one roof.</p>
+<h3 id="alternative-declare-types">Alternative: declare types<a class="headerlink" href="#alternative-declare-types" title="Permanent link">&para;</a></h3>
+<p>In the chosen design, if an observation type is not known to a type extension, it raises an
+exception of type <code>weewx.UnknownType</code>. An alternative that was considered is to require extensions
+to declare what types they can handle in advance, much like a dictionary. This allows types to be
+discoverable.</p>
+<p>But, it has a disadvantage that all known types must be declared. That's not always practical. For
+example, a type extension would be useful to calculate power from a running aggregate of energy
+from an energy monitor. But, some monitors are capable of emitting 48+ channels, each of which
+would have to be declared. Add polarized and absolute values, and we are looking at nearly 100
+types!</p>
+<p>Instead, we allow extensions to recognize what types they know about, possibly from a regular
+expression of the observation type. If they don't recognize the type, they raise
+<code>weewx.UnknownType</code>. Types do not have to be declared in advance.</p>
+<hr />
+<h2 id="open-issues">Open issues<a class="headerlink" href="#open-issues" title="Permanent link">&para;</a></h2>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © Tom Keffer and Matthew Wall, all rights reserved
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+    
+    
+  </body>
+</html>
