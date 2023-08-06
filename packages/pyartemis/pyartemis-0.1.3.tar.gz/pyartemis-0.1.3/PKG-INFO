@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: pyartemis
+Version: 0.1.3
+Summary: A library for explanations of feature interactions in machine learning models.
+Keywords: interactions,xai,Explainable Artificial Intelligence,explanations,machine learning,iml,Interpretable Machine Learning
+Author: Artur Żółkowski
+Author-email: artur.zolkowski@wp.pl
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: ipykernel (>=6.17.0,<7.0.0)
+Requires-Dist: networkx (>=2.8.8,<3.0.0)
+Requires-Dist: numpy (>=1.22.0,<2.0.0)
+Requires-Dist: pandas (>=1.5.1,<2.0.0)
+Requires-Dist: scikit-learn (>=1.1.3,<2.0.0)
+Requires-Dist: seaborn (>=0.12.1,<0.13.0)
+Requires-Dist: tqdm (>=4.64.1,<5.0.0)
+Project-URL: Documentation, https://pyartemis.github.io/
+Description-Content-Type: text/markdown
+
+# Artemis: A Python Library for Feature Interactions in Machine Learning Models
+**Artemis** is a **Python** package for data scientists and machine learning practitioners which exposes standardized API for extracting feature interactions from predictive models using a number of different methods described in scientific literature.
+
+The package provides both model-agnostic (no assumption about model structure), and model-specific (e.g., tree-based models) feature interaction methods, as well as other methods that can facilitate and support the analysis and exploration of the predictive model in the context of feature interactions. 
+
+The available methods are suited to tabular data and classification and regression problems. The main functionality is that users are able to scrutinize a wide range of models by examining feature interactions in them by finding the strongest ones (in terms of numerical values of implemented methods) and creating tailored visualizations.
+
+Full documentation is available at [https://pyartemis.github.io/](https://pyartemis.github.io/)
+
