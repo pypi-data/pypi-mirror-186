@@ -1,0 +1,485 @@
+Metadata-Version: 2.1
+Name: mlem
+Version: 0.4.2
+Summary: Version and deploy your models following GitOps principles
+Home-page: https://mlem.ai
+Download-URL: https://github.com/iterative/mlem
+Author: Mikhail Sveshnikov
+Author-email: mike0sv@iterative.ai
+Maintainer: Iterative
+Maintainer-email: support@mlem.ai
+License: Apache License 2.0
+Keywords: data-science data-version-control machine-learning git mlops developer-tools reproducibility collaboration ai
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: cloudpickle
+Requires-Dist: dill
+Requires-Dist: requests
+Requires-Dist: isort (>=5.10)
+Requires-Dist: pydantic (<2,>=1.9.0)
+Requires-Dist: typer
+Requires-Dist: click (<8.2)
+Requires-Dist: rich
+Requires-Dist: aiohttp (<4)
+Requires-Dist: aiohttp-swagger (<2)
+Requires-Dist: Jinja2 (>=3)
+Requires-Dist: fsspec (>=2021.7.0)
+Requires-Dist: pyparsing (<4)
+Requires-Dist: cached-property
+Requires-Dist: entrypoints
+Requires-Dist: gitpython
+Requires-Dist: python-gitlab
+Requires-Dist: flatdict
+Requires-Dist: iterative-telemetry (>=0.0.6)
+Requires-Dist: python-multipart
+Requires-Dist: importlib-metadata
+Provides-Extra: all
+Requires-Dist: pytest ; extra == 'all'
+Requires-Dist: pytest-cov ; extra == 'all'
+Requires-Dist: pytest-lazy-fixture (==0.6.3) ; extra == 'all'
+Requires-Dist: pytest-mock ; extra == 'all'
+Requires-Dist: pylint (<2.14) ; extra == 'all'
+Requires-Dist: pylint-pytest ; extra == 'all'
+Requires-Dist: pylint-plugin-utils ; extra == 'all'
+Requires-Dist: flaky ; extra == 'all'
+Requires-Dist: s3fs ; extra == 'all'
+Requires-Dist: boto3 ; extra == 'all'
+Requires-Dist: botocore ; extra == 'all'
+Requires-Dist: adlfs ; extra == 'all'
+Requires-Dist: gcsfs ; extra == 'all'
+Requires-Dist: testcontainers ; extra == 'all'
+Requires-Dist: emoji ; extra == 'all'
+Requires-Dist: lxml ; extra == 'all'
+Requires-Dist: openpyxl ; extra == 'all'
+Requires-Dist: xlrd ; extra == 'all'
+Requires-Dist: tables ; extra == 'all'
+Requires-Dist: pyarrow ; extra == 'all'
+Requires-Dist: skl2onnx ; extra == 'all'
+Requires-Dist: dvc[s3] ; extra == 'all'
+Requires-Dist: httpx ; extra == 'all'
+Requires-Dist: jupyter ; extra == 'all'
+Requires-Dist: nbconvert ; extra == 'all'
+Requires-Dist: nbloader ; extra == 'all'
+Requires-Dist: pandas ; extra == 'all'
+Requires-Dist: numpy ; extra == 'all'
+Requires-Dist: scikit-learn ; extra == 'all'
+Requires-Dist: scipy ; extra == 'all'
+Requires-Dist: onnx ; extra == 'all'
+Requires-Dist: protobuf (==3.20.1) ; extra == 'all'
+Requires-Dist: onnxruntime ; extra == 'all'
+Requires-Dist: catboost ; extra == 'all'
+Requires-Dist: xgboost ; extra == 'all'
+Requires-Dist: lightgbm ; extra == 'all'
+Requires-Dist: uvicorn ; extra == 'all'
+Requires-Dist: fastapi ; extra == 'all'
+Requires-Dist: streamlit ; extra == 'all'
+Requires-Dist: streamlit-pydantic ; extra == 'all'
+Requires-Dist: docker ; extra == 'all'
+Requires-Dist: sagemaker ; extra == 'all'
+Requires-Dist: torch ; extra == 'all'
+Requires-Dist: tensorflow ; extra == 'all'
+Requires-Dist: adlfs (>=2021.10.0) ; extra == 'all'
+Requires-Dist: azure-identity (>=1.4.0) ; extra == 'all'
+Requires-Dist: knack ; extra == 'all'
+Requires-Dist: gcsfs (>=2021.11.1) ; extra == 'all'
+Requires-Dist: pyarrow (>=1) ; extra == 'all'
+Requires-Dist: fsspec[arrow] ; extra == 'all'
+Requires-Dist: s3fs[boto3] (>=2021.11.1) ; extra == 'all'
+Requires-Dist: aiobotocore[boto3] (>2) ; extra == 'all'
+Requires-Dist: bcrypt ; extra == 'all'
+Requires-Dist: sshfs[bcrypt] (>=2021.11.2) ; extra == 'all'
+Requires-Dist: pika ; extra == 'all'
+Requires-Dist: kubernetes ; extra == 'all'
+Requires-Dist: dvc (~=2.0) ; extra == 'all'
+Requires-Dist: pygit2 ; extra == 'all'
+Requires-Dist: torchvision ; extra == 'all'
+Requires-Dist: Pillow ; extra == 'all'
+Requires-Dist: dvc[azure] (~=2.0) ; extra == 'all'
+Requires-Dist: dvc[gdrive] (~=2.0) ; extra == 'all'
+Requires-Dist: dvc[gs] (~=2.0) ; extra == 'all'
+Requires-Dist: dvc[hdfs] (~=2.0) ; extra == 'all'
+Requires-Dist: dvc[oss] (~=2.0) ; extra == 'all'
+Requires-Dist: dvc[s3] (~=2.0) ; extra == 'all'
+Requires-Dist: dvc[ssh] (~=2.0) ; extra == 'all'
+Requires-Dist: dvc[ssh_gssapi] (~=2.0) ; extra == 'all'
+Requires-Dist: dvc[webdav] (~=2.0) ; extra == 'all'
+Requires-Dist: dvc[webhdfs] (~=2.0) ; extra == 'all'
+Requires-Dist: dvc[webhdfs_kerberos] (~=2.0) ; extra == 'all'
+Provides-Extra: azure
+Requires-Dist: adlfs (>=2021.10.0) ; extra == 'azure'
+Requires-Dist: azure-identity (>=1.4.0) ; extra == 'azure'
+Requires-Dist: knack ; extra == 'azure'
+Provides-Extra: catboost
+Requires-Dist: catboost ; extra == 'catboost'
+Provides-Extra: docker
+Requires-Dist: docker ; extra == 'docker'
+Provides-Extra: dvc
+Requires-Dist: dvc (~=2.0) ; extra == 'dvc'
+Provides-Extra: dvc-azure
+Requires-Dist: dvc[azure] (~=2.0) ; extra == 'dvc-azure'
+Provides-Extra: dvc-gdrive
+Requires-Dist: dvc[gdrive] (~=2.0) ; extra == 'dvc-gdrive'
+Provides-Extra: dvc-gs
+Requires-Dist: dvc[gs] (~=2.0) ; extra == 'dvc-gs'
+Provides-Extra: dvc-hdfs
+Requires-Dist: dvc[hdfs] (~=2.0) ; extra == 'dvc-hdfs'
+Provides-Extra: dvc-oss
+Requires-Dist: dvc[oss] (~=2.0) ; extra == 'dvc-oss'
+Provides-Extra: dvc-s3
+Requires-Dist: dvc[s3] (~=2.0) ; extra == 'dvc-s3'
+Provides-Extra: dvc-ssh
+Requires-Dist: dvc[ssh] (~=2.0) ; extra == 'dvc-ssh'
+Provides-Extra: dvc-ssh_gssapi
+Requires-Dist: dvc[ssh_gssapi] (~=2.0) ; extra == 'dvc-ssh_gssapi'
+Provides-Extra: dvc-webdav
+Requires-Dist: dvc[webdav] (~=2.0) ; extra == 'dvc-webdav'
+Provides-Extra: dvc-webhdfs
+Requires-Dist: dvc[webhdfs] (~=2.0) ; extra == 'dvc-webhdfs'
+Provides-Extra: dvc-webhdfs_kerberos
+Requires-Dist: dvc[webhdfs_kerberos] (~=2.0) ; extra == 'dvc-webhdfs_kerberos'
+Provides-Extra: fastapi
+Requires-Dist: uvicorn ; extra == 'fastapi'
+Requires-Dist: fastapi ; extra == 'fastapi'
+Provides-Extra: flyio
+Requires-Dist: docker ; extra == 'flyio'
+Requires-Dist: fastapi ; extra == 'flyio'
+Requires-Dist: uvicorn ; extra == 'flyio'
+Provides-Extra: git
+Requires-Dist: pygit2 ; extra == 'git'
+Provides-Extra: gs
+Requires-Dist: gcsfs (>=2021.11.1) ; extra == 'gs'
+Provides-Extra: hdfs
+Requires-Dist: pyarrow (>=1) ; extra == 'hdfs'
+Requires-Dist: fsspec[arrow] ; extra == 'hdfs'
+Provides-Extra: heroku
+Requires-Dist: docker ; extra == 'heroku'
+Requires-Dist: fastapi ; extra == 'heroku'
+Requires-Dist: uvicorn ; extra == 'heroku'
+Provides-Extra: kubernetes
+Requires-Dist: docker ; extra == 'kubernetes'
+Requires-Dist: kubernetes ; extra == 'kubernetes'
+Provides-Extra: lightgbm
+Requires-Dist: lightgbm ; extra == 'lightgbm'
+Provides-Extra: numpy
+Requires-Dist: numpy ; extra == 'numpy'
+Provides-Extra: onnx
+Requires-Dist: onnx ; extra == 'onnx'
+Provides-Extra: onnxruntime
+Requires-Dist: protobuf (==3.20.1) ; extra == 'onnxruntime'
+Requires-Dist: onnxruntime ; extra == 'onnxruntime'
+Provides-Extra: pandas
+Requires-Dist: pandas ; extra == 'pandas'
+Provides-Extra: pil
+Requires-Dist: Pillow ; extra == 'pil'
+Requires-Dist: numpy ; extra == 'pil'
+Provides-Extra: rmq
+Requires-Dist: pika ; extra == 'rmq'
+Provides-Extra: s3
+Requires-Dist: s3fs[boto3] (>=2021.11.1) ; extra == 's3'
+Requires-Dist: aiobotocore[boto3] (>2) ; extra == 's3'
+Provides-Extra: sagemaker
+Requires-Dist: docker ; extra == 'sagemaker'
+Requires-Dist: boto3 ; extra == 'sagemaker'
+Requires-Dist: sagemaker ; extra == 'sagemaker'
+Provides-Extra: scipy
+Requires-Dist: scipy ; extra == 'scipy'
+Provides-Extra: sklearn
+Requires-Dist: scikit-learn ; extra == 'sklearn'
+Provides-Extra: ssh
+Requires-Dist: bcrypt ; extra == 'ssh'
+Requires-Dist: sshfs[bcrypt] (>=2021.11.2) ; extra == 'ssh'
+Provides-Extra: streamlit
+Requires-Dist: uvicorn ; extra == 'streamlit'
+Requires-Dist: fastapi ; extra == 'streamlit'
+Requires-Dist: streamlit ; extra == 'streamlit'
+Requires-Dist: streamlit-pydantic ; extra == 'streamlit'
+Provides-Extra: tensorflow
+Requires-Dist: tensorflow ; extra == 'tensorflow'
+Provides-Extra: tests
+Requires-Dist: pytest ; extra == 'tests'
+Requires-Dist: pytest-cov ; extra == 'tests'
+Requires-Dist: pytest-lazy-fixture (==0.6.3) ; extra == 'tests'
+Requires-Dist: pytest-mock ; extra == 'tests'
+Requires-Dist: pylint (<2.14) ; extra == 'tests'
+Requires-Dist: pylint-pytest ; extra == 'tests'
+Requires-Dist: pylint-plugin-utils ; extra == 'tests'
+Requires-Dist: flaky ; extra == 'tests'
+Requires-Dist: s3fs ; extra == 'tests'
+Requires-Dist: boto3 ; extra == 'tests'
+Requires-Dist: botocore ; extra == 'tests'
+Requires-Dist: adlfs ; extra == 'tests'
+Requires-Dist: gcsfs ; extra == 'tests'
+Requires-Dist: testcontainers ; extra == 'tests'
+Requires-Dist: emoji ; extra == 'tests'
+Requires-Dist: lxml ; extra == 'tests'
+Requires-Dist: openpyxl ; extra == 'tests'
+Requires-Dist: xlrd ; extra == 'tests'
+Requires-Dist: tables ; extra == 'tests'
+Requires-Dist: pyarrow ; extra == 'tests'
+Requires-Dist: skl2onnx ; extra == 'tests'
+Requires-Dist: dvc[s3] ; extra == 'tests'
+Requires-Dist: httpx ; extra == 'tests'
+Requires-Dist: jupyter ; extra == 'tests'
+Requires-Dist: nbconvert ; extra == 'tests'
+Requires-Dist: nbloader ; extra == 'tests'
+Requires-Dist: pandas ; extra == 'tests'
+Requires-Dist: numpy ; extra == 'tests'
+Requires-Dist: scikit-learn ; extra == 'tests'
+Requires-Dist: scipy ; extra == 'tests'
+Requires-Dist: onnx ; extra == 'tests'
+Requires-Dist: protobuf (==3.20.1) ; extra == 'tests'
+Requires-Dist: onnxruntime ; extra == 'tests'
+Requires-Dist: catboost ; extra == 'tests'
+Requires-Dist: xgboost ; extra == 'tests'
+Requires-Dist: lightgbm ; extra == 'tests'
+Requires-Dist: uvicorn ; extra == 'tests'
+Requires-Dist: fastapi ; extra == 'tests'
+Requires-Dist: streamlit ; extra == 'tests'
+Requires-Dist: streamlit-pydantic ; extra == 'tests'
+Requires-Dist: docker ; extra == 'tests'
+Requires-Dist: sagemaker ; extra == 'tests'
+Requires-Dist: torch ; extra == 'tests'
+Requires-Dist: tensorflow ; extra == 'tests'
+Requires-Dist: adlfs (>=2021.10.0) ; extra == 'tests'
+Requires-Dist: azure-identity (>=1.4.0) ; extra == 'tests'
+Requires-Dist: knack ; extra == 'tests'
+Requires-Dist: gcsfs (>=2021.11.1) ; extra == 'tests'
+Requires-Dist: pyarrow (>=1) ; extra == 'tests'
+Requires-Dist: fsspec[arrow] ; extra == 'tests'
+Requires-Dist: s3fs[boto3] (>=2021.11.1) ; extra == 'tests'
+Requires-Dist: aiobotocore[boto3] (>2) ; extra == 'tests'
+Requires-Dist: bcrypt ; extra == 'tests'
+Requires-Dist: sshfs[bcrypt] (>=2021.11.2) ; extra == 'tests'
+Requires-Dist: pika ; extra == 'tests'
+Requires-Dist: kubernetes ; extra == 'tests'
+Requires-Dist: dvc (~=2.0) ; extra == 'tests'
+Requires-Dist: pygit2 ; extra == 'tests'
+Requires-Dist: torchvision ; extra == 'tests'
+Requires-Dist: Pillow ; extra == 'tests'
+Provides-Extra: torch
+Requires-Dist: torch ; extra == 'torch'
+Provides-Extra: torchvision
+Requires-Dist: torchvision ; extra == 'torchvision'
+Provides-Extra: xgboost
+Requires-Dist: xgboost ; extra == 'xgboost'
+
+![image](https://user-images.githubusercontent.com/6797716/165590476-994d4d93-8e98-4afb-b5f8-6f42b9d56efc.png)
+
+
+[![Check, test and release](https://github.com/iterative/mlem/actions/workflows/check-test-release.yml/badge.svg)](https://github.com/iterative/mlem/actions/workflows/check-test-release.yml)
+[![codecov](https://codecov.io/gh/iterative/mlem/branch/main/graph/badge.svg?token=WHU4OAB6O2)](https://codecov.io/gh/iterative/mlem)
+[![PyPi](https://img.shields.io/pypi/v/mlem.svg?label=pip&logo=PyPI&logoColor=white)](https://pypi.org/project/mlem)
+[![License: Apache 2.0](https://img.shields.io/github/license/iterative/mlem)](https://github.com/iterative/mlem/blob/master/LICENSE)
+<!-- [![Maintainability](https://codeclimate.com/github/iterative/mlem/badges/gpa.svg)](https://codeclimate.com/github/iterative/mlem) -->
+
+MLEM helps you package and deploy machine learning models.
+It saves ML models in a standard format that can be used in a variety of production scenarios such as real-time REST serving or batch processing.
+
+- **Run your ML models anywhere:**
+  Wrap models as a Python package or Docker Image, or deploy them to Heroku, SageMaker or Kubernetes (more platforms coming soon).
+  Switch between platforms transparently, with a single command.
+
+- **Model metadata into YAML automatically:**
+  Automatically include Python requirements and input data needs into a human-readable, deployment-ready format.
+  Use the same metafile on any ML framework.
+
+- **Stick to your training workflow:**
+  MLEM doesn't ask you to rewrite model training code.
+  Add just two lines around your Python code: one to import the library and one to save the model.
+
+- **Developer-first experience:**
+  Use the CLI when you feel like DevOps, or the API if you feel like a developer.
+
+## Why is MLEM special?
+
+The main reason to use MLEM instead of other tools is to adopt a **GitOps approach** to manage model lifecycles.
+
+- **Git as a single source of truth:**
+  MLEM writes model metadata to a plain text file that can be versioned in Git along with code.
+  This enables GitFlow and other software engineering best practices.
+
+- **Unify model and software deployment:**
+  Release models using the same processes used for software updates (branching, pull requests, etc.).
+
+- **Reuse existing Git infrastructure:**
+  Use familiar hosting like Github or Gitlab for model management, instead of having separate services.
+
+- **UNIX philosophy:**
+  MLEM is a modular tool that solves one problem very well.
+  It integrates well into a larger toolset from Iterative.ai, such as [DVC](https://dvc.org/) and [CML](https://cml.dev/).
+
+## Usage
+
+This a quick walkthrough showcasing deployment functionality of MLEM.
+
+Please read [Get Started guide](https://mlem.ai/doc/get-started) for a full version.
+
+### Installation
+
+MLEM requires Python 3.
+
+```console
+$ python -m pip install mlem
+```
+
+> To install the pre-release version:
+>
+> ```console
+> $ python -m pip install git+https://github.com/iterative/mlem
+> ```
+
+### Saving the model
+
+```python
+# train.py
+from mlem.api import save
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import load_iris
+
+def main():
+    data, y = load_iris(return_X_y=True, as_frame=True)
+    rf = RandomForestClassifier(
+        n_jobs=2,
+        random_state=42,
+    )
+    rf.fit(data, y)
+
+    save(
+        rf,
+        "models/rf",
+        sample_data=data,
+    )
+
+if __name__ == "__main__":
+    main()
+```
+
+### Codification
+
+Check out what we have:
+
+```shell
+$ ls models/
+rf
+rf.mlem
+$ cat rf.mlem
+```
+<details>
+  <summary> Click to show `cat` output</summary>
+
+```yaml
+artifacts:
+  data:
+    hash: ea4f1bf769414fdacc2075ef9de73be5
+    size: 163651
+    uri: rf
+model_type:
+  methods:
+    predict:
+      args:
+      - name: data
+        type_:
+          columns:
+          - sepal length (cm)
+          - sepal width (cm)
+          - petal length (cm)
+          - petal width (cm)
+          dtypes:
+          - float64
+          - float64
+          - float64
+          - float64
+          index_cols: []
+          type: dataframe
+      name: predict
+      returns:
+        dtype: int64
+        shape:
+        - null
+        type: ndarray
+    predict_proba:
+      args:
+      - name: data
+        type_:
+          columns:
+          - sepal length (cm)
+          - sepal width (cm)
+          - petal length (cm)
+          - petal width (cm)
+          dtypes:
+          - float64
+          - float64
+          - float64
+          - float64
+          index_cols: []
+          type: dataframe
+      name: predict_proba
+      returns:
+        dtype: float64
+        shape:
+        - null
+        - 3
+        type: ndarray
+  type: sklearn
+object_type: model
+requirements:
+- module: sklearn
+  version: 1.0.2
+- module: pandas
+  version: 1.4.1
+- module: numpy
+  version: 1.22.3
+```
+</details>
+
+### Deploying the model
+
+If you want to follow this Quick Start, you'll need to sign up on https://heroku.com,
+create an API_KEY and populate `HEROKU_API_KEY` env var (or run `heroku login` in command line).
+Besides, you'll need to run `heroku container:login`. This will log you in to Heroku
+container registry.
+
+Now we can [deploy the model with `mlem deploy`](https://mlem.ai/doc/get-started/deploying)
+(you need to use different `app_name`, since it's going to be published on https://herokuapp.com):
+
+```shell
+$ mlem deployment run heroku app.mlem \
+  --model models/rf \
+  --app_name example-mlem-get-started-app
+⏳️ Loading model from models/rf.mlem
+⏳️ Loading deployment from app.mlem
+🛠 Creating docker image for heroku
+  🛠 Building MLEM wheel file...
+  💼 Adding model files...
+  🛠 Generating dockerfile...
+  💼 Adding sources...
+  💼 Generating requirements file...
+  🛠 Building docker image registry.heroku.com/example-mlem-get-started-app/web...
+  ✅  Built docker image registry.heroku.com/example-mlem-get-started-app/web
+  🔼 Pushing image registry.heroku.com/example-mlem-get-started-app/web to registry.heroku.com
+  ✅  Pushed image registry.heroku.com/example-mlem-get-started-app/web to registry.heroku.com
+🛠 Releasing app example-mlem-get-started-app formation
+✅  Service example-mlem-get-started-app is up. You can check it out at https://example-mlem-get-started-app.herokuapp.com/
+```
+
+## Contributing
+
+Contributions are welcome! Please see our [Contributing Guide](https://mlem.ai/doc/contributing/core)
+for more details.
+
+Check out the [MLEM weekly board](https://github.com/orgs/iterative/projects/322/views/4)
+to learn about what we do, and about the exciting new functionality that is going to be added soon.
+
+Thanks to all our contributors!
+
+## Copyright
+
+This project is distributed under the Apache license version 2.0 (see the LICENSE file in the project root).
+
+By submitting a pull request to this project, you agree to license your contribution under the Apache license version 2.0 to this project.
