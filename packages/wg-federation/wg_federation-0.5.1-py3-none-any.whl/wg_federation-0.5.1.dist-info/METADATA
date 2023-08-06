@@ -1,0 +1,126 @@
+Metadata-Version: 2.1
+Name: wg-federation
+Version: 0.5.1
+Summary: A client/server tool to securely auto-registers peers to a wireguard VPN
+Author-email: Anuvu DevOps Team <MTL.DevOps.Team@globaleagle.com>
+Maintainer-email: Anuvu DevOps Team <MTL.DevOps.Team@globaleagle.com>
+Project-URL: source, https://bitbucket.org/GEE_Media/python-wg-federation
+Project-URL: container, https://bitbucket.org/GEE_Media/container-wg-federation
+Keywords: wireguard,vpn,federation,radius
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: System Administrators
+Classifier: Topic :: System :: Networking
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: NOTICE
+Requires-Dist: deepmerge (==1.*)
+Requires-Dist: dependency-injector (==4.*)
+Requires-Dist: ipaddr (==2.*)
+Requires-Dist: portalocker (==2.*)
+Requires-Dist: pycryptodomex (==3.*)
+Requires-Dist: pydantic (==1.*)
+Requires-Dist: pynacl (==1.*)
+Requires-Dist: pyyaml (==6.*)
+Requires-Dist: systemd-python
+Requires-Dist: xdg (==5.*)
+Provides-Extra: build
+Requires-Dist: setuptools ; extra == 'build'
+Requires-Dist: build ; extra == 'build'
+Requires-Dist: wheel ; extra == 'build'
+Requires-Dist: twine ; extra == 'build'
+Requires-Dist: tomli ; extra == 'build'
+Requires-Dist: sphinx ; extra == 'build'
+Requires-Dist: sphinx-rtd-theme ; extra == 'build'
+Provides-Extra: dev
+Requires-Dist: behave ; extra == 'dev'
+Requires-Dist: mockito ; extra == 'dev'
+Requires-Dist: bandit ; extra == 'dev'
+Requires-Dist: bandit[toml] ; extra == 'dev'
+Requires-Dist: pytest (>=7) ; extra == 'dev'
+Requires-Dist: pytest-pep8 ; extra == 'dev'
+Requires-Dist: pytest-cov ; extra == 'dev'
+Requires-Dist: pytest-spec ; extra == 'dev'
+Requires-Dist: pre-commit ; extra == 'dev'
+Requires-Dist: pylint ; extra == 'dev'
+
+# wg-federation
+
+A WireGuard federation server and client.
+
+## Development
+
+Python `virtualenv` must be installed on your system.
+
+```bash
+# Setup
+python -m venv venv
+source ./venv/bin/activate
+pip install -e ".[dev]"
+pip install -e ".[build]" # optional: if you want to build locally
+wg-federation # To run wg-federation
+
+# Deactivate
+deactivate
+```
+
+### Run Unit Tests
+```bash
+pytest -v --spec
+pytest -v --cov # To see coverage
+```
+
+### Run Functional Tests
+
+```bash
+behave tests/features
+behave tests/features -w # To see all outputs of all features tagged @wip
+```
+
+### Run SAST Tests
+
+```bash
+bandit -c pyproject.toml -r -q .
+```
+
+### Setup IDE and Debugger
+To avoid having to install the dependencies on your operating system, setup your IDE to use a python virtual environment “SDK”.
+E.g. the `venv` directory you may have created above.
+[Intellij/PyCharm provides this feature](https://www.jetbrains.com/help/idea/creating-virtual-environment.html).
+This will allow the IDE to find the libraries in the virtual environment, run and debug the application.
+
+To debug the application, run `src/wg_federation/__init__.py`
+
+### Deploy Manually
+
+#### Build
+```bash
+python -m build
+```
+
+#### Publish to Test PyPI
+_Use `__token__` as a username to publish using a token_
+```bash
+twine upload --repository testpypi dist/*
+```
+
+#### Publish in Production (PyPI)
+_Use `__token__` as a username to publish using a token_
+```bash
+twine upload dist/*VERSION_HERE
+```
+
+### Generate the Documentation
+
+```bash
+sphinx-apidoc -o doc/ src/wg_federation # Generate API documentation directly from the code
+pyreverse -o png -d doc/img --colorized --ignore container.py,federation.py,wireguard_interface.py,hq_state.py,controller_events.py,hq_event.py,wireguard_peer.py,constants.py,main.py,status.py,raw_options.py,log_level.py,is_argument_data_class.py,is_data_class.py,interface_status.py,configuration_saver_interface.py,configuration_loader_interface.py,can_save_configuration_interface.py,can_load_configuration_interface.py,user_input.py,command_line_argument.py,configuration_backend.py,argparse_action.py,command_line_option.py src/wg_federation # Generate UML diagram
+make -C doc html # Generate HTML documentation fr²om .rst source code
+```
