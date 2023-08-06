@@ -1,0 +1,39 @@
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sharry-jira-tool"
+version = "0.1.37"
+description = "Sort Jira stories in Excel"
+readme = "README.rst"
+authors = [{ name = "Sharry Xu", email = "sharry.xu@outlook.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["jira", "excel", "jira-cloud"]
+dependencies = [
+    "openpyxl >= 3.0.10",
+    "python-dateutil >= 2.8.2",
+    'tomli; python_version < "3.11"',
+    'importlib_resources; python_version < "3.7"',
+]
+requires-python = ">=3.6"
+
+[project.optional-dependencies]
+dev = ["pip-tools", "pytest"]
+
+[project.urls]
+Homepage = "https://github.com/SharryXu/jira-tool"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"jira_tool.assets" = ["*.json", "*.conf"]
+
+[project.scripts]
+sort-excel-file = "jira_tool:sort_excel_file"
