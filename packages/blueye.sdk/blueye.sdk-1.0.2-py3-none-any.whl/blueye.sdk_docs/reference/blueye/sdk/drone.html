@@ -1,0 +1,2469 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../../docs/media/blueye_b.svg">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
+    
+    
+      
+        <title>Drone - Blueye SDK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8b42a75e.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffffff">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-blueyesdkdrone" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Blueye SDK" class="md-header__button md-logo" aria-label="Blueye SDK" data-md-component="logo">
+      
+  <img src="../../../docs/media/blueye_b.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Blueye SDK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Drone
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/BluEye-Robotics/blueye.sdk/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Blueye SDK" class="md-nav__button md-logo" aria-label="Blueye SDK" data-md-component="logo">
+      
+  <img src="../../../docs/media/blueye_b.svg" alt="logo">
+
+    </a>
+    Blueye SDK
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/BluEye-Robotics/blueye.sdk/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        About the Blueye Drones
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/quick_start.html" class="md-nav__link">
+        Quick Start
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Movement
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Movement" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Movement
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/movement/from-the-CLI.html" class="md-nav__link">
+        Control from the CLI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/movement/with-a-gamepad.html" class="md-nav__link">
+        Control with a gamepad
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Video
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Video" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Video
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/video/gstreamer-for-video-streaming.html" class="md-nav__link">
+        GStreamer for video streaming
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/video/downloading.html" class="md-nav__link">
+        Downloading videos and images
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Logs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Logs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Logs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/logs/listing-and-downloading.html" class="md-nav__link">
+        Listing and downloading log files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/logs/log-file-format.html" class="md-nav__link">
+        Log file format
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/logs/plotting.html" class="md-nav__link">
+        Plotting log files
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/configuration.html" class="md-nav__link">
+        Configure drone parameters
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/http-api.html" class="md-nav__link">
+        HTTP API
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1" type="checkbox" id="__nav_8_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1">
+          Blueye
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Blueye" data-md-level="2">
+        <label class="md-nav__title" for="__nav_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          Blueye
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_1" type="checkbox" id="__nav_8_1_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_1">
+          Sdk
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Sdk" data-md-level="3">
+        <label class="md-nav__title" for="__nav_8_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Sdk
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="camera.html" class="md-nav__link">
+        Camera
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="constants.html" class="md-nav__link">
+        Constants
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Drone
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="drone.html" class="md-nav__link md-nav__link--active">
+        Drone
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav" aria-label="Config">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_drone_time" class="md-nav__link">
+    set_drone_time
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drone" class="md-nav__link">
+    Drone
+  </a>
+  
+    <nav class="md-nav" aria-label="Drone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables_1" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connect" class="md-nav__link">
+    connect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disconnect" class="md-nav__link">
+    disconnect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ping" class="md-nav__link">
+    ping
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slavemodewarning" class="md-nav__link">
+    SlaveModeWarning
+  </a>
+  
+    <nav class="md-nav" aria-label="SlaveModeWarning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_2" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with_traceback" class="md-nav__link">
+    with_traceback
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="logs.html" class="md-nav__link">
+        Logs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="motion.html" class="md-nav__link">
+        Motion
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="utils.html" class="md-nav__link">
+        Utils
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav" aria-label="Config">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_drone_time" class="md-nav__link">
+    set_drone_time
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drone" class="md-nav__link">
+    Drone
+  </a>
+  
+    <nav class="md-nav" aria-label="Drone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables_1" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connect" class="md-nav__link">
+    connect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disconnect" class="md-nav__link">
+    disconnect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ping" class="md-nav__link">
+    ping
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slavemodewarning" class="md-nav__link">
+    SlaveModeWarning
+  </a>
+  
+    <nav class="md-nav" aria-label="SlaveModeWarning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ancestors-in-mro" class="md-nav__link">
+    Ancestors (in MRO)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-variables" class="md-nav__link">
+    Class variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_2" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with_traceback" class="md-nav__link">
+    with_traceback
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/BluEye-Robotics/blueye.sdk/edit/main/reference/blueye/sdk/drone.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="module-blueyesdkdrone">Module blueye.sdk.drone</h1>
+<p>None</p>
+<p>None</p>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>#!/usr/bin/env python3
+
+import socket
+
+import threading
+
+import time
+
+import warnings
+
+from json import JSONDecodeError
+
+import requests
+
+from blueye.protocol import TcpClient, UdpClient
+
+from blueye.protocol.exceptions import (
+
+    MismatchedReply,
+
+    NoConnectionToDrone,
+
+    ResponseTimeout,
+
+)
+
+from packaging import version
+
+from .camera import Camera
+
+from .constants import WaterDensities
+
+from .logs import Logs
+
+from .motion import Motion
+
+class _DroneStateWatcher(threading.Thread):
+
+    """Subscribes to UDP messages from the drone and stores the latest data"""
+
+    def __init__(self, ip: str = "192.168.1.101", udp_timeout: float = 3):
+
+        threading.Thread.__init__(self)
+
+        self._ip = ip
+
+        self._udp_timeout = udp_timeout
+
+        self._general_state = None
+
+        self._general_state_received = threading.Event()
+
+        self._calibration_state = None
+
+        self._calibration_state_received = threading.Event()
+
+        self._udp_client = UdpClient(drone_ip=self._ip)
+
+        self._exit_flag = threading.Event()
+
+        self.daemon = True
+
+    @property
+
+    def general_state(self) -&gt; dict:
+
+        if not self._general_state_received.wait(timeout=self._udp_timeout):
+
+            raise TimeoutError("No state message received from drone")
+
+        return self._general_state
+
+    @property
+
+    def calibration_state(self) -&gt; dict:
+
+        if not self._calibration_state_received.wait(timeout=self._udp_timeout):
+
+            raise TimeoutError("No state message received from drone")
+
+        return self._calibration_state
+
+    def run(self):
+
+        while not self._exit_flag.is_set():
+
+            data_packet = self._udp_client.get_data_dict()
+
+            if data_packet["command_type"] == 1:
+
+                self._general_state = data_packet
+
+                self._general_state_received.set()
+
+            elif data_packet["command_type"] == 2:
+
+                self._calibration_state = data_packet
+
+                self._calibration_state_received.set()
+
+    def stop(self):
+
+        self._exit_flag.set()
+
+class SlaveModeWarning(UserWarning):
+
+    """Raised when trying to perform action not possible in slave mode"""
+
+class _SlaveTcpClient:
+
+    """A dummy TCP client that warns you if you use any of its functions"""
+
+    def __getattr__(self, name):
+
+        def method(*args):
+
+            warnings.warn(
+
+                f"Unable to call {name}{args} with client in slave mode",
+
+                SlaveModeWarning,
+
+                stacklevel=2,
+
+            )
+
+        return method
+
+class _NoConnectionTcpClient:
+
+    """A TCP client that raises a ConnectionError if you use any of its functions"""
+
+    def __getattr__(self, name):
+
+        def method(*args, **kwargs):
+
+            raise ConnectionError(
+
+                "The connection to the drone is not established, "
+
+                "try calling the connect method before retrying"
+
+            )
+
+        return method
+
+class Config:
+
+    def __init__(self, parent_drone: "Drone"):
+
+        self._parent_drone = parent_drone
+
+        self._water_density = WaterDensities.salty
+
+    @property
+
+    def water_density(self):
+
+        """Get or set the current water density for increased pressure sensor accuracy
+
+        Setting the water density is only supported on drones with software version 1.5 or higher.
+
+        Older software versions will assume a water density of 1025 grams per liter.
+
+        The WaterDensities class contains typical densities for salty-, brackish-, and fresh water
+
+        (these are the same values that the Blueye app uses).
+
+        """
+
+        return self._water_density
+
+    @water_density.setter
+
+    def water_density(self, density: int):
+
+        self._parent_drone._verify_required_blunux_version("1.5")
+
+        self._water_density = density
+
+        self._parent_drone._tcp_client.set_water_density(density)
+
+    def set_drone_time(self, time: int):
+
+        """Set the system for the drone
+
+        This method is used to set the system time for the drone. The argument `time` is expected to
+
+        be a Unix timestamp (ie. the number of seconds since the epoch).
+
+        """
+
+        self._parent_drone._tcp_client.set_system_time(time)
+
+class Drone:
+
+    """A class providing an interface to a Blueye drone's functions
+
+    Automatically connects to the drone using the default ip and port when instantiated, this
+
+    behaviour can be disabled by setting `autoConnect=False`.
+
+    The drone only supports one client controlling it at a time, but if you pass
+
+    `slaveModeEnabled=True` you will still be able to receive data from the drone.
+
+    """
+
+    def __init__(
+
+        self,
+
+        ip="192.168.1.101",
+
+        tcpPort=2011,
+
+        autoConnect=True,
+
+        slaveModeEnabled=False,
+
+        udpTimeout=3,
+
+    ):
+
+        self._ip = ip
+
+        self._port = tcpPort
+
+        self._slave_mode_enabled = slaveModeEnabled
+
+        if slaveModeEnabled:
+
+            self._tcp_client = _SlaveTcpClient()
+
+        else:
+
+            self._tcp_client = _NoConnectionTcpClient()
+
+        self._state_watcher = _DroneStateWatcher(ip=self._ip, udp_timeout=udpTimeout)
+
+        self.camera = Camera(self)
+
+        self.motion = Motion(self)
+
+        self.logs = Logs(self)
+
+        self.config = Config(self)
+
+        if autoConnect is True:
+
+            self.connect(timeout=3)
+
+    def _verify_required_blunux_version(self, requirement: str):
+
+        """Verify that Blunux version is higher than requirement
+
+        requirement needs to be a string that's able to be parsed by version.parse()
+
+        Raises a RuntimeError if the Blunux version of the connected drone does not match or exceed
+
+        the requirement.
+
+        """
+
+        if not self.connection_established:
+
+            raise ConnectionError(
+
+                "The connection to the drone is not established, try calling the connect method "
+
+                "before retrying"
+
+            )
+
+        if version.parse(self.software_version_short) &lt; version.parse(requirement):
+
+            raise RuntimeError(
+
+                f"Blunux version of connected drone is {self.software_version_short}. Version "
+
+                f"{requirement} or higher is required."
+
+            )
+
+    @property
+
+    def connection_established(self):
+
+        if isinstance(self._tcp_client, _NoConnectionTcpClient):
+
+            return False
+
+        else:
+
+            return True
+
+    def _update_drone_info(self):
+
+        """Request and store information about the connected drone"""
+
+        try:
+
+            response = requests.get(f"http://{self._ip}/diagnostics/drone_info", timeout=3).json()
+
+        except (
+
+            requests.ConnectTimeout,
+
+            requests.ReadTimeout,
+
+            requests.ConnectionError,
+
+            JSONDecodeError,
+
+        ):
+
+            raise ConnectionError("Could not establish connection with drone")
+
+        try:
+
+            self.features = list(filter(None, response["features"].split(",")))
+
+        except KeyError:
+
+            # Drone versions older than 1.4.7 did not have this field.
+
+            self.features = []
+
+        self.software_version = response["sw_version"]
+
+        self.software_version_short = self.software_version.split("-")[0]
+
+        self.serial_number = response["serial_number"]
+
+        self.uuid = response["hardware_id"]
+
+    @staticmethod
+
+    def _wait_for_udp_communication(timeout: float, ip: str = "192.168.1.101"):
+
+        """Simple helper for waiting for drone to come online
+
+        Raises ConnectionError if no connection is established in the specified timeout.
+
+        """
+
+        temp_udp_client = UdpClient(drone_ip=ip)
+
+        temp_udp_client._sock.settimeout(timeout)
+
+        try:
+
+            temp_udp_client.get_data_dict()
+
+        except socket.timeout as e:
+
+            raise ConnectionError("Could not establish connection with drone") from e
+
+    def _connect_to_tcp_socket(self):
+
+        try:
+
+            self._tcp_client.connect()
+
+        except NoConnectionToDrone:
+
+            raise ConnectionError("Could not establish connection with drone")
+
+    def _start_watchdog(self):
+
+        """Starts the thread for petting the watchdog
+
+        _connect_to_tcp_socket() must be called first"""
+
+        try:
+
+            self._tcp_client.start()
+
+        except RuntimeError:
+
+            # Ignore multiple starts
+
+            pass
+
+    def _clean_up_tcp_client(self):
+
+        """Stops the watchdog thread and closes the TCP socket"""
+
+        self._tcp_client.stop()
+
+        self._tcp_client._sock.close()
+
+        self._tcp_client = _NoConnectionTcpClient()
+
+    def _start_state_watcher_thread(self):
+
+        try:
+
+            self._state_watcher.start()
+
+        except RuntimeError:
+
+            # Ignore multiple starts
+
+            pass
+
+    def _create_temporary_tcp_client(self):
+
+        temp_tcp_client = TcpClient()
+
+        temp_tcp_client.connect()
+
+        temp_tcp_client.stop()
+
+        temp_tcp_client._sock.close()
+
+    def connect(self, timeout: float = None):
+
+        """Start receiving telemetry info from the drone, and publishing watchdog messages
+
+        When watchdog message are published the thrusters are armed, to stop the drone from moving
+
+        unexpectedly when connecting all thruster set points are set to zero when connecting.
+
+        - *timeout* (float): Seconds to wait for connection
+
+        """
+
+        self._update_drone_info()
+
+        if version.parse(self.software_version_short) &gt;= version.parse("3.0"):
+
+            # Blunux 3.0 requires a TCP message before enabling UDP communication
+
+            self._create_temporary_tcp_client()
+
+        self._wait_for_udp_communication(timeout, self._ip)
+
+        self._start_state_watcher_thread()
+
+        if self._slave_mode_enabled:
+
+            # No need to touch the TCP stuff if we're in slave mode so we return early
+
+            return
+
+        if not self.connection_established:
+
+            self._tcp_client = TcpClient(ip=self._ip, port=self._port, autoConnect=False)
+
+            self._connect_to_tcp_socket()
+
+        try:
+
+            # The drone runs from a read-only filesystem, and as such does not keep any state,
+
+            # therefore when we connect to it we should send the current time
+
+            self.config.set_drone_time(int(time.time()))
+
+            self.ping()
+
+            self.motion.send_thruster_setpoint(0, 0, 0, 0)
+
+            self._start_watchdog()
+
+        except ResponseTimeout as e:
+
+            self._clean_up_tcp_client()
+
+            raise ConnectionError(
+
+                f"Found drone at {self._ip} but was unable to take control of it. "
+
+                "Is there another client connected?"
+
+            ) from e
+
+        except MismatchedReply:
+
+            # The connection is out of sync, likely due to a previous connection being
+
+            # disconnected mid-transfer. Re-instantiating the connection should solve the issue
+
+            self._clean_up_tcp_client()
+
+            self.connect(timeout)
+
+        except BrokenPipeError:
+
+            # Have lost connection to drone, need to reestablish TCP client
+
+            self._clean_up_tcp_client()
+
+            self.connect(timeout)
+
+    def disconnect(self):
+
+        """Disconnects the TCP connection, allowing another client to take control of the drone"""
+
+        if self.connection_established and not self._slave_mode_enabled:
+
+            self._clean_up_tcp_client()
+
+    @property
+
+    def lights(self) -&gt; int:
+
+        """Get or set the brightness of the bottom canister lights
+
+        *Arguments*:
+
+        * brightness (int): Set the brightness of the bottom canister LED's in the range &lt;0, 255&gt;
+
+        *Returns*:
+
+        * brightness (int): The brightness of the bottom canister LED's in the range &lt;0, 255&gt;
+
+        """
+
+        state = self._state_watcher.general_state
+
+        return state["lights_upper"]
+
+    @lights.setter
+
+    def lights(self, brightness: int):
+
+        try:
+
+            self._tcp_client.set_lights(brightness, 0)
+
+        except ValueError as e:
+
+            raise ValueError("Error occured while trying to set lights to: " f"{brightness}") from e
+
+    @property
+
+    def depth(self) -&gt; int:
+
+        """Get the current depth in millimeters
+
+        *Returns*:
+
+        * depth (int): The depth in millimeters of water column.
+
+        """
+
+        return self._state_watcher.general_state["depth"]
+
+    @property
+
+    def pose(self) -&gt; dict:
+
+        """Get the current orientation of the drone
+
+        *Returns*:
+
+        * pose (dict): Dictionary with roll, pitch, and yaw in degrees, from 0 to 359.
+
+        """
+
+        pose = {
+
+            "roll": (self._state_watcher.general_state["roll"] + 360) % 360,
+
+            "pitch": (self._state_watcher.general_state["pitch"] + 360) % 360,
+
+            "yaw": (self._state_watcher.general_state["yaw"] + 360) % 360,
+
+        }
+
+        return pose
+
+    @property
+
+    def battery_state_of_charge(self) -&gt; int:
+
+        """Get the battery state of charge
+
+        *Returns*:
+
+        * state_of_charge (int): Current state of charge of the drone battery in percent, from 0 to 100
+
+        """
+
+        return self._state_watcher.general_state["battery_state_of_charge_rel"]
+
+    @property
+
+    def error_flags(self) -&gt; int:
+
+        """Get the error flags
+
+        *Returns*:
+
+        * error_flags (int): The error flags as int
+
+        """
+
+        return self._state_watcher.general_state["error_flags"]
+
+    @property
+
+    def active_video_streams(self) -&gt; int:
+
+        """Get the number of currently active connections to the video stream
+
+        Every client connected to the RTSP stream (does not matter if it's directly from GStreamer,
+
+        or from the Blueye app) counts as one connection.
+
+        Requires Blunux version 1.5.33 or newer.
+
+        """
+
+        self._verify_required_blunux_version("1.5.33")
+
+        SPECTATORS_MASK = 0x000000FF00000000
+
+        SPECTATORS_OFFSET = 32
+
+        debug_flags = self._state_watcher._general_state["debug_flags"]
+
+        return (debug_flags &amp; SPECTATORS_MASK) &gt;&gt; SPECTATORS_OFFSET
+
+    def ping(self):
+
+        """Ping drone, an exception is thrown by TcpClient if drone does not answer"""
+
+        self._tcp_client.ping()
+</code></pre>
+</details>
+<h2 id="classes">Classes</h2>
+<h3 id="config">Config</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span>
+    <span class="n">parent_drone</span><span class="p">:</span> <span class="s1">&#39;Drone&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>class Config:
+
+    def __init__(self, parent_drone: "Drone"):
+
+        self._parent_drone = parent_drone
+
+        self._water_density = WaterDensities.salty
+
+    @property
+
+    def water_density(self):
+
+        """Get or set the current water density for increased pressure sensor accuracy
+
+        Setting the water density is only supported on drones with software version 1.5 or higher.
+
+        Older software versions will assume a water density of 1025 grams per liter.
+
+        The WaterDensities class contains typical densities for salty-, brackish-, and fresh water
+
+        (these are the same values that the Blueye app uses).
+
+        """
+
+        return self._water_density
+
+    @water_density.setter
+
+    def water_density(self, density: int):
+
+        self._parent_drone._verify_required_blunux_version("1.5")
+
+        self._water_density = density
+
+        self._parent_drone._tcp_client.set_water_density(density)
+
+    def set_drone_time(self, time: int):
+
+        """Set the system for the drone
+
+        This method is used to set the system time for the drone. The argument `time` is expected to
+
+        be a Unix timestamp (ie. the number of seconds since the epoch).
+
+        """
+
+        self._parent_drone._tcp_client.set_system_time(time)
+</code></pre>
+</details>
+<hr />
+<h4 id="instance-variables">Instance variables</h4>
+<div class="highlight"><pre><span></span><code><span class="n">water_density</span>
+</code></pre></div>
+<p>Get or set the current water density for increased pressure sensor accuracy</p>
+<p>Setting the water density is only supported on drones with software version 1.5 or higher.
+Older software versions will assume a water density of 1025 grams per liter.</p>
+<p>The WaterDensities class contains typical densities for salty-, brackish-, and fresh water
+(these are the same values that the Blueye app uses).</p>
+<h4 id="methods">Methods</h4>
+<h4 id="set_drone_time">set_drone_time</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">set_drone_time</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">time</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Set the system for the drone</p>
+<p>This method is used to set the system time for the drone. The argument <code>time</code> is expected to
+be a Unix timestamp (ie. the number of seconds since the epoch).</p>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>    def set_drone_time(self, time: int):
+
+        """Set the system for the drone
+
+        This method is used to set the system time for the drone. The argument `time` is expected to
+
+        be a Unix timestamp (ie. the number of seconds since the epoch).
+
+        """
+
+        self._parent_drone._tcp_client.set_system_time(time)
+</code></pre>
+</details>
+<h3 id="drone">Drone</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Drone</span><span class="p">(</span>
+    <span class="n">ip</span><span class="o">=</span><span class="s1">&#39;192.168.1.101&#39;</span><span class="p">,</span>
+    <span class="n">tcpPort</span><span class="o">=</span><span class="mi">2011</span><span class="p">,</span>
+    <span class="n">autoConnect</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">slaveModeEnabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">udpTimeout</span><span class="o">=</span><span class="mi">3</span>
+<span class="p">)</span>
+</code></pre></div>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>class Drone:
+
+    """A class providing an interface to a Blueye drone's functions
+
+    Automatically connects to the drone using the default ip and port when instantiated, this
+
+    behaviour can be disabled by setting `autoConnect=False`.
+
+    The drone only supports one client controlling it at a time, but if you pass
+
+    `slaveModeEnabled=True` you will still be able to receive data from the drone.
+
+    """
+
+    def __init__(
+
+        self,
+
+        ip="192.168.1.101",
+
+        tcpPort=2011,
+
+        autoConnect=True,
+
+        slaveModeEnabled=False,
+
+        udpTimeout=3,
+
+    ):
+
+        self._ip = ip
+
+        self._port = tcpPort
+
+        self._slave_mode_enabled = slaveModeEnabled
+
+        if slaveModeEnabled:
+
+            self._tcp_client = _SlaveTcpClient()
+
+        else:
+
+            self._tcp_client = _NoConnectionTcpClient()
+
+        self._state_watcher = _DroneStateWatcher(ip=self._ip, udp_timeout=udpTimeout)
+
+        self.camera = Camera(self)
+
+        self.motion = Motion(self)
+
+        self.logs = Logs(self)
+
+        self.config = Config(self)
+
+        if autoConnect is True:
+
+            self.connect(timeout=3)
+
+    def _verify_required_blunux_version(self, requirement: str):
+
+        """Verify that Blunux version is higher than requirement
+
+        requirement needs to be a string that's able to be parsed by version.parse()
+
+        Raises a RuntimeError if the Blunux version of the connected drone does not match or exceed
+
+        the requirement.
+
+        """
+
+        if not self.connection_established:
+
+            raise ConnectionError(
+
+                "The connection to the drone is not established, try calling the connect method "
+
+                "before retrying"
+
+            )
+
+        if version.parse(self.software_version_short) &lt; version.parse(requirement):
+
+            raise RuntimeError(
+
+                f"Blunux version of connected drone is {self.software_version_short}. Version "
+
+                f"{requirement} or higher is required."
+
+            )
+
+    @property
+
+    def connection_established(self):
+
+        if isinstance(self._tcp_client, _NoConnectionTcpClient):
+
+            return False
+
+        else:
+
+            return True
+
+    def _update_drone_info(self):
+
+        """Request and store information about the connected drone"""
+
+        try:
+
+            response = requests.get(f"http://{self._ip}/diagnostics/drone_info", timeout=3).json()
+
+        except (
+
+            requests.ConnectTimeout,
+
+            requests.ReadTimeout,
+
+            requests.ConnectionError,
+
+            JSONDecodeError,
+
+        ):
+
+            raise ConnectionError("Could not establish connection with drone")
+
+        try:
+
+            self.features = list(filter(None, response["features"].split(",")))
+
+        except KeyError:
+
+            # Drone versions older than 1.4.7 did not have this field.
+
+            self.features = []
+
+        self.software_version = response["sw_version"]
+
+        self.software_version_short = self.software_version.split("-")[0]
+
+        self.serial_number = response["serial_number"]
+
+        self.uuid = response["hardware_id"]
+
+    @staticmethod
+
+    def _wait_for_udp_communication(timeout: float, ip: str = "192.168.1.101"):
+
+        """Simple helper for waiting for drone to come online
+
+        Raises ConnectionError if no connection is established in the specified timeout.
+
+        """
+
+        temp_udp_client = UdpClient(drone_ip=ip)
+
+        temp_udp_client._sock.settimeout(timeout)
+
+        try:
+
+            temp_udp_client.get_data_dict()
+
+        except socket.timeout as e:
+
+            raise ConnectionError("Could not establish connection with drone") from e
+
+    def _connect_to_tcp_socket(self):
+
+        try:
+
+            self._tcp_client.connect()
+
+        except NoConnectionToDrone:
+
+            raise ConnectionError("Could not establish connection with drone")
+
+    def _start_watchdog(self):
+
+        """Starts the thread for petting the watchdog
+
+        _connect_to_tcp_socket() must be called first"""
+
+        try:
+
+            self._tcp_client.start()
+
+        except RuntimeError:
+
+            # Ignore multiple starts
+
+            pass
+
+    def _clean_up_tcp_client(self):
+
+        """Stops the watchdog thread and closes the TCP socket"""
+
+        self._tcp_client.stop()
+
+        self._tcp_client._sock.close()
+
+        self._tcp_client = _NoConnectionTcpClient()
+
+    def _start_state_watcher_thread(self):
+
+        try:
+
+            self._state_watcher.start()
+
+        except RuntimeError:
+
+            # Ignore multiple starts
+
+            pass
+
+    def _create_temporary_tcp_client(self):
+
+        temp_tcp_client = TcpClient()
+
+        temp_tcp_client.connect()
+
+        temp_tcp_client.stop()
+
+        temp_tcp_client._sock.close()
+
+    def connect(self, timeout: float = None):
+
+        """Start receiving telemetry info from the drone, and publishing watchdog messages
+
+        When watchdog message are published the thrusters are armed, to stop the drone from moving
+
+        unexpectedly when connecting all thruster set points are set to zero when connecting.
+
+        - *timeout* (float): Seconds to wait for connection
+
+        """
+
+        self._update_drone_info()
+
+        if version.parse(self.software_version_short) &gt;= version.parse("3.0"):
+
+            # Blunux 3.0 requires a TCP message before enabling UDP communication
+
+            self._create_temporary_tcp_client()
+
+        self._wait_for_udp_communication(timeout, self._ip)
+
+        self._start_state_watcher_thread()
+
+        if self._slave_mode_enabled:
+
+            # No need to touch the TCP stuff if we're in slave mode so we return early
+
+            return
+
+        if not self.connection_established:
+
+            self._tcp_client = TcpClient(ip=self._ip, port=self._port, autoConnect=False)
+
+            self._connect_to_tcp_socket()
+
+        try:
+
+            # The drone runs from a read-only filesystem, and as such does not keep any state,
+
+            # therefore when we connect to it we should send the current time
+
+            self.config.set_drone_time(int(time.time()))
+
+            self.ping()
+
+            self.motion.send_thruster_setpoint(0, 0, 0, 0)
+
+            self._start_watchdog()
+
+        except ResponseTimeout as e:
+
+            self._clean_up_tcp_client()
+
+            raise ConnectionError(
+
+                f"Found drone at {self._ip} but was unable to take control of it. "
+
+                "Is there another client connected?"
+
+            ) from e
+
+        except MismatchedReply:
+
+            # The connection is out of sync, likely due to a previous connection being
+
+            # disconnected mid-transfer. Re-instantiating the connection should solve the issue
+
+            self._clean_up_tcp_client()
+
+            self.connect(timeout)
+
+        except BrokenPipeError:
+
+            # Have lost connection to drone, need to reestablish TCP client
+
+            self._clean_up_tcp_client()
+
+            self.connect(timeout)
+
+    def disconnect(self):
+
+        """Disconnects the TCP connection, allowing another client to take control of the drone"""
+
+        if self.connection_established and not self._slave_mode_enabled:
+
+            self._clean_up_tcp_client()
+
+    @property
+
+    def lights(self) -&gt; int:
+
+        """Get or set the brightness of the bottom canister lights
+
+        *Arguments*:
+
+        * brightness (int): Set the brightness of the bottom canister LED's in the range &lt;0, 255&gt;
+
+        *Returns*:
+
+        * brightness (int): The brightness of the bottom canister LED's in the range &lt;0, 255&gt;
+
+        """
+
+        state = self._state_watcher.general_state
+
+        return state["lights_upper"]
+
+    @lights.setter
+
+    def lights(self, brightness: int):
+
+        try:
+
+            self._tcp_client.set_lights(brightness, 0)
+
+        except ValueError as e:
+
+            raise ValueError("Error occured while trying to set lights to: " f"{brightness}") from e
+
+    @property
+
+    def depth(self) -&gt; int:
+
+        """Get the current depth in millimeters
+
+        *Returns*:
+
+        * depth (int): The depth in millimeters of water column.
+
+        """
+
+        return self._state_watcher.general_state["depth"]
+
+    @property
+
+    def pose(self) -&gt; dict:
+
+        """Get the current orientation of the drone
+
+        *Returns*:
+
+        * pose (dict): Dictionary with roll, pitch, and yaw in degrees, from 0 to 359.
+
+        """
+
+        pose = {
+
+            "roll": (self._state_watcher.general_state["roll"] + 360) % 360,
+
+            "pitch": (self._state_watcher.general_state["pitch"] + 360) % 360,
+
+            "yaw": (self._state_watcher.general_state["yaw"] + 360) % 360,
+
+        }
+
+        return pose
+
+    @property
+
+    def battery_state_of_charge(self) -&gt; int:
+
+        """Get the battery state of charge
+
+        *Returns*:
+
+        * state_of_charge (int): Current state of charge of the drone battery in percent, from 0 to 100
+
+        """
+
+        return self._state_watcher.general_state["battery_state_of_charge_rel"]
+
+    @property
+
+    def error_flags(self) -&gt; int:
+
+        """Get the error flags
+
+        *Returns*:
+
+        * error_flags (int): The error flags as int
+
+        """
+
+        return self._state_watcher.general_state["error_flags"]
+
+    @property
+
+    def active_video_streams(self) -&gt; int:
+
+        """Get the number of currently active connections to the video stream
+
+        Every client connected to the RTSP stream (does not matter if it's directly from GStreamer,
+
+        or from the Blueye app) counts as one connection.
+
+        Requires Blunux version 1.5.33 or newer.
+
+        """
+
+        self._verify_required_blunux_version("1.5.33")
+
+        SPECTATORS_MASK = 0x000000FF00000000
+
+        SPECTATORS_OFFSET = 32
+
+        debug_flags = self._state_watcher._general_state["debug_flags"]
+
+        return (debug_flags &amp; SPECTATORS_MASK) &gt;&gt; SPECTATORS_OFFSET
+
+    def ping(self):
+
+        """Ping drone, an exception is thrown by TcpClient if drone does not answer"""
+
+        self._tcp_client.ping()
+</code></pre>
+</details>
+<hr />
+<h4 id="instance-variables_1">Instance variables</h4>
+<div class="highlight"><pre><span></span><code><span class="n">active_video_streams</span>
+</code></pre></div>
+<p>Get the number of currently active connections to the video stream</p>
+<p>Every client connected to the RTSP stream (does not matter if it's directly from GStreamer,
+or from the Blueye app) counts as one connection.</p>
+<p>Requires Blunux version 1.5.33 or newer.</p>
+<div class="highlight"><pre><span></span><code><span class="n">battery_state_of_charge</span>
+</code></pre></div>
+<p>Get the battery state of charge</p>
+<p><em>Returns</em>:</p>
+<ul>
+<li>state_of_charge (int): Current state of charge of the drone battery in percent, from 0 to 100</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">connection_established</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">depth</span>
+</code></pre></div>
+<p>Get the current depth in millimeters</p>
+<p><em>Returns</em>:</p>
+<ul>
+<li>depth (int): The depth in millimeters of water column.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">error_flags</span>
+</code></pre></div>
+<p>Get the error flags</p>
+<p><em>Returns</em>:</p>
+<ul>
+<li>error_flags (int): The error flags as int</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">lights</span>
+</code></pre></div>
+<p>Get or set the brightness of the bottom canister lights</p>
+<p><em>Arguments</em>:</p>
+<ul>
+<li>brightness (int): Set the brightness of the bottom canister LED's in the range &lt;0, 255&gt;</li>
+</ul>
+<p><em>Returns</em>:</p>
+<ul>
+<li>brightness (int): The brightness of the bottom canister LED's in the range &lt;0, 255&gt;</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">pose</span>
+</code></pre></div>
+<p>Get the current orientation of the drone</p>
+<p><em>Returns</em>:</p>
+<ul>
+<li>pose (dict): Dictionary with roll, pitch, and yaw in degrees, from 0 to 359.</li>
+</ul>
+<h4 id="methods_1">Methods</h4>
+<h4 id="connect">connect</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">connect</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Start receiving telemetry info from the drone, and publishing watchdog messages</p>
+<p>When watchdog message are published the thrusters are armed, to stop the drone from moving
+unexpectedly when connecting all thruster set points are set to zero when connecting.</p>
+<ul>
+<li><em>timeout</em> (float): Seconds to wait for connection</li>
+</ul>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>    def connect(self, timeout: float = None):
+
+        """Start receiving telemetry info from the drone, and publishing watchdog messages
+
+        When watchdog message are published the thrusters are armed, to stop the drone from moving
+
+        unexpectedly when connecting all thruster set points are set to zero when connecting.
+
+        - *timeout* (float): Seconds to wait for connection
+
+        """
+
+        self._update_drone_info()
+
+        if version.parse(self.software_version_short) &gt;= version.parse("3.0"):
+
+            # Blunux 3.0 requires a TCP message before enabling UDP communication
+
+            self._create_temporary_tcp_client()
+
+        self._wait_for_udp_communication(timeout, self._ip)
+
+        self._start_state_watcher_thread()
+
+        if self._slave_mode_enabled:
+
+            # No need to touch the TCP stuff if we're in slave mode so we return early
+
+            return
+
+        if not self.connection_established:
+
+            self._tcp_client = TcpClient(ip=self._ip, port=self._port, autoConnect=False)
+
+            self._connect_to_tcp_socket()
+
+        try:
+
+            # The drone runs from a read-only filesystem, and as such does not keep any state,
+
+            # therefore when we connect to it we should send the current time
+
+            self.config.set_drone_time(int(time.time()))
+
+            self.ping()
+
+            self.motion.send_thruster_setpoint(0, 0, 0, 0)
+
+            self._start_watchdog()
+
+        except ResponseTimeout as e:
+
+            self._clean_up_tcp_client()
+
+            raise ConnectionError(
+
+                f"Found drone at {self._ip} but was unable to take control of it. "
+
+                "Is there another client connected?"
+
+            ) from e
+
+        except MismatchedReply:
+
+            # The connection is out of sync, likely due to a previous connection being
+
+            # disconnected mid-transfer. Re-instantiating the connection should solve the issue
+
+            self._clean_up_tcp_client()
+
+            self.connect(timeout)
+
+        except BrokenPipeError:
+
+            # Have lost connection to drone, need to reestablish TCP client
+
+            self._clean_up_tcp_client()
+
+            self.connect(timeout)
+</code></pre>
+</details>
+<h4 id="disconnect">disconnect</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span>
+    <span class="bp">self</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Disconnects the TCP connection, allowing another client to take control of the drone</p>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>    def disconnect(self):
+
+        """Disconnects the TCP connection, allowing another client to take control of the drone"""
+
+        if self.connection_established and not self._slave_mode_enabled:
+
+            self._clean_up_tcp_client()
+</code></pre>
+</details>
+<h4 id="ping">ping</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ping</span><span class="p">(</span>
+    <span class="bp">self</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Ping drone, an exception is thrown by TcpClient if drone does not answer</p>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>    def ping(self):
+
+        """Ping drone, an exception is thrown by TcpClient if drone does not answer"""
+
+        self._tcp_client.ping()
+</code></pre>
+</details>
+<h3 id="slavemodewarning">SlaveModeWarning</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">SlaveModeWarning</span><span class="p">(</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
+</code></pre></div>
+<details class="example">
+<summary>View Source</summary>
+<pre><code>class SlaveModeWarning(UserWarning):
+
+    """Raised when trying to perform action not possible in slave mode"""
+</code></pre>
+</details>
+<hr />
+<h4 id="ancestors-in-mro">Ancestors (in MRO)</h4>
+<ul>
+<li>builtins.UserWarning</li>
+<li>builtins.Warning</li>
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+<h4 id="class-variables">Class variables</h4>
+<div class="highlight"><pre><span></span><code><span class="n">args</span>
+</code></pre></div>
+<h4 id="methods_2">Methods</h4>
+<h4 id="with_traceback">with_traceback</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">with_traceback</span><span class="p">(</span>
+    <span class="o">...</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Exception.with_traceback(tb) --</p>
+<p>set self.<strong>traceback</strong> to tb and return self.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <nav class="md-footer__inner md-grid" aria-label="Footer">
+    
+    
+    <a href="constants.html" class="md-footer__link md-footer__link--prev"
+      aria-label="Previous: Constants" rel="prev">
+      <div class="md-footer__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </div>
+      <div class="md-footer__title">
+        <div class="md-ellipsis">
+          <span class="md-footer__direction">
+            Previous
+          </span>
+          Constants
+        </div>
+      </div>
+    </a>
+    
+    
+    
+    <a href="index.html" class="md-footer__link md-footer__link--next"
+      aria-label="Next: Index" rel="next">
+      <div class="md-footer__title">
+        <div class="md-ellipsis">
+          <span class="md-footer__direction">
+            Next
+          </span>
+          Index
+        </div>
+      </div>
+      <div class="md-footer__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+      </div>
+    </a>
+    
+  </nav>
+  
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.f8263e09.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.4fc53ad4.min.js"></script>
+      
+    
+  </body>
+</html>
