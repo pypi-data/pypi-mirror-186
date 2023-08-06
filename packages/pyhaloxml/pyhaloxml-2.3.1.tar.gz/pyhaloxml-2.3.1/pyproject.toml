@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyhaloxml"
+version = "2.3.1"
+description = "Read and write the annotation files from Halo"
+readme = "README.md"
+authors = [{ name = "Rolf Harkes", email = "r.harkes@nki.nl" }]
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["Halo", "reader", "annotation"]
+dependencies = [
+    "lxml >= 4.9",
+    "geojson>=2.5",
+    "Shapely>=1.8",
+    "numba",
+    "numpy",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = ["black", "bumpver", "pytest", "setuptools", "build", "twine"]
+
+[project.urls]
+Homepage = "https://github.com/rharkes/pyhaloxml"
+
+[tool.bumpver]
+current_version = "2.3.1"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    'version = "{version}"',
+]
+"src/pyhaloxml/version.py" = [
+    "{version}"
+]
+"docs/source/conf.py" = [
+    'release = "{version}"',
+    'version = "{version}"'
+]
+
