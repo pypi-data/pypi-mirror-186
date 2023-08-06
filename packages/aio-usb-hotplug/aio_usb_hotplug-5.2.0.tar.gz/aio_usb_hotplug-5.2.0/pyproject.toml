@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "aio-usb-hotplug"
+version = "5.2.0"
+description = "Asynchronous generators yielding detected hotplug events on the USB buses"
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/ntamas/aio-usb-hotplug/"
+repository = "https://github.com/ntamas/aio-usb-hotplug/"
+authors = ["Tamas Nepusz <tamas@collmot.com>"]
+packages = [
+    { include = "aio_usb_hotplug", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+anyio = "^3.0.0"
+pyudev = { version = ">=0.22.0", platform = "linux" }
+pyusb = "^1.1.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.2.0"
+coverage = {extras = ["toml"], version = "^6.0"}
+pytest-cov = "^4.0.0"
+trio = "^0.19.0"
+
+[tool.poetry.scripts]
+
+[tool.coverage.paths]
+source = ["src"]
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+
+[tool.coverage.report]
+show_missing = true
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
