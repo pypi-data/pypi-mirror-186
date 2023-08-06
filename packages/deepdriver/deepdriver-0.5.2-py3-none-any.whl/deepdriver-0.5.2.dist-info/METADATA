@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: deepdriver
+Version: 0.5.2
+Summary: deepdriver experiments
+Home-page: https://bokchi.com
+Author: bokchi
+Author-email: molamola.bokchi@gmail.com
+License: UNKNOWN
+Project-URL: bokchi git hub, https://github.com/molabokchi
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: wheel
+Requires-Dist: assertpy
+Requires-Dist: grpcio
+Requires-Dist: grpcio-tools
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: Pillow
+Requires-Dist: plotly
+Requires-Dist: psutil
+Requires-Dist: pynvml
+Requires-Dist: requests
+Requires-Dist: optuna
+Requires-Dist: psycopg2
+
+# module_python
+
+![basic-test](https://github.com/molabokchi/module_python/workflows/basic-test/badge.svg)
+
+module python library
+
+# Requirement Installation
+
+```console
+python3 -m pip install -r requirements.txt
+```
+
+# Generate Python GRPC files from Proto
+
+Type the following at the root
+```console
+python3 -m grpc_tools.protoc -I. --python_out=. --pyi_out=. --grpc_python_out=. deepdriver/sdk/interface/grpc_interface.proto
+```
+
+
