@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "countdown"
+version = "0.0.2"
+authors = [
+    { name = "Tanner B. Corcoran", email = "tannerbcorcoran@gmail.com" },
+]
+description = "An easy-to-use and highly customizable formatter used to turn a time value into a countdown string"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "plogging >= 0.0.1",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/tanrbobanr/countdown"
