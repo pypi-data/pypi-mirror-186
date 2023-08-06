@@ -1,0 +1,30 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Authorization:
+      - ESA XXXXXX
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: https://api.rms.rakuten.co.jp/es/1.0/categoryapi/shop/categorysets/get
+  response:
+    body:
+      string: '<?xml version="1.0" encoding="UTF-8"?>
+
+        <result><status><interfaceId>shop.categorysets.get</interfaceId><systemStatus>OK</systemStatus><message>OK</message><requestId>9ab683d1-6686-4ead-ac91-399bb9806b9e</requestId></status><categorysetsGetResult><code>C013</code><shopId/></categorysetsGetResult></result>'
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '305'
+      Content-Type:
+      - text/xml; charset=utf-8
+      Date:
+      - Tue, 22 Oct 2019 10:44:11 GMT
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+version: 1

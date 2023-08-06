@@ -1,0 +1,33 @@
+interactions:
+- request:
+    body: null
+    headers:
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: https://app.rakuten.co.jp/services/api/Travel/GetHotelChainList/20170426?applicationId=XXXXXX&formatVersion=2
+  response:
+    body:
+      string: '{"error":"wrong_parameter","error_description":"Operation Travel/GetHotelChainList
+        doesn''t exist"}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-store
+      Connection:
+      - close
+      Content-Language:
+      - ja-JP
+      Content-Length:
+      - '98'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 22 Oct 2019 11:49:17 GMT
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 400
+      message: Bad Request
+version: 1

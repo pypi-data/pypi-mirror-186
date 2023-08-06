@@ -1,0 +1,32 @@
+interactions:
+- request:
+    body: null
+    headers:
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: https://app.rakuten.co.jp/services/api/Gora/GoraPlanSearch/20170623?applicationId=XXXXXX&formatVersion=2&hits=3&playDate=2017-03-05
+  response:
+    body:
+      string: '{"error":"wrong_parameter","error_description":"specify valid playDate"}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-store
+      Connection:
+      - close
+      Content-Language:
+      - ja-JP
+      Content-Length:
+      - '72'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 22 Oct 2019 10:41:16 GMT
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 400
+      message: Bad Request
+version: 1

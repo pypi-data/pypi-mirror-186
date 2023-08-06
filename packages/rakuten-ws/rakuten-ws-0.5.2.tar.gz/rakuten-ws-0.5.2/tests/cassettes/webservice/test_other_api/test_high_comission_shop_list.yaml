@@ -1,0 +1,33 @@
+interactions:
+- request:
+    body: null
+    headers:
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: https://app.rakuten.co.jp/services/api/HighCommissionShop/List/20131205?applicationId=XXXXXX&formatVersion=2&hits=3
+  response:
+    body:
+      string: '{"error":"service_unavailable","error_description":"HighCommissionShop/List/20131205
+        is under maintenance"}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-store
+      Connection:
+      - close
+      Content-Language:
+      - ja-JP
+      Content-Length:
+      - '107'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 22 Oct 2019 10:43:58 GMT
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 503
+      message: Service Unavailable
+version: 1

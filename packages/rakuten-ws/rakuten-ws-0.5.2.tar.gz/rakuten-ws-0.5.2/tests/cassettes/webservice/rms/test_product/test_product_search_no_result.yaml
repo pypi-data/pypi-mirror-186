@@ -1,0 +1,33 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Authorization:
+      - ESA XXXXXX
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: https://api.rms.rakuten.co.jp/es/2.0/product/search?keyword=djshfksdhgflhskdjdsfbhdezeeeeeeeee
+  response:
+    body:
+      string: '<?xml version="1.0" encoding="UTF-8"?>
+
+        <result><status><interfaceId>product.search</interfaceId><systemStatus>NG</systemStatus><message>Data
+        not found</message><requestId>ec0d37c6-03af-417b-bdcb-8cb62d0deb1c</requestId><requests><productId/><keyword>djshfksdhgflhskdjdsfbhdezeeeeeeeee</keyword><genreId/><makerName/><releaseDateFrom/><releaseDateTo/><sortBy/><offset/><limit/></requests></status></result>'
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '405'
+      Content-Type:
+      - text/xml; charset=utf-8
+      Date:
+      - Tue, 22 Oct 2019 15:36:27 GMT
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+    status:
+      code: 200
+      message: OK
+version: 1

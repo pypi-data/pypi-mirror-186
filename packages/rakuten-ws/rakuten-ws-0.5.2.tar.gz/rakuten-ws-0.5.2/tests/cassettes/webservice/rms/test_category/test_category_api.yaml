@@ -1,0 +1,35 @@
+interactions:
+- request:
+    body: "<?xml version='1.0' encoding='utf-8'?>\n<request>\n  <categoryInsertRequest>\n
+      \   <categorySetManageNumber>0</categorySetManageNumber>\n    <categoryId>0</categoryId>\n
+      \   <category>\n      <name>[rakuten-ws test] Chocolate Ice Cream</name>\n    </category>\n
+      \ </categoryInsertRequest>\n</request>\n"
+    headers:
+      Authorization:
+      - ESA XXXXXX
+      Content-Length:
+      - '289'
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: https://api.rms.rakuten.co.jp/es/1.0/categoryapi/shop/category/insert
+  response:
+    body:
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<result><status><interfaceId>shop.category.insert</interfaceId><systemStatus>OK</systemStatus><message>OK</message><requestId>1b551fa3-c593-4f59-bd06-1588de3bd229</requestId></status><categoryInsertResult><code>C220</code><shopId>375055</shopId><errorMessages><errorMessage><errorId>221</errorId><msg>\u30AB\u30C6\u30B4\u30EA\u30BB\u30C3\u30C8\u7BA1\u7406\u756A\u53F7\u306F\u5165\u529B\u3067\u304D\u307E\u305B\u3093\u3002</msg></errorMessage></errorMessages><category/></categoryInsertResult></result>"
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '480'
+      Content-Type:
+      - text/xml; charset=utf-8
+      Date:
+      - Tue, 22 Oct 2019 10:44:13 GMT
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Servlet/2.5 JSP/2.1
+    status:
+      code: 200
+      message: OK
+version: 1

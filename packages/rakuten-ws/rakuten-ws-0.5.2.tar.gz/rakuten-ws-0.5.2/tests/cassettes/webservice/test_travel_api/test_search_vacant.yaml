@@ -1,0 +1,32 @@
+interactions:
+- request:
+    body: null
+    headers:
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: https://app.rakuten.co.jp/services/api/Travel/VacantHotelSearch/20170426?applicationId=XXXXXX&checkinDate=2017-02-25&checkoutDate=2017-03-10&formatVersion=2&latitude=125994.28&longitude=488781.51
+  response:
+    body:
+      string: '{"error":"wrong_parameter","error_description":"specify valid checkinDate"}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-store
+      Connection:
+      - close
+      Content-Language:
+      - ja-JP
+      Content-Length:
+      - '75'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 22 Oct 2019 11:49:15 GMT
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 400
+      message: Bad Request
+version: 1
