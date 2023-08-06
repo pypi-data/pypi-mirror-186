@@ -1,0 +1,90 @@
+Metadata-Version: 2.1
+Name: video2audio
+Version: 2023.1.14
+Summary: Extract audio tracks from A/V files using ffmpeg.
+Project-URL: Homepage, https://github.com/atpage/video2audio
+Project-URL: Bug Tracker, https://github.com/atpage/video2audio/issues
+Author-email: Alex Page <a.t.page@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2023 Alex Page
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+License-File: LICENSE~
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+
+# Description
+
+This library uses `ffmpeg` to extract an audio track from a video file.  The audio can also be separated by chapter, if the chapters are annotated in the video.
+
+# Installation
+
+```sh
+$ pip3 install video2audio
+```
+
+The `ffmpeg` and `ffprobe` commands must be available on your system (and `PATH`).
+
+# Usage
+
+```python
+from video2audio import AVFile
+
+f = AVFile('/path/to/some/movie.mkv')
+
+# Extract the entire audio track as a single mp3:
+f.extract_audio('/path/to/some/audio_only.mp3', chapter=None)
+
+# Extract the second, entire audio track as a single mp3:
+f.extract_audio('/path/to/some/audio_only_second_stream.mp3', chapter=None, stream=1)
+
+# Extract each chapter to a separate mp3 file:
+f.extract_all_chapters_audio('/path/to/chapter/outputs/')
+
+# Extract each chapter to a separate mp3 file, manually naming them:
+f.extract_all_chapters_audio(
+    '/path/to/chapter/outputs/',
+    output_filenames=['ch1_title.mp3', 'ch2_title.mp3', 'ch3_title.mp3']
+)
+
+# Extract only chapter number 12 (or 13, using 1-indexing):
+chapter_list = f.get_chapters()
+f.extract_audio('single_chapter.mp3', chapter=chapter_list[12])
+```
+
+## CLI
+
+Extract the second audio track using the command line tool:
+
+```sh
+$ video2audio -t 1 /path/to/some/movie.mkv /path/to/chapter/outputs/
+```
+
+`video2audio -h` will explain the other options.
+
+# TODO
+
+* Add tests
+* Check for injection / missing escapes in subprocess
