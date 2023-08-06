@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: neon-tts-plugin-audiofiles
+Version: 0.0.2a6
+Summary: A "TTS" plugin for Neon
+Home-page: https://github.com/NeonGeckoCom/neon-tts-plugin-audiofiles
+Author: Neongecko
+Author-email: developers@neon.ai
+License: BSD-3.0
+Keywords: mycroft plugin tts
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Text Processing :: Linguistic
+Classifier: Programming Language :: Python :: 3.6
+Description-Content-Type: text/markdown
+Requires-Dist: neon-utils (~=1.0)
+Requires-Dist: ovos-plugin-manager (~=0.0.2)
+Requires-Dist: ovos-utils (~=0.0.25)
+Requires-Dist: ovos-config (~=0.0.4)
+Requires-Dist: ovos-workshop (~=0.0.9)
+
+# NeonAI Audio Files TTS Plugin
+[Mycroft](https://mycroft-ai.gitbook.io/docs/mycroft-technologies/mycroft-core/plugins) compatible
+TTS Plugin for playing back static audio files. Plugin will look for a file whose name matches the requested
+TTS string and play it back.
+
+## Configuration:
+```yaml
+tts:
+    module: neon-tts-plugin-audiofiles
+    neon-tts-plugin-audiofiles:
+      audio_file_path: ~/tts_audio_files
+```
+
+## Usage
+The path to audio files should be specified in configuration as [noted above](#configuration). 
+If using this with the default [Neon Docker Implementation](https://github.com/NeonGeckoCom/NeonCore/tree/dev/docker),
+audio files will be read from `xdg/data/neon/AudioFileTTS` by default. 
+
+Audio filenames should generally match the text used to generate them, 
+with any special characters (i.e. `/`) replaced with `_`. If
+unsure about capitalization, files may be lowercased, though a properly cased
+file will take priority over a lowercased one.
+For example, the tts request `What time is it?` would resolve
+the file `what time is it_.wav`
+
+Some default audio files are provided with this plugin, but it is expected that
+any potential TTS requests have supporting `wav` audio files at `audio_file_path`.
+Audio files may be organized in any directory structure within that directory.
+
+### Examples
+| text             | filename             |
+|------------------|----------------------|
+| What time is it? | What time is it_.wav |
+| It is 11:30 AM   | it is 11_30 am.wav   |
+
+
+
