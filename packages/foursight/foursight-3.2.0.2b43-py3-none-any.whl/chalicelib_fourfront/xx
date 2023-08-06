@@ -1,0 +1,354 @@
+100,105d99
+<                 },
+<                 "staging": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+129c123
+<                 "all": {
+---
+>                 "data": {
+136c130,133
+<         }
+---
+>         },
+>         "display": [
+>             "all"
+>         ]
+158c155
+<                 "all": {
+---
+>                 "data": {
+177,183d173
+<                 },
+<                 "mastertest": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+<                 }
+186a177,180
+>         "display": [
+>             "mastertest"
+>         ]
+>     },
+537c531
+<                 "all": {
+---
+>                 "data": {
+544c538,541
+<         }
+---
+>         },
+>         "display": [
+>             "all"
+>         ]
+565c562
+<                 "all": {
+---
+>                 "data": {
+572c569,572
+<         }
+---
+>         },
+>         "display": [
+>             "all"
+>         ]
+593c593
+<                 "all": {
+---
+>                 "data": {
+600c600,603
+<         }
+---
+>         },
+>         "display": [
+>             "all"
+>         ]
+697,710d699
+<                 "all": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+<                 }
+<             }
+<         }
+<     },
+<     "deploy_application_to_beanstalk": {
+<         "title": "Deploy Version to ElasticBeanstalk",
+<         "group": "Deployment Checks",
+<         "schedule": {
+<             "manual_checks": {
+711a701
+>                     "dependencies": [],
+717d706
+<         }
+719,730c708,710
+<     "deploy_ff_staging": {
+<         "title": "Deploy Fourfront master to staging.4dnucleome.org",
+<         "group": "Deployment Checks",
+<         "schedule": {
+<             "deployment_checks": {
+<                 "data": {
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+<                 }
+<             }
+<         }
+---
+>         "display": [
+>             "all"
+>         ]
+809c789
+<                 "all": {
+---
+>                 "data": {
+816c796,799
+<         }
+---
+>         },
+>         "display": [
+>             "all"
+>         ]
+837c820
+<                 "all": {
+---
+>                 "data": {
+846c829,832
+<         }
+---
+>         },
+>         "display": [
+>             "all"
+>         ]
+853c839
+<                 "all": {
+---
+>                 "data": {
+860c846,849
+<         }
+---
+>         },
+>         "display": [
+>             "all"
+>         ]
+867c856
+<                 "all": {
+---
+>                 "data": {
+874c863,866
+<         }
+---
+>         },
+>         "display": [
+>             "all"
+>         ]
+975,982d966
+<                 },
+<                 "staging": {
+<                     "dependencies": [
+<                         "yellow_flag_biosamples"
+<                     ],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+1053,1065d1036
+<     "indexer_server_status": {
+<         "title": "Indexer Server Status",
+<         "group": "Deployment Checks",
+<         "schedule": {
+<             "manual_checks": {
+<                 "data": {
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+<                 }
+<             }
+<         }
+<     },
+1074c1045,1053
+<                 "all": {
+---
+>                 "data": {
+>                     "dependencies": [
+>                         "item_counts_by_type"
+>                     ],
+>                     "kwargs": {
+>                         "primary": true
+>                     }
+>                 },
+>                 "staging": {
+1122c1101,1107
+<                 "all": {
+---
+>                 "data": {
+>                     "dependencies": [],
+>                     "kwargs": {
+>                         "primary": true
+>                     }
+>                 },
+>                 "staging": {
+1247,1252d1231
+<                 },
+<                 "staging": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+1331,1336d1309
+<               },
+<               "staging": {
+<                   "dependencies": [],
+<                   "kwargs": {
+<                       "primary": true
+<                   }
+1357,1362d1329
+<                 },
+<                 "staging": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+1383,1388d1349
+<                 },
+<                 "staging": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+1409,1414d1369
+<                 },
+<                 "staging": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+1435,1440d1389
+<                 },
+<                 "staging": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+1461,1466d1409
+<                 },
+<                 "staging": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+1476c1419
+<                 "all": {
+---
+>                 "data": {
+1501,1506d1443
+<                 },
+<                 "staging": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+1527,1532d1463
+<                 },
+<                 "staging": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+1553,1558d1483
+<                 },
+<                 "staging": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+1575,1587d1499
+<     "provision_indexer_environment": {
+<         "title": "Provision Indexer Environment",
+<         "group": "Deployment Checks",
+<         "schedule": {
+<             "manual_checks": {
+<                 "data": {
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+<                 }
+<             }
+<         }
+<     },
+1651c1563
+<                 "all": {
+---
+>                 "data": {
+1658c1570,1573
+<         }
+---
+>         },
+>         "display": [
+>             "all"
+>         ]
+1730,1743d1644
+<     "staging_deployment": {
+<         "title": "Staging deployment",
+<         "group": "System checks",
+<         "schedule": {
+<             "manual_checks": {
+<                 "staging": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+<                 }
+<             }
+<         }
+<     },
+1867c1768
+<                 "all": {
+---
+>                 "data": {
+1874c1775,1778
+<         }
+---
+>         },
+>         "display": [
+>             "all"
+>         ]
+1933,1938d1836
+<                 },
+<                 "staging": {
+<                     "dependencies": [],
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+1957,1984d1854
+<     "scale_down_elasticsearch_production": {
+<         "title": "Scale down production ElasticSearch Cluster",
+<         "group": "System checks",
+<         "schedule": {
+<             "friday_autoscaling_checks": {
+<                 "staging": {
+<                     "kwargs": {
+<                         "primary": true
+<                     }
+<                 }
+<             }
+<         },
+<         "display": ["data", "staging"]
+<     },
+<     "scale_up_elasticsearch_production": {
+<         "title": "Scale up production ElasticSearch Cluster",
+<         "group": "System checks",
+<         "schedule": {
+<             "monday_autoscaling_checks": {
+<                 "staging": {
+<                     "kwargs" : {
+<                         "primary": true
+<                     }
+<                 }
+<             }
+<         },
+<         "display": ["data", "staging"]
+<     },
