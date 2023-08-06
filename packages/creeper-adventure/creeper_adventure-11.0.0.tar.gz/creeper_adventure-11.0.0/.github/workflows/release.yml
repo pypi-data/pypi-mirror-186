@@ -1,0 +1,90 @@
+name: Release
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - '*'
+env:
+  HATCH_INDEX_USER: __token__
+  HATCH_INDEX_AUTH: ${{ secrets.pypi_password }}
+jobs:
+  release:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - run: pip install -r requirements.txt
+      - run: pyinstaller --noconsole creeper_adventure/creeper.py
+      - run: cp -r creeper_adventure/assets dist/creeper
+      - name: Step 3 - Use the Upload Artifact GitHub Action
+        uses: actions/upload-artifact@v2
+        with:
+          name: creeper-${{ matrix.os }}
+          path: dist
+  build-site:
+    needs: release
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./site
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: install hatch
+        run: pip install hatch
+      - name: build with markata
+        run: hatch run build
+      - uses: actions/download-artifact@v3
+        with:
+          name: creeper-windows-latest
+          path: creeper-windows-latest
+      - uses: vimtor/action-zip@v1
+        with:
+          files: creeper-windows-latest/
+          dest: site/markout/creeper-windows-latest.zip
+      - uses: actions/download-artifact@v3
+        with:
+          name: creeper-ubuntu-latest
+          path: creeper-linux-latest
+      - uses: vimtor/action-zip@v1
+        with:
+          files: creeper-linux-latest/
+          dest: site/markout/creeper-linux-latest.zip
+      - name: GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v3.0.0
+        with:
+          # you can choose the target branch of your choice
+          target_branch: prod-markata
+          build_dir: site/markout
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  pypi-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: install hatch
+        run: pip install hatch
+      - name: bump version
+        run: |
+          git config --global user.name 'autobump'
+          git config --global user.email 'autobump@users.noreply.github.com'
+          hatch version major
+          git add .
+          git commit -m "Bump version: `hatch version`"
+          git tag v$NEW_VERSION
+          git push --force
+          git push --tags --force
+      - name: publish
+        run: |
+          hatch build
+          hatch publish
