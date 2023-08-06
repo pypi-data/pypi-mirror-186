@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: mke-star-tracker-client
+Version: 1.0.0
+Summary: MeerKAT Extension (MKE) star tracker optical camera system client
+Home-page: https://gitlab.mpcdf.mpg.de/tglaubach/mke_star_tracker_client
+Author: Tobias Glaubach
+Author-email: tglaubach@mpifr-bonn.mpg.de
+License: UNKNOWN
+Project-URL: Bug Tracker, https://gitlab.mpcdf.mpg.de/tglaubach/mke_star_tracker_client/issues
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Operating System :: OS Independent
+Classifier: Environment :: Console
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+
+mke_star_tracker_client
+===============
+MeerKAT Extension (MKE)
+client library for the star tracker optical camera system API access via python
+
+Installing
+============
+
+.. code-block:: bash
+
+    pip install mke_star_tracker_client
+
+Usage
+=====
+
+.. code-block:: python
+
+    >>> from mke_star_tracker_client import StarTrackerClient
+    >>> cam = StarTrackerClient('http://localhost:1231')
+
+
+
