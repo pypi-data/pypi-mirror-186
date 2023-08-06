@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "aslabs-dependencies-fastapi"
+version = "0.0.9"
+description = ""
+authors = ["Titusz Ban <tituszban@antisociallabs.io>"]
+readme = "README.md"
+packages = [
+    { include = "aslabs" },
+    { include = "aslabs/py.typed" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+aslabs-dependencies = "*"
+fastapi = "^0.86.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
