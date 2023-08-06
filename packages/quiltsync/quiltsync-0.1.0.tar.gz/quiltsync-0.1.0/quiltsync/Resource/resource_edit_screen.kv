@@ -1,0 +1,57 @@
+<ResourceField@MDTextField>:
+    font_size: normal_font
+    write_tab: False
+    multiline: False
+
+
+<ResourceEdit>:
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: app.theme_cls.bg_dark
+        padding: rel_space
+
+        MDTopAppBar:
+            id: app_toolbar
+            elevation: widget_elevation
+            title: 'Add Package' if not root.resource_id else f'Edit Package #{root.resource_id}'
+            anchor_title: "left"
+            right_action_items: [["close", root.close]]
+
+        MDBoxLayout:
+            id: edit_fields
+            orientation: 'vertical'
+            padding: [rel_space]
+            spacing: rel_space
+
+            ResourceField:
+                id: bucket
+                font_size: normal_font
+                hint_text: "S3 Bucket (name only)"
+                text: "quilt-example"
+
+            ResourceField:
+                id: package
+                font_size: normal_font
+                hint_text: "Package Name (prefix/suffix)"
+                text: "examples/wellplates"
+
+            ResourceField:
+                id: top_hash
+                font_size: normal_font
+                hint_text: "Package Hash (top-level)"
+
+            ResourceField:
+                id: tag
+                font_size: normal_font
+                hint_text: "Package Tag ('latest')"
+
+            MDFillRoundFlatButton:
+                id: save_edit
+                text: "SAVE"
+                font_size: normal_font
+                pos_hint: {"center_x": 0.5}
+                size_hint_x: 0.7
+                disabled: False
+                on_release: root.handle_save()
+
+            Widget:

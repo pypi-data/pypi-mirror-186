@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "quiltsync"
+version = "0.1.0"
+description = "Graphical desktop client to sync Quilt data packages between local filesystems and cloud object stores"
+authors = ["Ernest Prabhakar <ernest@quiltdata.io>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+quiltplus = "^0.6.0"
+kivymd = "^1.1.1"
+trio = "^0.22.0"
+httpx = "^0.23.3"
+
+[tool.poetry.group.dev.dependencies]
+watchdog = "^2.2.1"
+pytest-watch = "^4.2.0"
+flake8 = "^6.0.0"
+pytest-trio = "^0.8.0"
+
+[tool.poetry.scripts]
+quiltsync = "quiltsync.main:run"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
