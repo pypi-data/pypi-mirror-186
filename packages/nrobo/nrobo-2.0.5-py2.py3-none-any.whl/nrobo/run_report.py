@@ -1,0 +1,3 @@
+import speedboat
+
+speedboat.generate_and_run_allure_report()
