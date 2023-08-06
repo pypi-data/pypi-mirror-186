@@ -1,0 +1,2 @@
+(this.webpackJsonpweb=this.webpackJsonpweb||[]).push([[4],{249:function(e){e.exports=JSON.parse('{"tagList":[{"key":"类别1","value":"class1","isMulti":true,"subSelected":[{"key":"选项1-1","value":"option1-1","isDefault":false}]}],"tools":[{"tool":"tagTool"}]}')}}]);
+//# sourceMappingURL=4.c149ae0e.chunk.js.map

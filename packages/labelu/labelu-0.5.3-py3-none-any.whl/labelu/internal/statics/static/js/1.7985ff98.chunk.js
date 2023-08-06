@@ -1,0 +1,2 @@
+(this.webpackJsonpweb=this.webpackJsonpweb||[]).push([[1],{246:function(t){t.exports=JSON.parse('{"attribute":[{"key":"","value":""}],"tools":[{"tool":"pointTool","config":{"isShowCursor":false,"attributeConfigurable":true,"copyBackwardResult":false,"textConfigurable":false,"textCheckType":0,"customFormat":"","attributeList":[{"key":"","value":""}]}}]}')}}]);
+//# sourceMappingURL=1.7985ff98.chunk.js.map
