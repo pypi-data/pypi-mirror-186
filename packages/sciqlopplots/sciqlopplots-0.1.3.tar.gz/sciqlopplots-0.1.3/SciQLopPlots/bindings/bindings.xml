@@ -1,0 +1,341 @@
+<?xml version="1.0"?>
+<typesystem package="SciQLopPlotsBindings">
+    <system-include file-name="memory"/>
+    <rejection class="std" function-name="^[a-z_]+$"/>
+    <system-include file-name="memory"/>
+    <system-include file-name="shared_ptr.h"/>
+    <load-typesystem name="typesystem_core.xml" generate="no" />
+    <load-typesystem name="typesystem_gui.xml" generate="no" />
+    <load-typesystem name="typesystem_widgets.xml" generate="no" />
+    <primitive-type name="std::string"/>
+    <primitive-type name="std::size_t"/>
+    <primitive-type name="long"/>
+
+    <rejection class="^QCP[a-zA-Z]+$" field-name="^m[a-zA-Z]+$" />
+    <rejection class="*" function-name="interface1D" />
+    <rejection class="QCPColorMap" function-name="QCPColorMap" />
+
+
+    <namespace-type name="QCP" visible="true">
+        <enum-type name="ResolutionUnit"/>
+        <enum-type name="ExportPen"/>
+        <enum-type name="SignDomain"/>
+        <enum-type name="MarginSide" flags="MarginSides"/>
+        <enum-type name="AntialiasedElement" flags="AntialiasedElements"/>
+        <enum-type name="PlottingHint" flags="PlottingHints"/>
+        <enum-type name="Interaction" flags="Interactions"/>
+        <enum-type name="SelectionRectMode"/>
+        <enum-type name="SelectionType"/>
+    </namespace-type>
+
+    <object-type name="QCPLayer" parent-management="yes"  copyable="no">
+        <enum-type name="LayerMode"/>
+    </object-type>
+
+    <object-type name="QCPLineEnding">
+        <enum-type name="EndingStyle"/>
+    </object-type>
+
+    <object-type name="QCPLayout" parent-management="yes" force-abstract="yes">
+        <extra-includes>
+            <include file-name="pysidesignal.h" location="global"/>
+        </extra-includes>
+    </object-type>
+    <object-type name="QCPLayerable" parent-management="yes" force-abstract="yes">
+        <extra-includes>
+            <include file-name="pysidesignal.h" location="global"/>
+        </extra-includes>
+    </object-type>
+    <object-type name="QCPAbstractPlottable" parent-management="yes" force-abstract="yes">
+        <extra-includes>
+            <include file-name="pysidesignal.h" location="global"/>
+        </extra-includes>
+    </object-type>
+
+    <object-type name="QCustomPlot" parent-management="yes" disable-wrapper="no">
+        <enum-type name="LayerInsertMode"/>
+        <enum-type name="RefreshPriority"/>
+    </object-type>
+
+    <object-type name="_QCustomPlot" parent-management="yes">
+        <enum-type name="LayerInsertMode"/>
+        <enum-type name="RefreshPriority"/>
+        <modify-function signature="addColorMap(QCPAxis*, QCPAxis*)" return-type="QCPColorMap*" static="no">
+            <modify-argument index="return">
+                <define-ownership class="native" owner="c++" />
+                <define-ownership class="target" owner="c++" />
+            </modify-argument>
+        </modify-function>
+    </object-type>
+
+
+    <object-type name="QCPPainter" generate="yes"/>
+
+    <value-type name="QCPDataSelection" default-constructor="QCPDataSelection()" generate="yes"/>
+    <object-type name="QCPSelectionRect" parent-management="yes"/>
+
+
+    <object-type name="QCPColorMapData">
+        <modify-function signature="cellToCoord(int,int,double*,double*)const" access="public"  >
+            <modify-argument index="3">
+                <remove-argument/>
+                <replace-default-expression with="0"/>
+            </modify-argument>
+            <modify-argument index="4">
+                <remove-argument/>
+                <replace-default-expression with="0"/>
+            </modify-argument>
+            <modify-argument index="return">
+                <replace-type modified-type="PyObject*"/>
+            </modify-argument>
+            <inject-code class="target" position="end" file="snippets.cpp" snippet="QCPColorMapData-cellToCoord"/>
+        </modify-function>
+        <modify-function signature="coordToCell(double,double,int*,int*)const" access="public"  >
+            <modify-argument index="3">
+                <remove-argument/>
+                <replace-default-expression with="0"/>
+            </modify-argument>
+            <modify-argument index="4">
+                <remove-argument/>
+                <replace-default-expression with="0"/>
+            </modify-argument>
+            <modify-argument index="return">
+                <replace-type modified-type="PyObject*"/>
+            </modify-argument>
+            <inject-code class="target" position="end" file="snippets.cpp" snippet="QCPColorMapData-coordToCell"/>
+        </modify-function>
+    </object-type>
+    <value-type name="QCPGraphData"/>
+    <value-type name="QCPCurveData"/>
+    <value-type name="QCPBarsData"/>
+    <value-type name="QCPStatisticalBoxData"/>
+    <value-type name="QCPFinancialData"/>
+    <object-type name="QCPPlottableInterface1D" generate="no"/>
+    <object-type name="QCPAbstractPlottable1D" generate="no"/>
+    <object-type name="QCPAbstractPlottable1D&lt;QCPGraphData&gt;" generate="no"/>
+    <object-type name="QCPAbstractPlottable1D&lt;QCPCurveData&gt;" generate="no"/>
+    <object-type name="QCPAbstractPlottable1D&lt;QCPStatisticalBoxData&gt;" generate="no"/>
+    <object-type name="QCPAbstractPlottable1D&lt;QCPFinancialData&gt;" generate="no"/>
+
+    <object-type name="QCPSelectionDecorator"/>
+    <object-type name="QCPBarsGroup">
+        <enum-type name="SpacingType"/>
+    </object-type>
+    <value-type name="QCPColorGradient">
+        <enum-type name="ColorInterpolation"/>
+        <enum-type name="NanHandling"/>
+        <enum-type name="GradientPreset"/>
+    </value-type>
+    <object-type name="QCPColorScale" parent-management="yes"/>
+
+    <object-type name="QCPGraph" parent-management="yes">
+        <extra-includes>
+          <include file-name="SciQLopPlots/numpy_wrappers.hpp" location="global"/>
+          <include file-name="utility" location="global"/>
+        </extra-includes>
+        <add-function signature="setData(PyObject *@x@, PyObject *@y@)">
+            <inject-code file="snippets.cpp" snippet="QCPGraph-setData"/>
+        </add-function>
+        <enum-type name="LineStyle"/>
+    </object-type>
+    <value-type name="QCPScatterStyle" parent-management="yes">
+        <enum-type name="ScatterProperty"/>
+        <enum-type name="ScatterShape"/>
+    </value-type>
+
+    <object-type name="QCPCurve" parent-management="yes">
+        <enum-type name="LineStyle"/>
+    </object-type>
+    <object-type name="QCPBars" parent-management="yes">
+        <enum-type name="WidthType"/>
+    </object-type>
+    <object-type name="QCPStatisticalBox" parent-management="yes"/>
+    <object-type name="QCPColorMap" parent-management="yes">
+        <extra-includes>
+            <include file-name="pysidesignal.h" location="global"/>
+        </extra-includes>
+    </object-type>
+    <object-type name="QCPFinancial" parent-management="yes">
+        <enum-type name="WidthType"/>
+        <enum-type name="ChartStyle"/>
+    </object-type>
+
+    <object-type name="QCPItemStraightLine" parent-management="yes">
+        <extra-includes>
+            <include file-name="pysidesignal.h" location="global"/>
+        </extra-includes>
+        <modify-field name="point1" write="false"/>
+        <modify-field name="point2" write="false"/>
+    </object-type>
+    <object-type name="QCPItemLine" parent-management="yes">
+        <modify-field name="start" write="false"/>
+        <modify-field name="end" write="false"/>
+    </object-type>
+    <object-type name="QCPItemCurve" parent-management="yes">
+        <modify-field name="start" write="false"/>
+        <modify-field name="startDir" write="false"/>
+        <modify-field name="end" write="false"/>
+        <modify-field name="endDir" write="false"/>
+    </object-type>
+    <object-type name="QCPItemRect" parent-management="yes">
+        <enum-type name="AnchorIndex"/>
+        <modify-field name="position" write="false"/>
+        <modify-field name="left" write="false"/>
+        <modify-field name="right" write="false"/>
+        <modify-field name="bottom" write="false"/>
+        <modify-field name="bottomLeft" write="false"/>
+        <modify-field name="bottomRight" write="false"/>
+        <modify-field name="top" write="false"/>
+        <modify-field name="topLeft" write="false"/>
+        <modify-field name="topRight" write="false"/>
+    </object-type>
+    <object-type name="QCPItemEllipse" parent-management="yes">
+        <enum-type name="AnchorIndex"/>
+        <modify-field name="center" write="false"/>
+        <modify-field name="left" write="false"/>
+        <modify-field name="right" write="false"/>
+        <modify-field name="bottom" write="false"/>
+        <modify-field name="bottomLeft" write="false"/>
+        <modify-field name="bottomRight" write="false"/>
+        <modify-field name="bottomLeftRim" write="false"/>
+        <modify-field name="bottomRightRim" write="false"/>
+        <modify-field name="top" write="false"/>
+        <modify-field name="topLeft" write="false"/>
+        <modify-field name="topLeftRim" write="false"/>
+        <modify-field name="topRight" write="false"/>
+        <modify-field name="topRightRim" write="false"/>
+    </object-type>
+    <object-type name="QCPItemText" parent-management="yes">
+        <enum-type name="AnchorIndex"/>
+        <modify-field name="position" write="false"/>
+        <modify-field name="left" write="false"/>
+        <modify-field name="right" write="false"/>
+        <modify-field name="bottom" write="false"/>
+        <modify-field name="bottomLeft" write="false"/>
+        <modify-field name="bottomRight" write="false"/>
+        <modify-field name="top" write="false"/>
+        <modify-field name="topLeft" write="false"/>
+        <modify-field name="topRight" write="false"/>
+    </object-type>
+    <object-type name="QCPItemBracket" parent-management="yes">
+        <modify-field name="center" write="false"/>
+        <modify-field name="left" write="false"/>
+        <modify-field name="right" write="false"/>
+        <enum-type name="BracketStyle"/>
+        <enum-type name="AnchorIndex"/>
+    </object-type>
+    <object-type name="QCPItemTracer" parent-management="yes">
+        <modify-field name="position" write="false"/>
+        <enum-type name="TracerStyle"/>
+    </object-type>
+    <object-type name="QCPItemPixmap" parent-management="yes">
+        <enum-type name="AnchorIndex"/>
+        <modify-field name="center" write="false"/>
+        <modify-field name="left" write="false"/>
+        <modify-field name="right" write="false"/>
+        <modify-field name="bottom" write="false"/>
+        <modify-field name="bottomLeft" write="false"/>
+        <modify-field name="bottomRight" write="false"/>
+        <modify-field name="top" write="false"/>
+        <modify-field name="topLeft" write="false"/>
+        <modify-field name="topRight" write="false"/>
+    </object-type>
+
+    <object-type name="QCPAbstractItem" parent-management="yes" force-abstract="yes"/>
+    <object-type name="QCPItemAnchor" parent-management="yes"/>
+    <object-type name="QCPItemPosition" parent-management="yes">
+        <enum-type name="PositionType"/>
+    </object-type>
+
+    <object-type name="QCPMarginGroup" parent-management="yes"/>
+
+    <object-type name="QCPLayoutGrid" parent-management="yes">
+        <enum-type name="FillOrder"/>
+    </object-type>
+
+    <object-type name="QCPLayoutElement" parent-management="yes">
+        <enum-type name="UpdatePhase"/>
+        <enum-type name="SizeConstraintRect"/>
+    </object-type>
+
+    <object-type name="QCPTextElement" parent-management="yes">
+        <extra-includes>
+            <include file-name="pysidesignal.h" location="global"/>
+        </extra-includes>
+    </object-type>
+
+    <object-type name="QCPLayoutInset" parent-management="yes">
+        <enum-type name="InsetPlacement"/>
+    </object-type>
+
+    <object-type name="QCPAxisTicker" parent-management="no"/>
+    <object-type name="QCPAxisTickerDateTime" parent-management="no"/>
+    <object-type name="QCPAxisTickerTime" parent-management="no">
+        <enum-type name="TimeUnit"/>
+    </object-type>
+    <object-type name="QCPAxisTickerFixed" parent-management="no">
+        <enum-type name="ScaleStrategy"/>
+    </object-type>
+    <object-type name="QCPAxisTickerText" parent-management="no"/>
+    <object-type name="QCPAxisTickerPi" parent-management="no">
+        <enum-type name="FractionStyle"/>
+    </object-type>
+    <object-type name="QCPAxisTickerLog" parent-management="no"/>
+
+    <object-type name="QCPAxisRect" parent-management="yes"/>
+    <object-type name="QCPAxis" parent-management="yes">
+        <extra-includes>
+            <include file-name="pysidesignal.h" location="global"/>
+        </extra-includes>
+        <enum-type name="AxisType"/>
+        <enum-type name="LabelSide"/>
+        <enum-type name="ScaleType"/>
+        <enum-type name="SelectablePart" flags="SelectableParts"/>
+        <!-- https://github.com/SBGit-2019/Pyside-QCP/blob/master/src/bindings.xml -->
+        <add-function signature="setTicker(QCPAxisTicker*)" return-type="void" access="public" static="no" >
+            <modify-argument index="1">
+              <define-ownership class="target" owner="c++" />
+            </modify-argument>
+            <inject-code class="target" position="beginning" file="snippets.cpp" snippet="QCPAxis-setTicker"/>
+        </add-function>
+        <!-- https://github.com/SBGit-2019/Pyside-QCP/blob/master/src/bindings.xml -->
+        <add-function signature="removeTicker(void)" return-type="void" access="public" static="no" >
+            <inject-code class="target" position="beginning" file="snippets.cpp" snippet="QCPAxis-removeTicker"/>
+        </add-function>
+        <!-- https://github.com/SBGit-2019/Pyside-QCP/blob/master/src/bindings.xml -->
+        <add-function signature="ticker()" return-type="QCPAxisTicker*" access="public" static="no" >
+            <inject-code class="target" position="beginning" file="snippets.cpp" snippet="QCPAxis-ticker"/>
+        </add-function>
+    </object-type>
+    <value-type name="QCPRange"/>
+    <object-type name="QCPGrid" parent-management="yes"/>
+
+    <object-type name="QCPLegend" parent-management="yes">
+        <enum-type name="SelectablePart"/>
+    </object-type>
+
+    <object-type name="SciQLopGraph" parent-management="yes">
+        <enum-type name="DataOrder"/>
+        <extra-includes>
+          <include file-name="SciQLopPlots/numpy_wrappers.hpp" location="global"/>
+          <include file-name="utility" location="global"/>
+        </extra-includes>
+        <add-function signature="setData(PyObject *@x@, PyObject *@y@)">
+            <inject-code file="snippets.cpp" snippet="SciQLopGraph-setData"/>
+        </add-function>
+    </object-type>
+    <object-type name="SciQLopColorMap" parent-management="yes">
+        <enum-type name="DataOrder"/>
+        <extra-includes>
+          <include file-name="SciQLopPlots/numpy_wrappers.hpp" location="global"/>
+          <include file-name="utility" location="global"/>
+        </extra-includes>
+        <add-function signature="setData(PyObject *@x@, PyObject *@y@, PyObject *@z@)">
+            <inject-code file="snippets.cpp" snippet="SciQLopColorMap-setData"/>
+        </add-function>
+    </object-type>
+
+</typesystem>
+
+
+
