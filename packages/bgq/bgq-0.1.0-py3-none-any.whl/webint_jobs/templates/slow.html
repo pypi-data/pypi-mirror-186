@@ -1,0 +1,22 @@
+$def with (slowest)
+$var title: Slowest Jobs
+
+$def render_job(job):
+    $ args = load_json(job["args"])
+    $ kwargs = load_json(job["kwargs"])
+    <a href=/$job["module"]/$job["object"]/$job["arghash"][:16]/$job["job_id"]><code>\
+    $job["module"]:${job["object"]}\
+    $for arg in args:
+        <br><span title="$type(arg)">$arg</span>\
+    $for k, v in kwargs.items():
+        <br><span title="$type(v)">$k=$v</span>\
+    </code></a>
+
+<ul>
+$for job in slowest:
+    <li><p>
+    $:render_job(job)<br>
+    <small>$job["finished"].diff_for_humans(),
+    took $job["run_time"] seconds</small>
+    </p></li>
+</ul>

@@ -1,0 +1,7 @@
+$def with (module, jobs)
+$var title: $module
+
+<ul>
+$for job in jobs:
+    <li><a href=/$module/$job["object"]>$job["object"]</a></li>
+</ul>
