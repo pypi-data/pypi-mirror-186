@@ -1,0 +1,146 @@
+Metadata-Version: 2.1
+Name: c7n-logexporter
+Version: 0.4.21
+Summary: Cloud Custodian - Cloud Watch Log S3 exporter
+Author: Cloud Custodian Project
+Author-email: cloud-custodian@googlegroups.com
+License: Apache-2.0
+Project-URL: Homepage, https://cloudcustodian.io
+Project-URL: Documentation, https://cloudcustodian.io/docs/
+Project-URL: Source, https://github.com/cloud-custodian/cloud-custodian
+Project-URL: Issue Tracker, https://github.com/cloud-custodian/cloud-custodian/issues
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Topic :: System :: Systems Administration
+Classifier: Topic :: System :: Distributed Computing
+Requires-Python: >=3.7,<4.0
+Description-Content-Type: text/markdown
+Requires-Dist: argcomplete (==2.0.0)
+Requires-Dist: attrs (==22.2.0)
+Requires-Dist: boto3 (==1.26.51)
+Requires-Dist: botocore (==1.29.51)
+Requires-Dist: c7n (==0.9.22)
+Requires-Dist: docutils (==0.17.1)
+Requires-Dist: importlib-metadata (==4.13.0)
+Requires-Dist: importlib-resources (==5.10.2)
+Requires-Dist: jmespath (==1.0.1)
+Requires-Dist: jsonschema (==4.17.3)
+Requires-Dist: pkgutil-resolve-name (==1.3.10)
+Requires-Dist: pyrsistent (==0.19.3)
+Requires-Dist: python-dateutil (==2.8.2)
+Requires-Dist: pyyaml (==6.0)
+Requires-Dist: s3transfer (==0.6.0)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: tabulate (==0.8.10)
+Requires-Dist: typing-extensions (==4.4.0)
+Requires-Dist: urllib3 (==1.26.14)
+Requires-Dist: zipp (==3.11.0)
+Requires-Dist: importlib-metadata (==4.13.0) ; python_version >= "3.7" and python_version < "3.8"
+Requires-Dist: typing-extensions (==4.4.0) ; python_version >= "3.7" and python_version < "3.8"
+Requires-Dist: zipp (==3.11.0) ; python_version >= "3.7" and python_version < "3.8"
+Requires-Dist: click (==8.1.3) ; python_version >= "3.7" and python_version < "4.0"
+Requires-Dist: colorama (==0.4.6) ; python_version >= "3.7" and python_version < "4.0" and platform_system == "Windows"
+
+# c7n-log-exporter: Cloud watch log exporter automation
+
+A small serverless app to archive cloud logs across accounts to an archive bucket. It utilizes
+cloud log export to s3 feature for historical exports.
+
+It also supports kinesis streams / firehose to move to realtime exports in the same format
+as the periodic historical exports.
+
+
+## Features
+
+ - Log group filtering by regex
+ - Incremental support based on previously synced dates
+ - Incremental support based on last log group write time
+ - Cross account via sts role assume
+ - Lambda and CLI support.
+ - Day based log segmentation (output keys look
+   like $prefix/$account_id/$group/$year/$month/$day/$export_task_uuid/$stream/$log)
+ 
+
+## Assumptions
+
+ - The archive bucket has already has appropriate bucket policy permissions.
+   For details see:
+   https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/S3ExportTasks.html#S3Permissions
+ - Default periodicity for log group archival into s3 is daily.
+ - Exporter is run with account credentials that have access to the archive s3 bucket.
+ - Catch up archiving is not run in lambda (do a cli run first)
+
+
+## Cli usage
+
+```
+make install
+```
+
+You can run on a single account / log group via the export subcommand
+```
+c7n-log-exporter export --help
+```
+
+## Config format
+
+To ease usage when running across multiple accounts, a config file can be specified, as
+an example.
+
+### Using S3 Bucket as destination
+
+```
+destination:
+  bucket: custodian-log-archive
+  prefix: logs2
+
+accounts:
+  - name: custodian-demo
+    role: "arn:aws:iam::111111111111:role/CloudCustodianRole"
+    groups:
+      - "/aws/lambda/*"
+      - "vpc-flow-logs"
+```
+
+### Using CloudWatch Destination as destination cross account
+The Cloudwatch Destination needs setup in account and access policy set on CloudWatch Destination to to allow 
+source account access to the Cloudwatch Destination
+
+```
+subscription:
+  destination-arn: "arn:aws:logs:us-east-1:111111111111:destination:CustodianCWLogsDestination"
+  destination-role: "arn:aws:iam::111111111111:role/CWLtoKinesisRole"
+  name: "CustodianCWLogsDestination"
+
+destination:
+  bucket: custodian-log-archive
+  prefix: logs2
+
+accounts:
+  - name: custodian-demo
+    # https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CreateSubscriptionFilter-IAMrole.html
+    subscription-role: "arn:aws:iam::111111111111:role/<role-name>"
+    role: "arn:aws:iam::111111111111:role/CloudCustodianRole"
+    groups:
+      - "/aws/lambda/*"
+      - "vpc-flow-logs"
+```
+
+## Multiple accounts via cli
+
+To run on the cli across multiple accounts, edit the config.yml to specify multiple
+accounts and log groups.
+
+```
+c7n-log-exporter run --config config.yml
+```
+
+## Serverless Usage
+
+Edit config.yml to specify the accounts, archive bucket, and log groups you want to
+use.
+
+```
+make install
+make deploy
+```
+
