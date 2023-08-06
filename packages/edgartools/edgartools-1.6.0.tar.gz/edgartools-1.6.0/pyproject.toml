@@ -1,0 +1,105 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "edgartools"
+description = 'Powerful easy to use library for accessing edgar filings'
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+keywords = ["sec", "edgar", "filings", "company", "python", "finance", "financial", "reports"]
+authors = [
+  { name = "Dwight Gunning", email = "dgunning@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "httpx>=0.23.1",
+  "pandas>=1.1.5",
+  "duckdb>=0.6.0",
+  "pyarrow>=10.0.0",
+  "bs4==0.0.1",
+  "lxml>=4.4",
+  "rich>=12.6.0",
+  "fastcore>=1.5.20",
+  "humanize>=4.0.0",
+  "charset-normalizer>3.0.0"
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://dgunning.github.io/edgartools/"
+Issues = "https://github.com/dgunning/edgartools/issues"
+Source = "https://github.com/dgunning/edgartools"
+
+[tool.hatch.version]
+path = "edgar/__about__.py"
+
+[tool.hatch.build]
+include = [
+  "edgar/*.py",
+  "edgar/data/*",
+]
+
+[tool.hatch.envs.default]
+dependencies = [
+  "pytest",
+  "pytest-cov",
+  "pytest-env",
+  "pyinstrument",
+  "ruff",
+  "jupyter",
+  "mkdocs",
+  "mkdocstrings[python]",
+  "mkdocs-material"
+]
+[tool.hatch.envs.default.scripts]
+cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=edgar --cov=tests {args}"
+no-cov = "cov --no-cov {args}"
+lint = "ruff edgar"
+
+[tool.hatch.envs.test]
+dependencies = [
+  "pytest",
+  "pytest-cov",
+  "pytest-env",
+]
+
+[[tool.hatch.envs.test.matrix]]
+python = ["37", "38", "39", "310", "311"]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+  "edgar/__about__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.pytest.ini_options]
+env = [
+    "EDGAR_IDENTITY=Dev Gunning developer-gunning@gmail.com",
+]
+
