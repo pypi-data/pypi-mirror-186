@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "nornir_table_inventory"
+version = "0.4.3"
+description = "nornir inventory plugin,support managing inventory by csv or excel file"
+authors = ["feifeiflight <feifeiflight@126.com>"]
+license = "Apache-2.0"
+readme = "readme.md"
+homepage = "https://github.com/jiujing/nornir_table_inventory"
+repository = "https://github.com/jiujing/nornir_table_inventory"
+keywords = ["nornir", "table", "csv", "excel", "inventory"]
+classifiers = [
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Topic :: System :: Networking",
+]
+
+
+
+[tool.poetry.plugins."nornir.plugins.inventory"]
+"FlatDataInventory" = "nornir_table_inventory.plugins.inventory.table:FlatDataInventory"
+"CSVInventory" = "nornir_table_inventory.plugins.inventory.table:CSVInventory"
+"ExcelInventory" = "nornir_table_inventory.plugins.inventory.table:ExcelInventory"
+
+
+
+
+[tool.poetry.dependencies]
+python = "^3.6"
+nornir = "^3.0.0"
+pandas = "^1.2.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
