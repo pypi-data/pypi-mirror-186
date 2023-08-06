@@ -1,0 +1,13 @@
+[console_scripts]
+xedocs=xedocs.cli:main
+
+[straxen]
+xedocs_protocol=xedocs._straxen_plugin
+
+[xedocs_db_interfaces]
+api=xedocs.databases.api:APIDatabase
+github=xedocs.databases.github:GithubDatabase
+local_repo=xedocs.databases.local:LocalRepoDatabase
+mongo=xedocs.databases.mongo:MongoDatabase
+utilix=xedocs.databases.utilix:UtilixDatabase
+
