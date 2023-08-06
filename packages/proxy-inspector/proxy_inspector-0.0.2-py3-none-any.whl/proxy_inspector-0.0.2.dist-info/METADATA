@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: proxy-inspector
+Version: 0.0.2
+Summary: An Simple Tool for Validate Proxy
+Home-page: https://github.com/HostenWang/proxy-inspector
+Author: HostenWang
+Author-email: hostenwang@foxmail.com
+Maintainer: 
+Maintainer-email: 
+Keywords: python proxy network validate
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Microsoft
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: System :: Networking
+Classifier: Topic :: Utilities
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: requests (~=2.28.1)
+
+# proxy-inspector
+
+A Simple Tool for Validate Proxy
+
+## Usage
+
+```python
+validater = ProxyInspector()
+
+# if response code is 200, return true
+print(validater.validate("https://www.bing.com/","{{PROXY_HOST:PROXY_PORT}}"))
+
+# if response code is 200 and response content contain "User-agent", return true
+print(validater.validate("https://www.bing.com/robots.txt","{{PROXY_HOST:PROXY_PORT}}", "User-agent"))
+
+# if response code is 200 and response content not contain "I'm Robot", return true
+print(validater.validate("https://www.bing.com/robots.txt","{{PROXY_HOST:PROXY_PORT}}", None, "I'm Robot"))
+```
