@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "openremote-cli"
+version = "0.6.62"
+description = "OpenRemote Command-line interface"
+readme = "README.md"
+authors = ["Michal Rutka <michal@openremote.io>"]
+maintainers = ["OpenRemote <developers@openremote.io>"]
+license = "AGPLv3"
+repository = "https://github.com/openremote/openremote"
+homepage = "https://www.openremote.io"
+documentation = "https://github.com/openremote/openremote/wiki"
+keywords = ['openremote', 'iot', 'cli']
+classifiers = ["Topic :: Home Automation ", "Topic :: Utilities "]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<4.0"
+requests = "^2.25.1"
+wget = "^3.2"
+python-keycloak = "^0.24.0"
+emojis = "^0.6.0"
+oronium = "^1.0.7"
+
+[tool.poetry.dev-dependencies]
+behave = "^1.2.6"
+black = "^20.8b1"
+pre-commit = "^2.10.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+or = 'openremote_cli.cli:main'
+openremote-cli = 'openremote_cli.cli:main'
+# Send email to test credentials
+or-email = 'openremote_cli.email:main'
+# Generate credentials from AWS secret
+or-gen-aws-smtp = 'openremote_cli.gen_aws_smtp_credentials:main'
+or-gen-aws-smtp-credentials = 'openremote_cli.gen_aws_smtp_credentials:main'
+# Test plan
+or-test-http-rest = 'openremote_cli.scripts:manager_test_http_rest'
+
+[tool.black]
+skip-string-normalization = true
+line-length = 79
