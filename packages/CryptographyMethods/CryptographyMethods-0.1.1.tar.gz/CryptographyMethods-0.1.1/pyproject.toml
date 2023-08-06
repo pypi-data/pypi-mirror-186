@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "CryptographyMethods"
+version = "0.1.1"
+authors = [
+  { name="Hunter Dale", email="guyyatsu@gmail.com" },
+]
+description = "An implementation of cryptography used for keeping secrets within Lab-93."
+readme = "readme.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "cryptography"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/guyyatsu/CryptographyMethods"
+"Bug Tracker" = "https://github.com/guyyatsu/CryptographyMethods/issues"
