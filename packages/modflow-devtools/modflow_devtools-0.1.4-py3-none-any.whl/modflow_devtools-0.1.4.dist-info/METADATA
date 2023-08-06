@@ -1,0 +1,65 @@
+Metadata-Version: 2.1
+Name: modflow-devtools
+Version: 0.1.4
+Summary: modflow-devtools is a Python package containing tools for MODFLOW development.
+Home-page: https://github.com/MODFLOW-USGS/modflow-devtools
+Download-URL: https://pypi.org/project/modflow-devtools
+Author: Joseph D. Hughes
+Author-email: modflow@usgs.gov
+Maintainer: Joseph D. Hughes
+Maintainer-email: jdhughes@usgs.gov
+License: CC0
+Project-URL: Documentation, https://mfpymake.readthedocs.io
+Project-URL: Bug Tracker, https://github.com/MODFLOW-USGS/modflow-devtools/issues
+Project-URL: Source Code, https://github.com/MODFLOW-USGS/modflow-devtools
+Keywords: MODFLOW,development
+Platform: Windows
+Platform: Mac OS-X
+Platform: Linux
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Scientific/Engineering :: Hydrology
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: numpy
+Requires-Dist: pytest
+Provides-Extra: docs
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Requires-Dist: myst-parser ; extra == 'docs'
+Provides-Extra: lint
+Requires-Dist: black ; extra == 'lint'
+Requires-Dist: cffconvert ; extra == 'lint'
+Requires-Dist: flake8 ; extra == 'lint'
+Requires-Dist: isort ; extra == 'lint'
+Requires-Dist: pylint ; extra == 'lint'
+Provides-Extra: test
+Requires-Dist: black ; extra == 'test'
+Requires-Dist: cffconvert ; extra == 'test'
+Requires-Dist: flake8 ; extra == 'test'
+Requires-Dist: isort ; extra == 'test'
+Requires-Dist: pylint ; extra == 'test'
+Requires-Dist: coverage ; extra == 'test'
+Requires-Dist: flaky ; extra == 'test'
+Requires-Dist: filelock ; extra == 'test'
+Requires-Dist: meson (!=0.63.0) ; extra == 'test'
+Requires-Dist: ninja ; extra == 'test'
+Requires-Dist: pytest-cases ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+Requires-Dist: pytest-dotenv ; extra == 'test'
+Requires-Dist: pytest-xdist ; extra == 'test'
+Requires-Dist: PyYaml ; extra == 'test'
+
