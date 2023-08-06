@@ -1,0 +1,46 @@
+import os
+
+from pybuild import Pybuild1
+
+
+class Package(Pybuild1):
+    NAME = "Test"
+    KEYWORDS = "test"
+    LICENSE = "test"
+    DESC = "Test Desc: foo-bar"
+    HOMEPAGE = "test homepage"
+    RESTRICT = "fetch"
+    TEXTURE_SIZES = "512 1024"
+
+    def src_pretend(self):
+        self.warn("Pretend")
+        self.info("Pretend")
+
+    def src_unpack(self):
+        self.warn("Unpack")
+        self.info("Unpack")
+
+    def src_prepare(self):
+        self.warn("Prepare")
+        self.info("Prepare")
+
+    def src_install(self):
+        self.warn("Install")
+        self.info("Install")
+
+        # Note: this is a different file than in test-1.0
+        os.makedirs(os.path.join(self.D, "etc"))
+        with open(os.path.join(self.D, "etc", "test"), "w", encoding="utf-8") as file:
+            print("foo = baz", file=file)
+
+    def pkg_prerm(self):
+        self.warn("PreRemove")
+        self.info("PreRemove")
+
+    def pkg_nofetch(self):
+        self.warn("NoFetch")
+        self.info("NoFetch")
+
+    def pkg_postrm(self):
+        self.warn("PostRemove")
+        self.info("PostRemove")

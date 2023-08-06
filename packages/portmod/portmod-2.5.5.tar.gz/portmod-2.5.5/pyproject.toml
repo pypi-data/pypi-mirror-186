@@ -1,0 +1,10 @@
+[build-system]
+# Minimum requirements for the build system to execute.
+requires = ["setuptools!=50.0", "wheel", "setuptools-rust"]
+
+[tool.black]
+line-length = 88
+target-version = ['py36']
+
+[tool.coverage.run]
+source = ["portmod", "portmodlib", "pybuild"]

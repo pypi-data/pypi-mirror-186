@@ -1,0 +1,21 @@
+from pybuild import Pybuild1
+
+
+class Package(Pybuild1):
+    NAME = "Test"
+    KEYWORDS = "test"
+    LICENSE = "test"
+    DESC = "test desc"
+    HOMEPAGE = "test homepage"
+    IUSE = "alias2"
+    RESTRICT = "fetch"
+
+    SRC_URI = "alias2? ( Foo.zip )"
+
+    def pkg_pretend(self):
+        if "alias2" not in self.USE:
+            self.warn("alias2 was not set!")
+
+    def pkg_nofetch(self):
+        if self.A:
+            raise Exception("This is correct!")

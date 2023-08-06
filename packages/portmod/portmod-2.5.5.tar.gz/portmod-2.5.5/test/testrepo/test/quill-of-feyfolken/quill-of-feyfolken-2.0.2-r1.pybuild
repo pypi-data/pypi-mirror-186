@@ -1,0 +1,21 @@
+# Copyright 2019 Portmod Authors
+# Distributed under the terms of the GNU General Public License v3
+
+import os
+from pybuild import Pybuild2
+
+
+class Package(Pybuild2):
+    NAME = "Quill of Feyfolken - Scroll Enchanting"
+    DESC = "A scroll making mod that will make enchanting scrolls a viable option…"
+    HOMEPAGE = "https://gitlab.com/openmw-mods/quill-of-feyfolken"
+    LICENSE = "CC-BY-SA-4.0"
+    KEYWORDS = "test"
+    SRC_URI = (
+        "https://gitlab.com/openmw-mods/quill-of-feyfolken/"
+        "uploads/381bd515ecc6025e06c802711320550b/quill-of-feyfolken-2.0.2.zip"
+    )
+
+    def src_unpack(self):
+        super().src_unpack()
+        assert os.path.exists("quill-of-feyfolken-2.0.2/Quill of Feyfolken.esp")

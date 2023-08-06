@@ -1,0 +1,54 @@
+.. _l10n:
+
+Localisation
+============
+
+For Localisers/Translators
+--------------------------
+
+.. image:: https://hosted.weblate.org/widgets/portmod/-/portmod/open-graph.png
+    :alt: Translation status
+    :target: https://hosted.weblate.org/engage/portmod/
+
+Portmod’s internationalization is handled using `Project
+Fluent <https://projectfluent.org>`__.
+
+Weblate
+~~~~~~~
+
+Localisation can be done using `Portmod's Weblate Project <https://hosted.weblate.org/projects/portmod/portmod/>`__.
+
+Pontoon (Deprecated)
+~~~~~~~~~~~~~~~~~~~~
+
+Localisation can also be done using our Pontoon instance:
+https://portmod-l10n.herokuapp.com/projects/portmod/. A GitLab account
+is necessary for authentication, but no further signup is necessary.
+Just log-in with your GitLab account and start localising.
+
+If a language you would like to localise has not yet been set up in
+Pontoon, you can request that it be added by contacting the Portmod
+developers, either via `opening an
+issue <https://gitlab.com/portmod/portmod/-/issues>`__, via
+`matrix <https://matrix.to/#/#portmod:matrix.org>`__ or
+`email <~bmw/portmod@lists.sr.ht>`__ (see the
+`README <https://gitlab.com/portmod/portmod>`__ for up to date
+communication information).
+
+Pontoon has better support for Fluent than Weblate, however our Pontoon instance cannot send email notifications,
+and Weblate provides access to a larger community of software translators.
+
+For Portmod Developers
+----------------------
+
+Text displayed to the user should be output using the
+`portmodlib.l10n:l10n <../apidoc/portmodlib.l10n.html#portmodlib.l10n.l10n>`__
+function, and added to the source localisation file ``l10n/en-GB/main.ftl``.
+
+Also see `Good Practices for Developers <https://github.com/projectfluent/fluent/wiki/Good-Practices-for-Developers>`__
+
+Internally, the localisation is done using `fluent-rs <https://github.com/projectfluent/fluent-rs>`__
+and compiled into portmod's rust extension. The localisations themselves are also
+compiled into the rust extension, so after adding localisations it is also necessary
+to either rebuild the rust extension or to build the extension in debug mode where
+it will read the files directly from the filesystem at runtime (see :ref:`dev-setup`).

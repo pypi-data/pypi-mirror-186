@@ -1,0 +1,157 @@
+default:
+  image: registry.gitlab.com/portmod/portmod/rust:latest
+  before_script:
+    - python -V  # Print out python version for debugging
+    - rustc -V
+    - virtualenv .venv
+    - source .venv/bin/activate
+  cache:
+    paths:
+      - .cache
+      - .venv/
+      - ~/.cache/portmod
+      - ~/.local/share/portmod/repos
+      - target
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  PYLINTRC: ".pylintrc"
+
+stages:
+  - build
+  - test
+  - deploy
+
+inquisitor:
+  stage: test
+  needs: ["install"]
+  script:
+  - mkdir -p .cache/tmp
+  - pip install -e .[test] --cache-dir .cache/pip
+  - portmod sync openmw
+  - python ${CI_PROJECT_DIR}/bin/inquisitor scan ~/.local/share/portmod/repos/openmw
+
+install:
+  stage: build
+  script:
+  - mkdir -p .cache/tmp
+  - pip install -e .[test] --cache-dir .cache/pip
+  artifacts:
+    paths:
+      - portmodlib/portmod.cpython-*.so
+
+lint:
+  stage: test
+  needs: ["install"]
+  script:
+  - pip install --upgrade flake8 pylint setuptools_rust
+  - shopt -s globstar
+  - flake8 --exclude .venv,--max-line-length=88 --filename '*.py,*.pybuild'
+  - pylint -E **/*.py
+  - cargo clippy -- -D warnings
+
+pytest:
+  stage: test
+  needs: ["install"]
+  script:
+    # pytest-cov has special handling for subprocesses, which amazingly also works with sandboxing
+    - pytest --cov
+    - coverage xml
+  coverage: '/TOTAL.*\s([.\d]+)%/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+
+mypy:
+  stage: test
+  needs: []
+  script:
+  - shopt -s globstar
+  - pip install --upgrade mypy
+  - mypy --install-types --non-interactive --incremental --cache-dir .cache/mypy portmod/**/*.py pybuild/**/*.py portmodlib/**/*.py
+
+format:
+  stage: test
+  needs: []
+  script:
+  - pip install --upgrade black isort
+  - shopt -s globstar
+  - black --diff --check **/*.{py,pybuild}
+  - cargo fmt -- --check -l
+  - isort --diff --check portmod pybuild portmodlib bin
+
+deploy:
+  image: quay.io/pypa/manylinux2014_x86_64
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG
+  before_script: []
+  script: |
+    curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
+    export PATH="/opt/python/cp37-cp37m/bin:$HOME/.cargo/bin:$PATH"
+    pip install -U twine "setuptools!=50.0" setuptools_rust wheel
+    pip install .[man]
+    python setup.py build_rust --inplace --release build_man
+    # Remove in-place library so it doesn't get included in the wheel
+    rm portmodlib/*.so
+    python setup.py bdist_wheel --py-limited-api=cp37
+    python setup.py check sdist
+    for whl in dist/*.whl; do
+        auditwheel repair "$whl" -w dist/
+        rm $whl
+    done
+    python -m twine upload dist/*
+
+sast:
+  inherit:
+    default: false
+  stage: test
+
+gemnasium-python-dependency_scanning:
+  inherit:
+    default: false
+  stage: test
+
+include:
+- template: Security/SAST.gitlab-ci.yml
+- template: Dependency-Scanning.gitlab-ci.yml
+
+doc:
+  stage: test
+  script:
+    - pip install --upgrade sphinx sphinx-autodoc-typehints sphinx_rtd_theme sphinx-argparse sphinxcontrib-apidoc
+    - make -C doc clean
+    - make -C doc html man
+    - ./mkdoc.sh
+
+pages:
+  stage: deploy
+  extends: doc
+  after_script:
+    - mv doc/_build/html/ public/
+    - mv apidoc/_build/ public/api
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+# Not currently working due to https://gitlab.archlinux.org/archlinux/archlinux-docker/-/issues/56
+docker:
+  image: docker:19.03.12
+  stage: build
+  services:
+    - docker:19.03.12-dind
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  inherit:
+    default: false
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  when: manual

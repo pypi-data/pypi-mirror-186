@@ -1,0 +1,93 @@
+environment:
+  matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      PYTHON_VER: "python37"
+    #- APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+    #  PYTHON_VER: "python38"
+    #- APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+    #  PYTHON_VER: "python39"
+    #- APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+    #  PYTHON_VER: "python310"
+    # Pysat doesn't have pre-built wheels for python 3.11 yet on windows
+    #- APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+    #  PYTHON_VER: "python311"
+    - APPVEYOR_BUILD_WORKER_IMAGE: macos-bigsur
+      PYTHON_VER: "python38"
+
+artifacts:
+  - path: dist\*
+
+for:
+-
+  matrix:
+    only:
+      - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+
+  cache:
+    - .env
+    - .cache
+    - .venv
+    - 'C:\Users\appveyor\.cargo'
+    - 'C:\Users\appveyor\.rustup'
+    - "target"
+
+  environment:
+    PATH: '${PATH};${PYTHON}\Scripts;C:\Users\appveyor\AppData\Roaming\Python\${PYTHON_VER}\Scripts;C:\Program Files\Sandboxie;C:\Users\appveyor\.cargo\bin;'
+    PYTHON: "C:\\${PYTHON_VER}-x64"
+
+  install:
+    - cinst sandboxie
+    - cinst rust
+  before_build:
+    - ps: Invoke-Expression "$env:PYTHON/python.exe -m pip install pip --upgrade --user"
+    - ps: Invoke-Expression "$env:PYTHON/python.exe -m pip install virtualenv --upgrade --user"
+    - virtualenv .venv -p %PYTHON_VER%
+    - .venv\Scripts\activate
+
+  build_script:
+    - pip install -e .[test] --cache-dir .cache/pip
+
+  test_script:
+    - ps: pytest --log-level NOTSET
+
+  deploy_script:
+  - IF %APPVEYOR_REPO_TAG% == true (git diff)
+  - IF %APPVEYOR_REPO_TAG% == true (git reset --hard)
+  - IF %APPVEYOR_REPO_TAG% == true (%PYTHON%/python.exe -m pip install --upgrade twine setuptools_rust)
+  - IF %APPVEYOR_REPO_TAG% == true (%PYTHON%/python.exe setup.py bdist_wheel --py-limited-api=cp37)
+  - IF %APPVEYOR_REPO_TAG% == true (twine upload dist/*.whl)
+
+-
+  matrix:
+    only:
+      - APPVEYOR_BUILD_WORKER_IMAGE: macos-bigsur
+  environment:
+    ARCHFLAGS: "-arch x86_64 -arch arm64"
+  cache:
+    - .venv
+    - .cache
+    - $HOME/.cargo
+    - $HOME/.rustup
+    - target
+
+  build_script:
+    - export PATH="$HOME/.cargo/bin:$PATH"
+    - which python3
+    - python3 -m pip install virtualenv pip --upgrade --user
+    - virtualenv .venv -p ${PYTHON_VER}
+    - source .venv/bin/activate
+    - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
+    - chmod +x rustup.sh
+    - ./rustup.sh --default-toolchain stable -y --quiet
+    - rustup target add aarch64-apple-darwin
+    - python3 -m pip install -e .[test] --cache-dir .cache/pip
+  test_script:
+    - pytest --cov=portmod --cov=pybuild_ --log-level NOTSET
+
+  deploy_script: |
+    if [ $APPVEYOR_REPO_TAG = true ]; then
+        pip3 install --upgrade twine setuptools_rust sphinx sphinx-argparse
+        python3 setup.py build_rust --inplace --release build_man
+        python3 setup.py bdist_wheel --py-limited-api=cp37
+        twine upload dist/*.whl
+    fi

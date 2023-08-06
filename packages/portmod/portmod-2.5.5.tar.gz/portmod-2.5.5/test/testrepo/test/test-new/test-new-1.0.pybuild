@@ -1,0 +1,31 @@
+from pybuild import Pybuild1
+from common.superclass import Test
+
+
+class Package(Test, Pybuild1):
+    NAME = "Test"
+    KEYWORDS = "~test"
+    LICENSE = "test"
+    DESC = "test desc"
+    HOMEPAGE = "test homepage"
+
+    def pkg_pretend(self):
+        pass
+
+    def pkg_nofetch(self):
+        pass
+
+    def src_unpack(self):
+        pass
+
+    def src_prepare(self):
+        pass
+
+    def src_install(self):
+        pass
+
+    def pkg_prerm(self):
+        pass
+
+    def pkg_postinst(self):
+        pass

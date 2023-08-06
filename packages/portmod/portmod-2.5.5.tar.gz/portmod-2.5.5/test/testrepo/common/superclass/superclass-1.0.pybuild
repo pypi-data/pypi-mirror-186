@@ -1,0 +1,22 @@
+# Copyright 2019-2020 Portmod Authors
+# Distributed under the terms of the GNU General Public License v3
+
+import os
+from pybuild import Pybuild1, patch_dir
+
+
+class Package(Pybuild1):
+    NAME = "Test"
+    DESC = "Test class"
+    KEYWORDS = "test"
+
+
+class Test(Pybuild1):
+    """
+    Test
+    """
+
+    def src_install(self):
+        super().src_install()
+        os.makedirs(os.path.join(self.WORKDIR, self.S))
+        patch_dir(os.path.join(self.WORKDIR, self.S), self.D)

@@ -1,0 +1,33 @@
+---
+- id: inquisitor-scan
+  name: Inquisitor Scan
+  description: QA Check pybuild packages
+  entry: inquisitor scan
+  language: python
+  files: |
+      (?x)(
+          \.pybuild|
+          metadata\.yaml|
+          profiles/arch\.list|
+          profiles/categories|
+          metadata/groups\.yaml|
+          profiles/license_groups\.yaml|
+          profiles/repo_name|
+          profiles/use\.yaml|
+          profiles/use\.alias\.yaml|
+          profiles/desc/.*\.yaml|
+          metadata/news/.*\.yaml
+      )$
+
+- id: inquisitor-manifest
+  name: Inquisitor Manifest
+  description: QA Check pybuild packages
+  entry: inquisitor manifest
+  language: python
+  files: \.pybuild$
+- id: inquisitor-commit-msg
+  name: Inquisitor Commit Message
+  description: Produces a template commit message
+  entry: inquisitor commit-msg
+  language: python
+  stages: [prepare-commit-msg]

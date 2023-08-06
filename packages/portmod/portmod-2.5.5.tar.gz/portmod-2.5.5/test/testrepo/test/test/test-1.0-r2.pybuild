@@ -1,0 +1,25 @@
+import os
+from pybuild import Pybuild1, InstallDir, File
+from pybuild.info import P
+
+
+class Package(Pybuild1):
+    NAME = "Test"
+    KEYWORDS = "test"
+    LICENSE = "test"
+    DESC = "Test Desc: foo-bar"
+    HOMEPAGE = "test homepage"
+
+    INSTALL_DIRS = [InstallDir(".", FILES=[File("Foo"), File("Baz, With Spaces")])]
+
+    CONFIG = {"TestSection": {"TestKey": "TestValue"}}
+
+    IUSE = "test1 test2"
+
+    def src_prepare(self):
+        os.makedirs(P)
+        with open(os.path.join(P, "Foo"), "w") as file:
+            print("test", file=file)
+
+        with open(os.path.join(P, "Baz, With Spaces"), "w") as file:
+            print("test", file=file)

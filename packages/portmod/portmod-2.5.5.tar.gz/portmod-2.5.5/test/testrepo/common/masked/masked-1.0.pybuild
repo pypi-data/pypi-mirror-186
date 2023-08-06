@@ -1,0 +1,16 @@
+# Copyright 2019-2020 Portmod Authors
+# Distributed under the terms of the GNU General Public License v3
+
+from pybuild import Pybuild1
+
+
+class Package(Pybuild1):
+    NAME = "Test"
+    DESC = "Test class"
+    KEYWORDS = "test"
+
+
+class Masked(Pybuild1):
+    """
+    Test
+    """

@@ -1,0 +1,66 @@
+import os
+import shutil
+from pybuild import Pybuild1
+
+
+class Package(Pybuild1):
+    NAME = "Test Module"
+    KEYWORDS = "test"
+    DESC = "test desc"
+    HOMEPAGE = "test homepage"
+
+    def src_prepare(self):
+        with open("test-module.pmodule", "w") as file:
+            print(
+                '''
+"""Test Module"""
+import os
+from portmodlib.module_util import create_file
+
+def do_update(state):
+    print("Updating test module")
+    with open(os.path.join(state.CACHE, "test_file"), "w") as file:
+        print("Foo", file=file)
+
+    with open(os.path.join(state.TEMP, "test_file"), "w") as file:
+        print("Foo", file=file)
+
+    path = create_file("/etc/foo")
+    with open(path, "w") as file:
+        print("Foo", file=file)
+
+def do_list(state, args):
+    """
+    Displays shopping list.
+
+    This docstring will describe the operation in `portmod <prefix> select`
+    """
+    path = os.path.join(state.ROOT, "shopping.txt")
+    if os.path.exists(path):
+        with open(path, "r") as file:
+           for line in file.readlines():
+               print(line)
+
+def describe_add():
+    return "Add to list"
+
+def do_add(state, args):
+    """Add to list"""
+    with open(os.path.join(state.ROOT, "shopping.txt"), "a") as file:
+       print(args.item, file)
+
+def describe_add_options():
+    return ["item"]
+
+def describe_add_parameters():
+    return ["item to add to the list"]
+        ''',
+                file=file,
+            )
+
+    def src_install(self):
+        os.makedirs(os.path.join(self.D, "modules"))
+        shutil.copy(
+            os.path.join(self.WORKDIR, "test-module.pmodule"),
+            os.path.join(self.D, "modules"),
+        )
