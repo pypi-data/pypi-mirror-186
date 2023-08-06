@@ -1,0 +1,2 @@
+(this.webpackJsonpweb=this.webpackJsonpweb||[]).push([[5],{250:function(e){e.exports=JSON.parse('{"textConfig":[{"label":"文本1","key":"text1","required":true,"default":"","maxLength":200}],"tools":[{"tool":"textTool"}]}')}}]);
+//# sourceMappingURL=5.545438c3.chunk.js.map
