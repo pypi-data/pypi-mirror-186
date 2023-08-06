@@ -1,0 +1,13 @@
+
+DECIMAL = "decimal"
+BOOLEAN = "boolean"
+STRING = "text"
+INT = "integer"
+UNIX_MS = "ms"
+UNIX_S = "s"
+UNIX_NS = "ns"
+ISO = "iso"
+UNIX = "unix"
+TRAINING_TYPE = "Training"
+VALIDATION_TYPE = "Validation"
+NULL = "null0"
