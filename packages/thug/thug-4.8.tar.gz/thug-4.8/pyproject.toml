@@ -1,0 +1,160 @@
+[build-system]
+requires = [
+    "setuptools>=65.5.1",
+    "appdirs",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thug"
+description = "Low-interaction honeyclient Thug"
+readme = "README.rst"
+authors = [ 
+    { name  = "Angelo Dell'Aera", email = "angelo.dellaera@honeynet.org" },
+] 
+maintainers = [
+    { name  = "Angelo Dell'Aera", email = "angelo.dellaera@honeynet.org" },
+]
+license = {text = "GPLv2"}
+requires-python = ">=3.8"
+dynamic = [
+    "version",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Security",
+]
+dependencies = [
+    "appdirs==1.4.4",
+    "beautifulsoup4==4.11.1",
+    "charset-normalizer==3.0.1",
+    "cssutils==2.6.0",
+    "html5lib==1.1",
+    "lxml==4.9.2",
+    "networkx==3.0",
+    "pefile==2022.5.30",
+    "promise==2.3",
+    "pylibemu==0.8",
+    "pymongo==4.3.3",
+    "pysocks==1.7.1",
+    "python-magic==0.4.27",
+    "rarfile==4.0",
+    "requests==2.28.2",
+    "requests-futures==1.0.0",
+    "setuptools>=65.5.1",
+    "ssdeep==3.4",
+    "yara-python==4.2.3",
+    "zope.interface==5.5.2",
+]
+keywords = [
+    "honeyclient",
+    "low-interaction",
+    "client-honeypot",
+    "security-tools",
+]
+
+[project.optional-dependencies]
+test = [
+    "codecov",
+    "elasticmock",
+    "elasticsearch==7.17.8",
+    "imgkit==1.1.0",
+    "mock",
+    "mongomock",
+    "pre-commit",
+    "pygraphviz",
+    "pytesseract",
+    "pytest",
+    "pytest-cov",
+    "pytest-timeout",
+    "safety",
+    "speakeasy-emulator",
+    "tox",
+]
+
+[project.scripts]
+thug = "thug.thug:main"
+
+[project.urls]
+homepage = "https://github.com/buffer/thug"
+documentation = "https://thug-honeyclient.readthedocs.io/en/latest/"
+bugs = "https://github.com/buffer/thug/issues"
+funding = "https://buffer.github.io/thug/"
+
+[tool.setuptools.packages.find]
+exclude = [
+    "build*",
+    "docker*",
+    "docs*",
+    "tests*",
+    "tools*",
+    "utils*",
+]
+
+[tool.setuptools]
+platforms = [
+    "linux",
+    "darwin",
+]
+zip-safe = true
+
+[tool.setuptools.dynamic]
+version = {attr = "thug.__version__"}
+
+[tool.pytest.ini_options]
+addopts = "--timeout 60 --exitfirst --cov=thug"
+
+[tool.pylint]
+max-line-length = 150
+max-returns = 8
+disable = [
+    "attribute-defined-outside-init",
+    "bad-inline-option",
+    "deprecated-pragma",
+    "duplicate-code",
+    "file-ignored",
+    "import-outside-toplevel",
+    "invalid-name",
+    "locally-disabled",
+    "missing-function-docstring",
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "protected-access",
+    "raw-checker-failed",
+    "suppressed-message",
+    "too-many-instance-attributes",
+    "too-many-public-methods",
+    "too-many-branches",
+    "too-many-arguments",
+    "too-many-locals",
+    "too-many-statements",
+    "too-many-lines",
+    "too-few-public-methods",
+    "unnecessary-dunder-call",
+    "use-symbolic-message-instead",
+    "useless-suppression",
+]
+extension-pkg-whitelist = [
+    "yara",
+    "pylibemu",
+]
+ignore-patterns = [
+    "IThugAPI.py",
+    "IPlugin.py",
+]
+
+[tool.coverage.run]
+omit = [
+    "thug/Plugins/IPlugin.py",
+]
