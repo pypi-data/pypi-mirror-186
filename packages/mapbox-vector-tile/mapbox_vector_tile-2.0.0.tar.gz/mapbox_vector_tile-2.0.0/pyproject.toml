@@ -1,0 +1,68 @@
+[tool.poetry]
+name = "mapbox-vector-tile"
+version = "2.0.0"
+description = "Mapbox Vector Tile encoding and decoding."
+license = "MIT"
+authors = [
+    "Rob Marianski <rob@marianski.com>",
+]
+repository = "https://github.com/tilezen/mapbox-vector-tile"
+readme = "README.md"
+exclude = [
+    "**/tests/**",
+    "**/*.wkt",
+]
+classifiers = [
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+include = [
+    "mapbox_vector_tile/Mapbox/*.proto",
+    "README.md",
+    "CHANGELOG.md",
+]
+packages = [
+    { include = "mapbox_vector_tile" }
+]
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+protobuf = "^4.21"
+shapely = "^2.0.0"
+pyclipper = "^1.3.0"
+pyproj = { version = "^3.4.1", optional = true }
+
+[tool.poetry.extras]
+proj = ["pyproj"]
+
+[tool.poetry.group.test.dependencies]
+tox = "^4.0.16"
+coverage = { version = "^7.0.0", extras = ["toml"] }
+
+# Black
+[tool.black]
+line-length = 120
+fast = true
+extend-exclude = '''
+(
+    .*_pb2.py
+)
+'''
+target-version = ["py38", "py39", "py310", "py311"]
+
+# Isort
+[tool.isort]
+profile = "black"
+line_length = 120
+force_alphabetical_sort_within_sections = true
+case_sensitive = true
+
+# Coverage
+[tool.coverage.run]
+omit = ["mapbox_vector_tile/Mapbox/vector_tile_pb2.py"]
