@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "dowapy"
+version = "0.2.0"
+description = ""
+authors = ["dowa <dowaand@gmail.com>"]
+include = ["src/**/*.so", "src/**/*.pyd"]  # ignored in VCS, so we need to be explicit
+exclude = ["src/**/*.py"]
+
+
+[tool.poetry.build]
+script = "build.py"
+generate-setup-file = false
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+Cython = "^0.29.33"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "setuptools~=50.3.2"]
+build-backend = "poetry.core.masonry.api"
