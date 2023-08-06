@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: django-viewwork
+Version: 0.7.0
+Summary: Collect views, generate urls and create menu
+Home-page: https://github.com/pikhovkin/django-viewwork
+Author: Sergei Pikhovkin
+Author-email: s@pikhovkin.ru
+License: MIT
+Keywords: automation,django,views,menu,urls,collectionview,django-views,django-urls,autogeneration,django-menu
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django :: 3.1
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Framework :: Django :: 4.1
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.8.*, <4.2.*
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Django (<4.2,>=3.1)
+Requires-Dist: django-modeltrans (<0.8)
+Provides-Extra: all
+Requires-Dist: Django (<4.2,>=3.1) ; extra == 'all'
+Requires-Dist: django-modeltrans (<0.8) ; extra == 'all'
+Requires-Dist: django-easy-select2 ; extra == 'all'
+Provides-Extra: select2
+Requires-Dist: django-easy-select2 ; extra == 'select2'
+
+# django-viewwork
+
+[![GitHub Actions](https://github.com/pikhovkin/django-viewwork/workflows/build/badge.svg)](https://github.com/pikhovkin/django-viewwork/actions)
+[![PyPI](https://img.shields.io/pypi/v/django-viewwork.svg)](https://pypi.org/project/django-viewwork/)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-viewwork.svg)
+[![framework - Django](https://img.shields.io/badge/framework-Django-0C3C26.svg)](https://www.djangoproject.com/)
+![PyPI - Django Version](https://img.shields.io/pypi/djversions/django-viewwork.svg)
+[![PyPI - License](https://img.shields.io/pypi/l/django-viewwork)](./LICENSE)
+
+Auto-collection of views, auto-generation of urls and easy menu creation
+
+### Installation
+
+```bash
+$ pip install django-viewwork
+```
+
+Install with `django-easy-select2`
+```bash
+$ pip install django-viewwork[select2]
+```
+
+### Usage
+
+```python
+
+```
+
+### License
+
+MIT
