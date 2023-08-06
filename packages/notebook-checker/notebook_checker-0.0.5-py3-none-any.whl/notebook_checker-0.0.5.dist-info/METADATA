@@ -1,0 +1,24 @@
+Metadata-Version: 2.1
+Name: notebook-checker
+Version: 0.0.5
+Summary: A package to check notebook files for the use of globals inside functions
+Home-page: https://github.com/uvaai/notebook_checks
+Author: TF Doolan
+Author-email: t.f.doolan@uva.nl
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+
+# Notebook Checker
+
+A package to check notebook files for the use of globals inside functions. The
+checker parses each cell's AST as it is run, and injects code into the AST to
+ensure that when a function is called, that any free variables are only of the
+type callable, type or module. If a function tries to access any other type of
+variable, i.e. stored data, outside of the function's scope, then the checker
+logs an error message, informing the user.
+
