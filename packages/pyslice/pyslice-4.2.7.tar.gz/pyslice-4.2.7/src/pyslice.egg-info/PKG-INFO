@@ -1,0 +1,97 @@
+Metadata-Version: 2.1
+Name: pyslice
+Version: 4.2.7
+Summary: Specialized templating engine do develop a parameterized set of model data sets
+Author-email: Tim Cera <tim@cerazone.net>
+License: BSD-3-Clause
+Project-URL: documentation, https://timcera.bitbucket.io/pyslice/docs/index.html#pyslice-documentation
+Project-URL: github, https://github.com/timcera/pyslice
+Project-URL: bitbucket, https://bitbucket.org/timcera/pyslice/src/main/
+Keywords: monte-carlo,simulation,model,parametric,model-parameters,cli-app
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Intended Audience :: Developers
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Description-Content-Type: text/x-rst
+Provides-Extra: dev
+License-File: LICENSE.txt
+
+.. image:: https://github.com/timcera/pyslice/actions/workflows/python-package.yml/badge.svg
+    :alt: Tests
+    :target: https://github.com/timcera/pyslice/actions/workflows/python-package.yml
+    :height: 20
+
+.. image:: https://img.shields.io/coveralls/github/timcera/pyslice
+    :alt: Test Coverage
+    :target: https://coveralls.io/r/timcera/pyslice?branch=master
+    :height: 20
+
+.. image:: https://img.shields.io/pypi/v/pyslice.svg
+    :alt: Latest release
+    :target: https://pypi.python.org/pypi/pyslice/
+    :height: 20
+
+.. image:: https://img.shields.io/pypi/l/pyslice.svg
+    :alt: BSD-3 clause license
+    :target: https://pypi.python.org/pypi/pyslice/
+    :height: 20
+
+.. image:: https://img.shields.io/pypi/dd/pyslice.svg
+    :alt: pyslice downloads
+    :target: https://pypi.python.org/pypi/pyslice/
+    :height: 20
+
+.. image:: https://img.shields.io/pypi/pyversions/pyslice
+    :alt: PyPI - Python Version
+    :target: https://pypi.org/project/pyslice/
+    :height: 20
+
+Welcome to pyslice - dataset template engine's documentation!
+=============================================================
+pyslice is a specialized templating system that replaces variables in
+a template data set with numbers taken from all combinations of a grouped
+series of numbers. It creates a dataset from input template files for each
+combination of variables in the series.
+
+The main function of pyslice is to provide utility functions for parametric
+modeling. Parametric modeling is a process of varying many inputs to a model.
+A drawback to parametric modeling is that there are usually hundreds to
+thousands of data sets to prepare and a corresponding number of model runs.
+pyslice will create the model data sets and manage the model runs, or place the
+model runs in a queue managed by other software. pyslice is also useful in
+establishing the sensitivity of a model to changing parameters.
+
+Documentation
+=============
+Reference documentation is at https://timcera.bitbucket.io/pyslice/docs/index.html
+
+Installation
+============
+
+At the command line::
+
+    $ pip install pyslice
+    # OR
+    $ easy_install pyslice
+
+Or, if you have virtualenvwrapper installed::
+
+    $ mkvirtualenv pyslice
+    $ pip install pyslice
+
+Development
+===========
+Development is managed on bitbucket at
+https://bitbucket.org/timcera/pyslice/overview.
