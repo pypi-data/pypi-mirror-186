@@ -1,0 +1,91 @@
+<p i18n:domain="waeup.kofa" tal:condition="not:view/button"
+   i18n:translate="checktranscript">
+  No previous Kofa record and first time applicant for transcript? Click
+  <a i18n:name="no_result_appl_url" tal:attributes="href view/appl_url1">here</a>
+  to proceed. <br /><br />
+  You don't know or you have already requested for transcript?
+  You can check your transcript status by submitting the form below.
+  Depending on the existence and status of your student record in Kofa you
+  will be redirected to the appropriate application form.
+</p>
+
+<form method="post" enctype="multipart/form-data"
+    tal:condition="not:view/button" i18n:domain="waeup.kofa">
+  <table class="form-table">
+    <tr>
+      <td i18n:translate="" class="fieldname">
+        Student Id, Registration Number or <br />Matric Number:
+      </td>
+      <td>
+        <input class="textType half" type="text" name="unique_id" />
+      </td>
+    </tr>
+    <tr>
+      <td i18n:translate="" class="fieldname">
+        Email Address:
+      </td>
+      <td>
+        <input class="textType half" type="text" name="email" />
+      </td>
+    </tr>
+  </table>
+  <div tal:content="structure view/captcha_code"></div>
+  <br />
+  <input class="btn btn-primary" type="submit" name="SUBMIT"
+      tal:attributes="value view/buttonname" />
+</form>
+
+<div tal:condition="view/button" i18n:domain="waeup.kofa">
+  <br />
+  <tal:noresults condition="not: view/results">
+    <br />
+    <p i18n:translate="check_transcript_1">
+      No student record was found in Kofa. Your record has to be created.
+      You can apply for your transcript
+      <a  i18n:name="no_result_appl_url" tal:attributes="href view/appl_url1">here
+      </a>.
+    </p>
+  </tal:noresults>
+
+  <tal:results condition="view/results">
+    <br />
+    <p i18n:translate="check_transcript_2"
+       tal:condition="python:not view.results[0][0][2]">
+      Your record was found on the
+      <a i18n:name="portal_url"
+         tal:attributes="href python:view.results[0][1][1]">
+        <span tal:replace="python:view.results[0][1][0]">PORTAL</span>
+      </a>.
+      <br />
+      Login with your Student id and password
+      <a i18n:name="login_url"
+         tal:attributes="href python:view.results[0][1][1] + 'login'">
+        here
+      </a>
+      to check your student record status.
+      <tal:withemail tal:condition="python:view.results[0][0][0]">
+         Forgotten your password? Your email address matches the email
+         address stored in Kofa. Request a new password 
+        <a i18n:name="changepw_url"
+           tal:attributes="href python:view.results[0][1][1] + 'changepw'">
+          here
+        </a>.
+      </tal:withemail>
+    </p>
+    <p i18n:translate="check_transcript_3"
+       tal:condition="python:not view.results[0][0][2]">
+      If you have not yet applied for your transcript, you can apply 
+      <a  i18n:name="result_appl_url" tal:attributes="href view/appl_url2">here
+      </a>.
+    </p>
+    <p i18n:translate="check_transcript_4"
+       tal:condition="python:view.results[0][0][2]">
+      Your student record exists and your transcript has already
+      been released and sent to the address provided.
+      If you want your transcript to be resent, maybe to another destination,
+      you can proceed and directly apply for transcript delivery
+      <a  i18n:name="result_appl_url" tal:attributes="href view/appl_url2">here
+      </a> again.
+    </p>
+  </tal:results>
+</div>

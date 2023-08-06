@@ -1,0 +1,114 @@
+<p  i18n:domain="waeup.kofa" i18n:translate="edit_scores_info">
+  This page helps you to update your students' course results.
+  You can either update scores by importing a csv file
+  (press 'Help' for further information) or by
+  changing score values in the table below. Only scores
+  of students in state 'courses validated' and academic session
+  <span  i18n:name="current_academic_session"
+         tal:replace="view/session_title"></span>
+  can be modified.
+</p>
+
+<form  i18n:domain="waeup.kofa"  method="POST" enctype="multipart/form-data">
+  <br />
+  <div class="input-group">
+    <div class="input-group-btn">
+      <div class="btn btn-default btn-file" i18n:translate="">
+        Select csv file&hellip;
+        <input type="file" name="uploadfile:file" i18n:name="input_file"/>
+      </div>
+    </div>
+    <input type="text" class="form-control" readonly>
+    <div class="input-group-btn">
+      <input type="submit" name="UPDATE_FILE" i18n:translate=""
+             value="Update editable scores from csv file"
+             class="btn btn-primary" />
+      <button class="btn btn-warning" data-toggle="modal"
+              data-target="#myModal" i18n:translate="">
+        Help
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+       aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"
+                  aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel" i18n:translate="">
+            Step-by-step instructions
+          </h4>
+        </div>
+        <div class="modal-body" i18n:translate="lecturer_help">
+          <ol>
+            <li>Download csv file.</li>
+            <li>Open csv file in a text editor or in a spreadsheet
+                programme (Excel or Calc).</li>
+            <li>Edit course results only. Do not modify other entries.
+                Do not remove or add columns. Do not add rows.</li>
+            <li>Save file in same format (csv).
+                Do not switch to any other format (xls, xlsx or ods).</li>
+            <li>Select same file for upload and press the blue 'Update ...'
+                button.</li>
+            <li>The values in the table will be updated. Spot-check if
+                the values in the table correspond with the values in
+                your file.</li>
+            <li>Ready</li>
+          </ol>
+          <strong>Note:</strong>
+          Only course results of students which are in
+          state 'courses validated' and in academic session
+          <span  i18n:name="current_academic_session"
+                 tal:replace="view/session_title"></span>
+          can be modified. Additional data will just be ignored.
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <br /><br />
+
+  <table class="kofa-data-table dataTable">
+    <thead>
+    <tr>
+      <th i18n:translate="">Matric No.</th>
+      <th i18n:translate="">Student Id</th>
+      <th i18n:translate="">Fullname</th>
+      <th i18n:translate="">Status</th>
+      <th i18n:translate="">Course of Studies</th>
+      <th i18n:translate="">Level</th>
+      <th i18n:translate="">Score</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr tal:repeat="ticket view/tickets">
+      <td tal:content="ticket/student/matric_number">MATRIC_NUMBER</td>
+      <td tal:content="ticket/student/student_id">STUDENT ID</td>
+      <td tal:content="ticket/student/display_fullname">FULLNAME</td>
+      <td tal:content="ticket/student/translated_state">STATE</td>
+      <td tal:content="ticket/student/certcode">CERTCODE</td>
+      <td tal:content="ticket/level">LEVEL</td>
+
+      <td tal:condition="ticket/editable_by_lecturer" style="width: 65px;">
+          <input type="text" name="scores:list" class="form-control"
+                 tal:attributes="value ticket/score" />
+          <input type="hidden" name="sids:list"
+                 tal:attributes="value ticket/student/student_id" />
+      </td>
+      <td tal:condition="not: ticket/editable_by_lecturer"
+          tal:content="ticket/score">SCORE</td>
+     </tr>
+    </tbody>
+  </table>
+
+  <input type="submit" name="UPDATE_TABLE" i18n:translate=""
+         value="Update scores from table" class="btn btn-primary"
+         />
+
+  <input type="submit" name="VALIDATE_RESULTS" i18n:translate=""
+         value="Validate course results" class="btn btn-primary"
+         />
+</form>

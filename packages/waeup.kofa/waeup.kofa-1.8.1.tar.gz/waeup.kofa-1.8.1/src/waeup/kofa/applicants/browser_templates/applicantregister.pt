@@ -1,0 +1,24 @@
+<form action="." tal:attributes="action request/URL" method="post"
+    i18n:domain="waeup.kofa" enctype="multipart/form-data">
+
+  <table class="form-table">
+    <tbody>
+      <tal:widgets content="structure provider:widgets" />
+    </tbody>
+  </table>
+  <p i18n:translate="" tal:condition="python: context.mode=='create'">
+    An account will be created for you and an email with your login
+    credentials will be sent to the address provided.
+  </p>
+  <p i18n:translate="" tal:condition="python: context.mode=='update'">
+    Your application record will be looked up and an email with your login
+    credentials will be sent to the address provided.
+  </p>
+  <div tal:content="structure view/captcha_code"></div>
+  <br />
+  <div tal:condition="view/availableActions">
+    <input tal:repeat="action view/actions"
+           tal:replace="structure action/render"
+           />
+  </div>
+</form>

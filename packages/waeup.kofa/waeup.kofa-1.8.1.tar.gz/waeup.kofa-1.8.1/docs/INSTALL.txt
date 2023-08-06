@@ -1,0 +1,183 @@
+Installation of Kofa
+####################
+
+These are generic installation instructions for the WAeUP.Kofa
+student information portal and customized versions thereof.
+
+For specific aspects of this package please refer to the local README
+file.
+
+Please note, that **only Linux-based installs** are described and actively
+supported. We recommend use of Debian_ / Ubuntu_.
+
+.. note:: This means we do not actively support Windows(tm)!
+
+.. contents:: Table of Contents
+   :local:
+
+
+Prerequisites
+*************
+
+Installing `kofa` from sources on a local system involves many steps to meet
+all requirements, dependencies, etc. For quick setup we provide `docker`_
+based installs which ease the whole setup procedure very much.
+
+There are, however, a few things, you should be aware of. Most important:
+`kofa` stores persistent data on disk, in an own `var/` directory. This
+directory keeps all files, database data and also log files. You must keep this
+directory if you want to keep your data.
+
+Starting with version 1.8, each release of `kofa` contains a `Dockerfile` in
+the sources root. You can use this file to build a dockerized version of
+`kofa`. But you can also use this file as a reference, how to build `kofa` from
+sources.
+
+Good to know and very important if you want to install the manual way:
+The Kofa packages are based on `Grok`_, which is a Python_
+framework for agile web application development. Grok_ itself is based
+on `Zope`_.
+
+Both, Grok_ and Zope_, are written in the `Python`_ programming language (with
+parts written in C). For a source install you therefore have to have `Python`_
+installed (including `Python`_ headers) in version 2.7 (Python 3.x is currently
+not supported).
+
+If you want to install using `docker` you of course need `docker` installed on
+your system. Please refer to your system documentation or to https://docker.com
+for details.
+
+
+Quick Install (dockerized)
+**************************
+
+The Dockerfiles contained in our releases fetch sources from the central Python
+package repository `https://pypi.org/`. Visit the Dockerfile to learn, how you
+can build kofa from a local source tree.
+
+Go to the directory with the `Dockerfile` (we assume here, it is called
+`waeup.kofa`)::
+
+  $ cd waeup.kofa
+
+Build `kofa` and tag the build, so you can tell different versions apart later
+on::
+
+  $ docker build -t kofa:latest .
+
+Please note the separated dot at the end of the command.
+
+Replace `kofa:latest` with any tag you find useful. Usual alternative tags
+would be: `kofa:1.8.1.dev0` or similar. But also `mybuild:foo` or just
+`mybuild` are valid tags.
+
+This command will take a lot of time and will perform all the steps, you would
+need to do to install `kofa` natively.
+
+If all works well, you can start a new `kofa` instance in foreground like this::
+
+  $ docker run --rm -it -p 8080:8080 -v kofadata1:/home/kofa/waeup.kofa/var kofa:latest
+
+Use the tag you picked before (here: `kofa:latest`) and connect to the running instance
+
+https://localhost:8080/
+
+Your username and password will be `grok` and `grok`.
+
+Enter the credentials (username 'grok', password 'grok' by default)
+and name and add a `University`.
+
+Congratulations, you got Kofa running.
+
+
+What else can I do with `kofa` and Docker?
+******************************************
+
+Some remarks about the last `docker` command:
+`-v kofadata1:/home/kofa/waeup.kofa` keeps a persistent volume named `kofadata1` on
+your host. You do not have to know where this volume resides on your machine
+(while you can, if you insist). The containers using this volume can be
+discarded after use and you can of course keep multiple volumes in parallel on
+your system.
+
+You can stop the instance running in foreground pressing `CTRL-C`.
+
+Passing `--rm` to `docker` means to dispose a container after it stopped.
+
+
+Run `kofa` daemonized
+*********************
+
+If you want to run `kofa` daemonized, use this::
+
+  $ docker run --rm -d -p 8080:8080 -v kofadata1:/home/kofa/waeup.kofa/var kofa:latest
+
+Instead of interactive (`-it`) we now use daemonized mode (`-d`). We also
+tunnel the containers port 8080 to our hosts port 8080 because otherwise we
+could not reach `kofa`. For security reasons it binds to containers localhost
+address by default.
+
+You can stop this instance with::
+
+   $ docker stop kofa:latest
+
+which will stop and destroy the running container. If you create a new
+container with the same volume data, all objects from the last run should be
+visible and usable.
+
+
+Enter the `kofa` filesystem inside container
+********************************************
+
+If an instance is running, you can enter the filesystem with for instance::
+
+   $ docker run --rm -it -v kofadata1:/home/kofa/waeup.kofa/var kofa:latest /bin/bash
+
+which will drop you into a shell inside the container. Your system credentials
+are by default `kofa` and `kofa`.
+
+
+Copy data in and out of the container
+*************************************
+
+For backups etc. it is essential that you can copy data from or to the
+container. To do this, we mount a second local directory into the container and
+use that for transmitting data::
+
+  $ mkdir mybackup
+  $ docker run --rm -it -v kofadata1:/home/kofa/waeup.kofa/var -v `pwd`/mybackup:/data kofa:latest cp -ar /home/kofa/waeup.kofa/var /data
+
+which will copy the whole container-internal `var/`-directory into our local
+`mybackup` dir.
+
+
+How to start/stop `kofa` when running the native setup
+******************************************************
+
+Startup Kofa in foreground::
+
+  $ bin/kofactl fg
+  # press CTRL-D to stop the kofa server
+
+Startup Kofa in background::
+
+  $ bin/kofactl start
+  $ bin/kofactl status  # check status, running or not
+  $ bin/kofactl stop    # stop running instance (also 'restart' possible)
+
+That should start you.
+
+Have fun with Kofa!
+
+
+.. _Debian: https://www.debian.org/
+.. _docker: https://
+.. _Grok: http://grok.zope.org/
+.. _Python: https://www.python.org/
+.. _Subversion: https://subversion.apache.org/
+.. _Ubuntu: https://www.ubuntu.com/
+.. _virtualenv: https://www.virtualenv.org/en/latest/
+.. _WAeUP: https://www.waeup.org/
+.. _Zope: https://www.zope.org/
+.. _zc.buildout: https://pypi.org/project/zc.buildout
+

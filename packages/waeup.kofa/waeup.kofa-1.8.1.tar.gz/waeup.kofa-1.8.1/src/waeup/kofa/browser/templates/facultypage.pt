@@ -1,0 +1,62 @@
+<ul i18n:domain="waeup.kofa" class="tabs nav nav-tabs" data-tabs="tabs">
+  <li class="active"><a href="#tab1" data-toggle="tab">
+    <span i18n:translate="">Departments</span></a>
+  </li>
+  <li><a href="#tab3" data-toggle="tab">
+    <span i18n:translate="">Local Roles</span></a>
+  </li>
+</ul>
+<div i18n:domain="waeup.kofa" class="tab-content">
+  <div id="tab1" class="active tab-pane">
+    <br />
+    <table class="table table-hover" i18n:domain="waeup.kofa">
+      <thead>
+        <tr>
+          <th i18n:translate="">Code</th>
+          <th i18n:translate="">Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr tal:repeat="value context/values">
+          <td> <a tal:attributes="href python: view.url(value)">
+              <span tal:content="value/code">Name</span></a></td>
+          <td tal:content="value/longtitle">Title</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="tab3" class="tab-pane">
+    <br />
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th i18n:translate="">Officer Name
+          </th>
+          <th i18n:translate="">Local Role
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr tal:repeat="entry view/getUsersWithLocalRoles">
+          <td tal:content="entry/public_name"> PUBLICNAME </td>
+          <td tal:content="entry/local_role_title"> LOCAL ROLE </td>
+          <td>
+            <a href=""
+               i18n:translate=""
+               tal:attributes="href python: view.url(entry['user'], 'contactuser')"
+               class="btn btn-success btn-xs">Contact</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+
+
+
+

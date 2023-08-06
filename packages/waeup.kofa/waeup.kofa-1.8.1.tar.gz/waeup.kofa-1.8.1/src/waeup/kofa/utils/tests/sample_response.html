@@ -1,0 +1,45 @@
+HTTP/1.1 200 OK
+Date: Thu, 19 Sep 2019 14:12:36 GMT
+Server: WildFly/10
+X-Frame-Options: SAMEORIGIN
+X-Powered-By: Undertow/1
+X-Powered-By: JSP/2.3
+Content-Type: text/html;charset=UTF-8
+Content-Length: 1653
+Set-Cookie: JSESSIONID=-JcbFOsUjSI_yJpRohp88D4vnTTSDYshK1ApgThJ.etz-firstest-sv; path=/WebKonnect
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+
+<script language='javascript'>
+var spanId = document.getElementById("message_container");
+spanId.textContent = 'Redirecting...';</script>
+<form method="GET" id="redirect_form" name="redirect_form" action="http://localhost:81/projects/Webconnect/response.php" target="_top">
+<input type="hidden" name = "LOGO_URL" value="http://localhost:81/projects/Webconnect/images/elogo.fw.png">
+<input type="hidden" name = "RESPONSE_URL" value="http://localhost:81/projects/Webconnect/response.php">
+<input type="hidden" name = "CURRENCY_CODE" value="NGN">
+<input type="hidden" name = "TERMINAL_ID" value="0000000001">
+<input type="hidden" name = "TRANSACTION_ID" value="etz1568638104web">
+<input type="hidden" name = "AMOUNT" value="100">
+<input type="hidden" name = "DESCRIPTION" value="Payment Description">
+<input type="hidden" name = "CHECKSUM" value="5be04064f4bb250f73650059a8e921cc">
+<input type="hidden" name = "MERCHANT_CODE" value="0339990001">
+<input type="hidden" name = "EMAIL" value="xyz@yahoo.com">
+<input type="hidden" name = "SUCCESS" value="0">
+<input type="hidden" name = "FINAL_CHECKSUM" value="FD67A4CCC39E2C8DEEEC78D6C64A61FE">
+<input type="hidden" name = "STATUS_REASON" value="Approved">
+<input type="hidden" name = "TRANS_NUM" value="01ESA20190916134824YA3YJ8">
+<input type="hidden" name = "CARD_NO" value="506066XXXXXXXXX6666">
+<input type="hidden" name = "CARD_TYPE" value="Verve">
+</form>
+<script language='javascript'>
+var fom = document.forms["redirect_form"];
+fom.submit();</script>

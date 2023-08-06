@@ -1,0 +1,26 @@
+<form action="." tal:attributes="action request/URL" method="post"
+      i18n:domain="waeup.kofa" enctype="multipart/form-data">
+
+  <table class="form-table">
+    <tbody>
+      <tal:widgets content="structure provider:widgets" />
+    </tbody>
+  </table>
+  <br />
+  <p tal:condition="not: view/auto_fill"
+     i18n:translate="email_address_problem">
+    Enter the email address stored in Kofa.
+    You can't change your email address here.
+    If you've forgotten your email address or the email
+    address stored in Kofa is wrong or no longer valid,
+    use the enquiries form to request a change
+    of address.
+  </p>
+  <div tal:content="structure view/captcha_code"></div>
+  <br />
+  <div tal:condition="view/availableActions">
+    <input tal:repeat="action view/actions"
+           tal:replace="structure action/render"
+           />
+  </div>
+</form>

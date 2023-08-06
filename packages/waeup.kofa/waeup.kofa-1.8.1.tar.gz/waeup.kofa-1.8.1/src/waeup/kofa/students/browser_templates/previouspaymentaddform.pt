@@ -1,0 +1,30 @@
+<form action="." tal:attributes="action request/URL" method="post"
+      enctype="multipart/form-data" i18n:domain="waeup.kofa">
+
+  <table class="form-table">
+    <tbody>
+      <tal:widgets content="structure provider:widgets" />
+      <tr tal:condition="view/selectable_payment_options">
+        <td i18n:translate="" class="fieldname">
+          Payment Option:
+        </td>
+        <td>
+          <select id="form.p_option" name="form.p_option" size="1"
+                  class="form-control half" onclick="further()">
+            <option tal:repeat="item view/selectable_payment_options"
+                    tal:attributes="value python:item[0]">
+              <span tal:replace="python:item[1]">PAYMENT OPTION</span>
+            </option>
+          </select>
+        </td>
+      </tr>
+      <tal:files content="structure provider:files" />
+    </tbody>
+  </table>
+  <br />
+  <div tal:condition="view/availableActions">
+    <input tal:repeat="action view/actions"
+           tal:replace="structure action/render"
+           />
+  </div>
+</form>

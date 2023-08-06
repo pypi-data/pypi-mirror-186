@@ -1,0 +1,42 @@
+<form i18n:domain="waeup.kofa" method="post" class="form-horizontal">
+  <br />
+  <div class="form-group">
+    <label i18n:translate="" class="col-sm-2 control-label">User Name or Id</label>
+    <div class="col-sm-10">
+      <input name="form.login" tal:attributes="value view/login_default" type="text" class="form-control" id="login">
+    </div>
+  </div>
+  <div class="form-group">
+    <label i18n:translate="" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-10">
+      <input name="form.password" type="password" tal:attributes="value view/password_default" class="form-control" id="password">
+      <font  i18n:translate="" color="red"> Notice: User names, Ids and passwords are case sensitive.</font>
+    </div>
+  </div>
+  <input type="hidden" name="camefrom"   tal:attributes="value view/camefrom" />
+  <input class="btn btn-primary" type="submit" name="SUBMIT"
+    tal:attributes="value view/login_button" />
+  <br /><br /><br />
+  <p  i18n:translate="login_trouble1">Don't forget to logout or exit your browser when you're done.
+    If you are having trouble logging in, make sure to enable  cookies in your web browser.
+  </p>
+  <p i18n:translate="login_trouble2" tal:condition="python:False">
+    You don't have an account because you are a fresh student, or your student record has just been created?
+    Acquire a Password Activation Code (PWD) and inititialize your student account
+    <strong><a href ="setpassword"> here</a></strong>.
+  </p>
+  <p i18n:translate="login_trouble3">
+    You don't have an account because you are a fresh student, or your student record has just been created?
+    <a href="requestpw" class="btn btn-success btn-xs">Inititialize your student account.</a>
+  </p>
+  <p i18n:translate="login_trouble4"> Or simply forgot your student id, applicant id or password?
+    <a href="changepw" class="btn btn-success btn-xs">Request a new password.</a>
+  </p>
+  <p i18n:translate="login_trouble5"> You are student parents and want to monitor study progress
+    of your child?
+    <a href="requestppw" class="btn btn-success btn-xs">Request a temporary parents password.</a>
+    <br />
+    Prerequisite for getting parents access is that you have a valid email address and that this address
+    has been entered by the student into the parents' email address field.
+  </p>
+</form>

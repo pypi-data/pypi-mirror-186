@@ -1,0 +1,86 @@
+<h3 i18n:domain="waeup.kofa" i18n:translate="" tal:condition="view/getApplicants">
+  Open Transcript Applications
+</h3>
+
+<table class="kofa-data-table dataTable" tal:condition="view/getApplicants">
+  <thead>
+  <tr>
+    <th i18n:translate="">Applicant Id</th>
+    <th i18n:translate="">Full Name</th>
+    <th i18n:translate="">Course Studied</th>
+    <th i18n:translate="">Submission Date</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr tal:repeat="item view/getApplicants">
+    <td> <a tal:attributes="href python:view.url(item[0])">
+      <span tal:content="python:item[0].applicant_id">XXXX_1234</span></a>
+    </td>
+    <td tal:content="python:item[0].display_fullname">Bob</td>
+    <td tal:content="python:getattr(item[0].course_studied,'title',None)">Bob</td>
+    <td tal:content="python:item[1]">Bob</td>
+  </tr>
+  </tbody>
+</table>
+
+<h3 i18n:domain="waeup.kofa" i18n:translate="" tal:condition="python:view.getStudents[0]">
+  Transcripts to be validated
+</h3>
+
+<table class="kofa-data-table dataTable" tal:condition="python:view.getStudents[0]">
+  <thead>
+  <tr>
+    <th i18n:translate="">Matric No.</th>
+    <th i18n:translate="">Student Id</th>
+    <th i18n:translate="">Fullname</th>
+    <th i18n:translate="">Faculty</th>
+    <th i18n:translate="">Department</th>
+    <th i18n:translate="">Course of Studies</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr tal:repeat="student python:view.getStudents[0]">
+    <td tal:content="student/context/matric_number">MATRICNUMBER</td>
+    <td>
+      <a tal:attributes="href python:student.url + '/studycourse/transcript'">
+      <span tal:content="student/student_id">STUDENTID</span>
+      </a>
+    </td>
+    <td tal:content="student/context/display_fullname">FULLNAME</td>
+    <td tal:content="student/context/faccode">FACCODE</td>
+    <td tal:content="student/context/depcode">DEPCODE</td>
+    <td tal:content="student/context/certcode">CERTCODE</td>
+  </tr>
+  </tbody>
+</table>
+
+<h3 i18n:domain="waeup.kofa" i18n:translate="" tal:condition="python:view.getStudents[1]">
+  Transcripts to be signed and released
+</h3>
+
+<table class="kofa-data-table dataTable" tal:condition="python:view.getStudents[1]">
+  <thead>
+  <tr>
+    <th i18n:translate="">Matric No.</th>
+    <th i18n:translate="">Student Id</th>
+    <th i18n:translate="">Fullname</th>
+    <th i18n:translate="">Faculty</th>
+    <th i18n:translate="">Department</th>
+    <th i18n:translate="">Course of Studies</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr tal:repeat="student python:view.getStudents[1]">
+    <td tal:content="student/context/matric_number">MATRICNUMBER</td>
+    <td>
+      <a tal:attributes="href python:student.url + '/studycourse/transcript'">
+      <span tal:content="student/student_id">STUDENTID</span>
+      </a>
+    </td>
+    <td tal:content="student/context/display_fullname">FULLNAME</td>
+    <td tal:content="student/context/faccode">FACCODE</td>
+    <td tal:content="student/context/depcode">DEPCODE</td>
+    <td tal:content="student/context/certcode">CERTCODE</td>
+  </tr>
+  </tbody>
+</table>

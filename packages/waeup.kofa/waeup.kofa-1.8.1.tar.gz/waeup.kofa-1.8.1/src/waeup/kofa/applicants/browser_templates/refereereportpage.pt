@@ -1,0 +1,45 @@
+
+
+<p i18n:domain="waeup.kofa" i18n:translate="referee_welcome">
+  You have been invited to report about
+  <strong i18n:name="app_name" tal:content="context/display_fullname">
+    NAME
+  </strong>
+  who intends to take the degree
+  <strong i18n:name="cert_title" tal:content="python: context.course1.longtitle">
+    CERTIFICATE
+  </strong>
+  in
+  <strong>
+    <span i18n:name="fac_title_title" tal:replace="python: context.course1.__parent__.__parent__.__parent__.longtitle" /> /
+    <span i18n:name="dep_title" tal:replace="python: context.course1.__parent__.__parent__.longtitle" />
+  </strong>
+  of the <span i18n:name="app_title" tal:replace="layout/getAppTitle"></span>.
+</p>
+
+<img tal:condition="python: context.__parent__.with_picture"
+src="" height="180px" tal:attributes="src view/passport_url" />
+
+<br /><br />
+
+<p i18n:translate="">
+Please fill and submit the following referee report form.
+After submission the form will be locked and a report pdf
+file will be available for download.
+</p>
+
+<form action="." tal:attributes="action request/URL" method="post"
+      enctype="multipart/form-data">
+  <input type="hidden" name="mandate_id" tal:attributes="value view/mandate_id" />
+  <table class="form-table">
+    <tbody>
+      <tal:widgets content="structure provider:widgets" />
+    </tbody>
+  </table>
+  <br />
+  <div tal:condition="view/availableActions">
+    <input tal:repeat="action view/actions"
+           tal:replace="structure action/render"
+           />
+  </div>
+</form>

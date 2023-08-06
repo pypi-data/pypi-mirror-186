@@ -1,0 +1,38 @@
+<table class="form-table" i18n:domain="waeup.kofa"
+  tal:define="files provider:files">
+  <tbody>
+    <tal:widgets content="structure provider:widgets" />
+    <tr tal:condition="python: files.replace('\n','')">
+      <td class="separator" colspan=2 i18n:translate="">
+        Uploaded Files
+      </td>
+    </tr>
+    <tal:files content="structure files" />
+  </tbody>
+</table>
+<h3>
+  <span i18n:domain="waeup.kofa" i18n:translate="">Local Roles</span>
+</h3>
+<table class="table table-hover" i18n:domain="waeup.kofa">
+  <thead>
+    <tr>
+      <th i18n:translate="">Officer Name
+      </th>
+      <th i18n:translate="">Local Role
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr tal:repeat="entry view/getUsersWithLocalRoles">
+      <td tal:content="entry/public_name"> PUBLICNAME </td>
+      <td tal:content="entry/local_role_title"> LOCAL ROLE </td>
+      <td>
+        <a href=""
+           i18n:translate=""
+           tal:attributes="href python: view.url(entry['user'], 'contactuser')"
+           class="btn btn-success btn-xs">Contact</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

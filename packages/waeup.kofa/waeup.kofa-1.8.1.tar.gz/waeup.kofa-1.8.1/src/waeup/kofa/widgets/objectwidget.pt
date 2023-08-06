@@ -1,0 +1,11 @@
+<span tal:repeat="widget context/subwidgets">
+  <span tal:define="error widget/error"
+    tal:replace="structure error" tal:condition="error" />
+  <span class="hint" tal:condition="widget/hint">
+    <span tal:content="widget/hint" />:
+  </span>
+  <span tal:replace="structure widget" />
+  <span tal:condition="python: context.display and widget.hint">
+    <br />
+  </span>
+</span>
