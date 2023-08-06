@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: crossdeploy
+Version: 0.1.7
+Summary: A declarative approach to manage MLOps resources
+Home-page: https://github.com/crossdeploy-io/crossdeploy
+Author: Randy Phoa
+License: MPL 2.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3.9
+Description-Content-Type: text/markdown
+Requires-Dist: constructs
+Requires-Dist: jsii
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/crossdeploy-io/crossdeploy/main/assets/logo.png" alt="crossdeploy" height="60" />
+</p>
+
+---
+
+crossdeploy is a declarative approach to manage MLOps resources.
+
+Simply define the desired state of the resources and the necessary steps required to get to that state are executed automatically.
+
+Subsequent modifications to the resources are automatically created, updated or deleted based on dependencies inferred between them.
+
+Under the hood, crossdeploy is a thin wrapper around provisioning engines such as Terraform or Pulumi (coming soon) to manage resources.
+
+Refer to [https://github.com/crossdeploy-io/crossdeploy](https://github.com/crossdeploy-io/crossdeploy) for more details.
