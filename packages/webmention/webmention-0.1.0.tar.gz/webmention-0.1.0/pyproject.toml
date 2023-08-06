@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "webmention"
+version = "0.1.0"
+description = "utilities to help implement Webmention sending and receiving"
+keywords = ["IndieWeb", "Webmention"]
+authors = ["Angelo Gladding <angelo@ragt.ag>"]
+license = "0BSD"
+
+[tool.poetry.scripts]
+webmention = "webmention.__main__:main"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+requests = ">=2.28.1"
+txtint = ">=0.0"
+microformats = ">=0.0"
+
+[tool.poetry.group.dev.dependencies]
+nuitka = "^1.2.6"
+zstandard = "^0.19.0"
+ordered-set = "^4.1.0"
+gmpg = {path="../gmpg", develop=true}
+txtint = {path="../txtint", develop=true}
+easyuri = {path="../easyuri", develop=true}
+microformats = {path="../python-microformats", develop=true}
+
+# [[tool.poetry.source]]
+# name = "main"
+# url = "https://ragt.ag/code/pypi"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
