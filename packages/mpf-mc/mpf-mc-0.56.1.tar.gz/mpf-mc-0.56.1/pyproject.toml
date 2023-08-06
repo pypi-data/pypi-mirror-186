@@ -1,0 +1,80 @@
+[project]
+name = "mpf-mc"
+description = "Mission Pinball Framework Media Controller"
+readme = "README.md"
+requires-python = ">=3.7, <3.10"
+license = {text = "MIT"}
+authors = [{ name = "The Mission Pinball Framework Team", email = "brian@missionpinball.org"}]
+keywords = ["pinball"]
+classifiers=[
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Natural Language :: English",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Artistic Software",
+    "Topic :: Games/Entertainment :: Arcade"
+    ]
+dependencies = [
+    "ruamel.yaml == 0.15.42",  # 0.15.x newer than this requires compiled c lib, currently no Mac arm versions, 0.16+ require code refactor
+    "mpf >= 0.56.0",  # Jan 15, 2023, our intention is for MPF-MC 0.56 to also work with MPF 0.57+
+    "kivy == 2.1.0",  # Mar 6, 2022
+    "psutil == 5.9.4",  # Nov 7, 2022
+    "Pygments == 2.14.0", # Jan 1, 2023
+    "kivy_deps.sdl2 == 0.4.5; platform_system=='Windows'",  # Feb 15, 2022. 0.5.0 (Sept 2002) and 0.5.1 (Oct 2022) cause audio playback issues
+    "kivy_deps.glew == 0.3.1; platform_system=='Windows'",  # Feb 15, 2022
+    "kivy_deps.gstreamer == 0.3.3; platform_system=='Windows'",  # Jan 11, 2022
+    "ffpyplayer == 4.3.5"  # Mar 29, 2022
+    ]
+dynamic = ["version"]
+
+[project.urls]
+homepage = "https://missionpinball.org"
+docs = "https://docs.missionpinball.org"
+support-forum = "https://groups.google.com/g/mpf-users"
+
+[project.entry-points."mpf.config_player"]
+sound_player = "mpfmc.config_players.plugins.sound_player:register_with_mpf"
+sound_loop_player = "mpfmc.config_players.plugins.sound_loop_player:register_with_mpf"
+playlist_player = "mpfmc.config_players.plugins.playlist_player:register_with_mpf"
+widget_player = "mpfmc.config_players.plugins.widget_player:register_with_mpf"
+slide_player = "mpfmc.config_players.plugins.slide_player:register_with_mpf"
+track_player = "mpfmc.config_players.plugins.track_player:register_with_mpf"
+display_light_player = "mpfmc.config_players.plugins.display_light_player:register_with_mpf"
+
+[project.entry-points."mpf.command"]
+mc = "mpfmc.commands.mc:get_command"
+imc = "mpfmc.commands.imc:get_command"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {attr = "mpfmc._version.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["mpfmc*"]
+
+# TODO when setuptools_scm switches to SemVer, we can prob use this for versioning
+# [tool.setuptools_scm]
+# write_to = "mpfmc/_version.py"
+
+[build-system]
+requires = [
+    "setuptools >= 63",
+    "setuptools_scm[toml] >= 6.2",
+    "cython >= 0.29, <3.0",
+    "pkgconfig",
+    "kivy_deps.sdl2 >= 0.3.1; platform_system=='Windows'",
+    "kivy_deps.sdl2-dev >= 0.3.1; platform_system=='Windows'",
+    "kivy_deps.glew >= 0.3.0; platform_system=='Windows'",
+    "kivy_deps.glew-dev >= 0.3.0; platform_system=='Windows'",
+    "kivy_deps.gstreamer >= 0.3.1; platform_system=='Windows'",
+    "kivy_deps.gstreamer-dev >= 0.3.1; platform_system=='Windows'",
+    ]
+build-backend = "setuptools.build_meta"
