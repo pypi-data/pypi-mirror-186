@@ -1,0 +1,287 @@
+Metadata-Version: 2.1
+Name: dp-mobility-report
+Version: 0.1.8
+Summary: Create a report for mobility data with differential privacy guarantees.
+Home-page: https://github.com/FreeMoveProject/dp_mobility_report
+Author: Alexandra Kapp
+Author-email: alexandra.kapp@htw-berlin.de
+License: MIT license
+Keywords: dp_mobility_report
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: pathlib
+Requires-Dist: datetime
+Requires-Dist: diffprivlib
+Requires-Dist: folium (==0.12.1.post1)
+Requires-Dist: haversine
+Requires-Dist: Jinja2
+Requires-Dist: matplotlib (==3.5.3)
+Requires-Dist: numpy (<=1.23.4)
+Requires-Dist: pandarallel
+Requires-Dist: pandas
+Requires-Dist: pyproj
+Requires-Dist: pytest
+Requires-Dist: geopandas (==0.10.2)
+Requires-Dist: rtree
+Requires-Dist: scipy
+Requires-Dist: geojson
+Requires-Dist: shapely
+Requires-Dist: seaborn
+Requires-Dist: setuptools
+Requires-Dist: scikit-learn
+Requires-Dist: Shapely
+Requires-Dist: tqdm
+Requires-Dist: typing
+
+============================================================
+Differentially Private Mobility Data Report
+============================================================
+
+
+.. image:: https://img.shields.io/pypi/v/dp_mobility_report.svg
+        :target: https://pypi.python.org/pypi/dp_mobility_report
+
+        
+.. image:: https://readthedocs.org/projects/dp-mobility-report/badge/?version=latest
+        :target: https://dp-mobility-report.readthedocs.io/en/latest/?version=latest
+        :alt: Documentation Status
+
+
+
+
+* Free software: MIT license
+* Documentation: https://dp-mobility-report.readthedocs.io.
+
+
+``dp_mobility_report``: A python package to create a mobility report with differential privacy (DP) guarantees, especially for urban human mobility data. 
+
+
+Install
+**********************
+
+.. code-block:: bash
+
+        pip install dp-mobility-report
+
+or from GitHub:
+
+.. code-block:: bash
+
+        pip install git+https://github.com/FreeMoveProject/dp_mobility_report
+
+
+Data preparation
+**********************
+
+**df**: 
+
+* A pandas ``DataFrame``. 
+* Expected columns: User ID ``uid``, Trip ID ``tid``, timestamp ``datetime`` (expected is a datetime-like string, e.g., in the format ``yyyy-mm-dd hh:mm:ss``. If ``datetime`` contains ``int`` values, it is interpreted as sequence positions, i.e., if the dataset only consists of sequences without timestamps), latitude and longitude in CRS EPSG:4326 ``lat`` and ``lng``. (We thereby closely followed the format of the `scikit-mobility`_ ``TrajDataFrame``.)
+* Here you can find an `example dataset`_.
+
+**tessellation**: 
+
+* A geopandas ``GeoDataFrame`` with polygons. 
+* Expected columns: ``tile_id``. 
+* The tessellation is used for spatial aggregations of the data. 
+* Here you can find an `example tessellation`_. 
+* If you don't have a tessellation, you can use this code to `create a tessellation`_.
+
+Create a mobility report as HTML
+**************************************
+
+.. code-block:: python
+
+        import pandas as pd
+        import geopandas as gpd
+        from dp_mobility_report import DpMobilityReport
+
+        df = pd.read_csv(
+            "https://raw.githubusercontent.com/FreeMoveProject/dp_mobility_report/main/tests/test_files/test_data.csv"
+        )
+        tessellation = gpd.read_file(
+            "https://raw.githubusercontent.com/FreeMoveProject/dp_mobility_report/main/tests/test_files/test_tessellation.geojson"
+        )
+
+        report = DpMobilityReport(df, tessellation, privacy_budget=10, max_trips_per_user=5)
+
+        report.to_file("my_mobility_report.html")
+
+
+The parameter ``privacy_budget`` (in terms of *epsilon*-DP) determines how much noise is added to the data. The budget is split between all analyses of the report.
+If the value is set to ``None`` no noise (i.e., no privacy guarantee) is applied to the report.
+
+The parameter ``max_trips_per_user`` specifies how many trips a user can contribute to the dataset at most. If a user is represented with more trips, a random sample is drawn according to ``max_trips_per_user``.
+If the value is set to ``None`` the full dataset is used. Note, that deriving the maximum trips per user from the data violates the differential privacy guarantee. Thus, ``None`` should only be used in combination with ``privacy_budget=None``.
+
+Please refer to the `documentation`_ for information on further parameters.
+
+
+Examples
+*********
+
+Berlin mobility data simulated using the `DLR TAPAS`_ Model: [`Code used for Berlin`_]
+
+* `Report of Berlin without DP`_
+* `Report of Berlin with DP epsilon=1`_
+
+Madrid `CRTM survey`_ data: [`Code used for Madrid`_]
+
+* `Report of Madrid without DP`_
+* `Report of Madrid with DP epsilon=10`_
+
+Beijing `Geolife`_ dataset: [`Code used for Beijing`_]
+
+* `Report of Beijing without DP`_
+* `Report of Beijing with DP epsilon=50`_
+
+(Here you find the `code of the data preprocessing`_ to obtain the needed format)
+
+Citing
+******
+if you use dp-mobility-report please cite the `following paper`_:
+
+.. code-block::
+
+        @article{
+                doi:10.1080/17489725.2022.2148008,
+                title = {Towards Mobility Reports with User-Level Privacy},
+                author = {Kapp, Alexandra and {von Voigt}, Saskia Nu{\~n}ez and Mihaljevi{\'c}, Helena and Tschorsch, Florian},
+                year = {2022},
+                journal = {Journal of Location Based Services},
+                eprint = {https://www.tandfonline.com/doi/pdf/10.1080/17489725.2022.2148008},
+                publisher = {{Taylor \& Francis}},
+                doi = {10.1080/17489725.2022.2148008}
+        }
+
+
+Credits
+-------
+
+This package was highly inspired by the `pandas-profiling/pandas-profiling`_ and `scikit-mobility`_ packages.
+
+This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+ 
+.. _`example dataset`: https://github.com/FreeMoveProject/dp_mobility_report/blob/main/tests/test_files/test_data.csv
+.. _`example tessellation`: https://github.com/FreeMoveProject/dp_mobility_report/blob/main/tests/test_files/test_tessellation.geojson
+.. _`create a tessellation`:  https://github.com/FreeMoveProject/dp_mobility_report/blob/main/examples/create_tessellation.py
+.. _documentation: https://dp-mobility-report.readthedocs.io/en/latest/modules.html
+.. _`DLR TAPAS`: https://github.com/DLR-VF/TAPAS
+.. _`Report of Berlin without DP`: https://freemoveproject.github.io/dp_mobility_report/examples/html/berlin_noPrivacy.html
+.. _`Report of Berlin with DP epsilon=1`: https://freemoveproject.github.io/dp_mobility_report/examples/html/berlin.html
+.. _`Code used for Berlin`: https://github.com/FreeMoveProject/dp_mobility_report/blob/main/examples/example_berlin.py
+.. _`CRTM survey`: https://crtm.maps.arcgis.com/apps/MinimalGallery/index.html?appid=a60bb2f0142b440eadee1a69a11693fc
+.. _`Report of Madrid without DP`: https://freemoveproject.github.io/dp_mobility_report/examples/html/madrid_noPrivacy.html
+.. _`Report of Madrid with DP epsilon=10`: https://freemoveproject.github.io/dp_mobility_report/examples/html/madrid.html
+.. _`Code used for Madrid`: https://github.com/FreeMoveProject/dp_mobility_report/blob/main/examples/example_madrid.py
+.. _`Geolife`: https://www.microsoft.com/en-us/download/details.aspx?id=52367
+.. _`Report of Beijing without DP`: https://freemoveproject.github.io/dp_mobility_report/examples/html/geolife_noPrivacy.html
+.. _`Report of Beijing with DP epsilon=50`: https://freemoveproject.github.io/dp_mobility_report/examples/html/geolife.html
+.. _`Code used for Beijing`: https://github.com/FreeMoveProject/dp_mobility_report/blob/main/examples/example_geolife.py
+.. _`code of the data preprocessing`: https://github.com/FreeMoveProject/evaluation_dp_mobility_report/blob/main/01_preprocess_evaluation_data.py
+.. _`following paper`: https://www.tandfonline.com/doi/full/10.1080/17489725.2022.2148008
+.. _`pandas-profiling/pandas-profiling`: https://github.com/pandas-profiling/pandas-profiling
+.. _`scikit-mobility`: https://github.com/scikit-mobility
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+
+
+History
+*********
+
+0.1.8 (2023-01-16)
+------------------
+* Refine handling of OD Analysis input data:
+    * warn if there are no trips with more than a single record and exclude OD Analysis
+    * use all trips for travel time and jump length computation instead of only trips inside tessellation.
+
+0.1.7 (2023-01-10)
+------------------
+* Restructuring of HTML headlines.
+
+0.1.6 (2023-01-09)
+------------------
+* Refactoring of template files.
+
+0.1.5 (2022-12-12)
+------------------
+* Remove scikit-mobility dependency and refactor od flow visualization.
+
+0.1.4 (2022-12-07)
+------------------
+* Remove Google Fonts from HTML.
+
+0.1.3 (2022-12-05)
+------------------
+* Handle FutureWarning of pandas.
+
+0.1.2 (2022-11-24)
+------------------
+* Enhanced documentation for all properties of `DpMobilityReport` class
+
+0.1.1 (2022-10-27)
+------------------
+* fix bug: prevent error "key `trips` not found" in `trips_over_time` if sum of `trip_count` is 0
+
+0.1.0 (2022-10-21)
+------------------
+* make tessellation an Optional parameter
+* allow DataFrames without timestamps but sequence numbering instead (i.e., `integer` for `timestamp` column)
+* allow to set seed for reproducible sampling of the dataset (according to `max_trips_per_user`)
+
+0.0.8 (2022-10-20)
+------------------
+* Fixes addressing deprecation warnings.
+
+0.0.7 (2022-10-17)
+------------------
+
+* parameter for a custom split of the privacy budget between different analyses
+* extend 'analysis_selection' to include single analyses instead of entire segments
+* parameter for 'analysis_exclusion' instead of selection
+* bug fix: include all possible categories for days and hour of days
+* bug fix: show correct percentage of outliers
+* show 95% confidence-interval instead of upper and lower bound
+* show privacy budget and confidence interval for each analysis
+
+0.0.6 (2022-09-30)
+------------------
+
+* Remove scaling of counts to match a consistent trip_count / record_count (from ds_statistics) in visits_per_tile, visits_per_tile_timewindow and od_flows. Scaling was implemented to keep the report consistent, though it is removed for now as it introduces new issues.
+* Minor bug fixes in the visualization: outliers were not correctly converted into percentage. 
+
+0.0.5 (2022-08-26)
+------------------
+
+Bug fix: correct scaling of timewindow counts.
+
+0.0.4 (2022-08-22)
+------------------
+
+* Simplify naming: from :code:`MobilityDataReport` to :code:`DpMobilityReport`
+* Simplify import: from :code:`from dp_mobility_report import md_report.MobilityDataReport` to :code:`from dp_mobility_report import DpMobilityReport`
+* Enhance documentation: change style and correctly include API reference.
+
+0.0.3 (2022-07-22)
+------------------
+
+* Fix broken link.
+
+0.0.2 (2022-07-22)
+------------------
+
+* First release to PyPi.
+* It includes all basic functionality, though still in alpha version and under development.
+
+0.0.1 (2021-12-16)
+------------------
+
+* First version used for evaluation in xx.
