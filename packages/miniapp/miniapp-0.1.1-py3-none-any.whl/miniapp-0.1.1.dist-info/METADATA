@@ -1,0 +1,264 @@
+Metadata-Version: 2.1
+Name: miniapp
+Version: 0.1.1
+Summary: Microservice Base
+Home-page: UNKNOWN
+License: Apache
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+Requires-Dist: jsonschema
+Provides-Extra: all
+Requires-Dist: pytz ; extra == 'all'
+Requires-Dist: jinja2 ; extra == 'all'
+
+# Introduction 
+
+Miniapp provides a concise (and opinionated) way to build enterprise-grade 
+web application back-ends or microservices.  Designed with Kubernetes in mind but works quite well without it.
+
+* An API is defined in Python.
+  * Each category is a class.
+  * The main API gathers all categories into one class.
+* Decorators define which methods are exposed through REST and what 
+permissions are required.
+* Persistence is normalized to look like a simplified NoSQL database.
+* A default implementation of user login and permissions is provided.
+* Base classes are provided for the usual CRUD methods.
+* Helpers are provided to make it all go.
+
+Ideally, you just write a couple classes to fill in what is unique about 
+the service or application.
+
+The provided user authentication includes two modes:
+  * built-in authentication, where user records are stored in the database
+  * Shibboleth: all authentication is managed externally and the 
+application is informed through HTTP headers
+
+The database interface looks like a simplified version of MongoDB.  It 
+can:
+  * be simulated in memory using provided classes
+  * be implemented on local disk for small, simple cases
+  * point to a MongoDB instance
+  * be easily adapted to point to a number of other databases
+
+# Getting Started
+
+The [walkthrough](#Walkthrough) (below) demonstrates basic use.
+
+And several examples are available (requires pull of source code):
+* [toaster](examples/toaster) - toast slices of bread in background tasks
+* [threadly](examples/threadly) - demonstrates background threads and a message queue
+* [crud1](examples/crud1) - some basic CRUD features, including permissions & visibility
+* [loginner](examples/loginner) - user management features
+
+# Features
+
+* Building an API to perform all the functions of an application or service.
+  * Base class for API (ApiBase) - tracks current user, manages permissions
+  * Base class for API categories (ApiCategoryBase) - build your API one category at a time
+  * Base class for CRUD (ApiCategoryBaseCRUD) - quickly build data-based endpoints (create, read, update, delete)
+  * Pre-built API categories, including user management (api.cat_*)
+* User management: built-in/standalone, and Shibboleth for SSO
+  * Roles and permissions (tiered roles, each has a set of allowed permissions) (see entry_point())
+  * Build-in login, password reset, user management, etc. (generate_user_category())
+  * Lots of SSO/Shibboleth options (ConfigBase.get_sso_config())
+* Endpoints are defined by adding a decorator to plain Python class methods (api.base.endpoint)
+  * define the method, the URL, the sequence, required permissions, etc.
+  * parameters from REST calls are converted based on type hints
+  * post data and responses support streaming
+* API has built-in standardized/simplified database connectivity
+  * in-memory implementation by default (InMemoryDb())
+  * disk and external options available, no code changes required, configuration only (see ConfigBase.db_uri)
+* The usual HTTP/REST stuff
+  * Rewrites & redirects (see entry_point())
+  * Static content (see entry_point())
+  * Multi-threaded or multi-process (see entry_point())
+  * CSRF (ConfigBase.enable_csrf)
+  * XSS prevention (ApiCategoryBaseCRUD._detect_xss())
+  * Automatically generates Swagger (ApiCommonModule.get_api())
+* Useful parts for applications
+  * Help system (generate_help_category())
+  * Usage analytics (generate_user_activity_api_category())
+  * Background job/thread support (JobManager, TaskRunner)
+  * Simple message queue built in (MessageQueue)
+  * Email support (ConfigBase.get_emailer())
+  * Scheduling tools (Schedule)
+* Configuration class (ConfigBase)
+  * extend it to add your own configuration values
+  * reads values from environment variables or the command line
+* Other
+  * Application wrapper simplifies the usual boilerplate (entry_point())
+  * Logging - assumes Kubernetes and writes logs to stdout (override in ApiBase.log())
+  * Client connector - for talking to REST services of this flavor (build_api())
+  * API test page is built in (see entry_point())
+  * Enable hot reload with an environment variable (HOT_RELOAD, see entry_point())
+
+# Walkthrough
+
+Below are some very simple examples that demonstrate how to use miniapp.
+
+## Install miniapp
+
+First of all, install miniapp like so:
+
+    pip install miniapp
+
+## Host an endpoint
+
+This example shows an absolutely minimal use of miniapp to serve one endpoint.
+
+Let's import what we'll need.
+
+    from miniapp import ApiBase, ApiCategoryBase, endpoint, entry_point
+
+* ApiBase is the base class for API, covering configuration, data access, and REST integration.
+* ApiCategoryBase is the base class for sections of an API.
+* endpoint() is the decorator to expose API methods as endpoints, giving them a method and a URL.
+* entry_point() runs an application.
+
+An API is made up of sections, let's define one:
+
+    class Calls(ApiCategoryBase):
+        @endpoint("get", "hello")
+        def hello(self, value: int=0):
+            return {"result": value+1}
+
+This section/category/part of our API will be available at "<API_BASE>/calls/" and has one endpoint at
+"<API_BASE>/calls/hello".  It has an optional parameter that we can set with a query argument like so:
+"<API_BASE>/calls/hello?value=3".
+
+Now let's build the main class for the API.
+
+    class MyAPI(ApiBase):
+        def __init__(self, *args, **kwargs):
+            super(MyAPI, self).__init__(*args, **kwargs)
+            self.calls = Calls(self)
+
+All we've done is inherit from ApiBase and plugged in some endpoints.  (All the fields in this class which inherit from
+ApiCategoryBase will be scanned for endpoints.)
+
+Now all we have to do is add a main method that runs the application:
+
+    if __name__ == "__main__":
+        entry_point(api_class=MyAPI, api_base_url="/api")
+
+There are a lot of other arguments we could fill in, but that's all we need for now.
+
+* try running it and pointing your browser [here](http://localhost:8888/api/calls/hello?value=3)
+
+### full code
+
+    from miniapp import ApiBase, ApiCategoryBase, endpoint, entry_point
+    
+    
+    class Calls(ApiCategoryBase):
+        @endpoint("get", "hello")
+        def hello(self, value: int=0):
+            return {"result": value+1}
+    
+    
+    class MyAPI(ApiBase):
+        def __init__(self, *args, **kwargs):
+            super(MyAPI, self).__init__(*args, **kwargs)
+            self.calls = Calls(self)
+    
+    
+    if __name__ == "__main__":
+        entry_point(api_class=MyAPI, api_base_url="/api")
+
+
+
+## A more involved example
+
+Let's add a few useful features, like user management and an API test page.
+
+    from miniapp import ApiBase, ApiCategoryBase, endpoint, entry_point, generate_user_category, generate_common_category
+
+New classes and methods not already described above:
+* generate_user_category() sets up user management for us
+* generate_common_category() defines a set of endpoints that most applications need, which includes discoverability
+of the API
+
+There is only one small change to our "Calls" class from before.  We have added 'permission_required', indicating
+that only logged-in users are allowed to use this endpoint.
+
+    class Calls(ApiCategoryBase):
+        @endpoint("get", "hello", permission_required="LOGIN")
+        def hello(self, value: int=0):
+            return {"result": value+1}
+
+Here is our new API class.
+* We have defined a set of roles and permissions and sent them to the base class.
+* We are using generate_common_category() to add some standard endpoints and make our API discoverable.
+* We have added user management by calling generate_user_category() to generate this for us.
+
+
+    class MyAPI(ApiBase):
+        ROLES = ["BASIC", "ADVANCED"]
+        PERMISSIONS = {"BASIC": ["LOGIN"], "ADVANCED": ["MANAGE_USERS"]}
+
+        def __init__(self, *args, **kwargs):
+            super(MyAPI, self).__init__(*args, **kwargs, role_names=self.ROLES, role_permissions=self.PERMISSIONS)
+            self.common = generate_common_category(self)
+            self.users = generate_user_category(self, perm_logged_in="LOGIN", perm_manage_users="MANAGE_USERS", sequence=1)
+            self.calls = Calls(self, sequence=2)
+
+
+In order to make this easier to demonstrate we'll add an API setup method and have it make sure certain users are
+available for testing:
+
+    def setup(api):
+        admin = api.admin_instance()
+        user_names = [user.username for user in admin.users.list_users().results]
+        if "u1" not in user_names:
+            admin.users.create_user({"username": "u1", "password": "u1", "role": "BASIC"})
+        if "u2" not in user_names:
+            admin.users.create_user({"username": "u2", "password": "u2", "role": "ADVANCED"})
+
+
+In our main method we will connect the setup method, enable the API test page, and turn on persistence:
+
+if __name__ == "__main__":
+    cfg = {"db_uri": "disk:~/miniapp_w2"}
+    entry_point(api_class=MyAPI, api_setup=setup, config_defaults=cfg, api_base_url="/api", enable_api_test_page="/test")
+
+### full code
+
+    from miniapp import ApiBase, ApiCategoryBase, endpoint, entry_point, generate_user_category, generate_common_category
+    
+    
+    class Calls(ApiCategoryBase):
+        @endpoint("get", "hello", permission_required="LOGIN")
+        def hello(self, value: int=0):
+            return {"result": value+1}
+    
+    
+    class MyAPI(ApiBase):
+        ROLES = ["BASIC", "ADVANCED"]
+        PERMISSIONS = {"BASIC": ["LOGIN"], "ADVANCED": ["MANAGE_USERS"]}
+    
+        def __init__(self, *args, **kwargs):
+            super(MyAPI, self).__init__(*args, **kwargs, role_names=self.ROLES, role_permissions=self.PERMISSIONS)
+            self.common = generate_common_category(self)
+            self.users = generate_user_category(self, perm_logged_in="LOGIN", perm_manage_users="MANAGE_USERS", sequence=1)
+            self.calls = Calls(self, sequence=2)
+    
+    
+    def setup(api):
+        admin = api.admin_instance()
+        user_names = [user.username for user in admin.users.list_users().results]
+        if "u1" not in user_names:
+            admin.users.create_user({"username": "u1", "password": "u1", "role": "BASIC"})
+        if "u2" not in user_names:
+            admin.users.create_user({"username": "u2", "password": "u2", "role": "ADVANCED"})
+    
+    
+    if __name__ == "__main__":
+        cfg = {"db_uri": "disk:~/miniapp_w2"}
+        entry_point(api_class=MyAPI, api_setup=setup, config_defaults=cfg, api_base_url="/api", enable_api_test_page="/test")
+
+
+(c) Copyright 2023, Accenture LLC
+
