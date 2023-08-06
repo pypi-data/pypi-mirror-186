@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: tk-image-cropper
+Version: 0.1.0
+Summary: A simple program that uses a Tkinter GUI to crop an image to specified dimensions.
+Home-page: https://github.com/Stefan4472/Stefans-Blog
+Author: Stefan Kussmaul
+Author-email: stefan@stefanonsoftware.com
+License: MIT
+Keywords: tkinter,image,cropping
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+Requires-Dist: Pillow
+
+# tk-image-cropper
+
+A simple program that uses a Tkinter GUI to display and visually crop an image to the desired width and height. Simply call
+```
+image_cropper.run_image_cropper(img_path: pathlib.Path, desired_width: int, desired_height: int, out: pathlib.Path)
+```
+
+to crop the image at `img_path` to (`desired_width`, `desired_height`) and write the resulting output file to `out`.
