@@ -1,0 +1,35 @@
+Metadata-Version: 2.1
+Name: refractml
+Version: 1.0.0
+Summary: REST API client for Refract AI
+Home-page: https://git.lti-aiq.in/akhil-lawrence/mosaic-ai-client
+Author: Akhil Lawrence
+Author-email: akhil.lawrence@lntinfotech.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.8
+Requires-Dist: cloudpickle (==1.6.0)
+Requires-Dist: requests-toolbelt (==0.9.1)
+Requires-Dist: shutils (==0.1.0)
+Requires-Dist: PyYAML (==6.0)
+Provides-Extra: common
+Requires-Dist: mosaic-utils[nb-template-serving] (==1.0.1) ; extra == 'common'
+Requires-Dist: importlib-resources (==5.4.0) ; extra == 'common'
+Requires-Dist: Pillow (==8.4.0) ; extra == 'common'
+Provides-Extra: complete
+Requires-Dist: mosaic-utils[complete] (==1.0.1) ; extra == 'complete'
+Provides-Extra: complete-with-utils
+Requires-Dist: mosaic-utils[complete] (==1.0.1) ; extra == 'complete-with-utils'
+Provides-Extra: utils_common
+Requires-Dist: mosaic-utils[common] (==1.0.1) ; extra == 'utils_common'
+Provides-Extra: utils_flavours
+Requires-Dist: mosaic-utils[flavours] (==1.0.1) ; extra == 'utils_flavours'
+Provides-Extra: utils_k8
+Requires-Dist: mosaic-utils[k8] (==1.0.1) ; extra == 'utils_k8'
+Provides-Extra: utils_metrics
+Requires-Dist: mosaic-utils[metrics] (==1.0.1) ; extra == 'utils_metrics'
+Provides-Extra: vanilla
+Requires-Dist: mosaic-utils (==1.0.1) ; extra == 'vanilla'
+
+UNKNOWN
+
