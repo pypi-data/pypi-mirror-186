@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "whosYourAgent"
+authors = [{name='Matt Manes'}]
+description = "Self updating package for generating random user agent strings."
+version = "0.0.2"
+requires-python = ">=3.7"
+dependencies = ["requests",
+                "bs4"]
+readme = "README.md"
+
+[project.urls]
+"Homepage" = "https://github.com/matt-manes/whosYourAgent"
