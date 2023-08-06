@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: lcacollect-config
+Version: 1.0.0
+Summary: This package contains shared config and utils to be used across LCAcollect backends.
+Home-page: https://github.com/lcacollect/shared-config-backend
+License: LGPL-3.0-or-later
+Author: Christian Kongsgaard
+Author-email: chrk@arkitema.com
+Requires-Python: >=3.10,<4.0
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: SQLAlchemy[asyncio] (==1.4.35)
+Requires-Dist: aiocache
+Requires-Dist: asyncpg (>=0.26.0,<0.27.0)
+Requires-Dist: fastapi-azure-auth
+Requires-Dist: pydantic
+Requires-Dist: sqlmodel (>=0.0.8)
+Requires-Dist: strawberry-graphql[fastapi] (>=0.126.0)
+Project-URL: Repository, https://github.com/lcacollect/shared-config-backend
