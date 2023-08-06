@@ -1,0 +1,68 @@
+Metadata-Version: 2.1
+Name: bibat
+Version: 0.0.4
+Summary: Medium-sized Bayesian Analysis Generator
+Home-page: https://github.com/teddygroves/mbag
+Download-URL: https://pypi.org/project/mbag
+Author: Teddy Groves
+Author-email: tedgro@dtu.dk
+License: GNU General Public License version 3
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Natural Language :: English
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows :: Windows 10
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Requires-Python: >=3.7
+Provides-Extra: development
+License-File: LICENSE
+
+====================================================
+Bibat: Batteries-Included Bayesian Analysis Template
+====================================================
+
+Bibat is a Python package that wraps a `cookiecutter
+<https://cookiecutter.readthedocs.io/>`_ template for Bayesian statistical
+analyses. 
+
+It aims to make it easier for authors of statistical analyses to follow best
+practices from both software development and statistics, and to be flexible
+enough that any analysis can be implemented - even ones involving many complex
+data processing options and statistical models.
+
+Bibat is "batteries-included" in the sense that the template provides a complete
+statistical analysis that you can run immediately.
+
+Documentation
+=============
+
+Check out bibat's documentation at `https://bibat.readthedocs.io
+<https://bibat.readthedocs.io>`_.
+
+In particular, you may find it useful to have a look at `some projects that have
+previously used bibat <https://bibat.readthedocs.io/en/latest/examples.html>`_.
+
+Quick Start
+===========
+
+You can try out bibat like this:
+
+.. code:: sh
+
+    $ pip install bibat
+    $ bibat
+
+After following the wizard's instructions, you should now have a new directory
+implementing a simple statistical analysis. To try it out, run the following
+command from the root of the new directory:
+
+.. code:: sh
+
+    $ make analysis
+
+
