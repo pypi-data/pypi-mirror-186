@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: ai-chat-tool
+Version: 0.0.10
+Summary: AI-Chat-Tool is a tool that brings ChatGPT to the command line
+Home-page: https://github.com/matoval/ai-chat-tool
+Author: matoval (Matthew Sandoval)
+Author-email: <matovalcode@gmail.com>
+Keywords: chatgpt,ai,chat
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# AI-Chat-Tool
+AI-Chat-Tool is a tool that brings ChatGPT to the command line.
+
+To use this tool you will need a ChatGPT api key.
+
+### Options
+- **--api-key**
+    - (required) ChatGPT api key to use to access ChatGPT.
+- **--file**
+    - (optional) File to write ChatGPT response to. Pass just the file(test.py) or the path and file(/first_dir/second_dir/test.py) 
+- **--max-tokens**
+    - (optional) The maximum number of tokens to generate in the completion.
+- **--temperature**
+    - (optional) What sampling temperature to use.
+
+### Example
+- Use AI-Chat-Tool to create a Python function that checks for even numbers
+
+**CLI**
+```
+python -m ai-chat-tool --api-key=$CHATGPTKEY --file=test.py --max-tokens=2000
+```
+```
+What can I do for you today?: Can you create a python function that checks for even numbers?
+Text written to test.py
+```
+ 
+ 
+File created by AI-Chat-Tool 
+**test.py**
+```python
+def check_even(number):
+    if number % 2 == 0:
+        return True
+    else:
+        return False
+```
