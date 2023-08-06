@@ -1,0 +1,53 @@
+[package]
+name = "pyarc2"
+version = "0.2.1"
+authors = ["Spyros Stathopoulos <spyros@arc-instruments.co.uk>"]
+description = "High level Python bindings for the libarc2 library"
+edition = "2018"
+license = "MPL-2.0"
+readme = "README.md"
+homepage = "http://arc-instruments.co.uk"
+repository = "https://github.com/arc-instruments/pyarc2"
+
+exclude = [
+  "build-linux-wheels.sh",
+  "build-win32-wheels.bat",
+  "build/*",
+  "dist/*",
+  "docs/_build",
+  "*.egg-info",
+  "getbl-win32.py",
+  "releasecheck.py",
+  "pyarc2/*.so",
+  "pyarc2/*.dll",
+  "pyarc2/*.pyd",
+  "*.lib",
+  "*.dll",
+  "*.pyd",
+  "*.so",
+  "poetry.lock",
+  ".github/*",
+  ".readthedocs.yml",
+  ".gitignore",
+  "__pycache__",
+  "pyarc2/__pycache__"
+]
+
+[lib]
+name = "pyarc2"
+crate-type = ["cdylib", "lib"]
+
+[dependencies]
+numpy = "0.17"
+ndarray = "0.15"
+libarc2 = { git = "https://github.com/arc-instruments/libarc2", tag = "0.2.0" }
+
+[dependencies.pyo3]
+version = "0.17"
+features = ["extension-module"]
+
+[features]
+default = ["flag_addresses"]
+flag_addresses = ["libarc2/flag_addresses"]
+debug_packets = ["libarc2/debug_packets"]
+zero_before_write = ["libarc2/zero_before_write"]
