@@ -1,0 +1,24 @@
+---
+
+classes:
+  TClassWithFn:
+    methods:
+      getT:
+        template_impls:
+        # ordering matters here!
+        - ["bool"]
+        - ["int"]
+
+  TTClassWithFn:
+    template_params:
+    - int I
+    methods:
+      getT:
+        template_impls:
+        - ["int"]
+
+templates:
+  TTClassWithFn2:
+    qualname: TTClassWithFn
+    params:
+    - 2

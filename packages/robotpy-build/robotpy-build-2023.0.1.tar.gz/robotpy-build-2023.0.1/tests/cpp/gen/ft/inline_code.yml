@@ -1,0 +1,15 @@
+---
+
+classes:
+  InlineCode:
+    enums:
+      MyE:
+        inline_code: |
+          .value("Value2", (InlineCode::MyE)2)
+    methods:
+      get2:
+    inline_code: |
+      // you can even start with a comment
+      .def("get4", [](InlineCode *self) {
+        return 4;
+      })

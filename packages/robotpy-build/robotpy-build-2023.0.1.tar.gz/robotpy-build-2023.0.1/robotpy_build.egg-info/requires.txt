@@ -1,0 +1,21 @@
+setuptools<64,>=45
+setuptools_scm>=6.2
+header2whatever>=0.4.8
+robotpy-cppheaderparser>=5.1
+sphinxify>=0.7.3
+pydantic>=1.7.0
+tomli
+tomli_w
+toposort
+pyyaml>=5.1
+patch==1.*
+pybind11-stubgen>=0.10.5
+
+[:platform_system == "Darwin"]
+delocate
+
+[:platform_system == "Linux"]
+distro
+
+[:python_version < "3.7"]
+dataclasses
