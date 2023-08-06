@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "akira"
+version = "0.1.6"
+description = "A short description of the package."
+license = "MIT"
+authors = [
+    "Bruno-Felix <auxbfelix@gmail.com>"
+]
+readme = "README.md"
+repository = "https://github.com/PDA-FGA/Playground"
+keywords = ["packaging", "poetry"]
+packages = [
+    {include = "akira", from = "src"},
+    {include = "yamls", from = "src"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.scripts]
+my_package_cli = 'akira.teste:return_ola_mundo_string'
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
