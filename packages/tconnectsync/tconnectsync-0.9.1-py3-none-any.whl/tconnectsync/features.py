@@ -1,0 +1,34 @@
+from .secret import ENABLE_TESTING_MODES
+
+"""Supported synchronization features."""
+BASAL = "BASAL"
+BOLUS = "BOLUS"
+IOB = "IOB"
+BOLUS_BG = "BOLUS_BG"
+CGM = "CGM"
+PUMP_EVENTS = "PUMP_EVENTS"
+PUMP_EVENTS_BASAL_SUSPENSION = "PUMP_EVENTS_BASAL_SUSPENSION"
+PROFILES = "PROFILES"
+
+DEFAULT_FEATURES = [
+    BASAL,
+    BOLUS,
+    PUMP_EVENTS
+]
+
+ALL_FEATURES = [
+    BASAL,
+    BOLUS,
+    IOB,
+    PUMP_EVENTS,
+    PUMP_EVENTS_BASAL_SUSPENSION,
+    PROFILES
+]
+
+
+# These modes are not yet ready for wide use.
+if ENABLE_TESTING_MODES:
+    ALL_FEATURES += [
+        BOLUS_BG,
+        CGM
+    ]
