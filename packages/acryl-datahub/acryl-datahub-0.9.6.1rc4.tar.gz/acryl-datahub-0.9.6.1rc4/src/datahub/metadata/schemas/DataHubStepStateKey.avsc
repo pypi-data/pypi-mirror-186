@@ -1,0 +1,21 @@
+{
+  "type": "record",
+  "name": "DataHubStepStateKey",
+  "namespace": "com.linkedin.pegasus2avro.metadata.key",
+  "doc": "Key for a DataHub Step State",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "doc": "A unique id for the state"
+    }
+  ],
+  "Aspect": {
+    "name": "dataHubStepStateKey",
+    "keyForEntity": "dataHubStepState",
+    "entityCategory": "core",
+    "entityAspects": [
+      "dataHubStepStateProperties"
+    ]
+  }
+}
