@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+	&raquo; Rate Server Importer
+{% endblock %}
+
+{% block nav %}
+	Rate Server Importer
+{% endblock %}
+
+{% block content %}
+	{% if importer %}
+		<table>
+			<tr>
+				<th>Is Locked?</th>
+				<td>{{importer.is_locked()}}</td>
+			</tr>
+		</table>
+		<form method="post">
+			<fieldset {% if importer.is_locked() %}disabled{% endif %}>
+				<legend>Import Now</legend>
+				<input type="submit" value="Import" name="import">
+			</fieldset>
+		</form>
+
+		<p>
+			The rate server details can be set in the
+			<a href="/configuration">configuration</a> with an entry like:
+		</p>
+
+		<pre>"rate_server": {
+  "url": "https://api.github.com/repos/WessexWater/chellow-rates",
+  "branch": "main",
+},</pre>
+
+		{% if importer.is_locked() %}
+			<p>Progress: {{importer.progress}}</p>
+		{% endif %}
+
+		<h4>Log</h4>
+		<ul>
+			{% for message in importer.messages %}
+				<li>{{message}}</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>Importer not present.</p>
+	{% endif %}
+{% endblock %}
