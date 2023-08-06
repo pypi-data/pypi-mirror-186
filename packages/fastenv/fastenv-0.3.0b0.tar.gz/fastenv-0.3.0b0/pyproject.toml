@@ -1,0 +1,114 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[project]
+authors = [{email = "bws@bws.bio", name = "Brendon Smith"}]
+classifiers = [
+  "Environment :: Web Environment",
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+  "Topic :: Software Development :: Libraries :: Application Frameworks",
+  "Topic :: System :: Installation/Setup",
+  "Topic :: System :: Systems Administration",
+  "Topic :: Utilities",
+  "Typing :: Typed",
+]
+dependencies = [
+  "anyio>=3.3,<4",
+]
+description = "Unified environment variable and settings management for FastAPI and beyond."
+dynamic = ["version"]
+keywords = ["asgi", "dotenv", "environment variables", "fastapi", "settings"]
+license = "MIT"
+name = "fastenv"
+readme = "README.md"
+requires-python = ">=3.8.1,<4"
+
+[project.optional-dependencies]
+checks = [
+  "black>=22,<23",
+  "flake8>=6,<7",
+  "isort>=5,<6",
+  "mypy==0.991",
+  "pre-commit>=2,<3",
+]
+cloud = [
+  "httpx>=0.23,<0.24",
+]
+docs = [
+  "mkdocs-material>=8,<9",
+]
+httpx = [
+  "httpx>=0.23,<0.24",
+]
+tests = [
+  "coverage[toml]>=6,<7",
+  "freezegun>=1,<2",
+  "httpx>=0.23,<0.24",
+  "pytest>=7,<8",
+  "pytest-mock>=3,<4",
+]
+
+[project.urls]
+Documentation = "https://fastenv.bws.bio"
+Homepage = "https://github.com/br3ndonland/fastenv"
+Repository = "https://github.com/br3ndonland/fastenv"
+
+[tool.hatch.build.targets.sdist]
+include = ["/fastenv"]
+
+[tool.hatch.envs.ci]
+dev-mode = false
+features = [
+  "checks",
+  "tests",
+]
+path = ".venv"
+
+[tool.hatch.envs.default]
+dev-mode = true
+features = [
+  "checks",
+  "docs",
+  "tests",
+]
+path = ".venv"
+
+[tool.hatch.envs.docs]
+dev-mode = false
+features = [
+  "docs",
+]
+
+[tool.hatch.version]
+path = "fastenv/__init__.py"
+
+[tool.coverage.report]
+exclude_lines = ["if TYPE_CHECKING:", "pragma: no cover"]
+fail_under = 100
+show_missing = true
+
+[tool.coverage.run]
+command_line = "-m pytest"
+source = ["fastenv", "tests"]
+
+[tool.isort]
+profile = "black"
+src_paths = ["fastenv", "tests"]
+
+[tool.mypy]
+files = ["**/*.py"]
+show_error_codes = true
+strict = true
+
+[tool.pytest.ini_options]
+addopts = "-q"
+minversion = "6.0"
+testpaths = ["tests"]
