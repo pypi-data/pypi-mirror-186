@@ -1,0 +1,129 @@
+[
+  {
+    "name": "get_crop_residue_terms",
+    "query": {
+      "termType": "cropResidue"
+    },
+    "results": [
+      "discardedCropBurnt",
+      "discardedCropLeftOnField",
+      "discardedCropTotal",
+      "discardedCropIncorporated",
+      "aboveGroundCropResidueRemoved",
+      "aboveGroundCropResidueTotal",
+      "aboveGroundCropResidueIncorporated",
+      "discardedCropRemoved",
+      "aboveGroundCropResidueBurnt",
+      "belowGroundCropResidue",
+      "aboveGroundCropResidueLeftOnField"
+    ]
+  },
+  {
+    "name": "get_fuel_terms",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "match": {
+              "@type": "Term"
+            }
+          },
+          {
+            "match": {
+              "termType.keyword": "fuel"
+            }
+          }
+        ],
+        "should": [
+          {
+            "regexp": {
+              "name": "*gasoline*"
+            }
+          },
+          {
+            "regexp": {
+              "name": "*diesel*"
+            }
+          }
+        ],
+        "minimum_should_match": 1
+      }
+    },
+    "results": []
+  },
+  {
+    "name": "get_methodModels",
+    "query": {
+      "termType": "model"
+    },
+    "results": [
+      "deRuijterEtAl2010",
+      "lanca",
+      "koble2014",
+      "pooreNemecek2018",
+      "salca",
+      "ipcc1995",
+      "blonkConsultants2016",
+      "ipcc2019",
+      "harmonizedWorldSoilDatabaseV12",
+      "ipcc2007",
+      "lcImpactAllEffects100Years",
+      "hestiaAggregatedData",
+      "recipe2008Individualist",
+      "agribalyse2016",
+      "environmentalFootprintV3",
+      "aware",
+      "spatial",
+      "epa2014",
+      "edip2003",
+      "usetoxV2",
+      "recipe2016Individualist",
+      "ecoinventV3",
+      "lcImpactCertainEffects100Years",
+      "ipcc2019CountryAverageFertiliserMix",
+      "recipe2016Hierarchist",
+      "pribyl2010",
+      "papatryphonEtAl2004",
+      "europeanEnvironmentAgency2016",
+      "lcImpactCertainEffectsInfinite",
+      "emeaEea2019",
+      "poschEtAl2008",
+      "sqcb",
+      "ipcc2013ExcludingFeedbacks",
+      "chaudharyBrooks2018",
+      "faostat2018",
+      "ipcc1996",
+      "cml2001Baseline",
+      "recipe2008Egalitarian",
+      "lcImpactAllEffectsInfinite",
+      "ipcc2001",
+      "europeanEnvironmentAgency2013",
+      "aggregatedModels",
+      "akagiEtAl2011AndIpcc2006",
+      "recipe2016Egalitarian",
+      "otherModel",
+      "webbEtAl2012AndSintermannEtAl2012",
+      "ipcc2006",
+      "recipe2008Hierarchist",
+      "ecoinventV2",
+      "rainsModel",
+      "stehfestBouwman2006GisImplementation",
+      "stehfestBouwman2006",
+      "schererPfister2015",
+      "cml2001NonBaseline",
+      "royEtAl2014",
+      "allenEtAl2018",
+      "chaudharyEtAl2015",
+      "ecoIndicator95",
+      "linkedImpactAssessment",
+      "emeaEea2019CountryAverageFertiliserMix",
+      "hyde32",
+      "milaICanalsEtAl2007",
+      "ipcc2013IncludingFeedbacks",
+      "cumulativeEnergyDemandCedMethod",
+      "dammgen2009",
+      "globalCropWaterModel2008",
+      "sqcbFaistEmmeneggerEtAl2009"
+    ]
+  }
+]
