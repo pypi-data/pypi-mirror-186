@@ -1,0 +1,151 @@
+Metadata-Version: 2.1
+Name: pawpyrus
+Version: 2023.1.15.0
+Summary: A minimalist paper data storage based on QR codes
+Project-URL: Homepage, https://github.com/regnveig/pawpyrus
+Project-URL: Bug Tracker, https://github.com/regnveig/pawpyrus/issues
+Author-email: Emil Viesná <regnveig@yandex.ru>
+License-Expression: GPL-3.0-or-later
+License-File: LICENSE
+Keywords: ArUco,QR,data storage,paper
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.8
+Requires-Dist: argparse
+Requires-Dist: bitarray
+Requires-Dist: more-itertools
+Requires-Dist: numpy
+Requires-Dist: opencv-contrib-python
+Requires-Dist: opencv-python
+Requires-Dist: pyzbar
+Requires-Dist: qrcode
+Requires-Dist: reportlab
+Requires-Dist: svglib
+Requires-Dist: tqdm
+Description-Content-Type: text/markdown
+
+&nbsp;
+
+![Logo](https://github.com/regnveig/pawpyrus/blob/stable/logo.svg)
+
+## Description
+
+![PyPI](https://img.shields.io/pypi/v/pawpyrus?style=flat-square)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pawpyrus?style=flat-square)
+![PyPI - Status](https://img.shields.io/pypi/status/pawpyrus?style=flat-square)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/pawpyrus?style=flat-square)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/regnveig/pawpyrus/sandbox?style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues-raw/regnveig/pawpyrus?style=flat-square)
+![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/regnveig/pawpyrus?style=flat-square)
+![GitHub](https://img.shields.io/github/license/regnveig/pawpyrus?style=flat-square)
+
+**pawpyrus** is a minimalist open-source paper data storage based on QR codes and ArUco.
+It generates a PDF from any small-sized binary file (recommended size <100kb).
+Further, the paper data storage can be scanned and decoded (recommended resolution 300dpi).
+
+It may be useful for:
+
+* Storing encryption keys, password databases, etc.
+* Faxing digital data
+
+**NB: Backward compatibility is not provided yet. To decode a document, please use exactly the version which was used to encode it.**
+
+## Installation
+
+The script is pure Python and a part of [PyPI](https://pypi.org/project/pawpyrus), so can be installed via *pip*:
+
+```bash
+python3 -m pip install pawpyrus
+```
+
+## Usage
+
+File encoder:
+
+```bash
+pawpyrus Encode -n "Description" -i  "InputFile" -o "OutputPDF"
+```
+
+File decoder:
+
+```bash
+pawpyrus Decode -i "scan1.jpg" "scan2.jpg" "scan3.jpg" "masked/too/*.jpg" -o "OutputFile"
+```
+
+Output PDF example you can see [here](https://github.com/regnveig/pawpyrus/tree/stable/examples).
+
+## Data Format
+
+Every storaged file has the following parts:
+
+1. **Header (zero) block**. Contains:
+	- *Run ID*: Unique number to distinguish blocks origin
+	- *Number of blocks*
+	- *SHA-256 checksum*
+2. **Data blocks**. Contains:
+	- *Run ID*
+	- *Data block number*
+	- *Data chunk*
+
+### Data Density
+
+pawpyrus uses a custom alphanumeric encoding, which is designed to store information in QR code effectively.
+For now, that makes 4.3kb per A4 page (pixel size 0.6 mm).
+
+## Got a Trouble?
+
+**QR code and ArUco marker detectors may fail on one or several blocks.**
+This situation is totally normal, although uncomfortable.
+I fixed it for now, with two detectors (OpenCV and PyZBar) instead of one, but the bug may reappear in some circumstances (if blocks number is big enough, or scans quality is too low).
+That's why I implemented Debug Mode:
+
+```bash
+pawpyrus Decode -d "DebugDir" -i "Scan1.jpg" "Scan2.jpg" "Scan3.jpg" -o  "OutputFile"
+```
+
+With Debug Mode, you can inspect undetected QR codes, read them manually with any device you have, and create a file with codes contents which may be processed as well:
+
+```bash
+pawpyrus Decode "Scan1.jpg" "Scan2.jpg" "Scan3.jpg" -t "UnrecognizedCodes.txt" -o "OutputFile"
+```
+
+Output Debug Dir example you can see [here](https://github.com/regnveig/pawpyrus/tree/stable/examples).
+
+If you have any idea how to fix it better, [please help](https://github.com/regnveig/pawpyrus/issues/4).
+
+## Similar Projects
+
+1. [intra2net/paperbackup](https://github.com/intra2net/paperbackup):
+Very similar to pawpyrus.
+Create a pdf with barcodes to backup text files on paper.
+Designed to backup ASCII-armored GnuPG and SSH key files and ciphertext.
+
+2. [Paperback by Olly](https://ollydbg.de/Paperbak/):
+Free application that allows you to back up your precious files on the ordinary paper in the form of the oversized bitmaps.
+If you have a good laser printer with the 600dpi resolution, you can save up to 500,000 bytes of uncompressed data on the single A4/Letter sheet.
+Integrated packer allows for much better data density - up to 3,000,000+ (three megabytes) of C code per page.
+[Wikinaut/paperback-cli](https://github.com/Wikinaut/paperback-cli):
+Crossplatform, backwards-compatible, command line version of Paperback.
+
+3. [colorsafe/colorsafe](https://github.com/colorsafe/colorsafe):
+A data matrix scheme for printing on paper and microfilm.
+Inspired by Paperbak, ColorSafe is written in Python and has a flexible specification.
+It aims to allow a few Megabytes of data (or more) to be stored on printable media for a worst case scenario backup, for extremely long-term archiving, or just for fun.
+
+4. [Twibright Optar](http://ronja.twibright.com/optar):
+Codec for encoding data on paper or free software 2D barcode in other words.
+Optar fits 200kB on an A4 page.
+A practical level of reliability is ensured using forward error correction code (FEC).
+Automated processing of page batches facilitates storage of files larger than 200kB.
+
+5. [Paperkey](https://www.jabberwocky.com/software/paperkey):
+It is designed to reduce the data needed to backup a private GnuPG key.
+
+6. [4bitfocus/asc-key-to-qr-code](https://github.com/4bitfocus/asc-key-to-qr-code):
+Shell scripts to convert between ascii armor PGP keys and QR codes for paper backup.
