@@ -1,0 +1,74 @@
+{# templates/psp34.txt -#}
+
+#![cfg_attr(not(feature = "std"), no_std)]
+#![feature(min_specialization)]
+        
+#[openbrush::contract]
+pub mod my_psp34 {
+    
+    // imports from openbrush
+    {% if basic -%}
+	use openbrush::contracts::psp34::*;
+    {% endif -%}
+    {% if metadata -%}
+    use openbrush::traits::String;
+    use openbrush::contracts::psp34::extensions::metadata::*;
+    {% endif -%}
+    {% if mintable -%}
+    use openbrush::contracts::psp34::extensions::mintable::*;
+    {% endif -%}
+    {% if burnable -%}
+    use openbrush::contracts::psp34::extensions::burnable::*;
+    {% endif -%}
+    {% if enumrable -%}
+    use openbrush::contracts::psp34::extensions::enumerable::*;
+    {% endif -%}
+	use openbrush::traits::Storage;
+
+    #[ink(storage)]
+    #[derive(Default, Storage)]
+    pub struct {{contract_name}} {
+    	#[storage_field]
+        {% if not enumrable -%}
+		psp34: psp34::Data,
+        {% endif -%}
+        {% if enumrable -%}
+        psp34: psp34::Data<Balances>,
+        {% endif -%}
+        {% if metadata -%}
+        #[storage_field]
+		metadata: metadata::Data,
+        {% endif -%}
+    }
+    
+    // Section contains default implementation without any modifications
+	impl PSP34 for {{contract_name}} {}
+    {% if mintable -%}
+    impl PSP34Mintable for {{contract_name}} {}
+    {% endif -%}
+    {% if burnable -%}
+    impl PSP34Burnable for {{contract_name}} {}
+    {% endif -%}
+    {% if enumrable -%}
+    impl PSP34Enumerable for {{contract_name}} {}
+    {% endif -%}
+    {% if metadata -%}
+    impl PSP34Metadata for {{contract_name}} {}
+    {%- endif %}
+     
+    impl {{contract_name}} {
+        #[ink(constructor)]
+        pub fn new() -> Self {
+            let mut _instance = Self::default();
+            {% if mintable -%}
+            _instance._mint_to(_instance.env().caller(), Id::U8(1)).expect("Can mint");
+            {% endif -%}
+            {% if metadata -%}
+            let collection_id = _instance.collection_id();
+			_instance._set_attribute(collection_id.clone(), String::from("name"), String::from("MyPSP34"));
+			_instance._set_attribute(collection_id, String::from("symbol"), String::from("MPSP"));
+            {% endif -%}
+			_instance
+        }
+    }
+}
