@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: nanomix
+Version: 0.1.0
+Classifier: Programming Language :: Rust
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Dist: pandas~=1.5.2
+Requires-Dist: pyranges==0.0.120
+Requires-Dist: numpy~=1.24.1
+Requires-Dist: scipy~=1.10.0
+License-File: LICENSE
+Summary: Methods for cell type deconvolution from Oxford Nanopore methylation calling
+Keywords: nanopore,methylation,deconvolution
+Author-email: Jonathan Broadbent <jonbroad15@gmail.com>, Jared Simpson <jsimpson@oicr.on.ca>
+Maintainer-email: Jonathan Broadbent <jonbroad15@gmail.com>
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+
+# nanomix
+
+Tools for methylation deconvolution for ONT sequencing data.
+
+### Dependencies
+`conda install -c bioconda pyranges`
+
+
+### Notes
+- For all atlas beta values, a: `0 < a < 1`
+
