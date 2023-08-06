@@ -1,0 +1,226 @@
+[project]
+name = "arize-phoenix"
+description = "ML Observability in your notebook"
+readme = "README.md"
+requires-python = ">=3.8, <3.11"
+license = "Elastic-2.0"
+license-files = { paths = ["LICENSE"] }
+keywords = [
+  "Observability",
+  "Monitoring",
+  "Explainability",
+]
+authors = [
+  { name = "Arize AI", email = "phoenix-devs@arize.com" },
+]
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+]
+dependencies = [
+  "numpy",
+  "pandas",
+  "umap-learn",
+  "hdbscan",
+  "starlette",
+  "uvicorn",
+  "psutil",
+  "strawberry-graphql",
+  "pyarrow",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+  "black",
+  "hatch",
+  "jupyter",
+  "pandas-stubs",
+  "pytest",
+  "pytest-cov",
+  "pytest-lazy-fixture",
+  "strawberry-graphql[debug-server]",
+  "fastparquet",
+  "pre-commit",
+]
+
+[project.urls]
+Documentation = "https://github.com/Arize-ai/phoenix#readme"
+Issues = "https://github.com/Arize-ai/phoenix/issues"
+Source = "https://github.com/Arize-ai/phoenix"
+
+[tool.hatch.version]
+path = "src/phoenix/__about__.py"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/phoenix"]
+artifacts = ["src/phoenix/server/static"]
+
+[tool.hatch.build]
+only-packages = true
+
+[tool.hatch.build.hooks.jupyter-builder]
+dependencies = ["hatch-jupyter-builder"]
+build-function = "hatch_jupyter_builder.npm_builder"
+ensured-targets = ["src/phoenix/server/static/index.js", "src/phoenix/server/static/index.html"]
+
+[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
+path = "app"
+source_dir = "app"
+
+[tool.hatch.build.targets.sdist]
+artifacts = ["src/phoenix/server/static"]
+
+[tool.hatch.envs.default]
+dependencies = [
+  "fastparquet",
+  "pytest",
+  "pytest-cov",
+  "pytest-lazy-fixture",
+]
+
+[tool.hatch.envs.type]
+dependencies = [
+  "mypy",
+  "pandas-stubs",
+  "pytest",
+  "types-psutil",
+]
+
+[tool.hatch.envs.style]
+detached = true
+dependencies = [
+  "black",
+  "black[jupyter]",
+  "flake8",
+  "isort",
+]
+
+[tool.hatch.envs.docs]
+detached = true
+dependencies = [
+  "interrogate",
+]
+
+[tool.hatch.envs.default.scripts]
+tests = "pytest {args}"
+coverage = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=src/phoenix --cov=tests {args}"
+
+[[tool.hatch.envs.test.matrix]]
+python = ["310"]
+
+[tool.pytest.ini_options]
+addopts = [
+  "-rA",
+  "--import-mode=importlib",
+]
+testpaths = [
+  "tests",
+]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+  "src/phoenix/__about__.py",
+  "**/__init__.py",
+]
+
+[tool.coverage.report]
+fail_under=30
+show_missing=true
+sort="cover"
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.hatch.envs.type.scripts]
+check = [
+  "mypy .",
+]
+
+[tool.hatch.envs.style.scripts]
+check = [
+  "isort --check-only --diff .",
+  "black --check --diff --color .",
+  "flake8 .",
+]
+fix = [
+  "isort .",
+  "black .",
+  "flake8 .",
+]
+
+[tool.hatch.envs.publish]
+dependencies = [
+  "check-wheel-contents",
+  "twine",
+]
+
+[tool.hatch.envs.publish.scripts]
+testpypi = [
+  "check-wheel-contents dist/",
+  "twine upload  --verbose --repository testpypi dist/*",
+]
+pypi = [
+  "check-wheel-contents dist/",
+  "twine upload --verbose dist/*",
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 100
+
+[tool.hatch.envs.docs.scripts]
+check = [
+  "interrogate -vv src/",
+]
+
+[tool.hatch.envs.gql]
+
+[tool.hatch.envs.gql.scripts]
+build = 'strawberry export-schema phoenix.server.api.schema:schema > app/schema.graphql'
+
+[tool.interrogate]
+fail-under = 0
+exclude=["src/phoenix/__about__.py"]
+# generate-badge = "badges/"
+omit-covered-files = true
+ignore-init-method = true
+ignore-init-module = true
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = false
+ignore-nested-functions = false
+ignore-nested-classes = false
+ignore-setters = false
+
+[tool.mypy]
+plugins = ["strawberry.ext.mypy_plugin"]
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs  = true
+strict = true
+exclude = [
+  "tests/",
+]
+
+[[tool.mypy.overrides]]
+module = [
+  "hdbscan",
+  "umap",
+]
+ignore_missing_imports = true
