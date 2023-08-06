@@ -1,0 +1,44 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "cli-help-maker"
+authors = [
+    {name = "Agustín Piqueres", email = "agustin.piqueres@gmail.com"}
+]
+dependencies = [
+    "nltk>=3.8",
+    "rich>=12.6.0",
+    "ruamel.yaml>=0.17.21",
+    "typer>=0.7.0",
+    "srsly>=2.4.5",
+    "pydantic>=1.10.2"
+]
+
+license = {file = "LICENSE"}
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"
+]
+readme = "README.md"
+dynamic = ['version', 'description']
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.2.0",
+    "pytest-cov>=4.0.0",
+    "hypothesis>=6.61.0",
+    "nox>=2022.11.21"
+]
+dev = [
+    "black",
+    "mypy",
+    "isort"
+]
+
+[project.scripts]
+cli-help-maker = "cli_help_maker.main:app"
+
+[project.urls]
+Source = "https://github.com/plaguss/cli-help-maker"
