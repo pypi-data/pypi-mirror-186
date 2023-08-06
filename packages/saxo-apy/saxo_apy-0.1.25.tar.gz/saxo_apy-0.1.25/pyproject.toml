@@ -1,0 +1,76 @@
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "mypy>=0.991",
+    "black[jupyter]>=22.12.0",
+    "pydocstyle>=6.2.3",
+    "pytest>=7.2.1",
+    "pytest-cov>=4.0.0",
+    "jupyter>=1.0.0",
+    "isort>=5.11.4",
+]
+
+[project]
+name = "saxo-apy"
+description = "A lightweight Python client for hassle-free tinkering with Saxo OpenAPI."
+authors = [
+    {name = "Gid", email = "giddevanderven@gmail.com"},
+]
+dependencies = [
+    "httpx>=0.23.3",
+    "pydantic>=1.10.4",
+    "flask>=2.2.2",
+    "websockets>=10.4",
+    "loguru>=0.6.0",
+]
+requires-python = ">=3.7"
+readme = "README.md"
+license = {text = "MIT"}
+dynamic = ["version"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = 'saxo_apy/version.py'
+
+[tool.pdm.scripts]
+pydocstyle = "pydocstyle ./saxo_apy ./tests"
+isort = "isort ./saxo_apy ./tests"
+black = "black ./saxo_apy ./tests"
+mypy = "mypy ./saxo_apy ./tests"
+lint = {composite = ["pydocstyle", "isort", "black", "mypy"]}
+test = "pytest"
+
+[tool.black]
+color = true
+line-length = 120
+
+[tool.isort]
+line_length = 120
+known_first_party = 'saxo_apy'
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+combine_as_imports = true
+
+[tool.mypy]
+show_error_codes = true
+follow_imports = 'silent'
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+check_untyped_defs = true
+no_implicit_reexport = true
+warn_unused_configs = true
+disallow_subclassing_any = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+implicit_optional = true
+
+[tool.pytest.ini_options]
+testpaths = "tests"
+addopts = "--cov=saxo_apy --cov-report term-missing -v"
