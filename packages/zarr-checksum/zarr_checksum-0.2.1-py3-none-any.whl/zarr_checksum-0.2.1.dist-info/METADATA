@@ -1,0 +1,80 @@
+Metadata-Version: 2.1
+Name: zarr-checksum
+Version: 0.2.1
+Summary: Checksum support for zarrs stored in various backends
+Home-page: https://github.com/dandi/zarr_checksum
+License: Apache 2.0
+Author: Kitware, Inc.
+Author-email: kitware@kitware.com
+Requires-Python: >=3.8.10,<4.0.0
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: boto3 (>=1.26.29,<2.0.0)
+Requires-Dist: boto3-stubs[s3] (>=1.26.29,<2.0.0)
+Requires-Dist: click (>=8.1.3,<9.0.0)
+Requires-Dist: pydantic (>=1.10.2,<2.0.0)
+Requires-Dist: tqdm (>=4.64.1,<5.0.0)
+Requires-Dist: zarr (>=2.13.3,<3.0.0)
+Project-URL: Repository, https://github.com/dandi/zarr_checksum
+Description-Content-Type: text/markdown
+
+# zarr_checksum
+Algorithms for calculating a zarr checksum against local or cloud storage
+
+# Install
+```
+pip install zarr-checksum
+```
+
+# Usage
+
+## CLI
+To calculate the checksum for a local zarr archive
+```
+zarrsum local <directory>
+```
+
+To calcuate the checksum for a remote (S3) zarr archive
+```
+zarrsum remote s3://your_bucket/prefix_to_zarr
+```
+
+## Python
+To calculate the checksum for a local zarr archive
+```python
+from zarr_checksum import compute_zarr_checksum
+from zarr_checksum.generators import yield_files_local, yield_files_s3
+
+# Local
+checksum = compute_zarr_checksum(yield_files_local("local_path"))
+
+# Remote
+checksum = compute_zarr_checksum(
+    yield_files_s3(
+        bucket="your_bucket",
+        prefix="prefix_to_zarr",
+        # Credentials can also be passed via environment variables
+        credentials={
+            aws_access_key_id: "youraccesskey",
+            aws_secret_access_key: "yoursecretkey",
+            region_name: "us-east-1",
+        }
+    )
+)
+```
+
+Access checksum information
+```python
+>>> checksum.digest
+'c228464f432c4376f0de6ddaea32650c-37481--38757151179'
+>>> checksum.md5
+'c228464f432c4376f0de6ddaea32650c'
+>>> checksum.count
+37481
+>>> checksum.size
+38757151179
+```
+
