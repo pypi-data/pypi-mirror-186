@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; Recipe 0.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="tutorial.html" />
+    <link rel="prev" title="Introduction" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4eb2cd" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Recipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installing-recipe">Installing Recipe</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#distribute-pip">Distribute &amp; Pip</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#download-the-source">Download the Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#staying-updated">Staying Updated</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting Started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="concepts/overview.html">Overview of Recipe Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/ingredients.html">Ingredients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/from_field_expression_config.html">Defining Shelves with Field Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/from_config.html">Defining Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/using_from_config.html">Using Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions/intro_to_extensions.html">Using Extensions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/ovens.html">Ovens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/hooks.html">Hooks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing/development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/oven_drivers.html">Custom Oven Drivers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/dynamic_extensions.html">Dynamic Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Recipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installing-recipe">
+<h2>Installing Recipe<a class="headerlink" href="#installing-recipe" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="distribute-pip">
+<h3>Distribute &amp; Pip<a class="headerlink" href="#distribute-pip" title="Permalink to this headline">¶</a></h3>
+<p>The recommended way to install Recipe is with <a class="reference external" href="http://www.pip-installer.org/">pip</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install recipe
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="download-the-source">
+<h2>Download the Source<a class="headerlink" href="#download-the-source" title="Permalink to this headline">¶</a></h2>
+<p>You can also install recipe from source. The latest release (0.14.0) is
+available from GitHub.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://github.com/juiceinc/recipe/tarball/master">tarball</a></p></li>
+<li><p><a class="reference external" href="http://github.com/juiceinc/recipe/zipball/master">zipball</a></p></li>
+</ul>
+<p>Once you have a copy of the source, you can embed it in your Python package, or
+install it into your site-packages easily.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py install
+</pre></div>
+</div>
+<div class="section" id="staying-updated">
+<h3>Staying Updated<a class="headerlink" href="#staying-updated" title="Permalink to this headline">¶</a></h3>
+<p>The latest version of Recipe will always be available here:</p>
+<ul class="simple">
+<li><p>PyPi: <a class="reference external" href="http://pypi.python.org/pypi/recipe/">http://pypi.python.org/pypi/recipe/</a></p></li>
+<li><p>GitHub: <a class="reference external" href="http://github.com/juiceinc/recipe/">http://github.com/juiceinc/recipe/</a></p></li>
+</ul>
+<p>When a new version is available, upgrading is simple:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install recipe --upgrade
+</pre></div>
+</div>
+<p>Now, go get a <a class="reference internal" href="tutorial.html#quickstart"><span class="std std-ref">Quick Start</span></a>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chris Gemignani
+      <span class="lastupdated">
+        Last updated on May 04, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

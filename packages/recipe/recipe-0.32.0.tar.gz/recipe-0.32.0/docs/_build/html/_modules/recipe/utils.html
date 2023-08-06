@@ -1,0 +1,516 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>recipe.utils &mdash; Recipe 0.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4eb2cd" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Recipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Getting Started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/overview.html">Overview of Recipe Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/ingredients.html">Ingredients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/from_field_expression_config.html">Defining Shelves with Field Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/from_config.html">Defining Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/using_from_config.html">Using Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extensions/intro_to_extensions.html">Using Extensions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced/ovens.html">Ovens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced/hooks.html">Hooks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/oven_drivers.html">Custom Oven Drivers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dynamic_extensions.html">Dynamic Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Recipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>recipe.utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for recipe.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">unicodedata</span>
+<span class="kn">from</span> <span class="nn">.compat</span> <span class="kn">import</span> <span class="nb">str</span> <span class="k">as</span> <span class="n">compat_str</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># getfullargspec is not available in python2</span>
+    <span class="c1"># getargspec is deprecated</span>
+    <span class="c1"># try to use getfullargspec if possible</span>
+    <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">isclass</span><span class="p">,</span> <span class="n">getfullargspec</span> <span class="k">as</span> <span class="n">getargspec</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">getargspec</span><span class="p">,</span> <span class="n">isclass</span>
+
+<span class="kn">import</span> <span class="nn">attr</span>
+<span class="kn">import</span> <span class="nn">sqlalchemy.orm</span>
+<span class="kn">import</span> <span class="nn">sqlparse</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+
+<span class="kn">from</span> <span class="nn">faker</span> <span class="kn">import</span> <span class="n">Faker</span>
+<span class="kn">from</span> <span class="nn">faker.providers</span> <span class="kn">import</span> <span class="n">BaseProvider</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">text_type</span><span class="p">,</span> <span class="n">string_types</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.engine.default</span> <span class="kn">import</span> <span class="n">DefaultDialect</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.sql.functions</span> <span class="kn">import</span> <span class="n">FunctionElement</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.sql.sqltypes</span> <span class="kn">import</span> <span class="n">Date</span><span class="p">,</span> <span class="n">DateTime</span><span class="p">,</span> <span class="n">NullType</span><span class="p">,</span> <span class="n">String</span>
+
+<span class="kn">from</span> <span class="nn">recipe.compat</span> <span class="kn">import</span> <span class="n">basestring</span><span class="p">,</span> <span class="n">integer_types</span><span class="p">,</span> <span class="nb">str</span>
+
+<span class="c1"># only expose the printing sql function</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;prettyprintable_sql&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;generate_faker_seed&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;clean_unicode&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;FakerAnonymizer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;FakerFormatter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;recipe_arg&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">generate_faker_seed</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate a seed value for faker. &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">compat_str</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">compat_str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;md5&quot;</span><span class="p">)</span>
+    <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">16</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">recipe_arg</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Decorator for recipe builder arguments.</span>
+
+<span class="sd">    Promotes builder pattern by returning self.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_args</span><span class="p">,</span> <span class="o">**</span><span class="n">_kwargs</span><span class="p">):</span>
+            <span class="kn">from</span> <span class="nn">recipe</span> <span class="kn">import</span> <span class="n">Recipe</span><span class="p">,</span> <span class="n">RecipeExtension</span><span class="p">,</span> <span class="n">BadRecipe</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Recipe</span><span class="p">):</span>
+                <span class="n">recipe</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">RecipeExtension</span><span class="p">):</span>
+                <span class="n">recipe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span>
+                    <span class="s2">&quot;recipe_arg can only be applied to&quot;</span>
+                    <span class="s2">&quot;methods of Recipe or RecipeExtension&quot;</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">recipe</span><span class="o">.</span><span class="n">_query</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">recipe</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+            <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_args</span><span class="p">,</span> <span class="o">**</span><span class="n">_kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">recipe</span>
+
+        <span class="k">return</span> <span class="n">wrapper</span>
+
+    <span class="k">return</span> <span class="n">decorator</span>
+
+
+<span class="k">class</span> <span class="nc">TestProvider</span><span class="p">(</span><span class="n">BaseProvider</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A demo faker provider for testing string providers&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;foo&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">StringLiteral</span><span class="p">(</span><span class="n">String</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Teach SA how to literalize various things. &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">literal_processor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dialect</span><span class="p">):</span>
+        <span class="n">super_processor</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">StringLiteral</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">literal_processor</span><span class="p">(</span><span class="n">dialect</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">integer_types</span><span class="p">):</span>
+                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">super_processor</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">dialect</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="k">return</span> <span class="n">process</span>
+
+
+<span class="k">def</span> <span class="nf">prettyprintable_sql</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="n">dialect</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reindent</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate an SQL expression string with bound parameters rendered inline</span>
+<span class="sd">    for the given SQLAlchemy statement. The function can also receive a</span>
+<span class="sd">    `sqlalchemy.orm.Query` object instead of statement.</span>
+
+<span class="sd">    WARNING: Should only be used for debugging. Inlining parameters is not</span>
+<span class="sd">             safe when handling user created data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="n">sqlalchemy</span><span class="o">.</span><span class="n">orm</span><span class="o">.</span><span class="n">Query</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dialect</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dialect</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get_bind</span><span class="p">()</span><span class="o">.</span><span class="n">dialect</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">statement</span>
+
+    <span class="c1"># Generate a class that can handle encoding</span>
+    <span class="k">if</span> <span class="n">dialect</span><span class="p">:</span>
+        <span class="n">DialectKlass</span> <span class="o">=</span> <span class="n">dialect</span><span class="o">.</span><span class="vm">__class__</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">DialectKlass</span> <span class="o">=</span> <span class="n">DefaultDialect</span>
+
+    <span class="k">class</span> <span class="nc">LiteralDialect</span><span class="p">(</span><span class="n">DialectKlass</span><span class="p">):</span>
+        <span class="n">colspecs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="c1"># prevent various encoding explosions</span>
+            <span class="n">String</span><span class="p">:</span> <span class="n">StringLiteral</span><span class="p">,</span>
+            <span class="c1"># teach SA about how to literalize a datetime</span>
+            <span class="n">DateTime</span><span class="p">:</span> <span class="n">StringLiteral</span><span class="p">,</span>
+            <span class="n">Date</span><span class="p">:</span> <span class="n">StringLiteral</span><span class="p">,</span>
+            <span class="c1"># don&#39;t format py2 long integers to NULL</span>
+            <span class="n">NullType</span><span class="p">:</span> <span class="n">StringLiteral</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="n">compiled</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+        <span class="n">dialect</span><span class="o">=</span><span class="n">LiteralDialect</span><span class="p">(),</span> <span class="n">compile_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;literal_binds&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">sqlparse</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">compiled</span><span class="p">),</span> <span class="n">reindent</span><span class="o">=</span><span class="n">reindent</span><span class="p">)</span>
+
+
+<span class="n">WHITESPACE_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">replace_whitespace_with_space</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Replace multiple whitespaces with a single space. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">WHITESPACE_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">clean_unicode</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert value into ASCII bytes by brute force.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">text_type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s2">&quot;NFKD&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">AttrDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AttrDict</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="bp">self</span>
+
+
+<span class="k">def</span> <span class="nf">disaggregate</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">FunctionElement</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">expr</span><span class="o">.</span><span class="n">clause_expr</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">expr</span>
+
+
+<span class="k">class</span> <span class="nc">FakerFormatter</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">Formatter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A formatter that can get values from Faker generators.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">format_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">format_spec</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param obj: A faker Faker</span>
+<span class="sd">        :param format_spec: a generator</span>
+<span class="sd">        :return: A string generated by</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">generator</span> <span class="o">=</span> <span class="n">format_spec</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="s2">&quot;|&quot;</span> <span class="ow">in</span> <span class="n">format_spec</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">newgenerator</span><span class="p">,</span> <span class="n">potential_kwargs</span> <span class="o">=</span> <span class="n">format_spec</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">potential_kwargs</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
+                    <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s2">&quot;None&quot;</span><span class="p">:</span>
+                        <span class="n">v</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="k">elif</span> <span class="n">v</span> <span class="o">==</span> <span class="s2">&quot;True&quot;</span><span class="p">:</span>
+                        <span class="n">v</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">elif</span> <span class="n">v</span> <span class="o">==</span> <span class="s2">&quot;False&quot;</span><span class="p">:</span>
+                        <span class="n">v</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">elif</span> <span class="n">v</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                        <span class="n">v</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+                <span class="n">generator</span> <span class="o">=</span> <span class="n">newgenerator</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="c1"># If more than one &quot;|&quot;  don&#39;t try to parse</span>
+                <span class="c1"># If the kwargs aren&#39;t of form x=y then don&#39;t try to parse</span>
+                <span class="k">pass</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">generator</span><span class="p">)):</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">generator</span><span class="p">)</span>
+            <span class="n">argspec</span> <span class="o">=</span> <span class="n">getargspec</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">argspec</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">generator</span><span class="p">)()</span>
+            <span class="k">elif</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">generator</span><span class="p">)(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">c</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span> <span class="ow">or</span> <span class="s2">&quot;Unknown fake generator&quot;</span>
+
+
+<div class="viewcode-block" id="FakerAnonymizer"><a class="viewcode-back" href="../../reference/recipe.html#recipe.FakerAnonymizer">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span>
+<span class="k">class</span> <span class="nc">FakerAnonymizer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a deterministically generated fake value that depends on the</span>
+<span class="sd">    input value. &quot;&quot;&quot;</span>
+
+    <span class="n">format_str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">postprocessor</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">locale</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;en_US&quot;</span><span class="p">)</span>
+    <span class="n">postprocessor</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">providers</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake</span> <span class="o">=</span> <span class="n">Faker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">locale</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">formatter</span> <span class="o">=</span> <span class="n">FakerFormatter</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clean_providers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">providers</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fake</span><span class="o">.</span><span class="n">add_provider</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_clean_providers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">providers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Convert a list of anonymizer providers into classes suitable for</span>
+<span class="sd">        adding with faker.add_provider&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">providers</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">providers</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="n">providers</span> <span class="o">=</span> <span class="p">[</span><span class="n">providers</span><span class="p">]</span>
+
+        <span class="n">cleaned_providers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">provider</span> <span class="ow">in</span> <span class="n">providers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">provider</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+                <span class="c1"># dynamically import the provider</span>
+                <span class="n">parts</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">_module</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">_provider_class</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">_mod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">_module</span><span class="p">)</span>
+                        <span class="n">_provider</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_mod</span><span class="p">,</span> <span class="n">_provider_class</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">_provider</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="c1"># TODO: log an issue, provider not found in module</span>
+                            <span class="k">continue</span>
+                        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">_provider</span><span class="p">,</span> <span class="n">BaseProvider</span><span class="p">):</span>
+                            <span class="c1"># TODO: log an issue, provider not generator</span>
+                            <span class="k">continue</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">cleaned_providers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_provider</span><span class="p">)</span>
+
+                    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                        <span class="c1"># TODO: log an issue, can&#39;t import module</span>
+                        <span class="k">continue</span>
+            <span class="k">elif</span> <span class="n">isclass</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">provider</span><span class="p">,</span> <span class="n">BaseProvider</span><span class="p">):</span>
+                <span class="n">cleaned_providers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># TODO: log an issue, provider is not an importable string</span>
+                <span class="c1">#  or a ProviderBase</span>
+                <span class="k">continue</span>
+
+        <span class="k">return</span> <span class="n">cleaned_providers</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake</span><span class="o">.</span><span class="n">seed_instance</span><span class="p">(</span><span class="n">generate_faker_seed</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatter</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">format_str</span><span class="p">,</span> <span class="n">fake</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fake</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">postprocessor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">postprocessor</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chris Gemignani
+      <span class="lastupdated">
+        Last updated on May 04, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

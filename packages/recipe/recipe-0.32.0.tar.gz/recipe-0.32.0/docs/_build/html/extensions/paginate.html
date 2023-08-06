@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Paginate: Returning data in pages &mdash; Recipe 0.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Settings" href="../advanced/settings.html" />
+    <link rel="prev" title="Anonymize: Realistic random data" href="anonymize.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4eb2cd" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Recipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../concepts/overview.html">Overview of Recipe Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/ingredients.html">Ingredients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/from_field_expression_config.html">Defining Shelves with Field Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/from_config.html">Defining Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/using_from_config.html">Using Shelves from configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="intro_to_extensions.html">Using Extensions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="automaticfilters.html">AutomaticFilters: Simple filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summarizeover.html">SummarizeOver: Grouping over a dimenension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparerecipe.html">CompareRecipe: Generating comparison values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blendrecipe.html">BlendRecipe: Combining recipes from different tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anonymize.html">Anonymize: Realistic random data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Paginate: Returning data in pages</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/ovens.html">Ovens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/hooks.html">Hooks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/oven_drivers.html">Custom Oven Drivers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/dynamic_extensions.html">Dynamic Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Recipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="intro_to_extensions.html">Using Extensions</a> &raquo;</li>
+        
+      <li>Paginate: Returning data in pages</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/extensions/paginate.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="paginate-returning-data-in-pages">
+<h1>Paginate: Returning data in pages<a class="headerlink" href="#paginate-returning-data-in-pages" title="Permalink to this headline">¶</a></h1>
+<p>The Paginate extension lets recipes be paginated, searched and sorted.</p>
+<span class="target" id="module-recipe"></span><dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">recipe.</code><code class="sig-name descname">Paginate</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/recipe/extensions.html#Paginate"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Allows recipes to paginate results. Pagination also supports
+searching and sorting within paginated data.</p>
+<p><strong>Using and controlling pagination</strong></p>
+<p>Pagination returns pages of data using limit and offset.</p>
+<p>Pagination is enabled by setting a nonzero page size, like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">state</span><span class="p">),</span>
+    <span class="s1">&#39;gender&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">gender</span><span class="p">),</span>
+    <span class="s1">&#39;population&#39;</span><span class="p">:</span> <span class="n">Metric</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">population</span><span class="p">)),</span>
+<span class="p">})</span>
+<span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="n">extension_classes</span><span class="o">=</span><span class="p">[</span><span class="n">Paginate</span><span class="p">])</span>            <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span>            <span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">)</span>            <span class="o">.</span><span class="n">pagination_page_size</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pagination may be disabled by setting <cite>.apply_pagination(False)</cite>.</p>
+<p><strong>Searching</strong></p>
+<p><cite>pagination_q</cite> allows a recipe to be searched for a string.
+The default search fields are all dimensions used in the recipe.
+Search keys can be customized with <cite>pagination_search_keys</cite>.
+Search may be disabled by setting <cite>.apply_pagination_filters(False)</cite></p>
+<p><strong>Sorting</strong></p>
+<p>Pagination can override ordering applied to a recipe by setting
+<cite>.pagination_order_by(…)</cite> to a list of ordering keys. If keys are
+preceded by a “-“, ordering is descending, otherwise ordering is ascending.</p>
+<p><strong>An example using all features</strong></p>
+<p>Here’s an example that searches for keys that start with “t”, showing
+the fifth page of results:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">state</span><span class="p">),</span>
+    <span class="s1">&#39;gender&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">gender</span><span class="p">),</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="p">),</span>
+    <span class="s1">&#39;population&#39;</span><span class="p">:</span> <span class="n">Metric</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">population</span><span class="p">)),</span>
+<span class="p">})</span>
+<span class="n">recipe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">()</span>            <span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s2">&quot;pop2000&quot;</span><span class="p">)</span>            <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">)</span>            <span class="o">.</span><span class="n">pagination_page_size</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>            <span class="o">.</span><span class="n">pagination_page</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>            <span class="o">.</span><span class="n">pagination_q</span><span class="p">(</span><span class="s1">&#39;t%&#39;</span><span class="p">)</span>            <span class="o">.</span><span class="n">pagination_search_keys</span><span class="p">(</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will generate SQL like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="n">AS</span> <span class="n">age</span><span class="p">,</span>
+       <span class="n">census</span><span class="o">.</span><span class="n">sex</span> <span class="n">AS</span> <span class="n">sex</span><span class="p">,</span>
+       <span class="n">census</span><span class="o">.</span><span class="n">state</span> <span class="n">AS</span> <span class="n">state</span><span class="p">,</span>
+       <span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">population</span><span class="p">)</span> <span class="n">AS</span> <span class="n">population</span>
+<span class="n">FROM</span> <span class="n">census</span>
+<span class="n">WHERE</span> <span class="n">lower</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">state</span><span class="p">)</span> <span class="n">LIKE</span> <span class="n">lower</span><span class="p">(</span><span class="s1">&#39;t%&#39;</span><span class="p">)</span>
+  <span class="n">OR</span> <span class="n">lower</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">sex</span><span class="p">)</span> <span class="n">LIKE</span> <span class="n">lower</span><span class="p">(</span><span class="s1">&#39;t%&#39;</span><span class="p">)</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">census</span><span class="o">.</span><span class="n">age</span><span class="p">,</span>
+         <span class="n">census</span><span class="o">.</span><span class="n">sex</span><span class="p">,</span>
+         <span class="n">census</span><span class="o">.</span><span class="n">state</span>
+<span class="n">LIMIT</span> <span class="mi">10</span>
+<span class="n">OFFSET</span> <span class="mi">40</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">apply_pagination</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/recipe/extensions.html#Paginate.apply_pagination"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Should this recipe be paginated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>bool</em>) – Enable or disable pagination for this recipe, default True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">apply_pagination_filters</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/recipe/extensions.html#Paginate.apply_pagination_filters"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Should this recipe apply the paginations query filtering.</p>
+<p>Should paginate_q be used to apply a search on paginate_search_keys or
+all dimensions used in the recipe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>bool</em>) – Enable or disable pagination filtering for this recipe, default True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">pagination_order_by</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/recipe/extensions.html#Paginate.pagination_order_by"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Sort this pagination by these keys. Pagination ordering is applied
+before any other order_bys defined in the recipe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – A list of keys to order the paginated recipe by</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">pagination_page</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/recipe/extensions.html#Paginate.pagination_page"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Fetch this page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>integer</em>) – A positive integer page number to fetch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">pagination_q</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/recipe/extensions.html#Paginate.pagination_q"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Search this recipe for this string. The search is an case
+insensitive like that ORs all dimensions in the recipe by default.</p>
+<p>To search for a substring, use a percentage sign for wildcard,
+like ‘%searchval%’.</p>
+<p><cite>pagination_search_keys</cite> can be used to customize what keys are used
+for search.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – A query string to search for this in this recipe.
+The query string is evaluated as a <cite>ilike</cite> on all dimensions
+in the recipe or pagination_search_keys if provided</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">pagination_search_keys</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/recipe/extensions.html#Paginate.pagination_search_keys"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>When querying this recipe with a <cite>pagination_q</cite>, search these keys</p>
+<p>pagination_search_keys do not have to be used in the recipe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – A list of keys to search in the paginated recipe</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../advanced/settings.html" class="btn btn-neutral float-right" title="Settings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="anonymize.html" class="btn btn-neutral float-left" title="Anonymize: Realistic random data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chris Gemignani
+      <span class="lastupdated">
+        Last updated on May 04, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,930 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>recipe.ingredients &mdash; Recipe 0.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4eb2cd" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Recipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Getting Started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/overview.html">Overview of Recipe Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/ingredients.html">Ingredients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/from_field_expression_config.html">Defining Shelves with Field Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/from_config.html">Defining Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/using_from_config.html">Using Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extensions/intro_to_extensions.html">Using Extensions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced/ovens.html">Ovens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced/hooks.html">Hooks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/oven_drivers.html">Custom Oven Drivers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dynamic_extensions.html">Dynamic Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Recipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>recipe.ingredients</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for recipe.ingredients</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">total_ordering</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">uuid4</span>
+
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Float</span><span class="p">,</span> <span class="n">and_</span><span class="p">,</span> <span class="n">between</span><span class="p">,</span> <span class="n">case</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">or_</span><span class="p">,</span> <span class="n">text</span>
+
+<span class="kn">from</span> <span class="nn">recipe.compat</span> <span class="kn">import</span> <span class="nb">str</span>
+<span class="kn">from</span> <span class="nn">recipe.exceptions</span> <span class="kn">import</span> <span class="n">BadIngredient</span>
+<span class="kn">from</span> <span class="nn">recipe.utils</span> <span class="kn">import</span> <span class="n">AttrDict</span>
+
+
+<div class="viewcode-block" id="Ingredient"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Ingredient">[docs]</a><span class="nd">@total_ordering</span>
+<span class="k">class</span> <span class="nc">Ingredient</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Ingredients combine to make a SQLAlchemy query.</span>
+
+<span class="sd">    Any unknown keyword arguments provided to an Ingredient</span>
+<span class="sd">    during initializatino are stored in a meta object.</span>
+
+<span class="sd">    .. code:: python</span>
+
+<span class="sd">        # icon is an unknown keyword argument</span>
+<span class="sd">        m = Metric(func.sum(MyTable.sales), icon=&#39;cog&#39;)</span>
+<span class="sd">        print(m.meta.icon)</span>
+<span class="sd">        &gt;&gt;&gt; &#39;cog&#39;</span>
+
+<span class="sd">    This meta storage can be used to add new capabilities to</span>
+<span class="sd">    ingredients.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        id (:obj:`str`):</span>
+<span class="sd">            An id to identify this Ingredient. If ingredients are</span>
+<span class="sd">            added to a Shelf, the id is automatically set as the key in</span>
+<span class="sd">            the shelf.</span>
+<span class="sd">        columns (:obj:`list` of :obj:`ColumnElement`):</span>
+<span class="sd">            A list of SQLAlchemy columns to use in a query select.</span>
+<span class="sd">        filters (:obj:`list` of :obj:`BinaryExpression`):</span>
+<span class="sd">            A list of SQLAlchemy BinaryExpressions to use in the</span>
+<span class="sd">            .filter() clause of a query.</span>
+<span class="sd">        havings (:obj:`list` of :obj:`BinaryExpression`):</span>
+<span class="sd">            A list of SQLAlchemy BinaryExpressions to use in the</span>
+<span class="sd">            .having() clause of a query.</span>
+<span class="sd">        columns (:obj:`list` of :obj:`ColumnElement`):</span>
+<span class="sd">            A list of SQLAlchemy columns to use in the `group_by` clause</span>
+<span class="sd">            of a query.</span>
+<span class="sd">        formatters: (:obj:`list` of :obj:`callable`):</span>
+<span class="sd">            A list of callables to apply to the result values.</span>
+<span class="sd">            If formatters exist, property `{ingredient.id}_raw` will</span>
+<span class="sd">            exist on each result row containing the unformatted</span>
+<span class="sd">            value.</span>
+<span class="sd">        cache_context (:obj:`str`):</span>
+<span class="sd">            Extra context when caching this ingredient. DEPRECATED</span>
+<span class="sd">        ordering (`string`, &#39;asc&#39; or &#39;desc&#39;):</span>
+<span class="sd">            One of &#39;asc&#39; or &#39;desc&#39;.  &#39;asc&#39; is the default value.</span>
+<span class="sd">            The default ordering of this ingredient if it is</span>
+<span class="sd">            used in a ``recipe.order_by``.</span>
+<span class="sd">            This is added to the ingredient when the ingredient is</span>
+<span class="sd">            used in a ``recipe.order_by``.</span>
+<span class="sd">        group_by_strategy (:obj:`str`):</span>
+<span class="sd">            A strategy to use when preparing group_bys for the query</span>
+<span class="sd">            &quot;labels&quot; is the default strategy which will use the labels assigned to</span>
+<span class="sd">            each column.</span>
+<span class="sd">            &quot;direct&quot; will use the column expression directly. This alternative is</span>
+<span class="sd">            useful when there might be more than one column with the same label</span>
+<span class="sd">            being used in the query.</span>
+<span class="sd">        quickselects (:obj:`list` of named filters):</span>
+<span class="sd">            A list of named filters that can be accessed through</span>
+<span class="sd">            ``build_filter``. Named filters are dictionaries with</span>
+<span class="sd">            a ``name`` (:obj:str) property and a ``condition`` property</span>
+<span class="sd">            (:obj:`BinaryExpression`)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An Ingredient object.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="mi">12</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;columns&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;filters&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">havings</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;havings&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group_by</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;group_by&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">formatters</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;formatters&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quickselects</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;quickselects&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column_suffixes</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;column_suffixes&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache_context</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;cache_context&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anonymize</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">roles</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># What order should this be in</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ordering</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;ordering&quot;</span><span class="p">,</span> <span class="s2">&quot;asc&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group_by_strategy</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;group_by_strategy&quot;</span><span class="p">,</span> <span class="s2">&quot;labels&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatters</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="n">BadIngredient</span><span class="p">(</span>
+                <span class="s2">&quot;formatters passed to an ingredient must be a &quot;</span> <span class="s2">&quot;list or tuple&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># If explicit suffixes are passed in, there must be one for each column</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_suffixes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_suffixes</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">columns</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="n">BadIngredient</span><span class="p">(</span><span class="s2">&quot;column_suffixes must be the same length as &quot;</span> <span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Any remaining passed properties are available in self.meta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="n">AttrDict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_stringify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Return a relevant string based on ingredient type for repr and</span>
+<span class="sd">        ordering. Ingredients with the same classname, id and _stringify</span>
+<span class="sd">        value are considered the same. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Ingredient.describe"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Ingredient.describe">[docs]</a>    <span class="k">def</span> <span class="nf">describe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A string representation of the ingredient.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">u</span><span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">)</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stringify</span><span class="p">())</span></div>
+
+    <span class="k">def</span> <span class="nf">_format_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Formats value using any stored formatters. &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatters</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="Ingredient.make_column_suffixes"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Ingredient.make_column_suffixes">[docs]</a>    <span class="k">def</span> <span class="nf">make_column_suffixes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Make sure we have the right column suffixes. These will be appended</span>
+<span class="sd">        to `id` when generating the query.</span>
+
+<span class="sd">        Developers note: These are generated when the query runs because the</span>
+<span class="sd">        recipe may be run with anonymization on or off, which will inject</span>
+<span class="sd">        a formatter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_suffixes</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_suffixes</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">()</span>
+
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatters</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;_raw&quot;</span><span class="p">,)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BadIngredient</span><span class="p">(</span>
+                <span class="s2">&quot;column_suffixes must be supplied if there is &quot;</span> <span class="s2">&quot;more than one column&quot;</span>
+            <span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">query_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Yield labeled columns to be used as a select in a query.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">suffix</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_column_suffixes</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">column</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">order_by_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Yield columns to be used in an order by using this ingredient. Column</span>
+<span class="sd">        ordering is in reverse order of columns</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ensure the labels are generated</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span><span class="p">:</span>
+            <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">query_columns</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_by_strategy</span> <span class="o">==</span> <span class="s2">&quot;labels&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ordering</span> <span class="o">==</span> <span class="s2">&quot;desc&quot;</span><span class="p">:</span>
+                <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot; DESC&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="k">return</span> <span class="p">[</span>
+                <span class="n">text</span><span class="p">(</span><span class="n">lbl</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span><span class="p">)))</span>
+            <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cauldron_extras</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Yield extra tuples containing a field name and a callable that takes</span>
+<span class="sd">        a row.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatters</span><span class="p">:</span>
+            <span class="n">raw_property</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="s2">&quot;_raw&quot;</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_value</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">raw_property</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ingredients are sorted by subclass then by id.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Dimension</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Metric</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Filter</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Having</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Make ingredients sortable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_order</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">_order</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Make ingredients sortable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_order</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_order</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Make ingredients sortable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_order</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_order</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">_build_scalar_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Build a Filter given a single value.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            value (a string, number, boolean or None):</span>
+<span class="sd">            operator (`str`)</span>
+<span class="sd">                A valid scalar operator. The default operator</span>
+<span class="sd">                is `eq`</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            A Filter object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filter_column</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">operator</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;eq&quot;</span><span class="p">:</span>
+            <span class="c1"># Default operator is &#39;eq&#39; so if no operator is provided, handle</span>
+            <span class="c1"># like an &#39;eq&#39;</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span><span class="o">.</span><span class="n">is_</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span> <span class="o">==</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;ne&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span> <span class="o">!=</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;lt&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span> <span class="o">&lt;</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;lte&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span> <span class="o">&lt;=</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;gt&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span> <span class="o">&gt;</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;gte&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span> <span class="o">&gt;=</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;is&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span><span class="o">.</span><span class="n">is_</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;isnot&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span><span class="o">.</span><span class="n">isnot</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;like&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span><span class="o">.</span><span class="n">like</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;ilike&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span><span class="o">.</span><span class="n">ilike</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;quickselect&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">qs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">quickselects</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">qs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;condition&quot;</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;quickselect </span><span class="si">{}</span><span class="s2"> was not found in &quot;</span>
+                <span class="s2">&quot;ingredient </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown operator </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">operator</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_build_vector_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Build a Filter given a list of values.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            value (a string, number, boolean or None):</span>
+<span class="sd">            operator (:obj:`str`)</span>
+<span class="sd">                A valid vector operator. The default operator is</span>
+<span class="sd">                `in`.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            A Filter object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filter_column</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">operator</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;in&quot;</span><span class="p">:</span>
+            <span class="c1"># Default operator is &#39;in&#39; so if no operator is provided, handle</span>
+            <span class="c1"># like an &#39;in&#39;</span>
+            <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="c1"># filter out the Nones</span>
+                <span class="n">non_none_value</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">non_none_value</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span>
+                        <span class="n">or_</span><span class="p">(</span><span class="n">filter_column</span><span class="o">.</span><span class="n">is_</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="n">filter_column</span><span class="o">.</span><span class="n">in_</span><span class="p">(</span><span class="n">non_none_value</span><span class="p">))</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span><span class="o">.</span><span class="n">is_</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Sort to generate deterministic query sql for caching</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span><span class="o">.</span><span class="n">in_</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;notin&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="c1"># filter out the Nones</span>
+                <span class="n">non_none_value</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">non_none_value</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span>
+                        <span class="n">and_</span><span class="p">(</span>
+                            <span class="n">filter_column</span><span class="o">.</span><span class="n">isnot</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span>
+                            <span class="n">filter_column</span><span class="o">.</span><span class="n">notin_</span><span class="p">(</span><span class="n">non_none_value</span><span class="p">),</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span><span class="o">.</span><span class="n">isnot</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Sort to generate deterministic query sql for caching</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">filter_column</span><span class="o">.</span><span class="n">notin_</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;between&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;When using between, you can only supply a &quot;</span>
+                    <span class="s2">&quot;lower and upper bounds.&quot;</span>
+                <span class="p">)</span>
+            <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">between</span><span class="p">(</span><span class="n">filter_column</span><span class="p">,</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">operator</span> <span class="o">==</span> <span class="s2">&quot;quickselect&quot;</span><span class="p">:</span>
+            <span class="n">qs_conditions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">qs_found</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">qs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">quickselects</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">qs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">v</span><span class="p">:</span>
+                        <span class="n">qs_found</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="n">qs_conditions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;condition&quot;</span><span class="p">))</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">qs_found</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;quickselect </span><span class="si">{}</span><span class="s2"> was not found in &quot;</span>
+                        <span class="s2">&quot;ingredient </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                    <span class="p">)</span>
+            <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">or_</span><span class="p">(</span><span class="o">*</span><span class="n">qs_conditions</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown operator </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">operator</span><span class="p">))</span>
+
+<div class="viewcode-block" id="Ingredient.build_filter"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Ingredient.build_filter">[docs]</a>    <span class="k">def</span> <span class="nf">build_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Builds a filter based on a supplied value and optional operator. If</span>
+<span class="sd">        no operator is supplied an ``in`` filter will be used for a list and a</span>
+<span class="sd">        ``eq`` filter if we get a scalar value.</span>
+
+<span class="sd">        ``build_filter`` is used by the AutomaticFilter extension.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            value:</span>
+<span class="sd">                A value or list of values to operate against</span>
+<span class="sd">            operator (:obj:`str`)</span>
+<span class="sd">                An operator that determines the type of comparison</span>
+<span class="sd">                to do against value.</span>
+
+<span class="sd">                The default operator is &#39;in&#39; if value is a list and</span>
+<span class="sd">                &#39;eq&#39; if value is a string, number, boolean or None.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            A Filter object</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">value_is_scalar</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">value_is_scalar</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_scalar_filter</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">operator</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_vector_filter</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">operator</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; An accessor for the SQLAlchemy expression representing this</span>
+<span class="sd">        Ingredient. &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Filter"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Filter">[docs]</a><span class="k">class</span> <span class="nc">Filter</span><span class="p">(</span><span class="n">Ingredient</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A simple filter created from a single expression.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Filter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="p">[</span><span class="n">expression</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_stringify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="k">for</span> <span class="n">expr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; An accessor for the SQLAlchemy expression representing this</span>
+<span class="sd">        Ingredient. &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Having"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Having">[docs]</a><span class="k">class</span> <span class="nc">Having</span><span class="p">(</span><span class="n">Ingredient</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A Having that limits results based on an aggregate boolean clause</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Having</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">havings</span> <span class="o">=</span> <span class="p">[</span><span class="n">expression</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_stringify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="k">for</span> <span class="n">expr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">havings</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">expression</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; An accessor for the SQLAlchemy expression representing this</span>
+<span class="sd">        Ingredient. &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">havings</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">havings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Dimension"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Dimension">[docs]</a><span class="k">class</span> <span class="nc">Dimension</span><span class="p">(</span><span class="n">Ingredient</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A Dimension is an Ingredient that adds columns and groups by those</span>
+<span class="sd">    columns. Columns should be non-aggregate SQLAlchemy expressions.</span>
+
+<span class="sd">    The required expression supplies the dimension&#39;s &quot;value&quot; role. Additional</span>
+<span class="sd">    expressions can be provided in keyword arguments with keys</span>
+<span class="sd">    that look like &quot;{role}_expression&quot;. The role is suffixed to the</span>
+<span class="sd">    end of the SQL column name.</span>
+
+<span class="sd">    For instance, the following</span>
+
+<span class="sd">    .. code:: python</span>
+
+<span class="sd">        Dimension(Hospitals.name,</span>
+<span class="sd">                  latitude_expression=Hospitals.lat</span>
+<span class="sd">                  longitude_expression=Hospitals.lng,</span>
+<span class="sd">                  id=&#39;hospital&#39;)</span>
+
+<span class="sd">    would add columns named &quot;hospital&quot;, &quot;hospital_latitude&quot;, and</span>
+<span class="sd">    &quot;hospital_longitude&quot; to the recipes results. All three of these expressions</span>
+<span class="sd">    would be used as group bys.</span>
+
+<span class="sd">    Two special roles that can be added are &quot;id&quot; and &quot;order_by&quot;. If a keyword argument</span>
+<span class="sd">    &quot;id_expression&quot; is passed, this expression will appear first in the list of</span>
+<span class="sd">    columns and group_bys. This &quot;id&quot; will be used if you call `build_filter` on the</span>
+<span class="sd">    dimension.</span>
+
+<span class="sd">    If the keyword argument &quot;order_by_expression&quot; is passed, this expression will</span>
+<span class="sd">    appear last in the list of columns and group_bys.</span>
+
+<span class="sd">    The following additional keyword parameters are also supported:</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        lookup (:obj:`dict`):</span>
+<span class="sd">            A dictionary that is used to map values to new values.</span>
+
+<span class="sd">            Note: Lookup adds a ``formatter`` callable as the first</span>
+<span class="sd">            item in the list of formatters.</span>
+<span class="sd">        lookup_default (:obj:`object`)</span>
+<span class="sd">            A default to show if the value can&#39;t be found in the</span>
+<span class="sd">            lookup dictionary.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        A Filter object</span>
+<span class="sd">    :param lookup: dict A dictionary to translate values into</span>
+<span class="sd">    :param lookup_default: A default to show if the value can&#39;t be found in the</span>
+<span class="sd">      lookup dictionary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Dimension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># We must always have a value role</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">roles</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">expression</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">role</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_expression&quot;</span><span class="p">):</span>
+                <span class="c1"># Remove _expression to get the role</span>
+                <span class="n">role</span> <span class="o">=</span> <span class="n">k</span><span class="p">[:</span><span class="o">-</span><span class="mi">11</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">role</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="s2">&quot;raw&quot;</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">BadIngredient</span><span class="p">(</span><span class="s2">&quot;raw is a reserved role in dimensions&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="p">[</span><span class="n">role</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_group_by</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">role_keys</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="s2">&quot;id&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_group_by</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">role_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;value&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_group_by</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">role_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Add all the other columns in sorted order of role</span>
+        <span class="c1"># with order_by coming last</span>
+        <span class="c1"># For instance, if the following are passed</span>
+        <span class="c1"># expression, id_expression, order_by_expresion, zed_expression the order of</span>
+        <span class="c1"># columns would be &quot;id&quot;, &quot;value&quot;, &quot;zed&quot;, &quot;order_by&quot;</span>
+        <span class="c1"># When using group_bys for ordering we put them in reverse order.</span>
+        <span class="n">ordered_roles</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="c1"># Move order_by to the end</span>
+        <span class="k">if</span> <span class="s2">&quot;order_by&quot;</span> <span class="ow">in</span> <span class="n">ordered_roles</span><span class="p">:</span>
+            <span class="n">ordered_roles</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;order_by&quot;</span><span class="p">)</span>
+            <span class="n">ordered_roles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;order_by&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ordered_roles</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_group_by</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roles</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">role_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;lookup&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lookup&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">BadIngredient</span><span class="p">(</span><span class="s2">&quot;lookup must be a dictionary&quot;</span><span class="p">)</span>
+            <span class="c1"># Inject a formatter that performs the lookup</span>
+            <span class="k">if</span> <span class="s2">&quot;lookup_default&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lookup_default</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lookup_default&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">formatters</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                    <span class="mi">0</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">value</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_default</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">formatters</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">value</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">group_by</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Ensure the labels are generated</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span><span class="p">:</span>
+            <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">query_columns</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_by_strategy</span> <span class="o">==</span> <span class="s2">&quot;labels&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">lbl</span> <span class="k">for</span> <span class="n">gb</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_group_by</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_by</span>
+
+    <span class="nd">@group_by</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">group_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_group_by</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cauldron_extras</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Yield extra tuples containing a field name and a callable that takes</span>
+<span class="sd">        a row</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># This will format the value field</span>
+        <span class="k">for</span> <span class="n">extra</span> <span class="ow">in</span> <span class="nb">super</span><span class="p">(</span><span class="n">Dimension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">cauldron_extras</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">extra</span>
+
+        <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_prop</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Dimension.make_column_suffixes"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Dimension.make_column_suffixes">[docs]</a>    <span class="k">def</span> <span class="nf">make_column_suffixes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Make sure we have the right column suffixes. These will be appended</span>
+<span class="sd">        to `id` when generating the query.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatters</span><span class="p">:</span>
+            <span class="n">value_suffix</span> <span class="o">=</span> <span class="s2">&quot;_raw&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">value_suffix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">value_suffix</span> <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span> <span class="k">else</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">role</span> <span class="k">for</span> <span class="n">role</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">role_keys</span>
+        <span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id_prop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The label of this dimensions id in the query columns &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;id&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">role_keys</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Use the value dimension</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatters</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="s2">&quot;_raw&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span></div>
+
+
+<div class="viewcode-block" id="IdValueDimension"><a class="viewcode-back" href="../../reference/recipe.html#recipe.IdValueDimension">[docs]</a><span class="k">class</span> <span class="nc">IdValueDimension</span><span class="p">(</span><span class="n">Dimension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DEPRECATED: A convenience class for creating a Dimension</span>
+<span class="sd">    with a separate ``id_expression``.  The following are identical.</span>
+
+<span class="sd">    .. code:: python</span>
+
+<span class="sd">        d = Dimension(Student.student_name, id_expression=Student.student_id)</span>
+
+<span class="sd">        d = IdValueDimension(Student.student_id, Student.student_name)</span>
+
+<span class="sd">    The former approach is recommended.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        id_expression (:obj:`ColumnElement`)</span>
+<span class="sd">            A column expression that is used to identify the id</span>
+<span class="sd">            for a Dimension</span>
+<span class="sd">        value_expression (:obj:`ColumnElement`)</span>
+<span class="sd">            A column expression that is used to identify the value</span>
+<span class="sd">            for a Dimension</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_expression</span><span class="p">,</span> <span class="n">value_expression</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;id_expression&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">id_expression</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">IdValueDimension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">value_expression</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LookupDimension"><a class="viewcode-back" href="../../reference/recipe.html#recipe.LookupDimension">[docs]</a><span class="k">class</span> <span class="nc">LookupDimension</span><span class="p">(</span><span class="n">Dimension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;DEPRECATED Returns the expression value looked up in a lookup dictionary</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">,</span> <span class="n">lookup</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A Dimension that replaces values using a lookup table.</span>
+
+<span class="sd">        :param expression: The dimension field</span>
+<span class="sd">        :type value: object</span>
+<span class="sd">        :param lookup: A dictionary of key/value pairs. If the keys will</span>
+<span class="sd">           be replaced by values in the value of this Dimension</span>
+<span class="sd">        :type operator: dict</span>
+<span class="sd">        :param default: The value to use if a dimension value isn&#39;t</span>
+<span class="sd">           found in the lookup table.  The default behavior is to</span>
+<span class="sd">           show the original value if the value isn&#39;t found in the</span>
+<span class="sd">           lookup table.</span>
+<span class="sd">        :type default: object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;default&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;lookup_default&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;lookup&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lookup</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">LookupDimension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">expression</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Metric"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Metric">[docs]</a><span class="k">class</span> <span class="nc">Metric</span><span class="p">(</span><span class="n">Ingredient</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A simple metric created from a single expression</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Metric</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">expression</span><span class="p">]</span>
+
+        <span class="c1"># We must always have a value role</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">roles</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">expression</span><span class="p">}</span>
+
+<div class="viewcode-block" id="Metric.build_filter"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Metric.build_filter">[docs]</a>    <span class="k">def</span> <span class="nf">build_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Building filters with Metric returns Having objects. &quot;&quot;&quot;</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">build_filter</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">operator</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Having</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div></div>
+
+
+<div class="viewcode-block" id="DivideMetric"><a class="viewcode-back" href="../../reference/recipe.html#recipe.DivideMetric">[docs]</a><span class="k">class</span> <span class="nc">DivideMetric</span><span class="p">(</span><span class="n">Metric</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A metric that divides a numerator by a denominator handling several</span>
+<span class="sd">    possible error conditions</span>
+
+<span class="sd">    The default strategy is to add an small value to the denominator</span>
+<span class="sd">    Passing ifzero allows you to give a different value if the denominator is</span>
+<span class="sd">    zero.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numerator</span><span class="p">,</span> <span class="n">denominator</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">ifzero</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;ifzero&quot;</span><span class="p">,</span> <span class="s2">&quot;epsilon&quot;</span><span class="p">)</span>
+        <span class="n">epsilon</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;epsilon&quot;</span><span class="p">,</span> <span class="mf">0.000000001</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ifzero</span> <span class="o">==</span> <span class="s2">&quot;epsilon&quot;</span><span class="p">:</span>
+            <span class="c1"># Add an epsilon value to denominator to avoid divide by zero</span>
+            <span class="c1"># errors</span>
+            <span class="n">expression</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span>
+                <span class="n">func</span><span class="o">.</span><span class="n">coalesce</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">denominator</span><span class="p">,</span> <span class="n">Float</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">+</span> <span class="n">epsilon</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If the denominator is zero, return the ifzero value otherwise do</span>
+            <span class="c1"># the division</span>
+            <span class="n">expression</span> <span class="o">=</span> <span class="n">case</span><span class="p">(</span>
+                <span class="p">((</span><span class="n">cast</span><span class="p">(</span><span class="n">denominator</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">ifzero</span><span class="p">),),</span>
+                <span class="n">else_</span><span class="o">=</span><span class="n">cast</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span> <span class="o">/</span> <span class="n">cast</span><span class="p">(</span><span class="n">denominator</span><span class="p">,</span> <span class="n">Float</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DivideMetric</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">expression</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WtdAvgMetric"><a class="viewcode-back" href="../../reference/recipe.html#recipe.WtdAvgMetric">[docs]</a><span class="k">class</span> <span class="nc">WtdAvgMetric</span><span class="p">(</span><span class="n">DivideMetric</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A metric that generates the weighted average of a metric by a weight.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">,</span> <span class="n">weight_expression</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">numerator</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">expression</span> <span class="o">*</span> <span class="n">weight_expression</span><span class="p">)</span>
+        <span class="n">denominator</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weight_expression</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WtdAvgMetric</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span> <span class="n">denominator</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<span class="k">class</span> <span class="nc">InvalidIngredient</span><span class="p">(</span><span class="n">Ingredient</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chris Gemignani
+      <span class="lastupdated">
+        Last updated on May 04, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

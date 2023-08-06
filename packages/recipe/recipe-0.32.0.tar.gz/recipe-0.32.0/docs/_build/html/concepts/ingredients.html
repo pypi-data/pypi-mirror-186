@@ -1,0 +1,657 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ingredients &mdash; Recipe 0.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Shelves" href="shelves.html" />
+    <link rel="prev" title="Overview of Recipe Concepts" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4eb2cd" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Recipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of Recipe Concepts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Ingredients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-ingredients-in-python">Creating ingredients in python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#features-of-ingredients">Features of ingredients</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#formatters">Formatters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#building-filters">Building filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#storing-extra-attributes-in-meta">Storing extra attributes in meta</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#types-of-ingredients">Types of Ingredients</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dimension">Dimension</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#adding-an-id">Adding an id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-an-ordering">Adding an ordering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-additional-groupings">Adding additional groupings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-lookups">Using lookups</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#metric">Metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dividemetric">DivideMetric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wtdavgmetric">WtdAvgMetric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filter">Filter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#different-ways-of-generating-filters">Different ways of generating Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#having">Having</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_field_expression_config.html">Defining Shelves with Field Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_config.html">Defining Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_from_config.html">Using Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extensions/intro_to_extensions.html">Using Extensions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/ovens.html">Ovens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/hooks.html">Hooks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/oven_drivers.html">Custom Oven Drivers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/dynamic_extensions.html">Dynamic Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Recipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Ingredients</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/concepts/ingredients.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ingredients">
+<h1>Ingredients<a class="headerlink" href="#ingredients" title="Permalink to this headline">¶</a></h1>
+<p>Ingredients are the building block of recipe.</p>
+<p>Ingredients can contain columns that are part of the <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> portion of a query,
+filters that are part of a <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause of a query, group_bys that
+contribute to a query’s <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> and havings which add <code class="docutils literal notranslate"><span class="pre">HAVING</span></code> limits
+ot a query.</p>
+<div class="section" id="creating-ingredients-in-python">
+<h2>Creating ingredients in python<a class="headerlink" href="#creating-ingredients-in-python" title="Permalink to this headline">¶</a></h2>
+<p>Ingredients can be created either in python or via configuration. To created
+Ingredients in python, use one of the four convenience classes.</p>
+<ul class="simple">
+<li><p><strong>Metric</strong>: Create an aggregated calculation using a column. This
+value appears only in the SELECT part of the SQL statement.</p></li>
+<li><p><strong>Dimension</strong>: Create a non-aggregated value using a column. This
+value appears in the SELECT and GROUP BY parts of the SQL statement.</p></li>
+<li><p><strong>Filter</strong>: Create a boolean expression. This value appears in the
+WHERE part of the SQL statement. Filters can be created automatically
+using the AutomaticFilters extension or by using a Dimension or Metric’sales
+<code class="docutils literal notranslate"><span class="pre">build_filter</span></code> method.</p></li>
+<li><p><strong>Having</strong>: Create a boolean expression with an aggregated ColumnElement.
+This value appears in the HAVING part of the SQL statement.</p></li>
+</ul>
+<p>Metrics and Dimensions are commonly reused in working Recipe code, while filters are
+often created temporarily based on data.</p>
+<div class="section" id="features-of-ingredients">
+<h3>Features of ingredients<a class="headerlink" href="#features-of-ingredients" title="Permalink to this headline">¶</a></h3>
+<p>Let’s explore some capabilities.</p>
+<div class="section" id="formatters">
+<h4>Formatters<a class="headerlink" href="#formatters" title="Permalink to this headline">¶</a></h4>
+<p>Formatters are a list of python callables that take a single value. This
+let you manipulate the results of an ingredient with python code. If you use
+formatters, the original, unmodified value is available as <code class="docutils literal notranslate"><span class="pre">{ingredient}_raw</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">state</span><span class="p">),</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">WtdAvgMetric</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">),</span>
+    <span class="s1">&#39;gender&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">gender</span><span class="p">),</span>
+    <span class="s1">&#39;population&#39;</span><span class="p">:</span> <span class="n">Metric</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">),</span> <span class="n">formatters</span><span class="o">=</span><span class="p">[</span>
+        <span class="k">lambda</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000000</span><span class="p">)</span>
+    <span class="p">])</span>
+<span class="p">})</span>
+
+<span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span>\
+    <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;gender&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">recipe</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> has </span><span class="si">{}</span><span class="s1"> people&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">gender</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">population</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">The original value is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">population_raw</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The results look like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">F</span> <span class="n">has</span> <span class="mi">144</span> <span class="n">million</span> <span class="n">people</span>
+    <span class="n">The</span> <span class="n">original</span> <span class="n">value</span> <span class="ow">is</span><span class="p">:</span> <span class="mi">143534804</span>
+<span class="n">M</span> <span class="n">has</span> <span class="mi">137</span> <span class="n">million</span> <span class="n">people</span>
+    <span class="n">The</span> <span class="n">original</span> <span class="n">value</span> <span class="ow">is</span><span class="p">:</span> <span class="mi">137392517</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-filters">
+<h4>Building filters<a class="headerlink" href="#building-filters" title="Permalink to this headline">¶</a></h4>
+<p>Ingredient.build_filter</p>
+</div>
+<div class="section" id="storing-extra-attributes-in-meta">
+<h4>Storing extra attributes in meta<a class="headerlink" href="#storing-extra-attributes-in-meta" title="Permalink to this headline">¶</a></h4>
+<p>Extra keyword arguments that get passed to ingredient initialization
+get stored in the <code class="docutils literal notranslate"><span class="pre">meta</span></code> object. This can be used to extend the
+capabilities of ingredients and add extra features.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;cog&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">icon</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;cog&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="types-of-ingredients">
+<h2>Types of Ingredients<a class="headerlink" href="#types-of-ingredients" title="Permalink to this headline">¶</a></h2>
+<p>List of ingredients</p>
+<div class="section" id="dimension">
+<h3>Dimension<a class="headerlink" href="#dimension" title="Permalink to this headline">¶</a></h3>
+<p>Dimensions are groupings that exist in your data. Dimension objects add
+the column to the select statement and the group by of the SQL query.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># A simple dimension</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">shelf</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="adding-an-id">
+<h4>Adding an id<a class="headerlink" href="#adding-an-id" title="Permalink to this headline">¶</a></h4>
+<p>Dimensions can use separate columns for ids and values. Consider a
+table of employees with an <code class="docutils literal notranslate"><span class="pre">employee_id</span></code> and a <code class="docutils literal notranslate"><span class="pre">full_name</span></code>. If you had
+two employees with the same name you need to be able to distinguish between
+them.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Support an id and a label</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">shelf</span><span class="p">[</span><span class="s1">&#39;employee&#39;</span><span class="p">]:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Employee</span><span class="o">.</span><span class="n">full_name</span><span class="p">,</span>
+                                  <span class="n">id_expression</span><span class="o">=</span><span class="n">Employee</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The id is accessible as <code class="docutils literal notranslate"><span class="pre">employee_id</span></code> in each row and their full name is
+available as <code class="docutils literal notranslate"><span class="pre">employee</span></code>.</p>
+<p>If you build a filter using this dimension, it will filter against the id.</p>
+</div>
+<div class="section" id="adding-an-ordering">
+<h4>Adding an ordering<a class="headerlink" href="#adding-an-ordering" title="Permalink to this headline">¶</a></h4>
+<p>If you want to order a dimension in a custom way, pass a keyword argument
+<code class="docutils literal notranslate"><span class="pre">order_by_expression</span></code>. This code adds an order_by_expression that causes the
+values to sort case insensitively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">func</span>
+
+<span class="c1"># Support an id and a label</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">shelf</span><span class="p">[</span><span class="s1">&#39;employee&#39;</span><span class="p">]:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Employee</span><span class="o">.</span><span class="n">full_name</span><span class="p">,</span>
+                                  <span class="n">order_by_expression</span><span class="o">=</span><span class="n">func</span><span class="o">.</span><span class="n">lower</span><span class="p">(</span>
+                                    <span class="n">Employee</span><span class="o">.</span><span class="n">full_name</span>
+                                  <span class="p">))</span>
+</pre></div>
+</div>
+<p>The order_by expression is accessible as <code class="docutils literal notranslate"><span class="pre">employee_order_by</span></code> in each row and
+the full name is available as <code class="docutils literal notranslate"><span class="pre">employee</span></code>. If the <cite>employee</cite> dimension is used in a
+recipe, the recipe will <strong>always</strong> be ordered by <code class="docutils literal notranslate"><span class="pre">func.lower(Employee.full_name)</span></code>.</p>
+</div>
+<div class="section" id="adding-additional-groupings">
+<h4>Adding additional groupings<a class="headerlink" href="#adding-additional-groupings" title="Permalink to this headline">¶</a></h4>
+<p>Both <code class="docutils literal notranslate"><span class="pre">id_expression</span></code> and <code class="docutils literal notranslate"><span class="pre">order_by_expression</span></code> are special cases of Dimension’s
+ability to be passed additional columns can be used for grouping. Any keyword argument
+suffixed with <code class="docutils literal notranslate"><span class="pre">_expression</span></code> adds additional roles to this Dimension. The first
+<em>required</em> expression supplies the dimension’s value role. For instance,
+you could create a dimension with an <code class="docutils literal notranslate"><span class="pre">id</span></code>, a <code class="docutils literal notranslate"><span class="pre">latitude</span></code> and a <code class="docutils literal notranslate"><span class="pre">longitude</span></code>.</p>
+<p>For instance, the following</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Dimension</span><span class="p">(</span><span class="n">Hospitals</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+          <span class="n">latitude_expression</span><span class="o">=</span><span class="n">Hospitals</span><span class="o">.</span><span class="n">lat</span>
+          <span class="n">longitude_expression</span><span class="o">=</span><span class="n">Hospitals</span><span class="o">.</span><span class="n">lng</span><span class="p">,</span>
+          <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;hospital&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>would add columns named “hospital”, “hospital_latitude”, and
+“hospital_longitude” to the recipes results. All three of these expressions
+would be used as group bys.</p>
+</div>
+<div class="section" id="using-lookups">
+<h4>Using lookups<a class="headerlink" href="#using-lookups" title="Permalink to this headline">¶</a></h4>
+<p>You can use a lookup table to map values in your data to descriptive names. The <code class="docutils literal notranslate"><span class="pre">_id</span></code>
+property of your dimension contains the original value.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert M/F into Male/Female</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">shelf</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">sex</span><span class="p">,</span> <span class="n">lookup</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;M&#39;</span><span class="p">:</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="s1">&#39;Female&#39;</span><span class="p">},</span> <span class="n">lookup_default</span><span class="o">=</span><span class="s1">&#39;Unknown&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you use the gender dimension, there will be a <code class="docutils literal notranslate"><span class="pre">gender_id</span></code> in each row
+that will be “M” or “F” and a <code class="docutils literal notranslate"><span class="pre">gender</span></code> in each row that will be “Male” or
+“Female”.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">state</span><span class="p">),</span>
+    <span class="s1">&#39;gender_desc&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">gender</span><span class="p">,</span> <span class="n">lookup</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;M&#39;</span><span class="p">:</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="s1">&#39;Female&#39;</span><span class="p">},</span> <span class="n">lookup_default</span><span class="o">=</span><span class="s1">&#39;Unknown&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">WtdAvgMetric</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">),</span>
+    <span class="s1">&#39;population&#39;</span><span class="p">:</span> <span class="n">Metric</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span>\
+    <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;gender_desc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">to_sql</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">csv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Lookups inject a formatter in the first position. Because a formatter
+is used, recipe creates a <code class="docutils literal notranslate"><span class="pre">gender_desc_raw</span></code> on the response that
+contains the unformatted value then uses the lookup to create the <code class="docutils literal notranslate"><span class="pre">gender_desc</span></code>
+property. All dimensions also generate an <code class="docutils literal notranslate"><span class="pre">{ingredient}_id</span></code> property.</p>
+<p>Here is the query and the results.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">census</span><span class="o">.</span><span class="n">gender</span> <span class="n">AS</span> <span class="n">gender_desc_raw</span><span class="p">,</span>
+    <span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">AS</span> <span class="n">population</span>
+<span class="n">FROM</span> <span class="n">census</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">census</span><span class="o">.</span><span class="n">gender</span>
+
+<span class="n">gender_desc_raw</span><span class="p">,</span><span class="n">population</span><span class="p">,</span><span class="n">gender_desc</span><span class="p">,</span><span class="n">gender_desc_id</span>
+<span class="n">F</span><span class="p">,</span><span class="mi">143534804</span><span class="p">,</span><span class="n">Female</span><span class="p">,</span><span class="n">F</span>
+<span class="n">M</span><span class="p">,</span><span class="mi">137392517</span><span class="p">,</span><span class="n">Male</span><span class="p">,</span><span class="n">M</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="metric">
+<h3>Metric<a class="headerlink" href="#metric" title="Permalink to this headline">¶</a></h3>
+<p>Metrics are aggregations performed on your data. Here’s an example
+of a few Metrics.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({</span>
+    <span class="s1">&#39;total_population&#39;</span><span class="p">:</span> <span class="n">Metric</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)),</span>
+    <span class="s1">&#39;min_population&#39;</span><span class="p">:</span> <span class="n">Metric</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)),</span>
+    <span class="s1">&#39;max_population&#39;</span><span class="p">:</span> <span class="n">Metric</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">))</span>
+<span class="p">})</span>
+<span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span>\
+    <span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;total_population&#39;</span><span class="p">,</span> <span class="s1">&#39;min_population&#39;</span><span class="p">,</span> <span class="s1">&#39;max_population&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">to_sql</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">csv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results of this recipe are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="nb">max</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">AS</span> <span class="n">max_population</span><span class="p">,</span>
+    <span class="nb">min</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">AS</span> <span class="n">min_population</span><span class="p">,</span>
+    <span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">AS</span> <span class="n">total_population</span>
+<span class="n">FROM</span> <span class="n">census</span>
+
+<span class="n">max_population</span><span class="p">,</span><span class="n">min_population</span><span class="p">,</span><span class="n">total_population</span>
+<span class="mi">294583</span><span class="p">,</span><span class="mi">217</span><span class="p">,</span><span class="mi">280927321</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dividemetric">
+<h3>DivideMetric<a class="headerlink" href="#dividemetric" title="Permalink to this headline">¶</a></h3>
+<p>Division in SQL introduces the possibility of division by zero. DivideMetric
+guards against division by zero while giving you a quick way to divide
+one calculation by another.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">state</span><span class="p">),</span>
+    <span class="s1">&#39;popgrowth&#39;</span><span class="p">:</span> <span class="n">DivideMetric</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">pop2008</span><span class="o">-</span><span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">),</span> <span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)),</span>
+<span class="p">})</span>
+<span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span>\
+    <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;popgrowth&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This creates results like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">census</span><span class="o">.</span><span class="n">state</span> <span class="n">AS</span> <span class="n">state</span><span class="p">,</span>
+    <span class="n">CAST</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2008</span> <span class="o">-</span> <span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">AS</span> <span class="n">FLOAT</span><span class="p">)</span> <span class="o">/</span>
+      <span class="p">(</span><span class="n">coalesce</span><span class="p">(</span><span class="n">CAST</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">AS</span> <span class="n">FLOAT</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-09</span><span class="p">)</span> <span class="n">AS</span> <span class="n">popgrowth</span>
+<span class="n">FROM</span> <span class="n">census</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">census</span><span class="o">.</span><span class="n">state</span>
+
+<span class="n">state</span><span class="p">,</span><span class="n">popgrowth</span><span class="p">,</span><span class="n">state_id</span>
+<span class="n">Alabama</span><span class="p">,</span><span class="mf">0.04749469366071285</span><span class="p">,</span><span class="n">Alabama</span>
+<span class="n">Alaska</span><span class="p">,</span><span class="mf">0.09194726152996757</span><span class="p">,</span><span class="n">Alaska</span>
+<span class="n">Arizona</span><span class="p">,</span><span class="mf">0.2598860676785905</span><span class="p">,</span><span class="n">Arizona</span>
+<span class="n">Arkansas</span><span class="p">,</span><span class="mf">0.06585681816651036</span><span class="p">,</span><span class="n">Arkansas</span>
+<span class="n">California</span><span class="p">,</span><span class="mf">0.0821639328251409</span><span class="p">,</span><span class="n">California</span>
+<span class="n">Colorado</span><span class="p">,</span><span class="mf">0.14231283526592364</span><span class="p">,</span><span class="n">Colorado</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>The denominator has a tiny value added to it to prevent division by zero.</p>
+</div>
+<div class="section" id="wtdavgmetric">
+<h3>WtdAvgMetric<a class="headerlink" href="#wtdavgmetric" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">WtdAvgMetric</span></code> generates a weighted average of a number using a weighting.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="docutils literal notranslate"><span class="pre">WtdAvgMetric</span></code> takes two ColumnElements as arguments. The first is the value
+and the second is the weighting. Unlike other Metrics, these are <strong>not aggregated</strong>.</p>
+</div>
+<p>Here’s an example.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">state</span><span class="p">),</span>
+    <span class="s1">&#39;avgage&#39;</span><span class="p">:</span> <span class="n">WtdAvgMetric</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">),</span>
+<span class="p">})</span>
+<span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span>\
+    <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;avgage&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">to_sql</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">csv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This generates results that look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">census</span><span class="o">.</span><span class="n">state</span> <span class="n">AS</span> <span class="n">state</span><span class="p">,</span>
+    <span class="n">CAST</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="o">*</span> <span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">AS</span> <span class="n">FLOAT</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">coalesce</span><span class="p">(</span><span class="n">CAST</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">AS</span> <span class="n">FLOAT</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-09</span><span class="p">)</span> <span class="n">AS</span> <span class="n">avgage</span>
+<span class="n">FROM</span> <span class="n">census</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">census</span><span class="o">.</span><span class="n">state</span>
+
+<span class="n">state</span><span class="p">,</span><span class="n">avgage</span><span class="p">,</span><span class="n">state_id</span>
+<span class="n">Alabama</span><span class="p">,</span><span class="mf">36.27787892421841</span><span class="p">,</span><span class="n">Alabama</span>
+<span class="n">Alaska</span><span class="p">,</span><span class="mf">31.947384766048568</span><span class="p">,</span><span class="n">Alaska</span>
+<span class="n">Arizona</span><span class="p">,</span><span class="mf">35.37065466080318</span><span class="p">,</span><span class="n">Arizona</span>
+<span class="n">Arkansas</span><span class="p">,</span><span class="mf">36.63745110262778</span><span class="p">,</span><span class="n">Arkansas</span>
+<span class="n">California</span><span class="p">,</span><span class="mf">34.17872597484759</span><span class="p">,</span><span class="n">California</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>Note: WtdAvgMetric uses safe division from <code class="docutils literal notranslate"><span class="pre">DivideMetric</span></code>.</p>
+</div>
+<div class="section" id="filter">
+<h3>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h3>
+<p>Filter objects add a condition to the where clause of your SQL query.
+Filter objects can be added to a Shelf.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">state</span><span class="p">),</span>
+    <span class="s1">&#39;population&#39;</span><span class="p">:</span> <span class="n">Metric</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)),</span>
+    <span class="s1">&#39;teens&#39;</span><span class="p">:</span> <span class="n">Filter</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">19</span><span class="p">)),</span>
+<span class="p">})</span>
+<span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span>\
+    <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">filters</span><span class="p">(</span><span class="s1">&#39;teens&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">to_sql</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">csv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This results in output like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">census</span><span class="o">.</span><span class="n">state</span> <span class="n">AS</span> <span class="n">state</span><span class="p">,</span>
+    <span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">AS</span> <span class="n">population</span>
+<span class="n">FROM</span> <span class="n">census</span>
+<span class="n">WHERE</span> <span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="n">BETWEEN</span> <span class="mi">13</span> <span class="n">AND</span> <span class="mi">19</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">census</span><span class="o">.</span><span class="n">state</span>
+
+<span class="n">state</span><span class="p">,</span><span class="n">population</span><span class="p">,</span><span class="n">state_id</span>
+<span class="n">Alabama</span><span class="p">,</span><span class="mi">451765</span><span class="p">,</span><span class="n">Alabama</span>
+<span class="n">Alaska</span><span class="p">,</span><span class="mi">71655</span><span class="p">,</span><span class="n">Alaska</span>
+<span class="n">Arizona</span><span class="p">,</span><span class="mi">516270</span><span class="p">,</span><span class="n">Arizona</span>
+</pre></div>
+</div>
+<div class="section" id="different-ways-of-generating-filters">
+<h4>Different ways of generating Filters<a class="headerlink" href="#different-ways-of-generating-filters" title="Permalink to this headline">¶</a></h4>
+<p>Recipe has several ways of filtering recipes.</p>
+<ul>
+<li><p><strong>Filter objects can be added to the shelf</strong>. They can be added to the
+recipe by name from a shelf. This is best when
+you have a filter that you want to use in many place.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="p">),</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">state</span><span class="p">),</span>
+    <span class="s1">&#39;population&#39;</span><span class="p">:</span> <span class="n">Metric</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)),</span>
+    <span class="s1">&#39;teens&#39;</span><span class="p">:</span> <span class="n">Filter</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">19</span><span class="p">)),</span>
+<span class="p">})</span>
+<span class="o">...</span>
+<span class="n">recipe</span> <span class="o">=</span> <span class="n">recipe</span><span class="o">.</span><span class="n">filters</span><span class="p">(</span><span class="s1">&#39;teens&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Filter objects can be created dynamically</strong> and added to the recipe. This is
+best if the filtering needs to change dynamically.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">recipe</span> <span class="o">=</span> <span class="n">recipe</span><span class="o">.</span><span class="n">filters</span><span class="p">(</span><span class="n">Filter</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">19</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Ingredient.build_filter</strong>  can be used to build filters that refer
+to the ingredient’s column.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">age_filter</span> <span class="o">=</span> <span class="n">shelf</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">build_filter</span><span class="p">([</span><span class="mi">13</span><span class="p">,</span><span class="mi">19</span><span class="p">],</span> <span class="s1">&#39;between&#39;</span><span class="p">)</span>
+<span class="n">recipe</span> <span class="o">=</span> <span class="n">recipe</span><span class="o">.</span><span class="n">filters</span><span class="p">(</span><span class="n">age_filter</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is best when you want to reuse a column definition defined in
+an ingredient.</p>
+</li>
+<li><p><strong>AutomaticFilters</strong>: The AutomaticFilters extension adds filtering
+syntax directly to recipe.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">recipe</span> <span class="o">=</span> <span class="n">recipe</span><span class="o">.</span><span class="n">automatic_filters</span><span class="p">({</span>
+  <span class="s1">&#39;age__between&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">13</span><span class="p">,</span><span class="mi">19</span><span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>This is best when you want to add many filters consistently.
+AutomaticFilters uses <code class="docutils literal notranslate"><span class="pre">Ingredient.build_filter</span></code> behind the scenes.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="having">
+<h3>Having<a class="headerlink" href="#having" title="Permalink to this headline">¶</a></h3>
+<p>Having objects are binary expressions with an aggregated column value.
+One easy way to generate <code class="docutils literal notranslate"><span class="pre">Having</span></code> objects is to <code class="docutils literal notranslate"><span class="pre">build_filter</span></code> using
+a <code class="docutils literal notranslate"><span class="pre">Metric</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="p">),</span>
+    <span class="s1">&#39;avgage&#39;</span><span class="p">:</span> <span class="n">WtdAvgMetric</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">),</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">state</span><span class="p">),</span>
+    <span class="s1">&#39;population&#39;</span><span class="p">:</span> <span class="n">Metric</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)),</span>
+<span class="p">})</span>
+<span class="c1"># Find states with a population greater than 15 million</span>
+<span class="n">big_states</span> <span class="o">=</span> <span class="n">shelf</span><span class="p">[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">build_filter</span><span class="p">(</span><span class="mi">15000000</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s1">&#39;gt&#39;</span><span class="p">)</span>
+<span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span>\
+    <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-population&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">filters</span><span class="p">(</span><span class="n">big_states</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">to_sql</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">csv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This generates the following results.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">census</span><span class="o">.</span><span class="n">state</span> <span class="n">AS</span> <span class="n">state</span><span class="p">,</span>
+    <span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">AS</span> <span class="n">population</span>
+<span class="n">FROM</span> <span class="n">census</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">census</span><span class="o">.</span><span class="n">state</span>
+<span class="n">HAVING</span> <span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">15000000</span>
+<span class="n">ORDER</span> <span class="n">BY</span> <span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">DESC</span>
+
+<span class="n">state</span><span class="p">,</span><span class="n">population</span><span class="p">,</span><span class="n">state_id</span>
+<span class="n">California</span><span class="p">,</span><span class="mi">33829442</span><span class="p">,</span><span class="n">California</span>
+<span class="n">Texas</span><span class="p">,</span><span class="mi">20830810</span><span class="p">,</span><span class="n">Texas</span>
+<span class="n">New</span> <span class="n">York</span><span class="p">,</span><span class="mi">18978668</span><span class="p">,</span><span class="n">New</span> <span class="n">York</span>
+<span class="n">Florida</span><span class="p">,</span><span class="mi">15976093</span><span class="p">,</span><span class="n">Florida</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="shelves.html" class="btn btn-neutral float-right" title="Shelves" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="overview.html" class="btn btn-neutral float-left" title="Overview of Recipe Concepts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chris Gemignani
+      <span class="lastupdated">
+        Last updated on May 04, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

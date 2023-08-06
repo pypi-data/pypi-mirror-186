@@ -1,0 +1,772 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>recipe.core &mdash; Recipe 0.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4eb2cd" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Recipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Getting Started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/overview.html">Overview of Recipe Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/ingredients.html">Ingredients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/from_field_expression_config.html">Defining Shelves with Field Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/from_config.html">Defining Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/using_from_config.html">Using Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extensions/intro_to_extensions.html">Using Extensions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced/ovens.html">Ovens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced/hooks.html">Hooks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/oven_drivers.html">Custom Oven Drivers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dynamic_extensions.html">Dynamic Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Recipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>recipe.core</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for recipe.core</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">uuid4</span>
+
+<span class="kn">import</span> <span class="nn">attr</span>
+<span class="kn">import</span> <span class="nn">tablib</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">alias</span><span class="p">,</span> <span class="n">func</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.sql.elements</span> <span class="kn">import</span> <span class="n">BinaryExpression</span>
+<span class="kn">from</span> <span class="nn">sureberus</span> <span class="kn">import</span> <span class="n">normalize_dict</span><span class="p">,</span> <span class="n">normalize_schema</span>
+
+<span class="kn">from</span> <span class="nn">recipe.compat</span> <span class="kn">import</span> <span class="n">basestring</span>
+<span class="kn">from</span> <span class="nn">recipe.dynamic_extensions</span> <span class="kn">import</span> <span class="n">run_hooks</span>
+<span class="kn">from</span> <span class="nn">recipe.exceptions</span> <span class="kn">import</span> <span class="n">BadRecipe</span>
+<span class="kn">from</span> <span class="nn">recipe.ingredients</span> <span class="kn">import</span> <span class="n">Dimension</span><span class="p">,</span> <span class="n">Filter</span><span class="p">,</span> <span class="n">Having</span><span class="p">,</span> <span class="n">Metric</span><span class="p">,</span> <span class="n">Ingredient</span>
+<span class="kn">from</span> <span class="nn">recipe.schemas</span> <span class="kn">import</span> <span class="n">recipe_schema</span>
+<span class="kn">from</span> <span class="nn">recipe.shelf</span> <span class="kn">import</span> <span class="n">Shelf</span><span class="p">,</span> <span class="n">parse_unvalidated_condition</span>
+<span class="kn">from</span> <span class="nn">recipe.utils</span> <span class="kn">import</span> <span class="n">prettyprintable_sql</span><span class="p">,</span> <span class="n">recipe_arg</span>
+
+<span class="n">ALLOW_QUERY_CACHING</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;always&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">Stats</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">dbtime</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">enchanttime</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">from_cache</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Recipe"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe">[docs]</a><span class="k">class</span> <span class="nc">Recipe</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A tool for getting data.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        shelf (Shelf): A shelf to use for shared metrics</span>
+<span class="sd">        metrics (:obj:`list` of :obj:`str`)</span>
+<span class="sd">          A list of metrics to use from</span>
+<span class="sd">          the shelf. These can also be :obj:`Metric` objects.</span>
+<span class="sd">        dimensions (:obj:`list` of :obj:`str`)</span>
+<span class="sd">          A list of dimensions to use</span>
+<span class="sd">          from the shelf. These can also be :obj:`Dimension` objects.</span>
+<span class="sd">        filters (:obj:`list` of :obj:`str`)</span>
+<span class="sd">          A list of filters to use from</span>
+<span class="sd">          the shelf. These can also be :obj:`Filter` objects.</span>
+<span class="sd">        order_by (:obj:`list` of :obj:`str`)</span>
+<span class="sd">          A list of dimension or</span>
+<span class="sd">          metric keys from the shelf to use for ordering. If prefixed by &#39;-&#39;</span>
+<span class="sd">          the ordering will be descending.</span>
+<span class="sd">        session (:obj:`Session`) A SQLAlchemy database session.</span>
+<span class="sd">        extension_classes (:obj:`list` of :obj:`RecipeExtension`)</span>
+<span class="sd">          Extensions to apply to this recipe.</span>
+<span class="sd">        dynamic_extensions (:obj:`list` of :obj:`str`)</span>
+<span class="sd">          Dynamic extensions to apply to this recipe.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A Recipe object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">shelf</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">metrics</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dimensions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">order_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">extension_classes</span><span class="o">=</span><span class="p">(),</span>
+        <span class="n">dynamic_extensions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())[:</span><span class="mi">8</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_all</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_select_from</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shelf</span><span class="p">(</span><span class="n">shelf</span><span class="p">)</span>
+
+        <span class="c1"># Stores all ingredients used in the recipe</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cauldron</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_order_bys</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Cache options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache_context</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_region</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_prefix</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_use_cache</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">Stats</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">metrics</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="o">*</span><span class="n">metrics</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dimensions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="o">*</span><span class="n">dimensions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">filters</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">(</span><span class="o">*</span><span class="n">filters</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">order_by</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="o">*</span><span class="n">order_by</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">session</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_limit</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_postgres_engine</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">recipe_extensions</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">ExtensionClass</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">for</span> <span class="n">ExtensionClass</span> <span class="ow">in</span> <span class="n">extension_classes</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dynamic_extensions</span> <span class="o">=</span> <span class="n">dynamic_extensions</span>
+
+<div class="viewcode-block" id="Recipe.total_count"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.total_count">[docs]</a>    <span class="k">def</span> <span class="nf">total_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the number of rows that would be returned by this Recipe,</span>
+<span class="sd">        ignoring any `limit` that has been applied.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            query: An optional SQLAlchemy query to calculate total_count for.</span>
+<span class="sd">              If None, the recipe query will be used.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A count of the number of rows that are returned by this query.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there is an ordering we take it off to make this</span>
+        <span class="c1"># count run faster, then set the recipe to dirty so the</span>
+        <span class="c1"># query is generated again</span>
+        <span class="k">if</span> <span class="n">query</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_limit</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">offset</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_order_bys</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">from_self</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">count_query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;count&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">select_from</span><span class="p">(</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">subquery</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="n">count_query</span><span class="o">.</span><span class="n">scalar</span><span class="p">()</span>
+
+        <span class="c1"># Clear the query so it is regenerated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">cnt</span></div>
+
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_all</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+<div class="viewcode-block" id="Recipe.from_config"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.from_config">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shelf</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a Recipe from a plain Python dictionary.</span>
+
+<span class="sd">        Most of the directives only support named ingredients, specified as</span>
+<span class="sd">        strings, and looked up on the shelf. But filters can be specified as</span>
+<span class="sd">        objects.</span>
+
+<span class="sd">        Additionally, each RecipeExtension can extract and handle data from the</span>
+<span class="sd">        configuration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">subdict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                    <span class="n">new</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">new</span>
+
+        <span class="n">core_kwargs</span> <span class="o">=</span> <span class="n">subdict</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">recipe_schema</span><span class="p">[</span><span class="s2">&quot;schema&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">core_kwargs</span> <span class="o">=</span> <span class="n">normalize_schema</span><span class="p">(</span><span class="n">recipe_schema</span><span class="p">,</span> <span class="n">core_kwargs</span><span class="p">)</span>
+        <span class="n">core_kwargs</span><span class="p">[</span><span class="s2">&quot;filters&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">parse_unvalidated_condition</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="n">shelf</span><span class="o">.</span><span class="n">Meta</span><span class="o">.</span><span class="n">select_from</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+            <span class="k">else</span> <span class="nb">filter</span>
+            <span class="k">for</span> <span class="nb">filter</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;filters&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="p">]</span>
+        <span class="n">core_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">recipe</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="o">**</span><span class="n">core_kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Now let extensions handle their own stuff</span>
+        <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">recipe</span><span class="o">.</span><span class="n">recipe_extensions</span><span class="p">:</span>
+            <span class="n">additional_schema</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="s2">&quot;recipe_schema&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">additional_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">ext_data</span> <span class="o">=</span> <span class="n">subdict</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">additional_schema</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="n">ext_data</span> <span class="o">=</span> <span class="n">normalize_dict</span><span class="p">(</span><span class="n">additional_schema</span><span class="p">,</span> <span class="n">ext_data</span><span class="p">)</span>
+                <span class="n">recipe</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="n">ext_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">recipe</span></div>
+
+    <span class="c1"># -------</span>
+    <span class="c1"># Builder for parts of the recipe.</span>
+    <span class="c1"># -------</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an attribute of self, if not found, proxy to all</span>
+<span class="sd">        recipe_extensions</span>
+
+<span class="sd">        :param name:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">for</span> <span class="n">extension</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe_extensions</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">proxy_callable</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">proxy_callable</span>
+        <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> isn&#39;t available on this recipe, &quot;</span>
+                <span class="s2">&quot;you may need to add an extension&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">proxy_callable</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">metric_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">metric_ids</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dimension_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">dimension_ids</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">filter_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">filter_ids</span>
+
+<div class="viewcode-block" id="Recipe.cache_region"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.cache_region">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">cache_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set a cache region for recipe-caching to use &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_region</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Recipe.cache_prefix"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.cache_prefix">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">cache_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set a cache prefix for recipe-caching to use &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_prefix</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Recipe.use_cache"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.use_cache">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">use_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;If False, invalidate the cache before fetching data.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_use_cache</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Recipe.shelf"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.shelf">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">shelf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shelf</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Defines a shelf to use for this recipe &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">shelf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({})</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shelf</span><span class="p">,</span> <span class="n">Shelf</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_shelf</span> <span class="o">=</span> <span class="n">shelf</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shelf</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">(</span><span class="n">shelf</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span><span class="s2">&quot;shelf must be a dict or recipe.shelf.Shelf&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_from</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shelf</span><span class="o">.</span><span class="n">Meta</span><span class="o">.</span><span class="n">select_from</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_select_from</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shelf</span><span class="o">.</span><span class="n">Meta</span><span class="o">.</span><span class="n">select_from</span></div>
+
+<div class="viewcode-block" id="Recipe.metrics"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.metrics">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">metrics</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Add a list of Metric ingredients to the query. These can either be</span>
+<span class="sd">        Metric objects or strings representing metrics on the shelf.</span>
+
+<span class="sd">        The Metric expression will be added to the query&#39;s select statement.</span>
+<span class="sd">        The metric value is a property of each row of the result.</span>
+
+<span class="sd">        :param metrics: Metrics to add to the recipe. Metrics can</span>
+<span class="sd">                         either be keys on the ``shelf`` or</span>
+<span class="sd">                         Metric objects</span>
+<span class="sd">        :type metrics: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shelf</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">Metric</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Recipe.dimensions"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.dimensions">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">dimensions</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Add a list of Dimension ingredients to the query. These can either be</span>
+<span class="sd">        Dimension objects or strings representing dimensions on the shelf.</span>
+
+<span class="sd">        The Dimension expression will be added to the query&#39;s select statement</span>
+<span class="sd">        and to the group_by.</span>
+
+<span class="sd">        :param dimensions: Dimensions to add to the recipe. Dimensions can</span>
+<span class="sd">                         either be keys on the ``shelf`` or</span>
+<span class="sd">                         Dimension objects</span>
+<span class="sd">        :type dimensions: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dimensions</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shelf</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">Dimension</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Recipe.filters"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.filters">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">filters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">filters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a list of Filter ingredients to the query. These can either be</span>
+<span class="sd">        Filter objects or strings representing filters on the service&#39;s shelf.</span>
+<span class="sd">        ``.filters()`` are additive, calling .filters() more than once will add</span>
+<span class="sd">        to the list of filters being used by the recipe.</span>
+
+<span class="sd">        The Filter expression will be added to the query&#39;s where clause</span>
+
+<span class="sd">        :param filters: Filters to add to the recipe. Filters can</span>
+<span class="sd">                         either be keys on the ``shelf`` or</span>
+<span class="sd">                         Filter objects</span>
+<span class="sd">        :type filters: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">filter_constructor</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">shelf</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">BinaryExpression</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">Filter</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">f</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">use</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_shelf</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">Filter</span><span class="p">,</span> <span class="n">Having</span><span class="p">),</span> <span class="n">constructor</span><span class="o">=</span><span class="n">filter_constructor</span><span class="p">)</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Recipe.order_by"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.order_by">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">order_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">order_bys</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Apply an ordering to the recipe results.</span>
+
+<span class="sd">        :param order_bys: Order_bys to add to the recipe. Order_bys must</span>
+<span class="sd">                         be keys of ingredients already added to the recipe. If the</span>
+<span class="sd">                         key is prefixed by &quot;-&quot; the ordering will be descending.</span>
+<span class="sd">        :type order_bys: list(str)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Convert dimensions to use their id</span>
+        <span class="n">order_bys</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">id</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">Ingredient</span><span class="p">)</span> <span class="k">else</span> <span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">order_bys</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_order_bys</span> <span class="o">=</span> <span class="n">order_bys</span></div>
+
+    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">select_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selectable</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_select_from</span> <span class="o">=</span> <span class="n">selectable</span>
+
+    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">session</span>
+
+<div class="viewcode-block" id="Recipe.limit"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.limit">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">limit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Limit the number of rows returned from the database.</span>
+
+<span class="sd">        :param limit: The number of rows to return in the recipe. 0 will</span>
+<span class="sd">                      return all rows.</span>
+<span class="sd">        :type limit: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_limit</span> <span class="o">=</span> <span class="n">limit</span></div>
+
+<div class="viewcode-block" id="Recipe.offset"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.offset">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Offset a number of rows before returning rows from the database.</span>
+
+<span class="sd">        :param offset: The number of rows to offset in the recipe. 0 will</span>
+<span class="sd">                       return from the first available row</span>
+<span class="sd">        :type offset: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span> <span class="o">=</span> <span class="n">offset</span></div>
+
+    <span class="c1"># ------</span>
+    <span class="c1"># Utility functions</span>
+    <span class="c1"># ------</span>
+
+    <span class="k">def</span> <span class="nf">_is_postgres</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Determine if the running engine is postgres &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_postgres_engine</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">is_postgres_engine</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">dialect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">bind</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">name</span>
+                <span class="k">if</span> <span class="s2">&quot;redshift&quot;</span> <span class="ow">in</span> <span class="n">dialect</span> <span class="ow">or</span> <span class="s2">&quot;postg&quot;</span> <span class="ow">in</span> <span class="n">dialect</span> <span class="ow">or</span> <span class="s2">&quot;pg&quot;</span> <span class="ow">in</span> <span class="n">dialect</span><span class="p">:</span>
+                    <span class="n">is_postgres_engine</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_postgres_engine</span> <span class="o">=</span> <span class="n">is_postgres_engine</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_postgres_engine</span>
+
+<div class="viewcode-block" id="Recipe.query"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates a query using the ingredients supplied by the recipe.</span>
+
+<span class="sd">        :return: A SQLAlchemy query</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">ingredients</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span><span class="s2">&quot;No ingredients have been added to this recipe&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Step 1: Gather up global filters and user filters and</span>
+        <span class="c1"># apply them as if they had been added to recipe().filters(...)</span>
+
+        <span class="k">for</span> <span class="n">extension</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe_extensions</span><span class="p">:</span>
+            <span class="n">extension</span><span class="o">.</span><span class="n">add_ingredients</span><span class="p">()</span>
+
+        <span class="c1"># Step 2: Build the query (now that it has all the filters</span>
+        <span class="c1"># and apply any blend recipes</span>
+
+        <span class="c1"># Get the parts of the query from the cauldron</span>
+        <span class="c1"># {</span>
+        <span class="c1">#             &quot;columns&quot;: columns,</span>
+        <span class="c1">#             &quot;group_bys&quot;: group_bys,</span>
+        <span class="c1">#             &quot;filters&quot;: filters,</span>
+        <span class="c1">#             &quot;havings&quot;: havings,</span>
+        <span class="c1">#             &quot;order_bys&quot;: list(order_bys)</span>
+        <span class="c1">#         }</span>
+        <span class="n">recipe_parts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">brew_query_parts</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_order_bys</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">extension</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe_extensions</span><span class="p">:</span>
+            <span class="n">recipe_parts</span> <span class="o">=</span> <span class="n">extension</span><span class="o">.</span><span class="n">modify_recipe_parts</span><span class="p">(</span><span class="n">recipe_parts</span><span class="p">)</span>
+
+        <span class="c1"># Start building the query</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="o">*</span><span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;columns&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_from</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">select_from</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_select_from</span><span class="p">)</span>
+        <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="o">*</span><span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;group_bys&quot;</span><span class="p">])</span>
+            <span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="o">*</span><span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;order_bys&quot;</span><span class="p">])</span>
+            <span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">*</span><span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;filters&quot;</span><span class="p">])</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;havings&quot;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">having</span> <span class="ow">in</span> <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;havings&quot;</span><span class="p">]:</span>
+                <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">having</span><span class="p">(</span><span class="n">having</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">extension</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe_extensions</span><span class="p">:</span>
+            <span class="n">recipe_parts</span> <span class="o">=</span> <span class="n">extension</span><span class="o">.</span><span class="n">modify_prequery_parts</span><span class="p">(</span><span class="n">recipe_parts</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_select_from</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">selectable</span><span class="o">.</span><span class="n">froms</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span>
+                <span class="s2">&quot;Recipes must use ingredients that all come from &quot;</span>
+                <span class="s2">&quot;the same table. </span><span class="se">\n</span><span class="s2">Details on this recipe:</span><span class="se">\n</span><span class="s2">{&quot;</span>
+                <span class="s2">&quot;}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cauldron</span><span class="p">))</span>
+            <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">extension</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe_extensions</span><span class="p">:</span>
+            <span class="n">recipe_parts</span> <span class="o">=</span> <span class="n">extension</span><span class="o">.</span><span class="n">modify_postquery_parts</span><span class="p">(</span><span class="n">recipe_parts</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;recipe&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">recipe_parts</span><span class="p">:</span>
+            <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;cache_region&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_region</span>
+            <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;cache_prefix&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_prefix</span>
+        <span class="n">recipe_parts</span> <span class="o">=</span> <span class="n">run_hooks</span><span class="p">(</span><span class="n">recipe_parts</span><span class="p">,</span> <span class="s2">&quot;modify_query&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dynamic_extensions</span><span class="p">)</span>
+
+        <span class="c1"># Apply limit on the outermost query</span>
+        <span class="c1"># This happens after building the comparison recipe</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_limit</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_limit</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_limit</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">offset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_offset</span><span class="p">)</span>
+
+        <span class="c1"># Patch the query if there&#39;s a comparison query</span>
+        <span class="c1"># cache results</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span> <span class="o">=</span> <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span></div>
+
+    <span class="k">def</span> <span class="nf">_table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; A convenience method to determine the table the query is</span>
+<span class="sd">        selecting from</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">descriptions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">()</span><span class="o">.</span><span class="n">column_descriptions</span>
+        <span class="k">if</span> <span class="n">descriptions</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">descriptions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;entity&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Recipe.to_sql"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.to_sql">[docs]</a>    <span class="k">def</span> <span class="nf">to_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; A string representation of the SQL this recipe will generate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">prettyprintable_sql</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Recipe.subquery"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.subquery">[docs]</a>    <span class="k">def</span> <span class="nf">subquery</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The recipe&#39;s query as a subquery suitable for use in joins or other</span>
+<span class="sd">        queries.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="n">subquery</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Recipe.as_table"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.as_table">[docs]</a>    <span class="k">def</span> <span class="nf">as_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Return an alias to a table</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+        <span class="k">return</span> <span class="n">alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subquery</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Recipe.all"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Return a (potentially cached) list of result objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">starttime</span> <span class="o">=</span> <span class="n">fetchtime</span> <span class="o">=</span> <span class="n">enchanttime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fetchtime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_use_cache</span><span class="p">:</span>
+                <span class="c1"># Invalidate this query in the cache</span>
+                <span class="c1"># to ensure it gets fresh data from the database</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">,</span> <span class="s2">&quot;invalidate&quot;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="o">.</span><span class="n">invalidate</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_all</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">enchant</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="n">cache_context</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_context</span>
+            <span class="p">)</span>
+            <span class="n">enchanttime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">fetched_from_cache</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">,</span> <span class="s2">&quot;fetched_from_cache&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fetched_from_cache</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_all</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">dbtime</span> <span class="o">=</span> <span class="n">fetchtime</span> <span class="o">-</span> <span class="n">starttime</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">enchanttime</span> <span class="o">=</span> <span class="n">enchanttime</span> <span class="o">-</span> <span class="n">fetchtime</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">from_cache</span> <span class="o">=</span> <span class="n">fetched_from_cache</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all</span></div>
+
+<div class="viewcode-block" id="Recipe.one"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.one">[docs]</a>    <span class="k">def</span> <span class="nf">one</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Return the first element on the result</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">all</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">all</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">all</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="Recipe.first"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Recipe.first">[docs]</a>    <span class="k">def</span> <span class="nf">first</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Return the first element on the result</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">one</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">rows</span><span class="p">:</span>
+            <span class="n">first_row</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">tablib</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="o">*</span><span class="n">rows</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">first_row</span><span class="o">.</span><span class="n">_fields</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tablib</span><span class="o">.</span><span class="n">Dataset</span><span class="p">([],</span> <span class="n">headers</span><span class="o">=</span><span class="p">[])</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chris Gemignani
+      <span class="lastupdated">
+        Last updated on May 04, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

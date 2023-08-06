@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Development &mdash; Recipe 0.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Custom Oven Drivers" href="oven_drivers.html" />
+    <link rel="prev" title="API" href="../api.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4eb2cd" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Recipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/overview.html">Overview of Recipe Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/ingredients.html">Ingredients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/from_field_expression_config.html">Defining Shelves with Field Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/from_config.html">Defining Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/using_from_config.html">Using Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extensions/intro_to_extensions.html">Using Extensions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/ovens.html">Ovens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/hooks.html">Hooks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#conventions">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#source-control">Source Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#git-branch-structure">Git Branch Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-new-extensions">Adding New Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-new-ingredients">Adding New Ingredients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-recipe">Testing Recipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#continuous-integration">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-the-docs">Building the Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="oven_drivers.html">Custom Oven Drivers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_extensions.html">Dynamic Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Recipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Development</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/contributing/development.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="development">
+<span id="id1"></span><h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
+<p>Recipe is under active development, and contributors are welcome.</p>
+<p>If you have a feature request, suggestion, or bug report, please open a new
+issue on <a class="reference external" href="http://github.com/juiceinc/recipe/">GitHub</a>. To submit patches, please send a pull request on <a class="reference external" href="http://github.com/juiceinc/recipe/">GitHub</a>.</p>
+<div class="section" id="conventions">
+<span id="design"></span><h2>Conventions<a class="headerlink" href="#conventions" title="Permalink to this headline">¶</a></h2>
+<p>Recipe code wraps at 79 characters and passes flake8. Strings should single
+quoted unless double quoting leads to less escaping. Add tests to achieve
+100% code coverage.</p>
+</div>
+<div class="section" id="source-control">
+<span id="scm"></span><h2>Source Control<a class="headerlink" href="#source-control" title="Permalink to this headline">¶</a></h2>
+<p>The project is hosted on at <a class="reference external" href="https://github.com/juiceinc/recipe">https://github.com/juiceinc/recipe</a></p>
+<p>The repository is publicly accessible. To check it out, run:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git://github.com/juiceinc/recipe.git</span></code></p>
+</div></blockquote>
+<div class="section" id="git-branch-structure">
+<h3>Git Branch Structure<a class="headerlink" href="#git-branch-structure" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">develop</span></code></dt><dd><p>The “next release” branch. Likely unstable.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">master</span></code></dt><dd><p>Current production release (0.14.0) on PyPi.</p>
+</dd>
+</dl>
+<p>Each release is tagged.</p>
+<p>When submitting patches, please place your feature/change in its own branch
+prior to opening a pull request on <a class="reference external" href="http://github.com/juiceinc/recipe/">GitHub</a>.</p>
+</div>
+</div>
+<div class="section" id="adding-new-extensions">
+<span id="newextensions"></span><h2>Adding New Extensions<a class="headerlink" href="#adding-new-extensions" title="Permalink to this headline">¶</a></h2>
+<p>Recipe welcomes new extensions.</p>
+<p>Extensions subclass RecipeExtension and plug into the base recipe’s <code class="docutils literal notranslate"><span class="pre">.query()</span></code>
+method which builds a SQLAlchemy query. Extensions can either modify the base
+recipe like these do.</p>
+<ul class="simple">
+<li><p>AutomaticFilters</p></li>
+<li><p>Anonymize</p></li>
+<li><p>SummarizeOver</p></li>
+</ul>
+<p>Or extensions can merge one or more recipes into the base recipe. Extensions
+that require another recipe should have a classname that ends with <strong>Recipe</strong>.</p>
+<ul class="simple">
+<li><p>CompareRecipe</p></li>
+<li><p>BlendRecipe</p></li>
+</ul>
+<p>When adding an extension, do the following.</p>
+<ol class="arabic simple">
+<li><p>Add extension to src/extensions.py</p></li>
+<li><p>Add tests to tests/test_extensions.py, cover 100% of extension function
+and test that the extension doesn’t interfere with other extensions</p></li>
+<li><p>Make sure your extension code passes flake8</p></li>
+<li><p>Add extension description to docs/extensions/</p></li>
+<li><p>Submit a PR!</p></li>
+</ol>
+</div>
+<div class="section" id="adding-new-ingredients">
+<h2>Adding New Ingredients<a class="headerlink" href="#adding-new-ingredients" title="Permalink to this headline">¶</a></h2>
+<p>Recipe welcomes new ingredients, particularly metrics and dimensions that
+cover common patterns of data aggregation.</p>
+<p>Subclass the appropriate ingredient and don’t duplicate something that a
+superclass does. For instance <code class="docutils literal notranslate"><span class="pre">WtdAvgMetric</span></code> is a subclass of
+<code class="docutils literal notranslate"><span class="pre">DivideMetric</span></code> that generates it’s expressions differently.</p>
+<p>Extra functionality can be added by using Ingredient.meta in structured ways.</p>
+<p>A checklist of adding an extension.</p>
+<ol class="arabic simple">
+<li><p>Add extension to src/ingredients.py</p></li>
+<li><p>Add tests to tests/test_ingredients.py, cover 100% of ingredient
+parameters.</p></li>
+<li><p>Make sure your ingredient passes flake8</p></li>
+<li><p>Submit a PR!</p></li>
+</ol>
+</div>
+<div class="section" id="testing-recipe">
+<span id="testing"></span><h2>Testing Recipe<a class="headerlink" href="#testing-recipe" title="Permalink to this headline">¶</a></h2>
+<p>Testing is crucial to confident development and stability. This stable
+project is used in production by many companies and developers, so it is
+important to be certain that every version released is fully operational.
+When developing a new feature for Recipe, be sure to write proper tests for it
+as well.</p>
+<p>When developing a feature for Recipe, the easiest way to test your changes for
+potential issues is to simply run the test suite directly.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make tests
+</pre></div>
+</div>
+<p>This will run tests under pytest and show code coverage data.</p>
+</div>
+<div class="section" id="continuous-integration">
+<span id="jenkins"></span><h2>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline">¶</a></h2>
+<p>Every commit made to the <strong>develop</strong> branch is automatically tested and
+inspected upon receipt with <a href="#id2"><span class="problematic" id="id3">`Travis CI`_</span></a>. If you have access to the main
+repository and broke the build, you will receive an email accordingly.</p>
+<p>Anyone may view the build status and history at any time.</p>
+<blockquote>
+<div><p><a class="reference external" href="https://travis-ci.org/juiceinc/tablib">https://travis-ci.org/juiceinc/tablib</a></p>
+</div></blockquote>
+<dl class="simple">
+<dt>Additional reports will also be included here in the future, including <span class="target" id="index-0"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0008"><strong>PEP 8</strong></a></dt><dd><p>checks and stress reports for extremely large datasets.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="building-the-docs">
+<span id="docs"></span><h2>Building the Docs<a class="headerlink" href="#building-the-docs" title="Permalink to this headline">¶</a></h2>
+<p>Documentation in <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructured Text</a> and powered by <a class="reference external" href="http://sphinx.pocoo.org">Sphinx</a>.</p>
+<dl>
+<dt>The Docs live in <code class="docutils literal notranslate"><span class="pre">recipe/docs</span></code>. In order to build them, you will first need</dt><dd><p>to install Sphinx.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install sphinx
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>To build an HTML version of the docs, simply run the following from the
+<strong>docs</strong> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make html
+</pre></div>
+</div>
+<p>Your <code class="docutils literal notranslate"><span class="pre">docs/_build/html</span></code> directory will then contain the fully build
+documentation, ready for publishing. You can also generate the documentation
+in tons of other formats.</p>
+<hr class="docutils" />
+<p>If you want to learn more, check out the <a class="reference internal" href="../api.html#api"><span class="std std-ref">API Documentation</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="oven_drivers.html" class="btn btn-neutral float-right" title="Custom Oven Drivers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../api.html" class="btn btn-neutral float-left" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chris Gemignani
+      <span class="lastupdated">
+        Last updated on May 04, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

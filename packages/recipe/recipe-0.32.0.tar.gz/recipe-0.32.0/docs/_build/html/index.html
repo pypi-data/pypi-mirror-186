@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Recipe: A DRY framework for querying data &mdash; Recipe 0.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4eb2cd" >
+          
+
+          
+            <a href="#" class="icon icon-home"> Recipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting Started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="concepts/overview.html">Overview of Recipe Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/ingredients.html">Ingredients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/from_field_expression_config.html">Defining Shelves with Field Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/from_config.html">Defining Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/using_from_config.html">Using Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions/intro_to_extensions.html">Using Extensions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/ovens.html">Ovens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/hooks.html">Hooks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing/development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/oven_drivers.html">Custom Oven Drivers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/dynamic_extensions.html">Dynamic Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Recipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Recipe: A DRY framework for querying data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="recipe-a-dry-framework-for-querying-data">
+<h1>Recipe: A DRY framework for querying data<a class="headerlink" href="#recipe-a-dry-framework-for-querying-data" title="Permalink to this headline">¶</a></h1>
+<p>Release v0.14.0. (<a class="reference internal" href="install.html#install"><span class="std std-ref">Installation</span></a>)</p>
+<p>Recipe is an MIT licensed cross-database querying library, written
+in Python. It allows you to reuse SQL fragments to answer data questions
+consistently. Extension classes allow you to support data anonymization,
+automatic generation of where clauses, user permissioning to data, subselects,
+and response formatting.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">WtdAvgMetric</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">),</span> <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">state</span><span class="p">)})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">()</span><span class="o">.</span><span class="n">shelf</span><span class="p">(</span><span class="n">shelf</span><span class="p">)</span><span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-age&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">recipe</span><span class="o">.</span><span class="n">to_sql</span><span class="p">()</span>
+<span class="go">SELECT census.state AS state,</span>
+<span class="go">       CAST(sum(census.age * census.pop2000) AS FLOAT) / (coalesce(CAST(sum(census.pop2000) AS FLOAT), 0.0) + 1e-09) AS age</span>
+<span class="go">FROM census</span>
+<span class="go">GROUP BY census.state</span>
+<span class="go">ORDER BY CAST(sum(census.age * census.pop2000) AS FLOAT) / (coalesce(CAST(sum(census.pop2000) AS FLOAT), 0.0) + 1e-09) DESC</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">recipe</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">csv</span>
+<span class="go">state,age,state_id</span>
+<span class="go">Florida,39.08283934000634,Florida</span>
+<span class="go">West Virginia,38.555058651148165,West Virginia</span>
+<span class="go">Maine,38.10118393261269,Maine</span>
+<span class="go">Pennsylvania,38.03856695544053,Pennsylvania</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#recipe-license">Recipe License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#pythons-supported">Pythons Supported</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#installing-recipe">Installing Recipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#download-the-source">Download the Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#creating-a-shelf">Creating a Shelf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#using-the-shelf-to-build-a-recipe">Using the Shelf to build a Recipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#defining-shelves-and-recipes-using-configuration">Defining Shelves and Recipes Using Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#adding-features-with-extensions">Adding Features with Extensions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="concepts/overview.html">Overview of Recipe Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="concepts/overview.html#extensions">Extensions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/ingredients.html">Ingredients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="concepts/ingredients.html#creating-ingredients-in-python">Creating ingredients in python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="concepts/ingredients.html#features-of-ingredients">Features of ingredients</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/ingredients.html#types-of-ingredients">Types of Ingredients</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="concepts/ingredients.html#dimension">Dimension</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/ingredients.html#metric">Metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/ingredients.html#dividemetric">DivideMetric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/ingredients.html#wtdavgmetric">WtdAvgMetric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/ingredients.html#filter">Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/ingredients.html#having">Having</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/from_field_expression_config.html">Defining Shelves with Field Expressions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="concepts/from_field_expression_config.html#defining-shelves-using-field-expressions">Defining Shelves using Field Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/from_field_expression_config.html#defining-ingredients">Defining Ingredients</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_field_expression_config.html#defining-metrics">Defining Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_field_expression_config.html#defining-dimensions">Defining Dimensions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/from_field_expression_config.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_field_expression_config.html#a-simple-shelf-with-conditions">A simple shelf with conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_field_expression_config.html#metrics-referencing-other-metric-definitions">Metrics referencing other metric definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_field_expression_config.html#dimensions-containing-buckets">Dimensions containing buckets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/from_config.html">Defining Shelves from configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="concepts/from_config.html#defining-shelves">Defining Shelves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/from_config.html#defining-ingredients">Defining Ingredients</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_config.html#metric">Metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_config.html#dimension">Dimension</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/from_config.html#defining-fields">Defining Fields</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_config.html#defining-fields-with-dicts">Defining Fields with Dicts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_config.html#defining-fields-with-strings">Defining Fields with Strings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/from_config.html#defining-field-operators">Defining Field Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/from_config.html#defining-conditions">Defining Conditions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_config.html#ands-and-ors-in-conditions">ands and ors in conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_config.html#date-conditions">Date conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_config.html#labeled-conditions">Labeled conditions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/from_config.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_config.html#a-simple-shelf-with-conditions">A simple shelf with conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_config.html#metrics-referencing-other-metric-definitions">Metrics referencing other metric definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="concepts/from_config.html#dimensions-containing-buckets">Dimensions containing buckets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/using_from_config.html">Using Shelves from configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="concepts/using_from_config.html#when-are-shelves-from-configuration-bound-to-columns">When are Shelves from configuration bound to columns?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/using_from_config.html#binding-a-shelf-to-a-mapping">Binding a shelf to a Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/using_from_config.html#binding-a-shelf-to-a-sqlalchemy-subselect">Binding a shelf to a SQLAlchemy subselect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts/using_from_config.html#binding-a-shelf-to-a-recipe">Binding a shelf to a Recipe</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extensions/intro_to_extensions.html">Using Extensions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="extensions/automaticfilters.html">AutomaticFilters: Simple filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extensions/summarizeover.html">SummarizeOver: Grouping over a dimenension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extensions/comparerecipe.html">CompareRecipe: Generating comparison values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extensions/blendrecipe.html">BlendRecipe: Combining recipes from different tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extensions/anonymize.html">Anonymize: Realistic random data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extensions/paginate.html">Paginate: Returning data in pages</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/ovens.html">Ovens</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced/ovens.html#initializing-an-oven">Initializing an Oven</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced/ovens.html#oven-drivers">Oven Drivers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/hooks.html">Hooks</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#recipe">Recipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#shelf">Shelf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#ingredients">Ingredients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#extensions">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#exceptions">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing/development.html">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing/development.html#conventions">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/development.html#source-control">Source Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing/development.html#git-branch-structure">Git Branch Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/development.html#adding-new-extensions">Adding New Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/development.html#adding-new-ingredients">Adding New Ingredients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/development.html#testing-recipe">Testing Recipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/development.html#continuous-integration">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/development.html#building-the-docs">Building the Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/oven_drivers.html">Custom Oven Drivers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing/oven_drivers.html#ovenbase">OvenBase</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/dynamic_extensions.html">Dynamic Extensions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing/dynamic_extensions.html#dynamicextensionbase">DynamicExtensionBase</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing/changelog.html#id1">0.14.0 (2020-03-06)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/changelog.html#id2">0.13.1 (2020-02-11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/changelog.html#id3">0.13.0 (2020-01-28)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/changelog.html#id4">0.12.0 (2019-11-25)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/changelog.html#id5">0.11.0 (2019-11-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/changelog.html#id6">0.10.0 (2019-08-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/changelog.html#id7">0.9.0 (2019-08-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/changelog.html#id8">0.8.0 (2019-07-08)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/changelog.html#id9">0.7.0 (2019-06-24)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/changelog.html#id10">0.6.2 (2019-06-11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/changelog.html#id11">0.1.0 (2017-02-05)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="intro.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chris Gemignani
+      <span class="lastupdated">
+        Last updated on May 04, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

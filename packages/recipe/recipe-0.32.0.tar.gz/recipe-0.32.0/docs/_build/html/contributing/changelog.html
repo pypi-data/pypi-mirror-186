@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Changelog &mdash; Recipe 0.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Dynamic Extensions" href="dynamic_extensions.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4eb2cd" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Recipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/overview.html">Overview of Recipe Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/ingredients.html">Ingredients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/from_field_expression_config.html">Defining Shelves with Field Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/from_config.html">Defining Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/using_from_config.html">Using Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extensions/intro_to_extensions.html">Using Extensions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/ovens.html">Ovens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/hooks.html">Hooks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="oven_drivers.html">Custom Oven Drivers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_extensions.html">Dynamic Extensions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">0.14.0 (2020-03-06)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">0.13.1 (2020-02-11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">0.13.0 (2020-01-28)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">0.12.0 (2019-11-25)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">0.11.0 (2019-11-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">0.10.0 (2019-08-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">0.9.0 (2019-08-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">0.8.0 (2019-07-08)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">0.7.0 (2019-06-24)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">0.6.2 (2019-06-11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">0.1.0 (2017-02-05)</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Recipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Changelog</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/contributing/changelog.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>0.14.0 (2020-03-06)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Support graceful ingredient failures when ingredients can not be constructed from config.</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>0.13.1 (2020-02-11)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Fix a pg8000 issue</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>0.13.0 (2020-01-28)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Extend grouping strategies so recipes can also order by column labels</p></li>
+<li><p>Create a new shelf configuration that uses lark to parse text into SQLAlchemy.</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>0.12.0 (2019-11-25)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>remove flapjack_stack and pyhash dependencies</p></li>
+<li><p>Add percentile aggregations to metrics from config.</p></li>
+<li><p>Use more accurate fetched_from_cache caching query attribute</p></li>
+<li><p>Add grouping strategies so recipes can group by column labels</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>0.11.0 (2019-11-07)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add Paginate extension</p></li>
+<li><p>Fix deterministic Anonymization in python3</p></li>
+<li><p>CI improvements</p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2>0.10.0 (2019-08-07)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Support multiple quickselects which are ORed together</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2>0.9.0 (2019-08-07)<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Replace quickfilter with quickselect</p></li>
+<li><p>Improve and publish docs on at recipe.readthedocs.io</p></li>
+<li><p>Happy birthday, Zoe!</p></li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h2>0.8.0 (2019-07-08)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add cache control options.</p></li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h2>0.7.0 (2019-06-24)<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Support date ranges in configuration defined ingredients</p></li>
+<li><p>Add like, ilike, between in ingredients defined from config</p></li>
+<li><p>Better handling in automatic filters when Nones appear in lists</p></li>
+<li><p>Remove dirty flag</p></li>
+<li><p>Ingredients defined from config support safe division by default</p></li>
+<li><p>[ISSUE-37] Allow Dimension defined from config to be defined using buckets</p></li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h2>0.6.2 (2019-06-11)<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id11">
+<h2>0.1.0 (2017-02-05)<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>First release on PyPI.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="dynamic_extensions.html" class="btn btn-neutral float-left" title="Dynamic Extensions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chris Gemignani
+      <span class="lastupdated">
+        Last updated on May 04, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

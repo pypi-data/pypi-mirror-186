@@ -1,0 +1,414 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting Started &mdash; Recipe 0.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview of Recipe Concepts" href="concepts/overview.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4eb2cd" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Recipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-shelf">Creating a Shelf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-shelf-to-build-a-recipe">Using the Shelf to build a Recipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-shelves-and-recipes-using-configuration">Defining Shelves and Recipes Using Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-features-with-extensions">Adding Features with Extensions</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="concepts/overview.html">Overview of Recipe Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/ingredients.html">Ingredients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/from_field_expression_config.html">Defining Shelves with Field Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/from_config.html">Defining Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/using_from_config.html">Using Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions/intro_to_extensions.html">Using Extensions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/ovens.html">Ovens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/hooks.html">Hooks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing/development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/oven_drivers.html">Custom Oven Drivers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/dynamic_extensions.html">Dynamic Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Recipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting Started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-recipe">
+<span id="getting-started"></span><span id="quickstart"></span><h1>Getting Started<a class="headerlink" href="#module-recipe" title="Permalink to this headline">¶</a></h1>
+<p>This page gives a good introduction in how to get started with Recipe. This
+assumes you already have Recipe installed. If you do not, head over to
+<a class="reference internal" href="install.html#install"><span class="std std-ref">Installing Recipe</span></a>.</p>
+<p>First, make sure that:</p>
+<ul class="simple">
+<li><p>Recipe is <a class="reference internal" href="install.html#install"><span class="std std-ref">installed</span></a></p></li>
+<li><p>Recipe is <a class="reference internal" href="install.html#updates"><span class="std std-ref">up-to-date</span></a></p></li>
+</ul>
+<p>Let’s gets started with some simple use cases and examples.</p>
+<div class="section" id="creating-a-shelf">
+<h2>Creating a Shelf<a class="headerlink" href="#creating-a-shelf" title="Permalink to this headline">¶</a></h2>
+<p>A <a class="reference internal" href="api.html#recipe.Shelf" title="recipe.Shelf"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shelf</span></code></a> is a place to store SQL fragments. In recipe
+these are called <a class="reference internal" href="api.html#recipe.Ingredient" title="recipe.Ingredient"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ingredients</span></code></a>.</p>
+<p>Ingredients can contain columns that should be part of the <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> portion of a query,
+filters that are part of a <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause of a query, group_bys that
+contribute to a query’s <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> and havings which add <code class="docutils literal notranslate"><span class="pre">HAVING</span></code> limits
+to a query.</p>
+<p>You won’t have to construct an Ingredient
+with all these parts directly because Recipe contains convenience classes
+that help you build the most common SQL fragments. The two most common
+Ingredient subclasses are <a class="reference internal" href="api.html#recipe.Dimension" title="recipe.Dimension"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dimension</span></code></a> which provides
+both a column and a grouping on that column and
+<a class="reference internal" href="api.html#recipe.Metric" title="recipe.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></a> which provides a column aggregation.</p>
+<p>Shelf acts like a dictionary. The keys are strings and the
+values are Ingredients. The keys are a shortcut name for the
+ingredient. Here’s an example.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">recipe</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Define a database connection</span>
+<span class="n">oven</span> <span class="o">=</span> <span class="n">get_oven</span><span class="p">(</span><span class="s1">&#39;sqlite://&#39;</span><span class="p">)</span>
+<span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+
+<span class="c1"># Define a SQLAlchemy mapping</span>
+<span class="k">class</span> <span class="nc">Census</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(),</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sex</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">())</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">())</span>
+    <span class="n">pop2000</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;pop2000&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">())</span>
+    <span class="n">pop2008</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;pop2008&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">())</span>
+
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;census&#39;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;extend_existing&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+<span class="c1"># Use that mapping to define a shelf.</span>
+<span class="n">shelf</span> <span class="o">=</span> <span class="n">Shelf</span><span class="p">({</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">Dimension</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">state</span><span class="p">),</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">WtdAvgMetric</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">),</span>
+    <span class="s1">&#39;population&#39;</span><span class="p">:</span> <span class="n">Metric</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">))</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>This is a shelf with two metrics (a weighted average of age, and the sum of
+population) and a dimension which lets you group on US State names.</p>
+</div>
+<div class="section" id="using-the-shelf-to-build-a-recipe">
+<h2>Using the Shelf to build a Recipe<a class="headerlink" href="#using-the-shelf-to-build-a-recipe" title="Permalink to this headline">¶</a></h2>
+<p>Now that you have the shelf, you can build a <a class="reference internal" href="api.html#recipe.Recipe" title="recipe.Recipe"><code class="xref py py-class docutils literal notranslate"><span class="pre">Recipe</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span>\
+    <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-age&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">csv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This results in</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">state</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">state_id</span>
+<span class="n">Florida</span><span class="p">,</span><span class="mf">39.08283934000634</span><span class="p">,</span><span class="n">Florida</span>
+<span class="n">West</span> <span class="n">Virginia</span><span class="p">,</span><span class="mf">38.555058651148165</span><span class="p">,</span><span class="n">West</span> <span class="n">Virginia</span>
+<span class="n">Maine</span><span class="p">,</span><span class="mf">38.10118393261269</span><span class="p">,</span><span class="n">Maine</span>
+<span class="n">Pennsylvania</span><span class="p">,</span><span class="mf">38.03856695544053</span><span class="p">,</span><span class="n">Pennsylvania</span>
+<span class="n">Rhode</span> <span class="n">Island</span><span class="p">,</span><span class="mf">37.20343773873182</span><span class="p">,</span><span class="n">Rhode</span> <span class="n">Island</span>
+<span class="n">Connecticut</span><span class="p">,</span><span class="mf">37.19867141455273</span><span class="p">,</span><span class="n">Connecticut</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>Note that a recipe contains data from a single table.`</p>
+</div>
+<div class="section" id="defining-shelves-and-recipes-using-configuration">
+<h2>Defining Shelves and Recipes Using Configuration<a class="headerlink" href="#defining-shelves-and-recipes-using-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Recipes and shelves can be defined using plain ole’ python objects.
+In the following example we’ll use YAML. For instance, we can define
+the shelf using this yaml config.</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">state</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dimension</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">state</span>
+<span class="nt">age</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">WtdAvgMetric</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">age</span>
+    <span class="nt">weight</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pop2000</span>
+<span class="nt">population</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Metric</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pop2000</span>
+</pre></div>
+</div>
+<p>We can load this config by parsing it against any <strong>selectable</strong>, which
+can be a SQLAlchemy mapping, a SQLAlchemy select, or another Recipe.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">shelf_yaml</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;shelf.yaml&#39;</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">Shelf</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="n">shelf_yaml</span><span class="p">,</span> <span class="n">Census</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can also define a Recipe with Configuration</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">metrics</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">age</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">population</span>
+<span class="nt">dimensions</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">state</span>
+<span class="nt">order_by</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="s">&#39;-age&#39;</span>
+</pre></div>
+</div>
+<p>If we load that we get a Recipe</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">recipe_yaml</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;shelf.yaml&#39;</span><span class="p">)</span>
+<span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">recipe_yaml</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">csv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This results in a list of the oldest US states and their populations:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">state</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">population</span><span class="p">,</span><span class="n">state_id</span>
+<span class="n">Florida</span><span class="p">,</span><span class="mf">39.08283934000634</span><span class="p">,</span><span class="mi">15976093</span><span class="p">,</span><span class="n">Florida</span>
+<span class="n">West</span> <span class="n">Virginia</span><span class="p">,</span><span class="mf">38.555058651148165</span><span class="p">,</span><span class="mi">1805847</span><span class="p">,</span><span class="n">West</span> <span class="n">Virginia</span>
+<span class="n">Maine</span><span class="p">,</span><span class="mf">38.10118393261269</span><span class="p">,</span><span class="mi">1271694</span><span class="p">,</span><span class="n">Maine</span>
+<span class="n">Pennsylvania</span><span class="p">,</span><span class="mf">38.03856695544053</span><span class="p">,</span><span class="mi">12276157</span><span class="p">,</span><span class="n">Pennsylvania</span>
+<span class="n">Rhode</span> <span class="n">Island</span><span class="p">,</span><span class="mf">37.20343773873182</span><span class="p">,</span><span class="mi">1047200</span><span class="p">,</span><span class="n">Rhode</span> <span class="n">Island</span>
+<span class="n">Connecticut</span><span class="p">,</span><span class="mf">37.19867141455273</span><span class="p">,</span><span class="mi">3403620</span><span class="p">,</span><span class="n">Connecticut</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-features-with-extensions">
+<h2>Adding Features with Extensions<a class="headerlink" href="#adding-features-with-extensions" title="Permalink to this headline">¶</a></h2>
+<p>Using extensions, you can add features to Recipe. Here are a few
+interesting thing you can do. This example mixes in two extensions.</p>
+<p><strong>AutomaticFilters</strong> defines filters (where clauses) using configuration.
+In this case were are filtering to states that start with the letter C.</p>
+<p><strong>CompareRecipe</strong> mixes in results from another recipe. In this case,
+we are using this comparison recipe to calculate an average age across
+all states.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">recipe_yaml</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">recipe_yaml</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">(),</span>
+    <span class="n">extension_classes</span><span class="o">=</span><span class="p">(</span><span class="n">AutomaticFilters</span><span class="p">,</span> <span class="n">CompareRecipe</span><span class="p">))</span>\
+    <span class="o">.</span><span class="n">automatic_filters</span><span class="p">({</span><span class="s1">&#39;state__like&#39;</span><span class="p">:</span> <span class="s1">&#39;C%&#39;</span><span class="p">})</span>\
+    <span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span><span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">to_sql</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">csv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output looks like this</p>
+<div class="highlight-SQL notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">census</span><span class="p">.</span><span class="k">state</span> <span class="k">AS</span> <span class="k">state</span><span class="p">,</span>
+    <span class="k">CAST</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">census</span><span class="p">.</span><span class="n">age</span> <span class="o">*</span> <span class="n">census</span><span class="p">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="k">AS</span> <span class="nb">FLOAT</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">coalesce</span><span class="p">(</span><span class="k">CAST</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">census</span><span class="p">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="k">AS</span> <span class="nb">FLOAT</span><span class="p">),</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">09</span><span class="p">)</span> <span class="k">AS</span> <span class="n">age</span><span class="p">,</span>
+    <span class="k">sum</span><span class="p">(</span><span class="n">census</span><span class="p">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="k">AS</span> <span class="n">population</span><span class="p">,</span>
+    <span class="k">avg</span><span class="p">(</span><span class="n">anon_1</span><span class="p">.</span><span class="n">age</span><span class="p">)</span> <span class="k">AS</span> <span class="n">age_compare</span>
+<span class="k">FROM</span> <span class="n">census</span>
+<span class="k">LEFT</span> <span class="k">OUTER</span> <span class="k">JOIN</span>
+<span class="p">(</span><span class="k">SELECT</span> <span class="k">CAST</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">census</span><span class="p">.</span><span class="n">age</span> <span class="o">*</span> <span class="n">census</span><span class="p">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="k">AS</span> <span class="nb">FLOAT</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">coalesce</span><span class="p">(</span><span class="k">CAST</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">census</span><span class="p">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="k">AS</span> <span class="nb">FLOAT</span><span class="p">),</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">09</span><span class="p">)</span> <span class="k">AS</span> <span class="n">age</span>
+<span class="k">FROM</span> <span class="n">census</span><span class="p">)</span> <span class="k">AS</span> <span class="n">anon_1</span> <span class="k">ON</span> <span class="mi">1</span><span class="o">=</span><span class="mi">1</span>
+<span class="k">WHERE</span> <span class="n">census</span><span class="p">.</span><span class="k">state</span> <span class="k">LIKE</span> <span class="s1">&#39;C%&#39;</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">census</span><span class="p">.</span><span class="k">state</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="k">CAST</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">census</span><span class="p">.</span><span class="n">age</span> <span class="o">*</span> <span class="n">census</span><span class="p">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="k">AS</span> <span class="nb">FLOAT</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">coalesce</span><span class="p">(</span><span class="k">CAST</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">census</span><span class="p">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="k">AS</span> <span class="nb">FLOAT</span><span class="p">),</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">09</span><span class="p">)</span> <span class="k">DESC</span>
+
+<span class="k">state</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">population</span><span class="p">,</span><span class="n">age_compare</span><span class="p">,</span><span class="n">state_id</span>
+<span class="n">Connecticut</span><span class="p">,</span><span class="mi">37</span><span class="p">.</span><span class="mi">19867141455273</span><span class="p">,</span><span class="mi">3403620</span><span class="p">,</span><span class="mi">35</span><span class="p">.</span><span class="mi">789568740450036</span><span class="p">,</span><span class="n">Connecticut</span>
+<span class="n">Colorado</span><span class="p">,</span><span class="mi">34</span><span class="p">.</span><span class="mi">5386073584527</span><span class="p">,</span><span class="mi">4300877</span><span class="p">,</span><span class="mi">35</span><span class="p">.</span><span class="mi">789568740450036</span><span class="p">,</span><span class="n">Colorado</span>
+<span class="n">California</span><span class="p">,</span><span class="mi">34</span><span class="p">.</span><span class="mi">17872597484759</span><span class="p">,</span><span class="mi">33829442</span><span class="p">,</span><span class="mi">35</span><span class="p">.</span><span class="mi">789568740450036</span><span class="p">,</span><span class="n">California</span>
+</pre></div>
+</div>
+<p>Now, go check out the <a class="reference internal" href="api.html#api"><span class="std std-ref">API Documentation</span></a> or look at an <a class="reference internal" href="concepts/overview.html#concepts-overview"><span class="std std-ref">Overview of Recipe Concepts</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="concepts/overview.html" class="btn btn-neutral float-right" title="Overview of Recipe Concepts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chris Gemignani
+      <span class="lastupdated">
+        Last updated on May 04, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,935 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Defining Shelves from configuration &mdash; Recipe 0.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using Shelves from configuration" href="using_from_config.html" />
+    <link rel="prev" title="Defining Shelves with Field Expressions" href="from_field_expression_config.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4eb2cd" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Recipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of Recipe Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ingredients.html">Ingredients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_field_expression_config.html">Defining Shelves with Field Expressions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Defining Shelves from configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#defining-shelves">Defining Shelves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-ingredients">Defining Ingredients</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#metric">Metric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dimension">Dimension</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#adding-id-and-other-roles-to-dimension">Adding <cite>id</cite> and other roles to Dimension</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#defining-buckets">Defining buckets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-quickselects-to-a-dimension">Adding quickselects to a Dimension</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-fields">Defining Fields</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#defining-fields-with-dicts">Defining Fields with Dicts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defining-fields-with-strings">Defining Fields with Strings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-field-operators">Defining Field Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-conditions">Defining Conditions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ands-and-ors-in-conditions">ands and ors in conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#date-conditions">Date conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#labeled-conditions">Labeled conditions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-simple-shelf-with-conditions">A simple shelf with conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metrics-referencing-other-metric-definitions">Metrics referencing other metric definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dimensions-containing-buckets">Dimensions containing buckets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="using_from_config.html">Using Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extensions/intro_to_extensions.html">Using Extensions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/ovens.html">Ovens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/hooks.html">Hooks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/oven_drivers.html">Custom Oven Drivers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/dynamic_extensions.html">Dynamic Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Recipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Defining Shelves from configuration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/concepts/from_config.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="defining-shelves-from-configuration">
+<h1>Defining Shelves from configuration<a class="headerlink" href="#defining-shelves-from-configuration" title="Permalink to this headline">¶</a></h1>
+<p>Shelves are defined as dictionaries containing keys and ingredient.
+All the examples below use YAML.</p>
+<div class="section" id="defining-shelves">
+<h2>Defining Shelves<a class="headerlink" href="#defining-shelves" title="Permalink to this headline">¶</a></h2>
+<p>Shelves are defined in configuration as dictionaries with keys and values that
+are Ingredient configuration definitions. A simple example looks like this.</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">total_population</span><span class="p">:</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Metric</span>
+  <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pop2000</span>
+<span class="nt">state</span><span class="p">:</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dimension</span>
+  <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">state</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="#examples">examples</a> for more Shelf examples.</p>
+</div>
+<div class="section" id="defining-ingredients">
+<span id="ingredients"></span><h2>Defining Ingredients<a class="headerlink" href="#defining-ingredients" title="Permalink to this headline">¶</a></h2>
+<p>Ingredients are defined using <a class="reference internal" href="#fields">fields</a> (which may contain <a class="reference internal" href="#conditions">conditions</a>). Those <a class="reference internal" href="#conditions">conditions</a>
+may reference more <a class="reference internal" href="#fields">fields</a> in turn and so forth.</p>
+<div class="section" id="metric">
+<h3>Metric<a class="headerlink" href="#metric" title="Permalink to this headline">¶</a></h3>
+<p>Metrics will always apply a default aggregation of ‘sum’ to any fields used.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kind</span><span class="p">:</span> <span class="n">Metric</span>
+<span class="n">field</span><span class="p">:</span> <span class="p">{</span><span class="n">field</span><span class="p">}</span>
+<span class="n">divide_by</span><span class="p">:</span> <span class="p">{</span><span class="n">field</span><span class="p">}</span> <span class="p">(</span><span class="n">optional</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">divide_by</span></code> is an optional denominator that <code class="docutils literal notranslate"><span class="pre">field</span></code> will be divided by safely.</p>
+</div>
+<div class="section" id="dimension">
+<h3>Dimension<a class="headerlink" href="#dimension" title="Permalink to this headline">¶</a></h3>
+<p>Metrics will always apply a default aggregation of ‘sum’ to their field.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kind</span><span class="p">:</span> <span class="n">Dimension</span>
+<span class="n">field</span><span class="p">:</span> <span class="p">{</span><span class="n">field</span><span class="p">}</span>
+<span class="p">{</span><span class="n">role</span><span class="p">}</span><span class="n">_field</span><span class="p">:</span> <span class="p">{</span><span class="n">field</span><span class="p">}</span> <span class="p">(</span><span class="n">optional</span><span class="p">)</span>
+<span class="n">buckets</span><span class="p">:</span> <span class="n">A</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">labeled</span> <span class="n">conditions</span> <span class="p">(</span><span class="n">optional</span><span class="p">)</span>
+<span class="n">buckets_default_label</span><span class="p">:</span> <span class="n">string</span> <span class="p">(</span><span class="n">optional</span><span class="p">)</span>
+<span class="n">quickselects</span><span class="p">:</span> <span class="n">A</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">labeled</span> <span class="n">conditions</span> <span class="p">(</span><span class="n">optional</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="adding-id-and-other-roles-to-dimension">
+<h4>Adding <cite>id</cite> and other roles to Dimension<a class="headerlink" href="#adding-id-and-other-roles-to-dimension" title="Permalink to this headline">¶</a></h4>
+<p>Dimensions can be defined with extra fields. The prefix before <code class="docutils literal notranslate"><span class="pre">_field</span></code>
+is the field’s role. The role will be suffixed to each value in the
+recipe rows. Let’s look at an example.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hospital</span><span class="p">:</span>
+  <span class="n">field</span><span class="p">:</span> <span class="n">hospital_name</span>
+  <span class="n">id_field</span><span class="p">:</span> <span class="n">hospital_id</span>
+  <span class="n">latitude_field</span><span class="p">:</span> <span class="n">hospital_lat</span>
+  <span class="n">longitude_field</span><span class="p">:</span> <span class="n">hospital_lng</span>
+</pre></div>
+</div>
+<p>Each result row will include</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hospital</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hospital_id</span></code> The field defined as <code class="docutils literal notranslate"><span class="pre">id_field</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hospital_latitude</span></code> The field defined as <code class="docutils literal notranslate"><span class="pre">latitude_field</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hospital_longitude</span></code> The field defined as <code class="docutils literal notranslate"><span class="pre">longitude_field</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="defining-buckets">
+<h4>Defining buckets<a class="headerlink" href="#defining-buckets" title="Permalink to this headline">¶</a></h4>
+<p>Buckets let you group continuous values (like salaries or ages). Here’s
+an example:</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">groups</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dimension</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">age</span>
+    <span class="nt">buckets</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;northeasterners&#39;</span>
+      <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">state</span>
+      <span class="nt">in</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;Vermont&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;New</span><span class="nv"> </span><span class="s">Hampshire&#39;</span><span class="p p-Indicator">]</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;babies&#39;</span>
+      <span class="nt">lt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;children&#39;</span>
+      <span class="nt">lt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">13</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;teens&#39;</span>
+      <span class="nt">lt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20</span>
+    <span class="nt">buckets_default_label</span><span class="p">:</span> <span class="s">&#39;oldsters&#39;</span>
+</pre></div>
+</div>
+<p>The conditions are evaluated <strong>in order</strong>. <strong>buckets_default_label</strong> is used for any
+values that didn’t match any condition.</p>
+<p>For convenience, conditions defined in buckets will use the field from the Dimension
+unless a different field is defined in the condition. In the example above, the first
+bucket uses <code class="docutils literal notranslate"><span class="pre">field:</span> <span class="pre">state</span></code> explicitly while all the other conditions use <code class="docutils literal notranslate"><span class="pre">field:</span> <span class="pre">age</span></code>
+from the Dimension.</p>
+<p>If you use order_by a bucket dimension, the order will be the order in which the
+buckets were defined.</p>
+</div>
+<div class="section" id="adding-quickselects-to-a-dimension">
+<h4>Adding quickselects to a Dimension<a class="headerlink" href="#adding-quickselects-to-a-dimension" title="Permalink to this headline">¶</a></h4>
+<p>quickselects are a way of associating conditions with a dimension.</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">region</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dimension</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sales_region</span>
+<span class="nt">total_sales</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Metric</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sales_dollars</span>
+<span class="nt">date</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dimension</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sales_date</span>
+    <span class="nt">quickselects</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;Last</span><span class="nv"> </span><span class="s">90</span><span class="nv"> </span><span class="s">days&#39;</span>
+      <span class="nt">between</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">90 days ago</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">tomorrow</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;Last</span><span class="nv"> </span><span class="s">180</span><span class="nv"> </span><span class="s">days&#39;</span>
+      <span class="nt">between</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">180 days ago</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">tomorrow</span>
+</pre></div>
+</div>
+<p>These conditions can then be accessed through <code class="docutils literal notranslate"><span class="pre">Ingredient.build_filter</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">AutomaticFilters</span></code> extension is an easy way to use this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">(),</span> <span class="n">extension_classes</span><span class="o">=</span><span class="p">[</span><span class="n">AutomaticFilters</span><span class="p">])</span><span class="o">.</span> \
+            <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;total_sales&#39;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">automatic_filters</span><span class="p">({</span>
+              <span class="s1">&#39;date__quickselect&#39;</span><span class="p">:</span> <span class="s1">&#39;Last 90 days&#39;</span>
+            <span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="defining-fields">
+<span id="fields"></span><h2>Defining Fields<a class="headerlink" href="#defining-fields" title="Permalink to this headline">¶</a></h2>
+<p>Fields can be defined with a short string syntax or a dictionary syntax.
+The string syntax always is normalized into the dictionary syntax.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">field</span><span class="p">:</span>
+    <span class="n">value</span><span class="p">:</span> <span class="s1">&#39;{column reference}&#39;</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="s1">&#39;{aggregation (optional)}&#39;</span>
+    <span class="n">operators</span><span class="p">:</span> <span class="p">{</span><span class="nb">list</span> <span class="n">of</span> <span class="n">operators</span><span class="p">}</span>
+    <span class="k">as</span><span class="p">:</span> <span class="p">{</span><span class="n">optional</span> <span class="nb">type</span> <span class="n">to</span> <span class="n">coerce</span> <span class="n">into</span><span class="p">}</span>
+    <span class="n">default</span><span class="p">:</span> <span class="p">{</span><span class="n">default</span> <span class="n">value</span><span class="p">,</span> <span class="n">optional</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">field</span><span class="p">:</span> <span class="s1">&#39;{string field definition}&#39;</span>
+<span class="n">This</span> <span class="n">may</span> <span class="n">include</span> <span class="n">field</span> <span class="n">references</span> <span class="n">that</span> <span class="n">look</span> <span class="n">like</span>
+<span class="o">@</span><span class="p">{</span><span class="n">ingredient</span> <span class="n">name</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">shelf</span><span class="p">}</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="section" id="defining-fields-with-dicts">
+<h3>Defining Fields with Dicts<a class="headerlink" href="#defining-fields-with-dicts" title="Permalink to this headline">¶</a></h3>
+<p>Dictionaries provide access to all options when defining a
+field.</p>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">dictionary field options</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 11%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>required</p></td>
+<td><p>string</p>
+<p>What column to use.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>aggregation</p></td>
+<td><p>optional</p></td>
+<td><p>string</p>
+<p>(default is ‘sum’ for Metric and ‘none’ for Dimension)</p>
+<p>What aggregation to use, if any. Possible aggregations are:</p>
+<ul class="simple">
+<li><p>‘sum’</p></li>
+<li><p>‘min’</p></li>
+<li><p>‘max’</p></li>
+<li><p>‘avg’</p></li>
+<li><p>‘count’</p></li>
+<li><p>‘count_distinct’</p></li>
+<li><p>‘month’ (round to the nearest month for dates)</p></li>
+<li><p>‘week’ (round to the nearest week for dates)</p></li>
+<li><p>‘year’ (round to the nearest year for dates)</p></li>
+<li><p>‘quarter’ (round to the nearest quarter for dates)</p></li>
+<li><p>‘age’ (calculate age based on a date and the current date)</p></li>
+<li><p>‘none’ (perform no aggregation)</p></li>
+<li><p>‘median’ (calculate the median value, note: this aggregation is not available
+on all databases).</p></li>
+<li><p>‘percentile[1,5,10,25,50,75,90,95,99]’ (calculate the nth percentile value
+where higher values correspond to higher percentiles, note: this aggregation
+is not available on all databases).</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>condition</p></td>
+<td><p>optional</p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">condition</span></code></p>
+<p>Condition will limit what rows of data are aggregated for a field.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>operators</p></td>
+<td><p>optional</p></td>
+<td><p>A list of <code class="docutils literal notranslate"><span class="pre">operator</span></code></p>
+<p>Operators are fields combined with a math operator to the base field.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>default</p></td>
+<td><p>optional</p></td>
+<td><p>An integer, string, float, or boolean value (optional)</p>
+<p>A value to use if the column is NULL.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The following two fields are for internal use.</p>
+</div>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text">internal dictionary field options</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 11%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ref</p></td>
+<td><p>optional</p></td>
+<td><p>string</p>
+<p>Replace this field with the field defined in
+the specified key in the shelf.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>_use_raw_value</p></td>
+<td><p>optional</p></td>
+<td><p>boolean</p>
+<p>Don’t evaluate value as a column, treat
+it as a constant in the SQL expression.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="defining-fields-with-strings">
+<h3>Defining Fields with Strings<a class="headerlink" href="#defining-fields-with-strings" title="Permalink to this headline">¶</a></h3>
+<p>Fields can be defined using strings. When using
+strings, words are treated as column references. If the
+words are prefixed with an ‘&#64;’ (like &#64;sales), the field of the ingredient
+named sales in the shelf will be injected.</p>
+<p>Aggregations can be called like functions to apply that aggregation
+to a column.</p>
+<table class="colwidths-given docutils align-default" id="id4">
+<caption><span class="caption-text">string field examples</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field string</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>revenue - expenses</p></td>
+<td><p>The sum of column revenue minus the sum of column expenses.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">field</span><span class="p">:</span> <span class="n">revenue</span> <span class="o">-</span> <span class="n">expenses</span>
+
+<span class="c1"># is the same as</span>
+
+<span class="n">field</span><span class="p">:</span>
+  <span class="n">value</span><span class="p">:</span> <span class="n">revenue</span>
+  <span class="n">aggregation</span><span class="p">:</span> <span class="nb">sum</span>  <span class="c1"># this may be omitted because &#39;sum&#39;</span>
+                    <span class="c1"># is the default aggregation for Metrics</span>
+  <span class="n">operators</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">operator</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span>
+    <span class="n">field</span><span class="p">:</span>
+      <span class="n">value</span><span class="p">:</span> <span class="n">expenses</span>
+      <span class="n">aggregation</span><span class="p">:</span> <span class="nb">sum</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>&#64;sales / &#64;student_count</p></td>
+<td><p>Find the field definition of the field named ‘sales’ in the shelf.</p>
+<p>Divide it by the field definition of the field named ‘student_count’.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>count_distinct(student_id)</p></td>
+<td><p>Count the distinct values of column student_id.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">field</span><span class="p">:</span> <span class="n">count_distinct</span><span class="p">(</span><span class="n">student_id</span><span class="p">)</span>
+
+<span class="c1"># is the same as</span>
+
+<span class="n">field</span><span class="p">:</span>
+   <span class="n">value</span><span class="p">:</span> <span class="n">student_id</span>
+   <span class="n">aggregation</span><span class="p">:</span> <span class="n">count_distinct</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="defining-field-operators">
+<span id="operators"></span><h2>Defining Field Operators<a class="headerlink" href="#defining-field-operators" title="Permalink to this headline">¶</a></h2>
+<p>Operators lets you perform math with fields.</p>
+<table class="colwidths-given docutils align-default" id="id5">
+<caption><span class="caption-text">operator options</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 11%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>operator</p></td>
+<td><p>required</p></td>
+<td><p>string</p>
+<p>One of ‘+’, ‘-‘, ‘*’, ‘/’</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>field</p></td>
+<td><p>required</p></td>
+<td><p>A field definition (either a string or a dictionary)</p></td>
+</tr>
+</tbody>
+</table>
+<p>For instance, operators can be used like this:</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="c1"># profit - taxes - interest</span>
+<span class="nt">field</span><span class="p">:</span>
+  <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">profit</span>
+  <span class="nt">operators</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">operator</span><span class="p">:</span> <span class="s">&#39;-&#39;</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">taxes</span>
+  <span class="p p-Indicator">-</span> <span class="nt">operator</span><span class="p">:</span> <span class="s">&#39;-&#39;</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">interest</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="defining-conditions">
+<span id="conditions"></span><h2>Defining Conditions<a class="headerlink" href="#defining-conditions" title="Permalink to this headline">¶</a></h2>
+<p>Conditions can include a field and operator or a list of
+conditions and-ed or or-ed together.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">field</span><span class="p">:</span> <span class="p">{</span><span class="n">field</span> <span class="n">definition</span><span class="p">}</span>
+<span class="n">label</span><span class="p">:</span> <span class="n">string</span> <span class="p">(</span><span class="n">an</span> <span class="n">optional</span> <span class="n">string</span> <span class="n">label</span><span class="p">)</span>
+<span class="p">{</span><span class="n">operator</span><span class="p">}:</span> <span class="p">{</span><span class="n">value</span><span class="p">}</span> <span class="ow">or</span> <span class="p">{</span><span class="nb">list</span> <span class="n">of</span> <span class="n">values</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="ow">or</span><span class="p">:</span>     <span class="c1"># a list of conditions</span>
+<span class="o">-</span> <span class="p">{</span><span class="n">condition1</span><span class="p">}</span>
+<span class="o">-</span> <span class="p">{</span><span class="n">condition2</span><span class="p">}</span>
+<span class="o">...</span>
+<span class="o">-</span> <span class="p">{</span><span class="n">conditionN</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="ow">and</span><span class="p">:</span>    <span class="c1"># a list of conditions</span>
+<span class="o">-</span> <span class="p">{</span><span class="n">condition1</span><span class="p">}</span>
+<span class="o">-</span> <span class="p">{</span><span class="n">condition2</span><span class="p">}</span>
+<span class="o">...</span>
+<span class="o">-</span> <span class="p">{</span><span class="n">conditionN</span><span class="p">}</span>
+
+<span class="ow">or</span>
+
+<span class="n">a</span> <span class="n">condition</span> <span class="n">reference</span> <span class="o">@</span><span class="p">{</span><span class="n">ingredient</span> <span class="n">name</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">shelf</span><span class="p">}</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Conditions consist of a field and <strong>exactly one</strong> operator.</p>
+<table class="colwidths-given docutils align-default" id="id6">
+<caption><span class="caption-text">condition options</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 11%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Condition</p></th>
+<th class="head"><p>Value is…</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>gt</p></td>
+<td><p>A string, int, or float.</p></td>
+<td><p>Find values that are greater than the value</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sales dollars are greater than 100.</span>
+<span class="n">condition</span><span class="p">:</span>
+  <span class="n">field</span><span class="p">:</span> <span class="n">sales_dollars</span>
+  <span class="n">gt</span><span class="p">:</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>gte (or ge)</p></td>
+<td><p>A string, int, or float.</p></td>
+<td><p>Find values that are greater than or equal to the value</p></td>
+</tr>
+<tr class="row-even"><td><p>lt</p></td>
+<td><p>A string, int, or float.</p></td>
+<td><p>Find values that are less than the value</p></td>
+</tr>
+<tr class="row-odd"><td><p>lte (or le)</p></td>
+<td><p>A string, int, or float.</p></td>
+<td><p>Find values that are less than or equal to the value</p></td>
+</tr>
+<tr class="row-even"><td><p>eq</p></td>
+<td><p>A string, int, or float.</p></td>
+<td><p>Find values that are equal to the value</p></td>
+</tr>
+<tr class="row-odd"><td><p>ne</p></td>
+<td><p>A string, int, or float.</p></td>
+<td><p>Find values that are not equal to the value</p></td>
+</tr>
+<tr class="row-even"><td><p>like</p></td>
+<td><p>A string</p></td>
+<td><p>Find values that match the SQL LIKE expression</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># States that start with the capital letter C</span>
+<span class="n">condition</span><span class="p">:</span>
+  <span class="n">field</span><span class="p">:</span> <span class="n">state</span>
+  <span class="n">like</span><span class="p">:</span> <span class="s1">&#39;C%&#39;</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>ilike</p></td>
+<td><p>A string</p></td>
+<td><p>Find values that match the SQL ILIKE (case insensitive like) expression.</p></td>
+</tr>
+<tr class="row-even"><td><p>between</p></td>
+<td><p>A list of <strong>two</strong> values</p></td>
+<td><p>Find values that are between the two values.</p></td>
+</tr>
+<tr class="row-odd"><td><p>in</p></td>
+<td><p>A list of values</p></td>
+<td><p>Find values that are in the list of values</p></td>
+</tr>
+<tr class="row-even"><td><p>notin</p></td>
+<td><p>A list of values</p></td>
+<td><p>Find values that are not in the list of values</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="ands-and-ors-in-conditions">
+<h3>ands and ors in conditions<a class="headerlink" href="#ands-and-ors-in-conditions" title="Permalink to this headline">¶</a></h3>
+<p>Conditions can <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> a list of conditions together.</p>
+<p>Here’s an example:</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find states that start with &#39;C&#39; and end with &#39;a&#39;</span>
+<span class="c1"># Note the conditions in the list don&#39;t have to</span>
+<span class="c1"># use the same field.</span>
+<span class="nt">condition</span><span class="p">:</span>
+  <span class="nt">and</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">state</span>
+    <span class="nt">like</span><span class="p">:</span> <span class="s">&#39;C%&#39;</span>
+  <span class="p p-Indicator">-</span> <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">state</span>
+    <span class="nt">like</span><span class="p">:</span> <span class="s">&#39;%a&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="date-conditions">
+<h3>Date conditions<a class="headerlink" href="#date-conditions" title="Permalink to this headline">¶</a></h3>
+<p>If the <code class="docutils literal notranslate"><span class="pre">field</span></code> is a date or datetime, absolute and relative dates
+can be defined in values using string syntax. Recipe uses the
+<a class="reference external" href="https://dateparser.readthedocs.io/en/latest/">Dateparser</a> library.</p>
+<p>Here’s an example.</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find sales that occured within the last 90 days.</span>
+<span class="nt">condition</span><span class="p">:</span>
+  <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sales_date</span>
+  <span class="nt">between</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="s">&#39;90</span><span class="nv"> </span><span class="s">days</span><span class="nv"> </span><span class="s">ago&#39;</span>
+  <span class="p p-Indicator">-</span> <span class="s">&#39;tomorrow&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="labeled-conditions">
+<h3>Labeled conditions<a class="headerlink" href="#labeled-conditions" title="Permalink to this headline">¶</a></h3>
+<p>Conditions may optionally be labeled by adding a label property.</p>
+<p>quickselects are a feature of Dimension that are defined with a list
+of labeled conditions.</p>
+</div>
+</div>
+<div class="section" id="examples">
+<span id="id1"></span><h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-simple-shelf-with-conditions">
+<h3>A simple shelf with conditions<a class="headerlink" href="#a-simple-shelf-with-conditions" title="Permalink to this headline">¶</a></h3>
+<p>This shelf is basic.</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">teens</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Metric</span>
+    <span class="nt">field</span><span class="p">:</span>
+        <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pop2000</span>
+        <span class="nt">condition</span><span class="p">:</span>
+            <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">age</span>
+            <span class="nt">between</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">13</span><span class="p p-Indicator">,</span><span class="nv">19</span><span class="p p-Indicator">]</span>
+<span class="nt">state</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dimension</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">state</span>
+</pre></div>
+</div>
+<p>Using this shelf in a recipe.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span>\
+    <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;teens&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">to_sql</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">csv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results look like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">census</span><span class="o">.</span><span class="n">state</span> <span class="n">AS</span> <span class="n">state</span><span class="p">,</span>
+      <span class="nb">sum</span><span class="p">(</span><span class="n">CASE</span>
+              <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="n">BETWEEN</span> <span class="mi">13</span> <span class="n">AND</span> <span class="mi">19</span><span class="p">)</span> <span class="n">THEN</span> <span class="n">census</span><span class="o">.</span><span class="n">pop2000</span>
+          <span class="n">END</span><span class="p">)</span> <span class="n">AS</span> <span class="n">teens</span>
+<span class="n">FROM</span> <span class="n">census</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">census</span><span class="o">.</span><span class="n">state</span>
+
+<span class="n">state</span><span class="p">,</span><span class="n">teens</span><span class="p">,</span><span class="n">state_id</span>
+<span class="n">Alabama</span><span class="p">,</span><span class="mi">451765</span><span class="p">,</span><span class="n">Alabama</span>
+<span class="n">Alaska</span><span class="p">,</span><span class="mi">71655</span><span class="p">,</span><span class="n">Alaska</span>
+<span class="n">Arizona</span><span class="p">,</span><span class="mi">516270</span><span class="p">,</span><span class="n">Arizona</span>
+<span class="n">Arkansas</span><span class="p">,</span><span class="mi">276069</span><span class="p">,</span><span class="n">Arkansas</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="metrics-referencing-other-metric-definitions">
+<h3>Metrics referencing other metric definitions<a class="headerlink" href="#metrics-referencing-other-metric-definitions" title="Permalink to this headline">¶</a></h3>
+<p>The following shelf has a Metric <code class="docutils literal notranslate"><span class="pre">pct_teens</span></code> that divides one previously defined Metric
+<code class="docutils literal notranslate"><span class="pre">teens</span></code> by another <code class="docutils literal notranslate"><span class="pre">total_pop</span></code>.</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">teens</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Metric</span>
+    <span class="nt">field</span><span class="p">:</span>
+        <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pop2000</span>
+        <span class="nt">condition</span><span class="p">:</span>
+            <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">age</span>
+            <span class="nt">between</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">13</span><span class="p p-Indicator">,</span><span class="nv">19</span><span class="p p-Indicator">]</span>
+<span class="nt">total_pop</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Metric</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pop2000</span>
+<span class="nt">pct_teens</span><span class="p">:</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="s">&#39;@teens&#39;</span>
+    <span class="nt">divide_by</span><span class="p">:</span> <span class="s">&#39;@total_pop&#39;</span>
+<span class="nt">state</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dimension</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">state</span>
+</pre></div>
+</div>
+<p>Using this shelf in a recipe.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span>\
+    <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;pct_teens&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">to_sql</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">csv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here’s the results. Note that recipe performs safe division.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">census</span><span class="o">.</span><span class="n">state</span> <span class="n">AS</span> <span class="n">state</span><span class="p">,</span>
+      <span class="n">CAST</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">CASE</span>
+                    <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="n">BETWEEN</span> <span class="mi">13</span> <span class="n">AND</span> <span class="mi">19</span><span class="p">)</span> <span class="n">THEN</span> <span class="n">census</span><span class="o">.</span><span class="n">pop2000</span>
+                <span class="n">END</span><span class="p">)</span> <span class="n">AS</span> <span class="n">FLOAT</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">coalesce</span><span class="p">(</span><span class="n">CAST</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">AS</span> <span class="n">FLOAT</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-09</span><span class="p">)</span> <span class="n">AS</span> <span class="n">pct_teens</span>
+<span class="n">FROM</span> <span class="n">census</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">census</span><span class="o">.</span><span class="n">state</span>
+
+<span class="n">state</span><span class="p">,</span><span class="n">pct_teens</span><span class="p">,</span><span class="n">state_id</span>
+<span class="n">Alabama</span><span class="p">,</span><span class="mf">0.10178190714599038</span><span class="p">,</span><span class="n">Alabama</span>
+<span class="n">Alaska</span><span class="p">,</span><span class="mf">0.11773975168751254</span><span class="p">,</span><span class="n">Alaska</span>
+<span class="n">Arizona</span><span class="p">,</span><span class="mf">0.10036487658951877</span><span class="p">,</span><span class="n">Arizona</span>
+<span class="n">Arkansas</span><span class="p">,</span><span class="mf">0.10330245760980436</span><span class="p">,</span><span class="n">Arkansas</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dimensions-containing-buckets">
+<h3>Dimensions containing buckets<a class="headerlink" href="#dimensions-containing-buckets" title="Permalink to this headline">¶</a></h3>
+<p>Dimensions may be created by bucketing a field.</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">total_pop</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Metric</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pop2000</span>
+<span class="nt">age_buckets</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dimension</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">age</span>
+    <span class="nt">buckets</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;babies&#39;</span>
+      <span class="nt">lt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;children&#39;</span>
+      <span class="nt">lt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">13</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;teens&#39;</span>
+      <span class="nt">lt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20</span>
+    <span class="nt">buckets_default_label</span><span class="p">:</span> <span class="s">&#39;oldsters&#39;</span>
+<span class="nt">mixed_buckets</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dimension</span>
+    <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">age</span>
+    <span class="nt">buckets</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;northeasterners&#39;</span>
+      <span class="nt">in</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;Vermont&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;New</span><span class="nv"> </span><span class="s">Hampshire&#39;</span><span class="p p-Indicator">]</span>
+      <span class="nt">field</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">state</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;babies&#39;</span>
+      <span class="nt">lt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;children&#39;</span>
+      <span class="nt">lt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">13</span>
+    <span class="p p-Indicator">-</span> <span class="nt">label</span><span class="p">:</span> <span class="s">&#39;teens&#39;</span>
+      <span class="nt">lt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20</span>
+    <span class="nt">buckets_default_label</span><span class="p">:</span> <span class="s">&#39;oldsters&#39;</span>
+</pre></div>
+</div>
+<p>Using this shelf in a recipe.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">recipe</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">(</span><span class="n">shelf</span><span class="o">=</span><span class="n">shelf</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">oven</span><span class="o">.</span><span class="n">Session</span><span class="p">())</span>\
+    <span class="o">.</span><span class="n">dimensions</span><span class="p">(</span><span class="s1">&#39;mixed_buckets&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">metrics</span><span class="p">(</span><span class="s1">&#39;total_pop&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;mixed_buckets&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">to_sql</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">csv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here’s the results. Note this recipe orders by <code class="docutils literal notranslate"><span class="pre">mixed_buckets</span></code>. The buckets are
+ordered in the <strong>order they are defined</strong>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">CASE</span>
+          <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">state</span> <span class="n">IN</span> <span class="p">(</span><span class="s1">&#39;Vermont&#39;</span><span class="p">,</span>
+                                  <span class="s1">&#39;New Hampshire&#39;</span><span class="p">))</span> <span class="n">THEN</span> <span class="s1">&#39;northeasterners&#39;</span>
+          <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="n">THEN</span> <span class="s1">&#39;babies&#39;</span>
+          <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">13</span><span class="p">)</span> <span class="n">THEN</span> <span class="s1">&#39;children&#39;</span>
+          <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> <span class="n">THEN</span> <span class="s1">&#39;teens&#39;</span>
+          <span class="n">ELSE</span> <span class="s1">&#39;oldsters&#39;</span>
+      <span class="n">END</span> <span class="n">AS</span> <span class="n">mixed_buckets</span><span class="p">,</span>
+      <span class="nb">sum</span><span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">pop2000</span><span class="p">)</span> <span class="n">AS</span> <span class="n">total_pop</span>
+<span class="n">FROM</span> <span class="n">census</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">CASE</span>
+            <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">state</span> <span class="n">IN</span> <span class="p">(</span><span class="s1">&#39;Vermont&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;New Hampshire&#39;</span><span class="p">))</span> <span class="n">THEN</span> <span class="s1">&#39;northeasterners&#39;</span>
+            <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="n">THEN</span> <span class="s1">&#39;babies&#39;</span>
+            <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">13</span><span class="p">)</span> <span class="n">THEN</span> <span class="s1">&#39;children&#39;</span>
+            <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> <span class="n">THEN</span> <span class="s1">&#39;teens&#39;</span>
+            <span class="n">ELSE</span> <span class="s1">&#39;oldsters&#39;</span>
+        <span class="n">END</span>
+<span class="n">ORDER</span> <span class="n">BY</span> <span class="n">CASE</span>
+            <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">state</span> <span class="n">IN</span> <span class="p">(</span><span class="s1">&#39;Vermont&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;New Hampshire&#39;</span><span class="p">))</span> <span class="n">THEN</span> <span class="mi">0</span>
+            <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="n">THEN</span> <span class="mi">1</span>
+            <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">13</span><span class="p">)</span> <span class="n">THEN</span> <span class="mi">2</span>
+            <span class="n">WHEN</span> <span class="p">(</span><span class="n">census</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> <span class="n">THEN</span> <span class="mi">3</span>
+            <span class="n">ELSE</span> <span class="mi">9999</span>
+        <span class="n">END</span>
+
+<span class="n">mixed_buckets</span><span class="p">,</span><span class="n">total_pop</span><span class="p">,</span><span class="n">mixed_buckets_id</span>
+<span class="n">northeasterners</span><span class="p">,</span><span class="mi">1848787</span><span class="p">,</span><span class="n">northeasterners</span>
+<span class="n">babies</span><span class="p">,</span><span class="mi">7613225</span><span class="p">,</span><span class="n">babies</span>
+<span class="n">children</span><span class="p">,</span><span class="mi">44267889</span><span class="p">,</span><span class="n">children</span>
+<span class="n">teens</span><span class="p">,</span><span class="mi">28041679</span><span class="p">,</span><span class="n">teens</span>
+<span class="n">oldsters</span><span class="p">,</span><span class="mi">199155741</span><span class="p">,</span><span class="n">oldsters</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="using_from_config.html" class="btn btn-neutral float-right" title="Using Shelves from configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="from_field_expression_config.html" class="btn btn-neutral float-left" title="Defining Shelves with Field Expressions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chris Gemignani
+      <span class="lastupdated">
+        Last updated on May 04, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,1221 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>recipe.extensions &mdash; Recipe 0.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4eb2cd" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Recipe
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Getting Started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Key Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/overview.html">Overview of Recipe Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/ingredients.html">Ingredients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/shelves.html">Shelves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/from_field_expression_config.html">Defining Shelves with Field Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/from_config.html">Defining Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/using_from_config.html">Using Shelves from configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extensions/intro_to_extensions.html">Using Extensions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced/ovens.html">Ovens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced/hooks.html">Hooks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/oven_drivers.html">Custom Oven Drivers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/dynamic_extensions.html">Dynamic Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Recipe</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>recipe.extensions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for recipe.extensions</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">and_</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">or_</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
+
+<span class="kn">from</span> <span class="nn">recipe.compat</span> <span class="kn">import</span> <span class="n">basestring</span><span class="p">,</span> <span class="n">integer_types</span>
+<span class="kn">from</span> <span class="nn">recipe.core</span> <span class="kn">import</span> <span class="n">Recipe</span>
+<span class="kn">from</span> <span class="nn">recipe.exceptions</span> <span class="kn">import</span> <span class="n">BadRecipe</span>
+<span class="kn">from</span> <span class="nn">recipe.ingredients</span> <span class="kn">import</span> <span class="n">Dimension</span><span class="p">,</span> <span class="n">Metric</span><span class="p">,</span> <span class="n">Filter</span>
+<span class="kn">from</span> <span class="nn">recipe.utils</span> <span class="kn">import</span> <span class="n">FakerAnonymizer</span><span class="p">,</span> <span class="n">recipe_arg</span>
+
+<span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="RecipeExtension"><a class="viewcode-back" href="../../reference/recipe.html#recipe.RecipeExtension">[docs]</a><span class="k">class</span> <span class="nc">RecipeExtension</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Recipe extensions plug into the recipe builder pattern and can modify the</span>
+<span class="sd">    generated query.</span>
+
+<span class="sd">    recipe generates a query in the following way</span>
+
+<span class="sd">        (RECIPE) recipe checks if a query has been generated</span>
+
+<span class="sd">        (EXTENSIONS) all extension ``add_ingredients`` run to inject</span>
+<span class="sd">        ingredients directly on the recipe</span>
+
+<span class="sd">        (RECIPE) recipe runs gather_all_ingredients_into_cauldron to build a</span>
+<span class="sd">        global lookup for ingredients</span>
+
+<span class="sd">        (RECIPE) recipe runs cauldron.brew_query_parts to gather sqlalchemy</span>
+<span class="sd">        columns, group_bys and filters</span>
+
+<span class="sd">        (EXTENSIONS) all extension ``modify_recipe_parts(recipeparts)`` run to</span>
+<span class="sd">        directly modify the collected sqlalchemy columns, group_bys or filters</span>
+
+<span class="sd">        (RECIPE) recipe builds a preliminary query with columns</span>
+
+<span class="sd">        (EXTENSIONS) all extension ``modify_prequery_parts(prequery_parts)``</span>
+<span class="sd">        run to modify the query</span>
+
+<span class="sd">        (RECIPE) recipe builds a full query with group_bys, order_bys,</span>
+<span class="sd">        and filters.</span>
+
+<span class="sd">        (RECIPE) recipe tests that this query only uses a single from</span>
+
+<span class="sd">        (EXTENSIONS) all extension ``modify_postquery_parts(</span>
+<span class="sd">        postquery_parts)`` run to modify the query</span>
+
+<span class="sd">        (RECIPE) recipe applies limits and offsets on the query</span>
+
+<span class="sd">        (RECIPE) recipe caches completed query</span>
+
+<span class="sd">    When the recipe fetches data the results will be ``enchanted`` to add</span>
+<span class="sd">    fields to the result. ``RecipeExtensions`` can modify result rows with</span>
+
+<span class="sd">        enchant_add_fields: Return a tuple of field names to add to a</span>
+<span class="sd">        result row</span>
+
+<span class="sd">        enchant_row(row): Return a tuple of field values for each row in</span>
+<span class="sd">        results.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipe</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="n">recipe</span>
+
+<div class="viewcode-block" id="RecipeExtension.add_ingredients"><a class="viewcode-back" href="../../reference/recipe.html#recipe.RecipeExtension.add_ingredients">[docs]</a>    <span class="k">def</span> <span class="nf">add_ingredients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add ingredients to the recipe</span>
+
+<span class="sd">        This method should be overridden by subclasses &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="RecipeExtension.modify_recipe_parts"><a class="viewcode-back" href="../../reference/recipe.html#recipe.RecipeExtension.modify_recipe_parts">[docs]</a>    <span class="k">def</span> <span class="nf">modify_recipe_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipe_parts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modify sqlalchemy components of the query</span>
+
+<span class="sd">        This method allows extensions to directly modify columns,</span>
+<span class="sd">        group_bys, filters, and order_bys generated from collected</span>
+<span class="sd">        ingredients. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;columns&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;group_bys&quot;</span><span class="p">:</span> <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;group_bys&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;filters&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;havings&quot;</span><span class="p">:</span> <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;havings&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;order_bys&quot;</span><span class="p">:</span> <span class="n">recipe_parts</span><span class="p">[</span><span class="s2">&quot;order_bys&quot;</span><span class="p">],</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="RecipeExtension.modify_prequery_parts"><a class="viewcode-back" href="../../reference/recipe.html#recipe.RecipeExtension.modify_prequery_parts">[docs]</a>    <span class="k">def</span> <span class="nf">modify_prequery_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prequery_parts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method allows extensions to directly modify query,</span>
+<span class="sd">        group_bys, filters, and order_bys generated from collected</span>
+<span class="sd">        ingredients after a preliminary query using columns has been created.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">prequery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;group_bys&quot;</span><span class="p">:</span> <span class="n">prequery_parts</span><span class="p">[</span><span class="s2">&quot;group_bys&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="n">prequery_parts</span><span class="p">[</span><span class="s2">&quot;filters&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;havings&quot;</span><span class="p">:</span> <span class="n">prequery_parts</span><span class="p">[</span><span class="s2">&quot;havings&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;order_bys&quot;</span><span class="p">:</span> <span class="n">prequery_parts</span><span class="p">[</span><span class="s2">&quot;order_bys&quot;</span><span class="p">],</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="RecipeExtension.modify_postquery_parts"><a class="viewcode-back" href="../../reference/recipe.html#recipe.RecipeExtension.modify_postquery_parts">[docs]</a>    <span class="k">def</span> <span class="nf">modify_postquery_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">postquery_parts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This method allows extensions to directly modify query,</span>
+<span class="sd">        group_bys, filters, and order_bys generated from collected</span>
+<span class="sd">        ingredients after a final query using columns has been created.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;group_bys&quot;</span><span class="p">:</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;group_bys&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;filters&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;havings&quot;</span><span class="p">:</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;havings&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;order_bys&quot;</span><span class="p">:</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;order_bys&quot;</span><span class="p">],</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="RecipeExtension.enchant_add_fields"><a class="viewcode-back" href="../../reference/recipe.html#recipe.RecipeExtension.enchant_add_fields">[docs]</a>    <span class="k">def</span> <span class="nf">enchant_add_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This method allows extensions to add fields to a result row.</span>
+<span class="sd">        Return a tuple of the field names that are being added with</span>
+<span class="sd">        this method</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">()</span></div>
+
+<div class="viewcode-block" id="RecipeExtension.enchant_row"><a class="viewcode-back" href="../../reference/recipe.html#recipe.RecipeExtension.enchant_row">[docs]</a>    <span class="k">def</span> <span class="nf">enchant_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This method adds the fields named in ``enchant_add_fields`` to</span>
+<span class="sd">        each result row.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">()</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">handle_directives</span><span class="p">(</span><span class="n">directives</span><span class="p">,</span> <span class="n">handlers</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">directives</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="n">handlers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span><span class="s2">&quot;Directive </span><span class="si">{}</span><span class="s2"> isn&#39;t handled&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+        <span class="n">method</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="AutomaticFilters"><a class="viewcode-back" href="../../reference/recipe.html#recipe.AutomaticFilters">[docs]</a><span class="k">class</span> <span class="nc">AutomaticFilters</span><span class="p">(</span><span class="n">RecipeExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Automatic generation and addition of Filters to a recipe.</span>
+
+<span class="sd">    Automatic filters take a dictionary of keys and values. For each key in</span>
+<span class="sd">    the dictionary, if the key is the id of a ``Dimension`` on the shelf,</span>
+<span class="sd">    a filter will be added to the recipe containing the values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">recipe_schema</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;automatic_filters&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;dict&quot;</span><span class="p">},</span>
+        <span class="s2">&quot;include_automatic_filter_keys&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;schema&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}},</span>
+        <span class="s2">&quot;exclude_automatic_filter_keys&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;schema&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}},</span>
+        <span class="s2">&quot;apply_automatic_filters&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AutomaticFilters</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apply</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_automatic_filters</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exclude_keys</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">include_keys</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="n">handle_directives</span><span class="p">(</span>
+            <span class="n">obj</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;automatic_filters&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">automatic_filters</span><span class="p">,</span>
+                <span class="s2">&quot;apply_automatic_filters&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_automatic_filters</span><span class="p">,</span>
+                <span class="s2">&quot;include_automatic_filter_keys&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_automatic_filter_keys</span><span class="p">(</span>
+                    <span class="o">*</span><span class="n">v</span>
+                <span class="p">),</span>
+                <span class="s2">&quot;exclude_automatic_filter_keys&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">exclude_automatic_filter_keys</span><span class="p">(</span>
+                    <span class="o">*</span><span class="n">v</span>
+                <span class="p">),</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="AutomaticFilters.add_ingredients"><a class="viewcode-back" href="../../reference/recipe.html#recipe.AutomaticFilters.add_ingredients">[docs]</a>    <span class="k">def</span> <span class="nf">add_ingredients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">dim</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_automatic_filters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">operator</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="s2">&quot;__&quot;</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">:</span>
+                    <span class="n">dim</span><span class="p">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="n">dim</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_keys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_keys</span><span class="p">:</span>
+                    <span class="c1"># Ignore keys that are not in include_keys</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exclude_keys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dim</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">exclude_keys</span><span class="p">:</span>
+                    <span class="c1"># Ignore keys that are in exclude_keys</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># TODO: If dim can&#39;t be found, optionally raise a warning</span>
+                <span class="n">dimension</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_shelf</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">Dimension</span><span class="p">)</span>
+                <span class="c1"># make a Filter and add it to filters</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">filters</span><span class="p">(</span><span class="n">dimension</span><span class="o">.</span><span class="n">build_filter</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">operator</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="AutomaticFilters.apply_automatic_filters"><a class="viewcode-back" href="../../reference/recipe.html#recipe.AutomaticFilters.apply_automatic_filters">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">apply_automatic_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Toggles whether automatic filters are applied to a recipe. The</span>
+<span class="sd">        following will disable automatic filters for this recipe::</span>
+
+<span class="sd">            recipe.apply_automatic_filters(False)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apply</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="AutomaticFilters.automatic_filters"><a class="viewcode-back" href="../../reference/recipe.html#recipe.AutomaticFilters.automatic_filters">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">automatic_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets a dictionary of automatic filters to apply to this recipe.</span>
+<span class="sd">        If your recipe uses a shelf that has dimensions &#39;state&#39; and &#39;gender&#39;</span>
+<span class="sd">        you could filter the data to Men in California and New Hampshire with::</span>
+
+<span class="sd">            shelf = Shelf({</span>
+<span class="sd">                &#39;state&#39;: Dimension(Census.state),</span>
+<span class="sd">                &#39;gender&#39;: Dimension(Census.gender),</span>
+<span class="sd">                &#39;population&#39;: Metric(func.sum(Census.population)),</span>
+<span class="sd">            })</span>
+<span class="sd">            recipe = Recipe(shelf=shelf)</span>
+<span class="sd">            recipe.dimensions(&#39;state&#39;).metrics(&#39;population&#39;).automatic_filters({</span>
+<span class="sd">                &#39;state&#39;: [&#39;California&#39;, &#39;New Hampshire&#39;],</span>
+<span class="sd">                &#39;gender&#39;: &#39;M&#39;</span>
+<span class="sd">            })</span>
+
+<span class="sd">        Automatic filter keys can optionally include an ``operator``.</span>
+
+<span class="sd">        **List operators**</span>
+
+<span class="sd">        If the value provided in the automatic_filter dictionary is a list,</span>
+<span class="sd">        the following operators are available. The default operator is ``in``::</span>
+
+<span class="sd">            in (default)</span>
+<span class="sd">            notin</span>
+<span class="sd">            quickselect (applies multiple conditions matching the</span>
+<span class="sd">              named quickselect, quickselects are ORed together)</span>
+<span class="sd">            between (requires a list of two items)</span>
+
+<span class="sd">        **Scalar operators**</span>
+
+<span class="sd">        If the value provided in the automatic_filter dictionary is a scalar</span>
+<span class="sd">        (a string, integer, or number), the following operators are available.</span>
+<span class="sd">        The default operator is ``eq``::</span>
+
+<span class="sd">            eq (equal) (the default)</span>
+<span class="sd">            ne (not equal)</span>
+<span class="sd">            lt (less than)</span>
+<span class="sd">            lte (less than or equal)</span>
+<span class="sd">            gt (greater than)</span>
+<span class="sd">            gte (greater than or equal)</span>
+<span class="sd">            like (SQL LIKE)</span>
+<span class="sd">            ilike (Case insensitive LIKE)</span>
+<span class="sd">            quickselect (applies the condition matching the named quickselect)</span>
+
+<span class="sd">        **An example using operators**</span>
+
+<span class="sd">        Here&#39;s an example that filters to states that start with the letters</span>
+<span class="sd">        A-C::</span>
+
+<span class="sd">            shelf = Shelf({</span>
+<span class="sd">                &#39;state&#39;: Dimension(Census.state),</span>
+<span class="sd">                &#39;gender&#39;: Dimension(Census.gender),</span>
+<span class="sd">                &#39;population&#39;: Metric(func.sum(Census.population)),</span>
+<span class="sd">            })</span>
+<span class="sd">            recipe = Recipe(shelf=shelf)</span>
+<span class="sd">            recipe.dimensions(&#39;state&#39;).metrics(&#39;population&#39;).automatic_filters({</span>
+<span class="sd">                &#39;state__lt&#39;: &#39;D&#39;</span>
+<span class="sd">            })</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_automatic_filters</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="AutomaticFilters.exclude_automatic_filter_keys"><a class="viewcode-back" href="../../reference/recipe.html#recipe.AutomaticFilters.exclude_automatic_filter_keys">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">exclude_automatic_filter_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">keys</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A &quot;blacklist&quot; of automatic filter keys to exclude. The following will</span>
+<span class="sd">        cause ``&#39;state&#39;`` to be ignored if it is present in the</span>
+<span class="sd">        ``automatic_filters`` dictionary::</span>
+
+<span class="sd">            recipe.exclude_automatic_filter_keys(&#39;state&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">exclude_keys</span> <span class="o">=</span> <span class="n">keys</span></div>
+
+<div class="viewcode-block" id="AutomaticFilters.include_automatic_filter_keys"><a class="viewcode-back" href="../../reference/recipe.html#recipe.AutomaticFilters.include_automatic_filter_keys">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">include_automatic_filter_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">keys</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A &quot;whitelist&quot; of automatic filter keys to use. The following will</span>
+<span class="sd">        **only use** ``&#39;state&#39;`` for automatic filters regardless of what is</span>
+<span class="sd">        provided in the automatic_filters dictionary::</span>
+
+<span class="sd">            recipe.include_automatic_filter_keys(&#39;state&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">include_keys</span> <span class="o">=</span> <span class="n">keys</span></div></div>
+
+
+<span class="k">class</span> <span class="nc">UserFilters</span><span class="p">(</span><span class="n">RecipeExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Add automatic filtering. &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">UserFilters</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SummarizeOver"><a class="viewcode-back" href="../../reference/recipe.html#recipe.SummarizeOver">[docs]</a><span class="k">class</span> <span class="nc">SummarizeOver</span><span class="p">(</span><span class="n">RecipeExtension</span><span class="p">):</span>
+
+    <span class="n">recipe_schema</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;summarize_over&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SummarizeOver</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_summarize_over</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="n">handle_directives</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;summarize_over&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">summarize_over</span><span class="p">})</span>
+
+    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">summarize_over</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dimension_key</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_summarize_over</span> <span class="o">=</span> <span class="n">dimension_key</span>
+
+<div class="viewcode-block" id="SummarizeOver.modify_postquery_parts"><a class="viewcode-back" href="../../reference/recipe.html#recipe.SummarizeOver.modify_postquery_parts">[docs]</a>    <span class="k">def</span> <span class="nf">modify_postquery_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">postquery_parts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Take a recipe that has dimensions</span>
+<span class="sd">        Resummarize it over one of the dimensions returning averages of the</span>
+<span class="sd">        metrics.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_summarize_over</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">postquery_parts</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_summarize_over</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">dimension_ids</span>
+
+        <span class="c1"># Start with a subquery</span>
+        <span class="n">subq</span> <span class="o">=</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">subquery</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;summarize&quot;</span><span class="p">)</span>
+
+        <span class="n">summarize_over_dim</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_summarize_over</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_summarize_over</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_summarize_over</span> <span class="o">+</span> <span class="s2">&quot;_raw&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">dim_column_names</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">set</span><span class="p">(</span><span class="n">dim</span> <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">dimension_ids</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dim</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span> <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">dimension_ids</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dim</span> <span class="o">+</span> <span class="s2">&quot;_raw&quot;</span> <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">dimension_ids</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="n">used_dim_column_names</span> <span class="o">=</span> <span class="n">dim_column_names</span> <span class="o">-</span> <span class="n">summarize_over_dim</span>
+
+        <span class="c1"># Build a new query around the subquery</span>
+        <span class="n">group_by_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">subq</span><span class="o">.</span><span class="n">c</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">used_dim_column_names</span><span class="p">]</span>
+
+        <span class="c1"># Generate columns for the metric, remapping the aggregation function</span>
+        <span class="c1"># count -&gt; sum</span>
+        <span class="c1"># sum -&gt; sum</span>
+        <span class="c1"># avg -&gt; avg</span>
+        <span class="c1"># Metrics can override the summary aggregation by providing a</span>
+        <span class="c1"># metric.meta.summary_aggregation callable parameter</span>
+        <span class="n">metric_columns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">subq</span><span class="o">.</span><span class="n">c</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dim_column_names</span><span class="p">:</span>
+                <span class="n">met</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">Metric</span><span class="p">)</span>
+                <span class="n">summary_aggregation</span> <span class="o">=</span> <span class="n">met</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summary_aggregation&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">summary_aggregation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">met</span><span class="o">.</span><span class="n">expression</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;avg&quot;</span><span class="p">):</span>
+                        <span class="n">summary_aggregation</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">avg</span>
+                    <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">met</span><span class="o">.</span><span class="n">expression</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;count&quot;</span><span class="p">):</span>
+                        <span class="n">summary_aggregation</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">sum</span>
+                    <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">met</span><span class="o">.</span><span class="n">expression</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;sum&quot;</span><span class="p">):</span>
+                        <span class="n">summary_aggregation</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">sum</span>
+
+                <span class="k">if</span> <span class="n">summary_aggregation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># We don&#39;t know how to aggregate this metric in a summary</span>
+                    <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span>
+                        <span class="sa">u</span><span class="s2">&quot;Provide a summary_aggregation for metric&quot;</span>
+                        <span class="sa">u</span><span class="s2">&quot; </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="n">metric_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">summary_aggregation</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="c1"># Find the ordering columns and apply them to the new query</span>
+        <span class="n">order_by_columns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">_order_by</span><span class="p">:</span>
+            <span class="n">subq_col</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">subq</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">subq_col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">order_by_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subq_col</span><span class="p">)</span>
+
+        <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">group_by_columns</span> <span class="o">+</span> <span class="n">metric_columns</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="o">*</span><span class="n">group_by_columns</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="o">*</span><span class="n">order_by_columns</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Remove the summarized dimension</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_summarize_over</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">postquery_parts</span></div></div>
+
+
+<div class="viewcode-block" id="Anonymize"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Anonymize">[docs]</a><span class="k">class</span> <span class="nc">Anonymize</span><span class="p">(</span><span class="n">RecipeExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Allows recipes to be anonymized by adding an anonymize property.</span>
+<span class="sd">    This flips the anonymize flag on all Ingredients used in the recipe.</span>
+
+<span class="sd">    Injects an ingredient.meta._anonymize boolean property on each used</span>
+<span class="sd">    ingredient.</span>
+
+<span class="sd">    AnonymizeRecipe should occur last</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">recipe_schema</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;anonymize&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span><span class="p">}}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Anonymize</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_anonymize</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="n">handle_directives</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;anonymize&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">anonymize</span><span class="p">})</span>
+
+<div class="viewcode-block" id="Anonymize.anonymize"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Anonymize.anonymize">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">anonymize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Should this recipe be anonymized&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_anonymize</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Anonymize.add_ingredients"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Anonymize.add_ingredients">[docs]</a>    <span class="k">def</span> <span class="nf">add_ingredients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Put the anonymizers in the last position of formatters &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">ingredient</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ingredient</span><span class="o">.</span><span class="n">meta</span><span class="p">,</span> <span class="s2">&quot;anonymizer&quot;</span><span class="p">):</span>
+                <span class="n">anonymizer</span> <span class="o">=</span> <span class="n">ingredient</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">anonymizer</span>
+
+                <span class="c1"># Build a FakerAnonymizer if we have a string</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">anonymizer</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+
+                    <span class="c1"># Check for extra parameters</span>
+                    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="n">anonymizer_locale</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                        <span class="n">ingredient</span><span class="o">.</span><span class="n">meta</span><span class="p">,</span> <span class="s2">&quot;anonymizer_locale&quot;</span><span class="p">,</span> <span class="kc">None</span>
+                    <span class="p">)</span>
+                    <span class="n">anonymizer_postprocessor</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                        <span class="n">ingredient</span><span class="o">.</span><span class="n">meta</span><span class="p">,</span> <span class="s2">&quot;anonymizer_postprocessor&quot;</span><span class="p">,</span> <span class="kc">None</span>
+                    <span class="p">)</span>
+                    <span class="n">anonymizer_providers</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                        <span class="n">ingredient</span><span class="o">.</span><span class="n">meta</span><span class="p">,</span> <span class="s2">&quot;anonymizer_providers&quot;</span><span class="p">,</span> <span class="kc">None</span>
+                    <span class="p">)</span>
+                    <span class="k">if</span> <span class="n">anonymizer_postprocessor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;postprocessor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">anonymizer_postprocessor</span>
+                    <span class="k">if</span> <span class="n">anonymizer_locale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;locale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">anonymizer_locale</span>
+                    <span class="k">if</span> <span class="n">anonymizer_providers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;providers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">anonymizer_providers</span>
+
+                    <span class="n">anonymizer</span> <span class="o">=</span> <span class="n">FakerAnonymizer</span><span class="p">(</span><span class="n">anonymizer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+                <span class="c1"># Strip out all FakerAnonymizers</span>
+                <span class="n">ingredient</span><span class="o">.</span><span class="n">formatters</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">f</span>
+                    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">ingredient</span><span class="o">.</span><span class="n">formatters</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">FakerAnonymizer</span><span class="p">)</span>
+                <span class="p">]</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_anonymize</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">ingredient</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">anonymizer</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ingredient</span><span class="o">.</span><span class="n">formatters</span><span class="p">:</span>
+                        <span class="n">ingredient</span><span class="o">.</span><span class="n">formatters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">anonymizer</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">ingredient</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">anonymizer</span> <span class="ow">in</span> <span class="n">ingredient</span><span class="o">.</span><span class="n">formatters</span><span class="p">:</span>
+                        <span class="n">ingredient</span><span class="o">.</span><span class="n">formatters</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">anonymizer</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Paginate"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Paginate">[docs]</a><span class="k">class</span> <span class="nc">Paginate</span><span class="p">(</span><span class="n">RecipeExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Allows recipes to paginate results. Pagination also supports</span>
+<span class="sd">    searching and sorting within paginated data.</span>
+
+<span class="sd">    **Using and controlling pagination**</span>
+
+<span class="sd">    Pagination returns pages of data using limit and offset.</span>
+
+<span class="sd">    Pagination is enabled by setting a nonzero page size, like this::</span>
+
+<span class="sd">        shelf = Shelf({</span>
+<span class="sd">            &#39;state&#39;: Dimension(Census.state),</span>
+<span class="sd">            &#39;gender&#39;: Dimension(Census.gender),</span>
+<span class="sd">            &#39;population&#39;: Metric(func.sum(Census.population)),</span>
+<span class="sd">        })</span>
+<span class="sd">        recipe = Recipe(shelf=shelf, extension_classes=[Paginate])\</span>
+<span class="sd">            .dimensions(&#39;state&#39;)\</span>
+<span class="sd">            .metrics(&#39;population&#39;)\</span>
+<span class="sd">            .pagination_page_size(10)</span>
+
+
+<span class="sd">    Pagination may be disabled by setting `.apply_pagination(False)`.</span>
+
+<span class="sd">    **Searching**</span>
+
+<span class="sd">    `pagination_q` allows a recipe to be searched for a string.</span>
+<span class="sd">    The default search fields are all dimensions used in the recipe.</span>
+<span class="sd">    Search keys can be customized with `pagination_search_keys`.</span>
+<span class="sd">    Search may be disabled by setting `.apply_pagination_filters(False)`</span>
+
+<span class="sd">    **Sorting**</span>
+
+<span class="sd">    Pagination can override ordering applied to a recipe by setting</span>
+<span class="sd">    `.pagination_order_by(...)` to a list of ordering keys. If keys are</span>
+<span class="sd">    preceded by a &quot;-&quot;, ordering is descending, otherwise ordering is ascending.</span>
+
+<span class="sd">    **An example using all features**</span>
+
+<span class="sd">    Here&#39;s an example that searches for keys that start with &quot;t&quot;, showing</span>
+<span class="sd">    the fifth page of results::</span>
+
+<span class="sd">        shelf = Shelf({</span>
+<span class="sd">            &#39;state&#39;: Dimension(Census.state),</span>
+<span class="sd">            &#39;gender&#39;: Dimension(Census.gender),</span>
+<span class="sd">            &#39;age&#39;: Dimension(Census.age),</span>
+<span class="sd">            &#39;population&#39;: Metric(func.sum(Census.population)),</span>
+<span class="sd">        })</span>
+<span class="sd">        recipe = self.recipe()\</span>
+<span class="sd">            .metrics(&quot;pop2000&quot;)\</span>
+<span class="sd">            .dimensions(&quot;state&quot;, &quot;sex&quot;, &quot;age&quot;)\</span>
+<span class="sd">            .pagination_page_size(10)\</span>
+<span class="sd">            .pagination_page(5)\</span>
+<span class="sd">            .pagination_q(&#39;t%&#39;)\</span>
+<span class="sd">            .pagination_search_keys(&quot;state&quot;, &quot;sex&quot;)</span>
+
+
+<span class="sd">    This will generate SQL like::</span>
+
+<span class="sd">        SELECT census.age AS age,</span>
+<span class="sd">               census.sex AS sex,</span>
+<span class="sd">               census.state AS state,</span>
+<span class="sd">               sum(census.population) AS population</span>
+<span class="sd">        FROM census</span>
+<span class="sd">        WHERE lower(census.state) LIKE lower(&#39;t%&#39;)</span>
+<span class="sd">          OR lower(census.sex) LIKE lower(&#39;t%&#39;)</span>
+<span class="sd">        GROUP BY census.age,</span>
+<span class="sd">                 census.sex,</span>
+<span class="sd">                 census.state</span>
+<span class="sd">        LIMIT 10</span>
+<span class="sd">        OFFSET 40</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">recipe_schema</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;apply_pagination&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span><span class="p">},</span>
+        <span class="s2">&quot;apply_pagination_filters&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span><span class="p">},</span>
+        <span class="s2">&quot;pagination_order_by&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;elements&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}},</span>
+        <span class="s2">&quot;pagination_q&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">},</span>
+        <span class="s2">&quot;pagination_search_keys&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="s2">&quot;elements&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}},</span>
+        <span class="s2">&quot;pagination_page_size&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">},</span>
+        <span class="s2">&quot;pagination_page&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Paginate</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_pagination</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_pagination_filters</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_q</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paginate_search_keys</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_order_by</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_page_size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_page</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validated_pagination</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="n">handle_directives</span><span class="p">(</span>
+            <span class="n">obj</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;apply_pagination&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_pagination</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
+                <span class="s2">&quot;apply_pagination_filters&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_pagination_filters</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
+                <span class="s2">&quot;pagination_order_by&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination_order_by</span><span class="p">(</span><span class="o">*</span><span class="n">v</span><span class="p">),</span>
+                <span class="s2">&quot;pagination_q&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination_q</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
+                <span class="s2">&quot;pagination_search_keys&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination_search_keys</span><span class="p">(</span><span class="o">*</span><span class="n">v</span><span class="p">),</span>
+                <span class="s2">&quot;pagination_page_size&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination_page_size</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
+                <span class="s2">&quot;pagination_page&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination_page</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="Paginate.apply_pagination"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Paginate.apply_pagination">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">apply_pagination</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Should this recipe be paginated.</span>
+
+<span class="sd">        :param value: Enable or disable pagination for this recipe, default True</span>
+<span class="sd">        :type value: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_pagination</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Paginate.apply_pagination_filters"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Paginate.apply_pagination_filters">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">apply_pagination_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Should this recipe apply the paginations query filtering.</span>
+
+<span class="sd">        Should paginate_q be used to apply a search on paginate_search_keys or</span>
+<span class="sd">        all dimensions used in the recipe.</span>
+
+<span class="sd">        :param value: Enable or disable pagination filtering for this recipe, default True</span>
+<span class="sd">        :type value: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_pagination_filters</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Paginate.pagination_order_by"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Paginate.pagination_order_by">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">pagination_order_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sort this pagination by these keys. Pagination ordering is applied</span>
+<span class="sd">        before any other order_bys defined in the recipe.</span>
+
+<span class="sd">        :param value: A list of keys to order the paginated recipe by</span>
+<span class="sd">        :type value: list(str)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_order_by</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Paginate.pagination_q"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Paginate.pagination_q">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">pagination_q</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Search this recipe for this string. The search is an case</span>
+<span class="sd">        insensitive like that ORs all dimensions in the recipe by default.</span>
+
+<span class="sd">        To search for a substring, use a percentage sign for wildcard,</span>
+<span class="sd">        like &#39;%searchval%&#39;.</span>
+
+<span class="sd">        `pagination_search_keys` can be used to customize what keys are used</span>
+<span class="sd">        for search.</span>
+
+<span class="sd">        :param value: A query string to search for this in this recipe.</span>
+<span class="sd">            The query string is evaluated as a `ilike` on all dimensions</span>
+<span class="sd">            in the recipe or pagination_search_keys if provided</span>
+<span class="sd">        :type value: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_q</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Paginate.pagination_search_keys"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Paginate.pagination_search_keys">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">pagination_search_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;When querying this recipe with a `pagination_q`, search these keys</span>
+
+<span class="sd">        pagination_search_keys do not have to be used in the recipe.</span>
+
+<span class="sd">        :param value: A list of keys to search in the paginated recipe</span>
+<span class="sd">        :type value: list(str)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paginate_search_keys</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Paginate.pagination_page_size"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Paginate.pagination_page_size">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">pagination_page_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Paginate recipe responses into pages of this size.</span>
+
+<span class="sd">        A page size of zero disasbles pagination.</span>
+
+<span class="sd">        :param value: A page size (zero or a positive integer)</span>
+<span class="sd">        :type value: integer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">integer_types</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_page_size</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Paginate.pagination_page"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Paginate.pagination_page">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">pagination_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetch this page.</span>
+
+<span class="sd">        :param value: A positive integer page number to fetch</span>
+<span class="sd">        :type value: integer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">integer_types</span><span class="p">)</span>
+
+        <span class="c1"># Pagination page must be a positive integer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_page</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_apply_pagination_order_by</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Inject pagination ordering ahead of any existing ordering. &quot;&quot;&quot;</span>
+
+        <span class="c1"># Inject the paginator ordering ahead of the existing ordering and filter</span>
+        <span class="c1"># out sort items that aren&#39;t in the cauldron</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_pagination</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_order_by</span><span class="p">:</span>
+
+            <span class="k">def</span> <span class="nf">make_ordering_key</span><span class="p">(</span><span class="n">ingr</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">ingr</span><span class="o">.</span><span class="n">ordering</span> <span class="o">==</span> <span class="s2">&quot;desc&quot;</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="n">ingr</span><span class="o">.</span><span class="n">id</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">ingr</span><span class="o">.</span><span class="n">id</span>
+
+            <span class="c1"># Recover the existing orderings</span>
+            <span class="n">existing_orderings</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">make_ordering_key</span><span class="p">(</span><span class="n">ingr</span><span class="p">)</span> <span class="k">for</span> <span class="n">ingr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_order_bys</span>
+            <span class="p">]</span>
+
+            <span class="c1"># Remove paginator sort keys from any existing order bys</span>
+            <span class="c1"># Search for both ascending and descending versions of the keys</span>
+            <span class="n">existing_order_bys</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">key</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">existing_orderings</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_order_by</span>
+                <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="n">key</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_order_by</span>
+            <span class="p">]</span>
+            <span class="n">new_order_by</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pagination_order_by</span><span class="p">)</span> <span class="o">+</span> <span class="n">existing_order_bys</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="o">*</span><span class="n">new_order_by</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_apply_pagination_q</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Apply pagination querying to all paginate search keys&quot;&quot;&quot;</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_q</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_pagination_filters</span> <span class="ow">and</span> <span class="n">q</span><span class="p">:</span>
+            <span class="n">search_keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paginate_search_keys</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">dimension_ids</span>
+
+            <span class="n">filters</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">search_keys</span><span class="p">:</span>
+                <span class="c1"># build a filter for each search key and use in the recipe</span>
+                <span class="n">ingredient</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_shelf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">ingredient</span><span class="p">:</span>
+                    <span class="n">filters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ingredient</span><span class="o">.</span><span class="n">build_filter</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;ilike&quot;</span><span class="p">))</span>
+
+            <span class="c1"># Build a big or filter for the search</span>
+            <span class="k">if</span> <span class="n">filters</span><span class="p">:</span>
+                <span class="n">or_expression</span> <span class="o">=</span> <span class="n">or_</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">)</span>
+                <span class="n">search_filter</span> <span class="o">=</span> <span class="n">Filter</span><span class="p">(</span><span class="n">or_expression</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">search_filter</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Paginate.add_ingredients"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Paginate.add_ingredients">[docs]</a>    <span class="k">def</span> <span class="nf">add_ingredients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Apply pagination ordering and search to this query if necessary. &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_pagination_order_by</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_pagination_q</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Paginate.modify_postquery_parts"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Paginate.modify_postquery_parts">[docs]</a>    <span class="k">def</span> <span class="nf">modify_postquery_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">postquery_parts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Apply validated pagination limits and offset to a completed query. &quot;&quot;&quot;</span>
+
+        <span class="n">limit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_page_size</span>
+        <span class="k">if</span> <span class="n">limit</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_pagination</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">postquery_parts</span>
+
+        <span class="c1"># Validate what page we are on by looking at the total</span>
+        <span class="c1"># number of items.</span>
+        <span class="n">total_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">total_count</span><span class="p">(</span><span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">])</span>
+
+        <span class="n">d</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">total_count</span><span class="p">,</span> <span class="n">limit</span><span class="p">)</span>
+        <span class="n">total_pages</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pagination_page</span>
+        <span class="n">validated_page</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">page</span><span class="p">),</span> <span class="n">total_pages</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validated_pagination</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;requestedPage&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
+            <span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">validated_page</span><span class="p">,</span>
+            <span class="s2">&quot;pageSize&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
+            <span class="s2">&quot;totalItems&quot;</span><span class="p">:</span> <span class="n">total_count</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># page=1 is the first page</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">limit</span> <span class="o">*</span> <span class="p">(</span><span class="n">validated_page</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="n">limit</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">offset</span><span class="p">:</span>
+            <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">offset</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">postquery_parts</span></div>
+
+<div class="viewcode-block" id="Paginate.validated_pagination"><a class="viewcode-back" href="../../reference/recipe.html#recipe.Paginate.validated_pagination">[docs]</a>    <span class="k">def</span> <span class="nf">validated_pagination</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Return pagination validated against the actual number of items in the</span>
+<span class="sd">        response.</span>
+
+<span class="sd">        :raises BadRecipe:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validated_pagination</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span>
+                <span class="s2">&quot;validated_pagination can only be accessed after the recipe has run&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validated_pagination</span></div></div>
+
+
+<div class="viewcode-block" id="BlendRecipe"><a class="viewcode-back" href="../../reference/recipe.html#recipe.BlendRecipe">[docs]</a><span class="k">class</span> <span class="nc">BlendRecipe</span><span class="p">(</span><span class="n">RecipeExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Add blend recipes, used for joining data from another table to a base</span>
+<span class="sd">    table</span>
+
+<span class="sd">    Supply a second recipe with a different ``from``</span>
+<span class="sd">    Optionally supply join criteria, if no join criteria is provided join</span>
+<span class="sd">    will be attempted using constraints.</span>
+<span class="sd">    All ingredients from the blended recipe will be hoisted to the base</span>
+<span class="sd">    recipe except for ingredients that are used for joins (they must be the</span>
+<span class="sd">    same anyway).</span>
+
+<span class="sd">    Supports blend (inner) and full_blend (outer) joins.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BlendRecipe</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blend_recipes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blend_types</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blend_criteria</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="BlendRecipe.blend"><a class="viewcode-back" href="../../reference/recipe.html#recipe.BlendRecipe.blend">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">blend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blend_recipe</span><span class="p">,</span> <span class="n">join_base</span><span class="p">,</span> <span class="n">join_blend</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Blend a recipe into the base recipe.</span>
+<span class="sd">        This performs an inner join of the blend_recipe to the</span>
+<span class="sd">        base recipe&#39;s SQL.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">blend_recipe</span><span class="p">,</span> <span class="n">Recipe</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">blend_recipes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">blend_recipe</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blend_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blend_criteria</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">join_base</span><span class="p">,</span> <span class="n">join_blend</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="BlendRecipe.full_blend"><a class="viewcode-back" href="../../reference/recipe.html#recipe.BlendRecipe.full_blend">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">full_blend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blend_recipe</span><span class="p">,</span> <span class="n">join_base</span><span class="p">,</span> <span class="n">join_blend</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Blend a recipe into the base recipe preserving</span>
+<span class="sd">        values from both recipes.</span>
+
+<span class="sd">        This performs an outer join of the blend_recipe to the</span>
+<span class="sd">        base recipe.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">blend_recipe</span><span class="p">,</span> <span class="n">Recipe</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">blend_recipes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">blend_recipe</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blend_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blend_criteria</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">join_base</span><span class="p">,</span> <span class="n">join_blend</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="BlendRecipe.add_ingredients"><a class="viewcode-back" href="../../reference/recipe.html#recipe.BlendRecipe.add_ingredients">[docs]</a>    <span class="k">def</span> <span class="nf">add_ingredients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;If we have a blend_recipe, modify all ingredients in the base recipe</span>
+<span class="sd">        to group_by using the direct strategy. This is because when we join</span>
+<span class="sd">        the base recipe to the blend recipe we will likely have more than one column</span>
+<span class="sd">        that has the same label. This will generate invalid sql if a more explicit</span>
+<span class="sd">        reference isn&#39;t used. &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">blend_recipes</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ingr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">ingredients</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ingr</span><span class="p">,</span> <span class="n">Dimension</span><span class="p">):</span>
+                    <span class="n">ingr</span><span class="o">.</span><span class="n">group_by_strategy</span> <span class="o">=</span> <span class="s2">&quot;direct&quot;</span></div>
+
+<div class="viewcode-block" id="BlendRecipe.modify_postquery_parts"><a class="viewcode-back" href="../../reference/recipe.html#recipe.BlendRecipe.modify_postquery_parts">[docs]</a>    <span class="k">def</span> <span class="nf">modify_postquery_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">postquery_parts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make the comparison recipe a subquery that is left joined to the</span>
+<span class="sd">        base recipe using dimensions that are shared between the recipes.</span>
+
+<span class="sd">        Hoist the metric from the comparison recipe up to the base query</span>
+<span class="sd">        while adding the suffix.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">blend_recipes</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">postquery_parts</span>
+
+        <span class="k">for</span> <span class="n">blend_recipe</span><span class="p">,</span> <span class="n">blend_type</span><span class="p">,</span> <span class="n">blend_criteria</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">blend_recipes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">blend_types</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">blend_criteria</span>
+        <span class="p">):</span>
+            <span class="n">join_base</span><span class="p">,</span> <span class="n">join_blend</span> <span class="o">=</span> <span class="n">blend_criteria</span>
+
+            <span class="n">blend_subq</span> <span class="o">=</span> <span class="n">blend_recipe</span><span class="o">.</span><span class="n">subquery</span><span class="p">()</span>
+
+            <span class="c1"># For all metrics in the blend recipe</span>
+            <span class="c1"># Use the metric in the base recipe and</span>
+            <span class="c1"># Add the metric columns to the base recipe</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">blend_recipe</span><span class="o">.</span><span class="n">metric_ids</span><span class="p">:</span>
+                <span class="n">met</span> <span class="o">=</span> <span class="n">blend_recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">met</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">suffix</span> <span class="ow">in</span> <span class="n">met</span><span class="o">.</span><span class="n">make_column_suffixes</span><span class="p">():</span>
+                    <span class="n">col</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">blend_subq</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">met</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">add_columns</span><span class="p">(</span>
+                            <span class="n">col</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">met</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+                        <span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span>
+                            <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> could not be found in .blend() &quot;</span>
+                            <span class="s2">&quot;recipe subquery&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+                        <span class="p">)</span>
+
+            <span class="c1"># For all dimensions in the blend recipe</span>
+            <span class="c1"># Use the dimension in the base recipe and</span>
+            <span class="c1"># Add the dimension columns and group_by to the base recipe</span>
+            <span class="c1"># Ignore the join_blend dimension</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">blend_recipe</span><span class="o">.</span><span class="n">dimension_ids</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="n">join_blend</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">dim</span> <span class="o">=</span> <span class="n">blend_recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">suffix</span> <span class="ow">in</span> <span class="n">dim</span><span class="o">.</span><span class="n">make_column_suffixes</span><span class="p">():</span>
+                    <span class="n">col</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">blend_subq</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">dim</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">add_columns</span><span class="p">(</span>
+                            <span class="n">col</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">dim</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+                        <span class="p">)</span>
+                        <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span>
+                            <span class="n">col</span>
+                        <span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span>
+                            <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> could not be found in .blend() &quot;</span>
+                            <span class="s2">&quot;recipe subquery&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+                        <span class="p">)</span>
+
+            <span class="n">base_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="p">[</span><span class="n">join_base</span><span class="p">]</span>
+            <span class="n">blend_dim</span> <span class="o">=</span> <span class="n">blend_recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="p">[</span><span class="n">join_blend</span><span class="p">]</span>
+
+            <span class="n">base_col</span> <span class="o">=</span> <span class="n">base_dim</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">blend_col</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">blend_subq</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">blend_dim</span><span class="o">.</span><span class="n">id_prop</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">blend_col</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span>
+                    <span class="s2">&quot;Can&#39;t find join property for </span><span class="si">{}</span><span class="s2"> dimension in </span><span class="se">\</span>
+<span class="s2">                        blend recipe&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">blend_dim</span><span class="o">.</span><span class="n">id_prop</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">blend_type</span> <span class="o">==</span> <span class="s2">&quot;outer&quot;</span><span class="p">:</span>
+                <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">outerjoin</span><span class="p">(</span>
+                    <span class="n">blend_subq</span><span class="p">,</span> <span class="n">base_col</span> <span class="o">==</span> <span class="n">blend_col</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">blend_subq</span><span class="p">,</span> <span class="n">base_col</span> <span class="o">==</span> <span class="n">blend_col</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">postquery_parts</span></div></div>
+
+
+<div class="viewcode-block" id="CompareRecipe"><a class="viewcode-back" href="../../reference/recipe.html#recipe.CompareRecipe">[docs]</a><span class="k">class</span> <span class="nc">CompareRecipe</span><span class="p">(</span><span class="n">RecipeExtension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add compare recipes, used for presenting comparative context</span>
+<span class="sd">    vis-a-vis a base recipe.</span>
+
+<span class="sd">    Supply a second recipe with the same ```from``.</span>
+<span class="sd">    Metrics from the second recipe will be hoisted to the base recipe and</span>
+<span class="sd">    suffixed with a string (the default is &quot;_compare&quot;</span>
+<span class="sd">    Dimensions will be used to match the base recipe to the compare recipe.</span>
+<span class="sd">    Ordering from the base recipe is maintained.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CompareRecipe</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compare_recipe</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">suffix</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="CompareRecipe.compare"><a class="viewcode-back" href="../../reference/recipe.html#recipe.CompareRecipe.compare">[docs]</a>    <span class="nd">@recipe_arg</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compare_recipe</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;_compare&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds a comparison recipe to a base recipe.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">compare_recipe</span><span class="p">,</span> <span class="n">Recipe</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">suffix</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compare_recipe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">compare_recipe</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">suffix</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CompareRecipe.add_ingredients"><a class="viewcode-back" href="../../reference/recipe.html#recipe.CompareRecipe.add_ingredients">[docs]</a>    <span class="k">def</span> <span class="nf">add_ingredients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;If we have a compare_recipe, modify all ingredients in the base recipe</span>
+<span class="sd">        to group_by using the direct strategy. This is because when we join</span>
+<span class="sd">        the base recipe to the compare recipe we will likely have more than one column</span>
+<span class="sd">        that has the same label. This will generate invalid sql if a more explicit</span>
+<span class="sd">        reference isn&#39;t used. &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">compare_recipe</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ingr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">ingredients</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ingr</span><span class="p">,</span> <span class="n">Dimension</span><span class="p">):</span>
+                    <span class="n">ingr</span><span class="o">.</span><span class="n">group_by_strategy</span> <span class="o">=</span> <span class="s2">&quot;direct&quot;</span></div>
+
+<div class="viewcode-block" id="CompareRecipe.modify_postquery_parts"><a class="viewcode-back" href="../../reference/recipe.html#recipe.CompareRecipe.modify_postquery_parts">[docs]</a>    <span class="k">def</span> <span class="nf">modify_postquery_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">postquery_parts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make the comparison recipe a subquery that is left joined to the</span>
+<span class="sd">        base recipe using dimensions that are shared between the recipes.</span>
+
+<span class="sd">        Hoist the metric from the comparison recipe up to the base query</span>
+<span class="sd">        while adding the suffix.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">compare_recipe</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">postquery_parts</span>
+
+        <span class="k">for</span> <span class="n">compare_recipe</span><span class="p">,</span> <span class="n">compare_suffix</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compare_recipe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">suffix</span><span class="p">):</span>
+            <span class="n">comparison_subq</span> <span class="o">=</span> <span class="n">compare_recipe</span><span class="o">.</span><span class="n">subquery</span><span class="p">()</span>
+
+            <span class="c1"># For all metrics in the comparison recipe</span>
+            <span class="c1"># Use the metric in the base recipe and</span>
+            <span class="c1"># Add the metric columns to the base recipe</span>
+
+            <span class="c1"># Comparison metrics hoisted into the base recipe need an</span>
+            <span class="c1"># aggregation function.The default is func.avg but</span>
+            <span class="c1"># metrics can override this by provoding a</span>
+            <span class="c1"># metric.meta.summary_aggregation callable parameter</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">compare_recipe</span><span class="o">.</span><span class="n">metric_ids</span><span class="p">:</span>
+                <span class="n">met</span> <span class="o">=</span> <span class="n">compare_recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
+                <span class="nb">id</span> <span class="o">=</span> <span class="n">met</span><span class="o">.</span><span class="n">id</span>
+                <span class="n">met</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span> <span class="o">+</span> <span class="n">compare_suffix</span>
+                <span class="n">summary_aggregation</span> <span class="o">=</span> <span class="n">met</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summary_aggregation&quot;</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="n">avg</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">met</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">suffix</span> <span class="ow">in</span> <span class="n">met</span><span class="o">.</span><span class="n">make_column_suffixes</span><span class="p">():</span>
+                    <span class="n">col</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">comparison_subq</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="nb">id</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">add_columns</span><span class="p">(</span>
+                            <span class="n">summary_aggregation</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">met</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+                        <span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span>
+                            <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> could not be found in .compare() &quot;</span>
+                            <span class="s2">&quot;recipe subquery&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+                        <span class="p">)</span>
+
+            <span class="n">join_conditions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">compare_recipe</span><span class="o">.</span><span class="n">dimension_ids</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">dim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">dimension_ids</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span>
+                        <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> dimension in comparison recipe must exist &quot;</span> <span class="s2">&quot;in base recipe&quot;</span>
+                    <span class="p">)</span>
+                <span class="n">base_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span>
+                <span class="n">compare_dim</span> <span class="o">=</span> <span class="n">compare_recipe</span><span class="o">.</span><span class="n">_cauldron</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span>
+                <span class="n">base_col</span> <span class="o">=</span> <span class="n">base_dim</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">compare_col</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">comparison_subq</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">compare_dim</span><span class="o">.</span><span class="n">id_prop</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">compare_col</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">BadRecipe</span><span class="p">(</span>
+                        <span class="s2">&quot;Can&#39;t find join property for </span><span class="si">{}</span><span class="s2"> dimension in </span><span class="se">\</span>
+<span class="s2">                        compare recipe&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">compare_dim</span><span class="o">.</span><span class="n">id_prop</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="n">join_conditions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">base_col</span> <span class="o">==</span> <span class="n">compare_col</span><span class="p">)</span>
+
+            <span class="n">join_clause</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s2">&quot;1=1&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">join_conditions</span><span class="p">:</span>
+                <span class="n">join_clause</span> <span class="o">=</span> <span class="n">and_</span><span class="p">(</span><span class="o">*</span><span class="n">join_conditions</span><span class="p">)</span>
+
+            <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">postquery_parts</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">outerjoin</span><span class="p">(</span>
+                <span class="n">comparison_subq</span><span class="p">,</span> <span class="n">join_clause</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">postquery_parts</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chris Gemignani
+      <span class="lastupdated">
+        Last updated on May 04, 2020.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
