@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[project]
+name = "django-canvas-field"
+version = "1.0.0"
+readme = "README.md"
+description = "SignCanvasField"
+requires-python = ">=3.7"
+dependencies = [
+    "django>=3.2.4",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+authors = [
+    {name="Mr.LLT", email="384605850@qq.com"}
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["docs"]
+include = ["LICENSE", "LICENSE-APACHE", "LICENSE-MIT", "canvas"]
+
+[tool.setuptools.package-data]
+"canvas" = ["static/**", "templates/**"]
