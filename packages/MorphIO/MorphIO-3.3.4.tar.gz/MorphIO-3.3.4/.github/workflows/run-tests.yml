@@ -1,0 +1,55 @@
+name: Run tests
+on: [pull_request, push]
+
+jobs:
+  build:
+    name: Run tests on ${{ matrix.os }}.${{ matrix.compiler.CC }}
+    runs-on: ${{ matrix.os }}
+
+    # Run on external PRs, but not internal PRs as they'll be run by the push
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        compiler:
+          - {CC: clang, CXX: clang++}
+          - {CC: gcc, CXX: g++}
+        exclude:
+          - os: macos-latest
+            compiler: {CC: gcc, CXX: g++}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install packages on Linux
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install build-essential libhdf5-dev
+
+      - name: Install packages on MacOS
+        if: runner.os == 'macOS'
+        run: |
+            # { work around https://github.com/actions/setup-python/issues/577
+            #brew update
+            #brew --version
+            export HOMEBREW_NO_AUTO_UPDATE=1
+            # }
+            brew install cmake || true  # macos image has cmake installed, but a new version may exist; ignore it if so
+            brew install hdf5
+
+      - name: Build and run unittests
+        env:
+          CC: ${{ matrix.compiler.CC }}
+          CXX: ${{ matrix.compiler.CXX }}
+        run: |
+          ./ci/python_test.sh
+          ./ci/cpp_test.sh
+          ./ci/cpp_test.sh "-DMORPHIO_USE_DOUBLE=ON"

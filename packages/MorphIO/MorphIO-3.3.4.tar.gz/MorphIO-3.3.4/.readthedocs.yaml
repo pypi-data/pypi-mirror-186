@@ -1,0 +1,31 @@
+# .readthedocs.yml
+# Read the Docs configuration file
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+# Required
+version: 2
+
+submodules:
+  include: all
+  recursive: true
+
+# it appears that the conda `cmake` finds `conda` installed packages
+# fine, but if cmake is installed through `pyproject.toml`, that CMake
+# doesn't find HDF5, if the hdf5 headers are available by the system, then
+# it works
+build:
+  os: "ubuntu-20.04"
+  apt_packages:
+    - libhdf5-dev
+  tools:
+    python: "3.9"
+
+sphinx:
+  configuration: doc/source/conf.py
+
+python:
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
