@@ -1,0 +1,1 @@
+__doc__ = 'this library is used for paralell computations in pandas'
