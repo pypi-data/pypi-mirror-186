@@ -1,0 +1,82 @@
+Metadata-Version: 2.1
+Name: nonebot-adapter-qqguild
+Version: 0.1.4
+Summary: QQ Guild adapter for nonebot2
+Home-page: https://github.com/nonebot/adapter-qqguild
+License: MIT
+Keywords: bot,qq,qqbot,qqguild
+Author: yanyongyu
+Author-email: yyy@nonebot.dev
+Requires-Python: >=3.8,<4.0
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Framework :: Robot Framework
+Classifier: Framework :: Robot Framework :: Library
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3
+Requires-Dist: nonebot2 (>=2.0.0-beta.1,<3.0.0)
+Requires-Dist: pydantic (>=1.9.0,<2.0.0)
+Project-URL: Documentation, https://github.com/nonebot/adapter-qqguild#readme
+Project-URL: Repository, https://github.com/nonebot/adapter-qqguild
+Description-Content-Type: text/markdown
+
+<p align="center">
+  <a href="https://v2.nonebot.dev/"><img src="https://raw.githubusercontent.com/nonebot/adapter-qqguild/master/assets/logo.png" width="500" alt="nonebot-adapter-qqguild"></a>
+</p>
+
+<div align="center">
+
+# NoneBot-Adapter-QQGuild
+
+_✨ QQ 频道协议适配 ✨_
+
+</div>
+
+## 配置
+
+修改 NoneBot 配置文件 `.env` 或者 `.env.*`。
+
+### Driver
+
+参考 [driver](https://v2.nonebot.dev/docs/tutorial/configuration#driver) 配置项，添加 `ForwardDriver` 支持。
+
+如：
+
+```dotenv
+DRIVER=~httpx+~websockets
+DRIVER=~aiohttp
+```
+
+### QQGUILD_IS_SANDBOX
+
+是否为沙盒模式，默认为 `False`。
+
+```dotenv
+QQGUILD_IS_SANDBOX=true
+```
+
+### QQGUILD_BOTS
+
+配置机器人帐号，如：
+
+```dotenv
+QQGUILD_BOTS='
+[
+  {
+    "id": "xxx",
+    "token": "xxx",
+    "secret": "xxx",
+    "intent": {
+      "guild_messages": true,
+      "at_messages": false
+    }
+  }
+]
+'
+```
+
