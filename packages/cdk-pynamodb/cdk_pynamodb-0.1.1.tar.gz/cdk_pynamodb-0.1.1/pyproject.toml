@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "cdk-pynamodb"
+version = "0.1.1"
+description = "AWS CDK DynamoDB table construct from PynamoDB models."
+authors = ["SeongHun Kim <alto@pendragon.kr>"]
+readme = "README.rst"
+packages = [{include = "cdk_pynamodb"}]
+homepage = "https://github.com/altoria/cdk-pynamodb"
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "~=3.7"
+pynamodb = "^5.3.4"
+aws-cdk-lib = "^2.60.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
