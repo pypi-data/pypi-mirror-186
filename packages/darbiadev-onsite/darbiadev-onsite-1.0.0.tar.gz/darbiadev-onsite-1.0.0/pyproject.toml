@@ -1,0 +1,58 @@
+[project]
+name = "darbiadev-onsite"
+version = "1.0.0"
+description = "Access OnSite data through FileMaker's JDBC integration"
+authors = [
+    { name = "Bradley Reynolds", email = "bradley.reynolds@darbia.dev" },
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "JayDeBeApi",
+]
+
+[project.urls]
+repository = "https://github.com/darbiadev/darbiadev-onsite/"
+documentation = "https://docs.darbia.dev/darbiadev-onsite/"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "isort",
+    "pylint",
+]
+tests = [
+    "pytest",
+]
+docs = [
+    "sphinx",
+    "furo",
+    "sphinx-autoapi",
+    "toml",
+]
+
+[tool.setuptools.package-data]
+darbiadev_onsite = ["**/*.jar"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.sphinx]
+copyright = "Darbia"
+author = "Bradley Reynolds"
+api_dir = "darbiadev_onsite"
+
+[tool.black]
+target-version = ["py310"]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+addopts = "tests -r a -v --doctest-modules src"
+
+[tool.pylint.format]
+max-line-length = 120
