@@ -1,0 +1,35 @@
+Metadata-Version: 2.1
+Name: slurmui
+Version: 0.2.5
+Summary: Terminal UI for Slurm
+Home-page: https://github.com/SirWyver/slurmui
+Author: Norman Müller
+Author-email: norman.mueller@tum.de
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: textual
+Requires-Dist: pandas
+
+# SlurmUI
+Simple terminal UI for slurm
+
+## Usage
+```
+pip install slurmui
+```
+To start, use type `slurmui`
+
+## Control
+| Shortcut | Description               |
+|----------|---------------------------|
+|d | delete job (Confirm with <<Enter>>) |
+|l | display log|
+|g | display gpus |
+|r | refresh |
+|s | sort by column |
+|q / <Escape> | Abort|
+|Arrow keys | cursor up/down |
+|<Ctrl+C> | Quit |
