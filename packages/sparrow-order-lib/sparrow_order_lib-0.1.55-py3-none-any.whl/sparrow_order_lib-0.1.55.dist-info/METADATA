@@ -1,0 +1,347 @@
+Metadata-Version: 2.1
+Name: sparrow-order-lib
+Version: 0.1.55
+Summary: This is a lib for sparrow order projects.
+Home-page: https://gitee.com/sparrow614/sparrow-order-lib
+Author: Jessica Liao
+Author-email: 18610193367@sina.cn
+Project-URL: Bug Tracker, https://gitee.com/sparrow614/sparrow-order-lib/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: XlsxWriter (~=3.0.3)
+
+# Project Description
+
+# Release History
+
+## version==0.1.55
+parcel constants, inparcel constants
+
+## version==0.1.54
+constants update
+
+## version==0.1.53
+constants update
+
+## version==0.1.52
+aftersale models
+
+## version==0.1.51
+aftersale models
+
+## version==0.1.49
+aftersale models
+
+## version==0.1.48
+aftersale models
+
+## version==0.1.47
+update aftersale contants 2
+
+## version==0.1.46
+update aftersale contants
+
+## version==0.1.45
+Add distribute event for printing shipping_number
+
+## version==0.1.44
+REMOVE ShippingMethod.VERBOSE_NAME_DICT
+
+## version==0.1.43
+ShippingMethod.VERBOSE_NAME_DICT
+
+## version==0.1.42
+HG_STORAGE_N_ID
+
+## version==0.1.41
+HG_STORAGE_ID
+
+## version==0.1.40
+DistributeEventConst
+
+## version==0.1.39
+Remove ShippingMethodInt
+
+## version==0.1.38
+Support outstorage exhcange in distribute.
+## version==0.1.37
+Support outstorage exhcange.
+## version==0.1.34  
+发货仓-发货方式  
+
+## version==0.1.33
+京东包裹上架
+
+## version==0.1.32
+Allow ServiceStop back to ServiceStore.
+
+## version==0.1.31
+Add ReturnQuantityType in core/constants file
+
+## version==0.1.30  
+install_requires  
+
+## version==0.1.29  
+install_requeires  
+
+## version==0.1.24
+fix line.productmain_id issue.
+## version==0.1.22  
+fix conlicts  
+
+## version==0.1.22  
+fix conlicts  
+
+
+## version==0.1.21  
+fix conlicts  
+
+## version==0.1.19  
+fix conlicts  
+
+## version==0.1.17  
+AddressGroup状态 增加 NO_IN_STORE  
+
+## version == 0.1.16  
+特需售后单自提转快递时支付运费订单的发货单状态  
+
+## version==0.1.9
+允许取消发货
+
+## version==0.1.8
+虚拟商品发起售后 不拆单
+
+## version==0.1.7
+发货单address group 在库-已合
+
+## version==0.1.6
+虚拟商品发起售后
+
+## version==0.1.5
+虚拟商品状态配置
+
+## version==0.1.4
+虚拟商品状态配置
+
+## version==0.1.3
+虚拟商品状态配置EVENT_TO_BUTTONNAME_MAP，兼容EVENT_TO_BUTTONNAME_MAP未配置的情况
+
+## version==0.1.2
+虚拟商品状态、Event
+
+## version==0.1.1
+同步sparrow_order master分支到sparrow-order-lib中，主要是特需售后的内容
+
+## version==0.1.0
+update for sparrow_order
+
+
+## version==0.0.35
+update for sparrow_order
+
+## version==0.0.33    
+order_v3  
+
+## version==0.0.30    
+add event update_shipping_method_for_merge
+
+## version==0.0.29     
+estools      
+
+## version==0.0.28     
+sparrow_parcel      
+
+## version==0.0.27     
+estools      
+
+## version==0.0.26   
+首单礼需求  
+gift_type    
+
+## version==0.0.25   
+退货重算功能  
+BaseModelTimeAndDeleted    
+
+## version==0.0.24   
+退货重算功能  
+AfsVlinesPointsCharge  
+AfsVlinesOnlyRefundPoint  
+
+## version==0.0.23  
+退货重算功能  
+AfsVersionSuite  
+
+## version==0.0.22  
+退货重算功能  
+AfsVersionSuite  
+
+## version==0.0.21  
+退货重算功能  
+AfsVersionSuite  
+
+
+## version==0.0.20  
+退货重算功能  
+
+
+## version==0.0.19  
+从揽月获取用户信息  
+
+
+## version==0.0.18  
+退货重算相关 models  
+
+
+## version==0.0.17  
+sparrow_parcel 箱体相关 models  
+
+
+## version==0.0.19
+从揽月获取用户信息
+
+## version==0.0.18
+物料管理 增加seq排序属性
+
+## version==0.0.17
+物料管理相关models
+
+## version==0.0.17  
+基于 elasticsearch==7.8.0 定制开发 ES 查询组件  
+```
+必要环境变量:
+ES_HOST: ES 集群的 HOST  
+ES_PORT: ES 集群的端口  
+ES_USER: 登录 ES 集群的用户名  
+ES_PASSWD: 登录 ES 集群的密码  
+ES_MAX_RESULT_WINDOW: 需要使用深度分页查询的阈值
+
+```
+
+## version==0.0.16
+发货单相关 models 操作添加角色相关信息  
+core 内新增对方法运行结果缓存的装饰器  
+清除所有环境变量  
+
+
+## version==0.0.15
+AfsHgIncomeDivide修改字段 divide_payment_type 类型为 int -> char  
+
+## version==0.0.14
+AfsHgIncomeDivide新增字段payment_num  
+
+
+## version==0.0.13
+AfsHgIncomeDevide改名为AfsHgIncomeDivide  
+AfsHgIncomeDivide新增字段hgincome_type_id  
+  
+## version==0.0.12
+sparrow_aftersale_afs 新增字段afs_sync_status, afs_sync_time  
+新增两个model： AfsHgIncome & AfsHgIncomeDevide  
+
+## version==0.0.11
+修复包裹管理中文案错误  
+添加包裹管理中 BulkEvent
+
+## version==0.0.10
+删掉不必要通过环境变量赋值的常量  
+现将前面几个版本所需环境变量整理如下:  
+```
+RUN_ENV
+
+settings 里面需要添加以下配置, 也可设置为环境变量  
+SF_PAYCARD_NUMBER_MAILE
+SHIPPING_URL_SF_USERCODE
+SHIPPING_URL_SF_CHECKCODE
+SF_PAYCARD_NUMBER_HANGUANG
+SHIPPING_CREATE_ORDER_SENDER_NO_YZPY
+SHIPPING_CREATE_ORDER_ECOMMERCE_NO_YZPY
+SHIPPING_CREATE_ORDER_ECCOMPANYID_YZPY
+SHIPPING_CREATE_ORDER_SECRET_YZPY
+```
+
+## version==0.0.9
+为所有 APP_LABEL 设置默认值  
+
+## version==0.0.8
+sparrow_parcel 的 Transfer 实体去掉揽收包裹数量字段  
+
+## version==0.0.7
+修改一些bug  
+
+## version==0.0.6
+将 sparrow_shipping 维护至本项目  
+将 remote_call 维护至本项目
+```
+需要新增以下环境变量
+RUN_ENV
+export SPARROW_ORDER_APP_LABEL=sparrow_orders
+export SPARROW_ORDER_AFS_APP_LABEL=sparrow_orders_afs
+export SPARROW_DISTRIBUTE_APP_LABEL=sparrow_distribute
+export SPARROW_AFTERSALE_APP_LABEL=sparrow_aftersale
+export SPARROW_EXCHANGE_APP_LABEL=sparrow_exchange
+export SPARROW_PROMOTIONS_APP_LABEL=sparrow_promotions
+export SPARROW_DISSTORAGE_APP_LABEL=sparrow_disstorage
+export SPARROW_PARCEL_APP_LABEL=sparrow_parcel
+export SPARROW_SHIPPING_APP_LABEL=sparrow_shipping
+SC_SPARROW_CORE_GO_SVC
+SC_SPARROW_CORE_SVC
+SC_SPARROW_PRODUCT_SVC
+
+settings 里面需要添加以下配置
+SF_PAYCARD_NUMBER_MAILE
+SHIPPING_URL_SF_USERCODE
+SHIPPING_URL_SF_CHECKCODE
+SF_PAYCARD_NUMBER_HANGUANG
+SHIPPING_CREATE_ORDER_SENDER_NO_YZPY
+SHIPPING_CREATE_ORDER_ECOMMERCE_NO_YZPY
+SHIPPING_CREATE_ORDER_ECCOMPANYID_YZPY
+SHIPPING_CREATE_ORDER_SECRET_YZPY
+```
+
+## version==0.0.5
+############# sparrow-order-lib 使用配置 ############
+export SPARROW_ORDER_APP_LABEL=sparrow_orders
+export SPARROW_ORDER_AFS_APP_LABEL=sparrow_orders_afs
+export SPARROW_DISTRIBUTE_APP_LABEL=sparrow_distribute
+export SPARROW_AFTERSALE_APP_LABEL=sparrow_aftersale
+export SPARROW_EXCHANGE_APP_LABEL=sparrow_exchange
+export SPARROW_PROMOTIONS_APP_LABEL=sparrow_promotions
+export SPARROW_DISSTORAGE_APP_LABEL=sparrow_disstorage
+export SPARROW_PARCEL_APP_LABEL=sparrow_parcel
+
+## version==0.0.4
+将 sparrow_disstorage 维护至本项目  
+新增项目 sparrow_parcel  
+该版本尝试将 exceptions 维护至本项目  
+```
+需要新增以下环境变量
+SPARROW_DISSTORAGE_APP_LABEL
+SPARROW_PARCEL_APP_LABEL
+```
+
+## version==0.03
+将所有公共 models 维护至本项目。
+```
+需要以下环境变量:  
+SPARROW_ORDER_APP_LABEL
+SPARROW_ORDER_AFS_APP_LABEL
+SPARROW_DISTRIBUTE_APP_LABEL  
+SPARROW_AFTERSALE_APP_LABEL
+SPARROW_EXCHANGE_APP_LABEL
+SPARROW_PROMOTIONS_APP_LABEL
+```
+
+settings 要包含以下配置
+```
+PHONE_NUMBER_REGEX
+```
+
+## version==0.02
+测试 models 维护至 sparrow-order-lib 可行性
+
+## version==0.01
+core.db_tool.query
