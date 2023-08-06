@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: pulser-core
+Version: 0.9.0
+Summary: A pulse-level composer for neutral-atom quantum devices.
+Home-page: https://github.com/pasqal-io/Pulser
+Author: Pulser Development Team
+License: Apache 2.0
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: jsonschema
+Requires-Dist: matplotlib
+Requires-Dist: numpy (>=1.20)
+Requires-Dist: scipy
+Requires-Dist: backports.cached-property ; python_version == "3.7"
+Requires-Dist: typing-extensions ; python_version == "3.7"
+
+# pulser-core
+
+[Pulser](https://pypi.org/project/pulser/) is a framework for composing, simulating and executing **pulse** sequences for neutral-atom quantum devices.
+
+This is the `pulser-core` package, which provides the core functionalities needed to create sequences
+with `pulser`.
+
+## Installation
+
+The standard Pulser installation,
+
+```bash
+pip install pulser
+```
+
+will automatically install `pulser-core`, along with the extension packages.
+If you wish to install `pulser-core` on its own, you can instead run
+
+```bash
+pip install pulser-core
+```
+
+
