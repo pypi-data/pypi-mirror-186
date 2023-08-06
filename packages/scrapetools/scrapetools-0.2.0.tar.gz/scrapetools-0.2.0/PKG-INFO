@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: scrapeTools
+Version: 0.2.0
+Summary: A collection of tools to aid in web scraping.
+Project-URL: Homepage, https://github.com/matt-manes/scrapeTools
+Project-URL: Documentation, https://github.com/matt-manes/scrapeTools/docs
+Project-URL: Source code, https://github.com/matt-manes/scrapeTools/src/scrapeTools
+Author: Matt Manes
+License-File: LICENSE.txt
+Keywords: email,html,scrape,scraping,web,webscraping
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: bs4
+Requires-Dist: phonenumbers
+Description-Content-Type: text/markdown
+
+# scrapetools
+A collection of tools to aid in web scraping.<br>
+Install using:
+<pre>pip install scrapeTools</pre>
+scrapeTools contains four modules: emailScraper, linkScraper, phoneScraper, and inputScraper.<br>
+Only linkScraper contains a class.<br>
+<br>
+Basic usage:<br>
+<pre>
+from scrapeTools.emailScraper import scrapeEmails
+from scrapeTools.phoneScraper import scrapePhoneNumbers
+from scrapeTools.linkScraper import LinkScraper
+from scrapeTools.inputScraper import scrapeInputs
+import requests
+
+url = 'https://somewebsite.com'
+source = requests.get(url).text
+
+emails = scrapeEmails(source)
+
+phoneNumbers = scrapePhoneNumbers(source)
+
+linkScraper = LinkScraper(source, url)
+linkScraper.scrapePage()
+# links can be accessed and filtered via the getLinks() function
+sameSiteLinks = linkScraper.getLinks(sameSiteOnly=True)
+sameSiteImageLinks =linkScraper.getLinks(linkType='img', sameSiteOnly=True)
+externalImageLinks = linkScraper.getLinks(linkType='img', excludedLinks=sameSiteImageLinks)
+
+# scrapeInputs() returns a tuple of BeautifulSoup Tag elements for various user input elements
+forms, inputs, buttons, selects, textAreas = scrapeInputs(source)
+</pre>

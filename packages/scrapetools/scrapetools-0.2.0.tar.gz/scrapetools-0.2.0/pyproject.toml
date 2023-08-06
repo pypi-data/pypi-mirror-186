@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "scrapeTools"
+authors = [{name="Matt Manes"}]
+description = "A collection of tools to aid in web scraping."
+version = "0.2.0"
+requires-python = ">=3.10"
+dependencies = [
+	"bs4",
+	"phonenumbers"
+]
+readme = "README.md"
+keywords = [
+    "webscraping",
+    "web",
+    "html",
+    "email",
+    "scrape",
+    "scraping"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/matt-manes/scrapeTools"
+"Documentation" = "https://github.com/matt-manes/scrapeTools/docs"
+"Source code" = "https://github.com/matt-manes/scrapeTools/src/scrapeTools"
