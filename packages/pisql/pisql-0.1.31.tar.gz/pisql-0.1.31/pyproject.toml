@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "pisql"
+version = "0.1.31"
+description = "pisql is a CLI + lightweight python library to interact with a Sybase ASE database."
+authors = ["Arno V <arno@veletanlic.org>"]
+readme = "README.md"
+license = "LICENSE"
+include = ["LICENSE", "README.md"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+typer = {extras = ["all"], version = "^0.7.0"}
+polars = "^0.15.13"
+iotree = "^0.1.19"
+
+[tool.poetry.scripts]
+pisql = "pisql.main:app"
+
+
+[tool.poetry.group.interactive.dependencies]
+ipython = "^8.8.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.20.1"
+pyarrow = "^10.0.1"
+pandas = "^1.5.2"
+pytest = "^7.2.1"
+
+
+[tool.poetry.group.excel.dependencies]
+pandas = "^1.5.2"
+pyarrow = "^10.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
