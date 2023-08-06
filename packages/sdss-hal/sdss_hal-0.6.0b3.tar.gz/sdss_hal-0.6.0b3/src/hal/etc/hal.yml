@@ -1,0 +1,129 @@
+---
+actor:
+  name: hal
+  host: 0.0.0.0
+  port: 19980
+  tron_host: ${TRON_HOST}
+  tron_port: ${TRON_PORT}
+  models:
+    - apogee
+    - apogeefpi
+    - apogeecal
+    - jaeger
+    - cherno
+    - hartmann
+  log_dir: /data/logs/actors/hal
+
+durations:
+  boss:
+    APO:
+      flushing: 17
+      readout: 63
+    LCO:
+      flushing: 4
+      readout: 32
+  apogee_read: 10.6
+
+timeouts:
+  ffs: 30.0
+  lamps: 30.0
+  apogee_shutter: 15.0
+  apogee_dither: 30.0
+  boss_icc_flushing: 25.0
+  boss_icc_readout: 82.0
+  boss_yao_readout: 35.0
+  expose: 25.0
+  slew: 180.0
+  hartmann: 260.
+  fvc: 300.
+
+lamp_warmup:
+  ff: 1
+  wht: 0
+  UV: 0
+  HgCd: 108
+  Ne: 20
+
+macros:
+  goto_field:
+    arc_time: 4
+    flat_time: 25
+    guider_time: 15.
+    target_rms: 1.0
+    max_iterations: 5
+    fvc_az: 121
+    fvc_alt: 70
+    fvc_rot: 190
+    keep_offsets: true
+    fixed_rot: false
+    fixed_altaz: false
+    cloned_stages: []
+    new_field_stages:
+      [
+        'slew',
+        'reconfigure',
+        'fvc',
+        'reslew',
+        'lamps',
+        'boss_arcs',
+        'acquire',
+        'guide',
+      ]
+    repeat_field_stages:
+      ['slew', 'reconfigure', 'fvc', 'reslew', 'lamps', 'acquire', 'guide']
+    rm_field_stages:
+      [
+        'slew',
+        'reconfigure',
+        'fvc',
+        'reslew',
+        'lamps',
+        'boss_arcs',
+        'boss_flat',
+        'acquire',
+        'guide',
+      ]
+
+  expose:
+    boss_exptime: null
+    apogee_exptime: null
+    count_apogee: null
+    count_boss: null
+    pairs: true
+    dither: true
+    initial_apogee_dither: null
+    with_fpi: true
+    readout_matching: true
+    fallback:
+      count: 1
+      exptime: 900.0
+
+  auto:
+    guider_time: 15
+    target_rms: 1.0
+    count: 1
+
+goto:
+  stow:
+    alt: 30
+    az: 121
+    rot: 0
+  all_60:
+    alt: 60
+    az: 60
+    rot: 60
+  stow_60:
+    alt: 60
+    az: 120
+    rot: 0
+  instrument_change:
+    alt: 90
+    az: 121
+    rot: 0
+  alt_limit: 18
+
+bypasses: []
+
+scripts:
+  APO: etc/scripts/apo
+  LCO: etc/scripts/lco
