@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: ninjaprinter
+Version: 0.9.3
+Summary: Retrieves email attachments and send these to CUPS printer
+Author: jaspert123
+License: MIT
+Project-URL: Homepage, https://gitlab.com/jaspert/printserver
+Keywords: printer,ninjaprinter,email
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: imap-tools
+Requires-Dist: Mako
+Requires-Dist: pycups
+Requires-Dist: PyPDF2
+Provides-Extra: publish
+Requires-Dist: build ; extra == 'publish'
+Requires-Dist: twine ; extra == 'publish'
+Provides-Extra: test
+Requires-Dist: pylint ; extra == 'test'
+Requires-Dist: build ; extra == 'test'
+Requires-Dist: twine ; extra == 'test'
+
+Ninja Printer is used to retrieve mails from a mailbox and print pdf attachments to the default printer.
+A confirmation of print status is sent to each sender of an email that includes an attachment.
+The default printer can be set on the CUPS host.
