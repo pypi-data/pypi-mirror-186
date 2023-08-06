@@ -1,0 +1,72 @@
+Metadata-Version: 2.1
+Name: fast-tracker
+Version: 0.2.86.post4
+Summary: FAST Python Agent
+Home-page: http://doc.mypaas.com.cn/fast/03_%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%8E%A2%E9%92%88%E9%9B%86%E6%88%90/%E7%AE%80%E4%BB%8B.html
+Author: FAST
+Author-email: duanyy03@mingyuanyun.com
+Maintainer: FAST
+Maintainer-email: duanyy03@mingyuanyun.com
+License: Apache-2.0
+Requires-Python: >=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*
+License-File: apache-skywalking-LICENSE
+Requires-Dist: grpcio
+Requires-Dist: grpcio-tools
+Requires-Dist: packaging
+Requires-Dist: gevent
+Provides-Extra: http
+Requires-Dist: requests ; extra == 'http'
+Provides-Extra: kafka
+Requires-Dist: kafka ; extra == 'kafka'
+Provides-Extra: test
+Requires-Dist: testcontainers ; extra == 'test'
+Requires-Dist: pyyaml ; extra == 'test'
+Requires-Dist: pytest ; extra == 'test'
+
+======================
+天眼Python探针
+======================
+
+
+"fast_tracker" base on Apache SkyWalking Python agent and Newrelic Python:
+
+https://github.com/newrelic/newrelic-python-agent
+
+https://github.com/apache/skywalking-python
+
+Installation
+------------
+
+.. code:: bash
+
+    $ pip install fast-tracker
+
+Usage
+-----
+
+1. 配置好配置文件FastTracker.json.
+
+
+
+2. Validate the agent configuration and test the connection to our data collector service.
+
+   .. code:: bash
+
+      $ FastTracker_ConfigPath=FastTracker.json fast-boot run-program $YOUR_COMMAND_OPTIONS
+
+   Examples:
+
+   .. code:: bash
+
+      $ FastTracker_ConfigPath=FastTracker.json FastTracker_Debug_Level=true  fast-boot run-program hug -f app.py
+
+
+License
+-------
+
+FAST for Python is free-to-use, proprietary software. Please see the LICENSE file in the distribution for details on the FAST License agreement and the licenses of its dependencies.
+
+Copyright
+---------
+
+Copyright (c) 2019-2020 FAST, Inc. All rights reserved.
