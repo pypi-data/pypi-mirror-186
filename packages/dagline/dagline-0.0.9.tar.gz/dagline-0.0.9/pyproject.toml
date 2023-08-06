@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[project]
+name = "dagline"
+version = "0.0.9"
+authors = [
+  { name="Jason Liang", email="jasonliangyc@qq.com" },
+]
+description = "Use Python's multiprocessing module to execute tasks(python functon and windows bat script) of a DAG in parallel"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+]
+dependencies = [
+    "pyvis >= 0.3.0"
+]
+
