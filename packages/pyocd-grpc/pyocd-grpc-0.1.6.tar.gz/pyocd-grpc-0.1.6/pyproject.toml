@@ -1,0 +1,56 @@
+[project]
+name = "pyocd-grpc"
+description = "a remote PyOCd debug probe plugin using gRPC"
+readme = "README.md"
+authors = [
+    { name = "Shareef Jalloq" },
+    { email = "shareef.jalloq@idexbiometrics.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: POSIX :: BSD",
+    "License :: OSI Approved :: BSD License",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: Software Development :: Embedded Systems",
+    "Topic :: System :: Hardware",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "protobuf",
+    "grpcio",
+    "grpcio-tools",
+]
+dynamic = ["version"]
+
+[project.urls]
+homepage = "https://github.com/idex-biometrics/pyocd-grpc"
+
+[build-system]
+requires = [
+    "setuptools>=62",
+    "wheel",
+    "setuptools_scm[toml]>=6.0",
+    "protobuf_grpc_distutils",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "pyocd_grpc.__version__"}
+
+[tool.setuptools_scm]
+write_to = "pyocd_grpc/_version.py"
+local_scheme = "dirty-tag"
+
+[tool.setuptools.packages]
+find = {}
+
+[project.entry-points."pyocd.probe"]
+grpc = "pyocd_grpc.grpc_probe:GrpcProbePlugin"
