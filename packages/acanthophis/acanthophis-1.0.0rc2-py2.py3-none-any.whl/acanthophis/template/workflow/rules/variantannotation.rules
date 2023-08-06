@@ -1,0 +1,46 @@
+# These rules are part of Acanthophis. See https://github.com/kdm9/Acanthophis.
+# This file *could* be modified, but then be careful when you update them. And
+# please, if you find a bug, raise an issue on github so the fix gets shared
+# with everyone.
+#
+# Copyright 2016-2022 Kevin Murray/Gekkonid Consulting
+#
+# This Source Code Form is subject to the terms of the Mozilla Public License,
+# v. 2.0. If a copy of the MPL was not distributed with this file, You can
+# obtain one at http://mozilla.org/MPL/2.0/.
+
+
+rule snpeff:
+    input:
+        vcf=P("variants/final/{caller}~{aligner}~{ref}~{sampleset}~filtered-{filter}.vcf.gz"),
+        dbdir=lambda wc: directory(R(config["data_paths"]["references"][wc.ref]["snpeff_db"]))
+    output:
+        vcf=P("variants/annotated/{caller}~{aligner}~{ref}~{sampleset}~filtered-{filter}~snpEff.vcf.gz"),
+        csv=P("variants/annotated/{caller}~{aligner}~{ref}~{sampleset}~filtered-{filter}~snpEff.csv"),
+        html=P("variants/annotated/{caller}~{aligner}~{ref}~{sampleset}~filtered-{filter}~snpEff.html"),
+    log:
+        L("variants/annotated/{caller}~{aligner}~{ref}~{sampleset}~filtered-{filter}~snpEff.log"),
+    resources: **rule_resources(config, "snpeff", time_min=1440, mem_gb=1, cores=1)
+    conda: "envs/snpeff.yml"
+    shell:
+        "( snpEff ann"
+        "   -config {input.dbdir}/snpEff.config"
+        "   -csvStats {output.csv}"
+        "   -htmlStats {output.html}"
+        "   $(basename {input.dbdir})"
+        "   {input.vcf}"
+        "   > {output.vcf}"
+        ") >{log} 2>&1"
+
+
+rule all_snpeff:
+    input:
+        [P(expand("variants/annotated/{caller}~{aligner}~{ref}~{sampleset}~filtered-{filter}~snpEff.vcf.gz",
+                  caller=config["samplesets"][sampleset]["varcall"]["callers"],
+                  aligner=config["samplesets"][sampleset]["varcall"]["aligners"],
+                  ref=config["samplesets"][sampleset]["varcall"]["refs"],
+                  filter=config["samplesets"][sampleset]["varcall"]["filters"],
+                  sampleset=sampleset))
+         for sampleset in config["samplesets"]
+         if config["samplesets"][sampleset].get("varcall", {}).get("snpeff", False)
+         ],
