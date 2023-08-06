@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: streamlit-cognito-token-access-authentication
+Version: 1.1.1
+Summary: This is a library to authenticate users of a streamlit application that is embedded in a host application using AWS Cognito's access token.  An example use case would be an Angular application that has a streamlit app in an iframe. A user would first login to the host angular app and receive an access token.    The user would then use this access token to sign in to the embedded streamlit app.
+Home-page: https://github.com/seaneightysix/streamlit-cognito-token-access-authentication
+Author: Sean Tasaki
+Author-email: sean.tasaki@gmail.com
+License: BSD 2-clause
+Keywords: cognito,streamlit,access token,userinfo,login,authentication
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.9
+Requires-Dist: python-jose[cryptography]
+Requires-Dist: streamlit (>=1.10.0)
+
