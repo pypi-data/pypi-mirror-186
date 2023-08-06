@@ -1,0 +1,69 @@
+GENERIC:
+  EXCLUDE_PATTERNS:
+    - ^.*\.[Tt][Ee]?[Mm][Pp]$
+
+IMAGEFILE:
+  EXCLUDE_PATTERNS:
+    - ^.*[Cc][Rr][Oo][Pp]{1,2}[Ee]?[Dd}?[\s\S]*[-_][Cc][Rr][Oo][Pp]{1,2}[Ee]?[Dd]?\.[Tt][Ii][Ff]{1,2}$
+    - ^.*\\[Ee][Xx][Cc][Ll][Uu][Dd][Ee][Dd]?\\[\s\S]*$
+    - ^.*\\[Rr][Ee][Cc][Yy][Cc][Ll][Ee][Dd]?\\[\s\S]*$
+  MATCHING_PATTERNS:
+    - ^.*\.[Tt][Ii][Ff]{1,2}?$
+
+OPTICAL_IMAGE:
+  MATCHING_PATTERNS:
+    - ^.*\.[Jj][Pp][Ee]?[Gg]$
+    - ^.*\.[Jj][Pp][Ee]$
+    - ^.*\.[Jj][Ff]?[Ii][Ff]$
+    - ^.*\.[Pp][Nn][Gg]$
+  EXCLUDE_PATTERNS:
+    - ^.*\\[Ee][Xx][Cc][Ll][Uu][Dd][Ee][Dd]?\\[\s\S]*$  # excluded folder
+    - ^.*\\[Rr][Ee][Cc][Yy][Cc][Ll][Ee][Dd]?\\[\s\S]*$  # recycled folder
+    - ^.*[Nn][Aa][Vv][Ii]?[Gg]?[Aa]?[Tt]?[Ii]?[Oo]?[Nn]?[-_\s]?[Cc][Aa][Mm][Ee]?[Rr]?[Aa]?  # nav cams
+    - ^.*\\[Tt][Hh][Uu][Mm][Bb][-_\s][Pp][Nn][Gg]\\[\s\S]*-[Tt][Hh][Uu][Mm][Bb]-[Pp][Nn][Gg]\.[Pp][Nn][Gg]$  # thumbnail folder
+    - ^.*\\[Pp][Nn][Gg]\\[\s\S]*-[Pp][Nn][Gg]\.[Pp][Nn][Gg]$  # png converted files
+
+ATTACHMENT:
+  MATCHING_PATTERNS:
+    - ^.*\.[Pp][Dd][Ff]$
+    - ^.*\.[Dd][Oo][Cc][Xx]?$
+    - ^.*\.[Xx][Ll][Ss][XxMm]?$
+    - ^.*\.[Ss][Tt][Gg]$
+    - ^.*\.[Pp][Tt][Ff]$
+    - ^.*\.[Ee][Xx][Pp]$
+    - ^.*\.[Aa][Nn][Aa]$
+  EXCLUDE_PATTERNS:
+    - ^.*\\[Ee][Xx][Cc][Ll][Uu][Dd][Ee][Dd]?\\[\s\S]*$
+    - ^.*\\[Rr][Ee][Cc][Yy][Cc][Ll][Ee][Dd]?\\[\s\S]*$
+
+YAMLFILE:
+  MATCHING_PATTERNS:
+    - ^.*\.[Yy][Aa]?[Mm][Ll]
+
+NAVIGATION:
+  MATCHING_PATTERNS:
+    - ^.*[Nn][Aa][Vv][Ii]?[Gg]?[Aa]?[Tt]?[Ii]?[Oo]?[Nn]?[-_\s]?[Cc][Aa][Mm][Ee]?[Rr]?[Aa]?
+
+VIDEO:
+  MATCHING_PATTERNS:
+    - ^.*\.[Aa][Vv][Ii]
+    - ^.*\.[Mm][Pp]4
+  EXCLUDE_PATTERNS:
+    - ^.*[Ee][Xx][Cc][Ll][Uu][Dd][Ee][Dd]?[\s\S]*\.[Aa][Vv][Ii]$
+    - ^.*[Ee][Xx][Cc][Ll][Uu][Dd][Ee][Dd]?[\s\S]*\.[Mm][Pp]4$
+    - ^.*[Rr][Ee][Cc][Yy][Cc][Ll][Ee][Dd]?[\s\S]*\.[Aa][Vv][Ii]$
+    - ^.*[Rr][Ee][Cc][Yy][Cc][Ll][Ee][Dd]?[\s\S]*\.[Mm][Pp]4$
+
+HEADERFILE:
+  MATCHING_PATTERNS:
+    - ^.*\.[Hh][Dd][Rr]$
+
+JPEG:
+  MATCHING_PATTERNS:
+    - ^.*\.[Jj][Pp][Ee]?[Gg]$
+    - ^.*\.[Jj][Pp][Ee]$
+    - ^.*\.[Jj][Ff][Ii][Ff]$
+  EXCLUDE_PATTERNS:
+    - ^.*[-_]?[Oo][Pp][Tt][Ii]?[Cc]?[Aa]?[Ll]?\.[Jj][Pp][Ee]?[Gg]$
+    - ^.*[-_]?[Oo][Pp][Tt][Ii]?[Cc]?[Aa]?[Ll]?\.[Jj][Pp][Ee]$
+    - ^.*[-_]?[Oo][Pp][Tt][Ii]?[Cc]?[Aa]?[Ll]?\.[Jj][Ff][Ii][Ff]$
