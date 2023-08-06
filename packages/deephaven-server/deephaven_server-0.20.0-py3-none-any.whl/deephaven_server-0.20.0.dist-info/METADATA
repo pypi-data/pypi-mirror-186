@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: deephaven-server
+Version: 0.20.0
+Summary: Deephaven Embedded Server Python Package
+Home-page: https://deephaven.io/
+Author: Deephaven Data Labs
+Author-email: python@deephaven.io
+License: Deephaven Community License
+Keywords: Deephaven Development
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: jpy (>=0.13.0)
+Requires-Dist: java-utilities
+Requires-Dist: deephaven-core[autocomplete] (==0.20.0)
+
+# deephaven-server
+
+A Python-native way of launching [deephaven-core](https://www.github.com/deephaven/deephaven-core).
+
+Deephaven Community Core is a real-time, time-series, column-oriented analytics engine with relational database features. It is an open version of [Deephaven Enterprise](https://deephaven.io/enterprise/), which serves as the data backbone for prominent hedge funds, banks, and financial exchanges.
+
+## Requirements
+
+Java 11+ is required for this module, and the `JAVA_HOME` environment variable must be set appropriately.
+
+This module also requires Python version 3.7 or newer.
+
+## Setup
+
+```shell
+pip3 install --upgrade pip setuptools wheel
+pip3 install deephaven-server
+```
+
+## Quick start
+
+```python
+from deephaven_server import Server
+server = Server()
+server.start()
+
+from deephaven import time_table
+ticking_table = time_table('00:00:01').update_view(formulas=["Col1 = i % 2"])
+```
+
