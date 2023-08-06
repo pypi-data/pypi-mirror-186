@@ -1,0 +1,33 @@
+name: biomedicus-default-pipeline
+events_addresses:
+  - localhost:50100
+  - localhost:50101
+  - localhost:50102
+  - localhost:50103
+  - localhost:50104
+  - localhost:50105
+  - localhost:50106
+  - localhost:50107
+mp_config:
+  max_failures: 0
+  show_progress: True
+  workers: 32
+  read_ahead: 32
+  close_events: True
+components:
+  - name: biomedicus-sentences
+    address: localhost:50300
+  - name: biomedicus-tnt-tagger
+    address: localhost:50400
+  - name: biomedicus-acronyms
+    address: localhost:50500
+  - name: biomedicus-concepts
+    address: localhost:50600
+  - name: biomedicus-negex-triggers
+    address: localhost:50700
+  - name: biomedicus-selective-dependencies
+    address: localhost:50800
+  - name: biomedicus-deepen
+    address: localhost:50900
+  - name: biomedicus-section-headers
+    address: localhost:51000

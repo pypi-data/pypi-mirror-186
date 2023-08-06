@@ -1,0 +1,55 @@
+global:
+  host: null
+  mtap_config: null
+  log_level: INFO
+  register: no
+events_service:
+  enabled: yes
+  addresses:
+    - localhost:50100
+    - localhost:50101
+    - localhost:50102
+    - localhost:50103
+    - localhost:50104
+    - localhost:50105
+    - localhost:50106
+    - localhost:50107
+  workers: 8
+shared_processor_config:
+  events_addresses: null
+  workers: 8
+  args: [ ]
+  jvm_args: [ "-Xms32m", "-Xmx8g" ]
+  java_classpath: null
+# Below this is a list of the processors to be deployed and their individual settings.
+processors:
+  - implementation: java
+    enabled: no
+    entry_point: edu.umn.biomedicus.rtf.RtfProcessor
+    port: 50200
+  - implementation: python
+    entry_point: biomedicus.sentences.bi_lstm
+    port: 50300
+    pre_args: ['processor']
+  - implementation: java
+    entry_point: edu.umn.biomedicus.tagging.tnt.TntPosTaggerProcessor
+    port: 50400
+  - implementation: java
+    entry_point: edu.umn.biomedicus.acronym.AcronymDetectorProcessor
+    port: 50500
+  - implementation: java
+    entry_point: edu.umn.biomedicus.concepts.DictionaryConceptDetector
+    port: 50600
+  - implementation: python
+    entry_point: biomedicus.negation.negex_triggers
+    port: 50700
+  - implementation: python
+    entry_point: biomedicus.dependencies.stanza_selective_parser
+    port: 50800
+    additional_args: ['--offline']
+  - implementation: python
+    entry_point: biomedicus.negation.deepen
+    port: 50900
+  - implementation: java
+    entry_point: edu.umn.biomedicus.sections.RuleBasedSectionHeaderDetector
+    port: 51000
