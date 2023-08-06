@@ -1,0 +1,24 @@
+sourceUrl = "git@github.com:nharada1/moonshine.git"
+destinationUrl = "git@github.com:moonshinelabs-ai/gpu_sentinel.git"
+
+core.workflow(
+    name = "default",
+    origin = git.origin(
+        url = sourceUrl,
+        ref = "main",
+    ),
+    destination = git.destination(
+        url = destinationUrl,
+        fetch = "main",
+        push = "main",
+    ),
+
+    authoring = authoring.pass_thru("Moonshine Gardener <gpu_sentinel@moonshinelabs.ai>"),
+    
+    # Copy everything but don't include this file itself.
+    origin_files = glob(["src/public/gpu_sentinel/**"], exclude = ["src/public/gpu_sentinel/copy.bara.sky"]),
+
+    transformations = [
+	    core.move("src/public/gpu_sentinel", ""),
+    ],
+)
