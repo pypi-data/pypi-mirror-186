@@ -1,0 +1,82 @@
+######################################################################################
+#
+# YOU CAN / SHOULD EDIT THE FOLLOWING SETTING
+#
+######################################################################################
+
+# ALWAYS RUN
+#
+# emzed_project_update()
+#
+# AFTER YOU EDITED THIS FILE!
+
+# use package name emzed_ext_XXX for auto discovery within emzed:
+
+PACKAGE_NAME = "emzed_ext_{{cookiecutter.pkg_name}}"
+
+VERSION = (0, 0, 1)  # don't forget to run emzed_project_update() after changes!
+
+
+AUTHOR_NAME = "Hans Dampf"
+AUTHOR_EMAIL = "hans.dampf@biol.ethz.ch"
+AUTHOR_URL = "https://biol.ethz.ch"
+
+
+DESCRIPTION = "please describe the package here in one line"
+LONG_DESCRIPTION = """
+
+# This is an awesome package
+
+describe the package here in more than one line
+
+You can use **markdown** for layout!
+"""
+
+LICENSE = "http://opensource.org/licenses/GPL-3.0"
+
+# list all required packages here:
+# don't forget to run emzed_project_update() after changes!
+
+REQUIRED_PACKAGES = ["emzed3", "emzed3_gui"]
+
+
+######################################################################################
+#                                                                                    #
+# DO NOT TOUCH THE CODE BELOW UNLESS YOU KNOW WHAT YOU DO !!!!                       #
+#                                                                                    #
+#                                                                                    #
+#       _.--""--._                                                                   #
+#      /  _    _  \                                                                  #
+#   _  ( (_\  /_) )  _                                                               #
+#  { \._\   /\   /_./ }                                                              #
+#  /_"=-.}______{.-="_\                                                              #
+#   _  _.=('""')=._  _                                                               #
+#  (_'"_.-"`~~`"-._"'_)                                                              #
+#   {_"            "_}                                                               #
+#                                                                                    #
+######################################################################################
+
+
+VERSION_STRING = "{}.{}.{}".format(*VERSION)
+
+
+if __name__ == "__main__":  # allows import setup.py for version checking
+
+    from setuptools import setup, find_packages
+
+    setup(
+        name=PACKAGE_NAME,
+        package_dir={"": "src"},
+        packages=find_packages(where="src"),
+        author=AUTHOR_NAME,
+        author_email=AUTHOR_EMAIL,
+        url=AUTHOR_URL,
+        description=DESCRIPTION,
+        long_description=LONG_DESCRIPTION,
+        license=LICENSE,
+        version=VERSION_STRING,
+        install_requires=REQUIRED_PACKAGES,
+        include_package_data=True,
+        zip_safe=False,
+        long_description_content_type="text/markdown",
+    )
