@@ -1,0 +1,135 @@
+############################################################################
+# 'ipref' and 'ipref-web' configuration template file for GeoLite
+# 
+#   See config.yaml.orig for full documentation.
+#
+############################################################################
+
+version: 2
+
+############################################################################
+# DNS lookups [CLI/WEB]
+############################################################################
+dns:
+  reverse_name:
+    enabled: false
+    timeout: 5
+    num_workers: 10
+    nameservers: null
+    # nameservers:
+    #   - "8.8.8.8"
+    #   - "8.8.4.4"
+
+############################################################################
+# MaxMind's GeoIP databases [CLI/Web]
+############################################################################
+geoip:
+  dbs:
+    # country: null
+    city: tests/data/GeoLite2-City.mmdb
+    asn: tests/data/GeoLite2-ASN.mmdb
+
+############################################################################
+# Output [CLI]
+############################################################################
+output:
+  # [csv/tsv] List of output columns.
+  columns:
+    # Meta
+    - meta.raw_input
+    # - meta.ip_address
+    - meta.ip_address_types
+
+    # DNS
+    # - dns.reverse_name
+
+    # GeoIP2 Country / GeoLite Country
+    # - geoip.country.continent.names.en
+    # - geoip.country.country.iso_code
+    # - geoip.country.country.names.en
+
+    # GeoIP2 City / GeoLite City
+    - geoip.city.continent.names.en
+    - geoip.city.country.iso_code
+    - geoip.city.country.names.en
+    - geoip.city.city.names.en
+    - geoip.city.postal.code
+    - geoip.city.location.latitude
+    - geoip.city.location.longitude
+
+    # GeoLite ASN
+    - geoip.asn.autonomous_system_number
+    - geoip.asn.autonomous_system_organization
+
+
+############################################################################
+# Web
+############################################################################
+web:
+  # Web title.
+  title: ipref
+
+  # Search checkboxes.
+  search:
+    - name: Meta
+      items:
+        - label: Input
+          checked: true
+          data: meta.raw_input
+        - label: IP Addr.
+          checked: false
+          data: meta.ip_address
+        - label: IP Types
+          checked: true
+          data: meta.ip_address_types
+
+    # - name: DNS
+    #   items:
+    #     - label: Reverse Name
+    #       checked: false
+    #       data: dns.reverse_name
+
+    # - name: Country
+    #   items:
+    #     - label: Continent
+    #       checked: false
+    #       data: geoip.country.continent.names.en
+    #     - label: Country Code
+    #       checked: true
+    #       data: geoip.country.country.iso_code
+    #     - label: Country
+    #       checked: true
+    #       data: geoip.country.country.names.en
+
+    - name: City
+      items:
+        - label: Continent
+          checked: false
+          data: geoip.city.continent.names.en
+        - label: Country Code
+          checked: true
+          data: geoip.city.country.iso_code
+        - label: Country
+          checked: true
+          data: geoip.city.country.names.en
+        - label: City
+          checked: true
+          data: geoip.city.city.names.en
+        - label: Postal Code
+          checked: false
+          data: geoip.city.postal.code
+        - label: Latitude
+          checked: false
+          data: geoip.city.location.latitude
+        - label: Longitude
+          checked: false
+          data: geoip.city.location.longitude
+
+    - name: ASN
+      items:
+      - label: AS Number
+        checked: true
+        data: geoip.asn.autonomous_system_number
+      - label: AS Org.
+        checked: true
+        data: geoip.asn.autonomous_system_organization

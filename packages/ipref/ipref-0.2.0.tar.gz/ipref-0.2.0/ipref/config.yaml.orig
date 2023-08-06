@@ -1,0 +1,285 @@
+############################################################################
+# 'ipref' and 'ipref-web' configuration template file
+#
+#   This file is a configuration template which is used for both ipref and
+#   ipref-web. Read and follow comments below for more details.
+#
+#   - URL: https://github.com/md-irohas/ipref-py
+#   - Revision: 2
+#
+############################################################################
+
+# config file version [v2-]
+version: 2
+
+############################################################################
+# DNS lookups [CLI/WEB]
+#
+#   This section includes configurations for DNS look-ups.
+#
+############################################################################
+dns:
+  # Reverse name look-ups (DNS queries with PTR records)
+  reverse_name:
+    # Flag to enable reverse look-ups. Note that if this is true look-ups may
+    # take some time to finish because DNS look-ups are slow.
+    enabled: false
+    # DNS lookup timeout (per lookup) in second.
+    timeout: 5
+    # Number of workers which look up DNS reverse names.
+    num_workers: 10
+    # List of nameservers' IP addresses. If null, the same nameservers as ths
+    # system are used. [v2-]
+    nameservers: null
+    # nameservers:
+    #   - "8.8.8.8"
+    #   - "8.8.4.4"
+
+############################################################################
+# MaxMind's GeoIP databases [CLI/WEB]
+# 
+#   This section includes configurations for MaxMind's GeoIP databases.
+#
+############################################################################
+geoip:
+  # Paths to MaxMind's GeoIP downloadable databases (.mmdb files).
+  # If you do not use the part of these databases, comment out the paths (like
+  # 'country', 'anonymous_ip', 'asn' below)
+  dbs:
+    # GeoLite databases.
+    # country: null
+    # city: null
+    # asn: null
+
+    # GeoIP2 databases.
+    # country: null
+    city: tests/data/GeoIP2-City-Test.mmdb
+    # anonymous_ip: tests/data/GeoIP2-Anonymous-IP-Test.mmdb
+    connection_type: tests/data/GeoIP2-Connection-Type-Test.mmdb
+    domain: tests/data/GeoIP2-Domain-Test.mmdb
+    # enterprise: tests/data/GeoIP2-Enterprise-Test.mmdb
+    isp: tests/data/GeoIP2-ISP-Test.mmdb
+
+############################################################################
+# Output [CLI]
+#
+#   This section includes configurations for output.
+#
+############################################################################
+output:
+  # [csv/tsv] List of output columns.
+  # To add a column, uncomment the following lines. To remove a column, comment
+  # out the following lines.
+  columns:
+    # Meta
+    - meta.raw_input
+    # - meta.ip_address
+    - meta.ip_address_types
+
+    # DNS
+    # - dns.reverse_name
+
+    # GeoIP2 Country / GeoLite Country
+    # - geoip.country.continent.names.en
+    # - geoip.country.country.iso_code
+    # - geoip.country.country.names.en
+
+    # GeoIP2 City / GeoLite City
+    - geoip.city.continent.names.en
+    - geoip.city.country.iso_code
+    - geoip.city.country.names.en
+    - geoip.city.city.names.en
+    - geoip.city.postal.code
+    - geoip.city.location.latitude
+    - geoip.city.location.longitude
+
+    # GeoIP2 Anonymous IP
+    # - geoip.anonymous_ip.is_anonymous
+    # - geoip.anonymous_ip.is_anonymous_vpn
+    # - geoip.anonymous_ip.is_hosting_provider
+    # - geoip.anonymous_ip.is_public_proxy
+    # - geoip.anonymous_ip.is_tor_exit_node
+    # - geoip.anonymous_ip.is_residential_proxy
+
+    # GeoIP2 Connection Type
+    - geoip.connection_type.connection_type
+
+    # GeoIP2 Domain
+    - geoip.domain.domain
+
+    # GeoIP2 Enterprise
+    # - geoip.enterprise.country.iso_code
+    # - geoip.enterprise.country.names.en
+    # - geoip.enterprise.city.names.en
+    # - geoip.enterprise.location.latitude
+    # - geoip.enterprise.location.longitude
+
+    # GeoIP2 ISP
+    - geoip.isp.autonomous_system_number
+    - geoip.isp.autonomous_system_organization
+    - geoip.isp.isp
+    - geoip.isp.organization
+    - geoip.isp.mobile_country_code
+    - geoip.isp.mobile_network_code
+
+    # GeoLite ASN
+    # - geoip.asn.autonomous_system_number
+    # - geoip.asn.autonomous_system_organization
+
+
+############################################################################
+# WEB
+#
+#   This section includes configuraitons for the web interface.
+#
+############################################################################
+web:
+  # Web title.
+  title: ipref
+
+  # Search checkboxes.
+  search:
+    - name: Meta  # Category name
+      items:      # List of checkboxes
+        - label: Input    # Lable of the checkbox
+          checked: true   # Default value (checked or not)
+          data: meta.raw_input  # Data ID (the same as output.columns)
+        - label: IP Addr.
+          checked: false
+          data: meta.ip_address
+        - label: IP Types
+          checked: true
+          data: meta.ip_address_types
+
+    # - name: DNS
+    #   items:
+    #     - label: Reverse Name
+    #       checked: false
+    #       data: dns.reverse_name
+
+    # - name: Country
+    #   items:
+    #     - label: Continent
+    #       checked: false
+    #       data: geoip.country.continent.names.en
+    #     - label: Country Code
+    #       checked: true
+    #       data: geoip.country.country.iso_code
+    #     - label: Country
+    #       checked: true
+    #       data: geoip.country.country.names.en
+
+    - name: City
+      items:
+        - label: Continent
+          checked: false
+          data: geoip.city.continent.names.en
+        - label: Country Code
+          checked: true
+          data: geoip.city.country.iso_code
+        - label: Country
+          checked: true
+          data: geoip.city.country.names.en
+        - label: City
+          checked: true
+          data: geoip.city.city.names.en
+        - label: Postal Code
+          checked: false
+          data: geoip.city.postal.code
+        - label: Latitude
+          checked: false
+          data: geoip.city.location.latitude
+        - label: Longitude
+          checked: false
+          data: geoip.city.location.longitude
+
+    # - name: Anonymous IP
+    #   items:
+    #   - label: Anonymous
+    #     checked: false
+    #     data: geoip.anonymous_ip.is_anonymous
+    #   - label: Anonymous VPN
+    #     checked: false
+    #     data: geoip.anonymous_ip.is_anonymous_vpn
+    #   - label: Hosting Provider
+    #     checked: false
+    #     data: geoip.anonymous_ip.is_hosting_provider
+    #   - label: Public Proxy
+    #     checked: false
+    #     data: geoip.anonymous_ip.is_public_proxy
+    #   - label: Residential Proxy
+    #     checked: false
+    #     data: geoip.anonymous_ip.is_residential_proxy
+    #   - label: Tor Exit Node
+    #     checked: false
+    #     data: geoip.anonymous_ip.is_tor_exit_node
+
+    - name: Connection Type
+      items:
+      - label: Connection Type
+        checked: true
+        data: geoip.connection_type.connection_type
+
+    - name: Domain
+      items:
+      - label: Domain
+        checked: true
+        data: geoip.domain.domain
+
+    # - name: Enterprise
+    #   items:
+    #   - label: Country Code
+    #     checked: false
+    #     data: geoip.enterprise.country.iso_code
+    #   - label: Country
+    #     checked: false
+    #     data: geoip.enterprise.country.name
+    #   - label: City
+    #     checked: false
+    #     data: geoip.enterprise.city.name
+    #   - label: Postal Code
+    #     checked: false
+    #     data: geoip.enterprise.postal.code
+    #   - label: Latitude
+    #     checked: false
+    #     data: geoip.enterprise.location.latitude
+    #   - label: Longitude
+    #     checked: false
+    #     data: geoip.enterprise.location.longitude
+
+    - name: ISP
+      items:
+      - label: AS Number
+        checked: true
+        data: geoip.isp.autonomous_system_number
+      - label: AS Org.
+        checked: true
+        data: geoip.isp.autonomous_system_organization
+      - label: ISP
+        checked: true
+        data: geoip.isp.isp
+      - label: Org.
+        checked: false
+        data: geoip.isp.organization
+      - label: Mobile Country Code
+        checked: false
+        data: geoip.isp.mobile_country_code
+      - label: Mobile Network Code
+        checked: false
+        data: geoip.isp.mobile_network_code
+
+    # - name: ASN
+    #   items:
+    #   - label: AS Number
+    #     checked: true
+    #     data: geoip.asn.autonomous_system_number
+    #   - label: AS Org.
+    #     checked: true
+    #     data: geoip.asn.autonomous_system_organization
+
+    # The following items are special flags [v2-]
+    - name: Misc
+      items:
+      - label: Include National Flags in Country Code
+        checked: true
+        data: misc.include_national_flags
