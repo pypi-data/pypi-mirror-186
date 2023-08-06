@@ -1,0 +1,521 @@
+openapi: 3.0.3
+info:
+  title: Fabric Credential Manager API
+  description: This is Fabric Credential Manager API
+  termsOfService: None
+  contact:
+    name: Komal Thareja
+    email: kthare10@unc.edu
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 1.0.2
+servers:
+- url: http://127.0.0.1:7000/credmgr/
+  description: local development
+- url: https://virtserver.swaggerhub.com/kthare10/credmgr/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: tokens
+  description: Tokens in FABRIC
+paths:
+  /version:
+    get:
+      tags:
+      - version
+      summary: Version
+      description: Version
+      operationId: version_get
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/version'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_500_internal_server_error'
+      x-openapi-router-controller: fabric_cm.credmgr.swagger_server.controllers.version_controller
+  /certs:
+    get:
+      tags:
+      - default
+      summary: Return Public Keys to verify signature of the tokens
+      description: Json Web Keys
+      operationId: certs_get
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jwks'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_500_internal_server_error'
+      x-openapi-router-controller: fabric_cm.credmgr.swagger_server.controllers.default_controller
+  /tokens/create:
+    post:
+      tags:
+      - tokens
+      summary: Generate tokens for an user
+      description: |
+        Request to generate tokens for an user
+      operationId: tokens_create_post
+      parameters:
+      - name: project_id
+        in: query
+        description: Project identified by universally unique identifier
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: Scope for which token is requested
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          default: all
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokens'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_400_bad_request'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_401_unauthorized'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_403_forbidden'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_404_not_found'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_500_internal_server_error'
+      x-openapi-router-controller: fabric_cm.credmgr.swagger_server.controllers.tokens_controller
+  /tokens/refresh:
+    post:
+      tags:
+      - tokens
+      summary: Refresh tokens for an user
+      description: |
+        Request to refresh OAuth tokens for an user
+      operationId: tokens_refresh_post
+      parameters:
+      - name: project_id
+        in: query
+        description: Project identified by universally unique identifier
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: Scope for which token is requested
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          default: all
+      requestBody:
+        $ref: '#/components/requestBodies/payload_token_post'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokens'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_400_bad_request'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_401_unauthorized'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_403_forbidden'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_404_not_found'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_500_internal_server_error'
+      x-openapi-router-controller: fabric_cm.credmgr.swagger_server.controllers.tokens_controller
+  /tokens/revoke:
+    post:
+      tags:
+      - tokens
+      summary: Revoke a refresh token for an user
+      description: |
+        Request to revoke a refresh token for an user
+      operationId: tokens_revoke_post
+      requestBody:
+        $ref: '#/components/requestBodies/payload_token_post'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_200_ok_no_content'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_400_bad_request'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_401_unauthorized'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_403_forbidden'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_404_not_found'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status_500_internal_server_error'
+      x-openapi-router-controller: fabric_cm.credmgr.swagger_server.controllers.tokens_controller
+components:
+  schemas:
+    status_200_ok_single:
+      type: object
+      properties:
+        size:
+          type: integer
+          default: 1
+        status:
+          type: integer
+          default: 200
+        type:
+          type: string
+    status_200_ok_no_content:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/status_200_ok_no_content_data'
+        type:
+          type: string
+          default: no_content
+        size:
+          type: integer
+          default: 1
+        status:
+          type: integer
+          default: 200
+      example:
+        data:
+        - details: details
+          message: No Content
+        - details: details
+          message: No Content
+        size: 0
+        type: no_content
+        status: 6
+    status_400_bad_request:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/status_400_bad_request_errors'
+    status_401_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/status_401_unauthorized_errors'
+        type:
+          type: string
+          default: error
+        size:
+          type: integer
+          default: 1
+        status:
+          type: integer
+          default: 401
+    status_403_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/status_403_forbidden_errors'
+        type:
+          type: string
+          default: error
+        size:
+          type: integer
+          default: 1
+        status:
+          type: integer
+          default: 403
+    status_404_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/status_404_not_found_errors'
+        type:
+          type: string
+          default: error
+        size:
+          type: integer
+          default: 1
+        status:
+          type: integer
+          default: 404
+    status_500_internal_server_error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/status_500_internal_server_error_errors'
+        type:
+          type: string
+          default: error
+        size:
+          type: integer
+          default: 1
+        status:
+          type: integer
+          default: 500
+    status_200_ok_no_content_data:
+      type: object
+      properties:
+        message:
+          type: string
+          default: No Content
+        details:
+          type: string
+      example:
+        details: details
+        message: No Content
+    status_400_bad_request_errors:
+      type: object
+      properties:
+        message:
+          type: string
+          default: Bad Request
+        details:
+          type: string
+        type:
+          type: string
+          default: error
+        size:
+          type: integer
+          default: 1
+        status:
+          type: integer
+          default: 400
+    status_401_unauthorized_errors:
+      type: object
+      properties:
+        message:
+          type: string
+          default: Unauthorized
+        details:
+          type: string
+    status_403_forbidden_errors:
+      type: object
+      properties:
+        message:
+          type: string
+          default: Forbidden
+        details:
+          type: string
+    status_404_not_found_errors:
+      type: object
+      properties:
+        message:
+          type: string
+          default: Not Found
+        details:
+          type: string
+    status_500_internal_server_error_errors:
+      type: object
+      properties:
+        message:
+          type: string
+          default: Internal Server Error
+        details:
+          type: string
+    tokens:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/status_200_ok_single'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/token'
+    token:
+      required:
+      - created_at
+      - id_token
+      - refresh_token
+      type: object
+      properties:
+        id_token:
+          type: string
+          description: Identity Token
+        refresh_token:
+          type: string
+          description: Refresh Token
+        created_at:
+          type: string
+    request:
+      required:
+      - refresh_token
+      type: object
+      properties:
+        refresh_token:
+          type: string
+          description: Refresh Token
+    version:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/status_200_ok_single'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/version_data'
+    version_data:
+      required:
+      - reference
+      - version
+      properties:
+        reference:
+          type: string
+          example: https://github.com/fabric-testbed/CredentialManager
+        version:
+          type: string
+          example: 1.0.0
+    jwks:
+      type: object
+      properties:
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/jwks_keys'
+      example:
+        keys:
+        - kty: kty
+          e: e
+          use: use
+          kid: kid
+          alg: alg
+          "n": "n"
+        - kty: kty
+          e: e
+          use: use
+          kid: kid
+          alg: alg
+          "n": "n"
+    jwks_keys:
+      type: object
+      properties:
+        kty:
+          type: string
+          description: Key Type
+        e:
+          type: string
+          description: Exponent Parameter
+        "n":
+          type: string
+          description: Modulus Parameter
+        use:
+          type: string
+          description: Public Key Use Parameter
+        alg:
+          type: string
+          description: Algorithm Parameter
+        kid:
+          type: string
+          description: Key Id Header Parameter
+      example:
+        kty: kty
+        e: e
+        use: use
+        kid: kid
+        alg: alg
+        "n": "n"
+  requestBodies:
+    payload_token_post:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/request'
+      required: true
+
