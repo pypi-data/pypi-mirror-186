@@ -1,0 +1,22 @@
+certifi
+charset_normalizer>=3.0.1
+courlan>=0.8.3
+htmldate>=1.4.1
+justext>=3.0.0
+lxml>=4.9.2
+urllib3<2,>=1.26
+
+[all]
+brotli
+htmldate[speed]>=1.4.1
+py3langid>=0.2.2
+pycurl>=7.45.2
+
+[all:python_version < "3.11"]
+cchardet>=2.1.7
+
+[all:python_version >= "3.11"]
+faust-cchardet>=2.1.16
+
+[gui]
+Gooey>=1.0.1
