@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: eris
+Version: 1.0.0
+Summary: Implementation of the Encoding for Robust Immutable Storage (ERIS) encoding
+Home-page: https://codeberg.org/eris/python-eris
+Author: pukkamustard
+Author-email: pukkamustard@posteo.net
+Project-URL: Documentation, https://eris.codeberg.page/python-eris/
+Project-URL: Bug Tracker, https://codeberg.org/eris/python-eris/issues
+Project-URL: Mailing list, https://lists.sr.ht/~pukkamustard/eris
+Project-URL: Specification, http://purl.org/eris
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Topic :: Communications :: File Sharing
+Classifier: Topic :: Internet
+Classifier: Topic :: Multimedia
+Classifier: Topic :: System :: Archiving
+Classifier: Topic :: System :: Archiving :: Mirroring
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: COPYING
+Requires-Dist: pycryptodome
+Requires-Dist: aiocoap
+
+# python-eris
+
+This is a Python implementation of the [Encoding for Robust Immutable Storage (ERIS)](http://purl.org/eris).
+
+# Usage
+
+```
+import eris
+import asyncio
+
+async def main():
+
+    # create a store
+    store = eris.DictStore()
+
+    # encode content
+    encoder = eris.Encoder(eris.null_convergence_secret(), store, block_size = 1024)
+    await encoder.write(b'Hello world!')
+    read_capability = await encoder.close()
+
+    # decode content
+    decoder = eris.Decoder(store, read_capability)
+    decoded = await decoder.readall()
+
+    print(decoded)
+
+asyncio.run(main())
+```
+
+See also the [online documentation](https://eris.codeberg.page/python-eris/) and the [examples](./examples/).
+
+# Development
+
+## Running Tests
+
+```
+python -m unittest tests/*.py
+```
+
+## Building Documentation
+
+```
+make -C docs html
+```
+
+## Publishing to PyPi
+
+```
+python -m build
+python3 -m twine upload --repository pypi dist/*
+```
+
+# License
+
+[AGPL-3.0-or-later](./LICENSE/AGPL-3.0-or-later)
