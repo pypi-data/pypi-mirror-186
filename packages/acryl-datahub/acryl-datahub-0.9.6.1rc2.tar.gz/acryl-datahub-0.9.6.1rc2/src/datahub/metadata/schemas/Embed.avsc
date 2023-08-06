@@ -1,0 +1,20 @@
+{
+  "type": "record",
+  "name": "Embed",
+  "namespace": "com.linkedin.pegasus2avro.common",
+  "doc": "Information regarding rendering an embed for an asset.",
+  "fields": [
+    {
+      "name": "renderUrl",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "An embed URL to be rendered inside of an iframe.",
+      "default": null
+    }
+  ],
+  "Aspect": {
+    "name": "embed"
+  }
+}

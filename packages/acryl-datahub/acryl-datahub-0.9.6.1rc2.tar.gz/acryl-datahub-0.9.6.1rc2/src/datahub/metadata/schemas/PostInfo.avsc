@@ -1,0 +1,140 @@
+{
+  "type": "record",
+  "name": "PostInfo",
+  "namespace": "com.linkedin.pegasus2avro.post",
+  "doc": "Information about a DataHub Post.",
+  "fields": [
+    {
+      "name": "type",
+      "type": {
+        "type": "enum",
+        "name": "PostType",
+        "doc": "Enum defining types of Posts.",
+        "symbols": [
+          "HOME_PAGE_ANNOUNCEMENT"
+        ],
+        "symbolDocs": {
+          "HOME_PAGE_ANNOUNCEMENT": "The Post is an Home Page announcement."
+        }
+      },
+      "doc": "Type of the Post."
+    },
+    {
+      "name": "content",
+      "type": {
+        "type": "record",
+        "name": "PostContent",
+        "doc": "Content stored inside a Post.",
+        "fields": [
+          {
+            "name": "title",
+            "type": "string",
+            "doc": "Title of the post.",
+            "Searchable": {
+              "fieldType": "TEXT_PARTIAL"
+            }
+          },
+          {
+            "name": "type",
+            "type": {
+              "type": "enum",
+              "name": "PostContentType",
+              "doc": "Enum defining the type of content held in a Post.",
+              "symbols": [
+                "TEXT",
+                "LINK"
+              ],
+              "symbolDocs": {
+                "LINK": "Link content",
+                "TEXT": "Text content"
+              }
+            },
+            "doc": "Type of content held in the post."
+          },
+          {
+            "name": "description",
+            "type": [
+              "null",
+              "string"
+            ],
+            "doc": "Optional description of the post.",
+            "default": null
+          },
+          {
+            "name": "link",
+            "type": [
+              "null",
+              "string"
+            ],
+            "doc": "Optional link that the post is associated with.",
+            "default": null,
+            "java": {
+              "class": "com.linkedin.pegasus2avro.common.url.Url",
+              "coercerClass": "com.linkedin.pegasus2avro.common.url.UrlCoercer"
+            }
+          },
+          {
+            "name": "media",
+            "type": [
+              "null",
+              {
+                "type": "record",
+                "name": "Media",
+                "namespace": "com.linkedin.pegasus2avro.common",
+                "doc": "Carries information about which roles a user is assigned to.",
+                "fields": [
+                  {
+                    "name": "type",
+                    "type": {
+                      "type": "enum",
+                      "name": "MediaType",
+                      "doc": "Enum defining the type of content a Media object holds.",
+                      "symbols": [
+                        "IMAGE"
+                      ],
+                      "symbolDocs": {
+                        "IMAGE": "The Media holds an image."
+                      }
+                    },
+                    "doc": "Type of content the Media is storing, e.g. image, video, etc."
+                  },
+                  {
+                    "name": "location",
+                    "type": "string",
+                    "doc": "Where the media content is stored.",
+                    "java": {
+                      "class": "com.linkedin.pegasus2avro.common.url.Url",
+                      "coercerClass": "com.linkedin.pegasus2avro.common.url.UrlCoercer"
+                    }
+                  }
+                ]
+              }
+            ],
+            "doc": "Optional media that the post is storing",
+            "default": null
+          }
+        ]
+      },
+      "doc": "Content stored in the post."
+    },
+    {
+      "name": "created",
+      "type": "long",
+      "doc": "The time at which the post was initially created",
+      "Searchable": {
+        "fieldType": "COUNT"
+      }
+    },
+    {
+      "name": "lastModified",
+      "type": "long",
+      "doc": "The time at which the post was last modified",
+      "Searchable": {
+        "fieldType": "COUNT"
+      }
+    }
+  ],
+  "Aspect": {
+    "name": "postInfo"
+  }
+}
