@@ -1,0 +1,358 @@
+Metadata-Version: 2.1
+Name: xeda
+Version: 0.2.2
+Summary: Cross EDA Abstraction and Automation
+Author: Kamyar Mohajerani
+Author-email: kammoh@gmail.com
+License: 
+                                         Apache License
+                                   Version 2.0, January 2004
+                                http://www.apache.org/licenses/
+        
+           TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+        
+           1. Definitions.
+        
+              "License" shall mean the terms and conditions for use, reproduction,
+              and distribution as defined by Sections 1 through 9 of this document.
+        
+              "Licensor" shall mean the copyright owner or entity authorized by
+              the copyright owner that is granting the License.
+        
+              "Legal Entity" shall mean the union of the acting entity and all
+              other entities that control, are controlled by, or are under common
+              control with that entity. For the purposes of this definition,
+              "control" means (i) the power, direct or indirect, to cause the
+              direction or management of such entity, whether by contract or
+              otherwise, or (ii) ownership of fifty percent (50%) or more of the
+              outstanding shares, or (iii) beneficial ownership of such entity.
+        
+              "You" (or "Your") shall mean an individual or Legal Entity
+              exercising permissions granted by this License.
+        
+              "Source" form shall mean the preferred form for making modifications,
+              including but not limited to software source code, documentation
+              source, and configuration files.
+        
+              "Object" form shall mean any form resulting from mechanical
+              transformation or translation of a Source form, including but
+              not limited to compiled object code, generated documentation,
+              and conversions to other media types.
+        
+              "Work" shall mean the work of authorship, whether in Source or
+              Object form, made available under the License, as indicated by a
+              copyright notice that is included in or attached to the work
+              (an example is provided in the Appendix below).
+        
+              "Derivative Works" shall mean any work, whether in Source or Object
+              form, that is based on (or derived from) the Work and for which the
+              editorial revisions, annotations, elaborations, or other modifications
+              represent, as a whole, an original work of authorship. For the purposes
+              of this License, Derivative Works shall not include works that remain
+              separable from, or merely link (or bind by name) to the interfaces of,
+              the Work and Derivative Works thereof.
+        
+              "Contribution" shall mean any work of authorship, including
+              the original version of the Work and any modifications or additions
+              to that Work or Derivative Works thereof, that is intentionally
+              submitted to Licensor for inclusion in the Work by the copyright owner
+              or by an individual or Legal Entity authorized to submit on behalf of
+              the copyright owner. For the purposes of this definition, "submitted"
+              means any form of electronic, verbal, or written communication sent
+              to the Licensor or its representatives, including but not limited to
+              communication on electronic mailing lists, source code control systems,
+              and issue tracking systems that are managed by, or on behalf of, the
+              Licensor for the purpose of discussing and improving the Work, but
+              excluding communication that is conspicuously marked or otherwise
+              designated in writing by the copyright owner as "Not a Contribution."
+        
+              "Contributor" shall mean Licensor and any individual or Legal Entity
+              on behalf of whom a Contribution has been received by Licensor and
+              subsequently incorporated within the Work.
+        
+           2. Grant of Copyright License. Subject to the terms and conditions of
+              this License, each Contributor hereby grants to You a perpetual,
+              worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+              copyright license to reproduce, prepare Derivative Works of,
+              publicly display, publicly perform, sublicense, and distribute the
+              Work and such Derivative Works in Source or Object form.
+        
+           3. Grant of Patent License. Subject to the terms and conditions of
+              this License, each Contributor hereby grants to You a perpetual,
+              worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+              (except as stated in this section) patent license to make, have made,
+              use, offer to sell, sell, import, and otherwise transfer the Work,
+              where such license applies only to those patent claims licensable
+              by such Contributor that are necessarily infringed by their
+              Contribution(s) alone or by combination of their Contribution(s)
+              with the Work to which such Contribution(s) was submitted. If You
+              institute patent litigation against any entity (including a
+              cross-claim or counterclaim in a lawsuit) alleging that the Work
+              or a Contribution incorporated within the Work constitutes direct
+              or contributory patent infringement, then any patent licenses
+              granted to You under this License for that Work shall terminate
+              as of the date such litigation is filed.
+        
+           4. Redistribution. You may reproduce and distribute copies of the
+              Work or Derivative Works thereof in any medium, with or without
+              modifications, and in Source or Object form, provided that You
+              meet the following conditions:
+        
+              (a) You must give any other recipients of the Work or
+                  Derivative Works a copy of this License; and
+        
+              (b) You must cause any modified files to carry prominent notices
+                  stating that You changed the files; and
+        
+              (c) You must retain, in the Source form of any Derivative Works
+                  that You distribute, all copyright, patent, trademark, and
+                  attribution notices from the Source form of the Work,
+                  excluding those notices that do not pertain to any part of
+                  the Derivative Works; and
+        
+              (d) If the Work includes a "NOTICE" text file as part of its
+                  distribution, then any Derivative Works that You distribute must
+                  include a readable copy of the attribution notices contained
+                  within such NOTICE file, excluding those notices that do not
+                  pertain to any part of the Derivative Works, in at least one
+                  of the following places: within a NOTICE text file distributed
+                  as part of the Derivative Works; within the Source form or
+                  documentation, if provided along with the Derivative Works; or,
+                  within a display generated by the Derivative Works, if and
+                  wherever such third-party notices normally appear. The contents
+                  of the NOTICE file are for informational purposes only and
+                  do not modify the License. You may add Your own attribution
+                  notices within Derivative Works that You distribute, alongside
+                  or as an addendum to the NOTICE text from the Work, provided
+                  that such additional attribution notices cannot be construed
+                  as modifying the License.
+        
+              You may add Your own copyright statement to Your modifications and
+              may provide additional or different license terms and conditions
+              for use, reproduction, or distribution of Your modifications, or
+              for any such Derivative Works as a whole, provided Your use,
+              reproduction, and distribution of the Work otherwise complies with
+              the conditions stated in this License.
+        
+           5. Submission of Contributions. Unless You explicitly state otherwise,
+              any Contribution intentionally submitted for inclusion in the Work
+              by You to the Licensor shall be under the terms and conditions of
+              this License, without any additional terms or conditions.
+              Notwithstanding the above, nothing herein shall supersede or modify
+              the terms of any separate license agreement you may have executed
+              with Licensor regarding such Contributions.
+        
+           6. Trademarks. This License does not grant permission to use the trade
+              names, trademarks, service marks, or product names of the Licensor,
+              except as required for reasonable and customary use in describing the
+              origin of the Work and reproducing the content of the NOTICE file.
+        
+           7. Disclaimer of Warranty. Unless required by applicable law or
+              agreed to in writing, Licensor provides the Work (and each
+              Contributor provides its Contributions) on an "AS IS" BASIS,
+              WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+              implied, including, without limitation, any warranties or conditions
+              of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+              PARTICULAR PURPOSE. You are solely responsible for determining the
+              appropriateness of using or redistributing the Work and assume any
+              risks associated with Your exercise of permissions under this License.
+        
+           8. Limitation of Liability. In no event and under no legal theory,
+              whether in tort (including negligence), contract, or otherwise,
+              unless required by applicable law (such as deliberate and grossly
+              negligent acts) or agreed to in writing, shall any Contributor be
+              liable to You for damages, including any direct, indirect, special,
+              incidental, or consequential damages of any character arising as a
+              result of this License or out of the use or inability to use the
+              Work (including but not limited to damages for loss of goodwill,
+              work stoppage, computer failure or malfunction, or any and all
+              other commercial damages or losses), even if such Contributor
+              has been advised of the possibility of such damages.
+        
+           9. Accepting Warranty or Additional Liability. While redistributing
+              the Work or Derivative Works thereof, You may choose to offer,
+              and charge a fee for, acceptance of support, warranty, indemnity,
+              or other liability obligations and/or rights consistent with this
+              License. However, in accepting such obligations, You may act only
+              on Your own behalf and on Your sole responsibility, not on behalf
+              of any other Contributor, and only if You agree to indemnify,
+              defend, and hold each Contributor harmless for any liability
+              incurred by, or claims asserted against, such Contributor by reason
+              of your accepting any such warranty or additional liability.
+        
+           END OF TERMS AND CONDITIONS
+        
+           APPENDIX: How to apply the Apache License to your work.
+        
+              To apply the Apache License to your work, attach the following
+              boilerplate notice, with the fields enclosed by brackets "[]"
+              replaced with your own identifying information. (Don't include
+              the brackets!)  The text should be enclosed in the appropriate
+              comment syntax for the file format. We also recommend that a
+              file or class name and description of purpose be included on the
+              same "printed page" as the copyright notice for easier
+              identification within third-party archives.
+        
+           Copyright [yyyy] [name of copyright owner]
+        
+           Licensed under the Apache License, Version 2.0 (the "License");
+           you may not use this file except in compliance with the License.
+           You may obtain a copy of the License at
+        
+               http://www.apache.org/licenses/LICENSE-2.0
+        
+           Unless required by applicable law or agreed to in writing, software
+           distributed under the License is distributed on an "AS IS" BASIS,
+           WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+           See the License for the specific language governing permissions and
+           limitations under the License.
+        
+Project-URL: homepage, https://github.com/XedaHQ/xeda
+Project-URL: repository, https://github.com/XedaHQ/xeda.git
+Project-URL: changelog, https://github.com/XedaHQ/xeda/blob/dev/CHANGELOG.md
+Keywords: EDA,Electronic,Design,Automation,Tool,Synthesis,Simulation,Simulator,Verification,Hardware,Verilog,VHDL,FPGA,ASIC
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)
+Classifier: Topic :: Utilities
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: jinja2 (~=3.1)
+Requires-Dist: pydantic (~=1.10)
+Requires-Dist: python-box (~=6.1)
+Requires-Dist: attrs (~=22.1)
+Requires-Dist: cattrs (~=22.2)
+Requires-Dist: attrs-strict (~=1.0)
+Requires-Dist: pathvalidate (~=2.5)
+Requires-Dist: click (~=8.1)
+Requires-Dist: click-help-colors (~=0.9)
+Requires-Dist: coloredlogs (~=15.0)
+Requires-Dist: rich (<14.0,>=12.6)
+Requires-Dist: pebble (~=5.0)
+Requires-Dist: pint (~=0.20)
+Requires-Dist: importlib-resources (>=5.10)
+Requires-Dist: pyyaml (~=6.0)
+Requires-Dist: varname (>=0.10)
+Requires-Dist: overrides (>=6.1)
+Requires-Dist: simple-term-menu (>=1.5.2)
+Requires-Dist: psutil (>=5.9)
+Requires-Dist: junitparser (~=2.4)
+Requires-Dist: pyvcd (~=0.3)
+Requires-Dist: GitPython (>=3.1.29)
+Requires-Dist: tomli (~=2.0) ; python_version < "3.11"
+Provides-Extra: dev
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: mypy ; extra == 'dev'
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: flakeheaven ; extra == 'dev'
+Requires-Dist: tox ; extra == 'dev'
+Provides-Extra: tests
+Requires-Dist: pytest ; extra == 'tests'
+Requires-Dist: mypy ; extra == 'tests'
+
+
+[![CI](https://github.com/XedaHQ/xeda/workflows/CI/badge.svg)](https://github.com/XedaHQ/xeda/actions?query=event%3Apush+branch%3Adev+workflow%3ACI) [![Downloads](https://static.pepy.tech/personalized-badge/xeda?period=total&units=none&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/xeda) [![license](https://img.shields.io/github/license/XedaHQ/xeda)](https://github.com/XedaHQ/xeda/blob/master/LICENSE.txt) [![versions](https://img.shields.io/pypi/pyversions/xeda)](https://pypi.org/project/xeda) [![PyPI](https://img.shields.io/pypi/v/xeda)](https://pypi.org/project/xeda/)
+
+
+
+[![Xeda Logo](https://raw.githubusercontent.com/XedaHQ/xeda/main/xeda.png?raw=true)](https://github.com/XedaHQ/xeda)
+
+
+**Xeda** `/ˈziːdə/` is a cross-platform, cross-EDA, cross-target simulation and synthesis automation platform.
+It assists hardware developers in verification, evaluation, and deployment of RTL designs. Xeda supports flows from multiple commercial and open-source electronic design automation suites.
+
+**Xeda is the one tool to rule 'em all!**
+
+For further details, visit the [Xeda's documentations](http://xeda.rtfd.io/) (Work In Progress).
+
+
+
+
+## Installation
+Python 3.8 or newer is required. To install the latest published version from [pypi](https://pypi.org/project/xeda) run:
+```
+python3 -m pip install -U xeda
+```
+
+### Development
+```
+git clone --recursive https://github.com/XedaHQ/xeda.git
+cd xeda
+python3 -m pip install -U --editable . --config-settings editable_mode=strict
+```
+
+## Usage
+Run `xeda --help` to see a list of available commands and options.
+
+
+### Design Description
+
+Xeda design-specific descriptions and settings are organized through project files specified in [TOML](https://toml.io/). Every project contains one or more HDL designs. The default name for the project file is `xedaproject.toml`.
+
+Sample Xeda design description [file](./examples/vhdl/sqrt/sqrt.toml):
+
+```toml
+name = "sqrt"
+description = "Iterative computation of square-root of an integer"
+language.vhdl.standard = "2008"
+
+[rtl]
+sources = ["sqrt.vhdl"]
+top = "sqrt"
+clock_port = "clk"
+parameters = { G_IN_WIDTH = 32 }
+# parameters = { G_IN_WIDTH = 32, G_ITERATIVE = true, G_STR= "abcd", G_BITVECTOR="7'b0101001" }
+
+[tb]
+sources = ["tb_sqrt.py"]
+cocotb = true
+# top = "tb_sqrt"  # FIXME
+
+[flows.vivado_synth]
+fpga.part = 'xc7a12tcsg325-1'
+clock_period = 5.0
+```
+
+## Flows
+A `Tool` is an abstraction for an executable which is responsible for one or several steps in an EDA flow. A `Tool` can be executed as a native binary already installed on the system, in a virtualized container (e.g. `docker`), or on a remote system.
+A `Flow` is a collection of steps performed by one or several tools. A Xeda `Flow` implements the following methods:
+- `init`(optional): initializations which need to happen after  the instantiation of a `Flow` instance. At this stage, the flow can specify and customize dependency flows, which will be run before execution of the flow. Seperation of this stage form Python `__init__` enables greater flexibility and more effective control over the execution of flows.
+- `run`: main execution of the flow which includes generation of files, scripts, and tool arguments as well as execution of one or several tools. All dependencies have been already executed before `run` begins, and the completed dependencies (and their results and artifacts) will be available.
+- `parse_results`(optional): evaluate and interpret generated reports or other artifacts.
+
+### Supported Tools and Flows
+
+- AMD-Xilinx [Vivado](https://www.xilinx.com/products/design-tools/vivado/vivado-ml.html) Design Suite
+    - `vivado_synth`: FPGA synthesis and implementation.
+    - `vivado_sim`: functional simulation of RTL design
+    - `vivado_postsynthsim`: Post-implementation functional and timing simulation and power analysis
+    - `vivado_power`: Post-implementation power estimation based on post-implementation timing simulation with real-world target testvectors
+- AMD-Xilinx [ISE](https://www.xilinx.com/products/design-tools/ise-design-suite.html) Design Suite
+- [GHDL](https://github.com/ghdl/ghdl) VHDL simulator
+  - `ghdl_sim`
+- Intel [Quartus Prime](https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/overview.html) (Lite/Pro Editions):
+  - `quartus`: FPGA synthesis and implementation flow
+- Lattice Diamond
+  - `diamond_synth`: FPGA synthesis and implementation flow
+- Mentor (Siemens) [ModelSim](https://eda.sw.siemens.com/en-US/ic/modelsim/)
+  - `modelsim` RTL and netlist simulation
+- [nextpnr](https://github.com/YosysHQ/nextpnr) portable FPGA place and route tool
+- [openFPGAloader](https://github.com/trabucayre/openFPGALoader): Open-source and multi-platform universal utility for programming FPGAs. Compatible with many boards, cables and FPGA from major manufacturers.
+- [OpenROAD](https://github.com/The-OpenROAD-Project/OpenROAD/): integrated chip physical design flow that takes a design from RTL sources to routed layout.
+- Synopsys Design Compiler
+- Synopsys VCS simulator
+- [Verilator](https://github.com/verilator/verilator): the fastest (open-source) Verilog/SystemVerilog simulator.
+- [Bluespec](https://github.com/B-Lang-org/bsc): Compiler, simulator, and tools for the Bluespec Hardware Description Language.
+- [Yosys](https://github.com/YosysHQ/yosys) Open SYnthesis Suite (FPGA and ASICs synthesis)
+
+
+Run `xeda list-flows` for the full list of supported flows in the installed version.
+
+
+
