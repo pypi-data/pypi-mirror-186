@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "fish-audio-preprocess"
+version = "0.1.1"
+description = "Preprocess audio data"
+authors = ["Lengyue <lengyue@lengyue.me>"]
+license = "Apache"
+
+packages = [{ include = "fish_audio_preprocess" }]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+black = "^22.12.0"
+tqdm = "^4.64.1"
+demucs = "^4.0.0"
+loguru = "^0.6.0"
+pyloudnorm = "^0.1.1"
+transformers = "^4.25.1"
+PySoundFile = "^0.9.0"
+matplotlib = "^3.6.2"
+llvmlite = "^0.39.1"
+numba = "^0.56.4"
+librosa = "^0.9.0"
+pyworld = { version = "^0.3.2", optional = true }
+praat-parselmouth = "^0.4.3"
+
+[tool.poetry.dev-dependencies]
+isort = "^5.11.4"
+black = "^22.12.0"
+datasets = "^2.8.0"
+evaluate = "^0.4.0"
+
+[tool.poetry.extras]
+so-vits-svc = ["pyworld"]
+
+[tool.poetry.scripts]
+fap = "fish_audio_preprocess.cli.__main__:cli"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
