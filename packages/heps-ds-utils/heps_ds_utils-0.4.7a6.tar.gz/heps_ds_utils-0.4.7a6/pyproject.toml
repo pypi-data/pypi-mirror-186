@@ -1,0 +1,84 @@
+[tool.poetry]
+name = "heps_ds_utils"
+version = "0.4.7-alpha.6"
+description = "A Module to enable Hepsiburada Data Science Team to utilize different tools."
+authors = ["FarukBuldur <faruk.buldur@hepsiburada.com>"]
+maintainers = ["FıratÖncü <firat.oncu@hepsiburada.com>", "AysenurKulunk <aysenur.kulunk@hepsiburada.com>", "HakanAtesli <hakan.atesli@hepsiburada.com>", "EnisTeper <enis.teper@hepsiburada.com>"]
+license = "MIT License"
+readme = "README.md"
+classifiers = [
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux"
+]
+
+[tool.poetry.dependencies]
+python = ">= 3.8, < 3.11"
+paramiko = "^2.10.3"
+scp = { version = "^0.14.4", optional = true }
+PyHive = { version = "^0.6.5", optional = true }
+pandas = "^1.4.1"
+thrift = {version = "^0.15.0", optional = true }
+sasl = {version="^0.3.1", optional = true, markers = "sys_platform == 'linux' or sys_platform == 'darwin'"}
+thrift-sasl = {version = "^0.4.3", optional = true }
+colorama = "^0.4.4"
+google-cloud-bigquery = {extras = ["bqstorage", "pandas"], version = "^3.0.1"}
+tqdm = "^4.64.0"
+google-cloud-logging = "^3.0.0"
+google-cloud-storage = "^2.5.0"
+elasticsearch = "7.17.7"
+pymongo = "^4.3.2"
+
+[tool.poetry.dev-dependencies]
+pylint = "^2.13.4"
+python-dotenv = "^0.20.0"
+ipykernel = "^6.13.0"
+black = "^22.3.0"
+pytest = "^7.1.2"
+jupyter = "^1.0.0"
+isort = "^5.10.1"
+flake8 = "^5.0.4"
+pre-commit = "^2.20.0"
+interrogate = "^1.5.0"
+
+[tool.poetry.extras]
+hive = ["PyHive", "thrift", "thrift-sasl", "sasl", "scp"]
+
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+|   \.venv
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 79
+
+[tool.interrogate]
+ignore-init-method = true
+ignore-init-module = false
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = false
+ignore-nested-functions = false
+ignore-nested-classes = true
+ignore-setters = false
+fail-under = 95
+exclude = ["docs", "data", "models", "notebooks", "reports", "tests"]
+verbose = 0
+quiet = false
+whitelist-regex = []
+color = true
+omit-covered-files = false
+generate-badge = "./docs"
+badge-format = "svg"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
