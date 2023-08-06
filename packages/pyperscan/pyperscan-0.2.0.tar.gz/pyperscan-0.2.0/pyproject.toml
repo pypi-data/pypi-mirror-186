@@ -1,0 +1,23 @@
+[project]
+name = "pyperscan"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pre-commit ~= 2.20",
+]
+test = [
+  "pytest ~= 7.0.0",
+]
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["maturin>=0.14,<0.15"]
+build-backend = "maturin"
