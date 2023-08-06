@@ -1,0 +1,71 @@
+name: straight_heater_meander
+settings:
+  changed: {}
+  child: null
+  default:
+    cross_section: strip
+    extension_length: 15.0
+    heater_taper_length: 10.0
+    heater_width: 2.5
+    layer_heater: HEATER
+    length: 300.0
+    port_orientation1: 180
+    port_orientation2: 0
+    radius: 5.0
+    spacing: 2.0
+    straight_widths:
+    - 0.8
+    - 0.9
+    - 0.8
+    taper_length: 10
+    via_stack:
+      function: via_stack
+      settings:
+        layers:
+        - HEATER
+        - M2
+        - M3
+        vias:
+        - function: via
+          settings:
+            enclosure: 2
+            layer: VIA1
+        - function: via
+          settings:
+            layer: VIA2
+  full:
+    cross_section: strip
+    extension_length: 15.0
+    heater_taper_length: 10.0
+    heater_width: 2.5
+    layer_heater: HEATER
+    length: 300.0
+    port_orientation1: 180
+    port_orientation2: 0
+    radius: 5.0
+    spacing: 2.0
+    straight_widths:
+    - 0.8
+    - 0.9
+    - 0.8
+    taper_length: 10
+    via_stack:
+      function: via_stack
+      settings:
+        layers:
+        - HEATER
+        - M2
+        - M3
+        vias:
+        - function: via
+          settings:
+            enclosure: 2
+            layer: VIA1
+        - function: via
+          settings:
+            layer: VIA2
+  function_name: straight_heater_meander
+  info: {}
+  info_version: 2
+  module: gdsfactory.components.straight_heater_meander
+  name: straight_heater_meander
