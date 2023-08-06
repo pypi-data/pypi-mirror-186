@@ -1,0 +1,34 @@
+qiskit-terra>=0.20.2
+rustworkx[all]>=0.12.0
+
+[:python_version < "3.10"]
+importlib_resources>=5.0
+
+[coverage]
+mqt.qmap[test]
+coverage[toml]>=6.3
+pytest-cov>=3
+
+[dev]
+mqt.qmap[coverage,docs]
+
+[docs]
+sphinx>=5
+sphinx-rtd-theme
+sphinx-rtd-dark-mode
+sphinxcontrib-bibtex>=2.4.2
+sphinx-copybutton
+sphinx-hoverxref
+pybtex>=0.24
+ipython
+ipykernel
+nbsphinx
+sphinxext-opengraph
+qiskit-terra[visualization]
+
+[docs:python_version < "3.10"]
+importlib_metadata>=4.4
+
+[test]
+pytest>=7
+mqt.qcec>=2
