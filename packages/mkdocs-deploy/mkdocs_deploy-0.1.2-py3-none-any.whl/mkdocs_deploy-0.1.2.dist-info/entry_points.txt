@@ -1,0 +1,10 @@
+[console_scripts]
+mkdocs-deploy=mkdocs_deploy.main:main
+
+[mkdocs.plugins]
+mkdocs-deploy=mkdocs_deploy.mkdocs_plugin:MkdocsDeploy
+
+[mkdocs_deploy.plugins]
+local=mkdocs_deploy.plugins.local_filesystem:enable_plugin
+s3=mkdocs_deploy.plugins.aws_s3:enable_plugin
+
