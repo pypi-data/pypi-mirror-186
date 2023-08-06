@@ -1,0 +1,35 @@
+proxy_tools
+bottle
+
+[:python_version < "3.7"]
+importlib_resources
+
+[:sys_platform == "darwin"]
+pyobjc-core
+pyobjc-framework-Cocoa
+pyobjc-framework-WebKit
+
+[:sys_platform == "openbsd6"]
+QtPy
+
+[:sys_platform == "win32"]
+pythonnet
+
+[cef]
+cefpython3
+
+[gtk]
+PyGObject
+
+[pyside2]
+QtPy
+PySide2
+
+[pyside6]
+QtPy
+PySide6
+
+[qt]
+QtPy
+PyQt5
+pyqtwebengine
