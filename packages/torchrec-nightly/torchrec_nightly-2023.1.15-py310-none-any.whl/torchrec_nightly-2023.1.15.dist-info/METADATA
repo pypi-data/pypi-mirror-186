@@ -1,0 +1,160 @@
+Metadata-Version: 2.1
+Name: torchrec-nightly
+Version: 2023.1.15
+Summary: Pytorch domain library for recommendation systems
+Home-page: https://github.com/pytorch/torchrec
+Author: TorchRec Team
+Author-email: packages@pytorch.org
+License: BSD-3
+Keywords: pytorch,recommendation systems,sharding
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: arrow (>=1.2.3)
+Requires-Dist: attrs (>=22.1.0)
+Requires-Dist: certifi (>=2022.12.7)
+Requires-Dist: charset-normalizer (>=2.1.1)
+Requires-Dist: cmake (>=3.25.0)
+Requires-Dist: Cython (>=0.29.32)
+Requires-Dist: distro (>=1.8.0)
+Requires-Dist: docker (>=6.0.1)
+Requires-Dist: docstring-parser (>=0.8.1)
+Requires-Dist: fbgemm-gpu-nightly
+Requires-Dist: filelock (>=3.8.2)
+Requires-Dist: fsspec (>=2022.11.0)
+Requires-Dist: hypothesis (>=6.61.0)
+Requires-Dist: idna (>=3.4)
+Requires-Dist: iopath (>=0.1.10)
+Requires-Dist: Jinja2 (>=3.1.2)
+Requires-Dist: MarkupSafe (>=2.1.1)
+Requires-Dist: mypy-extensions (>=0.4.3)
+Requires-Dist: ninja (>=1.11.1)
+Requires-Dist: numpy (>=1.21.6)
+Requires-Dist: packaging (>=22.0)
+Requires-Dist: pandas (>=1.3.5)
+Requires-Dist: portalocker (>=2.6.0)
+Requires-Dist: pyarrow (>=10.0.1)
+Requires-Dist: pyDeprecate (>=0.3.2)
+Requires-Dist: pyparsing (>=3.0.9)
+Requires-Dist: pyre-extensions (>=0.0.27)
+Requires-Dist: python-dateutil (>=2.8.2)
+Requires-Dist: pytz (>=2022.6)
+Requires-Dist: PyYAML (>=6.0)
+Requires-Dist: requests (>=2.28.1)
+Requires-Dist: scikit-build (>=0.16.3)
+Requires-Dist: six (>=1.16.0)
+Requires-Dist: sortedcontainers (>=2.4.0)
+Requires-Dist: tabulate (>=0.9.0)
+Requires-Dist: torchmetrics (>=0.11.0)
+Requires-Dist: torchx (>=0.3.0)
+Requires-Dist: tqdm (>=4.64.1)
+Requires-Dist: typing-inspect (>=0.8.0)
+Requires-Dist: typing-extensions (>=4.4.0)
+Requires-Dist: urllib3 (>=1.26.13)
+Requires-Dist: usort (>=1.0.5)
+Requires-Dist: websocket-client (>=1.4.2)
+
+# TorchRec (Beta Release)
+[Docs](https://pytorch.org/torchrec/)
+
+TorchRec is a PyTorch domain library built to provide common sparsity & parallelism primitives needed for large-scale recommender systems (RecSys). It allows authors to train models with large embedding tables sharded across many GPUs.
+
+## TorchRec contains:
+- Parallelism primitives that enable easy authoring of large, performant multi-device/multi-node models using hybrid data-parallelism/model-parallelism.
+- The TorchRec sharder can shard embedding tables with different sharding strategies including data-parallel, table-wise, row-wise, table-wise-row-wise, and column-wise sharding.
+- The TorchRec planner can automatically generate optimized sharding plans for models.
+- Pipelined training overlaps dataloading device transfer (copy to GPU), inter-device communications (input_dist), and computation (forward, backward) for increased performance.
+- Optimized kernels for RecSys powered by FBGEMM.
+- Quantization support for reduced precision training and inference.
+- Common modules for RecSys.
+- Production-proven model architectures for RecSys.
+- RecSys datasets (criteo click logs and movielens)
+- Examples of end-to-end training such the dlrm event prediction model trained on criteo click logs dataset.
+
+# Installation
+
+Torchrec requires Python >= 3.7 and CUDA >= 11.0 (CUDA is highly recommended for performance but not required). The example below shows how to install with CUDA 11.6. This setup assumes you have conda installed.
+
+## Binaries
+
+Experimental binary on Linux for Python 3.7, 3.8 and 3.9 can be installed via pip wheels
+
+### Installations
+```
+TO use the library without cuda, use the *-cpu fbgemm installations. However, this will be much slower than the CUDA variant.
+
+Nightly
+
+conda install pytorch pytorch-cuda=11.7 -c pytorch-nightly -c nvidia
+pip install torchrec_nightly
+
+Stable
+
+conda install pytorch pytorch-cuda=11.7 -c pytorch -c nvidia
+pip install torchrec
+
+If you have no CUDA device:
+
+Nightly
+
+pip uninstall fbgemm-gpu-nightly -y
+pip install fbgemm-gpu-nightly-cpu
+
+Stable
+
+pip uninstall fbgemm-gpu -y
+pip install fbgemm-gpu-cpu
+
+```
+
+
+### Colab example: introduction + install
+See our colab notebook for an introduction to torchrec which includes runnable installation.
+    - [Tutorial Source](https://github.com/pytorch/torchrec/blob/main/Torchrec_Introduction.ipynb)
+    - Open in [Google Colab](https://colab.research.google.com/github/pytorch/torchrec/blob/main/Torchrec_Introduction.ipynb)
+
+## From Source
+
+We are currently iterating on the setup experience. For now, we provide manual instructions on how to build from source. The example below shows how to install with CUDA 11.3. This setup assumes you have conda installed.
+
+1. Install pytorch. See [pytorch documentation](https://pytorch.org/get-started/locally/)
+   ```
+   conda install pytorch pytorch-cuda=11.7 -c pytorch-nightly -c nvidia
+   ```
+
+2. Install Requirements
+   ```
+   pip install -r requirements.txt
+   ```
+
+3. Download and install TorchRec.
+   ```
+   git clone --recursive https://github.com/pytorch/torchrec
+
+   cd torchrec
+   python setup.py install develop
+   ```
+
+4. Test the installation.
+   ```
+   GPU mode
+
+   torchx run -s local_cwd dist.ddp -j 1x2 --gpu 2 --script test_installation.py
+
+   CPU Mode
+
+   torchx run -s local_cwd dist.ddp -j 1x2 --script test_installation.py -- --cpu_only
+   ```
+   See [TorchX](https://pytorch.org/torchx/) for more information on launching distributed and remote jobs.
+
+5. If you want to run a more complex example, please take a look at the torchrec [DLRM example](https://github.com/facebookresearch/dlrm/blob/main/torchrec_dlrm/dlrm_main.py).
+
+## License
+TorchRec is BSD licensed, as found in the [LICENSE](LICENSE) file.
