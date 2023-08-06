@@ -1,0 +1,77 @@
+projects:
+  - libvirt-python
+  - libvirt+dist
+
+gitlab:
+  namespace: libvirt
+  project: libvirt-python
+
+targets:
+
+  centos-stream-8:
+    projects:
+      - libvirt-python
+      - libvirt+minimal
+      - libvirt+dist
+
+    jobs:
+      - arch: x86_64
+        artifacts:
+          expire_in: 1 hour
+          paths:
+            - libvirt-python-rpms
+
+      - arch: x86_64
+        template: .native_git_build_job
+        suffix: -git
+        artifacts:
+          expire_in: 2 days
+          paths:
+            - scratch
+            - build
+
+  centos-stream-9:
+    jobs:
+      - arch: x86_64
+        artifacts:
+          expire_in: 1 hour
+          paths:
+            - libvirt-python-rpms
+
+  debian-10: x86_64
+
+  debian-sid: x86_64
+
+  fedora-36:
+    jobs:
+      - arch: x86_64
+        artifacts:
+          expire_in: 1 hour
+          paths:
+            - libvirt-python-rpms
+
+  fedora-37:
+    jobs:
+      - arch: x86_64
+        artifacts:
+          expire_in: 1 hour
+          paths:
+            - libvirt-python-rpms
+
+  fedora-rawhide: x86_64
+
+  opensuse-leap-153:
+    jobs:
+      - arch: x86_64
+        variables:
+          RPM: skip
+
+  opensuse-tumbleweed:
+    jobs:
+      - arch: x86_64
+        variables:
+          RPM: skip
+
+  ubuntu-2004: x86_64
+
+  ubuntu-2204: x86_64
