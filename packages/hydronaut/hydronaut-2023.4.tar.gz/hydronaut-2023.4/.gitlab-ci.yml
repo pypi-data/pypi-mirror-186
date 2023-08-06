@@ -1,0 +1,18 @@
+pages:
+  image: sphinxdoc/sphinx
+
+  tags:
+    - ci.inria.fr
+    - linux
+    - small
+
+  script:
+    - pip install -r doc/requirements.txt
+    - sphinx-build -b html doc/source public
+
+  artifacts:
+    paths:
+    - public
+
+  only:
+  - main
