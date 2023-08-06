@@ -1,0 +1,24 @@
+Metadata-Version: 2.1
+Name: kadena_sdk
+Version: 2.0.0
+Summary: An SDK for interacting with the Kadena Blockchain
+Author-email: Luzzotica <sterlinglong0@gmail.com>
+Project-URL: Homepage, https://github.com/Luzzotica/KadenaPythonSdk
+Project-URL: Bug Tracker, https://github.com/Luzzotica/KadenaPythonSdk/issues
+Classifier: Programming Language :: Python :: 3.9
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+To Build and Deploy
+
+```bash
+python3 -m build
+python3 -m twine upload dist/*
+```
+
+# To Test
+
+`pytest`
