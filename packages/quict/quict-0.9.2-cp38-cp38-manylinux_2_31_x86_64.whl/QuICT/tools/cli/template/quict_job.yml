@@ -1,0 +1,27 @@
+job_name: experience-qcda           # The name of job
+circuit: /path/to/circuit/qasm      # The path of circuit's qasm file
+device: CPU                         # Device Type: [CPU/GPU];
+
+simulation:
+  shots: 100                        # The repeat times of experience
+  precision: single                 # The precision of simualtor
+  backend: state_vector             # The backend of simualtor, one of [unitary, state_vector, density_matrix].
+
+qcda:
+  methods:                          # QCDA method should within ["GateTransform", "Clifford", "CliffordRz", "Commutative", "SymbolicClifford", "Template", "CNOT"]
+    - Commutative
+
+  instruction_set: Google           # Instruction Set, Extra args for GateTransform; one of ["USTC", "Google", "IBMQ", "IonQ", "Nam", "Origin"]
+  auto_mode: light                  # The mode for AutoOptimization, one of [light, heavy]
+  para: True                        # The args for CommutativeOpt
+  depara: False                     # The args for CommutativeOpt
+  templates:                        # The list of templates for TemplateOpt
+    max_width: 3
+    max_size: 5
+    max_depth: 3
+
+  mapping:
+    enable: False                   # Enable mapping or not
+    layout_path: /path/to/topology  # The path of the file which store the topology
+
+output_path: /path/to/result        # the folder to store result
