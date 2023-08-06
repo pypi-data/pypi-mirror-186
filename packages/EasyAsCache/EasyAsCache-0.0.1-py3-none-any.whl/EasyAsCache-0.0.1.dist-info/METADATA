@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: EasyAsCache
+Version: 0.0.1
+Summary: UNKNOWN
+Home-page: UNKNOWN
+Author: VeteranCode
+Author-email: jacob.h.barrow@gmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Easy As Cache
+[![Test Coverage](https://img.shields.io/badge/Test%20Coverage-100%25-success)](https://github.com/jacob-h-barrow/Penguin-Services)
+[![Security](https://img.shields.io/badge/Secure-True-informational)](https://github.com/jacob-h-barrow/Penguin-Services)
+[![Platform](https://img.shields.io/badge/Platform-Ubuntu%2020%2B-critical)](https://github.com/jacob-h-barrow/Penguin-Services)
+[![Python Version](https://img.shields.io/badge/Python-3.8%2B-critical)](https://github.com/jacob-h-barrow/Penguin-Services)
+[![MIT License](https://img.shields.io/badge/License-MIT-lightgrey)](https://github.com/jacob-h-barrow/Penguin-Services/blob/main/Penguin-Services.png)
+
+![skyvault](https://user-images.githubusercontent.com/117854828/205438474-5aaf5b90-034b-421a-801e-8c1e12a387bd.png)
+
+- Created By Jacob H Barrow
+
+## America's Future
+- Depends on American citizens defending our US Constitution, without it our nation has no identity
+    
+## Why Was It Created
+- Got tired of memcached articles. Why not create a simple, easy C key-value cache for Python users!
+- Baby was asleep so got a prototype out fast!
+
+## Extensions
+- Faster start
+- Secure operations
+
+
+## Short Tutorial
+``` python
+>>> from EasyAsCache import Cached_Table()
+>>>
+>>> cache = Cached_Table()
+>>>    
+>>> cache.insert_item("ip", "172.168.1.2")
+>>> cache.insert_item("ip_version", 4)
+>>> cache.insert_item("os_version", 7.1)
+>>> cache.insert_item("trusted_anchor_key", bytes("s3cur3", "utf-8"))
+>>> 
+>>> print(cache.get_item("os_version"))
+>>> 
+>>> cache.insert_item("os_version", 8.3)
+>>> 
+>>> print(cache.get_item("os_version"))
+>>> 
+>>> print(f'Deleting os_version from cache: {cache.delete_item("os_version")}')
+>>>
+>>> print(cache.get_item("os_version"))    
+```
+## Frequency Of Development
+- Whenever the baby and wife are sleeping!
+
+## Remember To Drink Your Daily Mead Under The Fort
+- If you find this package helpful, follow mascots and join Dumbledore's Army!
+
+
