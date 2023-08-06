@@ -1,0 +1,37 @@
+{
+  "type": "record",
+  "name": "ContainerKey",
+  "namespace": "com.linkedin.pegasus2avro.metadata.key",
+  "doc": "Key for an Asset Container",
+  "fields": [
+    {
+      "name": "guid",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Unique guid for container",
+      "default": null
+    }
+  ],
+  "Aspect": {
+    "name": "containerKey",
+    "keyForEntity": "container",
+    "entityCategory": "_unset_",
+    "entityAspects": [
+      "containerProperties",
+      "editableContainerProperties",
+      "dataPlatformInstance",
+      "subTypes",
+      "ownership",
+      "container",
+      "globalTags",
+      "glossaryTerms",
+      "institutionalMemory",
+      "browsePaths",
+      "status",
+      "domains"
+    ],
+    "entityDoc": "A container of related data assets."
+  }
+}

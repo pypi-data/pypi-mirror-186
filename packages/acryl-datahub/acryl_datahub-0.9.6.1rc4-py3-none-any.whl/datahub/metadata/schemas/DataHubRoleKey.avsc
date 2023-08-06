@@ -1,0 +1,21 @@
+{
+  "type": "record",
+  "name": "DataHubRoleKey",
+  "namespace": "com.linkedin.pegasus2avro.metadata.key",
+  "doc": "Key for a DataHub Role",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "doc": "A unique id for the DataHub role record. Generated on the server side at role creation time."
+    }
+  ],
+  "Aspect": {
+    "name": "dataHubRoleKey",
+    "keyForEntity": "dataHubRole",
+    "entityCategory": "core",
+    "entityAspects": [
+      "dataHubRoleInfo"
+    ]
+  }
+}

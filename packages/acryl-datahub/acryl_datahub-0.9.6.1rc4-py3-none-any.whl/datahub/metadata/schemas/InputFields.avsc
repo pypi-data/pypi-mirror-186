@@ -1,0 +1,503 @@
+{
+  "type": "record",
+  "name": "InputFields",
+  "namespace": "com.linkedin.pegasus2avro.common",
+  "doc": "Information about the fields a chart or dashboard references",
+  "fields": [
+    {
+      "name": "fields",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "InputField",
+          "doc": "Information about a field a chart or dashboard references",
+          "fields": [
+            {
+              "name": "schemaFieldUrn",
+              "type": "string",
+              "doc": "Urn of the schema being referenced for lineage purposes",
+              "Relationship": {
+                "entityTypes": [
+                  "schemaField"
+                ],
+                "name": "consumesField"
+              },
+              "java": {
+                "class": "com.linkedin.pegasus2avro.common.urn.Urn"
+              }
+            },
+            {
+              "name": "schemaField",
+              "type": [
+                "null",
+                {
+                  "type": "record",
+                  "name": "SchemaField",
+                  "namespace": "com.linkedin.pegasus2avro.schema",
+                  "doc": "SchemaField to describe metadata related to dataset schema.",
+                  "fields": [
+                    {
+                      "name": "fieldPath",
+                      "type": "string",
+                      "doc": "Flattened name of the field. Field is computed from jsonPath field.",
+                      "Searchable": {
+                        "fieldName": "fieldPaths",
+                        "fieldType": "TEXT"
+                      }
+                    },
+                    {
+                      "name": "jsonPath",
+                      "type": [
+                        "null",
+                        "string"
+                      ],
+                      "doc": "Flattened name of a field in JSON Path notation.",
+                      "default": null,
+                      "Deprecated": true
+                    },
+                    {
+                      "name": "nullable",
+                      "type": "boolean",
+                      "doc": "Indicates if this field is optional or nullable",
+                      "default": false
+                    },
+                    {
+                      "name": "description",
+                      "type": [
+                        "null",
+                        "string"
+                      ],
+                      "doc": "Description",
+                      "default": null,
+                      "Searchable": {
+                        "boostScore": 0.1,
+                        "fieldName": "fieldDescriptions",
+                        "fieldType": "TEXT"
+                      }
+                    },
+                    {
+                      "name": "label",
+                      "type": [
+                        "null",
+                        "string"
+                      ],
+                      "doc": "Label of the field. Provides a more human-readable name for the field than field path. Some sources will\nprovide this metadata but not all sources have the concept of a label. If just one string is associated with\na field in a source, that is most likely a description.",
+                      "default": null,
+                      "Searchable": {
+                        "boostScore": 0.2,
+                        "fieldName": "fieldLabels",
+                        "fieldType": "TEXT"
+                      }
+                    },
+                    {
+                      "name": "created",
+                      "type": [
+                        "null",
+                        {
+                          "type": "record",
+                          "name": "AuditStamp",
+                          "namespace": "com.linkedin.pegasus2avro.common",
+                          "doc": "Data captured on a resource/association/sub-resource level giving insight into when that resource/association/sub-resource moved into a particular lifecycle stage, and who acted to move it into that specific lifecycle stage.",
+                          "fields": [
+                            {
+                              "name": "time",
+                              "type": "long",
+                              "doc": "When did the resource/association/sub-resource move into the specific lifecycle stage represented by this AuditEvent."
+                            },
+                            {
+                              "name": "actor",
+                              "type": "string",
+                              "doc": "The entity (e.g. a member URN) which will be credited for moving the resource/association/sub-resource into the specific lifecycle stage. It is also the one used to authorize the change.",
+                              "java": {
+                                "class": "com.linkedin.pegasus2avro.common.urn.Urn"
+                              }
+                            },
+                            {
+                              "name": "impersonator",
+                              "type": [
+                                "null",
+                                "string"
+                              ],
+                              "doc": "The entity (e.g. a service URN) which performs the change on behalf of the Actor and must be authorized to act as the Actor.",
+                              "default": null,
+                              "java": {
+                                "class": "com.linkedin.pegasus2avro.common.urn.Urn"
+                              }
+                            },
+                            {
+                              "name": "message",
+                              "type": [
+                                "null",
+                                "string"
+                              ],
+                              "doc": "Additional context around how DataHub was informed of the particular change. For example: was the change created by an automated process, or manually.",
+                              "default": null
+                            }
+                          ]
+                        }
+                      ],
+                      "doc": "An AuditStamp corresponding to the creation of this schema field.",
+                      "default": null
+                    },
+                    {
+                      "name": "lastModified",
+                      "type": [
+                        "null",
+                        "com.linkedin.pegasus2avro.common.AuditStamp"
+                      ],
+                      "doc": "An AuditStamp corresponding to the last modification of this schema field.",
+                      "default": null
+                    },
+                    {
+                      "name": "type",
+                      "type": {
+                        "type": "record",
+                        "name": "SchemaFieldDataType",
+                        "doc": "Schema field data types",
+                        "fields": [
+                          {
+                            "name": "type",
+                            "type": [
+                              {
+                                "type": "record",
+                                "name": "BooleanType",
+                                "doc": "Boolean field type.",
+                                "fields": []
+                              },
+                              {
+                                "type": "record",
+                                "name": "FixedType",
+                                "doc": "Fixed field type.",
+                                "fields": []
+                              },
+                              {
+                                "type": "record",
+                                "name": "StringType",
+                                "doc": "String field type.",
+                                "fields": []
+                              },
+                              {
+                                "type": "record",
+                                "name": "BytesType",
+                                "doc": "Bytes field type.",
+                                "fields": []
+                              },
+                              {
+                                "type": "record",
+                                "name": "NumberType",
+                                "doc": "Number data type: long, integer, short, etc..",
+                                "fields": []
+                              },
+                              {
+                                "type": "record",
+                                "name": "DateType",
+                                "doc": "Date field type.",
+                                "fields": []
+                              },
+                              {
+                                "type": "record",
+                                "name": "TimeType",
+                                "doc": "Time field type. This should also be used for datetimes.",
+                                "fields": []
+                              },
+                              {
+                                "type": "record",
+                                "name": "EnumType",
+                                "doc": "Enum field type.",
+                                "fields": []
+                              },
+                              {
+                                "type": "record",
+                                "name": "NullType",
+                                "doc": "Null field type.",
+                                "fields": []
+                              },
+                              {
+                                "type": "record",
+                                "name": "MapType",
+                                "doc": "Map field type.",
+                                "fields": [
+                                  {
+                                    "name": "keyType",
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ],
+                                    "doc": "Key type in a map",
+                                    "default": null
+                                  },
+                                  {
+                                    "name": "valueType",
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ],
+                                    "doc": "Type of the value in a map",
+                                    "default": null
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "record",
+                                "name": "ArrayType",
+                                "doc": "Array field type.",
+                                "fields": [
+                                  {
+                                    "name": "nestedType",
+                                    "type": [
+                                      "null",
+                                      {
+                                        "type": "array",
+                                        "items": "string"
+                                      }
+                                    ],
+                                    "doc": "List of types this array holds.",
+                                    "default": null
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "record",
+                                "name": "UnionType",
+                                "doc": "Union field type.",
+                                "fields": [
+                                  {
+                                    "name": "nestedTypes",
+                                    "type": [
+                                      "null",
+                                      {
+                                        "type": "array",
+                                        "items": "string"
+                                      }
+                                    ],
+                                    "doc": "List of types in union type.",
+                                    "default": null
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "record",
+                                "name": "RecordType",
+                                "doc": "Record field type.",
+                                "fields": []
+                              }
+                            ],
+                            "doc": "Data platform specific types"
+                          }
+                        ]
+                      },
+                      "doc": "Platform independent field type of the field."
+                    },
+                    {
+                      "name": "nativeDataType",
+                      "type": "string",
+                      "doc": "The native type of the field in the dataset's platform as declared by platform schema."
+                    },
+                    {
+                      "name": "recursive",
+                      "type": "boolean",
+                      "doc": "There are use cases when a field in type B references type A. A field in A references field of type B. In such cases, we will mark the first field as recursive.",
+                      "default": false
+                    },
+                    {
+                      "name": "globalTags",
+                      "type": [
+                        "null",
+                        {
+                          "type": "record",
+                          "name": "GlobalTags",
+                          "namespace": "com.linkedin.pegasus2avro.common",
+                          "doc": "Tag aspect used for applying tags to an entity",
+                          "fields": [
+                            {
+                              "name": "tags",
+                              "type": {
+                                "type": "array",
+                                "items": {
+                                  "type": "record",
+                                  "name": "TagAssociation",
+                                  "doc": "Properties of an applied tag. For now, just an Urn. In the future we can extend this with other properties, e.g.\npropagation parameters.",
+                                  "fields": [
+                                    {
+                                      "name": "tag",
+                                      "type": "string",
+                                      "doc": "Urn of the applied tag",
+                                      "Relationship": {
+                                        "entityTypes": [
+                                          "tag"
+                                        ],
+                                        "name": "TaggedWith"
+                                      },
+                                      "Searchable": {
+                                        "addToFilters": true,
+                                        "fieldName": "tags",
+                                        "fieldType": "URN",
+                                        "filterNameOverride": "Tag",
+                                        "hasValuesFieldName": "hasTags"
+                                      },
+                                      "java": {
+                                        "class": "com.linkedin.pegasus2avro.common.urn.TagUrn"
+                                      }
+                                    },
+                                    {
+                                      "name": "context",
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ],
+                                      "doc": "Additional context about the association",
+                                      "default": null
+                                    }
+                                  ]
+                                }
+                              },
+                              "doc": "Tags associated with a given entity"
+                            }
+                          ],
+                          "Aspect": {
+                            "name": "globalTags"
+                          }
+                        }
+                      ],
+                      "doc": "Tags associated with the field",
+                      "default": null,
+                      "Relationship": {
+                        "/tags/*/tag": {
+                          "entityTypes": [
+                            "tag"
+                          ],
+                          "name": "SchemaFieldTaggedWith"
+                        }
+                      },
+                      "Searchable": {
+                        "/tags/*/tag": {
+                          "boostScore": 0.5,
+                          "fieldName": "fieldTags",
+                          "fieldType": "URN"
+                        }
+                      }
+                    },
+                    {
+                      "name": "glossaryTerms",
+                      "type": [
+                        "null",
+                        {
+                          "type": "record",
+                          "name": "GlossaryTerms",
+                          "namespace": "com.linkedin.pegasus2avro.common",
+                          "doc": "Related business terms information",
+                          "fields": [
+                            {
+                              "name": "terms",
+                              "type": {
+                                "type": "array",
+                                "items": {
+                                  "type": "record",
+                                  "name": "GlossaryTermAssociation",
+                                  "doc": "Properties of an applied glossary term.",
+                                  "fields": [
+                                    {
+                                      "name": "urn",
+                                      "type": "string",
+                                      "doc": "Urn of the applied glossary term",
+                                      "Relationship": {
+                                        "entityTypes": [
+                                          "glossaryTerm"
+                                        ],
+                                        "name": "TermedWith"
+                                      },
+                                      "Searchable": {
+                                        "addToFilters": true,
+                                        "fieldName": "glossaryTerms",
+                                        "fieldType": "URN",
+                                        "filterNameOverride": "Glossary Term",
+                                        "hasValuesFieldName": "hasGlossaryTerms"
+                                      },
+                                      "java": {
+                                        "class": "com.linkedin.pegasus2avro.common.urn.GlossaryTermUrn"
+                                      }
+                                    },
+                                    {
+                                      "name": "context",
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ],
+                                      "doc": "Additional context about the association",
+                                      "default": null
+                                    }
+                                  ]
+                                }
+                              },
+                              "doc": "The related business terms"
+                            },
+                            {
+                              "name": "auditStamp",
+                              "type": "AuditStamp",
+                              "doc": "Audit stamp containing who reported the related business term"
+                            }
+                          ],
+                          "Aspect": {
+                            "name": "glossaryTerms"
+                          }
+                        }
+                      ],
+                      "doc": "Glossary terms associated with the field",
+                      "default": null,
+                      "Relationship": {
+                        "/terms/*/urn": {
+                          "entityTypes": [
+                            "glossaryTerm"
+                          ],
+                          "name": "SchemaFieldWithGlossaryTerm"
+                        }
+                      },
+                      "Searchable": {
+                        "/terms/*/urn": {
+                          "boostScore": 0.5,
+                          "fieldName": "fieldGlossaryTerms",
+                          "fieldType": "URN"
+                        }
+                      }
+                    },
+                    {
+                      "name": "isPartOfKey",
+                      "type": "boolean",
+                      "doc": "For schema fields that are part of complex keys, set this field to true\nWe do this to easily distinguish between value and key fields",
+                      "default": false
+                    },
+                    {
+                      "name": "isPartitioningKey",
+                      "type": [
+                        "null",
+                        "boolean"
+                      ],
+                      "doc": "For Datasets which are partitioned, this determines the partitioning key.",
+                      "default": null
+                    },
+                    {
+                      "name": "jsonProps",
+                      "type": [
+                        "null",
+                        "string"
+                      ],
+                      "doc": "For schema fields that have other properties that are not modeled explicitly,\nuse this field to serialize those properties into a JSON string",
+                      "default": null
+                    }
+                  ]
+                }
+              ],
+              "doc": "Copied version of the referenced schema field object for indexing purposes",
+              "default": null
+            }
+          ]
+        }
+      },
+      "doc": "List of fields being referenced"
+    }
+  ],
+  "Aspect": {
+    "name": "inputFields"
+  }
+}
