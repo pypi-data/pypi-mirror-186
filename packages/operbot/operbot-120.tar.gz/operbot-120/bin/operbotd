@@ -1,0 +1,33 @@
+#!/usr/bin/env python3
+# This file is placed in the Public Domain.
+# pylint: disable=C0115,C0116,W0212,W0703,R0801
+
+
+"write your own commands"
+
+
+import inspect
+
+
+from opr.handler import Command, scan
+from opr.objects import Wd
+from opr.runtime import wait
+
+
+
+from operbot import cmd, irc, rss
+
+
+Wd.workdir = "/var/lib/operbot/"
+
+
+def main():
+    scan(cmd)
+    scan(irc)
+    scan(rss)
+    irc.init()
+    rss.init()
+    wait()
+
+
+main()
