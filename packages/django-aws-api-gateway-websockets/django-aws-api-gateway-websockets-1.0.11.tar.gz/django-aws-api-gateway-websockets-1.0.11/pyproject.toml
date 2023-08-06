@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools >= 40.6.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.isort]
+skip = [
+".gitignore", ".dockerignore"
+]
+
+[project]
+name = "django-aws-api-gateway-websockets"
+version = "1.0.11"
+authors = [
+  { name="Steven Mapes", email="steve@stevenmapes.com" },
+]
+description = "Created to allow Django projects to be used as a HTTP backend for AWS API Gateway websockets"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/StevenMapes/django-aws-api-gateway-websockets"
+"Change log" = "https://github.com/StevenMapes/django-aws-api-gateway-websockets/blob/main/CHANGELOG.md"
+"Twitter" = "https://twitter.com/stevenamapes"
