@@ -1,0 +1,76 @@
+robotpy-wpiutil==2023.2.1.0
+robotpy-wpimath==2023.2.1.0
+pyntcore==2023.2.1.1
+robotpy-hal==2023.2.1.0
+wpilib==2023.2.1.0
+robotpy-wpilib-utilities==2023.0.0
+
+[:platform_machine != "armv7l"]
+robotpy-halsim-gui==2023.2.1.0
+robotpy-installer<2024.0.0,>=2023.0.1
+pyfrc<2024.0.0,>=2023.0.0
+
+[all]
+robotpy-wpimath==2023.2.1.0
+robotpy-photonvision<2024.0.0,>=2023.1.2
+robotpy-ctre<2024.0.0,>=2023.0.0
+robotpy-wpilib-utilities==2023.0.0
+robotpy-playingwithfusion<2024.0.0,>=2023.0.0
+robotpy-hal==2023.2.1.0
+robotpy-cscore==2023.2.1.0
+wpilib==2023.2.1.0
+robotpy-wpiutil==2023.2.1.0
+robotpy-navx<2024.0.0,>=2023.0.1
+robotpy-apriltag==2023.2.1.0
+robotpy-rev<2024.0.0,>=2023.1.1
+pyntcore==2023.2.1.1
+robotpy-commands-v2==2023.2.1.0
+
+[all:platform_machine != "armv7l"]
+robotpy-halsim-ds-socket==2023.2.1.0
+robotpy-installer<2024.0.0,>=2023.0.1
+robotpy-halsim-gui==2023.2.1.0
+robotpy-halsim-ws==2023.2.1.0
+pyfrc<2024.0.0,>=2023.0.0
+
+[all:platform_machine == "armv7l"]
+numpy
+robotpy-opencv
+
+[apriltag]
+robotpy-apriltag==2023.2.1.0
+
+[apriltag:platform_machine == "armv7l"]
+numpy
+robotpy-opencv
+
+[commands2]
+robotpy-commands-v2==2023.2.1.0
+
+[cscore]
+robotpy-cscore==2023.2.1.0
+
+[cscore:platform_machine == "armv7l"]
+numpy
+robotpy-opencv
+
+[ctre]
+robotpy-ctre<2024.0.0,>=2023.0.0
+
+[navx]
+robotpy-navx<2024.0.0,>=2023.0.1
+
+[photonvision]
+robotpy-photonvision<2024.0.0,>=2023.1.2
+
+[playingwithfusion]
+robotpy-playingwithfusion<2024.0.0,>=2023.0.0
+
+[rev]
+robotpy-rev<2024.0.0,>=2023.1.1
+
+[sim]
+
+[sim:platform_machine != "armv7l"]
+robotpy-halsim-ds-socket==2023.2.1.0
+robotpy-halsim-ws==2023.2.1.0

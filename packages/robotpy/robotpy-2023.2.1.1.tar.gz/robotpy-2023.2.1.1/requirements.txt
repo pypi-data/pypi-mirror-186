@@ -1,0 +1,18 @@
+# Explicitly specify each robotpy package so that pip install -U robotpy
+# is an easy shortcut to upgrade to the latest version of everything,
+# which is always going to be the desired behavior for our users
+
+# We now pin allwpilib based packages so that a specific install of robotpy-meta
+# is directly associated with a specific set of wpilib packages
+robotpy-wpiutil==2023.2.1.0
+robotpy-wpimath==2023.2.1.0
+pyntcore==2023.2.1.1
+robotpy-hal==2023.2.1.0
+wpilib==2023.2.1.0
+
+robotpy-wpilib-utilities==2023.0.0
+robotpy-halsim-gui==2023.2.1.0; platform_machine != "armv7l"
+
+# These are not pinned
+robotpy-installer<2024.0.0,>=2023.0.1; platform_machine != "armv7l"
+pyfrc<2024.0.0,>=2023.0.0; platform_machine != "armv7l"
