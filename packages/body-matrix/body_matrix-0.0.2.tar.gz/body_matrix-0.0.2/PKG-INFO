@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: body_matrix
+Version: 0.0.2
+Summary: Package to Calculate Human Body Measurements
+Author-email: Hoang Do <hoang.do.2102@gmail.com>
+Project-URL: Homepage, https://github.com/akando42/body_matrix
+Project-URL: Bug Tracker, https://github.com/akando42/body_matrix/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Body Matrix Measurements
+## Install Package
+```
+$ pip install body-matrix
+
+```
+
+## Package Usage
+Load Segmentation Model
+
+```
+from body_matrix import load
+segmentation_model, segmentation_transforms = load.segmentation_model("cpu")
+```
+
+Load Keypoints Model
+```
+from body_matrix import load
+keypoints_model, keypoints_transforms = load.segmentation_model("cpu")
+
+```
+
+
+Load Video
+```
+from body_matrix import load
+video, frames_counts, fps, smaple_frame = load.video("/Users/troydo42/Desktop/dt.mov", 90, 1)
+print(frames_counts)
+```
+
+
+Load Image
+```
+from body_matrix import load
+frames_path = load.image_frames("/Users/troydo42/Desktop/instagram")
+print(frames_path)
+
+```
