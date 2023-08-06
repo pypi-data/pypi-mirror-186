@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "beauty-mouse"
+version = "0.1.0"
+description = "Fuck cima"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "beauty-mouse"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+pynput = "1.7.6"
+pyinstaller = "^5.7.0"
+cryptography = "^39.0.0"
+pyopenssl = "^23.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+greet = "beauty-mouse.main:main"
