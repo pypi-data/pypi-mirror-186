@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scw_serverless"
+version = "0.0.2"
+description = "An API framework to make it easy to work with Scaleway Serverless functions."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+keywords = ["serverless", "scaleway", "functions", "cloud"]
+
+# Should be one of:
+# 'Development Status :: 3 - Alpha'
+# 'Development Status :: 4 - Beta'
+# 'Development Status :: 5 - Production/Stable'
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Internet",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+]
+
+dependencies = [
+    "click >= 8",
+    "PyYAML >= 6",
+    "scaleway >= 0.2",
+    # Requires support for pyproject.toml
+    "setuptools >= 61",
+    "requests >= 2",
+    "typing_extensions; python_version<'3.11'",
+]
+
+[project.urls]
+documentation = "https://serverless-api-project.readthedocs.io/en/latest/"
+repository = "https://github.com/scaleway/serverless-api-project"
+
+[project.scripts]
+scw-serverless = "scw_serverless.cli:main"
+
+[tool.setuptools]
+include-package-data = true
+# See: https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#flat-layout
+packages = ["scw_serverless"]
+
+[tool.setuptools.package-data]
+scw_serverless = ["**/*.json", "**/*.yml"]
+
+[tool.pylint]
+load-plugins = ["pylint_per_file_ignores"]
+disable = "missing-module-docstring"
+# Commented Black formatted code.
+max-line-length = 89
+# Short and common names. e is commonly used for exceptions.
+good-names = "i,fp,e"
+# Classes with a single responsibility are fine.
+min-public-methods = 1
+
+[tool.pylint-per-file-ignores]
+"/tests/" = "missing-function-docstring,protected-access"
+# Sphinx specific
+"/docs/" = "invalid-name,redefined-builtin"
+
+[tool.isort]
+profile = "black"
+
+[tool.pyright]
+include = ["scw_serverless", "examples"]
+exclude = ["**/node_modules", "**/__pycache__", "**/package/**"]
+
+[tool.pydocstyle]
+# Compatible with Sphinx
+convention = "google"
+add_ignore = ["D100", "D107"]
