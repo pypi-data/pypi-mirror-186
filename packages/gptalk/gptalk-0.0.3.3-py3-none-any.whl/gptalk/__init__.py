@@ -1,0 +1,1 @@
+from gptalk import CONFIGURE, bcolors, apikey
