@@ -1,0 +1,72 @@
+Metadata-Version: 2.1
+Name: terrapyn
+Version: 0.0.9
+Summary: Toolkit to manipulate Earth observations and models.
+Home-page: https://github.com/colinahill/terrapyn
+Author: Colin Hill
+Author-email: colinalastairhill@gmail.com
+License: BSD-3-Clause
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+License-File: AUTHORS.md
+Requires-Dist: xarray (>=2022.12.0)
+Requires-Dist: pandas
+Requires-Dist: geopandas
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: dask
+Requires-Dist: matplotlib
+Requires-Dist: bottleneck
+Requires-Dist: shapely
+Requires-Dist: netcdf4
+Requires-Dist: ipykernel
+Requires-Dist: pyarrow
+Provides-Extra: dev
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: pytest-cov ; extra == 'dev'
+Requires-Dist: readme-coverage-badger ; extra == 'dev'
+Requires-Dist: flake8 ; extra == 'dev'
+Requires-Dist: flake8-docstrings ; extra == 'dev'
+Requires-Dist: flake8-import-order ; extra == 'dev'
+Requires-Dist: flake8-colors ; extra == 'dev'
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: isort ; extra == 'dev'
+Requires-Dist: pre-commit ; extra == 'dev'
+Requires-Dist: freezegun ; extra == 'dev'
+
+# terrapyn
+
+![Code Coverage](https://img.shields.io/badge/Coverage-83%25-yellowgreen.svg)
+[![PyPI version](https://badge.fury.io/py/terrapyn.svg)](https://badge.fury.io/py/terrapyn)
+![versions](https://img.shields.io/pypi/pyversions/terrapyn.svg)
+[![GitHub license](https://img.shields.io/pypi/l/terrapyn)](https://github.com/colinahill/terrapyn/blob/main/LICENSE.md)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+Toolkit to manipulate Earth Observation Data: Remote Sensing, Climate and Weather models. Designed to work with `Pandas`/`GeoPandas` and `Xarray` data structures, implementing `Dask` where possible.
+
+The name is pronounced the same as "terrapin", a type of [fresh water turtle](https://en.wikipedia.org/wiki/Terrapin)
+
+- Documentation: https://colinahill.github.io/terrapyn.
+- Free software: BSD-3-Clause
+
+## Setup
+
+The package can be installed in an existing Python environment via pip:
+
+```bash
+pip install terrapyn
+```
+
+OR from source:
+
+```bash
+git clone https://github.com/colinahill/terrapyn.git
+cd terrapyn
+pip install .
+
+# OR for development:
+pip install -e .[dev]
+```
