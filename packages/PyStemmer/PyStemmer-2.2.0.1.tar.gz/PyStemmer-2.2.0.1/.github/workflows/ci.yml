@@ -1,0 +1,60 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push, or for pull requests against master
+  push:
+    paths-ignore:
+      - AUTHORS
+      - ChangeLog
+      - README.rst
+      - 'docs/**'
+  pull_request:
+    branches: [ master ]
+    paths-ignore:
+      - AUTHORS
+      - ChangeLog
+      - README.rst
+      - 'docs/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['2.7', '3.3', '3.4', '3.5', '3.6', '3.7', '3.8', '3.9', '3.10', '3.11', 'pypy3.7', 'pypy3.8', 'pypy3.9']
+        include:
+          # Most jobs can run on ubuntu-latest
+          - os: ubuntu-latest
+          - python-version: '2.7'
+            os: ubuntu-18.04
+          - python-version: '3.3'
+            os: ubuntu-18.04
+          - python-version: '3.4'
+            os: ubuntu-18.04
+          - python-version: '3.5'
+            os: ubuntu-20.04
+          - python-version: '3.6'
+            os: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Cython
+      run: pip install Cython
+    - name: Install
+      run: pip install .
+    - name: Install nose
+      run: pip install nose
+    - name: Run tests
+      run: |
+        printf 'Running tests with '; python --version \
+        python runtests.py -v \
+        nosetests -v
