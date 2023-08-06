@@ -1,0 +1,55 @@
+ARG PYVERSION={{config.python_version}}
+FROM {{base_image_name_and_tag}}
+
+RUN pip install --upgrade pip
+{% if config.model_framework.value == 'huggingface_transformer' %}
+    {% if config.resources.use_gpu %}
+# HuggingFace pytorch gpu support needs mkl
+RUN pip install mkl
+    {% endif %}
+{% endif%}
+
+{% block post_base %}
+{% endblock %}
+
+{% block install_system_requirements %}
+    {%- if should_install_system_requirements %}
+COPY ./system_packages.txt system_packages.txt
+RUN apt-get update && apt-get install --yes --no-install-recommends $(cat system_packages.txt) \
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
+    {%- endif %}
+{% endblock %}
+
+
+{% block install_requirements %}
+    {%- if should_install_requirements %}
+COPY ./requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+    {%- endif %}
+{% endblock %}
+
+
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+
+
+{% block app_copy %}
+{% endblock %}
+
+
+{% block bundled_packages_copy %}
+    {%- if bundled_packages_dir_exists %}
+COPY ./{{config.bundled_packages_dir}} /packages
+    {%- endif %}
+{% endblock %}
+
+
+{% for env_var_name, env_var_value in config.environment_variables.items() %}
+ENV {{ env_var_name }} {{ env_var_value }}
+{% endfor %}
+
+
+{% block run %}
+{% endblock %}
