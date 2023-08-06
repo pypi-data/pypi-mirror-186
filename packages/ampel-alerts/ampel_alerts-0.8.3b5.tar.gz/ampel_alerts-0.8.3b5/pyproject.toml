@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "ampel-alerts"
+version = "0.8.3b5"
+description = "Alert support for the Ampel system"
+authors = ["Valery Brinnel"]
+maintainers = ["Jakob van Santen <jakob.van.santen@desy.de>"]
+license = "BSD-3-Clause"
+readme = "README.md"
+homepage = "https://ampelproject.github.io"
+repository = "https://github.com/AmpelProject/Ampel-alerts"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Typing :: Typed",
+]
+packages = [{include = "ampel"}]
+include = [
+    'conf/*/*.json',
+    'conf/*/*/*.json',
+    'conf/*/*.yaml',
+    'conf/*/*/*.yaml',
+    'conf/*/*.yml',
+    'conf/*/*/*.yml',
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+Sphinx = {version = ">=6.1.2,<6.2.0", optional = true}
+sphinx-autodoc-typehints = {version = "^1.11.1", optional = true}
+tomlkit = {version = "^0.11.0", optional=true}
+ampel-interface = {version = "^0.8.3-beta.14"}
+ampel-core = {version = "^0.8.3-beta.21"}
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.2.1"
+pytest-cov = "^4.0.0"
+pytest-mock = "^3.10.0"
+mongomock = "^4.1.2"
+mypy = "^0.991"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.extras]
+server = ["fastapi", "uvicorn"]
+docs = ["Sphinx", "sphinx-autodoc-typehints", "tomlkit"]
+
+[tool.coverage.run]
+relative_files = true
