@@ -1,0 +1,22 @@
+CAPI=2:
+name: pyocd:probe:cpp_protobuf
+description: C++ generator for gRPC
+
+generate:
+  grpc_debugprobe:
+    generator: cmake
+    parameters:
+      files:
+        - build/libgrpc_debugprobe.a: { file_type: user, copyto: libgrpc_debugprobe.a }
+        - build/pyocd_grpc/debugprobe.pb.h: { file_type: user, copyto: pyocd_grpc/debugprobe.pb.h }
+        - build/pyocd_grpc/debugprobe.grpc.pb.h: { file_type: user, copyto: pyocd_grpc/debugprobe.grpc.pb.h }
+
+filesets:
+  generators:
+    depend:
+      - idex:utils:generators
+
+targets:
+  default: &default
+    filesets: [generators]
+    generate: [grpc_debugprobe]
