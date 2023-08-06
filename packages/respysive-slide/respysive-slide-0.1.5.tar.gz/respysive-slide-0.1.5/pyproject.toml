@@ -1,0 +1,30 @@
+# pyproject.toml
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "respysive-slide"
+version = "0.1.5"
+description = "Read the latest Real Python tutorials"
+readme = "README.md"
+authors = [{ name = "fbxyz"}]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["slide", "presentation", "reveal.js", "Bootstrap"]
+dependencies = [
+    "beautifulsoup4>=4.11.1"
+]
+requires-python = ">=3.7"
+
+[project.optional-dependencies]
+dev = ["ipython"]
+
+[project.urls]
+repository = "https://github.com/fbxyz/respysive-slide"
+
