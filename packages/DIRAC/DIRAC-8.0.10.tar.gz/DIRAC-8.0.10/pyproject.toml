@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]>=3.4"]
+build-backend = "setuptools.build_meta"
+
+# Enable setuptools_scm to compute the version number from the most recent tag
+# https://github.com/pypa/setuptools_scm/#pyprojecttoml-usage
+[tool.setuptools_scm]
+# Avoid letting setuptools_scm use old style tags (i.e. vXrYpZ)
+git_describe_command = "git describe --dirty --tags --long --match *[0-9].[0-9]* --exclude v[0-9]r* --exclude v[0-9][0-9]r*"
+
+[tool.black]
+line-length = 120
+target-version = ['py39']
+
+[tool.pylint.typecheck]
+# List of decorators that change the signature of a decorated function.
+signature-mutators = []
+
+[tool.mypy]
+allow_redefinition = true
+strict = true
+check_untyped_defs = true
+ignore_missing_imports = true
+no_incremental=true
+implicit_reexport=true
+files = [
+    'src/DIRAC/Core/Utilities/ReturnValues.py',
+    'src/DIRAC/Core/Security/Properties.py'
+]
+exclude = [
+    '/tests/'
+]
