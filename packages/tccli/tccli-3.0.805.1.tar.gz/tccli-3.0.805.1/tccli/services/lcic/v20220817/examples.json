@@ -1,0 +1,125 @@
+{
+  "actions": {
+    "BindDocumentToRoom": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: BindDocumentToRoom\n<公共请求参数>\n\n{\n    \"DocumentId\": \"xx\",\n    \"RoomId\": 123\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"xx\"\n    }\n}",
+        "title": "绑定文档到房间"
+      }
+    ],
+    "CreateDocument": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: CreateDocument\n<公共请求参数>\n\n{\n    \"SdkAppId\": 1,\n    \"DocumentUrl\": \"xx\",\n    \"DocumentName\": \"xx\",\n    \"Owner\": \"xx\",\n    \"TranscodeType\": 1,\n    \"Permission\": 1,\n    \"DocumentType\": \"xx\",\n    \"DocumentSize\": 100\n}",
+        "output": "{\n    \"Response\": {\n        \"DocumentId\": \"xx\",\n        \"RequestId\": \"213das\"\n    }\n}",
+        "title": "创建文档"
+      }
+    ],
+    "CreateRoom": [
+      {
+        "document": "创建上课房间",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: CreateRoom\n<公共请求参数>\n\n{\n    \"AutoMic\": 1,\n    \"Name\": \"xx\",\n    \"AudioQuality\": 1,\n    \"MaxMicNumber\": 1,\n    \"SubType\": \"xx\",\n    \"SdkAppId\": 1,\n    \"StartTime\": 1,\n    \"TeacherId\": \"xx\",\n    \"EndTime\": 1,\n    \"Resolution\": 1,\n    \"DisableRecord\": 1,\n    \"Assistants\": []\n}",
+        "output": "{\n    \"Response\": {\n        \"RoomId\": 301234567,\n        \"RequestId\": \"213das\"\n    }\n}",
+        "title": "创建房间"
+      }
+    ],
+    "CreateSupervisor": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: CreateSupervisor\n<公共请求参数>\n\n{}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"213das\"\n    }\n}",
+        "title": "创建巡课"
+      }
+    ],
+    "DeleteRoom": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DeleteRoom\n<公共请求参数>\n\n{\n    \"RoomId\": 123\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"213das\"\n    }\n}",
+        "title": "删除房间"
+      }
+    ],
+    "DescribeAppDetail": [
+      {
+        "document": "获取应用配置",
+        "input": "{\n    \"ApplicationId\": \"3028839\",\n    \"DeveloperId\": \"db5bb499-8691-463f-ac64-1a48f80d968a\"\n}",
+        "output": "{\n    \"Response\": {\n        \"AppConfig\": {},\n        \"RequestId\": \"9dfae8e8a8c5e4b27b7abf37caa2e5bf\",\n        \"SceneConfig\": [\n            {}\n        ],\n        \"SdkAppId\": \"1400315010\"\n    }\n}",
+        "title": "获取应用配置"
+      }
+    ],
+    "DescribeRoom": [
+      {
+        "document": "获取课堂房间信息",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeRoom\n<公共请求参数>\n\n{\n    \"RoomId\": 1\n}",
+        "output": "{\n    \"Response\": {\n        \"AutoMic\": 1,\n        \"RecordUrl\": \"xx\",\n        \"Name\": \"xx\",\n        \"AudioQuality\": 1,\n        \"MaxMicNumber\": 1,\n        \"SubType\": \"xx\",\n        \"SdkAppId\": 1,\n        \"RequestId\": \"xx\",\n        \"StartTime\": 1,\n        \"TeacherId\": \"xx\",\n        \"Assistants\": [\n            \"xx\"\n        ],\n        \"EndTime\": 1,\n        \"Resolution\": 1,\n        \"DisableRecord\": 1\n    }\n}",
+        "title": "房间信息"
+      }
+    ],
+    "DescribeRoomStatistics": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeRoomStatistics\n<公共请求参数>\n\n{\n    \"RoomId\": 123,\n    \"Page\": 1,\n    \"Limit\": 10\n}",
+        "output": "{\n    \"Response\": {\n        \"MemberNumber\": 1,\n        \"Total\": 1,\n        \"PeakMemberNumber\": 1,\n        \"RequestId\": \"xx\",\n        \"MemberRecords\": [\n            {\n                \"UserName\": \"xx\",\n                \"Mic\": 1,\n                \"UserId\": \"xx\",\n                \"Rewords\": 1,\n                \"AnswerQuestions\": 1,\n                \"HandUps\": 1,\n                \"Camera\": 1,\n                \"FirstJoinTimestamp\": 1,\n                \"LastQuitTimestamp\": 1,\n                \"PresentTime\": 1,\n                \"Silence\": 1\n            }\n        ]\n    }\n}",
+        "title": "获取房间统计信息"
+      }
+    ],
+    "DescribeUser": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeUser\n<公共请求参数>\n\n{\n    \"UserId\": \"xx\"\n}",
+        "output": "{\n    \"Response\": {\n        \"Name\": \"xx\",\n        \"UserId\": \"xx\",\n        \"Avatar\": \"xx\",\n        \"SdkAppId\": 1,\n        \"RequestId\": \"xx\"\n    }\n}",
+        "title": "获取用户信息"
+      }
+    ],
+    "LoginOriginId": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: LoginOriginId\n<公共请求参数>\n\n{\n    \"SdkAppId\": 1234657,\n    \"OriginId\": \"xx\"\n}",
+        "output": "{\n    \"Response\": {\n        \"UserId\": \"2CvDgjRNjylAsBZB4iZc0F6koXe\",\n        \"Token\": \"3o32r0j134m13aa0uva0jvj90qj4j004198\",\n        \"RequestId\": \"213das\"\n    }\n}",
+        "title": "源账号登录"
+      }
+    ],
+    "LoginUser": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: LoginUser\n<公共请求参数>\n\n{\n    \"UserId\": \"xxx\"\n}",
+        "output": "{\n    \"Response\": {\n        \"Token\": \"xx\",\n        \"UserId\": \"xx\",\n        \"RequestId\": \"xx\"\n    }\n}",
+        "title": "登录"
+      }
+    ],
+    "ModifyApp": [
+      {
+        "document": "修改应用的相关信息",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: ModifyApp\n<公共请求参数>\n\n{\n    \"SdkAppId\": 1234657,\n    \"Callback\": \"xx\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"xx\"\n    }\n}",
+        "title": "修改应用"
+      }
+    ],
+    "RegisterUser": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: RegisterUser\n<公共请求参数>\n\n{\n    \"SdkAppId\": 1234657\n}",
+        "output": "{\n    \"Response\": {\n        \"UserId\": \"2CvDgjRNjylAsBZB4iZc0F6koXe\",\n        \"Token\": \"3o32r0j134m13aa0uva0jvj90qj4j004198\",\n        \"RequestId\": \"213das\"\n    }\n}",
+        "title": "注册用户"
+      }
+    ],
+    "SetAppCustomContent": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: SetAppCustomContent\n<公共请求参数>\n\n{\n    \"SdkAppId\": 123,\n    \"CustomContent\": [\n        {\n            \"Scene\": \"default\",\n            \"LogoUrl\": \"https://yourdomain.com/logo.png\",\n            \"HomeUrl\": \"https://yourdomain.com/login\",\n            \"JsUrl\": \"https://yourdomain.com/default.js\",\n            \"CssUrl\": \"https://yourdomain.com/default.css\"\n        }\n    ]\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"213das\"\n    }\n}",
+        "title": "设置应用自定义内容"
+      }
+    ],
+    "UnbindDocumentFromRoom": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: lcic.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: UnbindDocumentFromRoom\n<公共请求参数>\n\n{\n    \"DocumentId\": \"xx\",\n    \"RoomId\": 123\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"xx\"\n    }\n}",
+        "title": "文档从房间解绑"
+      }
+    ]
+  },
+  "version": "1.0"
+}
