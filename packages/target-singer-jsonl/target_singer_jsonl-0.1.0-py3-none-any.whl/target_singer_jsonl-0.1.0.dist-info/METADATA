@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: target-singer-jsonl
+Version: 0.1.0
+Summary: A Singer.io target for writing singer-formatted JSONL files to various destinations (e.g. local or s3).
+License: MIT
+Keywords: ELT,Singer.io
+Author: Ken Payne
+Author-email: ken@meltano.com
+Requires-Python: >=3.10,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: jsonschema (>=4.17.3,<5.0.0)
+Requires-Dist: smart-open[s3] (>=6.3.0,<7.0.0)
+Description-Content-Type: text/markdown
+
+# target-singer-jsonl
+
+This is a [Singer](https://singer.io) target that reads JSON-formatted data following the [Singer spec](https://github.com/singer-io/getting-started/blob/master/SPEC.md) and writes it to JSONL formatted files.
+File writing is done via the `smart_open` python package, supporting local disk as well as many other destinations (e.g. S3).
+
