@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: pandance
+Version: 0.1.0
+Summary: Advanced relational operations for pandas DataFrames
+Author: Filip Buric
+Project-URL: Homepage, https://pandance.readthedocs.io
+Project-URL: Documentation, https://pandance.readthedocs.io
+Project-URL: Source Code, https://github.com/fburic/pandance
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Database
+Classifier: Topic :: Scientific/Engineering 
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+<div align="center" >
+  <img src="doc/source/img/pandance_logo.svg" width="250px"><br>
+</div>
+
+<h1 align="center">Pandance</h1>
+
+-----------------
+
+Pandance provides advanced relational operations for
+[pandas](https://pandas.pydata.org/) DataFrames,
+enabling powerful and efficient joins (aka merges).
+
+## Highlights
+
+Pandance extends the set of standard join operations in pandas
+(inner, outer, cross, left, right) with:
+
+- **fuzzy joins**: Match columns with a tolerance
+- **[theta joins](https://en.wikipedia.org/wiki/Relational_algebra#%CE%B8-join_and_equijoin)**:
+  Allows the user to specify arbitrary matching conditions on which to join
+
+Pandance is designed with performance in mind, aiming to provide fast implementations
+whenever possible.
+
+## TODO
+
+- `[0.2.0]` fuzzy join support for DateTime data, as well as arbitrary 
+  object types supporting comparison and equality
+- `[0.2.0]` inequality join: efficient implementation of non-equijoins using inequalities (<, >)
