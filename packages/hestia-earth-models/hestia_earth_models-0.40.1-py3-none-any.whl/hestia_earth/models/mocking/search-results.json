@@ -1,0 +1,319 @@
+[
+  {
+    "name": "get_crop_residue_management_terms",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "match": {
+              "@type": "Term"
+            }
+          },
+          {
+            "match": {
+              "termType.keyword": "cropResidueManagement"
+            }
+          }
+        ]
+      }
+    },
+    "results": [
+      "residueRemoved",
+      "residueIncorporatedLessThan30DaysBeforeCultivation",
+      "residueIncorporated",
+      "residueBurntBeforeAllowingForCombustionFactor",
+      "residueIncorporatedMoreThan30DaysBeforeCultivation",
+      "residueBurnt",
+      "residueLeftOnField",
+      "pastureRenewed"
+    ]
+  },
+  {
+    "name": "get_crop_residue_terms",
+    "query": {
+      "termType.keyword": "cropResidue"
+    },
+    "results": [
+      "aboveGroundCropResidueRemoved",
+      "aboveGroundCropResidueTotal",
+      "aboveGroundCropResidueIncorporated",
+      "belowGroundCropResidue",
+      "aboveGroundCropResidueLeftOnField",
+      "aboveGroundCropResidueBurnt"
+    ]
+  },
+  {
+    "name": "get_digestible_energy_terms",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "match": {
+              "@type": "Term"
+            }
+          },
+          {
+            "match": {
+              "termType.keyword": "property"
+            }
+          }
+        ],
+        "should": [
+          {
+            "match_phrase_prefix": {
+              "name": "Digestible energy"
+            }
+          }
+        ],
+        "minimum_should_match": 1
+      }
+    },
+    "results": [
+      "digestibleEnergyRuminants",
+      "digestibleEnergyRabbits",
+      "digestibleEnergyPigs",
+      "digestibleEnergySalmonids",
+      "digestibleEnergyPoultry",
+      "digestibleEnergyAquaticSpecies",
+      "digestibleEnergyOtherAnimals"
+    ]
+  },
+  {
+    "name": "get_energy_digestibility_terms",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "match": {
+              "@type": "Term"
+            }
+          },
+          {
+            "match": {
+              "termType.keyword": "property"
+            }
+          }
+        ],
+        "should": [
+          {
+            "match_phrase_prefix": {
+              "name": "Energy digestibility"
+            }
+          }
+        ],
+        "minimum_should_match": 1
+      }
+    },
+    "results": [
+      "energyDigestibilityPoultry",
+      "energyDigestibilityOtherAnimals",
+      "energyDigestibilityPigs",
+      "energyDigestibilityRabbits",
+      "energyDigestibilitySalmonids",
+      "energyDigestibilityRuminants",
+      "energyDigestibilityAquaticSpecies"
+    ]
+  },
+  {
+    "name": "get_excreta_terms",
+    "query": {
+      "termType.keyword": "excreta",
+      "units.keyword": "kg N"
+    },
+    "results": [
+      "excretaBeefCattleFeedlotFedKgN",
+      "excretaKgN",
+      "excretaGeeseKgN",
+      "excretaSolidAndLiquidFishCrustaceansKgN",
+      "excretaBuffaloKgN",
+      "excretaSolidFishCrustaceansKgN",
+      "excretaPoultryKgN",
+      "excretaSheepAndGoatsKgN",
+      "excretaDucksKgN",
+      "excretaBeefCattleExceptFeedlotFedKgN",
+      "excretaHorsesMulesAndAssesKgN",
+      "excretaPigsKgN",
+      "excretaCamelsKgN",
+      "excretaDairyCattleKgN",
+      "excretaLiquidFishCrustaceansKgN",
+      "excretaTurkeysKgN",
+      "excretaMixturesKgN",
+      "processedExcretaKgN"
+    ]
+  },
+  {
+    "name": "get_generic_crop",
+    "query": {
+      "termType.keyword": "crop",
+      "name": "Generic crop seed"
+    },
+    "results": [
+      "genericCropSeed"
+    ]
+  },
+  {
+    "name": "get_irrigation_terms",
+    "query": {
+      "termType.keyword": "water"
+    },
+    "results": [
+      "waterDrainageCanal",
+      "waterMarine",
+      "waterMunicipalTap",
+      "waterIrrigationCanal",
+      "waterSourceUnspecified",
+      "waterLakeOrReservoir",
+      "waterHarvestedRainfall",
+      "waterBrackish",
+      "waterPumpedGroundwater",
+      "waterRiverStream"
+    ]
+  },
+  {
+    "name": "get_liquid_fuel_terms",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "match": {
+              "@type": "Term"
+            }
+          },
+          {
+            "match": {
+              "termType.keyword": "fuel"
+            }
+          }
+        ],
+        "should": [
+          {
+            "regexp": {
+              "name": "gasoline*"
+            }
+          },
+          {
+            "regexp": {
+              "name": "diesel*"
+            }
+          }
+        ],
+        "minimum_should_match": 1
+      }
+    },
+    "results": [
+      "diesel1D",
+      "motorGasoline",
+      "diesel",
+      "aviationGasoline",
+      "gasolineTypeJetFuel",
+      "en590Diesel",
+      "diesel4D",
+      "diesel2D"
+    ]
+  },
+  {
+    "name": "get_rice_paddy_terms",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "match": {
+              "@type": "Term"
+            }
+          },
+          {
+            "match": {
+              "termType": "crop"
+            }
+          },
+          {
+            "regexp": {
+              "name": "rice*"
+            }
+          },
+          {
+            "regexp": {
+              "name": "flooded*"
+            }
+          }
+        ]
+      }
+    },
+    "results": [
+      "ricePlantFlooded",
+      "riceGrainInHuskFlooded"
+    ]
+  },
+  {
+    "name": "get_tillage_terms",
+    "query": {
+      "termType.keyword": "tillage",
+      "name": "tillage"
+    },
+    "results": [
+      "noTillage",
+      "minimumTillage",
+      "fullTillage",
+      "stripTillage",
+      "deepTillage",
+      "mulchTillage",
+      "fullInversionTillage"
+    ]
+  },
+  {
+    "name": "get_urea_terms",
+    "query": {
+      "termType.keyword": "inorganicFertiliser",
+      "name": "urea"
+    },
+    "results": [
+      "ureaKgN",
+      "ureaFormaldehydeKgN",
+      "ureaCalciumNitrateKgN",
+      "ureaAmmoniumNitrateKgN",
+      "sulphurCoatedUreaKgN",
+      "ureaAmmoniumSulphateKgN"
+    ]
+  },
+  {
+    "name": "get_wood_fuel_terms",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "match": {
+              "@type": "Term"
+            }
+          },
+          {
+            "match": {
+              "termType.keyword": "fuel"
+            }
+          },
+          {
+            "nested": {
+              "path": "defaultProperties",
+              "query": {
+                "match": {
+                  "defaultProperties.term.name.keyword": "Energy content (lower heating value)"
+                }
+              }
+            }
+          }
+        ],
+        "should": [
+          {
+            "regexp": {
+              "name": "wood*"
+            }
+          }
+        ],
+        "minimum_should_match": 1
+      }
+    },
+    "results": [
+      "woodPellets",
+      "woodFuel"
+    ]
+  }
+]
