@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "indieauth"
+version = "0.1.0"
+description = "utilities for implementing IndieAuth clients and servers"
+keywords = ["IndieWeb", "IndieAuth"]
+authors = ["Angelo Gladding <angelo@ragt.ag>"]
+license = "0BSD"
+
+[tool.poetry.scripts]
+indieauth = "indieauth:main"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+pycryptodome = "^3.15.0"
+txtint = ">=0.0"
+webcli = ">=0.0"
+
+[tool.poetry.group.dev.dependencies]
+gmpg = {path="../gmpg", develop=true}
+easyuri = {path="../easyuri", develop=true}
+microformats = {path="../python-microformats", develop=true}
+sqlyte = {path="../sqlyte", develop=true}
+txtint = {path="../txtint", develop=true}
+webcli = {path="../webcli", develop=true}
+
+# [[tool.poetry.source]]
+# name = "main"
+# url = "https://ragt.ag/code/pypi"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
