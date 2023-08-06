@@ -1,0 +1,244 @@
+_It is currently under early development, but little by little new algorithms will be added_
+
+<div align="center">
+ 
+ # PyCrypTools
+
+ ### Version 2.0.0 | 17/01 Last Update
+  
+![PyPI](https://img.shields.io/pypi/v/pycryptools)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/pycryptools?color=green&label=downloads)
+![Downloads](https://static.pepy.tech/personalized-badge/pycryptools?period=total&units=international_system&left_color=grey&right_color=green&left_text=downloads)
+![PyPI - License](https://img.shields.io/pypi/l/pycryptools)
+![](https://tokei.rs/b1/github/14wual/pycryptools)
+  
+PyCrypTools is a python library that brings us a series of algorithms to encrypt and decrypt inputs.
+  
+</div>
+
+```
+888       888 888     888       d8888 888
+888   o   888 888     888      d88888 888
+888  d8b  888 888     888     d88P888 888        (code by WUAL)
+888 d888b 888 888     888    d88P 888 888            twitter.com/codewual
+888d88888b888 888     888   d88P  888 888     github.com/14wual
+88888P Y88888 888     888  d88P   888 888            youtube: WualPK
+8888P   Y8888 Y88b. .d88P d8888888888 888     
+888P     Y888  "Y88888P" d88P     888 88888888
+```
+
+See commits updates (CHANGELOG) here: <a href="https://github.com/14wual/pycryptools/blob/main/CHANGELOG.md"><b>Link</b></a>
+
+## Install
+
+```python
+pip install pycryptools
+```
+
+## Terminal Command
+```
+pycryptools --algorithm -mode message
+```
+
+<details>
+
+### Avilale algorithm: 
+
+```python
+   Avilable Algorithm:
+            --atbash            --scytale
+            --polybios            --caesar
+            --alberti            --jefferson
+            --vigenere            --morse
+            --letter-to-number
+```
+
+### Avilale modes: 
+
+```python
+
+   Avilable Modes:
+            -e            [for encrypt]
+            -d            [for decrypt]
+            -n            [none mode]
+```
+
+</details>
+
+## Examples
+
+**Result**: `OWRILHO`| `EXAMPLE`
+```python
+from pycryptools.scytale import scytale
+
+message = "example"
+keyword = "random"
+
+encrypt = scytale.encrypt(message, keyword)
+print(encrypt)
+
+decrypt = scytale.decrypt(encrypt, keyword)
+print(decrypt)
+```
+
+# Modern Algorithms
+
+[PyCrypTools](https://github.com/14wual/pycryptools) currently has 1 modern algorithm.
+
+**(Under development) Not yet available**
+
+1. [Rail Fence](https://github.com/14wual/pycryptools/blob/main/README.md#rail-fence)
+
+# Classics Algorithms
+
+[PyCrypTools](https://github.com/14wual/pycryptools) currently has 9 classics algorithms.
+
+1. [AtBash](https://github.com/14wual/pycryptools/blob/main/README.md#atbash)
+2. [Scytale](https://github.com/14wual/pycryptools/blob/main/README.md#scytale)
+3. [Polybios](https://github.com/14wual/pycryptools/blob/main/README.md#polybios)
+4. [Caesar](https://github.com/14wual/pycryptools/blob/main/README.md#caesar)
+5. [Alberti](https://github.com/14wual/pycryptools/blob/main/README.md#alberti-disk)
+6. [Jefferson](https://github.com/14wual/pycryptools/blob/main/README.md#jefferson-wheel)
+7. [Morse](https://github.com/14wual/pycryptools/blob/main/README.md#morse)
+8. [Vigenere](https://github.com/14wual/pycryptools/blob/main/README.md#vigenere)
+9. [Letter-Number](https://github.com/14wual/pycryptools/blob/main/README.md#letter-number)
+
+### Rail Fence
+
+### AtBash
+
+Usage:
+```python
+from pycryptools.atbash import Atbash
+
+message = "example"
+
+encrypt = Atbash.encrypt(message)
+print(encrypt)
+
+decrypt = Atbash.decrypt(encrypt)
+print(decrypt)
+```
+
+Atbash is a monoalphabetic substitution encryption algorithm. This means that it uses a single substitution table to encode all the letters in the original message. In the case of Atbash encryption, the substitution table is built from a given keyword and consists of reversing the order of the letters of the alphabet to substitute each letter of the original message.
+
+### Scytale
+
+Usage: 
+```python
+from pycryptools.scytale import Scytale
+
+message = "example"
+keyword = "random"
+
+encrypt = Scytale.encrypt(message, keyword)
+print(encrypt)
+
+decrypt = Scytale.decrypt(encrypt, keyword)
+print(decrypt)
+```
+
+To encrypt a message, the message is written on a strip of paper or a stick and wrapped around the cylindrical object using the keyword to determine the number of columns. The message is then read across the columns, from top to bottom. The result is an encrypted message in which the letters appear in a different order than in the original message.
+
+To decrypt the message, you need to know the keyword used to encrypt it, since it determines the number of columns and the order in which the letters must be read.
+
+### Polybios
+
+Usage: 
+```python
+from pycryptools.polybios import Polybios
+
+message = "example"
+
+encrypt = Polybios.encrypt(message)
+print(encrypt)
+
+decrypt = Polybios.decrypt(encrypt)
+print(decrypt)
+```
+
+The Polybios cipher is a polyalphabetic substitution cipher technique that uses a 5x5 table to assign a pair of numerical coordinates to each letter of the alphabet. The table is built using a 5x5 matrix where the letters of the alphabet are placed in a specific order, rather than in alphabetical order.
+
+### Alberti Disk
+
+Usage:
+```python
+from pycryptools.alberti import Alberti
+
+message = "example"
+outer_alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+inner_alphabet = "XZYWVUTSRQPONMLKJIHGFEDCBA"
+
+encrypt = Alberti.encrypt(message, inner_alphabet, outer_alphabet)
+print(encrypt)
+
+decrypt = Alberti.decrypt(encrypt, inner_alphabet, outer_alphabet)
+print(decrypt)
+```
+
+The Alberti disk is a mechanical device used to encrypt and decrypt messages using the polyalphabetic substitution cipher. It was invented by the Italian humanist and scientist Leon Battista Alberti in the 15th century. The disk consists of two overlapping wheels, each with an alphabet printed on its rim. The top wheel, known as the recorder wheel, is free to rotate and has a hole in the center through which the bottom wheel, known as the decryption wheel, can be seen.
+
+### Jefferson Wheel
+
+Usage:
+```python
+from pycryptools.jefferson import Jefferson
+
+message = "jefferson"
+disks = Jefferson.generate_disks()
+encrypted = Jefferson.encrypt(message, disks);print(encrypted)
+decrypted = Jefferson.decrypt(encrypted, disks);print(decrypted)
+```
+
+The Jefferson Wheel Cipher is a mechanical encryption device that uses a set of rotating disks to encrypt and decrypt messages. Each disk has the alphabet written on it in a different order, and the order of the disks can be changed to create a unique encryption key.
+
+### Morse
+
+Usage:
+```python
+from pycryptools.morse import Morse
+
+message = "morse code"
+encrypted = Morse.encrypt(message);print(encrypted)
+decrypted = Morse.decrypt(encrypted);print(decrypted)
+```
+
+Morse code is a system of representing letters, numbers, and punctuation marks by means of a series of dots and dashes of variable length. It was developed by Samuel Morse in the 19th century and was mainly used in telegraphy (telegraphing), to transmit messages through electrical signals.
+
+In Morse code, each letter, number, or punctuation mark is represented by a unique pattern of dots and dashes. For example, the letter "A" is represented by a dot followed by a dash, while the letter "N" is represented by three consecutive dashes. The space between letters is represented by a dot, while the space between words is represented by three consecutive dots.
+
+### Vigenere
+
+Usage:
+```python
+from pycryptools.vigenere import Vigenere
+
+message = "vigenere";keyword = "example"
+encrypt = Vigenere.encrypt(message, keyword);print(encrypt)
+decrypt = Vigenere.decrypt(encrypt, keyword);print(decrypt)
+```
+
+The Vigenère cipher is a polyalphabetic substitution encryption method that uses a key-based character substitution table. The table is built from a character array, where each column represents a letter of the key and each row represents a letter of the alphabet.
+
+### Letter Number
+
+Usage:
+```python
+from pycryptools.letter_number import LetterNumber
+
+message = "letter number"
+encrypt = LetterNumber.encrypt(message, keyword);print(encrypt)
+decrypt = LetterNumber.decrypt(encrypt, keyword);print(decrypt)
+```
+
+Letter-to-number encryption consists of replacing each letter of the alphabet in a message with a specific number. It is a form of simple substitution ignition in which a table of correspondence between letters and numbers is used to encrypt and decrypt the message.
+
+## License
+Copyright © 2023 Carlos Padilla.
+
+This project is [CC0 1.0 Universal](https://github.com/14wual/pycryptools/blob/main/LICENSE) licensed.
+
+## 🚀 Know me
+Linkeding - https://www.linkedin.com/in/cpadilla10/
+Twitter - https://twitter.com/codewual
+YouTube - https://www.youtube.com/channel/UC0B3mTwPPdKPEwLerauEtdg
