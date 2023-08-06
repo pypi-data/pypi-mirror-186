@@ -1,0 +1,384 @@
+{
+  "default_explanations": {
+    "sample_id": "no_id_provided",
+    "sample_info_json": "Patient and sample information"
+  },
+  "excluded_input_fields": [
+    "defined",
+    "version",
+    "_name",
+    "bco_",
+    "stdout_",
+    "stderr_",
+    "docker_image",
+    "index",
+    "scatters",
+    "timezoneDifference",
+    "analysisDescription",
+    "analysisName",
+    "analysisWorkflow",
+    "analysisWorkflowVersion"
+  ],
+  "general_fields": [
+    {
+      "field_name": "name",
+      "field_explanation": "auto-complete",
+      "field_example": "String with name",
+      "list_of_types_with_this_field": [
+        "String",
+        "Array[String]",
+        "File",
+        "Array[File]",
+        "Boolean",
+        "Float",
+        "Int",
+        "Array[Float]",
+        "Array[Int]"
+      ],
+      "obligatory": true
+    },
+    {
+      "field_name": "type",
+      "field_explanation": "auto-complete",
+      "field_example": "Proper type",
+      "list_of_types_with_this_field": [
+        "String",
+        "Array[String]",
+        "File",
+        "Array[File]",
+        "Boolean",
+        "Float",
+        "Int",
+        "Array[Float]",
+        "Array[Int]"
+      ],
+      "obligatory": true
+    },
+    {
+      "field_name": "description",
+      "field_explanation": "Describe the input in technical language (it dose not have to be understandable for non-bioinfo user ;))",
+      "field_example": "String with description",
+      "list_of_types_with_this_field": [
+        "String",
+        "Array[String]",
+        "File",
+        "Array[File]",
+        "Boolean",
+        "Float",
+        "Int",
+        "Array[Float]",
+        "Array[Int]"
+      ],
+      "obligatory": true
+    },
+    {
+      "field_name": "hidden",
+      "field_explanation": "Indicates if input is shown in the interface",
+      "field_example": true,
+      "list_of_types_with_this_field": [
+        "String",
+        "Array[String]",
+        "File",
+        "Array[File]",
+        "Boolean",
+        "Float",
+        "Int",
+        "Array[Float]",
+        "Array[Int]"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "required",
+      "field_explanation": "Element with required set to true won't run without getting this parameter filled",
+      "field_example": true,
+      "list_of_types_with_this_field": [
+        "String",
+        "Array[String]",
+        "File",
+        "Array[File]",
+        "Boolean",
+        "Float",
+        "Int",
+        "Array[Float]",
+        "Array[Int]"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "index",
+      "field_explanation": "auto-complete",
+      "field_example": 1,
+      "list_of_types_with_this_field": [
+        "String",
+        "Array[String]",
+        "File",
+        "Array[File]",
+        "Boolean",
+        "Float",
+        "Int",
+        "Array[Float]",
+        "Array[Int]"
+      ],
+      "obligatory": true
+    },
+    {
+      "field_name": "groupId",
+      "field_explanation": "Connects the input to one of the existing group.",
+      "field_example": "str",
+      "list_of_types_with_this_field": [
+        "String",
+        "Array[String]",
+        "File",
+        "Array[File]",
+        "Boolean",
+        "Float",
+        "Int"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "advanced",
+      "field_explanation": "Indicates if input is shown in the advanced section",
+      "field_example": true,
+      "list_of_types_with_this_field": [
+        "String",
+        "Array[String]",
+        "File",
+        "Array[File]",
+        "Boolean",
+        "Float",
+        "Int",
+        "Array[Float]",
+        "Array[Int]"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "constraints.notAllowedCharacters",
+      "field_explanation": "Proper value is an array with characters which cannot be use in this input, for example: [\" \", \"#\"]",
+      "field_example": [
+        " ",
+        "#"
+      ],
+      "list_of_types_with_this_field": [
+        "String"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "constraints.maxLength",
+      "field_explanation": "Use it to limit the number of characters in this input.",
+      "field_example": 20,
+      "field_type": "Int",
+      "list_of_types_with_this_field": [
+        "String"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "constraints.values",
+      "field_explanation": "Fill list of possible values.",
+      "field_example": [
+        "exome-v6",
+        "exome-v7"
+      ],
+      "list_of_types_with_this_field": [
+        "Array[String]",
+        "Array[Float]",
+        "Array[Int]"
+      ],
+      "obligatory": true
+    },
+    {
+      "field_name": "constraints.values",
+      "field_explanation": "Fill list of possible values.",
+      "field_example": [
+        "exome-v6",
+        "exome-v7"
+      ],
+      "list_of_types_with_this_field": [
+        "String",
+        "Float",
+        "Int"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "explorare",
+      "field_explanation": "Inputs used in gene panel generator",
+      "field_example": "Genes",
+      "list_of_types_with_this_field": [
+        "String",
+        "Array[String]"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "constraints.extensions",
+      "field_explanation": "Possible files extensions",
+      "field_example": [
+        ".fastq.gz",
+        ".fq.gz"
+      ],
+      "list_of_types_with_this_field": [
+        "File",
+        "Array[File]"
+      ],
+      "obligatory": true
+    },
+    {
+      "field_name": "constraints.paired",
+      "field_explanation": "It means that you have to add even number of files (used for paired fastq)",
+      "field_example": true,
+      "list_of_types_with_this_field": [
+        "Array[File]",
+        "Array[Float]",
+        "Array[Int]",
+        "Array[String]"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "constraints.min",
+      "field_explanation": "OPTIONAL field",
+      "field_example": 1,
+      "list_of_types_with_this_field": [
+        "Int"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "constraints.min",
+      "field_explanation": "OPTIONAL field",
+      "field_example": 1.5,
+      "list_of_types_with_this_field": [
+        "Float"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "constraints.max",
+      "field_explanation": "OPTIONAL field",
+      "field_example": 3.5,
+      "list_of_types_with_this_field": [
+        "Float"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "constraints.max",
+      "field_explanation": "Maximal value",
+      "field_example": 3,
+      "list_of_types_with_this_field": [
+        "Int"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "constraints.maxFiles",
+      "field_explanation": "Maximal number of files available",
+      "field_example": 3,
+      "list_of_types_with_this_field": [
+        "Array[File]"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "default",
+      "field_explanation": "",
+      "field_example": "default value",
+      "list_of_types_with_this_field": [
+        "String"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "default",
+      "field_explanation": "",
+      "field_example": [
+        "default value1",
+        "default value2"
+      ],
+      "list_of_types_with_this_field": [
+        "Array[String]"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "default",
+      "field_explanation": "",
+      "field_example": "path",
+      "list_of_types_with_this_field": [
+        "File"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "default",
+      "field_explanation": "",
+      "field_example": [
+        "path1",
+        "path2"
+      ],
+      "list_of_types_with_this_field": [
+        "Array[File]"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "default",
+      "field_explanation": "Set proper value for this analysis",
+      "field_example": true,
+      "list_of_types_with_this_field": [
+        "Boolean"
+      ],
+      "obligatory": true
+    },
+    {
+      "field_name": "default",
+      "field_explanation": "",
+      "field_example": 1.2,
+      "list_of_types_with_this_field": [
+        "Float"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "default",
+      "field_explanation": "",
+      "field_example": 1,
+      "list_of_types_with_this_field": [
+        "Int"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "default",
+      "field_explanation": "",
+      "field_example": [
+        1.5,
+        2.5
+      ],
+      "list_of_types_with_this_field": [
+        "Array[Float]"
+      ],
+      "obligatory": false
+    },
+    {
+      "field_name": "default",
+      "field_explanation": "",
+      "field_example": [
+        1,
+        2
+      ],
+      "list_of_types_with_this_field": [
+        "Array[Int]"
+      ],
+      "obligatory": false
+    }
+  ],
+  "variant_specific_fields": [
+    
+  ]
+}

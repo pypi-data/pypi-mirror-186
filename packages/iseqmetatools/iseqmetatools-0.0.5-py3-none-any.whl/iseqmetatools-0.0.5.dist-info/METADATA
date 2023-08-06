@@ -1,0 +1,137 @@
+Metadata-Version: 2.1
+Name: iseqmetatools
+Version: 0.0.5
+Summary: Meta data for intelliseq
+Home-page: https://gitlab.com/intelliseq/iseqmetatools
+Author: motfalo
+Author-email: olaf.tomaszewski@intelliseq.pl
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: Free for non-commercial use
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: gspread (>=5.3.0)
+Requires-Dist: pytest (>=6.0.0)
+
+# Iseq meta
+
+A bunch of scripts to operate on iseq meta
+
+More info here: https://workflows-dev-documentation.readthedocs.io/en/latest/index.html
+
+# Install
+
+Optional steps (create virtual environment):
+```
+python3 -m venv venv
+source venv/bin/activate
+```
+
+
+Obligatory steps:
+```
+python3 -m pip install --upgrade pip
+pip install iseqmetatools
+```
+
+
+
+# Parsing google spreadsheet to meta
+
+You can parse inputs, outputs or workflows parameters for the workflow.
+Example use for workflows parameters (after installing):
+
+```
+parse_inputs \
+  --workflow-name "germline" \
+  --credentials "/path/to/credentials.json" \
+  --meta-json "/path/to/wdl/meta.json" \
+  --spreadsheet-key "key" \
+  --output-meta-json "/path/to/output/meta.json"
+```
+
+```
+parse_outputs \
+  --workflow-name "germline" \
+  --credentials "/path/to/credentials.json" \
+  --meta-json "/path/to/wdl/meta.json" \
+  --spreadsheet-key "key" \
+  --output-meta-json "/path/to/output/meta.json"
+```
+
+```
+parse_workflows \
+  --workflow-name "germline" \
+  --credentials "/path/to/credentials.json" \
+  --meta-json "/path/to/wdl/meta.json" \
+  --spreadsheet-key "key" \
+  --output-meta-json "/path/to/output/meta.json"
+```
+
+More info here:
+https://workflows-dev-documentation.readthedocs.io/en/latest/Developer%20tools.html#parsing-google-spreadsheet-to-meta
+
+
+# Generating meta.json from .wdl file code
+
+There are two ways to generate meta.json from .wdl file.
+
+First way, when deprecated meta is present:
+
+```
+parse_meta \
+  --path /path/to/wdl > /new/meta/directory
+```
+
+Second way, when deprecated meta is not present or is not complete:
+
+```
+create_meta \
+  --path /path/to/wdl > /new/meta/directory
+```
+
+You can also change templates configuration path (if the fields.json change before iseqmetatools update):
+
+```
+create_meta \
+  --path /path/to/wdl
+  --templates-path /path/to/templates > /new/meta/directory
+```
+
+More info here:
+https://workflows-dev-documentation.readthedocs.io/en/latest/Developer%20tools.html#creating-meta-json-from-scratch
+
+# Converting meta.json after an update of meta rules
+
+You can convert meta.json just by providing a json file containing translated new keys and removed old keys in meta.json conversion.
+An example of this file:
+
+```
+{
+    "rename": {
+        "workflows": {},
+        "inputs": {"extension": "constraints.extensions", "paired": "constraints.paired", "groupname": "groupId"},
+        "outputs": {"groupname": "groupId"},
+        "groups": {"hReadableName": "name", "minInputs": "constraints.minInputs", "maxInputs": "constraints.maxInputs"}
+    },
+    "remove": {
+        "workflows": ["keywords"],
+        "inputs": ["multiselect", "constraints.multiselect"],
+        "outputs": [],
+        "groups": []
+    }
+}
+```
+
+"Rename" section stands for changing keys names or even embedding keys into subdict structure.
+"Remove" section takes list of parameters to remove.
+
+After preparing such a file you can start conversion:
+
+```
+convert_meta \
+  --input-meta-json /path/to/meta.json
+  --input-dict-json /path/to/translated-keys.json
+  --output-meta-json /path/to/meta.json
+```
