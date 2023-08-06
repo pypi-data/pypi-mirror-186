@@ -1,0 +1,53 @@
+{% skip_file_unless pyspark_job -%}
+
+import random
+import operator
+import logging
+
+import bigflow
+
+import pyspark
+import pyspark.sql
+
+
+logger = logging.getLogger(__name__)
+
+
+def random_point():
+    x = random.random() * 2 - 1
+    y = random.random() * 2 - 1
+    logger.debug("random point (%s, %s)", x, y)
+    return (x, y)
+
+
+def point_inside_circle(xy):
+    x, y = xy
+    return x ** 2 + y ** 2 <= 1
+
+
+def estimate_pi(
+    sc: pyspark.SparkContext,
+    points,
+    partitions,
+):
+    ticks = sc.parallelize(range(points), partitions)
+    count = (
+        ticks
+        .map(lambda _: random_point())
+        .filter(point_inside_circle)
+        .count()
+    )
+    pi = (4.0 * count / points)
+    return pi
+
+
+def do_pi_estimation(
+    context: bigflow.JobContext,
+    points,
+    partitions,
+):
+    sc = pyspark.SparkContext.getOrCreate()
+    logger.info("Calculate Pi, partitions=%s", partitions)
+
+    pi = estimate_pi(sc, points=points, partitions=partitions)
+    print(f"Pi is roughly {pi:1.9f}")
