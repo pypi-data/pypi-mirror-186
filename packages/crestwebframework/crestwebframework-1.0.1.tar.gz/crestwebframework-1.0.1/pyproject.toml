@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crestwebframework"
+version = "1.0.1"
+authors = [{ name="William Herring", email="william.herring.au@gmail.com" }]
+description = "A web framework designed for simplicity and efficiency"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["web", "framework", "crest"]
+dependencies = ["typer>=0.7.0", "rich>=12.6.0"]
+
+[tool.setuptools]
+py-modules = []
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Homepage" = "https://william-herring.github.io/crest"
+"Repository" = "https://github.com/william-herring/crest"
