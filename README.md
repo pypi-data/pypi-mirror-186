@@ -3,36 +3,10 @@
 This repo contains 40000 packages uploaded to PyPI between 
 2023-01-14 21:48 and 2023-01-20 08:36.
 
-The repo is 14% (5979/40000) complete.
+The repo is 19% (7969/40000) complete.
 
-## Packages:
+Package contents can be found [in the code branch](https://github.com/pypi-data/pypi-mirror-186/tree/code/packages).
 
-| Name  | Count |
-| ----- | ----- |
-| openmtpk | 240 |
-| netbox-storage | 206 |
-| ddtrace | 197 |
-| clickhouse-connect | 195 |
-| snowflake-connector-python-nightly | 174 |
-| dulwich | 168 |
-| granian | 142 |
-| pysicgl | 139 |
-| federated-fraud-detection | 133 |
-| tsdownsample | 122 |
-| gilknocker | 121 |
-| pyagrum-nightly | 120 |
-| dedupe | 112 |
-| patato | 108 |
-| philbot-voice | 102 |
-| qiskit-terra | 98 |
-| ruff | 96 |
-| lalsuite | 96 |
-| aim | 94 |
-| python-sat | 91 |
-| light-curve | 88 |
-| pisql | 86 |
-| dedupe-Levenshtein-search | 82 |
-| spanishconjugator | 80 |
-| aimrocks | 80 |
+A browsable package list for all repositories [all packages here](https://pypi-data.github.io/website/repositories/pypi-mirror-186).
 
 
