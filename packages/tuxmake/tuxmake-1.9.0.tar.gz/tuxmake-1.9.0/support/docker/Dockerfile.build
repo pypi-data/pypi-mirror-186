@@ -1,0 +1,185 @@
+ARG BASE
+FROM ${BASE}
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+ARG PACKAGES
+ARG INSTALL_OPTIONS
+# arch for which we are building for (i.e. the cross arch)
+ARG HOSTARCH
+
+ARG EXTRA_APT_REPO_KEY
+ARG EXTRA_APT_REPO
+
+RUN if [ -f /etc/apt/sources.list.d/extra.list ]; then exit; fi; \
+    if [ -n "${EXTRA_APT_REPO_KEY}" ]; then \
+        wget -O /etc/apt/trusted.gpg.d/extra.asc "${EXTRA_APT_REPO_KEY}"; \
+    fi; \
+    if [ -n "${EXTRA_APT_REPO}" ]; then \
+        echo "${EXTRA_APT_REPO}" > /etc/apt/sources.list.d/extra.list; \
+    fi; \
+    if [ "${HOSTARCH}" = riscv64 ]; then \
+        apt-get update -q && apt-get install -qy debian-ports-archive-keyring; \
+        echo "deb http://deb.debian.org/debian-ports sid main" > /etc/apt/sources.list.d/foreign.list; \
+        echo "deb http://deb.debian.org/debian-ports unreleased main" >> /etc/apt/sources.list.d/foreign.list; \
+    fi
+
+
+# Install basic toolchain packages. Which toolchain exactly is defined by the
+# $PACKAGES build argument
+RUN apt-get update -q && \
+    apt-get install \
+        --assume-yes \
+        --no-install-recommends \
+        --option=debug::pkgProblemResolver=yes \
+        ${INSTALL_OPTIONS} \
+        $PACKAGES
+
+# Install extra development packages
+#
+# The first set of packages is for basic cross building and is supported on all
+# architectures that are also supported in some way by Debian.
+#
+# The second set is the requirements to built (most of) kselftest. Only
+# official Debian architectures are supported, as those are the only ones where
+# we can ensure that the foreign userspace libraries needed to cross compile
+# are available and in good shape enough to be installable and usable.
+RUN set -x; \
+    if [ -z "${HOSTARCH}" ]; then exit; fi; \
+    if [ "${HOSTARCH}" = armeabihf ]; then \
+        arch=armhf; \
+    elif [ "${HOSTARCH}" = "armeabi" ]; then \
+        arch=armel; \
+    else \
+        arch=$(dpkg-architecture --host-type=${HOSTARCH}-linux-gnu --query=DEB_HOST_ARCH); \
+    fi; \
+    case "${arch}" in \
+        amd64|arm64|armel|armhf|i386|mips64el|mipsel|ppc64el|s390x) \
+            supported=yes; \
+            ;; \
+        riscv64) \
+            supported=no; \
+            if grep -q unstable /etc/apt/sources.list.d/debian.sources; then \
+                supported=yes; \
+            fi; \
+            ;; \
+        *) \
+            supported=no; \
+            ;; \
+    esac; \
+    if [ "$(uname -m)" != "${HOSTARCH}" -a -n "${HOSTARCH}" ]; then \
+        dpkg --add-architecture ${arch}; \
+    fi && \
+    apt-get update && \
+    gccversion=$(gcc -dumpversion 2>/dev/null || (apt-cache policy gcc | sed -e '/Candidate:/!d; s/\s*Candidate:\s*.*://; s/\..*//')) && \
+    apt-get install \
+        --assume-yes \
+        --no-install-recommends \
+        --option=debug::pkgProblemResolver=yes \
+        ${INSTALL_OPTIONS} \
+        libgcc-${gccversion}-dev-${arch}-cross \
+        libstdc++-${gccversion}-dev-${arch}-cross \
+        libc-dev-bin && \
+    if [ "${supported}" = no ]; then exit; fi && \
+    apt-get install \
+        --assume-yes \
+        --no-install-recommends \
+        --option=debug::pkgProblemResolver=yes \
+        ${INSTALL_OPTIONS} \
+        libbinutils libbinutils:${arch} \
+        libc6-dev libc6-dev:${arch} && \
+    : libcap-ng-dev is affected by https://bugs.debian.org/983476 && \
+    : systemtap-sdt-dev is not multiarch-ready && \
+    debianversion=$(dpkg-query --show base-files | cut -f2) && \
+    if dpkg --compare-versions "${debianversion}" lt 11; then exit; fi && \
+    apt-get install \
+        --assume-yes \
+        --no-install-recommends \
+        --option=debug::pkgProblemResolver=yes \
+        libbabeltrace-dev libbabeltrace-dev:${arch} \
+        libc6-dev-${arch}-cross \
+        libasound2-dev libasound2-dev:${arch} \
+        libcap-dev libcap-dev:${arch} \
+        libcap-ng-dev:${arch} \
+        libdrm-dev libdrm-dev:${arch} \
+        libdw-dev libdw-dev:${arch} \
+        libelf-dev libelf-dev:${arch} \
+        libfuse-dev libfuse-dev:${arch} \
+        libhugetlbfs-dev libhugetlbfs-dev:${arch} \
+        libiberty-dev libiberty-dev:${arch} \
+        libkeyutils-dev libkeyutils-dev:${arch} \
+        libmnl-dev libmnl-dev:${arch} \
+        libmount-dev libmount-dev:${arch} \
+        libnuma-dev libnuma-dev:${arch} \
+        libpci-dev libpci-dev:${arch} \
+        libpopt-dev libpopt-dev:${arch} \
+        libreadline-dev \
+        libreadline-dev libreadline-dev:${arch} \
+        libslang2-dev libslang2-dev:${arch} \
+        libssl-dev libssl-dev:${arch} \
+        $(test "${arch}" != "s390x" && echo libunwind-dev libunwind-dev:${arch}) \
+        libzstd-dev libzstd-dev:${arch} \
+        linux-libc-dev \
+        linux-libc-dev-${arch}-cross \
+        systemtap-sdt-dev:${arch} \
+        && \
+    if dpkg --compare-versions "${debianversion}" ge 12; then \
+        apt-get install  \
+            --assume-yes \
+            --no-install-recommends \
+            --option=debug::pkgProblemResolver=yes \
+            pkg-config:${arch}; \
+    fi && \
+    : This is a horrible hack, but a foreign binutils-dev is not installable && \
+    : See https://bugs.debian.org/983540 && \
+    apt-get download ${INSTALL_OPTIONS} binutils-dev:${arch} && \
+    dpkg -x binutils-dev*.deb /tmp/binutils-dev && \
+    rsync -avp /tmp/binutils-dev/ / && \
+    rm -rf binutils-dev*.deb /tmp/binutils-dev
+
+# For gcc images, symlink all binaries with unversioned names into $PATH
+ARG TOOLCHAIN_VERSION
+RUN for bin in $(ls -1 /usr/bin/*-${TOOLCHAIN_VERSION} | xargs -n 1 basename); do \
+    unver=${bin%-[0-9]*}; \
+    if [ ! -x /usr/bin/${unver} ]; then \
+        ln -sfv /usr/bin/$bin /usr/local/bin/${unver}; \
+        fi; \
+    done
+
+# For clang images, symlink all the binaries in $PATH
+RUN if [ -d /usr/lib/llvm-*/bin ]; then ln -sfv /usr/lib/llvm-*/bin/* /usr/local/bin/; fi
+
+# The GCC plugins have no default package name, so we must discover the installed
+# GCC version in order to install them. :(
+RUN apt-get install \
+        --assume-yes \
+        --no-install-recommends \
+        --option=debug::pkgProblemResolver=yes \
+        $(dpkg -l 'gcc-*' | grep ^.i | awk '{print $2}' | \
+          grep -E '^gcc-[0-9]*-(.*)-base(:.*)*$' | grep -v -- -cross-base | \
+          sed -e 's/^gcc-\([0-9]*\)-/gcc-\1-plugin-dev-/; s/-base//;')
+
+
+ARG INSTALL_RUST
+ARG TUXMAKE_RUST_DIST=https://static.rust-lang.org/dist
+ARG TUXMAKE_RUST_RELEASE=2021-06-23
+
+RUN if [ -z "${INSTALL_RUST}" ]; then exit; fi; \
+    export TUXMAKE_RUST_FILENAME=rust-beta-$(uname -m)-unknown-linux-gnu; \
+    export TUXMAKE_RUST_TARBALL=${TUXMAKE_RUST_FILENAME}.tar.gz; \
+    export TUXMAKE_RUST_SRC_FILENAME=rustc-beta-src; \
+    export TUXMAKE_RUST_SRCTARBALL=${TUXMAKE_RUST_SRC_FILENAME}.tar.gz; \
+    wget --progress=dot:giga ${TUXMAKE_RUST_DIST}/${TUXMAKE_RUST_RELEASE}/${TUXMAKE_RUST_TARBALL} \
+    && wget --progress=dot:giga ${TUXMAKE_RUST_DIST}/${TUXMAKE_RUST_RELEASE}/${TUXMAKE_RUST_SRCTARBALL} \
+    && tar xaf ${TUXMAKE_RUST_TARBALL} -C /opt/ \
+    && cd /opt/${TUXMAKE_RUST_FILENAME} \
+    && ./install.sh --without=rust-docs \
+    && cd - \
+    && mkdir /usr/local/lib/rustlib/src \
+    && tar xaf ${TUXMAKE_RUST_SRCTARBALL} -C /usr/local/lib/rustlib/src  \
+    && mv /usr/local/lib/rustlib/src/rustc-beta-src /usr/local/lib/rustlib/src/rust  \
+    && rm -rf ${TUXMAKE_RUST_TARBALL} ${TUXMAKE_RUST_SRCTARBALL} /opt/${TUXMAKE_RUST_FILENAME} \
+    && cargo install --root /usr/local --locked --version 0.56.0 bindgen \
+    && rm -rf /root/.cargo
+
+# vim: ft=dockerfile
