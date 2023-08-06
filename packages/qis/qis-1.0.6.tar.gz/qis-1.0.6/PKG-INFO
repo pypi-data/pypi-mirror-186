@@ -1,0 +1,85 @@
+Metadata-Version: 2.1
+Name: qis
+Version: 1.0.6
+Summary: Implementation of visualisation and reporting analytics for Quantitative Investment Strategies
+Home-page: https://github.com/ArturSepp/QuantInvestStrats
+License: LICENSE.txt
+Keywords: quantitative,investing,portfolio optimization,systematic strategies,volatility
+Author: Artur Sepp
+Author-email: artursepp@gmail.com
+Maintainer: Artur Sepp
+Maintainer-email: artursepp@gmail.com
+Requires-Python: >=3.8,<3.11
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Financial and Insurance Industry
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: License :: Other/Proprietary License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Office/Business :: Financial :: Investment
+Requires-Dist: PyYAML (>=6.0)
+Requires-Dist: SQLAlchemy (>=1.4.46)
+Requires-Dist: easydev (>=0.12.0)
+Requires-Dist: fsspec (>=2022.11.0)
+Requires-Dist: group-lasso (>=1.5.0)
+Requires-Dist: matplotlib (>=3.6.2)
+Requires-Dist: numba (>=0.56.4)
+Requires-Dist: numpy (>=1.22.4)
+Requires-Dist: pandas (>=1.5.2)
+Requires-Dist: psycopg2 (>=2.9.5)
+Requires-Dist: pyarrow (>=10.0.1)
+Requires-Dist: scikit-learn (>=1.2.0)
+Requires-Dist: scipy (>=1.10)
+Requires-Dist: seaborn (>=0.12.2)
+Requires-Dist: statsmodels (>=0.13.5)
+Requires-Dist: tabulate (>=0.9.0)
+Project-URL: Documentation, https://github.com/ArturSepp/QuantInvestStrats
+Project-URL: Issues, https://github.com/ArturSepp/QuantInvestStrats/issues
+Project-URL: Personal website, https://artursepp.com
+Project-URL: Repository, https://github.com/ArturSepp/QuantInvestStrats
+Description-Content-Type: text/markdown
+
+# READ ME
+
+QIS stands for Quantitative investment strategies. The package implements analytics for analysis,
+simulation, and visualization of quantitative strategies 
+
+## **Installation**
+
+```python 
+pip install qis
+```
+
+## **Analytics**
+
+The QIS package is split into subpackages based on the scope level.
+
+The inclusion level is from a low dependency to higher dependency subpackages:
+
+
+1. utils is low level utilities for pandas and numpy operations
+
+2. perfstats is subpackage for performance statistics related to returns, volatilities, etc.
+
+3. plots is subpackage for plotting apis
+
+4. models includes several modules for analytical models split by applications
+
+5. portfolio is a high level package for analysis, simulation, and reporting of quant strategies
+
+6. data is a stand-alone package for data fetching using external apis
+
+7. example is modul with examples of QIS analytics
+
+
+
