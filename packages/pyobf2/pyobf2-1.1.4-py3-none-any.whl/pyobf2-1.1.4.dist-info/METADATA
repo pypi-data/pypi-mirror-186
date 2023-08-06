@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: pyobf2
+Version: 1.1.4
+Summary: An in-place obfuscator for python 3.11
+Home-page: https://github.com/0x3C50/pyobf2
+Keywords: obfuscator,obfuscator-api
+Author: 0x150
+Author-email: 99053360+0x3C50@users.noreply.github.com
+Requires-Python: >=3.10,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: colorama (>=0.4.6,<0.5.0)
+Requires-Dist: pycryptodome (>=3.16.0,<4.0.0)
+Requires-Dist: rich (>=13.1.0,<14.0.0)
+Requires-Dist: tomlkit (>=0.11.6,<0.12.0)
+Project-URL: Repository, https://github.com/0x3C50/pyobf2
+Description-Content-Type: text/markdown
+
+# PyObf 2
+
+A "continuation" of sorts of the old, private pyobf.
+
+## Installing
+The package now has a pypi! https://pypi.org/project/pyobf2/
+
+Install with `python3 -m pip install pyobf2`
+
+## Usage
+
+The obfuscator has an API, to allow you to integrate it into your own projects. For example, it can be used to obfuscate the output of a code generator automatically. An example of this API being used can be seen in `api_example.py`. If you end up using the API, please credit this repository.
+
+If you just want to run the obfuscator, run `python3 -m pyobf2` after installing it
+
+## API usage
+As previously mentioned, the `api_example.py` file contains examples on how the api works. Some notes are required, though:
+- When obfuscating multiple files that depend on each other, use `do_obfuscation_batch_ast`, instead of calling `do_obfuscation_single_ast` on all of them separately. This will allow the obfuscator to draw conclusions on which file depends on which other file, and allows it to understand the structure between them.
+- `do_obfuscation_batch_ast` is a generator. It will progressively yield each step it does, to allow for progress bar rendering. It will do nothing when not iterated through.
+- Some transformers (eg. `packInPyz`, `compileFinalFiles`) only act on the **output files** of the obfuscation process, and do nothing in the standard run. To invoke them, use `do_post_run`. This will require you to write the obfuscated AST into a file, though.
+
+## Feedback & bugs
+
+The obfuscator is in no way perfect as of now, so feedback is encouraged. Please tell me how bad my code is in the
+issues tab.
