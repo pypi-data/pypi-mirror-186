@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=60.2.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyStorages"
+version = "0.0.3"
+authors = [
+  { name="Konstantin Ostashenko", email="ostashenkokd@gmail.com" },
+]
+description = "Simple data storages package"
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = ["aiofiles>=22.1.0"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+redis = ["redis>=3.4.1"]
+aioredis = ["aioredis>=2.0.0"]
+
+[project.urls]
+"Homepage" = "https://github.com/Cub11k/pyStorages"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["storages*"]
+namespaces = false
