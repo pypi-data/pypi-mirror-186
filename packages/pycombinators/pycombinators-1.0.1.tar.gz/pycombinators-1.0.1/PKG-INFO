@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: pycombinators
+Version: 1.0.1
+Summary: Elementary combinators in Python inspired by LISP and Haskell. Mostly a convenience library for my sake.
+Home-page: https://github.com/Evan-Hock/pycombinators
+Author: Evan Hock
+Author-email: mocaointegral@gmail.com
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# combinators.py
+Elementary combinators in Python inspired by LISP and Haskell. Mostly a convenience library for my sake.
+
+## Installation
+
+```
+pip install pycombinators
+```
+
+## Sample Usage
+```py
+from pycombinators import flip
+from functools import partial
+
+# returns true if all values in xs are numbers
+def is_all_numbers(xs: list) -> bool:
+    isinstanceof = flip(isinstance)
+    return all(map(partial(isinstanceof, float), xs))
+```
