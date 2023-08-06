@@ -1,0 +1,65 @@
+Metadata-Version: 2.1
+Name: cpas-toolbox
+Version: 1.0.0
+Summary: Toolbox to evaluate categorical pose and shape estimation
+Home-page: https://github.com/roym899/pose_and_shape_evaluation
+Author: Leonard Bruns
+Author-email: roym899@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: easydict
+Requires-Dist: filterpy
+Requires-Dist: gdown
+Requires-Dist: matplotlib (<3.6)
+Requires-Dist: ninja
+Requires-Dist: numba
+Requires-Dist: numpy
+Requires-Dist: open3d
+Requires-Dist: opencv-python-headless
+Requires-Dist: Pillow
+Requires-Dist: plyfile
+Requires-Dist: requests
+Requires-Dist: scipy
+Requires-Dist: scikit-image
+Requires-Dist: sdfest
+Requires-Dist: tikzplotlib
+Requires-Dist: tqdm
+Requires-Dist: torch
+Requires-Dist: torchvision
+Requires-Dist: transforms3d
+Requires-Dist: trimesh
+Requires-Dist: yoco
+
+# Categorical Pose and Shape Evaluation Toolbox
+[![PyPI Release](https://github.com/roym899/pose_and_shape_evaluation/actions/workflows/publish_release.yaml/badge.svg)](https://github.com/roym899/pose_and_shape_evaluation/actions/workflows/publish_release.yaml) [![PyTest](https://github.com/roym899/pose_and_shape_evaluation/actions/workflows/pytest.yaml/badge.svg)](https://github.com/roym899/pose_and_shape_evaluation/actions/workflows/pytest.yaml) [![Docs](https://github.com/roym899/pose_and_shape_evaluation/actions/workflows/build_docs.yaml/badge.svg)](https://github.com/roym899/pose_and_shape_evaluation/actions/workflows/build_docs.yaml)
+
+CPAS Toolbox is a package for evaluation of categorical pose and shape estimation methods. It contains metrics, datasets and methods.
+Visit the [documentation](https://roym899.github.io/pose_and_shape_evaluation/) for detailed usage instructions and API reference.
+
+
+## Installation
+```bash
+pip install cpas_toolbox
+```
+
+## Citation
+If you find this library useful in your research, consider citing [our publication](https://arxiv.org/abs/2202.10346):
+```
+@article{bruns2022evaluation,
+  title={On the Evaluation of {RGB-D}-based Categorical Pose and Shape Estimation},
+  author={Bruns, Leonard and Jensfelt, Patric},
+  journal={arXiv preprint arXiv:2202.10346},
+  year={2022}
+}
+```
+
+## Development
+- Use `pip install -e .` to install the package in editable mode
+- Use `pip install -r requirements-dev.txt` to install dev tools
+- Use `pytest -rf --cov=cpas_toolbox --cov-report term-missing tests/` to run tests and check code coverage
