@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: mhi-common
+Version: 2.3.7
+Summary: Manitoba Hydro International: Common library
+Home-page: https://www.pscad.com/support/support-resources
+Author: Manitoba Hydro International Ltd.
+Author-email: pscad@mhi.ca
+License: BSD License
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: Microsoft :: Windows
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pywin32 (>=300)
+Requires-Dist: packaging
+
+# MHI Common Library
+
+The MHI Common Library is a collection of common functions
+designed to assist control of the MHI applications from a Python script.
+
+By itself, it does not perform any useful functions.
+An application specific automation library, which will have this library,
+as a dependency, must also be installed.
