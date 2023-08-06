@@ -1,0 +1,42 @@
+- project:
+    queue: watcher
+    templates:
+      - check-requirements
+      - tempest-plugin-jobs
+    check:
+      jobs:
+        - watcherclient-tempest-functional
+        - watcher-tempest-functional
+        - watcher-tempest-actuator
+        - watcher-tempest-strategies
+        - watcher-tempest-functional-zed
+        - watcher-tempest-functional-yoga
+        - watcher-tempest-functional-xena
+        - watcher-tempest-functional-wallaby
+    gate:
+      jobs:
+        - watcher-tempest-functional
+
+- job:
+    name: watcher-tempest-functional-zed
+    parent: watcher-tempest-functional
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/zed
+
+- job:
+    name: watcher-tempest-functional-yoga
+    parent: watcher-tempest-functional
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/yoga
+
+- job:
+    name: watcher-tempest-functional-xena
+    parent: watcher-tempest-functional
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/xena
+
+- job:
+    name: watcher-tempest-functional-wallaby
+    parent: watcher-tempest-functional
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/wallaby
