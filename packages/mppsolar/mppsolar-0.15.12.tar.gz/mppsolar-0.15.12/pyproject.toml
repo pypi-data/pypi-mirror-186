@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "mppsolar"
+version = "0.15.12"
+description = "Package to communicate with Solar inverters and BMSs"
+authors = ["John Blance"]
+
+[tool.poetry.dependencies]
+python = ">=3.7,<4.0"
+pyserial = ">3"
+paho-mqtt = "*"
+PyYAML = "*"
+bleak = "*"
+
+[tool.poetry.dev-dependencies]
+check-manifest = "*"
+flake8 = "*"
+coverage = "*"
+black = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+mpp-solar = "mppsolar:main"
+jkbms = "mppsolar:main"
+powermon= "mppsolar.powermon:main"
