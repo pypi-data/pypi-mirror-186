@@ -1,0 +1,128 @@
+Metadata-Version: 2.1
+Name: dataBased
+Version: 0.1.0
+Summary: Wrapper for the standard library Sqlite3 module to make setting up and using a database quicker and easier.
+Project-URL: Homepage, https://github.com/matt-manes/dataBased
+Project-URL: Documentation, https://github.com/matt-manes/dataBased/docs
+Project-URL: Source code, https://github.com/matt-manes/dataBased/src/dataBased
+Author: Matt Manes
+License-File: LICENSE.txt
+Keywords: database,sqlite,sqlite3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: tabulate
+Description-Content-Type: text/markdown
+
+# dataBased
+dataBased is a package that wraps the standard library Sqlite3 module to make setting up and using a database quicker and easier.<br>
+Install with:
+<pre>pip install dataBased</pre>
+dataBased is a package that wraps the standard library Sqlite3 module to largely avoid writing queries except for table definitions.<br>
+It consists of the class DataBased and an additional function for displaying information in a grid called dataToString.<br>
+The DataBased class contains functions for creating databases and tables; inserting, updating, and deleting rows; 
+as well as retrieving data and schema information.<br>
+The dataToString function uses the tabulate package (https://pypi.org/project/tabulate/) to generate a grid as a string from a list of dictionaries.<br>
+By default, dataToString will automatically wrap the width of columns to fit within the current terminal window.<br><br>
+Member functions that require a database connection will
+automatically create one when called if one isn't already open,
+but a manual call to self.close() needs to be called in order to
+save the database file and release the connection.<br>
+If a context manager is used, like in the following example, you don't need to worry about manually opening, saving, or closing the database.<br>
+<br>
+Usage:
+<pre>
+from dataBased import DataBased
+from datetime import datetime
+
+# if the .db file specified doesn't exist, it will be created
+# a log file with the same name will be generated and stored in the same directory
+with DataBased(dbPath="records.db") as db:
+    tables = [
+        "kitchenTables(numLegs int, topMaterial text, shape text, dateAdded timestamp)"
+    ]
+    # A table will only be created if it doesn't exist. createTables() will not overwrite an existing table.
+    db.createTables(tables)
+    kitchenTables = [
+        (4, "birch", "round", datetime.now()),
+        (3, "oak", "round", datetime.now()),
+        (6, "granite", "rectangle", datetime.now()),
+    ]
+    for kitchenTable in kitchenTables:
+        db.addToTable("kitchenTables", kitchenTable)
+
+    print(f'number of rows: {db.count("kitchenTables")}')
+    print(f'table names: {db.getTableNames()}')
+    print(f'column names: {db.getColumnNames("kitchenTables")}')
+    print(db.getRows("kitchenTables", [("numLegs", 6)]))
+    print(db.getRows("kitchenTables", [("shape", "round")], sortByColumn="numLegs"))
+    print(db.getRows("kitchenTables", [("shape", "round"), ("numLegs", 4)]))
+
+    db.update(
+        "kitchenTables",
+        columnToUpdate="topMaterial",
+        newValue="glass",
+        matchCriteria=[("numLegs", 3)],
+    )
+    print(db.getRows("kitchenTables", sortByColumn="numLegs"))
+    print(dataToString(db.getRows("kitchenTables"), sortKey="topMaterial"))
+</pre>
+produces:
+<pre>
+number of rows: 3
+table names: ['kitchenTables']
+column names: ['numLegs', 'topMaterial', 'shape', 'dateAdded']
+[{'numLegs': 6, 'topMaterial': 'granite', 'shape': 'rectangle', 'dateAdded': datetime.datetime(2022, 12, 9, 15, 56, 56, 543549)}]
+[{'numLegs': 3, 'topMaterial': 'oak', 'shape': 'round', 'dateAdded': datetime.datetime(2022, 12, 9, 15, 56, 56, 543549)}, {'numLegs': 4, 'topMaterial': 'birch', 'shape': 'round', 'dateAdded': datetime.datetime(2022, 12, 9, 15, 56, 56, 543549)}]
+[{'numLegs': 4, 'topMaterial': 'birch', 'shape': 'round', 'dateAdded': datetime.datetime(2022, 12, 9, 15, 56, 56, 543549)}]
+[{'numLegs': 3, 'topMaterial': 'glass', 'shape': 'round', 'dateAdded': datetime.datetime(2022, 12, 9, 15, 56, 56, 543549)}, {'numLegs': 4, 'topMaterial': 'birch', 'shape': 
+'round', 'dateAdded': datetime.datetime(2022, 12, 9, 15, 56, 56, 543549)}, {'numLegs': 6, 'topMaterial': 'granite', 'shape': 'rectangle', 'dateAdded': datetime.datetime(2022, 12, 9, 15, 56, 56, 543549)}]
+</pre>
+and the final print() call on the dataToString() function produces:
+<pre>
++-----------+---------------+-----------+----------------------------+
+| numLegs   | topMaterial   | shape     | dateAdded                  |
++===========+===============+===========+============================+
+| 4         | birch         | round     | 2022-12-14 18:19:31.501745 |
++-----------+---------------+-----------+----------------------------+
+| 3         | glass         | round     | 2022-12-14 18:19:31.501745 |
++-----------+---------------+-----------+----------------------------+
+| 6         | granite       | rectangle | 2022-12-14 18:19:31.501745 |
++-----------+---------------+-----------+----------------------------+
+</pre>
+When a DataBased object is created, if there is no file named "dbManager.py"
+in the same directory as the specified database file, one will be created from
+a template.<br>
+"dbManager.py" is a command line script that provides basic database commands,
+but can be tailored to a given database(s).<br>
+Instead of invoking the script over and over with new commands,
+the script is invoked once and will repetedly prompt the user for commands.<br>
+Invoking the script and then passing the "-h/--help" command:
+<pre>
+>dbManager.py
+Enter command: -h
+usage: dbManager.py [-h] [-db DBNAME] [-i] [-t [TABLES ...]] [-c [COLUMNS ...]] [-f FIND] [-sco] [-d [DELETE ...]] [-u UPDATE UPDATE] [-sb SORTBY]
+
+options:
+  -h, --help            show this help message and exit
+  -db DBNAME, --dbName DBNAME
+                        Name of database file to use. Required on the first loop if no default is set, but subsequent loops will resuse the same database unless a new one is provided through this arg.
+  -i, --info            Display table names, their respective columns, and how many records they contain. If a -t/--tables arg is passed, just the columns and row count for those tables will be shown.
+  -t [TABLES ...], --tables [TABLES ...]
+                        Limits commands to a specific list of tables. Optional for some commands, required for others. If this is the only arg given (besides -db if not already set), the whole table will be printed to the terminal.
+  -c [COLUMNS ...], --columns [COLUMNS ...]
+                        Limits commands to a specific list of columns. Optional for some commands, required for others. If this and -t are the only args given (besides -db if not already set), the whole table will be printed to the terminal,
+                        but with only the columns provided with this arg.
+  -f FIND, --find FIND  A substring to search the database for. If a -c/--columns arg(s) is not given, the values will be matched against all columns. Similarly, if a -t/--tables arg(s) is not given, the values will be searched for in all
+                        tables.
+  -sco, --showCountOnly
+                        Show the number of results returned by -f/--find, but don't print the results to the terminal.
+  -d [DELETE ...], --delete [DELETE ...]
+                        A list of values to be deleted from the database. A -c/--columns arg must be supplied. A -t/--tables arg must be supplied.
+  -u UPDATE UPDATE, --update UPDATE UPDATE
+                        Update a record in the database. Expects two arguments: the current value and the new value. A -c/--columns arg must be supplied. A -t/--tables arg must be supplied.
+  -sb SORTBY, --sortBy SORTBY
+                        Column to sort results by.
+Enter command:
+</pre>
