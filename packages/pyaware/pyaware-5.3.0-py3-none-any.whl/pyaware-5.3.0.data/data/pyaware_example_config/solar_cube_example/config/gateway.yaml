@@ -1,0 +1,103 @@
+aware_version: manual
+communication:
+# Communications interfaces
+  - type: modbus_rtu2
+    name: serial_port_1
+    params:
+      port:
+        type: value
+        value: /dev/ttyM0
+      stopbits:
+        type: value
+        value: 1
+      parity:
+        type: value
+        value: N
+      baudrate:
+        type: value
+        value: 38400
+  - type: modbus_tcp2
+    name: ethernet_1
+    params:
+      host:
+        type: value
+        value: 192.168.1.50
+      max_active_requests: {type: value, value: 1}
+      default_timeout: {type: value, value: 0.5}
+      auto_reconnect_after: {type: value, value: 5}
+  - type: modbus_tcp_server
+    name: server_1
+    params:
+      host:
+        type: value
+        value: 192.168.1.42
+      port:
+        type: value
+        value: 502
+      server_id: 
+        type: value
+        value: server_1
+      holding_register_blocks:
+        type: value
+        value: 
+          - [4106, 4119]
+          - [8192, 8209]
+          - [12288, 12302]
+          - [16384, 16402]
+          - [20480, 20496]
+          - [24576, 24587]
+          - [28672, 28736]
+          - [32768, 32771]
+          - [36864, 36870]
+# Device Abstractions
+  - type: sp_pro
+    name: serial_port_2
+    params:
+      port: {type: value, value: /dev/ttyM1}
+      baudrate: {type: value, value: 57600}
+      parity: {type: value, value: N}
+      stopbits: {type: value, value: 1}
+      password: {type: value, value: Selectronic SP PRO}
+      default_timeout: {type: value, value: 5}
+      auto_reconnect_after: {type: value, value: 5}
+      retry_failed_login: {type: value, value: True}
+      login_attempts: {type: value, value: 3}
+  - type: solar_qube
+    name: solar_qube
+    params:
+      device_id:
+        type: value
+        value: solar_qube
+  - type: sp_pro_device
+    name: battery_inverter
+    params:
+      client: {type: ref_comms, value: serial_port_2}
+      device_id: {type: value, value: battery_inverter_1}
+      config: {type: ref_device, value: selectronic/sppro2i_spmc482_au.yaml}
+      poll_intervals: {type: value, value: {"poll": 0.5}}
+  - name: power_meter
+    params:
+      client: {type: ref_comms, value: serial_port_1}
+      config: {type: ref_device, value: ime/nemo-d4Le.yaml}
+      device_id: {type: value, value: power_meter_1}
+      unit: {type: value, value: 1}
+      poll_intervals: {type: value, value: {"poll": 0.5}}
+    type: modbus_device
+    version: 1
+  - name: generator_controller
+    params:
+      client: {type: ref_comms, value: ethernet_1}
+      config: {type: ref_device, value: comap/intelilite_mrs16.yaml}
+      device_id: {type: value, value: generator_controller}
+      unit: {type: value, value: 1}
+      poll_intervals: {type: value, value: {"poll_holding": 5, "poll_coils": 5}}
+    type: comap_device
+    version: 1
+  # Internal pyaware translator between Communications interfaces
+  - name: translator
+    type: translator
+    params:
+      config: {type: ref_translation_config, value: translation.yaml}
+      devices: {type: ref_translation, value: [solar_qube, power_meter, generator_controller, battery_inverter]}
+      servers: {type: ref_translation, value: [server_1]}
+devices: [power_meter, generator_controller, battery_inverter]

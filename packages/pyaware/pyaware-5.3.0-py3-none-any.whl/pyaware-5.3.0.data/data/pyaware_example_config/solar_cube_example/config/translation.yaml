@@ -1,0 +1,1186 @@
+server-translation:
+  server_1:
+    devices:
+      solar_qube:
+        transformations:
+          - rename_keys:
+              definition:
+                heartbeat: Industrial-PC-Heartbeat
+                cloud-comms-status: Industrial-PC-Comms-Status
+      power_meter:
+        transformations:
+          - rename_keys:
+              definition:
+                voltage-a-n: Power-Meter-Load-Voltage
+                current-i1: Power-Meter-Load-Current
+                total-active-power: Power-Meter-Load-Active-Power
+                total-apparent-power: Power-Meter-Load-Apparent-Power
+                total-power-factor: Power-Meter-Load-Power-Factor
+                frequency: Power-Meter-Load-Frequency
+                voltage-a-n-thd: Power-Meter-Load-Voltage-Total-Harmonic-Distortion
+                total-positive-energy: Power-Meter-Load-Voltage-Total-Positive-Active-Energy
+                phase1-power-factor-sector: Power-Meter-Power-Factor-Sector
+                modbus-comms-status: Power-Meter-Comms-Status      
+      battery_inverter:
+        transformations:
+          - rename_keys:
+              definition:
+                batt-soc-percent: Total-Battery-State-of-Charge
+                battery-temperature: Total-Battery-Temperature
+                bms-voltage: Total-Battery-Voltage
+                bms-current: Total-Battery-Current
+                kaco1-ac-energy: Solar-Inverter-AC-Energy
+                kaco1-ac-power: Solar-Inverter-AC-Power
+                kaco1-dc-volts: Solar-Inverter-DC-Voltage
+                kaco1-dc-current: Solar-Inverter-DC-Current
+                kaco1-temperature: Solar-Inverter-Temperature
+                dc-inverter-power: Battery-Inverter-DC-Power
+                ac-inverter-power: Battery-Inverter-AC-Power
+                inverter-reactive-power: Battery-Inverter-Reactive-Power
+                load-ac-power: Battery-Inverter-Load-AC-Power
+                halfbridge-2-heatsink-temperature: Battery-Inverter-Temperature
+                serial-comms-status: Battery-Inverter-Comms-Status
+                generator-schedule-1: Battery-Inverter-Gen-Schedule-1
+                generator-schedule-1-day: Battery-Inverter-Gen-Schedule-1-Day
+                generator-schedule-1-start-time: Battery-Inverter-Gen-Schedule-1-Start
+                generator-schedule-1-stop-time: Battery-Inverter-Gen-Schedule-1-Stop
+                generator-lockout: Battery-Inverter-Gen-Lockout-Enable
+                generator-lockout-start-time: Battery-Inverter-Gen-Lockout-Start-Time
+                generator-lockout-stop-time: Battery-Inverter-Gen-Lockout-Stop-Time
+                common-ac-voltage-scale: Battery-Inverter-AC-Voltage-Scale
+                common-ac-current-scale: Battery-Inverter-AC-Current-Scale
+                common-dc-voltage-scale: Battery-Inverter-DC-Voltage-Scale
+                common-dc-current-scale: Battery-Inverter-DC-Current-Scale
+                common-temperature-scale: Battery-Inverter-Temperature-Scale
+                control-board-temperature: Battery-Inverter-Control-Board-Temp
+                transformer-temperature: Battery-Inverter-Transformer-Temp
+                battery-sense-volts: Battery-Inverter-Battery-Sense-Volts
+                generator-ac-power: Battery-Inverter-Generator-Power
+                bms-state-of-charge: Battery-Inverter-BMS-SOC
+                bms-state-of-health: Battery-Inverter-BMS-SOH
+                shutdown-time-schedule-1: Battery-Inverter-Shutdown-Schedule-Enable
+                shutdown-time-schedule-1-day: Battery-Inverter-Shutdown-Schedule-Day
+                shutdown-time-schedule-1-start-time: Battery-Inverter-Shutdown-Schedule-Start-Time
+                shutdown-time-schedule-1-stop-time: Battery-Inverter-Shutdown-Schedule-Stop-Time
+                battery-soc-shutdown-soc: Battery-Inverter-SOC-Shutdown-SOC
+                battery-soc-shutdown-enable: Battery-Inverter-SOC-Shutdown-Enable
+                low-soc-start-gen-enable: Battery-Inverter-Low-SOC-Start-Gen-Enable
+                low-soc-start-gen-start-time: Battery-Inverter-Low-SOC-Start-Gen-Start-Time
+                low-soc-stop-gen-start-time: Battery-Inverter-Low-SOC-Stop-Gen-Start-Time
+                low-dc-shutdown-0-percent-load: Battery-Inverter-Low-DC-Shutdown-No-Load
+                low-dc-shutdown-100-percent-load: Battery-Inverter-Low-DC-Shutdown-Full-Load
+                low-dc-shutdown-recovery: Battery-Inverter-Low-DC-Shutdown-Recovery
+                high-dc-alert: Battery-Inverter-High-DC-Alert
+                high-dc-alert-clear: Battery-Inverter-High-DC-Alert-Clear
+                maximum-charge-capability: Battery-Inverter-Max-Charge
+                low-batt-start-gen-no-load: Battery-Inverter-Low-Batt-Start-Gen-No-Load
+                low-batt-start-gen-full-load: Battery-Inverter-Low-Batt-Start-Gen-Full-Load
+                high-batt-temp-protection-limit: Battery-Inverter-Batt-Temp-Protection-Limit
+                max-batt-discharge-current: Battery-Inverter-Batt-Max-Discharge-Current
+                max-batt-discharge-current-enable: Battery-Inverter-Batt-Max-Discharge-Current-Enable
+                system-fault-recovery: Battery-Inverter-System-Fault-Recovery-Enable
+          - group_params:
+              definition:
+                Battery-Alarms:
+                  - high-battery-voltage-alarm
+                  - low-battery-voltage-alarm
+                  - high-battery-temperature-alarm
+                  - low-battery-temperature-alarm
+                  - high-discharge-current-alarm
+                  - high-charge-current-alarm
+                  - bms-internal-fault-alarm
+                  - imbalance-in-cell-voltage-alarm
+                Battery-Warnings:
+                  - high-battery-voltage-warning
+                  - low-battery-voltage-warning
+                  - high-battery-temperature-warning
+                  - low-battery-temperature-warning
+                  - high-discharge-current-warning
+                  - high-charge-current-warning
+                  - bms-internal-fault-warning
+                  - imbalance-in-cell-voltage-warning
+                  - sub-pack-1-error-warning
+                  - sub-pack-2-error-warning
+                Battery-Inverter-Alarms:
+                  - system-reset
+                  - system-main-dc-supply-cable-open-circuit-fault
+                  - system-hi-temperature-shutdown
+                  - system-hi-battery-shutdown-ac-coupled-fault
+                  - system-ac-load-voltage-alert-volts-detected-from-unknown-source
+                  - system-ac-load-exceeding-ac-source-plus-inverter-rating
+                  - service-fan-alert-fan-not-spinning
+                  - ac-source-safety-monitor-alert-neutral-and-earth-are-not-at-same-potential
+                  - inverter-dc-shutdown
+                  - inverter-soc-shutdown
+                  - inverter-low-ac-shutdown
+                  - inverter-shutdown-input-active
+                Battery-Inverter-Warnings:
+                  - system-hi-temperature-alert
+                  - inverter-low-ac-alert
+                  - inverter-low-soc-alert
+                Solar-Inverter-Alarms:
+                  - system-kaco-1-communcation-fault
+          - multiply_params:
+              definition:
+                Total-Battery-Temperature:
+                  - Total-Battery-Temperature
+                  - Battery-Inverter-Temperature-Scale
+                Total-Battery-Voltage:
+                  - Total-Battery-Voltage
+                  - Battery-Inverter-DC-Voltage-Scale
+                Total-Battery-Current:
+                  - Total-Battery-Current
+                  - Battery-Inverter-DC-Current-Scale
+                Solar-Inverter-AC-Energy:
+                  - Solar-Inverter-AC-Energy
+                  - Battery-Inverter-AC-Voltage-Scale
+                  - Battery-Inverter-AC-Current-Scale
+                Solar-Inverter-AC-Power:
+                  - Solar-Inverter-AC-Power
+                  - Battery-Inverter-AC-Voltage-Scale
+                  - Battery-Inverter-AC-Current-Scale
+                Solar-Inverter-DC-Voltage:
+                  - Solar-Inverter-DC-Voltage
+                  - Battery-Inverter-DC-Current-Scale
+                Solar-Inverter-DC-Current:
+                  - Solar-Inverter-DC-Current
+                  - Battery-Inverter-DC-Current-Scale
+                Solar-Inverter-Temperature:
+                  - Solar-Inverter-Temperature
+                  - Battery-Inverter-Temperature-Scale
+                Battery-Inverter-DC-Power: 
+                  - Battery-Inverter-DC-Power
+                  - Battery-Inverter-DC-Voltage-Scale
+                  - Battery-Inverter-DC-Current-Scale
+                Battery-Inverter-AC-Power: 
+                  - Battery-Inverter-AC-Power
+                  - Battery-Inverter-AC-Voltage-Scale
+                  - Battery-Inverter-AC-Current-Scale
+                Battery-Inverter-Reactive-Power: 
+                  - Battery-Inverter-Reactive-Power
+                  - Battery-Inverter-AC-Voltage-Scale
+                  - Battery-Inverter-AC-Current-Scale
+                Battery-Inverter-Load-AC-Power: 
+                  - Battery-Inverter-Load-AC-Power
+                  - Battery-Inverter-AC-Voltage-Scale
+                  - Battery-Inverter-AC-Current-Scale
+                Battery-Inverter-Temperature: 
+                  - Battery-Inverter-Temperature
+                  - Battery-Inverter-Temperature-Scale
+          - scale_values:
+              definition:
+                Total-Battery-Temperature: 3.052e-5
+                Total-Battery-Voltage: 3.052e-5
+                Total-Battery-Current: 3.052e-5
+                Solar-Inverter-AC-Energy: 7.32e-4
+                Solar-Inverter-AC-Power: 3.052e-7
+                Solar-Inverter-DC-Voltage: 7.63e-6
+                Solar-Inverter-DC-Current: 3.052e-5
+                Solar-Inverter-Temperature: 3.052e-5
+                Battery-Inverter-DC-Power: 3.052e-7
+                Battery-Inverter-AC-Power: 3.815e-6
+                Battery-Inverter-Reactive-Power: 3.052e-7
+                Battery-Inverter-Load-AC-Power: 3.815e-6
+                Battery-Inverter-Temperature: 3.052e-5  
+      generator_controller:
+        transformations:
+          - rename_keys:
+              definition:
+                fuel-level: Generator-Fuel-Level
+                total-fuel-consumption: Generator-Total-Fuel-Consumption
+                running-hours: Generator-Total-Running-Hours
+                engine-state: Generator-Engine-State
+                breaker-state: Generator-Breaker-State
+                num-starts: Generator-Number-of-Starts
+                modbus-comms-status: Generator-Comms-Status
+                controller-mode: Generator-Control-Mode
+                total-positive-energy: Generator-Energy
+                oil-pressure: Generator-Oil-Pressure
+                time-till-empty-mins: Generator-Time-Till-Empty
+                battery-voltage: Generator-Battery-Voltage
+                sd-battery-flat: Generator-Battery-Flat-Shutdown
+                earth-fault-delay-setpoint: Generator-Earth-Fault-Current-Delay
+                generator-overfrequency-sd-setpoint: Generator-Overfrequency-Shutdown-Setpoint
+                generator-overfrequency-wrn-setpoint: Generator-Overfrequency-Warning-Setpoint
+                generator-underfrequency-sd-setpoint: Generator-Underfrequency-Shutdown-Setpoint
+                generator-underfrequency-wrn-setpoint: Generator-Underfrequency-Warning-Setpoint
+                generator-over-under-frequency-delay-setpoint: Generator-Over-Under-Frequency-Delay-Setpoint
+                generator-overvoltage-sd-setpoint: Generator-Overvoltage-Shutdown-Setpoint
+                generator-overvoltage-wrn-setpoint: Generator-Overvoltage-Warning-Setpoint
+                generator-undervoltage-sd-setpoint: Generator-Undervoltage-Shutdown-Setpoint
+                generator-undervoltage-wrn-setpoint: Generator-Undervoltage-Warning-Setpoint
+                generator-over-under-voltage-delay-setpoint: Generator-Over-Under-Voltage-Delay-Setpoint
+                sd-overspeed: Generator-Overspeed-Shutdown
+                sd-underspeed: Generator-Underspeed-Shutdown
+                overspeed-sd-setpoint: Generator-Overspeed-Shutdown-Setpoint
+                underspeed-sd-setpoint: Generator-Underspeed-Shutdown-Setpoint
+                overload-sd-setpoint: Generator-Overload-Shutdown-Setpoint
+                overload-wrn-setpoint: Generator-Overload-Warning-Setpoint
+                overload-delay-setpoint: Generator-Overload-Delay-Setpoint
+                short-circuit-sd-setpoint: Generator-Short-Circuit-Shutdown-Setpoint
+                short-circuit-sd-delay-setpoint: Generator-Short-Circuit-Shutdown-Delay-Setpoint
+                cranking-attempts-setpoint: Generator-Cranking-Attempts-Setpoint
+                stop-time-setpoint: Generator-Stop-Time-Setpoint
+                battery-charger-fail-delay-setpoint: Generator-Battery-Charger-Fail-Delay-Setpoint
+                coolant-temp: Generator-Coolant-Temp
+                low-oil-level: Generator-Low-Oil-Level
+                low-coolant-level: Generator-Low-Coolant-Level
+                fault-reset-button: Generator-Fault-Reset
+          - group_params:
+              definition:
+                Generator-Alarms:
+                  - sd-generator-overfrequency
+                  - sd-generator-underfrequency
+                  - sd-overload
+                  - short-circuit
+                  - sd-earth-fault-current
+                  - emergency-stop
+                  - generator-l1-overvoltage
+                  - generator-l1-undervoltage
+                  - wrn-stop-fail
+                  - sd-start-fail
+                Generator-Warnings:
+                  - wrn-generator-overfrequency
+                  - wrn-generator-underfrequency
+                  - wrn-overload
+    registers:
+      holding: 
+        Power-Meter-Load-Voltage:
+          form:
+            type: ParamCType
+            address: 4106
+            idx: Power-Meter-Load-Voltage
+            data_type: uint
+        Power-Meter-Load-Current:
+          form:
+            type: ParamCType
+            address: 4108
+            idx: Power-Meter-Load-Current
+            data_type: uint   
+        Power-Meter-Load-Active-Power:
+          form:
+            type: ParamCType
+            address: 4110
+            idx: Power-Meter-Load-Active-Power
+            data_type: uint   
+        Power-Meter-Load-Apparent-Power:
+          form:
+            type: ParamCType
+            address: 4112
+            idx: Power-Meter-Load-Apparent-Power
+            data_type: uint   
+        Power-Meter-Load-Power-Factor:
+          form:
+            type: ParamCType
+            address: 4114
+            idx: Power-Meter-Load-Power-Factor
+            data_type: short 
+        Power-Meter-Load-Frequency:
+          form:
+            type: ParamCType
+            address: 4115
+            idx: Power-Meter-Load-Frequency
+            data_type: ushort 
+        Power-Meter-Load-Voltage-Total-Harmonic-Distortion:
+          form:
+            type: ParamCType
+            address: 4116
+            idx: Power-Meter-Load-Voltage-Total-Harmonic-Distortion
+            data_type: ushort 
+        Power-Meter-Load-Voltage-Total-Positive-Active-Energy:
+          form:
+            type: ParamCType
+            address: 4117
+            idx: Power-Meter-Load-Voltage-Total-Positive-Active-Energy
+            data_type: uint 
+        Power-Meter-Comms-Status:
+          form:
+            type: ParamCType
+            address: 4119
+            idx: Power-Meter-Comms-Status
+            data_type: bool 
+        Generator-Alarms:
+          form:
+            type: ParamBits
+            address: 8192
+            idx: Generator-Alarms
+            bitmask:
+              emergency-stop: 0
+              sd-earth-fault-current: 1
+              sd-generator-overfrequency: 2
+              sd-generator-underfrequency: 3
+              generator-l1-overvoltage: 4
+              generator-l1-undervoltage: 5
+              short-circuit: 6
+              sd-overload: 7
+              sd-start-fail: 8
+              wrn-stop-fail: 9
+        Generator-Warnings:
+          form:
+            type: ParamBits
+            address: 8193
+            idx: Generator-Warnings
+            bitmask:
+              wrn-generator-overfrequency: 0
+              wrn-generator-underfrequency: 1
+              wrn-overload: 2
+        Generator-Comms-Status:
+          form:
+            type: ParamCType
+            address: 8201
+            idx: Generator-Comms-Status
+            data_type: bool 
+        Generator-Fuel-Level:
+          form:
+            type: ParamCType
+            address: 8202
+            idx: Generator-Fuel-Level
+            data_type: short
+        Generator-Total-Fuel-Consumption:
+          form:
+            type: ParamCType
+            address: 8203
+            idx: Generator-Total-Fuel-Consumption
+            data_type: uint
+        Generator-Total-Running-Hours:
+          form:
+            type: ParamCType
+            address: 8205
+            idx: Generator-Total-Running-Hours
+            data_type: int
+        Generator-Engine-State:
+          form:
+            type: ParamLookup
+            address: 8207
+            idx: Generator-Engine-State
+            table: 
+              1: "Init"
+              2: "Not Ready"
+              3: "PreStart"
+              4: "Cranking"
+              5: "Pause"
+              6: "Starting"
+              7: "Running"
+              8: "Loaded"
+              9: "Stop"
+              10: "Shutdown"
+              11: "Ready"
+              12: "Cooling"
+              13: "EmergMan"
+            table_reversed:
+              "Init": 1
+              "Not Ready": 2
+              "PreStart": 3
+              "Cranking": 4
+              "Pause": 5
+              "Starting": 6
+              "Running": 7
+              "Loaded": 8
+              "Stop": 9
+              "Shutdown": 10
+              "Ready": 11
+              "Cooling": 12
+              "EmergMan": 13
+        Generator-Breaker-State:
+          form:
+            type: ParamLookup
+            address: 8208
+            idx: Generator-Breaker-State
+            table: 
+              0: "Brakes On"
+              1: "Brakes Off"
+            table_reversed:
+              "Brakes On": 0
+              "Brakes Off": 1
+        Generator-Number-of-Starts:
+          form:
+            type: ParamCType
+            address: 8209
+            idx: Generator-Number-of-Starts
+            data_type: ushort
+        Battery-Alarms:
+          form:
+            type: ParamBits
+            address: 12288
+            idx: Battery-Alarms
+            bitmask:
+              high-battery-voltage-alarm: 1
+              low-battery-voltage-alarm: 2
+              high-battery-temperature-alarm: 3
+              low-battery-temperature-alarm: 4
+              high-discharge-current-alarm: 7
+              high-charge-current-alarm: 8
+              bms-internal-fault-alarm: 11
+              imbalance-in-cell-voltage-alarm: 12
+        Battery-Warnings:
+          form:
+            type: ParamBits
+            address: 12289
+            idx: Battery-Warnings
+            bitmask:
+              high-battery-voltage-warning: 1
+              low-battery-voltage-warning: 2
+              high-battery-temperature-warning: 3
+              low-battery-temperature-warning: 4
+              high-discharge-current-warning: 7
+              high-charge-current-warning: 8
+              bms-internal-fault-warning: 11
+              imbalance-in-cell-voltage-warning: 12
+              sub-pack-1-error-warning: 13
+              sub-pack-2-error-warning: 14
+        Total-Battery-State-of-Charge:
+          form:
+            type: ParamCType
+            address: 12298
+            idx: Total-Battery-State-of-Charge
+            data_type: ushort
+        Total-Battery-Temperature:
+          form:
+            type: ParamCType
+            address: 12299
+            idx: Total-Battery-Temperature
+            data_type: short
+        Total-Battery-Voltage:
+          form:
+            type: ParamCType
+            address: 12300
+            idx: Total-Battery-Voltage
+            data_type: short
+        Total-Battery-Current:
+          form:
+            type: ParamCType
+            address: 12301
+            idx: Total-Battery-Current
+            data_type: int
+        Solar-Inverter-Alarms:
+          form:
+            type: ParamBits
+            address: 16384
+            idx: Solar-Inverter-Alarms
+            bitmask:
+              system-kaco-1-communcation-fault: 0
+        Solar-Inverter-AC-Energy:
+          form:
+            type: ParamCType
+            address: 16394
+            idx: Solar-Inverter-AC-Energy
+            data_type: ushort
+        Solar-Inverter-AC-Power:
+          form:
+            type: ParamCType
+            address: 16395
+            idx: Solar-Inverter-AC-Power
+            data_type: ushort
+        Solar-Inverter-DC-Voltage:
+          form:
+            type: ParamCType
+            address: 16396
+            idx: Solar-Inverter-DC-Voltage
+            data_type: ushort
+        Solar-Inverter-Temperature:
+          form:
+            type: ParamCType
+            address: 16397
+            idx: Solar-Inverter-Temperature
+            data_type: ushort
+        Battery-Inverter-Alarms:
+          form:
+            type: ParamBits
+            address: 20480
+            idx: Battery-Inverter-Alarms
+            bitmask:
+              inverter-soc-shutdown: 0
+              inverter-low-ac-shutdown: 1
+              system-ac-load-exceeding-ac-source-plus-inverter-rating: 2
+              system-ac-load-voltage-alert-volts-detected-from-unknown-source: 3
+              inverter-dc-shutdown: 4
+              system-hi-temperature-shutdown: 5
+              inverter-shutdown-input-active: 6
+              system-hi-battery-shutdown-ac-coupled-fault: 7
+              service-fan-alert-fan-not-spinning: 8
+              ac-source-safety-monitor-alert-neutral-and-earth-are-not-at-same-potential: 9
+              system-main-dc-supply-cable-open-circuit-fault: 10
+              system-reset: 11
+        Battery-Inverter-Warnings:
+          form:
+            type: ParamBits
+            address: 20481
+            idx: Battery-Inverter-Warnings
+            bitmask:
+              system-hi-temperature-alert: 0
+              inverter-low-ac-alert: 1
+              inverter-low-soc-alert: 2
+        Battery-Inverter-Comms-Status:
+          form:
+            type: ParamCType
+            address: 20489
+            idx: Battery-Inverter-Comms-Status
+            data_type: bool
+        Battery-Inverter-DC-Power:
+          form:
+            type: ParamCType
+            address: 20490
+            idx: Battery-Inverter-DC-Power
+            data_type: short
+        Battery-Inverter-AC-Power:
+          form:
+            type: ParamCType
+            address: 20491
+            idx: Battery-Inverter-AC-Power
+            data_type: int
+        Battery-Inverter-Reactive-Power:
+          form:
+            type: ParamCType
+            address: 20493
+            idx: Battery-Inverter-Reactive-Power
+            data_type: short
+        Battery-Inverter-Load-AC-Power:
+          form:
+            type: ParamCType
+            address: 20494
+            idx: Battery-Inverter-Load-AC-Power
+            data_type: int
+        Battery-Inverter-Temperature:
+          form:
+            type: ParamCType
+            address: 20496
+            idx: Battery-Inverter-Temperature
+            data_type: short
+        Industrial-PC-Comms-Status:
+          form:
+            type: ParamCType
+            address: 24585
+            idx: Industrial-PC-Comms-Status
+            data_type: bool
+        Industrial-PC-Heartbeat:
+          form:
+            type: ParamCType
+            address: 24586
+            idx: Industrial-PC-Heartbeat
+            data_type: uint 
+        Power-Meter-Power-Factor-Sector:
+          form:
+            type: ParamCType
+            address: 28672
+            idx: Power-Meter-Power-Factor-Sector
+            data_type: ushort
+        Generator-Energy:
+          form:
+            type: ParamCType
+            address: 28673
+            idx: Generator-Energy
+            data_type: int
+        Generator-Oil-Pressure:
+          form:
+            type: ParamCType
+            address: 28675
+            idx: Generator-Oil-Pressure
+            data_type: short
+        Generator-Time-Till-Empty:
+          form:
+            type: ParamCType
+            address: 28676
+            idx: Generator-Time-Till-Empty
+            data_type: short
+        Generator-Battery-Voltage:
+          form:
+            type: ParamCType
+            address: 28677
+            idx: Generator-Battery-Voltage
+            data_type: short
+        Generator-Battery-Flat-Shutdown:
+          form:
+            type: ParamCType
+            address: 28678
+            idx: Generator-Battery-Flat-Shutdown
+            data_type: bool
+        Generator-Earth-Fault-Current-Delay:
+          form:
+            type: ParamCType
+            address: 28679
+            idx: Generator-Earth-Fault-Current-Delay
+            data_type: ushort
+        Generator-Overfrequency-Shutdown-Setpoint:
+          form:
+            type: ParamCType
+            address: 28680
+            idx: Generator-Overfrequency-Shutdown-Setpoint
+            data_type: ushort
+        Generator-Overfrequency-Warning-Setpoint:
+          form:
+            type: ParamCType
+            address: 28681
+            idx: Generator-Overfrequency-Warning-Setpoint
+            data_type: ushort
+        Generator-Underfrequency-Shutdown-Setpoint:
+          form:
+            type: ParamCType
+            address: 28682
+            idx: Generator-Underfrequency-Shutdown-Setpoint
+            data_type: ushort
+        Generator-Underfrequency-Warning-Setpoint:
+          form:
+            type: ParamCType
+            address: 28683
+            idx: Generator-Underfrequency-Warning-Setpoint
+            data_type: ushort
+        Generator-Over-Under-Frequency-Delay-Setpoint:
+          form:
+            type: ParamCType
+            address: 28684
+            idx: Generator-Over-Under-Frequency-Delay-Setpoint
+            data_type: ushort
+        Generator-Overvoltage-Shutdown-Setpoint:
+          form:
+            type: ParamCType
+            address: 28685
+            idx: Generator-Overvoltage-Shutdown-Setpoint
+            data_type: ushort
+        Generator-Overvoltage-Warning-Setpoint:
+          form:
+            type: ParamCType
+            address: 28686
+            idx: Generator-Overvoltage-Warning-Setpoint
+            data_type: ushort
+        Generator-Undervoltage-Shutdown-Setpoint:
+          form:
+            type: ParamCType
+            address: 28687
+            idx: Generator-Undervoltage-Shutdown-Setpoint
+            data_type: ushort
+        Generator-Undervoltage-Warning-Setpoint:
+          form:
+            type: ParamCType
+            address: 28688
+            idx: Generator-Undervoltage-Warning-Setpoint
+            data_type: ushort
+        Generator-Over-Under-Voltage-Delay-Setpoint:
+          form:
+            type: ParamCType
+            address: 28689
+            idx: Generator-Over-Under-Voltage-Delay-Setpoint
+            data_type: ushort
+        Generator-Overspeed-Shutdown:
+          form:
+            type: ParamCType
+            address: 28690
+            idx: Generator-Overspeed-Shutdown
+            data_type: bool
+        Generator-Overspeed-Shutdown-Setpoint:
+          form:
+            type: ParamCType
+            address: 28691
+            idx: Generator-Overspeed-Shutdown-Setpoint
+            data_type: ushort
+        Generator-Underspeed-Shutdown:
+          form:
+            type: ParamCType
+            address: 28692
+            idx: Generator-Underspeed-Shutdown
+            data_type: bool
+        Generator-Underspeed-Shutdown-Setpoint:
+          form:
+            type: ParamCType
+            address: 28693
+            idx: Generator-Underspeed-Shutdown-Setpoint
+            data_type: ushort
+        Generator-Overload-Shutdown-Setpoint:
+          form:
+            type: ParamCType
+            address: 28694
+            idx: Generator-Overload-Shutdown-Setpoint
+            data_type: ushort
+        Generator-Overload-Delay-Setpoint:
+          form:
+            type: ParamCType
+            address: 28695
+            idx: Generator-Overload-Delay-Setpoint
+            data_type: ushort
+        Generator-Overload-Warning-Setpoint:
+          form:
+            type: ParamCType
+            address: 28696
+            idx: Generator-Overload-Warning-Setpoint
+            data_type: ushort
+        Generator-Short-Circuit-Shutdown-Setpoint:
+          form:
+            type: ParamCType
+            address: 28697
+            idx: Generator-Short-Circuit-Shutdown-Setpoint
+            data_type: ushort
+        Generator-Short-Circuit-Shutdown-Delay-Setpoint:
+          form:
+            type: ParamCType
+            address: 28698
+            idx: Generator-Short-Circuit-Shutdown-Delay-Setpoint
+            data_type: ushort
+        Generator-Cranking-Attempts-Setpoint:
+          form:
+            type: ParamCType
+            address: 28699
+            idx: Generator-Cranking-Attempts-Setpoint
+            data_type: ushort
+        Generator-Stop-Time-Setpoint:
+          form:
+            type: ParamCType
+            address: 28700
+            idx: Generator-Stop-Time-Setpoint
+            data_type: ushort
+        Generator-Battery-Charger-Fail-Delay-Setpoint:
+          form:
+            type: ParamCType
+            address: 28701
+            idx: Generator-Battery-Charger-Fail-Delay-Setpoint
+            data_type: ushort
+        Battery-Inverter-AC-Voltage-Scale:
+          form:
+            type: ParamCType
+            address: 28702
+            idx: Battery-Inverter-AC-Voltage-Scale
+            data_type: short
+        Battery-Inverter-AC-Current-Scale:
+          form:
+            type: ParamCType
+            address: 28703
+            idx: Battery-Inverter-AC-Current-Scale
+            data_type: short
+        Battery-Inverter-DC-Voltage-Scale:
+          form:
+            type: ParamCType
+            address: 28704
+            idx: Battery-Inverter-DC-Voltage-Scale
+            data_type: short
+        Battery-Inverter-DC-Current-Scale:
+          form:
+            type: ParamCType
+            address: 28705
+            idx: Battery-Inverter-DC-Current-Scale
+            data_type: short
+        Battery-Inverter-Temperature-Scale:
+          form:
+            type: ParamCType
+            address: 28706
+            idx: Battery-Inverter-Temperature-Scale
+            data_type: short
+        Battery-Inverter-Control-Board-Temp:
+          form:
+            type: ParamCType
+            address: 28707
+            idx: Battery-Inverter-Control-Board-Temp
+            data_type: short
+        Battery-Inverter-Transformer-Temp:
+          form:
+            type: ParamCType
+            address: 28708
+            idx: Battery-Inverter-Transformer-Temp
+            data_type: short
+        Battery-Inverter-Battery-Sense-Volts:
+          form:
+            type: ParamCType
+            address: 28709
+            idx: Battery-Inverter-Battery-Sense-Volts
+            data_type: short
+        Battery-Inverter-Generator-Power:
+          form:
+            type: ParamCType
+            address: 28710
+            idx: Battery-Inverter-Generator-Power
+            data_type: short
+        Battery-Inverter-BMS-SOC:
+          form:
+            type: ParamCType
+            address: 28711
+            idx: Battery-Inverter-BMS-SOC
+            data_type: ushort
+        Battery-Inverter-BMS-SOH:
+          form:
+            type: ParamCType
+            address: 28712
+            idx: Battery-Inverter-BMS-SOH
+            data_type: ushort
+        Battery-Inverter-Shutdown-Schedule-Enable:
+          form:
+            type: ParamCType
+            address: 28713
+            idx: Battery-Inverter-Shutdown-Schedule-Enable
+            data_type: bool
+        Battery-Inverter-Shutdown-Schedule-Day:
+          form:
+            type: ParamLookup
+            address: 28714
+            idx: Battery-Inverter-Shutdown-Schedule-Day
+            table:
+              0: "All"
+              1: "Monday"
+              2: "Tuesday"
+              3: "Wednesday"
+              4: "Thursday"
+              5: "Friday"
+              6: "Saturday"
+              7: "Sunday"
+              8: "Monday to Friday"
+              9: "Saturday to Sunday"
+            table_reversed:
+              "All": 0
+              "Monday": 1
+              "Tuesday": 2
+              "Wednesday": 3
+              "Thursday": 4
+              "Friday": 5
+              "Saturday": 6
+              "Sunday": 7
+              "Monday to Friday": 8
+              "Saturday to Sunday": 9
+        Battery-Inverter-Shutdown-Schedule-Start-Time:
+          form:
+            type: ParamCType
+            address: 28715
+            idx: Battery-Inverter-Shutdown-Schedule-Start-Time
+            data_type: ushort
+        Battery-Inverter-Shutdown-Schedule-Stop-Time:
+          form:
+            type: ParamCType
+            address: 28716
+            idx: Battery-Inverter-Shutdown-Schedule-Stop-Time
+            data_type: ushort
+        Battery-Inverter-SOC-Shutdown-SOC:
+          form:
+            type: ParamCType
+            address: 28717
+            idx: Battery-Inverter-SOC-Shutdown-SOC
+            data_type: ushort
+        Battery-Inverter-SOC-Shutdown-Enable:
+          form:
+            type: ParamCType
+            address: 28718
+            idx: Battery-Inverter-SOC-Shutdown-Enable
+            data_type: ushort
+        Battery-Inverter-Low-SOC-Start-Gen-Enable:
+          form:
+            type: ParamCType
+            address: 28719
+            idx: Battery-Inverter-Low-SOC-Start-Gen-Enable
+            data_type: ushort
+        Battery-Inverter-Low-SOC-Start-Gen-Start-Time:
+          form:
+            type: ParamCType
+            address: 28720
+            idx: Battery-Inverter-Low-SOC-Start-Gen-Start-Time
+            data_type: ushort
+        Battery-Inverter-Low-SOC-Stop-Gen-Start-Time:
+          form:
+            type: ParamCType
+            address: 28721
+            idx: Battery-Inverter-Low-SOC-Stop-Gen-Start-Time
+            data_type: ushort
+        Battery-Inverter-Low-DC-Shutdown-No-Load:
+          form:
+            type: ParamCType
+            address: 28722
+            idx: Battery-Inverter-Low-DC-Shutdown-No-Load
+            data_type: ushort
+        Battery-Inverter-Low-DC-Shutdown-Full-Load:
+          form:
+            type: ParamCType
+            address: 28723
+            idx: Battery-Inverter-Low-DC-Shutdown-Full-Load
+            data_type: ushort
+        Battery-Inverter-Low-DC-Shutdown-Recovery:
+          form:
+            type: ParamCType
+            address: 28724
+            idx: Battery-Inverter-Low-DC-Shutdown-Recovery
+            data_type: ushort
+        Battery-Inverter-High-DC-Alert:
+          form:
+            type: ParamCType
+            address: 28725
+            idx: Battery-Inverter-High-DC-Alert
+            data_type: bool
+        Battery-Inverter-High-DC-Alert-Clear:
+          form:
+            type: ParamCType
+            address: 28726
+            idx: Battery-Inverter-High-DC-Alert-Clear
+            data_type: bool
+        Battery-Inverter-Max-Charge:
+          form:
+            type: ParamCType
+            address: 28727
+            idx: Battery-Inverter-Max-Charge
+            data_type: ushort
+        Battery-Inverter-Low-Batt-Start-Gen-No-Load:
+          form:
+            type: ParamCType
+            address: 28728
+            idx: Battery-Inverter-Low-Batt-Start-Gen-No-Load
+            data_type: ushort
+        Battery-Inverter-Low-Batt-Start-Gen-Full-Load:
+          form:
+            type: ParamCType
+            address: 28729
+            idx: Battery-Inverter-Low-Batt-Start-Gen-Full-Load
+            data_type: ushort
+        Battery-Inverter-Batt-Temp-Protection-Limit:
+          form:
+            type: ParamCType
+            address: 28730
+            idx: Battery-Inverter-Batt-Temp-Protection-Limit
+            data_type: ushort
+        Battery-Inverter-Batt-Max-Discharge-Current:
+          form:
+            type: ParamCType
+            address: 28731
+            idx: Battery-Inverter-Batt-Max-Discharge-Current
+            data_type: ushort
+        Battery-Inverter-Batt-Max-Discharge-Current-Enable:
+          form:
+            type: ParamCType
+            address: 28732
+            idx: Battery-Inverter-Batt-Max-Discharge-Current-Enable
+            data_type: ushort
+        Battery-Inverter-System-Fault-Recovery-Enable:
+          form:
+            type: ParamCType
+            address: 28733
+            idx: Battery-Inverter-System-Fault-Recovery-Enable
+            data_type: ushort
+        Generator-Coolant-Temp:
+          form:
+            type: ParamCType
+            address: 28734
+            idx: Generator-Coolant-Temp
+            data_type: ushort
+        Generator-Low-Oil-Level:
+          form:
+            type: ParamCType
+            address: 28735
+            idx: Generator-Low-Oil-Level
+            data_type: ushort
+        Generator-Low-Coolant-Level:
+          form:
+            type: ParamCType
+            address: 28736
+            idx: Generator-Low-Coolant-Level
+            data_type: ushort
+        Generator-Control-Mode:
+          form:
+            type: ParamLookup
+            address: 32768
+            idx: Generator-Control-Mode
+            table:
+              0: "OFF"
+              1: "MAN"
+              2: "AUTO"
+            table_reversed:
+              "OFF": 0
+              "MAN": 1
+              "AUTO": 2
+        Generator-Start-Stop:
+          form:
+            type: ParamCType
+            address: 32769
+            idx: Generator-Start-Stop
+            data_type: bool
+          metadata:
+            kind: function
+        Generator-Fault-Reset:
+          form:
+            type: ParamCType
+            address: 32770
+            idx: Generator-Fault-Reset
+            data_type: bool
+        Battery-Inverter-Gen-Schedule-1:
+          form:
+            type: ParamCType
+            address: 36864
+            idx: Battery-Inverter-Gen-Schedule-1
+            data_type: bool 
+        Battery-Inverter-Gen-Schedule-1-Day:
+          form:
+            type: ParamLookup
+            address: 36865
+            idx: Battery-Inverter-Gen-Schedule-1-Day
+            table:
+              0: "All"
+              1: "Monday"
+              2: "Tuesday"
+              3: "Wednesday"
+              4: "Thursday"
+              5: "Friday"
+              6: "Saturday"
+              7: "Sunday"
+              8: "Monday to Friday"
+              9: "Saturday to Sunday"
+            table_reversed:
+              "All": 0
+              "Monday": 1
+              "Tuesday": 2
+              "Wednesday": 3
+              "Thursday": 4
+              "Friday": 5
+              "Saturday": 6
+              "Sunday": 7
+              "Monday to Friday": 8
+              "Saturday to Sunday": 9
+        Battery-Inverter-Gen-Schedule-1-Start:
+          form:
+            type: ParamCType
+            address: 36866
+            idx: Battery-Inverter-Gen-Schedule-1-Start
+            data_type: ushort 
+        Battery-Inverter-Gen-Schedule-1-Stop:
+          form:
+            type: ParamCType
+            address: 36867
+            idx: Battery-Inverter-Gen-Schedule-1-Stop
+            data_type: ushort 
+        Battery-Inverter-Gen-Lockout-Enable:
+          form:
+            type: ParamCType
+            address: 36868
+            idx: Battery-Inverter-Gen-Lockout-Enable
+            data_type: bool 
+        Battery-Inverter-Gen-Lockout-Start-Time:
+          form:
+            type: ParamCType
+            address: 36869
+            idx: Battery-Inverter-Gen-Lockout-Start-Time
+            data_type: ushort 
+        Battery-Inverter-Gen-Lockout-Stop-Time:
+          form:
+            type: ParamCType
+            address: 36870
+            idx: Battery-Inverter-Gen-Lockout-Stop-Time
+            data_type: ushort                            
+device-translation:
+  solar_qube:
+    servers:
+      server_1:
+        transformations:
+          - rename_keys:
+              definition:
+                Industrial-PC-Heartbeat: heartbeat
+                Industrial-PC-Comms-Status: cloud-comms-status
+  power_meter:
+    servers:
+      server_1:
+        transformations:
+          - rename_keys:
+              definition:
+                Power-Meter-Load-Voltage: voltage-a-n
+                Power-Meter-Load-Current: current-i1
+                Power-Meter-Load-Active-Power: total-active-power
+                Power-Meter-Load-Apparent-Power: total-apparent-power
+                Power-Meter-Load-Power-Factor: total-power-factor
+                Power-Meter-Load-Frequency: frequency
+                Power-Meter-Load-Voltage-Total-Harmonic-Distortion: voltage-a-n-thd
+                Power-Meter-Load-Voltage-Total-Positive-Active-Energy: total-positive-energy
+                Power-Meter-Power-Factor-Sector: phase1-power-factor-sector
+                Power-Meter-Comms-Status: modbus-comms-status
+  battery_inverter:
+    servers:
+      server_1:
+        transformations:
+          - rename_keys:
+              definition:
+                Total-Battery-State-of-Charge: batt-soc-percent
+                Total-Battery-Temperature: battery-temperature
+                Total-Battery-Voltage: bms-voltage
+                Total-Battery-Current: bms-current
+                Solar-Inverter-AC-Energy: kaco1-ac-energy
+                Solar-Inverter-AC-Power: kaco1-ac-power
+                Solar-Inverter-DC-Voltage: kaco1-dc-volts
+                Solar-Inverter-DC-Current: kaco1-dc-current
+                Solar-Inverter-Temperature: kaco1-temperature
+                Battery-Inverter-DC-Power: dc-inverter-power
+                Battery-Inverter-AC-Power: ac-inverter-power
+                Battery-Inverter-Reactive-Power: inverter-reactive-power
+                Battery-Inverter-Load-AC-Power: load-ac-power
+                Battery-Inverter-Temperature: halfbridge-2-heatsink-temperature
+                Battery-Inverter-Comms-Status: serial-comms-status
+                Battery-Inverter-Gen-Schedule-1: generator-schedule-1
+                Battery-Inverter-Gen-Schedule-1-Day: generator-schedule-1-day
+                Battery-Inverter-Gen-Schedule-1-Start: generator-schedule-1-start-time
+                Battery-Inverter-Gen-Schedule-1-Stop: generator-schedule-1-stop-time
+                Battery-Inverter-Gen-Lockout-Enable: generator-lockout
+                Battery-Inverter-Gen-Lockout-Start-Time: generator-lockout-start-time
+                Battery-Inverter-Gen-Lockout-Stop-Time: generator-lockout-stop-time
+                Battery-Inverter-AC-Voltage-Scale: common-ac-voltage-scale
+                Battery-Inverter-AC-Current-Scale: common-ac-current-scale
+                Battery-Inverter-DC-Voltage-Scale: common-dc-voltage-scale
+                Battery-Inverter-DC-Current-Scale: common-dc-current-scale
+                Battery-Inverter-Temperature-Scale: common-temperature-scale
+                Battery-Inverter-Control-Board-Temp: control-board-temperature
+                Battery-Inverter-Transformer-Temp: transformer-temperature
+                Battery-Inverter-Battery-Sense-Volts: battery-sense-volts
+                Battery-Inverter-Generator-Power: generator-ac-power
+                Battery-Inverter-BMS-SOC: bms-state-of-charge
+                Battery-Inverter-BMS-SOH: bms-state-of-health
+                Battery-Inverter-Shutdown-Schedule-Enable: shutdown-time-schedule-1
+                Battery-Inverter-Shutdown-Schedule-Day: shutdown-time-schedule-1-day
+                Battery-Inverter-Shutdown-Schedule-Start-Time: shutdown-time-schedule-1-start-time
+                Battery-Inverter-Shutdown-Schedule-Stop-Time: shutdown-time-schedule-1-stop-time
+                Battery-Inverter-SOC-Shutdown-SOC: battery-soc-shutdown-soc
+                Battery-Inverter-SOC-Shutdown-Enable: battery-soc-shutdown-enable
+                Battery-Inverter-Low-SOC-Start-Gen-Enable: low-soc-start-gen-enable
+                Battery-Inverter-Low-SOC-Start-Gen-Start-Time: low-soc-start-gen-start-time
+                Battery-Inverter-Low-SOC-Stop-Gen-Start-Time: low-soc-stop-gen-start-time
+                Battery-Inverter-Low-DC-Shutdown-No-Load: low-dc-shutdown-0-percent-load
+                Battery-Inverter-Low-DC-Shutdown-Full-Load: low-dc-shutdown-100-percent-load
+                Battery-Inverter-Low-DC-Shutdown-Recovery: low-dc-shutdown-recovery
+                Battery-Inverter-High-DC-Alert: high-dc-alert
+                Battery-Inverter-High-DC-Alert-Clear: high-dc-alert-clear
+                Battery-Inverter-Max-Charge: maximum-charge-capability
+                Battery-Inverter-Low-Batt-Start-Gen-No-Load: low-batt-start-gen-no-load
+                Battery-Inverter-Low-Batt-Start-Gen-Full-Load: low-batt-start-gen-full-load
+                Battery-Inverter-Batt-Temp-Protection-Limit: high-batt-temp-protection-limit
+                Battery-Inverter-Batt-Max-Discharge-Current: max-batt-discharge-current
+                Battery-Inverter-Batt-Max-Discharge-Current-Enable: max-batt-discharge-current-enable
+                Battery-Inverter-System-Fault-Recovery-Enable: system-fault-recovery
+  generator_controller:
+    servers:
+      server_1:
+        transformations:
+          - rename_keys:
+              definition:
+                Generator-Fuel-Level: fuel-level
+                Generator-Total-Fuel-Consumption: total-fuel-consumption
+                Generator-Total-Running-Hours: running-hours
+                Generator-Engine-State: engine-state
+                Generator-Breaker-State: breaker-state
+                Generator-Number-of-Starts: num-starts
+                Generator-Comms-Status: modbus-comms-status
+                Generator-Control-Mode: controller-mode
+                Generator-Energy: total-positive-energy
+                Generator-Oil-Pressure: oil-pressure
+                Generator-Time-Till-Empty: time-till-empty-mins
+                Generator-Battery-Voltage: battery-voltage
+                Generator-Battery-Flat-Shutdown: sd-battery-flat
+                Generator-Earth-Fault-Current-Delay: earth-fault-delay-setpoint
+                Generator-Overfrequency-Shutdown-Setpoint: generator-overfrequency-sd-setpoint
+                Generator-Overfrequency-Warning-Setpoint: generator-overfrequency-wrn-setpoint
+                Generator-Underfrequency-Shutdown-Setpoint: generator-underfrequency-sd-setpoint
+                Generator-Underfrequency-Warning-Setpoint: generator-underfrequency-wrn-setpoint
+                Generator-Over-Under-Frequency-Delay-Setpoint: generator-over-under-frequency-delay-setpoint
+                Generator-Overvoltage-Shutdown-Setpoint: generator-overvoltage-sd-setpoint
+                Generator-Overvoltage-Warning-Setpoint: generator-overvoltage-wrn-setpoint
+                Generator-Undervoltage-Shutdown-Setpoint: generator-undervoltage-sd-setpoint
+                Generator-Undervoltage-Warning-Setpoint: generator-undervoltage-wrn-setpoint
+                Generator-Over-Under-Voltage-Delay-Setpoint: generator-over-under-voltage-delay-setpoint
+                Generator-Overspeed-Shutdown: sd-overspeed
+                Generator-Underspeed-Shutdown: sd-underspeed
+                Generator-Overspeed-Shutdown-Setpoint: overspeed-sd-setpoint
+                Generator-Underspeed-Shutdown-Setpoint: underspeed-sd-setpoint
+                Generator-Overload-Shutdown-Setpoint: overload-sd-setpoint
+                Generator-Overload-Warning-Setpoint: overload-wrn-setpoint
+                Generator-Overload-Delay-Setpoint: overload-delay-setpoint
+                Generator-Short-Circuit-Shutdown-Setpoint: short-circuit-sd-setpoint
+                Generator-Short-Circuit-Shutdown-Delay-Setpoint: short-circuit-sd-delay-setpoint
+                Generator-Cranking-Attempts-Setpoint: cranking-attempts-setpoint
+                Generator-Stop-Time-Setpoint: stop-time-setpoint
+                Generator-Battery-Charger-Fail-Delay-Setpoint: battery-charger-fail-delay-setpoint
+                Generator-Coolant-Temp: coolant-temp 
+                Generator-Low-Oil-Level: low-oil-level
+                Generator-Low-Coolant-Level: low-coolant-level
+                Generator-Fault-Reset: fault-reset-button

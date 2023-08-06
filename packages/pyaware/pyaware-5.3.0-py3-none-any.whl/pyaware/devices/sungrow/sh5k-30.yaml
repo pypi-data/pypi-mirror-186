@@ -1,0 +1,205 @@
+sources:
+  poll_input:
+    type: poll
+    poll_interval: 5
+    handle: input
+    blocks:
+      - [5004, 5006]
+      - [5008, 5009]
+      - [5017, 5019]
+      - [5035, 5037]
+      - [13000, 13001]
+      - [13002, 13005]
+      - [13008, 13010]
+      - [13015, 13017]
+      - [13020, 13029]
+parameters:
+  total-positive-energy:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 5004
+      idx: total-positive-energy
+      word_order: <
+      data_type: uint
+    triggers:
+      process:
+        send:
+          - [time, 60]
+  inverter-temperature:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 5008
+      idx: inverter-temperature
+      data_type: short
+    triggers:
+      process:
+        send:
+          - [time, 60]
+  pv-dc-power:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 5017
+      idx: pv-dc-power
+      word_order: <
+      data_type: uint
+    triggers:
+      process:
+        send:
+          - [ time, 60 ]
+  power-factor:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 5035
+      idx: power-factor
+      data_type: short
+    triggers:
+      process:
+        send:
+          - [ time, 60 ]
+  frequency:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 5036
+      idx: frequency
+      data_type: ushort
+    triggers:
+      process:
+        send:
+          - [ time, 60 ]
+  system-state:
+    source: poll_input
+    form:
+      type: ParamLookup
+      address: 13000
+      idx: system-state
+      table:
+        0x0002: "Stop"
+        0x0008: "Standby"
+        0x0010: "Initial Standby"
+        0x0020: "Startup"
+        0x0040: "Running"
+        0x0100: "Fault"
+        0x0400: "Running in Maintain Mode"
+        0x0800: "Running in Forced Mode"
+        0x1000: "Running in Off-Grid Mode"
+        0x2501: "Restarting"
+        0x4000: "Running in External EMS Mode"
+      table_reversed:
+        "Stop": 0x0002
+        "Standby": 0x0008
+        "Initial Standby": 0x0010
+        "Startup": 0x0020
+        "Running": 0x0040
+        "Fault": 0x0100
+        "Running in Maintain Mode": 0x0400
+        "Running in Forced Mode": 0x0800
+        "Running in Off-Grid Mode": 0x1000
+        "Restarting": 0x2501
+        "Running in External EMS Mode": 0x4000
+    triggers:
+      process:
+        send:
+          - [ state ]
+          - [ time, 60 ]
+  total-pv-positive-energy:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 13003
+      idx: total-pv-positive-energy
+      word_order: <
+      data_type: uint
+    triggers:
+      process:
+        send:
+          - [ time, 60 ]
+  load-power:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 13008
+      idx: load-power
+      word_order: <
+      data_type: int
+    triggers:
+      process:
+        send:
+          - [ time, 60 ]
+  battery-voltage:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 13020
+      idx: battery-voltage
+      data_type: ushort
+    triggers:
+      process:
+        send:
+          - [ time, 60 ]
+  battery-current:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 13021
+      idx: battery-current
+      data_type: ushort
+    triggers:
+      process:
+        send:
+          - [ time, 60 ]
+  battery-power:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 13022
+      idx: battery-power
+      data_type: ushort
+    triggers:
+      process:
+        send:
+          - [ time, 60 ]
+  battery-state-of-charge:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 13023
+      idx: battery-state-of-charge
+      data_type: ushort
+    triggers:
+      process:
+        send:
+          - [ time, 60 ]
+  battery-temperature:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 13025
+      idx: battery-temperature
+      data_type: short
+    triggers:
+      process:
+        send:
+          - [ time, 60 ]
+  total-battery-discharge-energy:
+    source: poll_input
+    form:
+      type: ParamCType
+      address: 13027
+      idx: total-battery-discharge-energy
+      word_order: <
+      data_type: uint
+    triggers:
+      process:
+        send:
+          - [ time, 60 ]
+transformations:
+  - scale_values:
+      definition:
+        total-positive-energy: 1000
+        total-pv-positive-energy: 1000
+        total-battery-discharge-energy: 1000
