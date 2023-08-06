@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "services.x-network",
+  "$id": "services.x-network.spec.json",
+  "type": "object",
+  "title": "services.x-network specification",
+  "description": "The services.x-network specification for ComposeX",
+  "additionalProperties": false,
+  "properties": {
+    "AssignPublicIp": {
+      "type": "boolean"
+    },
+    "AdditionalSecurityGroups": {
+      "description": "Define additional security groups to use.",
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-zA-Z0-9._-]+$": {
+          "description": "The definition of the security group to use",
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "The security group ID to use. It must belong to the same VPC you are deploying to"
+            },
+            {
+              "$ref": "x-resources.common.spec.json#/definitions/Lookup"
+            }
+          ]
+        }
+      }
+    },
+    "x-cloudmap": {
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "When you want to register the service into CloudMap. First port listed in ports[] used."
+        },
+        {
+          "type": "object",
+          "description": "Allows you to register the service to multiple registries, and/or use a specific port.",
+          "additionalProperties": false,
+          "patternProperties": {
+            "[a-zA-Z0-9-_.]+$": {
+              "type": "object",
+              "description": "The name of the object is the name of the x-cloudmap::<map>.",
+              "additionalProperties": false,
+              "required": [
+                "Port"
+              ],
+              "properties": {
+                "Port": {
+                  "description": "The port to register in SRV record",
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 65535
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Ingress": {
+      "$ref": "ingress.spec.json"
+    }
+  },
+  "definitions": {
+  }
+}
