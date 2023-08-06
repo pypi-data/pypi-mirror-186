@@ -1,0 +1,40 @@
+from os import getenv, path, mkdir
+from dotenv import load_dotenv
+
+
+APP_DIRECTORY = getenv('CRYTON_WORKER_APP_DIRECTORY', path.expanduser("~/.local/cryton-worker/"))
+
+load_dotenv(path.join(APP_DIRECTORY, ".env"))
+
+LOG_DIRECTORY = path.join(APP_DIRECTORY, "log/")
+
+for file_path in [APP_DIRECTORY, LOG_DIRECTORY]:
+    if not path.exists(file_path):
+        mkdir(file_path)
+
+LOG_FILE_PATH = path.join(LOG_DIRECTORY, "cryton-worker.log")
+LOG_FILE_PATH_DEBUG = path.join(LOG_DIRECTORY, "cryton-worker-debug.log")
+
+WORKER_NAME = getenv("CRYTON_WORKER_NAME")
+MODULES_DIR = getenv("CRYTON_WORKER_MODULES_DIR")
+DEBUG = True if getenv("CRYTON_WORKER_DEBUG").lower() == "true" else False
+INSTALL_REQUIREMENTS = True if getenv("CRYTON_WORKER_INSTALL_REQUIREMENTS").lower() == "true" else False
+CONSUMER_COUNT = int(getenv("CRYTON_WORKER_CONSUMER_COUNT"))
+PROCESSOR_COUNT = int(getenv("CRYTON_WORKER_PROCESSOR_COUNT"))
+MAX_RETRIES = int(getenv("CRYTON_WORKER_MAX_RETRIES"))
+
+MSFRPCD_HOST = getenv("CRYTON_WORKER_MSFRPCD_HOST")
+MSFRPCD_PORT = int(getenv("CRYTON_WORKER_MSFRPCD_PORT"))
+MSFRPCD_SSL = True if getenv("CRYTON_WORKER_MSFRPCD_SSL").lower() == "true" else False
+MSFRPCD_PASSWORD = getenv("CRYTON_WORKER_MSFRPCD_PASSWORD")
+MSFRPCD_USERNAME = getenv("CRYTON_WORKER_MSFRPCD_USERNAME")
+
+RABBIT_HOST = getenv("CRYTON_WORKER_RABBIT_HOST")
+RABBIT_PORT = int(getenv("CRYTON_WORKER_RABBIT_PORT"))
+RABBIT_USERNAME = getenv("CRYTON_WORKER_RABBIT_USERNAME")
+RABBIT_PASSWORD = getenv("CRYTON_WORKER_RABBIT_PASSWORD")
+
+EMPIRE_HOST = getenv("CRYTON_WORKER_EMPIRE_HOST")
+EMPIRE_PORT = getenv("CRYTON_WORKER_EMPIRE_PORT")
+EMPIRE_USERNAME = getenv("CRYTON_WORKER_EMPIRE_USERNAME")
+EMPIRE_PASSWORD = getenv("CRYTON_WORKER_EMPIRE_PASSWORD")
