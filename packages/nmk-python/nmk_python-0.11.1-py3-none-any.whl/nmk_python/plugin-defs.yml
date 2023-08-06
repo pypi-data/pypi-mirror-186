@@ -1,0 +1,33 @@
+# Python plugin definition
+refs:
+    # Local refs
+    - python.yml    # Python path contribution
+    - files.yml     # Look for python source files
+    - version.yml   # Python version contribution
+    - setup.yml     # Python setup files generation
+    - format.yml    # Python code format (with black/isort)
+    - flake.yml     # Python code analysis (with flake8)
+    - build.yml     # Python module build/install
+    - tests.yml     # Python automated tests
+    - badges.yml    # Python badges
+
+config:
+    # Plugin version
+    nmkPythonPluginVersion:
+        __resolver__: nmk_python.NmkPythonVersionResolver
+
+    # Plugin versions dict
+    nmkPluginsVersions:
+        nmk-python: ${nmkPythonPluginVersion}
+
+    # Plugin help links dict
+    nmkPluginsDocs:
+        nmk-python: https://github.com/dynod/nmk/wiki/nmk-python-plugin
+
+    # Contribution to VSCode settings/launch/extensions (if plugin is used)
+    vscodeSettingsFiles:
+        - ${BASEDIR}/templates/python-settings.json
+    vscodeLaunchFiles:
+        - ${BASEDIR}/templates/python-test-debug-launch.json
+    vscodeExtensionsNames:
+        - ms-python.python

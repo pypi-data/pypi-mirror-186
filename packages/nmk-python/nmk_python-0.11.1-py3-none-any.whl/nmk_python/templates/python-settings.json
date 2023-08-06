@@ -1,0 +1,37 @@
+{
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--ignore={% for rule in pythonIgnoredRules %}{% if loop.index > 1 %},{% endif %}{{rule}}{% endfor %}"
+    ],
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "-l",
+        "{{ pythonLineLength }}"
+    ],
+    "python.defaultInterpreterPath": "venv/bin/python",
+    "python.autoComplete.extraPaths": [{% for folder in pythonSrcFolders %}{% if loop.index > 1 %},{% endif %}
+        "{{folder}}"{% endfor %}
+    ],
+    "cSpell.words": [
+        "isort",
+        "noqa",
+        "pycache",
+        "pylint",
+        "pytest",
+        "pyvenv",
+        "sdist",
+        "venv",
+        "loadme"
+    ],
+    "python.analysis.extraPaths": [{% for folder in pythonSrcFolders %}{% if loop.index > 1 %},{% endif %}
+        "{{folder}}"{% endfor %}
+    ],
+    "python.testing.pytestEnabled": {% if pythonTestFiles | length > 0 %}true{% else %}false{% endif %}
+}
