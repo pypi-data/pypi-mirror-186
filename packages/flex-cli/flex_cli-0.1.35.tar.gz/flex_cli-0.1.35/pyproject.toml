@@ -1,0 +1,121 @@
+[tool.poetry]
+name = "flex-cli"
+version = "0.1.35"
+description = "Local CLI is an extendable interactive command line tool built in mind with the objective to make the interaction with day to day scripts more user friendly. The scripts you use daily should be easy to maintain, develop and document so you don't need to worry to write long documents on how to use them."
+
+license = "MIT"
+
+authors = [
+    "George Babarus <george.babarus@gmail.com>"
+]
+
+readme = 'README.md'  # Markdown files are supported
+
+repository = "https://github.com/a42ss/lcli"
+homepage = "https://github.com/a42ss/lcli"
+
+keywords = ['cli', 'flex', 'documentation', 'automation', 'local', 'command', 'command-line', 'script', 'scripts', 'command-line-tool', 'automation-framework', 'flex cli', 'flexible']
+
+packages = [
+    { include = "lcli", from = "src"  },
+    { include = "flex_cli", from = "src"  },
+    { include = "flex_ansible", from = "src"  },
+    { include = "flex_framework", from = "src"  }
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+fire = { version = ">=0.4,<0.6" }
+pinject = { version = "^0.14" }
+prompt-toolkit = { version = "^3.0" }
+PyYAML = { version = "^6.0" }
+types-PyYAML = "*"
+jsonschema = { version = "^4.5" }
+pyfiglet = { version = "^0.8" }
+blessings = { version = "^1.7" }
+ansible = { version = "^6.4", optional = true}
+
+[tool.poetry.extras]
+ansible = ["ansible"]
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "*"
+sphinxcontrib-httpdomain = "*"
+sphinx_rtd_theme = "*"
+recommonmark = "*"
+m2r = "*"
+
+[tool.poetry.group.build]
+optional = true
+
+[tool.poetry.group.build.dependencies]
+poetry = "^1.3"
+poetry2setup = "^1.1.0"
+toml = "*"
+
+# Build tools
+build = "*"
+twine = "*"
+invoke = "*"
+pipreqs = "*"
+flake8 = "*"
+isort = "*"
+black = "*"
+mypy = "*"
+bandit = "*"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+pytest-cov = "*"
+mock = "*"
+coverage = {extras = ["toml"], version = "^6.4.4"}
+
+[tool.poetry.group.poetry]
+optional = true
+
+[tool.poetry.group.poetry.dependencies]
+poetry = "^1.3"
+poetry2setup = "^1.1.0"
+
+[[tool.poetry.source]]
+name = "testpypi"
+url = "https://test.pypi.org/legacy/"
+default = false
+secondary = false
+
+[tool.coverage.run]
+relative_files = true
+
+[tool.poetry.scripts]
+lcli = 'lcli.__main__:main'
+flex-cli = 'flex_cli.__main__:main'
+fcli = 'lcli.__main__:main'
+
+[tool.poetry.plugins]
+
+[tool.bandit]
+exclude = "src/test"
+skips = ["B602", "B605", "B603", "B301", "B403", "B404"]
+
+[virtualenvs]
+create = true
+in-project = true
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
+
+[tool.mypy]
+explicit_package_bases = true
+exclude = [
+]
