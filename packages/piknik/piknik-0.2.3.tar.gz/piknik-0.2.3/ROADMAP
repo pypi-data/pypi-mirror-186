@@ -1,0 +1,14 @@
+- 0.5.0
+	* Verify and enforce cryptographic key of identity for assignments
+- 0.4.0
+	* HTTP server for making state edits for issues locally (e.g. drag).
+- 0.3.0
+	* Automatially embed VCS target and source hash to issue and issue messages.
+		- target: current hash target to merge into (var)
+		- source: current hash source to merge (var)
+	* Target alias for issue, e.g. version, revision, may be:
+		- inherit from other issue
+		- target hash above
+		- git tag
+		- arbitrary string identifier
+	* Add renderer result tests for plain, html
