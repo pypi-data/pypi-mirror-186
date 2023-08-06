@@ -1,0 +1,96 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import logging
+import logging.config
+import datetime
+from pathlib import Path, PosixPath, WindowsPath
+
+import dash
+
+import webviz_config
+import webviz_config.plugins
+from webviz_config.themes import installed_themes
+from webviz_config.webviz_store import WEBVIZ_STORAGE
+from webviz_config.webviz_assets import WEBVIZ_ASSETS
+from webviz_config.common_cache import CACHE
+from webviz_config.webviz_instance_info import WebvizRunMode, WEBVIZ_INSTANCE_INFO
+from webviz_config.webviz_factory_registry import WEBVIZ_FACTORY_REGISTRY
+from webviz_config.utils import deprecate_webviz_settings_attribute_in_dash_app
+
+logging.basicConfig(level=logging.{{ loglevel }})
+
+theme = webviz_config.WebvizConfigTheme("{{ theme_name }}")
+theme.from_json((Path(__file__).resolve().parent / "theme_settings.json").read_text())
+theme.plotly_theme_layout_update({{ options.plotly_theme }})
+
+app = dash.Dash()
+app.config.suppress_callback_exceptions = True
+
+# Trigger import of plugins used, such that SHARED_SETTINGS_SUBSCRIPTIONS
+# is populated before setting webviz_settings
+{% for page in pageContents %}
+{% for content in page.content %}
+{% if content is not string %}
+webviz_config.plugins.{{ content._call_signature[0].split('(')[0]}}
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+# Create the common webviz_setting object that will get passed as an
+# argument to all plugins that request it.
+webviz_settings: webviz_config.WebvizSettings = webviz_config.WebvizSettings(
+    shared_settings=webviz_config.SHARED_SETTINGS_SUBSCRIPTIONS.transformed_settings(
+        {{ shared_settings }}, {{ config_folder }}, {{ False }}
+    ),
+    theme=theme,
+)
+
+# Previously, webviz_settings was piggybacked onto the Dash application object.
+# For a period of time, keep it but mark access to the webviz_settings attribute
+# on the Dash application object as deprecated.
+deprecate_webviz_settings_attribute_in_dash_app()
+app._deprecated_webviz_settings = {
+    "shared_settings" : webviz_settings.shared_settings,
+    "theme" : webviz_settings.theme
+}
+
+{% if logging_config_dict is defined %}
+# Apply a logging config dict as specified via the --logconfig command line argument.
+logging.config.dictConfig({{ logging_config_dict }})
+{% endif %}
+
+CACHE.init_app(app.server)
+
+storage_folder = Path(__file__).resolve().parent / "resources" / "webviz_storage"
+
+WEBVIZ_STORAGE.storage_folder = storage_folder
+
+WEBVIZ_INSTANCE_INFO.initialize(
+    dash_app=app,
+    run_mode=WebvizRunMode.BUILDING_PORTABLE,
+    theme=theme,
+    storage_folder=storage_folder
+)
+
+WEBVIZ_FACTORY_REGISTRY.initialize({{ internal_factory_settings if internal_factory_settings is defined else None }})
+
+plugins = []
+
+{% for page in pageContents %}
+{% for content in page.content %}
+{% if content is not string %}
+plugins.append(webviz_config.plugins.{{ content._call_signature[0] }})
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+WEBVIZ_FACTORY_REGISTRY.cleanup_resources_after_plugin_init()
+
+for plugin in plugins:
+    if hasattr(plugin, "add_webvizstore"):
+        WEBVIZ_STORAGE.register_function_arguments(plugin.add_webvizstore())
+
+WEBVIZ_ASSETS.make_portable(Path(__file__).resolve().parent / "resources" / "assets")
+
+WEBVIZ_STORAGE.build_store()
