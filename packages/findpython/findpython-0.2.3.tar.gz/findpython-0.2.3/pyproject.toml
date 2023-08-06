@@ -1,0 +1,61 @@
+[project]
+name = "findpython"
+description = "A utility to find python versions on your system"
+authors = [
+    { name = "Frost Ming", email = "mianghong@gmail.com" },
+]
+dependencies = [
+    "packaging>=20",
+]
+requires-python = ">=3.7"
+readme = "README.md"
+dynamic = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+version = "0.2.3"
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+Homepage = "https://github.com/frostming/findpython"
+
+[project.scripts]
+findpython = "findpython.__main__:main"
+
+[tool.pdm.version]
+source = "scm"
+write_to = "findpython/__version__.py"
+write_template = "__version__ = \"{}\"\n"
+
+[tool.pdm.build]
+package-dir = "src"
+
+[tool.pdm.dev-dependencies]
+tests = [
+    "pytest",
+]
+
+[tool.black]
+line-length = 90
+include = "\\.pyi?$"
+exclude = "/(\n    \\.eggs\n  | \\.git\n  | \\.hg\n  | \\.mypy_cache\n  | \\.tox\n  | \\.venv\n  | build\n  | dist\n  | src/pythonfinder/_vendor\n)\n"
+
+[tool.isort]
+profile = "black"
+atomic = true
+filter_files = true
+known_first_party = [
+    "findpython",
+]
+
+[build-system]
+requires = [
+    "pdm-pep517",
+]
+build-backend = "pdm.pep517.api"
