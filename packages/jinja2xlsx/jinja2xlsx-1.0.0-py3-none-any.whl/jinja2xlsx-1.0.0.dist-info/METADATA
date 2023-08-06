@@ -1,0 +1,110 @@
+Metadata-Version: 2.1
+Name: jinja2xlsx
+Version: 1.0.0
+Summary: Create xlsx-tables from html-tables
+Home-page: https://github.com/potykion/jinja2xlsx
+License: MIT
+Author: potykion
+Author-email: potykion@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Provides-Extra: pil
+Requires-Dist: cached-property (>=1.5,<2.0)
+Requires-Dist: jinja2 (>=3.1,<4.0)
+Requires-Dist: openpyxl (>=3.0,<4.0)
+Requires-Dist: pillow (>=9.4,<10.0); extra == "pil"
+Requires-Dist: requests-html (>=0.10.0,<0.11.0)
+Project-URL: Repository, https://github.com/potykion/jinja2xlsx
+Description-Content-Type: text/markdown
+
+# jinja2xlsx
+
+Create xlsx-tables from html-tables
+
+## Example
+
+Given html table str
+
+When render html to xlsx
+
+Then result xlsx has table values
+
+```python
+from jinja2xlsx import render_xlsx
+from openpyxl import Workbook
+
+html_str = """<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Simple table</title>
+    </head>
+    <body>
+        <table>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>"""
+
+workbook: Workbook = render_xlsx(html_str)
+assert tuple(workbook.active.values) == ((1, 2), (3, 4))
+```
+
+## Installation 
+
+```
+pip install jinja2xlsx
+```
+
+For images support:
+
+```
+pip install jinja2xlsx[pil]
+```
+
+## Development
+
+Install dependencies:
+
+```
+poetry install
+```
+
+For images support:
+
+```
+poetry install -E pil
+```
+
+Run tests and linting:
+
+```
+pre-commit run -a
+```
+
+Install pre-commit hooks:
+
+```
+pre-commit install
+```
+
+## Extra
+
+### Publish to PyPI
+
+```shell
+poetry publish --build
+```
