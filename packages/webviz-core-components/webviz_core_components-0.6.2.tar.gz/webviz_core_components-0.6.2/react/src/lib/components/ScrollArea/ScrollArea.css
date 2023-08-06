@@ -1,0 +1,59 @@
+.ScrollArea {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 60px;
+}
+
+.ScrollAreaInner {
+    overflow: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    flex-grow: 4;
+}
+
+.ScrollArea__Content {
+    overflow: visible;
+    min-width: 100%;
+    position: relative;
+}
+
+.ScrollArea .ScrollBar--inactive {
+    opacity: 0;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s opacity;
+}
+
+.ScrollArea:hover .ScrollBar--inactive,
+.ScrollArea:active .ScrollBar--inactive {
+    opacity: 0.5;
+}
+
+.ScrollArea .ScrollBar:hover {
+    opacity: 1;
+}
+
+.ScrollArea .ScrollBar--active {
+    opacity: 1;
+    user-select: none;
+}
+
+.ScrollArea .ScrollBar {
+    position: absolute;
+    background-color: #5c5c5c;
+    border-radius: 4px;
+    z-index: 101;
+}
+
+.ScrollArea .VerticalScrollBar {
+    right: 4px;
+    width: 8px;
+}
+
+.ScrollArea .HorizontalScrollBar {
+    bottom: 4px;
+    height: 8px;
+}
+
+.ScrollAreaInner::-webkit-scrollbar {
+    display: none;
+}
