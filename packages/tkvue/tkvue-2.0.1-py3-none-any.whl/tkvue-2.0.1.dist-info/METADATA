@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: tkvue
+Version: 2.0.1
+Summary: Declarative Tkinter UI using makup language with reactive data binding
+Home-page: https://gitlab.com/ikus-soft/tkvue
+Author: IKUS Software inc.
+Author-email: support@ikus-soft.com
+Maintainer: Patrik Dufresne
+Maintainer-email: patrik@ikus-soft.com
+License: LGPLv3
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: X11 Applications
+Classifier: Environment :: Win32 (MS Windows)
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Software Development :: User Interfaces
+Requires-Python: <4,>=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+<p align="center">
+<a href="LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/tkvue"></a>
+<a href="https://gitlab.com/ikus-soft/tkvue/pipelines"><img alt="Build" src="https://gitlab.com/ikus-soft/tkvue/badges/master/pipeline.svg"></a>
+<a href="https://sonar.ikus-soft.com/dashboard?id=tkvue"><img alt="Quality Gate Minarca Client" src="https://sonar.ikus-soft.com/api/project_badges/measure?project=tkvue&metric=alert_status"></a>
+<a href="https://sonar.ikus-soft.com/dashboard?id=tkvue"><img alt="Coverage" src="https://sonar.ikus-soft.com/api/project_badges/measure?project=tkvue&metric=coverage"></a>
+</p>
+
+# TKvue
+
+Declarative Tkinter UI using makup language with reactive data binding
+
+# Translation
+
+Tkvue provide a babael extention to extract static text from xml template.
+
+You must configure babel to use the right plugin to extract the values from the templates.
+
+    babel.cfg:
+
+    [tkvue: **/templates/**.html]
+
+Then You may use babel and other gettext tools to complete the translation using the `.po` file.
+
+    python setup.py extract_messages
