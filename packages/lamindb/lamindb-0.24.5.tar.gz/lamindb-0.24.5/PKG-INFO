@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: lamindb
+Version: 0.24.5
+Summary: LaminDB: Manage data & analyses.
+Author-email: Lamin Labs <laminlabs@gmail.com>
+Description-Content-Type: text/markdown
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Dist: lndb_setup==0.30.6
+Requires-Dist: lnschema_core==0.24.1
+Requires-Dist: lnschema_wetlab==0.13.3
+Requires-Dist: lnschema_bionty==0.6.8
+Requires-Dist: lnbfx==0.7.1
+Requires-Dist: bionty==0.6.3
+Requires-Dist: nbproject>=0.8.0
+Requires-Dist: readfcs
+Requires-Dist: lamin_logger>=0.2.2
+Requires-Dist: anndata
+Requires-Dist: boto3
+Requires-Dist: hjson
+Requires-Dist: cloudpathlib
+Requires-Dist: loguru
+Requires-Dist: requests
+Requires-Dist: sqlmodel>=0.0.8
+Requires-Dist: typeguard
+Requires-Dist: tabulate
+Requires-Dist: erdiagram
+Requires-Dist: appdirs
+Requires-Dist: supabase
+Requires-Dist: python-dotenv
+Requires-Dist: fsspec
+Requires-Dist: s3fs
+Requires-Dist: gcsfs
+Requires-Dist: zarr
+Requires-Dist: pre-commit ; extra == "dev"
+Requires-Dist: nox ; extra == "dev"
+Requires-Dist: pytest>=6.0 ; extra == "test"
+Requires-Dist: coverage ; extra == "test"
+Requires-Dist: pytest-cov ; extra == "test"
+Requires-Dist: scanpy ; extra == "test"
+Requires-Dist: scikit-learn>=1.1.1 ; extra == "test"
+Requires-Dist: nbproject_test>=0.3.0 ; extra == "test"
+Requires-Dist: psycopg2-binary ; extra == "test"
+Project-URL: Home, https://github.com/laminlabs/lamindb
+Provides-Extra: dev
+Provides-Extra: test
+
+[![Stars](https://img.shields.io/github/stars/laminlabs/lamindb?logo=GitHub&color=yellow)](https://github.com/laminlabs/lamindb)
+[![codecov](https://codecov.io/gh/laminlabs/lamindb/branch/main/graph/badge.svg?token=VKMRJ7OWR3)](https://codecov.io/gh/laminlabs/lamindb)
+[![pypi](https://img.shields.io/pypi/v/lamindb?color=blue&label=pypi%20package)](https://pypi.org/project/lamindb)
+
+# LaminDB: Manage R&D data & analyses
+
+Read the [docs](https://lamin.ai/docs/lamindb).
+
