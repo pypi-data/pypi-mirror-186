@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: power-grid-model-io
+Version: 1.2.0rc971716715920
+Summary: Power Grid Model Input/Output
+Author-email: Alliander Dynamic Grid Calculation <dynamic.grid.calculation@alliander.com>
+License: MPL-2.0
+Project-URL: Home-page, https://github.com/alliander-opensource/power-grid-model-io
+Project-URL: Documentation, https://power-grid-model-io.readthedocs.io/en/stable/
+Keywords: power grid model,input/output,conversions
+Classifier: Programming Language :: Python :: 3
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS
+Classifier: Topic :: Scientific/Engineering :: Physics
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy (>=1.20)
+Requires-Dist: openpyxl
+Requires-Dist: pandas
+Requires-Dist: power-grid-model (>=1.4)
+Requires-Dist: pyyaml
+Requires-Dist: structlog
+Provides-Extra: dev
+Requires-Dist: pandapower ; extra == 'dev'
+Requires-Dist: pre-commit ; extra == 'dev'
+Requires-Dist: pylint ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: pytest-cov ; extra == 'dev'
+Requires-Dist: pydantic ; extra == 'dev'
+Provides-Extra: doc
+Requires-Dist: sphinx ; extra == 'doc'
+Requires-Dist: myst-nb ; extra == 'doc'
+Requires-Dist: sphinx-rtd-theme ; extra == 'doc'
+Requires-Dist: readthedocs-sphinx-search ; extra == 'doc'
+Requires-Dist: sphinx-hoverxref ; extra == 'doc'
+Requires-Dist: numpydoc ; extra == 'doc'
+
+<!--
+SPDX-FileCopyrightText: 2022 Contributors to the Power Grid Model project <dynamic.grid.calculation@alliander.com>
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+[![PyPI version](https://badge.fury.io/py/power-grid-model-io.svg)](https://badge.fury.io/py/power-grid-model-io)
+[![License: MIT](https://img.shields.io/badge/License-MPL2.0-informational.svg)](https://github.com/alliander-opensource/power-grid-model-io/blob/main/LICENSE)
+[![Build and Test Python](https://github.com/alliander-opensource/power-grid-model-io/actions/workflows/build-test-and-sonar.yml/badge.svg)](https://github.com/alliander-opensource/power-grid-model-io/actions/workflows/build-test-and-sonar.yml)
+[![Check Code Quality](https://github.com/alliander-opensource/power-grid-model-io/actions/workflows/check-code-quality.yml/badge.svg)](https://github.com/alliander-opensource/power-grid-model-io/actions/workflows/check-code-quality.yml)
+[![REUSE Compliance Check](https://github.com/alliander-opensource/power-grid-model-io/actions/workflows/reuse-compliance.yml/badge.svg)](https://github.com/alliander-opensource/power-grid-model-io/actions/workflows/reuse-compliance.yml)
+[![docs](https://readthedocs.org/projects/power-grid-model-io/badge/)](https://power-grid-model-io.readthedocs.io/en/stable/)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=alliander-opensource_power-grid-model-io&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=alliander-opensource_power-grid-model-io)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=alliander-opensource_power-grid-model-io&metric=coverage)](https://sonarcloud.io/summary/new_code?id=alliander-opensource_power-grid-model-io)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=alliander-opensource_power-grid-model-io&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=alliander-opensource_power-grid-model-io)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=alliander-opensource_power-grid-model-io&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=alliander-opensource_power-grid-model-io)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=alliander-opensource_power-grid-model-io&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=alliander-opensource_power-grid-model-io)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=alliander-opensource_power-grid-model-io&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=alliander-opensource_power-grid-model-io)
+
+<img src="docs\images\pgm-logo-color.svg" alt="Power Grid Model logo" width="100"/>
+
+# Power Grid Model Input/Output
+
+`power-grid-model-io` can be used for various conversions to the [power-grid-model](https://github.com/alliander-opensource/power-grid-model).
+For detailed documentation, see [Read the Docs](https://power-grid-model-io.readthedocs.io/en/stable/index.html).
+
+# Examples
+* [PGM JSON Example](https://github.com/alliander-opensource/power-grid-model-io/blob/ff10909b428436da65b3fcfebf0c31739510d4cf/docs/examples/pgm_json_example.ipynb)
+
+
+# License
+This project is licensed under the Mozilla Public License, version 2.0 - see [LICENSE](https://github.com/alliander-opensource/power-grid-model-io/blob/ff10909b428436da65b3fcfebf0c31739510d4cf/LICENSE) for details.
+
+# Contributing
+Please read [CODE_OF_CONDUCT](https://github.com/alliander-opensource/power-grid-model-io/blob/ff10909b428436da65b3fcfebf0c31739510d4cf/CODE_OF_CONDUCT.md) and [CONTRIBUTING](https://github.com/alliander-opensource/power-grid-model-io/blob/ff10909b428436da65b3fcfebf0c31739510d4cf/CONTRIBUTING.md) for details on the process 
+for submitting pull requests to us.
+
+# Contact
+Please read [SUPPORT](https://github.com/alliander-opensource/power-grid-model-io/blob/ff10909b428436da65b3fcfebf0c31739510d4cf/SUPPORT.md) for how to connect and get into contact with the Power Gird Model IO project.
