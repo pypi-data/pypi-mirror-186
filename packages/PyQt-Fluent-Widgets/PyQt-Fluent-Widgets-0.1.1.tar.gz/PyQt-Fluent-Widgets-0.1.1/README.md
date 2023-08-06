@@ -1,0 +1,80 @@
+<p align="center">
+  <img width="18%" align="center" src="https://raw.githubusercontent.com/zhiyiYo/PyQt-Fluent-Widgets/master/docs/source/_static/logo.png" alt="logo">
+</p>
+  <h1 align="center">
+  PyQt-Fluent-Widgets
+</h1>
+<p align="center">
+  A fluent design widgets library based on PyQt5
+</p>
+
+<p align="center">
+
+  <a style="text-decoration:none">
+    <img src="https://img.shields.io/badge/Python-3.6+-blue.svg?color=00B16A" alt="Python 3.6+"/>
+  </a>
+
+  <a style="text-decoration:none">
+    <img src="https://img.shields.io/badge/PyQt-5.15.6-blue?color=00B16A" alt="PyQt 5.15.6"/>
+  </a>
+
+  <a style="text-decoration:none">
+    <img src="https://img.shields.io/badge/Platform-Win32%20|%20Linux%20|%20macOS-blue?color=00B16A" alt="Platform Win32 | Linux | macOS"/>
+  </a>
+</p>
+
+![Interface](https://raw.githubusercontent.com/zhiyiYo/PyQt-Fluent-Widgets/master/docs/source/_static/Interface.png)
+
+
+## Install
+To install use pip:
+```shell
+pip install PyQt-Fluent-Widgets
+```
+Or clone the repo:
+```shell
+git clone https://github.com/zhiyiYo/PyQt-Fluent-Widgets.git
+python setup.py install
+```
+
+## Run Example
+After installing PyQt-Fluent-Widgets package using pip, you can run any demo in the examples directory, for example:
+```python
+cd examples/settings
+python demo.py
+```
+
+## Document
+Want to know more about PyQt-Fluent-Widgets? Please read the [help document](https://pyqt-fluent-widgets.readthedocs.io/) 👈
+
+
+## See Also
+Here are some projects that use PyQt-Fluent-Widgets:
+* [**zhiyiYo/Groove**: A cross-platform music player based on PyQt5](https://github.com/zhiyiYo/Groove)
+* [**zhiyiYo/Alpha-Gobang-Zero**: A gobang robot based on reinforcement learning](https://github.com/zhiyiYo/Alpha-Gobang-Zero)
+
+
+## License
+```txt
+MIT License
+
+Copyright (c) 2021 Huang Zhengzhi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
