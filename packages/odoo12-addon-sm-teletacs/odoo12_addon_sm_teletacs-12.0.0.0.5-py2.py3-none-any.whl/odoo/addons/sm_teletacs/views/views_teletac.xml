@@ -1,0 +1,102 @@
+<odoo>
+  <data>
+
+    <record id="view_teletac_compute_workflow" model="ir.actions.server">
+      <field name="name">Compute teletac</field>
+      <field name="type">ir.actions.server</field>
+      <field name="model_id" ref="model_smp_sm_teletac"/>
+      <field name="binding_model_id" ref="model_smp_sm_teletac"/>
+      <field name="state">code</field>
+      <field name="code">action = model.compute()</field>
+    </record>
+
+    <record id="Reset teletac usage" model="ir.actions.server">
+      <field name="name">Reset state</field>
+      <field name="type">ir.actions.server</field>
+      <field name="model_id" ref="model_smp_sm_teletac"/>
+      <field name="binding_model_id" ref="model_smp_sm_teletac"/>
+      <field name="state">code</field>
+      <field name="code">action = model.reset_state()</field>
+    </record>
+
+    <record id="view_teletac_window" model="ir.actions.act_window">
+      <field name="name">Teletac</field>
+      <field name="res_model">smp.sm_teletac</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_teletac_search" model="ir.ui.view">
+      <field name="name">smp.sm_teletac.search</field>
+      <field name="model">smp.sm_teletac</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="DB teletacs search">
+          <field name="name"/>
+          <field name="reservation_compute_id"/>
+          <field name="related_member_id"/>
+          <field name="cs_user_type"/>
+          <field name="related_invoice_id"/>
+          <field name="license_plate"/>
+        </search>
+      </field>
+    </record>
+
+    <record id="view_teletac_list" model="ir.ui.view">
+      <field name="name">smp.sm_teletac.tree</field>
+      <field name="model">smp.sm_teletac</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="license_plate"/>
+          <field name="reservation_compute_id"/>
+          <field name="reservation_compute_invoiced"/>
+          <field name="reservation_compute_forgiven"/>
+          <field name="amount"/>
+          <field name="discount"/>
+          <field name="related_member_id"/>
+          <field name="cs_user_type"/>
+          <field name="related_invoice_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_teletac_form" model="ir.ui.view">
+      <field name="name">smp.sm_teletac.form</field>
+      <field name="model">smp.sm_teletac</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Edit teletac" version="7.0" delete="false">
+          <sheet>
+            <notebook>
+              <page string="General">
+                <group>
+                  <field name="id" invisible="True"/>
+                  <field name="name" attrs="{'invisible': [('id', '=', False)]}"/>
+                  <field name="date"/>
+                  <field name="hour"/>
+                  <field name="ttype"/>
+                  <field name="description"/>
+                  <field name="amount"/>
+                  <field name="discount"/>
+                  <field name="license_plate"/>
+                  <field name="reservation_compute_id"/>
+                  <field name="reservation_compute_invoiced"/>
+                  <field name="reservation_compute_forgiven"/>
+                  <field name="related_invoice_id"/>
+                  <field name="related_member_id"/>
+                  <field name="cs_user_type"/>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <menuitem name="Teletac" id="sm_teletacs.menu_root" parent="vertical_carsharing.menu_root" 
+      action="view_teletac_window"/>
+
+    <!-- <menuitem name="CS usage" id="sm_partago.menu_root" parent="vertical_carsharing.menu_root"/> -->
+
+  </data>
+</odoo>
