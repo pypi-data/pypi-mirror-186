@@ -1,0 +1,143 @@
+[project]
+name = "web3cli"
+version = "0.15.0"
+description = "Interact with blockchains and smart contracts using the command line"
+authors = [
+    { name = "coccoinomane", email = "coccoinomane@gmail.com" },
+]
+readme = "README.md"
+keywords = [
+    "web3",
+    "w3",
+    "cli",
+    "evm",
+    "blockchain",
+    "ethereum",
+    "binance",
+    "avalanche",
+]
+requires-python = ">=3.7.2,<3.11"
+dependencies = [
+    "cement>=3.0.8",
+    "cement[colorlog]>=3.0.8",
+    "cement[jinja2]>=3.0.8",
+    "cement[yaml]>=3.0.8",
+    "cement[tabulate]>=3.0.8",
+    "web3client>=0.5.0",
+    "peewee>=3.15.3",
+    "cryptography>=38.0.3",
+    "ruamel.yaml>=0.17.21",
+    "typing-extensions>=4.4.0",
+]
+
+[project.license]
+text = "MIT"
+
+[project.scripts]
+w3 = "web3cli.main:main"
+w3eth = "web3cli.main:w3eth"
+w3bnb = "web3cli.main:w3bnb"
+w3avax = "web3cli.main:w3avax"
+w3matic = "web3cli.main:w3matic"
+w3cro = "web3cli.main:w3cro"
+
+[project.urls]
+homepage = "https://github.com/coccoinomane/web3cli"
+repository = "https://github.com/coccoinomane/web3cli"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "pytest>=6.2.5",
+    "mypy>=0.982",
+    "eth-brownie>=1.19.2",
+    "isort>=5.11.3",
+    "pre-commit>=2.20.0",
+    "brownie-token-tester>=0.3.2",
+    "autoflake>=2.0.0",
+]
+
+[tool.pdm.scripts]
+test = "brownie test tests"
+test_verbose = "brownie test tests -s"
+test_fast = "brownie test tests -m 'not slow'"
+db_open = "open -a TablePlus $HOME/.web3cli/database/web3cli.sqlite"
+db_open_test = "open -a TablePlus $HOME/.web3cli/database/web3cli_test.sqlite"
+db_delete = "rm -rf $HOME/.web3cli/database"
+docker = "pdm run clean && docker build -t web3cli:latest ."
+release = "gh release create v{args} dist/web3cli-{args}.tar.gz dist/web3cli-{args}-py3-none-any.whl --generate-notes"
+
+[tool.pdm.scripts.w3]
+cmd = "w3"
+help = "Run the CLI in dev mode"
+
+[tool.pdm.scripts.w3eth]
+cmd = "w3eth"
+help = "Run the CLI in dev mode, on eth chain"
+
+[tool.pdm.scripts.w3bnb]
+cmd = "w3bnb"
+help = "Run the CLI in dev mode, on bnb chain"
+
+[tool.pdm.scripts.w3avax]
+cmd = "w3avax"
+help = "Run the CLI in dev mode, on avax chain"
+
+[tool.pdm.scripts.w3matic]
+cmd = "w3matic"
+help = "Run the CLI in dev mode, on matic chain"
+
+[tool.pdm.scripts.w3cro]
+cmd = "w3cro"
+help = "Run the CLI in dev mode, on cro chain"
+
+[tool.pdm.build]
+includes = [
+    "src",
+]
+
+[tool.black]
+line-length = 88
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+strict_optional = false
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
+disallow_any_unimported = false
+disallow_untyped_calls = true
+exclude = [
+    "__pypackages__",
+]
+
+[tool.pytest.ini_options]
+filterwarnings = "ignore::DeprecationWarning"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "local: tests that require a local blockchain to be run, e.g. ganache or hardhat network (deselect with '-m \"not local\"')",
+]
+
+[tool.isort]
+profile = "black"
+src_paths = [
+    "src",
+    "tests",
+]
+
+[tool.autoflake]
+in_place = true
+remove_all_unused_imports = true
+ignore_pass_after_docstring = true
+
+[build-system]
+requires = [
+    "pdm-pep517>=1.0.0",
+]
+build-backend = "pdm.pep517.api"
