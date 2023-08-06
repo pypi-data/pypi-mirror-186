@@ -1,0 +1,86 @@
+Metadata-Version: 2.1
+Name: volttron
+Version: 10.0.3a2
+Summary: VOLTTRON™ is an open source platform for distributed sensing and control. The platform provides services for collecting and storing data from buildings and devices and provides an environment for developing applications which interact with that data.
+Home-page: https://volttron.org
+License: Apache-2.0
+Author: volttron
+Author-email: volttron@pnnl.gov
+Requires-Python: >=3.8,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: PyYAML (>=6.0,<7.0)
+Requires-Dist: cryptography (>=36.0.1,<37.0.0)
+Requires-Dist: dateutils (>=0.6.12,<0.7.0)
+Requires-Dist: gevent (>=21.12.0,<22.0.0)
+Requires-Dist: pip (==22.2.2)
+Requires-Dist: psutil (>=5.9.0,<6.0.0)
+Requires-Dist: pyzmq (>=22.3.0,<23.0.0)
+Requires-Dist: toml (>=0.10.2,<0.11.0)
+Requires-Dist: tzlocal (>=4.1,<5.0)
+Requires-Dist: watchdog-gevent (>=0.1.1,<0.2.0)
+Project-URL: Documentation, https://volttron.readthedocs.org
+Project-URL: Repository, https://github.com/eclipse-volttron/volttron-core
+Description-Content-Type: text/markdown
+
+VOLTTRON™ is an open source platform for distributed sensing and control. The platform provides services for collecting and storing data from buildings and devices and provides an environment for developing applications which interact with that data.
+
+[![Pytests](https://github.com/eclipse-volttron/volttron-core/actions/workflows/run-tests.yml/badge.svg)](https://github.com/eclipse-volttron/volttron-core/actions/workflows/run-tests.yml)
+[![pypi version](https://img.shields.io/pypi/v/volttron.svg)](https://pypi.org/project/volttron/)
+
+## Installation
+
+It is recommended to use a virtual environment for installing volttron.
+
+```shell
+python -m venv env
+source env/bin/activate
+
+pip install volttron
+```
+
+### Quick Start
+
+ 1. Setup VOLTTRON_HOME environment variable: export VOLTTRON_HOME=/path/to/volttron_home/dir 
+ 
+    **NOTE** This is madatory if you have/had in the past, a monolithic    VOLTTRON version that used the default VOLTTRON_HOME $HOME/.volttron. This modular version of VOLTTRON cannot work with volttron_home used by monolithic version of VOLTTRON(version 8.3 or earlier)
+ 
+ 2. Start the platform
+    ```bash
+    > volttron -vv -l volttron.log &>/dev/null &
+    ```
+
+ 3. Install listener agent
+    ```bash
+    > vctl install volttron-listener --start
+    ```
+
+ 4. View status of platform
+    ```bash
+    > vctl status
+    ```
+
+ 5. Shutdown the platform
+    ```bash
+    > vctl shutdown --platform
+    ```
+
+Full VOLTTRON documentation available at [VOLTTRON Readthedocs](https://volttron.readthedocs.io)
+
+## Contributing to VOLTTRON
+
+Please see the [contributing.md](CONTRIBUTING.md) document before contributing to this repository.
+
+Please see [developing_on_modular.md](DEVELOPING_ON_MODULAR.md) document for developing your agents against volttron.
+
