@@ -1,0 +1,65 @@
+Metadata-Version: 2.1
+Name: findlinear
+Version: 0.4.0
+Summary: To find the linear segment of a curve or dataset.
+Home-page: https://swainlab.bio.ed.ac.uk/software/findLinear
+License: MIT
+Keywords: linear segment,systems biology,bioinformatics,plate readers
+Author: Yu Huo
+Author-email: yu.huo@ed.ac.uk
+Requires-Python: >=3.8,<3.11
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Requires-Dist: findpeaks (>=2.4,<3.0)
+Requires-Dist: matplotlib (>=3.5.0,<4.0.0)
+Requires-Dist: numpy (>=1.20.3,<2.0.0)
+Requires-Dist: scipy (>=1.7.3,<2.0.0)
+Requires-Dist: sympy (>=1.9,<2.0)
+Project-URL: Documentation, https://swainlab.bio.ed.ac.uk/software/findLinear
+Project-URL: Repository, https://git.ecdf.ed.ac.uk/s1856140/findLinear
+Description-Content-Type: text/markdown
+
+# `findLinear`: Determining the linear segments of data with Bayesian model comparison
+
+`findLinear` is a Python module for finding the linear segment given a curve or dataset with $x$ and $y$. 
+
+## How does it work?
+It uses the idea of Bayesian model comparison and calculate the evidence of each possible segment of curve being linear. 
+After calculating the evidence of each segment, it detects the global maximum, or uses the `findpeaks` library to find the local maxima of evidence, from which the user can choose the relevant linear segment (e.g. that with the largest evidence, or that with the largest slope when the data consists of multiple linear segments).
+
+## Installation
+For users, type in terminal
+```
+> pip install findLinear
+```
+
+For developers, create a virtual environment and then type 
+```
+> git clone https://git.ecdf.ed.ac.uk/s1856140/findLinear.git
+> cd findLinear 
+> poetry install --with dev 
+```
+
+## Quickstart
+Data `x` is a list or a 1D Numpy array, sorted ascendingly; the data `y` is a list or a Numpy array, with each row being one replicate of measurement.
+```
+>>> from findLinear.findLinear import findLinear, get_example_data
+>>> x, y = get_example_data()
+>>> fl = findLinear(x, y)
+>>> fl.find_all()
+>>> fl.plot()
+>>> fl.get_argmax()
+>>> fl.get_peaks()
+```
+
+## Documentation
+Detailed documentation is available here.
+
+## Citation
+

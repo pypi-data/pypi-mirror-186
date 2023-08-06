@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "findLinear"
+version = "0.4.0"
+description = "To find the linear segment of a curve or dataset."
+authors = ["Yu Huo <yu.huo@ed.ac.uk>"]
+
+license = "MIT"
+readme = "readme.md"
+homepage = "https://swainlab.bio.ed.ac.uk/software/findLinear"
+repository = "https://git.ecdf.ed.ac.uk/s1856140/findLinear"
+documentation = "https://swainlab.bio.ed.ac.uk/software/findLinear"
+keywords = ["linear segment", "systems biology", "bioinformatics", "plate readers"]
+classifiers= [
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "Operating System :: OS Independent",
+  "Intended Audience :: Science/Research",
+]
+packages = [
+    { include = "findLinear" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8, <3.11"
+sympy = "^1.9"
+numpy = "^1.20.3"
+scipy = "^1.7.3"
+matplotlib = "^3.5.0"
+findpeaks = "^2.4"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.6.0"
+jupyter = "^1.0.0"
+flake8 = "^4.0.1"
+pyright = "^1.1.258"
+Sphinx = "^6.1"
+seaborn = "^0.12.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
