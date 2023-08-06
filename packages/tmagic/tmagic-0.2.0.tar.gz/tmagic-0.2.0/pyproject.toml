@@ -1,0 +1,39 @@
+[build-system]
+requires = [ "setuptools", "wheel", "build", "twine" ]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tmagic"
+version = "0.2.0"
+authors = [
+    { name = "András Aszódi", email="andras.aszodi@vbcf.ac.at" },
+]
+description = "IPython custom cell magic to test Python and R code snippets typed into notebook cells."
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "jupyter >= 1.0",
+    "ipython >= 6.0",
+    "rpy2 >= 3.4"
+]
+
+[tool.setuptools]
+packages = ["tmagic", ]
+
+# NOTE: Automatic script generation will not work
+# because `setuptools` uses the Python executable
+# and the tests must be run by IPython...
+# To run the unit tests, please execute
+# `tmagic/tests/runtests.py` manually from the command line
+### [project.scripts]
+### runtests = "tmagic.tests.runtests:main"
+
+[project.urls]
+"Homepage" = "https://bitbucket.org/interquadrat/testmagic"
+
