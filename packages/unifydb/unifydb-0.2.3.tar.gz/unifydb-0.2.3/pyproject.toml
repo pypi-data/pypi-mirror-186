@@ -1,0 +1,58 @@
+[tool.poetry]
+name = "unifydb"
+version = "0.2.3"
+description = "Your personal data warehouse"
+authors = ["Scott Persinger <scottpersinger@gmail.com>"]
+readme = "README.md"
+license = "Elastic-2.0"
+homepage = "https://github.com/scottpersinger/unify"
+repository = "https://github.com/scottpersinger/unify"
+documentation = "https://github.com/scottpersinger/unify/docs"
+packages = [
+    { include = "unify" },
+    { include = "gsheets_unify_adapter" },
+    { include = "unify_kernel" },
+]
+include = ["rest_specs/*"]
+    
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^1.5.2"
+lark = "^1.1.5"
+pyaml = "^21.10.1"
+sqlglot = "^10.3.2"
+pyarrow = "^10.0.1"
+requests = "^2.28.1"
+jsonpath-ng = "^1.5.3"
+google-auth-oauthlib = "^0.8.0"
+duckdb = "^0.6.1"
+clickhouse-driver = "^0.2.5"
+signaling = "^1.0.0"
+prompt-toolkit = "^3.0.36"
+google-api-python-client = "^2.70.0"
+sqlalchemy = "^1.4.45"
+clickhouse-sqlalchemy = "^0.2.3"
+requests-aws4auth = "^1.1.2"
+pyzmq = "^24.0.1"
+google-auth-httplib2 = "^0.1.0"
+redmail = "^0.4.2"
+pytest = "^7.2.0"
+ipykernel = "^6.19.4"
+ipynbname = "^2021.3.2"
+altair = "^4.2.0"
+altair-viewer = "^0.4.0"
+nb2mail-unify = "^0.6"
+duckdb-engine = "^0.6.8"
+python-dotenv = "^0.21.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pdb-attach = "^3.0.0"
+requests-mock = "^1.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+unify = 'unify.__main__:main'

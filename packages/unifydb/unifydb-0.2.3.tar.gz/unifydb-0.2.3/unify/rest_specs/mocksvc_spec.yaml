@@ -1,0 +1,42 @@
+# Describes a simple API that we mock into requests for testing. See `mocksvc` folder.
+name: mocksvc
+base_url: https://mocksvc.com
+paging:
+  strategy: pageAndCount
+  page_param: page
+  count_param: count
+  page_size: 100
+queryDateFormat: "%Y/%m/%d %H:%M"  
+auth:
+  type: BASIC
+  params:
+    username: The Mocksvc user
+    password: The user password
+tables:
+  - name: repos27
+    resource_path: /api/repos_27
+    supports_paging: False
+  - name: repos100
+    resource_path: /api/repos_100
+    supports_paging: False
+  - name: repos1100
+    resource_path: /api/repos_1100
+    supports_paging: True
+    key_column: id
+    refresh:
+      strategy: updates
+      params:
+        later_than: "${timestamp}"
+views:
+  - name: repos_view
+    from: repos27
+    query: |
+      SELECT 
+        id as idkey, full_name as bigname from repos27
+    help: "A simple view on the repos27 table"
+  - name: repos11_short
+    from: repos1100
+    query: |
+      SELECT 
+        count(id) as count, name from repos1100 where id != '5' group by name
+    help: "A more complex view with grouping"

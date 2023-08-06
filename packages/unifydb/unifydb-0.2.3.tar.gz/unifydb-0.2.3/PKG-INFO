@@ -1,0 +1,136 @@
+Metadata-Version: 2.1
+Name: unifydb
+Version: 0.2.3
+Summary: Your personal data warehouse
+Home-page: https://github.com/scottpersinger/unify
+License: Elastic-2.0
+Author: Scott Persinger
+Author-email: scottpersinger@gmail.com
+Requires-Python: >=3.9,<4.0
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: altair (>=4.2.0,<5.0.0)
+Requires-Dist: altair-viewer (>=0.4.0,<0.5.0)
+Requires-Dist: clickhouse-driver (>=0.2.5,<0.3.0)
+Requires-Dist: clickhouse-sqlalchemy (>=0.2.3,<0.3.0)
+Requires-Dist: duckdb (>=0.6.1,<0.7.0)
+Requires-Dist: duckdb-engine (>=0.6.8,<0.7.0)
+Requires-Dist: google-api-python-client (>=2.70.0,<3.0.0)
+Requires-Dist: google-auth-httplib2 (>=0.1.0,<0.2.0)
+Requires-Dist: google-auth-oauthlib (>=0.8.0,<0.9.0)
+Requires-Dist: ipykernel (>=6.19.4,<7.0.0)
+Requires-Dist: ipynbname (>=2021.3.2,<2022.0.0)
+Requires-Dist: jsonpath-ng (>=1.5.3,<2.0.0)
+Requires-Dist: lark (>=1.1.5,<2.0.0)
+Requires-Dist: nb2mail-unify (>=0.6,<0.7)
+Requires-Dist: pandas (>=1.5.2,<2.0.0)
+Requires-Dist: prompt-toolkit (>=3.0.36,<4.0.0)
+Requires-Dist: pyaml (>=21.10.1,<22.0.0)
+Requires-Dist: pyarrow (>=10.0.1,<11.0.0)
+Requires-Dist: pytest (>=7.2.0,<8.0.0)
+Requires-Dist: python-dotenv (>=0.21.0,<0.22.0)
+Requires-Dist: pyzmq (>=24.0.1,<25.0.0)
+Requires-Dist: redmail (>=0.4.2,<0.5.0)
+Requires-Dist: requests (>=2.28.1,<3.0.0)
+Requires-Dist: requests-aws4auth (>=1.1.2,<2.0.0)
+Requires-Dist: signaling (>=1.0.0,<2.0.0)
+Requires-Dist: sqlalchemy (>=1.4.45,<2.0.0)
+Requires-Dist: sqlglot (>=10.3.2,<11.0.0)
+Project-URL: Documentation, https://github.com/scottpersinger/unify/docs
+Project-URL: Repository, https://github.com/scottpersinger/unify
+Description-Content-Type: text/markdown
+
+# Unify
+
+Unify is an experiment in building a "personal data warehouse". It integrates Extract-Transform-Load,
+plus analysis, into a single app and database which runs on your local machine.
+
+The primary interface to Unify is a command interface which mixes [standard SQL and
+meta](./docs/SQL_LANGUAGE.md) commands. Use `select` to query data, but you also have commands available for
+easily importing and exporting data, sending email, and drawing charts.
+
+Unify includes a set of *connectors* to popular SaaS systems, and allows you to easily
+create new connectors to systems with REST APIs via a simple configuation file. Connectors 
+automatically flatten JSON responses into relational tables that are easy to query with SQL. 
+
+Unify offers a columnar store 'database backend' (either DuckDB or Clickouse) which can
+efficiently store and analyze tens of millions of rows of data.
+
+Unify **should** be the easiest way to pull data from a REST API and materialize
+it into a database suitable for SQL analysis.
+
+## Example
+
+Establish a connection to the Github API:
+
+    > connect
+    1: aws_costs
+    2: coda
+    3: datadog
+    4: github
+    Pick a connector: 4
+    Ok! Let's setup a new github connection.
+    Specify the schema name (github):
+    Please provide the configuration parameters:
+    username (Github user email): johnsmith@example.com
+    password (Github personal access token): ghp_Jik22xkF88wmzzj8xxks2x2jz
+    Testing connection...
+    New github connection created in schema github
+    The following tables are available, use peek or select to load data:
+    8 rows
+    table_name table_schema                                            comment materialized
+        pulls       github                                               None            ☐
+        repos       github                                               None            ☐
+        users       github                                               None            ☐
+    >
+
+After creating the connection, you can query your list of repos:
+
+    > select id, name, owner_login, open_issues_count from github.repos;
+    Loading data for table: github.repos
+    ...
+    id                                  name owner_login      open_issues_count
+    51189180                     dep-checker linuxfoundation             74
+    51713527                    code-janitor linuxfoundation              0
+    63492894                    foss-barcode linuxfoundation             30
+
+## Getting started
+
+Install Unify:
+
+    $ pip install unifydb
+
+And run:
+
+    $ unify
+
+When you first run you need to choose your database backend. DuckDB is simpler to get started with
+(and supported on Windows), but it doesn't handle access from multiple processes well. 
+Clickhouse is a little more work to setup, but works a lot better with other tools like BI tools.
+If you are running on Windows, you can get a cloud Clickhouse instance at [clickhouse.com](https://clickhouse.com).
+
+All configuration data is stored into `$HOME/unify`. Set `UNIFY_HOME` in your environment
+if you want to store config data somewhere else.
+
+**Checkout the [tutorial](docs/TUTORIAL.md) to get an overview of using Unify to work with your data.**
+
+## Learning more
+
+* Read about the list of [current connectors](docs/CONNECTORS.md).
+* Learn about [building](docs/BUILDING_CONNECTORS.md) new connectors.
+* Get an overview of [all commands](docs/SQL_LANGUAGE.md).
+
+## Limitations
+
+* This is **alpha** software. Use at your own risk! Good news is that API connectors only read data.
+If you want to examine the code which interacts with your systems, checkout the [RESTConnector](https://github.com/scottpersinger/unify/blob/main/unify/rest_connector.py).
+* The schema and table layout are not stable yet, so upgrading Unify may change the database layout.
+* Test coverage is poor and bugs are numerous.
+
+## Developing
+
+Tests use `pytest` and the project overall uses `poetry`. 
+

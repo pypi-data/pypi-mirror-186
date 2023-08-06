@@ -1,0 +1,31 @@
+enabled: true
+name: stripe
+base_url: https://api.stripe.com
+paging:
+  strategy: pagerToken
+  token_param: starting_after
+  count_param: limit
+  pager_token_path: data[-1:].id
+  page_size: 100
+
+pageMaxArg: limit
+page_cursor_arg: starting_after
+next_page_token: data[-1:].id
+auth:
+  type: BASIC
+  params:
+    username: Enter your Stripe API key
+    password: Enter blank
+tables:
+  - name: charges
+    query_resource: GET /v1/charges
+    result_body_path: data
+    supports_paging: true
+  - name: payment_intents
+    query_resource: GET /v1/payment_intents
+    result_body_path: data
+    supports_paging: true
+  - name: customers
+    query_resource: GET /v1/customers
+    result_body_path: data
+    supports_paging: true
