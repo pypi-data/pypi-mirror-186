@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: urlz
+Version: 0.1.1
+Summary: Simple Pathlib-like usage of URLs
+Author-email: Steve Berardi <hello@steveberardi.com>
+Description-Content-Type: text/markdown
+Classifier: License :: OSI Approved :: MIT License
+Project-URL: Home, https://github.com/steveberardi/urlz
+
+# urlz
+[![tests](https://github.com/steveberardi/urlz/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/steveberardi/urlz/actions/workflows/test.yml)
+
+urlz is a simple URL parsing library that provides Pathlib-like usage to URLs in Python:
+
+```python
+>>>> from urlz import URL
+>>>> url = URL("https://wordbrew.io")
+>>>> str(url / "about" / "index.html")
+'https://wordbrew.io/about/index.html'
+```
+
+It also provides a special URL-building function `urlify`:
+
+```python
+>>>> from urlz import urlify
+>>>> urlify("https://wordbrew.io", "about", "index.html")
+'https://wordbrew.io/about/index.html'
+
+# with querystring params:
+>>>> urlify("https://wordbrew.io", "search", params={"q": "hello world"})
+'https://wordbrew.io/search?q=hello+world'
+```
+
+## Installation
+```
+pip install urlz
+```
+
+## TODO
+- QS param helpers
+- Path replacements (e.g. `url.replace(path="/new/stuff/")`)
+- Validation helpers
+
+
+## Alternatives
+For more URL-parsing fun, check out these libraries:
+
+- [furl](https://github.com/gruns/furl)
+- [purl](https://github.com/codeinthehole/purl)
+- [imurl](https://github.com/thesketh/imurl)
+
