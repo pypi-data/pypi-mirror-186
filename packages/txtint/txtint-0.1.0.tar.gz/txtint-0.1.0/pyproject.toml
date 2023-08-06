@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "txtint"
+version = "0.1.0"
+description = "tools for metamodern text interfaces"
+keywords = ["CLI", "TUI"]
+homepage = "https://ragt.ag/code/projects/txtint"
+repository = "https://ragt.ag/code/projects/txtint.git"
+documentation = "https://ragt.ag/code/projects/txtint/api"
+authors = ["Angelo Gladding <angelo@ragt.ag>"]
+license = "BSD-2-Clause"
+packages = [{include="txt.py"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+argcomplete = ">=2.0.0"
+rich = ">=13.0.1"
+
+[tool.poetry.group.dev.dependencies]
+gmpg = {path="../gmpg", develop=true}
+
+# [[tool.poetry.source]]
+# name = "main"
+# url = "https://ragt.ag/code/pypi"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
