@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "semantha-sdk"
+version = "4.3.1"
+description = "This is a python client sdk for accessing semantha (the semantic platform)"
+authors = [
+    "Tom Kaminski <tom.kaminski@semantha.de>",
+    "Sebastian Weigelt <sebastian.weigelt@semantha.de"
+]
+maintainers = [
+    "semantha support <support@semantha.de>"
+]
+homepage = "https://semantha.de"
+readme = "README.md"
+license = "Apache-2.0"
+packages = [{include = "semantha_sdk"}]
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "2.28.1"
+
+[tool.poetry.group.dev.dependencies]
+jupyter = "1.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.source]]
+name = "tt-nexus-pypi-proxy"
+url = "https://tt-yojrlnvtnc.thingsthinking.systems/repository/pypi-org-proxy/simple/"
+default = true
+secondary = false
+
+
+[project.dependencies]
+
+[project]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/semantha/semantha-python-client"
+"Bug Tracker" = "https://github.com/semantha/semantha-python-client/issues"

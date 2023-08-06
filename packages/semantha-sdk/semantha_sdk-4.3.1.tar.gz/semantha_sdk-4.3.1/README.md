@@ -1,0 +1,138 @@
+![](https://www.semantha.de/wp-content/uploads/semantha-inverted.svg)
+
+# semantha® SDK
+
+The semantha SDK is a high-level REST client to access the [semantha](http://semantha.ai) API.
+The SDK is still under development.
+An overview of the current progress (i.e. implemented and tested resources and endpoints) may be found at the end of
+this document (State of Development).
+The semantha SDK is compatible with python >= 3.8.
+
+### Disclaimer
+
+**IMPORTANT:** The SDK is under development and interfaces may change at any time without notice.
+Use with caution and on own risk.
+
+### Access
+
+To access semantha's API you will need an API and a server url.
+Both can be requested via [this contact form](https://www.semantha.de/request/).
+
+### Basic Usage
+
+#### Import
+
+```
+import semantha_sdk
+```
+
+#### Authentication
+
+```
+semantha = semantha_sdk.login(url="<semantha platform server URL>", key="<your key>")
+# or
+semantha = semantha_sdk.login(url="<semantha platform server URL>", key_file="<path to your key file (json format)>")
+```
+
+#### End-point Access
+
+```
+# end-points (resp. resources) can be used like objects
+current_user = semantha.current_user
+my_domain = semantha.domains.get_one("my_domain")
+
+# they may have sub-resources, which can be retrieved as objects as well
+reference_documents = my_domains.reference_documents
+```
+
+#### CRUD on End-points
+
+```
+# CRUD operations are functions
+domain_settings = my_domain.get_settings()
+my_domain.reference_documents.delete_all()
+```
+
+#### Function Return Types & semantha Data Model
+
+```
+# some functions only return None, e.g.
+my_domain.reference_documents.delete_all() # returns NoneType
+
+# others return built in types, e.g
+roles_list = current_user.get_user_roles() # returns list[str]
+
+# but most return objects of the semantha Data Model
+# (all returned objects are instances of frozen dataclasses)
+settings = my_domain.get_settings() # returns instance of DomainSettings
+# attributes can be accessed as properties, e.g.
+settings.enable_tagging # returns true or false
+# Data Model objects may be complex
+document = my_domain.references.post(file=a, reference_document=b) # returns instance of Document
+# the following returns the similarity value of the first references of the first sentence of the
+# the first paragraph on the first page of the document (if a reference was found for this sentence)
+similarity = pages[0].contents[0].paragraphs[0].references[0].similarity # returns float
+```
+
+### State of Development
+
+The following resources and end-points are fully functional and (partially) tested:
+
+CurrentUser
+
+* get_user_data
+* get_user_roles
+
+Diff
+
+* post
+
+Domains
+
+* get_all
+* get_one --> returns sub-resource Domain
+    * get_configuration
+    * get_settings
+    * patch_settings
+    * get_tags
+    * get_stopwords
+    * References
+        * post
+    * ReferenceDocuments
+        * get_all
+        * get_one
+        * delete_all
+        * delete_one
+        * post
+        * patch_document_information
+        * get_paragraph
+        * patch_paragraph
+        * delete_paragraph
+        * get_sentence
+        * get_clusters_of_documents
+        * get_named_entities
+        * get_statistic
+    * Documents
+        * post_document_model
+
+Model/Domains
+
+* get_one --> returns sub-resource DomainModel
+    * Boostwords
+        * get_all
+        * get_one
+        * delete_all
+        * delete_one
+        * post_word
+        * post_regex
+        * put_word
+        * put_regex
+    * Synonyms
+        * get_all
+        * get_one
+        * delete_all
+        * delete_one
+        * post_word
+        * post_regex
+        * put_word
+        * put_regex
