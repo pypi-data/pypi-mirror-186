@@ -1,0 +1,17 @@
+name: napari-merge-stardist-masks
+display_name: Merge StarDist Masks
+contributions:
+  commands:
+    - id: napari-merge-stardist-masks.make_sample_data
+      python_name: napari_merge_stardist_masks._sample_data:make_sample_data
+      title: Load sample data from Merge StarDist Masks
+    - id: napari-merge-stardist-masks.merge_stardist_masks_widget
+      python_name: napari_merge_stardist_masks._widget:MergeStarDistMasksWidget
+      title: Merge StarDist Masks
+  sample_data:
+    - command: napari-merge-stardist-masks.make_sample_data
+      display_name: Merge StarDist Masks
+      key: unique_id.1
+  widgets:
+    - command: napari-merge-stardist-masks.merge_stardist_masks_widget
+      display_name: Merge StarDist Masks
