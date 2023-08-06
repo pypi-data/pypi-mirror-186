@@ -1,0 +1,137 @@
+Metadata-Version: 2.1
+Name: nucliadb-utils
+Version: 1.0.17
+Home-page: https://nuclia.com
+License: BSD
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: pydantic (>=1.8.2)
+Requires-Dist: aiohttp (>=3.8.1)
+Requires-Dist: prometheus-client (>=0.12.0)
+Requires-Dist: types-requests (>=2.27.7)
+Requires-Dist: mmh3 (>=3.0.0)
+Requires-Dist: nats-py[nkeys] (>=2.1.3)
+Requires-Dist: pyjwt (>=2.4.0)
+Requires-Dist: nucliadb-protos (>=0.0.29)
+Requires-Dist: nucliadb-telemetry (>=1.1.6)
+Provides-Extra: cache
+Requires-Dist: redis (>=4.3.4) ; extra == 'cache'
+Requires-Dist: orjson (>=3.6.7) ; extra == 'cache'
+Requires-Dist: lru-dict (>=1.1.7) ; extra == 'cache'
+Provides-Extra: fastapi
+Requires-Dist: fastapi (<0.89.0,>=0.75.0) ; extra == 'fastapi'
+Requires-Dist: uvicorn (<0.19.0,>=0.16.0) ; extra == 'fastapi'
+Requires-Dist: starlette (>=0.21.0) ; extra == 'fastapi'
+Provides-Extra: storages
+Requires-Dist: oauth2client (>=4.1.3) ; extra == 'storages'
+Requires-Dist: aiobotocore (>=2.1.1) ; extra == 'storages'
+Requires-Dist: google-api-python-client (>=2.37.0) ; extra == 'storages'
+Requires-Dist: opentelemetry-instrumentation-aiohttp-client ; extra == 'storages'
+Requires-Dist: nucliadb-telemetry ; extra == 'storages'
+Requires-Dist: types-aiofiles (>=0.8.3) ; extra == 'storages'
+Requires-Dist: aiofiles (>=0.8.0) ; extra == 'storages'
+Requires-Dist: backoff (>=1.11.1) ; extra == 'storages'
+Requires-Dist: google-auth (>=2.4.1) ; extra == 'storages'
+
+# nucliadb util python library
+
+- Nats driver
+- FastAPI fixes
+- S3/GCS drivers
+
+CHANGELOG
+=========
+
+1.0.17
+------
+
+- Various storage fixes
+
+1.0.15
+------
+
+- Fix delete reindex payload
+
+1.0.14
+------
+
+- Add temporary logging
+
+1.0.13
+------
+
+- Make sure starlette is running on version >= 0.21.0 as it fixes a RuntimeError on client disconnect
+
+1.0.12
+------
+
+- Fix transaction pubsub keyerror
+
+1.0.11
+------
+- Add OpenAPI utils for fastapi doc generation
+
+1.0.10
+------
+
+- Relax dependencies
+
+1.0.9
+-----
+
+- Parametrize upload token expiration
+
+
+1.0.8 (2022-07-20)
+------------------
+
+- Upgrade aiohttp
+
+
+1.0.7 (2022-07-08)
+------------------
+
+- Updated nats.py package
+
+
+1.0.6 (2022-05-31)
+------------------
+
+- Split running settings on a different module
+
+
+1.0.5 (2022-05-31)
+------------------
+
+- Nothing changed yet.
+
+
+1.0.4 (2022-05-31)
+------------------
+
+- Nothing changed yet.
+
+
+1.0.3 (2022-05-31)
+------------------
+
+- Split dependencies for easier installation
+
+
+1.0.2 (2022-05-31)
+------------------
+
+- Update Pydantic dependency to >= 1.8.2
+
+
+1.0.1 (2022-05-31)
+------------------
+
+- Fix release
+
+
+1.0.0 (2022-05-31)
+------------------
+
+- Initial release
