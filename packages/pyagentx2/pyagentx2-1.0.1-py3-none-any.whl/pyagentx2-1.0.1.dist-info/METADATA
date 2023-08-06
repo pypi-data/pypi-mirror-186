@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: pyagentx2
+Version: 1.0.1
+Summary: AgentX package to extend SNMP with pure Python
+Home-page: https://github.com/jslarraz/pyagentx2
+Author: Jorge Sancho
+Author-email: jslarraz@gmail.com
+License: BSD
+Keywords: snmp network agentx
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Environment :: No Input/Output (Daemon)
+Classifier: Topic :: System :: Monitoring
+Classifier: Topic :: System :: Networking
+Classifier: Programming Language :: Python
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: Intended Audience :: Telecommunications Industry
+License-File: LICENSE.txt
+
+PyAgentX2
+--------------------
+pyagentx2 is a fork of pyagentx, which is a pure Python implementation of AgentX protocol (RFC 2741), that
+allows you to extend SNMP agent (snmpd) by writing AgentX subagents, without modifying your original SNMP agent.
+
+The agent can support the following commands:
+- snmpget
+- snmpwalk
+- snmptable
+- snmpset
+
