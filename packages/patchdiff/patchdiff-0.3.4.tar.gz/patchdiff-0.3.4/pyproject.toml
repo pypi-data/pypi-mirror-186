@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "patchdiff"
+version = "0.3.4"
+description = "MIT"
+authors = ["Korijn van Golen <korijn@gmail.com>", "Berend Klein Haneveld <berendkleinhaneveld@gmail.com>"]
+homepage = "https://github.com/fork-tongue/patchdiff"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+
+[tool.poetry.dev-dependencies]
+flake8 = "*"
+black = "*"
+flake8-black = "*"
+flake8-import-order = "*"
+flake8-print = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-watch = "*"
+twine = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
