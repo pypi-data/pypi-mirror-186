@@ -1,0 +1,126 @@
+[tool.poetry]
+name        = "poethepoet"
+version     = "0.18.1"
+description = "A task runner that works well with poetry."
+authors     = ["Nat Noordanus <n@natn.me>"]
+readme      = "README.rst"
+license     = "MIT"
+repository  = "https://github.com/nat-n/poethepoet"
+homepage    = "https://github.com/nat-n/poethepoet"
+keywords    = ["automation", "tasks", "task-runner", "plugin", "poetry", "poe"]
+classifiers = ["Topic :: Software Development :: Build Tools"]
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+pastel = "^0.2.1"
+tomli  = ">=1.2.2"
+poetry = {version = "^1.0", allow-prereleases = true, optional = true}
+
+[tool.poetry.group.dev.dependencies]
+black      = "^22.3.0"
+bpython    = "^0.22.1"
+filelock   = "^3.7.1"
+isort      = { version = "^5.10.1", python = "<4" }
+mypy       = "^0.960"
+pylint     = "^2.13.0"
+pytest     = "^7.1.2"
+pytest-cov = "^3.0.0"
+rstcheck   = "^3.3.1"
+virtualenv = "^20.14.1"
+zipp       = "^3.8.0"
+distlib    = "^0.3.4"
+poe_test_helpers = { path = "./tests/fixtures/packages/poe_test_helpers" }
+
+[tool.poetry.extras]
+poetry_plugin = ["poetry"]
+
+[tool.poetry.scripts]
+poe = "poethepoet:main"
+
+[tool.poetry.plugins."poetry.application.plugin"]
+poethepoet = "poethepoet.plugin:PoetryPlugin"
+
+[tool.poe.tasks]
+
+  [tool.poe.tasks.format-isort]
+  help = "Run isort on the code base"
+  cmd  = "isort ."
+
+  [tool.poe.tasks.format-black]
+  help = "Run black on the code base"
+  cmd  = "black ."
+
+  [tool.poe.tasks.format]
+  help = "Run formating tools on the code base"
+  sequence  = ["format-isort", "format-black"]
+
+  [tool.poe.tasks.clean]
+  help = "Remove generated files"
+  cmd  = """
+    # multiline commands including comments work too!
+    rm -rf .coverage
+           .mypy_cache
+           .pytest_cache
+           ./**/__pycache__
+           dist
+           htmlcov
+           ./tests/fixtures/simple_project/venv
+           ./tests/fixtures/venv_project/myvenv
+           ./tests/fixtures/poetry_plugin_project/**/.venv
+           ./tests/temp
+  """
+
+  [tool.poe.tasks.test]
+  help = "Run unit and feature tests"
+  cmd  = "pytest --cov=poethepoet"
+
+  [tool.poe.tasks.test-quick]
+  help = "Run unit and feature tests, excluding slow ones"
+  cmd  = "pytest --cov=poethepoet -m \"not slow\""
+
+  [tool.poe.tasks.types]
+  help = "Run the type checker"
+  cmd  = "mypy poethepoet --ignore-missing-imports"
+
+  [tool.poe.tasks.lint]
+  help = "Run the linter"
+  cmd  = "pylint poethepoet"
+
+  [tool.poe.tasks.style-black]
+  help = "Validate black code style"
+  cmd  = "black . --check --diff"
+
+  [tool.poe.tasks.style-isort]
+  help = "Validate isort code style"
+  cmd  = "isort . --check --diff"
+
+  [tool.poe.tasks.style]
+  help = "Validate code style"
+  sequence = ["style-isort", "style-black"]
+
+  [tool.poe.tasks.check-docs]
+  help = "Validate rst syntax in the docs"
+  cmd  = "rstcheck README.rst"
+
+  [tool.poe.tasks.check]
+  help     = "Run all checks on the code base"
+  sequence = ["check-docs", "style", "types", "lint", "test"]
+
+  [tool.poe.tasks.poe]
+  help   = "Execute poe from this repo (useful for testing)"
+  script = "poethepoet:main"
+
+[tool.coverage.report]
+omit = ["**/site-packages/**", "poethepoet/completion/*", "poethepoet/plugin.py"]
+
+[tool.pytest.ini_options]
+markers = [
+  "slow: marks tests as slow (deselect with '-m \"not slow\"')"
+]
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires      = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
