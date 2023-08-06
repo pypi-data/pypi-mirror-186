@@ -1,0 +1,911 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ReviewConfigurationPage</class>
+ <widget class="QWizardPage" name="ReviewConfigurationPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>424</width>
+    <height>337</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Review configuration page</string>
+  </property>
+  <property name="title">
+   <string>Review configuration</string>
+  </property>
+  <property name="subTitle">
+   <string>Check that the configuration parameters provided are OK.  Click on Test Connection to be able to go ahead</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QGroupBox" name="elog_group_box">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>300</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>General ELOG parameters</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="3" column="0">
+           <widget class="QLabel" name="elog_port_label">
+            <property name="text">
+             <string>ELOG port</string>
+            </property>
+            <property name="buddy">
+             <cstring>elog_port_field</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="elog_password_field">
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;ELOG Password&lt;/span&gt;&lt;/p&gt;&lt;p&gt;In order to be able to post on the ELOG, this automatic tool needs to use access credentials. Put here the password you want to use.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>ELOG User password</string>
+            </property>
+            <property name="buddy">
+             <cstring>elog_password_field</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="elog_user_field">
+            <property name="whatsThis">
+             <string extracomment="The user name for the ELOG">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;ELOG User Name&lt;/span&gt;&lt;/p&gt;&lt;p&gt;In order to be able to post on the ELOG, this automatic tool needs to use access credentials. Put here the user name you want to use&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Use SSL</string>
+            </property>
+            <property name="buddy">
+             <cstring>elog_ssl_check_box</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QCheckBox" name="elog_ssl_check_box">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="timeout_label">
+            <property name="text">
+             <string>Timeout (s)</string>
+            </property>
+            <property name="buddy">
+             <cstring>elog_timeout_spinbox</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QSpinBox" name="elog_port_field">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;ELOG Port&lt;/span&gt;&lt;/p&gt;&lt;p&gt;This is the TCP/IP port where the ELOG is listening. If you have no idea, ask your system administrator.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="maximum">
+             <number>100000</number>
+            </property>
+            <property name="value">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QDoubleSpinBox" name="elog_timeout_spinbox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>Delay after which a server request is aborted because of timeout.</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Timeout&lt;/span&gt;&lt;/p&gt;&lt;p&gt;In order to avoid the GUI to freeze due to a not responsive ELOG server, after a certain number of seconds defined by this timeout variable all network communication attempts non receiving any answer will be termined.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="value">
+             <double>0.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="elog_hostname_label">
+            <property name="text">
+             <string>ELOG hostname</string>
+            </property>
+            <property name="buddy">
+             <cstring>elog_hostname_field</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="elog_hostname_field">
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;ELOG Hostname&lt;/span&gt;&lt;/p&gt;&lt;p&gt;This is the URL where the ELOG is responding. If you have no idea, ask your system administrator.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="echoMode">
+             <enum>QLineEdit::Normal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="elog_user_label">
+            <property name="text">
+             <string>ELOG User name</string>
+            </property>
+            <property name="buddy">
+             <cstring>elog_user_field</cstring>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTabWidget" name="microscope_tabs">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="general_tab">
+        <attribute name="title">
+         <string>Protocol list</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="network_folder"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="quattro_elog_logbook_label_2">
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Protocol list logbook</string>
+             </property>
+             <property name="buddy">
+              <cstring>quattro_elog_logbook_field</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="protocol_list_logbook_field">
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Quattro ELOG logbook&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Specify here the name of the Quattro logbook.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QToolButton" name="network_path_search_button">
+             <property name="text">
+              <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/resources.qrc">
+               <normaloff>:/expwizard/icons8-folder-48.png</normaloff>:/expwizard/icons8-folder-48.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Network folder</string>
+             </property>
+             <property name="buddy">
+              <cstring>network_folder</cstring>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="quattro_tab">
+        <attribute name="title">
+         <string>Quattro</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <widget class="QLabel" name="quattro_elog_logbook_label">
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Quattro ELOG logbook</string>
+             </property>
+             <property name="buddy">
+              <cstring>quattro_elog_logbook_field</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="quattro_elog_logbook_field">
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Quattro ELOG logbook&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Specify here the name of the Quattro logbook.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Quattro local path</string>
+             </property>
+             <property name="buddy">
+              <cstring>quattro_local_path</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="quattro_local_path"/>
+           </item>
+           <item row="1" column="2">
+            <widget class="QToolButton" name="quattro_path_search_button">
+             <property name="text">
+              <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/resources.qrc">
+               <normaloff>:/expwizard/icons8-folder-48.png</normaloff>:/expwizard/icons8-folder-48.png</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="vega">
+        <attribute name="title">
+         <string>Vega</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="0">
+            <widget class="QLabel" name="versa_elog_logbook_label_2">
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Vega ELOG logbook</string>
+             </property>
+             <property name="buddy">
+              <cstring>versa_elog_logbook_field</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="vega_local_path"/>
+           </item>
+           <item row="1" column="2">
+            <widget class="QToolButton" name="vega_path_search_button">
+             <property name="text">
+              <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/resources.qrc">
+               <normaloff>:/expwizard/icons8-folder-48.png</normaloff>:/expwizard/icons8-folder-48.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Vega local path</string>
+             </property>
+             <property name="buddy">
+              <cstring>versa_local_path</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="vega_elog_logbook_field">
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Versa ELOG logbook&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Specify here the name of the Versa logbook.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="versa_tab">
+        <attribute name="title">
+         <string>Versa</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="0">
+            <widget class="QLabel" name="versa_elog_logbook_label">
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Versa ELOG logbook</string>
+             </property>
+             <property name="buddy">
+              <cstring>versa_elog_logbook_field</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="versa_elog_logbook_field">
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Versa ELOG logbook&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Specify here the name of the Versa logbook.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Versa local path</string>
+             </property>
+             <property name="buddy">
+              <cstring>versa_local_path</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="versa_local_path"/>
+           </item>
+           <item row="1" column="2">
+            <widget class="QToolButton" name="versa_path_search_button">
+             <property name="text">
+              <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/resources.qrc">
+               <normaloff>:/expwizard/icons8-folder-48.png</normaloff>:/expwizard/icons8-folder-48.png</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="xl40gb">
+        <attribute name="title">
+         <string>XL40-GB</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QLabel" name="versa_elog_logbook_label_3">
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>XL40-GB ELOG logbook</string>
+             </property>
+             <property name="buddy">
+              <cstring>versa_elog_logbook_field</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="xl40gb_local_path"/>
+           </item>
+           <item row="1" column="2">
+            <widget class="QToolButton" name="xl40gb_path_search_button">
+             <property name="text">
+              <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/resources.qrc">
+               <normaloff>:/expwizard/icons8-folder-48.png</normaloff>:/expwizard/icons8-folder-48.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_7">
+             <property name="text">
+              <string>XL40-GB local path</string>
+             </property>
+             <property name="buddy">
+              <cstring>versa_local_path</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="xl40gb_elog_logbook_field">
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Versa ELOG logbook&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Specify here the name of the Versa logbook.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="xl40cold">
+        <attribute name="title">
+         <string>XL40-Cold</string>
+        </attribute>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="0" column="0">
+            <widget class="QLabel" name="versa_elog_logbook_label_4">
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>XL40-Cold ELOG logbook</string>
+             </property>
+             <property name="buddy">
+              <cstring>versa_elog_logbook_field</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="xl40cold_local_path"/>
+           </item>
+           <item row="1" column="2">
+            <widget class="QToolButton" name="xl40cold_path_search_button">
+             <property name="text">
+              <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources/resources.qrc">
+               <normaloff>:/expwizard/icons8-folder-48.png</normaloff>:/expwizard/icons8-folder-48.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>XL40-Cold local path</string>
+             </property>
+             <property name="buddy">
+              <cstring>versa_local_path</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="xl40cold_elog_logbook_field">
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Versa ELOG logbook&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Specify here the name of the Versa logbook.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QPushButton" name="restore_default_button">
+         <property name="text">
+          <string>Restore defaults</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="connection_test_label">
+         <property name="text">
+          <string>Connection not yet tested</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="test_connection_button">
+         <property name="text">
+          <string>Test connection</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>elog_user_field</tabstop>
+  <tabstop>elog_password_field</tabstop>
+  <tabstop>elog_hostname_field</tabstop>
+  <tabstop>elog_port_field</tabstop>
+  <tabstop>elog_ssl_check_box</tabstop>
+  <tabstop>elog_timeout_spinbox</tabstop>
+  <tabstop>protocol_list_logbook_field</tabstop>
+  <tabstop>network_folder</tabstop>
+  <tabstop>network_path_search_button</tabstop>
+  <tabstop>quattro_elog_logbook_field</tabstop>
+  <tabstop>quattro_local_path</tabstop>
+  <tabstop>quattro_path_search_button</tabstop>
+  <tabstop>versa_elog_logbook_field</tabstop>
+  <tabstop>versa_local_path</tabstop>
+  <tabstop>versa_path_search_button</tabstop>
+  <tabstop>test_connection_button</tabstop>
+  <tabstop>restore_default_button</tabstop>
+  <tabstop>microscope_tabs</tabstop>
+ </tabstops>
+ <resources>
+  <include location="resources/resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>network_path_search_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>search_folder()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>395</x>
+     <y>268</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>312</x>
+     <y>319</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>quattro_path_search_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>search_folder()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>292</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>versa_path_search_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>search_folder()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>314</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>elog_password_field</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>connection_to_be_retested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>213</x>
+     <y>69</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>160</x>
+     <y>168</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>elog_password_field</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>password_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>290</x>
+     <y>72</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>314</x>
+     <y>78</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>test_connection_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>test_connection()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>370</x>
+     <y>313</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>189</x>
+     <y>303</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>restore_default_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>restore_defaults()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>47</x>
+     <y>315</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>119</x>
+     <y>320</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>elog_user_field</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>connection_to_be_retested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>402</x>
+     <y>42</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>423</x>
+     <y>52</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>elog_hostname_field</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>connection_to_be_retested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>296</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>243</x>
+     <y>197</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>elog_port_field</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>connection_to_be_retested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>296</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>243</x>
+     <y>197</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>elog_ssl_check_box</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>connection_to_be_retested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>296</x>
+     <y>147</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>243</x>
+     <y>197</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>protocol_list_logbook_field</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>connection_to_be_retested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>290</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>243</x>
+     <y>197</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>quattro_elog_logbook_field</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>connection_to_be_retested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>243</x>
+     <y>197</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>versa_elog_logbook_field</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>connection_to_be_retested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>243</x>
+     <y>197</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>vega_path_search_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>search_folder()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>344</x>
+     <y>336</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>xl40gb_path_search_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>search_folder()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>393</x>
+     <y>268</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>423</x>
+     <y>280</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>xl40cold_path_search_button</sender>
+   <signal>clicked()</signal>
+   <receiver>ReviewConfigurationPage</receiver>
+   <slot>search_folder()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>390</x>
+     <y>271</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>421</x>
+     <y>203</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>search_folder()</slot>
+  <slot>password_changed()</slot>
+  <slot>test_connection()</slot>
+  <slot>restore_defaults()</slot>
+  <slot>connection_to_be_retested()</slot>
+ </slots>
+</ui>

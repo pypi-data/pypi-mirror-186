@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>main_window_image_converter</class>
+ <widget class="QMainWindow" name="main_window_image_converter">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>630</width>
+    <height>377</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Image Converter GUI</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/resources/icons8-picture-64.png</normaloff>:/resources/icons8-picture-64.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_4">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="push_button_add_file">
+          <property name="text">
+           <string>Add file(s)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QPushButton" name="push_button_add_directory">
+          <property name="text">
+           <string>Add directory</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3" colspan="2">
+         <widget class="QPushButton" name="push_button_add_directory_recursively">
+          <property name="text">
+           <string>Add directory recursively</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QPushButton" name="push_button_clear_selection">
+          <property name="text">
+           <string>Clear selection</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Output format</string>
+          </property>
+          <property name="buddy">
+           <cstring>combo_box_output_format</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4" colspan="2">
+         <widget class="QComboBox" name="combo_box_preferred_extension"/>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Preferred extension</string>
+          </property>
+          <property name="buddy">
+           <cstring>combo_box_preferred_extension</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" colspan="2">
+         <widget class="QComboBox" name="combo_box_output_format">
+          <property name="modelColumn">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Selected files</string>
+            </property>
+            <property name="buddy">
+             <cstring>list_view_selected_item</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QListView" name="list_view_selected_item">
+            <property name="minimumSize">
+             <size>
+              <width>500</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="contextMenuPolicy">
+             <enum>Qt::DefaultContextMenu</enum>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::ExtendedSelection</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="push_button_start_conversion">
+            <property name="text">
+             <string>Start conversion</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="push_button_abort_conversion">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Abort conversion</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="push_button_exit">
+            <property name="text">
+             <string>Exit</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QProgressBar" name="conversion_progress_bar">
+        <property name="inputMethodHints">
+         <set>Qt::ImhNone</set>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+        <property name="textVisible">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>630</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="action_add_file"/>
+    <addaction name="action_add_directory"/>
+    <addaction name="action_add_directories_recursively"/>
+    <addaction name="separator"/>
+    <addaction name="action_clear_selection"/>
+    <addaction name="separator"/>
+    <addaction name="action_exit"/>
+   </widget>
+   <widget class="QMenu" name="menuRun">
+    <property name="title">
+     <string>Run</string>
+    </property>
+    <addaction name="action_start_conversion"/>
+    <addaction name="action_abort_format_conversion"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="action_about_image_converter_gui"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuRun"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_add_file">
+   <property name="text">
+    <string>Add file(s)...</string>
+   </property>
+  </action>
+  <action name="action_add_directory">
+   <property name="text">
+    <string>Add directory...</string>
+   </property>
+  </action>
+  <action name="action_add_directories_recursively">
+   <property name="text">
+    <string>Add directories recursively...</string>
+   </property>
+  </action>
+  <action name="action_exit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="action_start_conversion">
+   <property name="text">
+    <string>Start format conversion</string>
+   </property>
+  </action>
+  <action name="action_about_image_converter_gui">
+   <property name="text">
+    <string>About Image Converter GUI...</string>
+   </property>
+  </action>
+  <action name="action_clear_selection">
+   <property name="text">
+    <string>Clear selection</string>
+   </property>
+  </action>
+  <action name="action_abort_format_conversion">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Abort format conversion</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>push_button_add_file</sender>
+   <signal>clicked()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>add_files()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>85</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>352</x>
+     <y>153</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>push_button_add_directory</sender>
+   <signal>clicked()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>add_directory()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>push_button_add_directory_recursively</sender>
+   <signal>clicked()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>add_directory_recursively()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>459</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>131</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>push_button_clear_selection</sender>
+   <signal>clicked()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>clear_selection()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>610</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>139</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>push_button_start_conversion</sender>
+   <signal>clicked()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>start_conversion()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>609</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>268</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>push_button_exit</sender>
+   <signal>clicked()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>609</x>
+     <y>302</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_add_file</sender>
+   <signal>triggered()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>add_files()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>288</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_add_directory</sender>
+   <signal>triggered()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>add_directory()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>288</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_add_directories_recursively</sender>
+   <signal>triggered()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>add_directory_recursively()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>288</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_clear_selection</sender>
+   <signal>triggered()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>clear_selection()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>288</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_exit</sender>
+   <signal>triggered()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>288</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_start_conversion</sender>
+   <signal>triggered()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>start_conversion()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>437</x>
+     <y>288</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>combo_box_output_format</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>output_format_selection_changed(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>308</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>362</x>
+     <y>102</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_abort_format_conversion</sender>
+   <signal>triggered()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>abort_conversion()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>331</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>push_button_abort_conversion</sender>
+   <signal>clicked()</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>abort_conversion()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>617</x>
+     <y>288</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>560</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>combo_box_preferred_extension</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>main_window_image_converter</receiver>
+   <slot>preferred_extension_changed(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>547</x>
+     <y>73</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>595</x>
+     <y>119</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>add_files()</slot>
+  <slot>add_directory()</slot>
+  <slot>add_directory_recursively()</slot>
+  <slot>clear_selection()</slot>
+  <slot>start_conversion()</slot>
+  <slot>output_format_selection_changed(QString)</slot>
+  <slot>abort_conversion()</slot>
+  <slot>preferred_extension_changed(QString)</slot>
+ </slots>
+</ui>

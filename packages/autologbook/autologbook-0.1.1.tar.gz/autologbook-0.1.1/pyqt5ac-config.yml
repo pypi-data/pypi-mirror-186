@@ -1,0 +1,23 @@
+ioPaths:
+ -
+   - "autologbook\\ui\\*.ui"
+   - "autologbook\\%%FILENAME%%_ui.py"
+ -
+   - 'labtools\\ui\\*ui'
+   - 'labtools\\%%FILENAME%%_ui.py'
+ -
+   - 'expwizard\\ui\\*ui'
+   - 'expwizard\\%%FILENAME%%_ui.py'
+ -
+   - "autologbook/ui/resource.qrc"
+   - "autologbook/resource_rc.py"
+ -
+   - "labtools/ui/resource.qrc"
+   - "labtools/resource_rc.py"
+ -
+   - "expwizard/ui/resources/resources.qrc"
+   - "expwizard/resources_rc.py"
+
+uic_options:  --from-imports
+init_package: False
+force: False

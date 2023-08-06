@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SearchExperimentPage</class>
+ <widget class="QWizardPage" name="SearchExperimentPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>564</width>
+    <height>362</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Search experiment page</string>
+  </property>
+  <property name="title">
+   <string>Search for an experiment</string>
+  </property>
+  <property name="subTitle">
+   <string>Insert some filtering criteria and select an experiment to continue</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_4">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Search parameters</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <layout class="QGridLayout" name="gridLayout">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Protocol ID</string>
+              </property>
+              <property name="buddy">
+               <cstring>protocol_id_search_field</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="protocol_id_search_field">
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Microscope</string>
+              </property>
+              <property name="buddy">
+               <cstring>microscope_combo</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QComboBox" name="microscope_combo"/>
+            </item>
+            <item row="0" column="4" rowspan="2">
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <widget class="QPushButton" name="search_button">
+                <property name="text">
+                 <string>Search</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="clear_fields">
+                <property name="text">
+                 <string>Clear fields</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Requesting user</string>
+              </property>
+              <property name="buddy">
+               <cstring>requesting_user_search_field</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="requesting_user_search_field">
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Requesting unit</string>
+              </property>
+              <property name="buddy">
+               <cstring>requesting_unit_search_field</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="requesting_unit_search_field">
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Search results</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTableView" name="search_results_table_view">
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Message ID</string>
+         </property>
+         <property name="buddy">
+          <cstring>msg_id_field</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="msg_id_field">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Experiment file</string>
+         </property>
+         <property name="buddy">
+          <cstring>experiment_file_field</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="experiment_file_field">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="open_record_button">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open record in a browser&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>...</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resources/resources.qrc">
+           <normaloff>:/expwizard/icons8-website-48.png</normaloff>:/expwizard/icons8-website-48.png</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>protocol_id_search_field</tabstop>
+  <tabstop>microscope_combo</tabstop>
+  <tabstop>requesting_user_search_field</tabstop>
+  <tabstop>requesting_unit_search_field</tabstop>
+  <tabstop>search_button</tabstop>
+  <tabstop>clear_fields</tabstop>
+  <tabstop>search_results_table_view</tabstop>
+  <tabstop>open_record_button</tabstop>
+  <tabstop>msg_id_field</tabstop>
+  <tabstop>experiment_file_field</tabstop>
+ </tabstops>
+ <resources>
+  <include location="resources/resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>search_button</sender>
+   <signal>clicked()</signal>
+   <receiver>SearchExperimentPage</receiver>
+   <slot>search_experiment()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>540</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>415</x>
+     <y>117</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clear_fields</sender>
+   <signal>clicked()</signal>
+   <receiver>protocol_id_search_field</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>540</x>
+     <y>87</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>144</x>
+     <y>49</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clear_fields</sender>
+   <signal>clicked()</signal>
+   <receiver>requesting_user_search_field</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>540</x>
+     <y>87</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>88</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clear_fields</sender>
+   <signal>clicked()</signal>
+   <receiver>requesting_unit_search_field</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>540</x>
+     <y>87</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>458</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>search_results_table_view</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>SearchExperimentPage</receiver>
+   <slot>record_selected(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>537</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>562</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>open_record_button</sender>
+   <signal>clicked()</signal>
+   <receiver>SearchExperimentPage</receiver>
+   <slot>open_record_in_browser()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>543</x>
+     <y>340</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>554</x>
+     <y>347</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>protocol_id_search_field</sender>
+   <signal>returnPressed()</signal>
+   <receiver>SearchExperimentPage</receiver>
+   <slot>search_experiment()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>187</x>
+     <y>49</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>17</x>
+     <y>111</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>requesting_user_search_field</sender>
+   <signal>returnPressed()</signal>
+   <receiver>SearchExperimentPage</receiver>
+   <slot>search_experiment()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>124</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>103</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>requesting_unit_search_field</sender>
+   <signal>returnPressed()</signal>
+   <receiver>SearchExperimentPage</receiver>
+   <slot>search_experiment()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>334</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>search_experiment()</slot>
+  <slot>record_selected(QModelIndex)</slot>
+  <slot>open_record_in_browser()</slot>
+ </slots>
+</ui>
