@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "one_py_sdk"
+version = "1.4.0"
+dependencies = [
+    "requests",
+    "protobuf==3.20.1", 
+    "one_interfaces",
+    "requests_cache"
+    ]
+authors = [
+  { name="AquaticInformatics", email="daniel.edwards@aquaticinformatics.com" },
+]
+description = "A package to interact with the ONE waterquality platform APIs."
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/AquaticInformatics/ONE-Py-SDK"
+"Bug Tracker" = "https://github.com/AquaticInformatics/ONE-Py-SDK/issues"
+"Sample Code" = "https://github.com/AquaticInformatics/one-py-samples"
