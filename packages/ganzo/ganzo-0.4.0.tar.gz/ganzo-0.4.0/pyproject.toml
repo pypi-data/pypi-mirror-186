@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=63", "setuptools-scm>=7"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ganzo"
+version = "0.4.0"
+description = "Project creator (from templates)"
+readme = "README.md"
+requires-python=">=3.7,<4"
+dynamic = ["dependencies", "optional-dependencies"]
+
+[project.urls]
+homepage = "https://github.com/miguelnmiranda/ganzo"
+
+[project.scripts]
+ganzo = "ganzo.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["ganzo*"]
+namespaces = true
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
+
+[tool.setuptools.dynamic.optional-dependencies]
+dev = {file = ["requirements-dev.txt"]}
+pub = {file = ["requirements-pub.txt"]}
+
+[tool.pytest.ini_options]
+addopts = "-ra -q -vv --cov=ganzo"
+testpaths = ["src/tests"]
+
+[tool.pylint.MASTER]
+disable = ["C0114", "C0115", "C0116"]
+
+[tool.pyright]
+include = ["src"]
+
+[tool.bandit]
+exclude_dirs = ["src/tests"]
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
