@@ -1,0 +1,42 @@
+{
+  "version" : 2,
+  "branching_rule" : "MIN_INDEX",
+  "absolute_gap" : 1e-09,
+  "relative_gap" : 1e-4,
+  "epsilon" : 1e-9,
+  "seed" : 36848232890347,
+  "node_presolve" : true,
+  "presolve" : {
+    "enabled" : true,
+    "coeff_strengthening" : false,
+    "decompose" : false,
+    "maxiter" : 100
+  },
+  "enumerate":{
+    "enabled" : true,
+    "enumeration_algorithm" : "CPU_GRAY",
+    "enumeration_threshold" : 16
+  },
+  "primal_solver" : {
+      "type" : "COOK_GPU",
+      "runs" : 10,
+      "schedule" :
+      {
+        "type" : "EXPONENTIAL_MULTIPLICATIVE",
+        "adaptive" : false,
+        "num_sweeps" : 10000,
+        "fp_init" : 0.8,
+        "fp_decay_fac" : 0.99,
+        "decay_interval": 10
+      }
+  },
+  "dual_solver": {
+      "runs" : 1,
+      "type" : "FVSDP_CPU",
+      "forest_num_roots" : 8,
+      "deterministic" : false,
+      "max_iters" : 50,
+      "rel_stop_iters" : 5,
+      "dual_root_node_SDP": false
+  }
+}

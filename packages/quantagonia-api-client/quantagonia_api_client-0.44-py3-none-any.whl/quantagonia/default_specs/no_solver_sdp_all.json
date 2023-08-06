@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "branching_rule": "MIN_INDEX",
+  "absolute_gap": 1e-09,
+  "relative_gap": 1e-4,
+  "epsilon": 1e-9,
+  "seed": 36848232890347,
+  "node_presolve": true,
+  "presolve": {
+    "enabled": true,
+    "coeff_strengthening": false,
+    "decompose": false,
+    "maxiter": 100
+  },
+  "enumerate": {
+    "enabled": true,
+    "enumeration_algorithm": "CPU_GRAY",
+    "enumeration_threshold": 16
+  },
+  "primal_solver": {
+    "type": "NO_SOLVER",
+    "runs": 1
+  },
+  "dual_solver": {
+    "runs": 1,
+    "type": "SDP_SHIFT",
+    "dual_root_node_SDP": true,
+    "continuous_solver": {
+      "type": "FRANK_WOLFE",
+      "maxiter": 500000,
+      "max_dual_gap": 1e-04,
+      "max_rel_dual_gap": 1e-05,
+      "smasher_step": false,
+      "smasher_eps": 0.1
+    }
+  }
+}

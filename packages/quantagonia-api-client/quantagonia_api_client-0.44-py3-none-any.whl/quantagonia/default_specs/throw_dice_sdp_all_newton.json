@@ -1,0 +1,67 @@
+{
+  "version" : 2,
+  "branching_rule" : "MIN_INDEX",
+  "absolute_gap" : 1e-09,
+  "relative_gap" : 1e-4,
+  "epsilon" : 1e-9,
+  "seed" : 36848232890347,
+  "node_presolve" : true,
+  "presolve" : {
+    "enabled" : true,
+    "coeff_strengthening" : false,
+    "decompose" : false,
+    "maxiter" : 100
+  },
+  "enumerate":{
+    "enabled" : true,
+    "enumeration_algorithm" : "CPU_GRAY",
+    "enumeration_threshold" : 16
+  },
+  "primal_solver" : {
+    "type" : "THROW_DICE",
+    "runs" : 1,
+    "composition" : [
+      {
+        "probability" : 0.9,
+        "solver" : {
+          "type" : "NO_SOLVER"
+        }
+      },
+      {
+        "probability" : 0.02,
+        "solver" : {
+          "type" : "METROPOLIS_HASTINGS",
+          "runs" : 5,
+          "schedule" :
+          {
+            "type" : "EXPONENTIAL_MULTIPLICATIVE",
+            "adaptive" : false,
+            "num_sweeps" : 10000,
+            "fp_init" : 4,
+            "fp_decay_fac" : 0.99,
+            "decay_interval": 100
+          }
+        }
+      },
+      {
+        "probability" : 0.08,
+        "solver" : {
+          "runs" : 1,
+          "type" : "FVSDP_CPU",
+          "forest_num_roots" : 8,
+          "deterministic" : false,
+          "max_iters" : 50,
+          "rel_stop_iters" : 5
+        }
+      }
+    ]
+  },
+  "dual_solver": {
+      "runs": 1,
+      "type" : "SDP_SHIFT",
+      "dual_root_node_SDP": true,
+      "continuous_solver": {
+          "type": "FRANK_WOLFE"
+      }
+  }
+}

@@ -1,0 +1,18 @@
+{
+      "runs" : 1,
+      "branching_rule" : "OBJECTIVE",
+      "type" : "FVSDP_CPU",
+      "opt_sense" : "MAXIMIZE",
+      "opt_space" : "PRIMAL",
+      "forest_num_roots" : 1,
+      "absolute_gap" : 1e-08,
+      "time_limit" : 36000,
+      "deterministic" : true,
+      "max_iters" : 50,
+      "seed" : 36848232890347,
+      "presolve" : {
+        "enabled" : true,
+        "coeff_strengthening" : false,
+        "maxiter" : 100
+      }
+}

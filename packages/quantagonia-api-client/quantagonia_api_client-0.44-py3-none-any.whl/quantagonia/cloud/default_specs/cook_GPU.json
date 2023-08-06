@@ -1,0 +1,23 @@
+{
+      "type" : "COOK_GPU",
+      "runs" : 10,
+      "opt_sense" : "MAXIMIZE",
+      "branching_rule" : "OBJECTIVE",
+      "seed" : 123663243,
+      "absolute_gap" : 1e-08,
+      "time_limit" : 36000,
+      "presolve" : {
+        "enabled" : true,
+        "coeff_strengthening" : false,
+        "maxiter" : 100
+      },
+      "schedule" :
+      {
+        "type" : "EXPONENTIAL_MULTIPLICATIVE",
+        "adaptive" : false,
+        "num_sweeps" : 10000,
+        "fp_init" : 0.8,
+        "fp_decay_fac" : 0.99,
+        "decay_interval": 10
+      }
+    }

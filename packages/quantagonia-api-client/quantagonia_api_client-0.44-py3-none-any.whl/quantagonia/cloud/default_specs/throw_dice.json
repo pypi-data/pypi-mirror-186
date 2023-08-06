@@ -1,0 +1,56 @@
+{
+    "branching_rule" : "BOUND",
+    "runs" : 1,
+    "type" : "THROW_DICE",
+    "opt_sense" : "MAXIMIZE",
+    "opt_space" : "PRIMAL",
+    "seed" : 36848232890347,
+    "presolve":{
+        "enabled" : true,
+        "coeff_strengthening" : false,
+        "maxiter" : 100
+    },
+    "composition" : [
+        {
+            "probability" : 0.9,
+            "solver" : {
+                "type" : "NO_SOLVER",
+                "opt_space" : "PRIMAL",
+                "opt_sense" : "MAXIMIZE"
+            }
+        },
+        {
+            "probability" : 0.02,
+            "solver" : {
+                "type" : "METROPOLIS_HASTINGS",
+                "runs" : 5,
+                "opt_space" : "PRIMAL",
+                "opt_sense" : "MAXIMIZE",
+                "seed" : 123663243,
+                "schedule" :
+                {
+		    "type" : "EXPONENTIAL_MULTIPLICATIVE",
+		    "adaptive" : false,
+		    "num_sweeps" : 10000,
+		    "fp_init" : 4,
+		    "fp_decay_fac" : 0.99,
+		    "decay_interval": 100
+                }
+            }
+        },
+        {
+            "probability" : 0.08,
+            "solver" : {
+                "runs" : 1,
+                "type" : "FVSDP_CPU",
+                "opt_sense" : "MAXIMIZE",
+                "opt_space" : "PRIMAL",
+                "forest_num_roots" : 8,
+                "deterministic" : false,
+                "max_iters" : 50,
+                "seed" : 36848232890347,
+                "rel_stop_iters" : 5
+            }
+        }
+    ]
+}

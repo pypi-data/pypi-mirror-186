@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: quantagonia-api-client
+Version: 0.44
+Summary: This package contains APIs for accessing Quantagonia's HybridSolver for solving MIPs and QUBOs through native file formats or PuLP resp. PyQUBO
+Home-page: https://www.quantagonia.com
+Author: Quantagonia GmbH
+Author-email: apis@quantagonia.com
+Keywords: Optimization,Linear Programming,Operations Research
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Requires-Dist: urllib3 (>=1.26)
+Requires-Dist: pyqubo
+Requires-Dist: pulp
+Requires-Dist: yaspin
+Requires-Dist: qiskit
+Requires-Dist: qiskit-optimization
+Requires-Dist: dwave-ocean-sdk
+Requires-Dist: concurrencytest
+Requires-Dist: parameterized
+Requires-Dist: singledispatchmethod ; python_version <= "3.7"
+
+# Quantagonia API Client
+
+This package contains Quantagonia's client-side APIs for using HybridSolver.
+This includes:
+- a plugin for PuLP to solve PuLP-generated models locally and in the client,
+- a simple API to model QUBOs locally and solve them in the cloud and
+- an importer to vonvert PyQUBO models into our format - allowing to solve PyQUBO models in QUantagonia's cloud.
+
+The following notes are for Devlopers only.
+
+## Installation
+
+Python >= 3.8 is required. Then, do
+```
+python -m pip install quantagonia-api-client
+```
+
+Once done, one can run the examples in `examples/` through, e.g.,
+```
+QUANTAGONIA_API_KEY="<redacted>" python examples/submit_qubo.py
+```
+with a valid Quantagonia API key.
