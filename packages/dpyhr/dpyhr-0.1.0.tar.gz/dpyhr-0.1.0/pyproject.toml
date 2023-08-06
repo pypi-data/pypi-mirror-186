@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "dpyhr"
+version = "0.1.0"
+description = "dpyhr. A discord.py module reloader written in pure python!"
+authors = ["timelessnesses <mooping3roblox@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/timelessnesses/dpyhr"
+repository = "https://github.com/timelessnesses/dpyhr"
+packages = [
+    { include = "./dpyhr" },
+]
+[tool.poetry.dependencies]
+python = "^3.8"
+watchdog = "^2.2.1"
+
+[tool.poetry.group.dev.dependencies]
+"discord.py" = "^2.1.0"
+black = "^22.12.0"
+isort = "^5.11.4"
+python-dotenv = "^0.21.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
