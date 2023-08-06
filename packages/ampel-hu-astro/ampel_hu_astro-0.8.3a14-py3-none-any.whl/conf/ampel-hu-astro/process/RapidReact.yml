@@ -1,0 +1,33 @@
+name: RapidReact
+tier: 3
+active: true
+template: ztf_periodic_summary
+schedule: every(10).minutes
+channel:
+  any_of:
+    - HU_RAPID_SINGLE
+load:
+  - TRANSIENT
+  - DATAPOINT
+  - T2RECORD
+filter: 
+  t2: 
+    unit: T2InfantCatalogEval
+    match: 
+      action: true 
+run:
+  - unit: RapidBase
+    config:
+      do_react: false
+      do_testreact: true
+      slack_token:
+        label: slack/ztf_general/jno
+      slack_channel: '#ztf_rapid'
+      slack_username: 'AMPEL'
+      t2info_from: 
+        - T2InfantCatalogEval
+  - unit: SkyPortalPublisher
+    config:
+      token:
+        label: fritz/jvs/ampelbot
+      base_url: 'https://fritz.science'

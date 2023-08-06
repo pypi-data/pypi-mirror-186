@@ -1,0 +1,136 @@
+Metadata-Version: 2.1
+Name: ampel-hu-astro
+Version: 0.8.3a14
+Summary: Astronomy units for the Ampel system from HU-Berlin
+Home-page: https://ampelproject.github.io
+License: BSD-3-Clause
+Author: Valery Brinnel
+Requires-Python: >=3.10,<3.11
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Typing :: Typed
+Provides-Extra: elasticc
+Provides-Extra: extcats
+Provides-Extra: notebook
+Provides-Extra: slack
+Provides-Extra: sncosmo
+Provides-Extra: voevent
+Provides-Extra: ztf
+Requires-Dist: adjustText (>=0.7.3,<0.8.0)
+Requires-Dist: ampel-photometry (>=0.8.3-alpha.2,<0.8.4)
+Requires-Dist: ampel-plot (>=0.8.3,<0.9.0)
+Requires-Dist: ampel-ztf[kafka] (>=0.8.3a4,<0.8.4) ; extra == "ztf"
+Requires-Dist: astro-parsnip (>=1.3.1) ; extra == "elasticc"
+Requires-Dist: astropy (>=5.0,<6.0)
+Requires-Dist: backoff (>=2,<3)
+Requires-Dist: beautifulsoup4 (>=4.10.0,<5.0.0)
+Requires-Dist: corner (>=2.2.1,<3.0.0)
+Requires-Dist: extcats (>=2.4.2,<3.0.0) ; extra == "extcats"
+Requires-Dist: iminuit (>=2.8.0,<3.0.0) ; extra == "sncosmo"
+Requires-Dist: jupyter (>=1.0.0,<2.0.0) ; extra == "notebook"
+Requires-Dist: more-itertools (>=9.0.0,<10.0.0)
+Requires-Dist: nltk (>=3.7,<4.0)
+Requires-Dist: numpy (>=1,<2)
+Requires-Dist: pandas (>=1.3.3,<2.0.0)
+Requires-Dist: requests (>=2.26.0,<3.0.0)
+Requires-Dist: scikit-learn (>=1.1.3,<2.0.0)
+Requires-Dist: scipy (>=1.4,<2.0)
+Requires-Dist: seaborn (>=0.12.0,<0.13.0)
+Requires-Dist: sfdmap (>=0.1.1,<0.2.0) ; extra == "sncosmo"
+Requires-Dist: slack-sdk (>=3,<4) ; extra == "slack"
+Requires-Dist: sncosmo (>=2.5.0,<3.0.0) ; extra == "sncosmo"
+Requires-Dist: timeout-decorator (>=0.5,<0.6) ; extra == "elasticc"
+Requires-Dist: uncertainties (>=3.1.7,<4.0.0)
+Requires-Dist: voevent-parse (>=1.0.3,<2.0.0) ; extra == "voevent"
+Requires-Dist: xgboost (>=1.6.2,<2.0.0) ; extra == "elasticc"
+Requires-Dist: ztfquery (>=1.19.1,<2.0.0)
+Project-URL: Repository, https://github.com/AmpelProject/Ampel-HU-astro
+Description-Content-Type: text/markdown
+
+Contributed Ampel units from HU/DESY group
+==========================================
+
+Demo install instructions:
+==========================
+
+Create environment with python 3.10+ / poetry. Then run:
+
+
+* `git clone https://github.com/AmpelProject/Ampel-HU-astro.git`
+* `cd Ampel-HU-astro/`
+* `poetry install -E "ztf sncosmo extcats notebook"`
+* `cd notebooks`
+* `poetry run jupyter notebook`
+
+This will allow a number of Demo / access / development notebooks to be run. Note that most of them
+requires an access token if data is to be retrieved.
+
+Contains as of Nov 2022:
+========================
+
+T0
+--
+* SimpleDecentFilter
+* LensedTransientFilter
+* NoFilter
+* RandFilter
+* SEDmTargetFilter
+* SimpleDecentFilter
+* ToOFilter
+* TransientInClusterFilter
+* TransientInEllipticalFilter
+* XShooterFilter
+* RcfFilter
+* RedshiftCatalogFilter
+
+T2
+--
+* T2PanStarrThumbPrint
+* T2PhaseLimit
+* T2PS1ThumbExtCat
+* T2PS1ThumbNedSNCosmo
+* T2PS1ThumbNedTap
+* T2LCQuality
+* T2BrightSNProb
+* T2TNSEval
+* T2InfantCatalogEval
+* T2RunSncosmo
+* T2CatalogMatchLocal
+* T2DigestRedshifts
+* T2RunPossis
+* T2RunTDE
+* T2RunParsnip
+* T2RunSnoopy
+* T2MatchBTS
+* T2NedTap
+* T2NedSNCosmo
+* T2PropagateStockInfo
+* T2GetLensSNParameters
+* T2LSPhotoZTap
+* T2ElasticcRedshiftSampler
+* T2TabulatorRiseDecline
+* T2XgbClassifier
+* T2ElasticcReport
+* T2FastDecliner
+
+T3
+--
+* TransientInfoPrinter
+* TransientViewDumper
+* ChannelSummaryPublisher
+* SlackSummaryPublisher
+* RapidBase
+* RapidSedm
+* RapidLco
+* TNSTalker
+* TNSMirrorUpdater
+* TransientTablePublisher
+* HealpixCorrPlotter
+* PlotLightcurveSample
+* ElasticcClassPublisher
+* VOEventPublisher
+
