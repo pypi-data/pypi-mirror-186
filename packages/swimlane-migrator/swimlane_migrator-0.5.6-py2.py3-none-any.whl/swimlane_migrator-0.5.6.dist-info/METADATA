@@ -1,0 +1,75 @@
+Metadata-Version: 2.1
+Name: swimlane-migrator
+Version: 0.5.6
+Summary: Swimlane Content Migration Package
+Home-page: https://swimlane.com
+Author: Swimlane
+Author-email: info@swimlane.com
+License: UNKNOWN
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+Requires-Dist: swimlane (<11.0,>=3.0)
+Requires-Dist: pymongo (>=3.12.0)
+
+# Swimlane Migrator
+* Require's Swimlane python driver https://github.com/swimlane/swimlane-python
+* Used in combination with Swimlane Migration Tool Watershed package
+
+# Installation
+```bash
+pip install swimlane-migrator
+```
+
+# Change Log
+
+## 0.5.5-0.5.6
+* Updates to Asset Version Management
+
+## 0.5.4
+* Removal of bson requirement
+
+## 0.5.3
+* Removal of deprecated APIs (only relevant in Swimlane <10)
+
+## 0.5.2
+* Python 3 support added
+* Python 2 dropped
+* Updated authentication to API tokens
+
+## 0.4.7-0.5.1 dev never deployed
+
+## 0.4.6
+* Added logic to handle Selection fields with duplicate values, a situation that shouldn't occur via the app builder
+
+## 0.4.5
+* Fixed issue with asset versions for 10.3
+
+## 0.4.4
+* Bumped Swimlane driver version in requirements file
+
+## 0.4.3
+* Fixed mapping of parent ids in workflow to prevent errors when viewing.
+
+## 0.4.2
+* Fixed issue using asset as python script inputs
+
+## 0.4.1
+* Fixed issue handling email assets that don't have a version number
+
+## 0.4.0
+* Fixed issue causing tasks with no asset to raise error
+* Cleaned up workspace management
+
+## 0.3.0
+* Email Assets are now properly migrated
+* If a swimbundle is not found it will automatically be migrated
+
+## 0.2.2
+* Setup description to be displayed properly
+
+## 0.2.1
+* Fixed bug that threw error when integrations had an empty input
+
+## 0.2.0
+* Initial Release
+
