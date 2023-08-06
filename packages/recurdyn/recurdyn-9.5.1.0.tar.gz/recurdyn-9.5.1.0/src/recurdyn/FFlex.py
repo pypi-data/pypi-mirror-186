@@ -1,0 +1,23678 @@
+# -*- coding: mbcs -*-
+# Created by makepy.py version 0.5.01
+# By python version 3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
+# From type library 'RecurDynCOMFFlex.tlb'
+# On Tue Jun 28 10:10:45 2022
+'RecurDyn V9R5 RecurDynCOMFFlex Type Library'
+makepy_version = '0.5.01'
+python_version = 0x3080af0
+
+import win32com.client.CLSIDToClass, pythoncom, pywintypes
+import win32com.client.util
+from pywintypes import IID
+from win32com.client import Dispatch
+from enum import IntEnum
+
+# The following 3 lines may need tweaking for the particular server
+# Candidates are pythoncom.Missing, .Empty and .ArgNotFound
+defaultNamedOptArg=pythoncom.Empty
+defaultNamedNotOptArg=pythoncom.Empty
+defaultUnnamedArg=pythoncom.Empty
+
+CLSID = IID('{B963B321-9066-47AA-A257-9414CCBCDEDC}')
+MajorVersion = 1
+MinorVersion = 0
+LibraryFlags = 8
+LCID = 0x0
+
+class BeamCrossSection(IntEnum):
+	'''
+	BeamCrossSection enumeration.
+	'''
+	BCS_Circular                  =1         
+	'''Constant value is 1.'''
+	BCS_Elliptical                =2         
+	'''Constant value is 2.'''
+	BCS_HollowRectangular         =6         
+	'''Constant value is 6.'''
+	BCS_IBeam                     =7         
+	'''Constant value is 7.'''
+	BCS_Rectangular               =3         
+	'''Constant value is 3.'''
+	BCS_TBeam                     =8         
+	'''Constant value is 8.'''
+	BCS_ThickWallTube             =5         
+	'''Constant value is 5.'''
+	BCS_ThinWallTube              =4         
+	'''Constant value is 4.'''
+	BCS_UserDefined               =0         
+	'''Constant value is 0.'''
+class BeamRecoveryType(IntEnum):
+	'''
+	BeamRecoveryType enumeration.
+	'''
+	BeamRecoveryType_C            =1         
+	'''Constant value is 1.'''
+	BeamRecoveryType_D            =2         
+	'''Constant value is 2.'''
+	BeamRecoveryType_E            =3         
+	'''Constant value is 3.'''
+	BeamRecoveryType_F            =4         
+	'''Constant value is 4.'''
+	BeamRecoveryType_MAX_DISTANCE =0         
+	'''Constant value is 0.'''
+	BeamRecoveryType_MAX_VONMISES_STRESS=5         
+	'''Constant value is 5.'''
+class ChordalErrorType(IntEnum):
+	'''
+	ChordalErrorType enumeration.
+	'''
+	ChordalError_Absolute         =1         
+	'''Constant value is 1.'''
+	ChordalError_Relative         =0         
+	'''Constant value is 0.'''
+class ConcentratedLoadType(IntEnum):
+	'''
+	ConcentratedLoadType enumeration.
+	'''
+	Relative                      =1         
+	'''Constant value is 1.'''
+	Uniform                       =0         
+	'''Constant value is 0.'''
+class ConvectionDataType(IntEnum):
+	'''
+	ConvectionDataType enumeration.
+	'''
+	ConstantValue                 =0         
+	'''Constant value is 0.'''
+	VariableValue                 =1         
+	'''Constant value is 1.'''
+class DisplacementDataPrecision(IntEnum):
+	'''
+	DisplacementDataPrecision enumeration.
+	'''
+	DisplacementDataPrecision_Double=1         
+	'''Constant value is 1.'''
+	DisplacementDataPrecision_Float=0         
+	'''Constant value is 0.'''
+class ElementType(IntEnum):
+	'''
+	ElementType enumeration.
+	'''
+	ElementType_Beam2             =0         
+	'''Constant value is 0.'''
+	ElementType_Shell3            =1         
+	'''Constant value is 1.'''
+	ElementType_Shell4            =2         
+	'''Constant value is 2.'''
+	ElementType_Solid4            =3         
+	'''Constant value is 3.'''
+	ElementType_Solid8            =4         
+	'''Constant value is 4.'''
+class FDRElementType(IntEnum):
+	'''
+	FDRElementType enumeration.
+	'''
+	InterpE                       =1         
+	'''Constant value is 1.'''
+	RigidE                        =0         
+	'''Constant value is 0.'''
+class FFlexImportFileType(IntEnum):
+	'''
+	FFlexImportFileType enumeration.
+	'''
+	I_ANSYS                       =1         
+	'''Constant value is 1.'''
+	I_DesignSpace                 =2         
+	'''Constant value is 2.'''
+	I_NASTRAN                     =0         
+	'''Constant value is 0.'''
+class FFlexPropertyType(IntEnum):
+	'''
+	FFlexPropertyType enumeration.
+	'''
+	FFlexPropertyType_Beam        =0         
+	'''Constant value is 0.'''
+	FFlexPropertyType_FDR         =3         
+	'''Constant value is 3.'''
+	FFlexPropertyType_MASS        =4         
+	'''Constant value is 4.'''
+	FFlexPropertyType_Shell       =1         
+	'''Constant value is 1.'''
+	FFlexPropertyType_Solid       =2         
+	'''Constant value is 2.'''
+class FatigueSoftwareType(IntEnum):
+	'''
+	FatigueSoftwareType enumeration.
+	'''
+	FemFat                        =0         
+	'''Constant value is 0.'''
+class GeoPatchThickness(IntEnum):
+	'''
+	GeoPatchThickness enumeration.
+	'''
+	Thickness_Original            =0         
+	'''Constant value is 0.'''
+	Thickness_Specific            =1         
+	'''Constant value is 1.'''
+class InterpEType(IntEnum):
+	'''
+	InterpEType enumeration.
+	'''
+	InterpEType_Rot_Tra           =0         
+	'''Constant value is 0.'''
+	InterpEType_Tra               =1         
+	'''Constant value is 1.'''
+class IsotropicType(IntEnum):
+	'''
+	IsotropicType enumeration.
+	'''
+	Both_Type                     =2         
+	'''Constant value is 2.'''
+	G                             =0         
+	'''Constant value is 0.'''
+	NU                            =1         
+	'''Constant value is 1.'''
+class ManualMeshSelectType(IntEnum):
+	'''
+	ManualMeshSelectType enumeration.
+	'''
+	ManualMeshSelectType_Curve_Surface=0         
+	'''Constant value is 0.'''
+	ManualMeshSelectType_Edge_Face=1         
+	'''Constant value is 1.'''
+	ManualMeshSelectType_Line_PatchSet=2         
+	'''Constant value is 2.'''
+class ManualMeshType(IntEnum):
+	'''
+	ManualMeshType enumeration.
+	'''
+	ManualMeshType_Extrude        =0         
+	'''Constant value is 0.'''
+	ManualMeshType_Spin           =1         
+	'''Constant value is 1.'''
+	ManualMeshType_Sweep          =2         
+	'''Constant value is 2.'''
+class MergeNodePosition(IntEnum):
+	'''
+	MergeNodePosition enumeration.
+	'''
+	MergeNodePosition_Edge        =1         
+	'''Constant value is 1.'''
+	MergeNodePosition_Mid         =0         
+	'''Constant value is 0.'''
+	MergeNodePosition_SecondNode  =2         
+	'''Constant value is 2.'''
+class MeshType(IntEnum):
+	'''
+	MeshType enumeration.
+	'''
+	MeshType_Beam2                =0         
+	'''Constant value is 0.'''
+	MeshType_Shell3               =1         
+	'''Constant value is 1.'''
+	MeshType_Shell4               =2         
+	'''Constant value is 2.'''
+	MeshType_Solid10              =4         
+	'''Constant value is 4.'''
+	MeshType_Solid4               =3         
+	'''Constant value is 3.'''
+	MeshType_Solid8               =5         
+	'''Constant value is 5.'''
+class OriginalGeometryType(IntEnum):
+	'''
+	OriginalGeometryType enumeration.
+	'''
+	OriginalGeometryType_Edge     =0         
+	'''Constant value is 0.'''
+	OriginalGeometryType_Face     =1         
+	'''Constant value is 1.'''
+class RTLFileDataType(IntEnum):
+	'''
+	RTLFileDataType enumeration.
+	'''
+	RTL_STATIC                    =0         
+	'''Constant value is 0.'''
+	RTL_TRANSIENT                 =1         
+	'''Constant value is 1.'''
+class ShellRecoveryType(IntEnum):
+	'''
+	ShellRecoveryType enumeration.
+	'''
+	ShellRecoveryType_Bottom      =1         
+	'''Constant value is 1.'''
+	ShellRecoveryType_Top         =0         
+	'''Constant value is 0.'''
+class StructuredOutputType(IntEnum):
+	'''
+	StructuredOutputType enumeration.
+	'''
+	StructuredOutputType_SimplePattern=0         
+	'''Constant value is 0.'''
+	StructuredOutputType_UnionJack=1         
+	'''Constant value is 1.'''
+class TargetFaceType(IntEnum):
+	'''
+	TargetFaceType enumeration.
+	'''
+	TargetFaceType_4Sided         =0         
+	'''Constant value is 0.'''
+	TargetFaceType_Circle         =1         
+	'''Constant value is 1.'''
+	TargetFaceType_Cyl            =2         
+	'''Constant value is 2.'''
+class ThermalLoadType(IntEnum):
+	'''
+	ThermalLoadType enumeration.
+	'''
+	Expression                    =0         
+	'''Constant value is 0.'''
+	RTLFile                       =1         
+	'''Constant value is 1.'''
+
+from win32com.client import DispatchBaseClass
+class IAssistConstraint(DispatchBaseClass):
+	'''Constraint to assist modeling '''
+	CLSID = IID('{D32C11C3-8CCF-4839-BE15-0E1708BAE694}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def SetGeometries(self, pFaceArray):
+		'''
+		Set face geometries
+		
+		:param pFaceArray: list[str]
+		'''
+		return self._oleobj_.InvokeTypes(2203, LCID, 1, (24, 0), ((8200, 1),),pFaceArray
+			)
+
+
+	def _get_GeometryName(self):
+		return self._ApplyTypes_(*(2205, 2, (8200, 0), (), "GeometryName", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(2201, 2, (8, 0), (), "Name", None))
+	def _get_UseFDR(self):
+		return self._ApplyTypes_(*(2202, 2, (11, 0), (), "UseFDR", None))
+	def _get_UseSelection(self):
+		return self._ApplyTypes_(*(2204, 2, (11, 0), (), "UseSelection", None))
+
+	def _set_UseFDR(self, value):
+		if "UseFDR" in self.__dict__: self.__dict__["UseFDR"] = value; return
+		self._oleobj_.Invoke(*((2202, LCID, 4, 0) + (value,) + ()))
+	def _set_UseSelection(self, value):
+		if "UseSelection" in self.__dict__: self.__dict__["UseSelection"] = value; return
+		self._oleobj_.Invoke(*((2204, LCID, 4, 0) + (value,) + ()))
+
+	GeometryName = property(_get_GeometryName, None)
+	'''
+	Face geometries' name
+
+	:type: list[str]
+	'''
+	Name = property(_get_Name, None)
+	'''
+	Contraint's name
+
+	:type: str
+	'''
+	UseFDR = property(_get_UseFDR, _set_UseFDR)
+	'''
+	Use FDR
+
+	:type: bool
+	'''
+	UseSelection = property(_get_UseSelection, _set_UseSelection)
+	'''
+	Use selection
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_UseFDR": _set_UseFDR,
+		"_set_UseSelection": _set_UseSelection,
+	}
+	_prop_map_get_ = {
+		"GeometryName": (2205, 2, (8200, 0), (), "GeometryName", None),
+		"Name": (2201, 2, (8, 0), (), "Name", None),
+		"UseFDR": (2202, 2, (11, 0), (), "UseFDR", None),
+		"UseSelection": (2204, 2, (11, 0), (), "UseSelection", None),
+	}
+	_prop_map_put_ = {
+		"UseFDR": ((2202, LCID, 4, 0),()),
+		"UseSelection": ((2204, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IAssistConstraintCollection(DispatchBaseClass):
+	'''IAssistConstraintCollection'''
+	CLSID = IID('{4F9E4D3C-5462-438D-98F9-C20806DFC34D}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.IAssistConstraint
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{D32C11C3-8CCF-4839-BE15-0E1708BAE694}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.IAssistConstraint
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{D32C11C3-8CCF-4839-BE15-0E1708BAE694}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{D32C11C3-8CCF-4839-BE15-0E1708BAE694}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{D32C11C3-8CCF-4839-BE15-0E1708BAE694}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IAssistPrePatchSet(DispatchBaseClass):
+	'''Constraint to assist modeling '''
+	CLSID = IID('{B2C8341A-D45F-4061-8216-6CBE2548669C}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_GeometryName(self):
+		return self._ApplyTypes_(*(2202, 2, (8200, 0), (), "GeometryName", None))
+	def _get_KeepGeoContact(self):
+		return self._ApplyTypes_(*(2205, 2, (11, 0), (), "KeepGeoContact", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(2201, 2, (8, 0), (), "Name", None))
+	def _get_PatchSet(self):
+		return self._ApplyTypes_(*(2204, 2, (11, 0), (), "PatchSet", None))
+	def _get_UseSelection(self):
+		return self._ApplyTypes_(*(2203, 2, (11, 0), (), "UseSelection", None))
+
+	def _set_KeepGeoContact(self, value):
+		if "KeepGeoContact" in self.__dict__: self.__dict__["KeepGeoContact"] = value; return
+		self._oleobj_.Invoke(*((2205, LCID, 4, 0) + (value,) + ()))
+	def _set_PatchSet(self, value):
+		if "PatchSet" in self.__dict__: self.__dict__["PatchSet"] = value; return
+		self._oleobj_.Invoke(*((2204, LCID, 4, 0) + (value,) + ()))
+	def _set_UseSelection(self, value):
+		if "UseSelection" in self.__dict__: self.__dict__["UseSelection"] = value; return
+		self._oleobj_.Invoke(*((2203, LCID, 4, 0) + (value,) + ()))
+
+	GeometryName = property(_get_GeometryName, None)
+	'''
+	Face geometries' name
+
+	:type: list[str]
+	'''
+	KeepGeoContact = property(_get_KeepGeoContact, _set_KeepGeoContact)
+	'''
+	Keep GeoContact
+
+	:type: bool
+	'''
+	Name = property(_get_Name, None)
+	'''
+	Contraint's name
+
+	:type: str
+	'''
+	PatchSet = property(_get_PatchSet, _set_PatchSet)
+	'''
+	Create patch set
+
+	:type: bool
+	'''
+	UseSelection = property(_get_UseSelection, _set_UseSelection)
+	'''
+	Use selection
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_KeepGeoContact": _set_KeepGeoContact,
+		"_set_PatchSet": _set_PatchSet,
+		"_set_UseSelection": _set_UseSelection,
+	}
+	_prop_map_get_ = {
+		"GeometryName": (2202, 2, (8200, 0), (), "GeometryName", None),
+		"KeepGeoContact": (2205, 2, (11, 0), (), "KeepGeoContact", None),
+		"Name": (2201, 2, (8, 0), (), "Name", None),
+		"PatchSet": (2204, 2, (11, 0), (), "PatchSet", None),
+		"UseSelection": (2203, 2, (11, 0), (), "UseSelection", None),
+	}
+	_prop_map_put_ = {
+		"KeepGeoContact": ((2205, LCID, 4, 0),()),
+		"PatchSet": ((2204, LCID, 4, 0),()),
+		"UseSelection": ((2203, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IAssistPrePatchSetCollection(DispatchBaseClass):
+	'''IAssistPrePatchSetCollection'''
+	CLSID = IID('{9EFB7046-D94C-4565-9B0C-3AA3FCB9D15B}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.IAssistPrePatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{B2C8341A-D45F-4061-8216-6CBE2548669C}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.IAssistPrePatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{B2C8341A-D45F-4061-8216-6CBE2548669C}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{B2C8341A-D45F-4061-8216-6CBE2548669C}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{B2C8341A-D45F-4061-8216-6CBE2548669C}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IAssistPreSet(DispatchBaseClass):
+	'''Constraint to assist modeling '''
+	CLSID = IID('{684C17D2-63FF-409F-A635-1239505DC5F8}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_GeometryName(self):
+		return self._ApplyTypes_(*(2202, 2, (8200, 0), (), "GeometryName", None))
+	def _get_KeepGeoContact(self):
+		return self._ApplyTypes_(*(2205, 2, (11, 0), (), "KeepGeoContact", None))
+	def _get_LineSet(self):
+		return self._ApplyTypes_(*(2204, 2, (11, 0), (), "LineSet", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(2201, 2, (8, 0), (), "Name", None))
+	def _get_UseSelection(self):
+		return self._ApplyTypes_(*(2203, 2, (11, 0), (), "UseSelection", None))
+
+	def _set_KeepGeoContact(self, value):
+		if "KeepGeoContact" in self.__dict__: self.__dict__["KeepGeoContact"] = value; return
+		self._oleobj_.Invoke(*((2205, LCID, 4, 0) + (value,) + ()))
+	def _set_LineSet(self, value):
+		if "LineSet" in self.__dict__: self.__dict__["LineSet"] = value; return
+		self._oleobj_.Invoke(*((2204, LCID, 4, 0) + (value,) + ()))
+	def _set_UseSelection(self, value):
+		if "UseSelection" in self.__dict__: self.__dict__["UseSelection"] = value; return
+		self._oleobj_.Invoke(*((2203, LCID, 4, 0) + (value,) + ()))
+
+	GeometryName = property(_get_GeometryName, None)
+	'''
+	Edge geometries' name
+
+	:type: list[str]
+	'''
+	KeepGeoContact = property(_get_KeepGeoContact, _set_KeepGeoContact)
+	'''
+	Keep GeoContact
+
+	:type: bool
+	'''
+	LineSet = property(_get_LineSet, _set_LineSet)
+	'''
+	Create line set
+
+	:type: bool
+	'''
+	Name = property(_get_Name, None)
+	'''
+	Contraint's name
+
+	:type: str
+	'''
+	UseSelection = property(_get_UseSelection, _set_UseSelection)
+	'''
+	Use selection
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_KeepGeoContact": _set_KeepGeoContact,
+		"_set_LineSet": _set_LineSet,
+		"_set_UseSelection": _set_UseSelection,
+	}
+	_prop_map_get_ = {
+		"GeometryName": (2202, 2, (8200, 0), (), "GeometryName", None),
+		"KeepGeoContact": (2205, 2, (11, 0), (), "KeepGeoContact", None),
+		"LineSet": (2204, 2, (11, 0), (), "LineSet", None),
+		"Name": (2201, 2, (8, 0), (), "Name", None),
+		"UseSelection": (2203, 2, (11, 0), (), "UseSelection", None),
+	}
+	_prop_map_put_ = {
+		"KeepGeoContact": ((2205, LCID, 4, 0),()),
+		"LineSet": ((2204, LCID, 4, 0),()),
+		"UseSelection": ((2203, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IAssistPreSetCollection(DispatchBaseClass):
+	'''IAssistPreSetCollection'''
+	CLSID = IID('{A531E76E-A614-49F6-A4F6-E193ED3A2E18}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.IAssistPreSet
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{684C17D2-63FF-409F-A635-1239505DC5F8}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.IAssistPreSet
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{684C17D2-63FF-409F-A635-1239505DC5F8}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{684C17D2-63FF-409F-A635-1239505DC5F8}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{684C17D2-63FF-409F-A635-1239505DC5F8}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexAnimationDataScaling(DispatchBaseClass):
+	'''FFlex Animation Scaling'''
+	CLSID = IID('{50A578AD-8745-4F7F-9434-86142BB6670B}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetAnimationScalingRotationalFactor(self):
+		'''
+		Get animation scaling rotational factor
+		
+		:rtype: (float, float, float)
+		'''
+		return self._ApplyTypes_(55, 1, (24, 0), ((16389, 2), (16389, 2), (16389, 2)), 'GetAnimationScalingRotationalFactor', None,pythoncom.Missing
+			, pythoncom.Missing, pythoncom.Missing)
+
+
+	def GetAnimationScalingTranslationalFactor(self):
+		'''
+		Get animation scaling translational factor
+		
+		:rtype: (float, float, float)
+		'''
+		return self._ApplyTypes_(53, 1, (24, 0), ((16389, 2), (16389, 2), (16389, 2)), 'GetAnimationScalingTranslationalFactor', None,pythoncom.Missing
+			, pythoncom.Missing, pythoncom.Missing)
+
+
+	def SetAnimationScalingRotationalFactor(self, x, y, z):
+		'''
+		Set animation scaling rotational factor
+		
+		:param x: float
+		:param y: float
+		:param z: float
+		'''
+		return self._oleobj_.InvokeTypes(54, LCID, 1, (24, 0), ((5, 1), (5, 1), (5, 1)),x
+			, y, z)
+
+
+	def SetAnimationScalingTranslationalFactor(self, x, y, z):
+		'''
+		Set animation scaling translational factor
+		
+		:param x: float
+		:param y: float
+		:param z: float
+		'''
+		return self._oleobj_.InvokeTypes(52, LCID, 1, (24, 0), ((5, 1), (5, 1), (5, 1)),x
+			, y, z)
+
+
+	def _get_ReferenceNode(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "ReferenceNode", '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}'))
+	def _get_UseAnimationScaling(self):
+		return self._ApplyTypes_(*(51, 2, (11, 0), (), "UseAnimationScaling", None))
+
+	def _set_ReferenceNode(self, value):
+		if "ReferenceNode" in self.__dict__: self.__dict__["ReferenceNode"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_UseAnimationScaling(self, value):
+		if "UseAnimationScaling" in self.__dict__: self.__dict__["UseAnimationScaling"] = value; return
+		self._oleobj_.Invoke(*((51, LCID, 4, 0) + (value,) + ()))
+
+	ReferenceNode = property(_get_ReferenceNode, _set_ReferenceNode)
+	'''
+	Reference node
+
+	:type: recurdyn.FFlex.IFFlexNode
+	'''
+	UseAnimationScaling = property(_get_UseAnimationScaling, _set_UseAnimationScaling)
+	'''
+	Use animation scaling
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ReferenceNode": _set_ReferenceNode,
+		"_set_UseAnimationScaling": _set_UseAnimationScaling,
+	}
+	_prop_map_get_ = {
+		"ReferenceNode": (2001, 2, (9, 0), (), "ReferenceNode", '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}'),
+		"UseAnimationScaling": (51, 2, (11, 0), (), "UseAnimationScaling", None),
+	}
+	_prop_map_put_ = {
+		"ReferenceNode": ((2001, LCID, 4, 0),()),
+		"UseAnimationScaling": ((51, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexBody(DispatchBaseClass):
+	'''FFlex Body'''
+	CLSID = IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def ChangeElementID(self, pElement, uiID):
+		'''
+		Change element ID
+		
+		:param pElement: IElement
+		:param uiID: int
+		'''
+		return self._oleobj_.InvokeTypes(2043, LCID, 1, (24, 0), ((9, 1), (19, 1)),pElement
+			, uiID)
+
+
+	def ChangeNodeID(self, pNode, uiID):
+		'''
+		Change node ID
+		
+		:param pNode: IFFlexNode
+		:param uiID: int
+		'''
+		return self._oleobj_.InvokeTypes(2042, LCID, 1, (24, 0), ((9, 1), (19, 1)),pNode
+			, uiID)
+
+
+	def CreateBoundaryCondition(self, strName, arrNodeID):
+		'''
+		Create a boundary condition
+		
+		:param strName: str
+		:param arrNodeID: list[int]
+		:rtype: recurdyn.FFlex.IFFlexBoundaryCondition
+		'''
+		ret = self._oleobj_.InvokeTypes(2040, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrNodeID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateBoundaryCondition', '{7C217E69-8B40-40FA-8D6B-C8555A17A89A}')
+		return ret
+
+	def CreateElement(self, uiID, ElementType, pMultiPoint, pProperty):
+		'''
+		Create a element
+		
+		:param uiID: int
+		:param ElementType: ElementType
+		:param pMultiPoint: list[object]
+		:param pProperty: IFFlexProperty
+		:rtype: recurdyn.FFlex.IFFlexElement
+		'''
+		_pMultiPoint_type = True if pMultiPoint and isinstance(pMultiPoint[0], win32com.client.VARIANT) else False
+		if not _pMultiPoint_type:
+			pMultiPoint = [win32com.client.VARIANT(12, _data) for _data in pMultiPoint]
+
+		ret = self._oleobj_.InvokeTypes(2095, LCID, 1, (9, 0), ((19, 1), (3, 1), (8204, 1), (9, 1)),uiID
+			, ElementType, pMultiPoint, pProperty)
+
+		if not _pMultiPoint_type:
+			pMultiPoint = [_data.value for _data in pMultiPoint]
+
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateElement', '{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')
+		return ret
+
+	def CreateElementFDR(self, uiID, pMasterNode, pNodeSet):
+		'''
+		CreateElementFDR is obsolete function, use CreateElementFDRWithProperty
+		
+		:param uiID: int
+		:param pMasterNode: IFFlexNode
+		:param pNodeSet: IFFlexNodeSet
+		:rtype: recurdyn.FFlex.IFFlexElementFDR
+		'''
+		ret = self._oleobj_.InvokeTypes(2036, LCID, 1, (9, 0), ((19, 1), (9, 1), (9, 1)),uiID
+			, pMasterNode, pNodeSet)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateElementFDR', '{A640D569-8E40-435F-B199-AB3145C56569}')
+		return ret
+
+	def CreateElementFDRWithProperty(self, uiID, pMasterNode, pNodeSet, pPropertyFDR):
+		'''
+		Create a FDR element
+		
+		:param uiID: int
+		:param pMasterNode: IFFlexNode
+		:param pNodeSet: IFFlexNodeSet
+		:param pPropertyFDR: IFFlexPropertyFDR
+		:rtype: recurdyn.FFlex.IFFlexElementFDR
+		'''
+		ret = self._oleobj_.InvokeTypes(2059, LCID, 1, (9, 0), ((19, 1), (9, 1), (9, 1), (9, 1)),uiID
+			, pMasterNode, pNodeSet, pPropertyFDR)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateElementFDRWithProperty', '{A640D569-8E40-435F-B199-AB3145C56569}')
+		return ret
+
+	def CreateElementMass(self, uiID, pMasterNode, pPropertyMass):
+		'''
+		Create a mass element
+		
+		:param uiID: int
+		:param pMasterNode: IFFlexNode
+		:param pPropertyMass: IFFlexPropertyMass
+		:rtype: recurdyn.FFlex.IFFlexElementMass
+		'''
+		ret = self._oleobj_.InvokeTypes(2089, LCID, 1, (9, 0), ((19, 1), (9, 1), (9, 1)),uiID
+			, pMasterNode, pPropertyMass)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateElementMass', '{7235D19C-5DAB-4BC7-B0A3-82AB05109017}')
+		return ret
+
+	def CreateElementSet(self, strName, arrElementID):
+		'''
+		Create a element set
+		
+		:param strName: str
+		:param arrElementID: list[int]
+		:rtype: recurdyn.FFlex.IFFlexElementSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2038, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrElementID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateElementSet', '{41220408-E869-466A-8D1E-03B99F02568B}')
+		return ret
+
+	def CreateFFlexMaterialAnisotropic2D(self, strName):
+		'''
+		Create a fflex Anisotropic2D material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialAnisotropic2D
+		'''
+		ret = self._oleobj_.InvokeTypes(2107, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialAnisotropic2D', '{B6096033-E25F-476D-BD8D-FF06C3DD5925}')
+		return ret
+
+	def CreateFFlexMaterialArrudaBoyce(self, strName):
+		'''
+		Create a fflex arruda boyce material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialArrudaBoyce
+		'''
+		ret = self._oleobj_.InvokeTypes(2049, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialArrudaBoyce', '{2F03BAD9-F392-4D8F-A295-F1DF2AB5E2D2}')
+		return ret
+
+	def CreateFFlexMaterialArrudaBoyceRubber(self, strName):
+		'''
+		Create a fflex arruda boyce rubber material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialArrudaBoyceRubber
+		'''
+		ret = self._oleobj_.InvokeTypes(2050, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialArrudaBoyceRubber', '{7647F371-D7FA-451E-8727-891DAE9B7FF0}')
+		return ret
+
+	def CreateFFlexMaterialIsotropic(self, strName):
+		'''
+		Create a fflex isotropic material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialIsotropic
+		'''
+		ret = self._oleobj_.InvokeTypes(2047, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialIsotropic', '{DE758DA3-29DE-4822-A4D7-5F7038D688A0}')
+		return ret
+
+	def CreateFFlexMaterialMooneyRivlin(self, strName):
+		'''
+		Create a fflex mooney-rivlin material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialMooneyRivlin
+		'''
+		ret = self._oleobj_.InvokeTypes(2073, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialMooneyRivlin', '{FD878DE9-6486-4A86-8BC5-0C886A149D0A}')
+		return ret
+
+	def CreateFFlexMaterialMooneyRivlinRubber(self, strName):
+		'''
+		Create a fflex mooney-rivlin  rubber material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialMooneyRivlinRubber
+		'''
+		ret = self._oleobj_.InvokeTypes(2074, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialMooneyRivlinRubber', '{E224EC31-E809-4532-937E-D5A4F567A0FF}')
+		return ret
+
+	def CreateFFlexMaterialNeoHooke(self, strName):
+		'''
+		Create a fflex neo hooke material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialNeoHooke
+		'''
+		ret = self._oleobj_.InvokeTypes(2051, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialNeoHooke', '{14AE3469-8DC3-41AD-AFD2-4201F13680DE}')
+		return ret
+
+	def CreateFFlexMaterialNeoHookeRubber(self, strName):
+		'''
+		Create a fflex neo hooke rubber material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialNeoHookeRubber
+		'''
+		ret = self._oleobj_.InvokeTypes(2052, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialNeoHookeRubber', '{F5587CEE-4C8B-403F-806D-7F5319E22A7E}')
+		return ret
+
+	def CreateFFlexMaterialOgden(self, strName):
+		'''
+		Create a fflex ogden material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialOgden
+		'''
+		ret = self._oleobj_.InvokeTypes(2053, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialOgden', '{BC264C3C-D1DA-4627-805D-F65F1700DAD3}')
+		return ret
+
+	def CreateFFlexMaterialOgdenRubber(self, strName):
+		'''
+		Create a fflex ogden rubber material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialOgdenRubber
+		'''
+		ret = self._oleobj_.InvokeTypes(2054, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialOgdenRubber', '{009F6400-AA7F-47C0-9B8B-DF4994350391}')
+		return ret
+
+	def CreateFFlexMaterialOrthotropic(self, strName):
+		'''
+		Create a fflex orthotropic material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialOrthotropic
+		'''
+		ret = self._oleobj_.InvokeTypes(2048, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialOrthotropic', '{5BCEE724-266C-4C56-A0E2-74CAD32DC259}')
+		return ret
+
+	def CreateFFlexMaterialOrthotropic2D(self, strName):
+		'''
+		Create a fflex orthotropic2 material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialOrthotropic2D
+		'''
+		ret = self._oleobj_.InvokeTypes(2106, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialOrthotropic2D', '{0D77D87F-DBFE-4B46-8035-2948E3D11060}')
+		return ret
+
+	def CreateFFlexMaterialPlasticIsotropicBiNonlinear(self, strName):
+		'''
+		Create a fflex plastic isotropic binonlinear material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialPlasticIsotropicBiNonLinear
+		'''
+		ret = self._oleobj_.InvokeTypes(2077, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialPlasticIsotropicBiNonlinear', '{65C5EEB7-502C-42FD-AF41-4E6C5122EF71}')
+		return ret
+
+	def CreateFFlexMaterialPlasticIsotropicKinematicBiNonlinear(self, strName):
+		'''
+		Create a fflex plastic isotropic-kinematic binonlinear material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialPlasticIsotropicKinematicBiNonLinear
+		'''
+		ret = self._oleobj_.InvokeTypes(2079, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialPlasticIsotropicKinematicBiNonlinear', '{4CC03F94-7E4E-4082-8299-6288E232C5C0}')
+		return ret
+
+	def CreateFFlexMaterialPlasticIsotropicKinematicMultilinear(self, strName):
+		'''
+		Create a fflex plastic isotropic-kinematic multilinear material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialPlasticIsotropicKinematicMultiLinear
+		'''
+		ret = self._oleobj_.InvokeTypes(2078, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialPlasticIsotropicKinematicMultilinear', '{7F3A9496-9CCA-41FF-9211-E67CF5CB889C}')
+		return ret
+
+	def CreateFFlexMaterialPlasticIsotropicMultilinear(self, strName):
+		'''
+		Create a fflex plastic isotropic multilinear material
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexMaterialPlasticIsotropicMultiLinear
+		'''
+		ret = self._oleobj_.InvokeTypes(2076, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexMaterialPlasticIsotropicMultilinear', '{E8252A77-AAE7-4ADB-BD09-27D62CCFEEE3}')
+		return ret
+
+	def CreateFFlexPropertyBeam(self, strName, pMaterial):
+		'''
+		Create a fflex beam property
+		
+		:param strName: str
+		:param pMaterial: IFFlexMaterial
+		:rtype: recurdyn.FFlex.IFFlexPropertyBeam
+		'''
+		ret = self._oleobj_.InvokeTypes(2044, LCID, 1, (9, 0), ((8, 1), (9, 1)),strName
+			, pMaterial)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexPropertyBeam', '{038F4D84-103E-4E16-ADBE-30CD7D809A5F}')
+		return ret
+
+	def CreateFFlexPropertyFDR(self, strName):
+		'''
+		Create a fflex FDR property
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexPropertyFDR
+		'''
+		ret = self._oleobj_.InvokeTypes(2070, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexPropertyFDR', '{11FD7485-CC44-459B-848C-130D43231C20}')
+		return ret
+
+	def CreateFFlexPropertyMass(self, strName):
+		'''
+		Create a fflex Mass property
+		
+		:param strName: str
+		:rtype: recurdyn.FFlex.IFFlexPropertyMass
+		'''
+		ret = self._oleobj_.InvokeTypes(2071, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexPropertyMass', '{415EE4E6-8069-4221-BCE4-17CC7960FEC3}')
+		return ret
+
+	def CreateFFlexPropertyShell(self, strName, pMaterial):
+		'''
+		Create a fflex shell property
+		
+		:param strName: str
+		:param pMaterial: IFFlexMaterial
+		:rtype: recurdyn.FFlex.IFFlexPropertyShell
+		'''
+		ret = self._oleobj_.InvokeTypes(2045, LCID, 1, (9, 0), ((8, 1), (9, 1)),strName
+			, pMaterial)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexPropertyShell', '{0566BC2A-5A19-4556-A760-2DE6D6F1DB6C}')
+		return ret
+
+	def CreateFFlexPropertySolid(self, strName, pMaterial):
+		'''
+		Create a fflex solid property
+		
+		:param strName: str
+		:param pMaterial: IFFlexMaterial
+		:rtype: recurdyn.FFlex.IFFlexPropertySolid
+		'''
+		ret = self._oleobj_.InvokeTypes(2046, LCID, 1, (9, 0), ((8, 1), (9, 1)),strName
+			, pMaterial)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateFFlexPropertySolid', '{EBD74EA0-7D25-46AB-A257-9E8874545750}')
+		return ret
+
+	def CreateLineSet(self, strName, arrNodeID):
+		'''
+		Create a line set
+		
+		:param strName: str
+		:param arrNodeID: list[int]
+		:rtype: recurdyn.FFlex.IFFlexLineSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2091, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrNodeID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateLineSet', '{580DC463-613E-406A-B54C-42952E1FB79F}')
+		return ret
+
+	def CreateMarker(self, strName, pRefFrame):
+		'''
+		Create a marker
+		
+		:param strName: str
+		:param pRefFrame: IReferenceFrame
+		:rtype: recurdyn.ProcessNet.IMarker
+		'''
+		ret = self._oleobj_.InvokeTypes(2056, LCID, 1, (9, 0), ((8, 1), (9, 1)),strName
+			, pRefFrame)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateMarker', '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')
+		return ret
+
+	def CreateMarkerOnNode(self, strName, uiNodeID):
+		'''
+		Create a marker on target node
+		
+		:param strName: str
+		:param uiNodeID: int
+		:rtype: recurdyn.ProcessNet.IMarker
+		'''
+		ret = self._oleobj_.InvokeTypes(2057, LCID, 1, (9, 0), ((8, 1), (19, 1)),strName
+			, uiNodeID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateMarkerOnNode', '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')
+		return ret
+
+	def CreateNode(self, uiID, arrPosition):
+		'''
+		Create a node
+		
+		:param uiID: int
+		:param arrPosition: list[float]
+		:rtype: recurdyn.FFlex.IFFlexNode
+		'''
+		ret = self._oleobj_.InvokeTypes(2035, LCID, 1, (9, 0), ((19, 1), (8197, 1)),uiID
+			, arrPosition)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateNode', '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')
+		return ret
+
+	def CreateNodeSet(self, strName, arrNodeID):
+		'''
+		Create a node set
+		
+		:param strName: str
+		:param arrNodeID: list[int]
+		:rtype: recurdyn.FFlex.IFFlexNodeSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2037, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrNodeID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateNodeSet', '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')
+		return ret
+
+	def CreateNodeSetWithLineIndicesContinuous(self, strName, arrLineIndices, dAngle):
+		'''
+		Create a NodeSet with lines' indices, lines connected continuously will be used for the nodes of the lines.
+		
+		:param strName: str
+		:param arrLineIndices: list[int]
+		:param dAngle: float
+		:rtype: recurdyn.FFlex.IFFlexNodeSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2109, LCID, 1, (9, 0), ((8, 1), (8195, 1), (5, 1)),strName
+			, arrLineIndices, dAngle)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateNodeSetWithLineIndicesContinuous', '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')
+		return ret
+
+	def CreateNodeSetWithPatchIndicesContinuous(self, strName, arrPatchesIndices, dAngle, bCheckReverse):
+		'''
+		Create a NodeSet with patches' indices, patches connected continuously will be used for the nodes of the patches.
+		
+		:param strName: str
+		:param arrPatchesIndices: list[int]
+		:param dAngle: float
+		:param bCheckReverse: bool
+		:rtype: recurdyn.FFlex.IFFlexNodeSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2108, LCID, 1, (9, 0), ((8, 1), (8195, 1), (5, 1), (11, 1)),strName
+			, arrPatchesIndices, dAngle, bCheckReverse)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateNodeSetWithPatchIndicesContinuous', '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')
+		return ret
+
+	def CreateOutput(self, strName, arrNodeID):
+		'''
+		Create an output
+		
+		:param strName: str
+		:param arrNodeID: list[int]
+		:rtype: recurdyn.FFlex.IFFlexOutput
+		'''
+		ret = self._oleobj_.InvokeTypes(2041, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrNodeID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateOutput', '{C07D2858-4BD8-429E-98F9-BBAD0AE619CA}')
+		return ret
+
+	def CreateParametricPoint(self, strName, pPoint, pRefMarker):
+		'''
+		Creates a parametric point
+		
+		:param strName: str
+		:param pPoint: list[float]
+		:param pRefMarker: IMarker
+		:rtype: recurdyn.ProcessNet.IParametricPoint
+		'''
+		ret = self._oleobj_.InvokeTypes(2118, LCID, 1, (9, 0), ((8, 1), (8197, 1), (9, 1)),strName
+			, pPoint, pRefMarker)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateParametricPoint', '{64B0B5B9-7662-40E8-B27C-9E42C3A158BF}')
+		return ret
+
+	def CreateParametricPointWithText(self, strName, strText, pRefMarker):
+		'''
+		Creates a parametric point with text
+		
+		:param strName: str
+		:param strText: str
+		:param pRefMarker: IMarker
+		:rtype: recurdyn.ProcessNet.IParametricPoint
+		'''
+		ret = self._oleobj_.InvokeTypes(2120, LCID, 1, (9, 0), ((8, 1), (8, 1), (9, 1)),strName
+			, strText, pRefMarker)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateParametricPointWithText', '{64B0B5B9-7662-40E8-B27C-9E42C3A158BF}')
+		return ret
+
+	def CreateParametricValue(self, strName, dValue):
+		'''
+		Creates a parametric value
+		
+		:param strName: str
+		:param dValue: float
+		:rtype: recurdyn.ProcessNet.IParametricValue
+		'''
+		ret = self._oleobj_.InvokeTypes(2119, LCID, 1, (9, 0), ((8, 1), (5, 1)),strName
+			, dValue)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateParametricValue', '{3EEED3CE-62E8-4882-AAE6-4812B49927B5}')
+		return ret
+
+	def CreateParametricValueWithText(self, strName, strText):
+		'''
+		Creates a parametric value with text
+		
+		:param strName: str
+		:param strText: str
+		:rtype: recurdyn.ProcessNet.IParametricValue
+		'''
+		ret = self._oleobj_.InvokeTypes(2121, LCID, 1, (9, 0), ((8, 1), (8, 1)),strName
+			, strText)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateParametricValueWithText', '{3EEED3CE-62E8-4882-AAE6-4812B49927B5}')
+		return ret
+
+	def CreatePatchSet(self, strName, arrNodeID):
+		'''
+		Create a patch set
+		
+		:param strName: str
+		:param arrNodeID: list[int]
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2039, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrNodeID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreatePatchSet', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def CreatePatchSetWithBox(self, strName, pRefFrame, dWidth, dHeight, dDepth):
+		'''
+		Create a patch set with a box
+		
+		:param strName: str
+		:param pRefFrame: IReferenceFrame
+		:param dWidth: float
+		:param dHeight: float
+		:param dDepth: float
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2098, LCID, 1, (9, 0), ((8, 1), (9, 1), (5, 1), (5, 1), (5, 1)),strName
+			, pRefFrame, dWidth, dHeight, dDepth)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreatePatchSetWithBox', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def CreatePatchSetWithCone(self, strName, pFirstPoint, pSecondPoint, dTopRadius, dBottomRadius, dTolerance):
+		'''
+		Create a patch set with a cone
+		
+		:param strName: str
+		:param pFirstPoint: list[float]
+		:param pSecondPoint: list[float]
+		:param dTopRadius: float
+		:param dBottomRadius: float
+		:param dTolerance: float
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2103, LCID, 1, (9, 0), ((8, 1), (8197, 1), (8197, 1), (5, 1), (5, 1), (5, 1)),strName
+			, pFirstPoint, pSecondPoint, dTopRadius, dBottomRadius, dTolerance
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreatePatchSetWithCone', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def CreatePatchSetWithElementIDs(self, strName, arrElementID):
+		'''
+		Create a patch set with ElementIDs
+		
+		:param strName: str
+		:param arrElementID: list[int]
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2085, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrElementID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreatePatchSetWithElementIDs', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def CreatePatchSetWithElementIDsContinuous(self, strName, arrElementID, dAngle, bCheckReverse):
+		'''
+		Create a patch set with ElementIDs, patches connected with the external patch of the element continuoulsy
+		
+		:param strName: str
+		:param arrElementID: list[int]
+		:param dAngle: float
+		:param bCheckReverse: bool
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2100, LCID, 1, (9, 0), ((8, 1), (8195, 1), (5, 1), (11, 1)),strName
+			, arrElementID, dAngle, bCheckReverse)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreatePatchSetWithElementIDsContinuous', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def CreatePatchSetWithNodeSet(self, strName, pNodeSet):
+		'''
+		Create a patch set with a nodeset
+		
+		:param strName: str
+		:param pNodeSet: IFFlexNodeSet
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2099, LCID, 1, (9, 0), ((8, 1), (9, 1)),strName
+			, pNodeSet)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreatePatchSetWithNodeSet', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def CreatePatchSetWithPatchIndices(self, strName, arrPatchesIndices):
+		'''
+		Create a patch set with patches' indices
+		
+		:param strName: str
+		:param arrPatchesIndices: list[int]
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2101, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrPatchesIndices)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreatePatchSetWithPatchIndices', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def CreatePatchSetWithPatchIndicesContinuous(self, strName, arrPatchesIndices, dAngle, bCheckReverse):
+		'''
+		Create a patch set with patches' indices, patches connected continuously will be used for the patchset
+		
+		:param strName: str
+		:param arrPatchesIndices: list[int]
+		:param dAngle: float
+		:param bCheckReverse: bool
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2102, LCID, 1, (9, 0), ((8, 1), (8195, 1), (5, 1), (11, 1)),strName
+			, arrPatchesIndices, dAngle, bCheckReverse)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreatePatchSetWithPatchIndicesContinuous', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def DeleteElements(self, arrElementID):
+		'''
+		Delete elements
+		
+		:param arrElementID: list[int]
+		'''
+		return self._oleobj_.InvokeTypes(2094, LCID, 1, (24, 0), ((8195, 1),),arrElementID
+			)
+
+
+	def DeleteStandAloneNodes(self):
+		'''
+		Delete stand alone nodes
+		'''
+		return self._oleobj_.InvokeTypes(2088, LCID, 1, (24, 0), (),)
+
+
+	def ExportParametricPoint(self, strFileName):
+		'''
+		Export parametric point
+		
+		:param strFileName: str
+		'''
+		return self._oleobj_.InvokeTypes(2115, LCID, 1, (24, 0), ((8, 1),),strFileName
+			)
+
+
+	def ExportParametricValue(self, strFileName):
+		'''
+		Export parametric value
+		
+		:param strFileName: str
+		'''
+		return self._oleobj_.InvokeTypes(2117, LCID, 1, (24, 0), ((8, 1),),strFileName
+			)
+
+
+	def GetElementByID(self, nID):
+		'''
+		Get element by ID
+		
+		:param nID: int
+		:rtype: recurdyn.FFlex.IFFlexElement
+		'''
+		ret = self._oleobj_.InvokeTypes(2072, LCID, 1, (9, 0), ((3, 1),),nID
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GetElementByID', '{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')
+		return ret
+
+	def GetEntity(self, strName):
+		'''
+		Get an entity
+		
+		:param strName: str
+		:rtype: recurdyn.ProcessNet.IGeneric
+		'''
+		ret = self._oleobj_.InvokeTypes(2055, LCID, 1, (9, 0), ((8, 1),),strName
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GetEntity', '{27A86788-8B85-40CF-BE7F-BA915103A7DB}')
+		return ret
+
+	def GetNodeByID(self, nID):
+		'''
+		Get node by ID
+		
+		:param nID: int
+		:rtype: recurdyn.FFlex.IFFlexNode
+		'''
+		ret = self._oleobj_.InvokeTypes(2058, LCID, 1, (9, 0), ((3, 1),),nID
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GetNodeByID', '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')
+		return ret
+
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def ImportParametricPoint(self, strFileName):
+		'''
+		Import parametric point
+		
+		:param strFileName: str
+		'''
+		return self._oleobj_.InvokeTypes(2114, LCID, 1, (24, 0), ((8, 1),),strFileName
+			)
+
+
+	def ImportParametricValue(self, strFileName):
+		'''
+		Import parametric value
+		
+		:param strFileName: str
+		'''
+		return self._oleobj_.InvokeTypes(2116, LCID, 1, (24, 0), ((8, 1),),strFileName
+			)
+
+
+	def QueryIsStandAloneFFlexNode(self, pIFFlexNode):
+		'''
+		Query  Whether a fflex Node is Stand_Alone Node 
+		
+		:param pIFFlexNode: IFFlexNode
+		:rtype: bool
+		'''
+		return self._oleobj_.InvokeTypes(2080, LCID, 1, (11, 0), ((9, 1),),pIFFlexNode
+			)
+
+
+	def SearchNodeIDs(self, pGeo, dTolerance):
+		'''
+		Search node IDs within the tolerance
+		
+		:param pGeo: IGeometry
+		:param dTolerance: float
+		:rtype: list[int]
+		'''
+		return self._ApplyTypes_(2111, 1, (8195, 0), ((9, 1), (5, 1)), 'SearchNodeIDs', None,pGeo
+			, dTolerance)
+
+
+	def UpdateMassProperty(self):
+		'''
+		Update body's mass, inertia and center
+		'''
+		return self._oleobj_.InvokeTypes(2096, LCID, 1, (24, 0), (),)
+
+
+	def _get_Active(self):
+		return self._ApplyTypes_(*(2122, 2, (11, 0), (), "Active", None))
+	def _get_AnimationScaling(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "AnimationScaling", '{50A578AD-8745-4F7F-9434-86142BB6670B}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ConnectingParameters(self):
+		return self._ApplyTypes_(*(2087, 2, (9, 0), (), "ConnectingParameters", '{13724ADC-4397-4109-8057-B4DA64C1CE4A}'))
+	def _get_DisplaySetting(self):
+		return self._ApplyTypes_(*(2084, 2, (9, 0), (), "DisplaySetting", '{3FDF0768-0052-4B63-9D84-A644C3152051}'))
+	def _get_ExportShellFormatData(self):
+		return self._ApplyTypes_(*(2086, 2, (9, 0), (), "ExportShellFormatData", '{2EE15E44-AD0C-4D9B-B53A-35BF7F1E1322}'))
+	def _get_FFlexBoundaryConditionCollection(self):
+		return self._ApplyTypes_(*(2064, 2, (9, 0), (), "FFlexBoundaryConditionCollection", '{CB29570B-C43C-4422-804A-DC47A070D98D}'))
+	def _get_FFlexElementBeamCollection(self):
+		return self._ApplyTypes_(*(2097, 2, (9, 0), (), "FFlexElementBeamCollection", '{D68E5B6D-04CF-4C9C-BF17-36B7BB59DAF9}'))
+	def _get_FFlexElementCollection(self):
+		return self._ApplyTypes_(*(2061, 2, (9, 0), (), "FFlexElementCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB6}'))
+	def _get_FFlexElementFDRCollection(self):
+		return self._ApplyTypes_(*(2083, 2, (9, 0), (), "FFlexElementFDRCollection", '{99FCED9D-CE12-47E8-8AE8-3F80DAEFB44F}'))
+	def _get_FFlexElementMassCollection(self):
+		return self._ApplyTypes_(*(2090, 2, (9, 0), (), "FFlexElementMassCollection", '{E454DBF9-4B06-491A-A0AD-044B11EDCA9E}'))
+	def _get_FFlexElementSetCollection(self):
+		return self._ApplyTypes_(*(2067, 2, (9, 0), (), "FFlexElementSetCollection", '{965101C9-95C4-4E9A-A2E7-CC202EBC2FC3}'))
+	def _get_FFlexElementShellCollection(self):
+		return self._ApplyTypes_(*(2105, 2, (9, 0), (), "FFlexElementShellCollection", '{7BD0B108-6F9A-4CCA-89F1-17171343EE51}'))
+	def _get_FFlexLineSetCollection(self):
+		return self._ApplyTypes_(*(2104, 2, (9, 0), (), "FFlexLineSetCollection", '{8235613D-438F-415F-9220-B8A72A332DFA}'))
+	def _get_FFlexMaterialCollection(self):
+		return self._ApplyTypes_(*(2063, 2, (9, 0), (), "FFlexMaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'))
+	def _get_FFlexNodeCollection(self):
+		return self._ApplyTypes_(*(2060, 2, (9, 0), (), "FFlexNodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_FFlexNodeSetCollection(self):
+		return self._ApplyTypes_(*(2066, 2, (9, 0), (), "FFlexNodeSetCollection", '{87219716-6C18-4072-BE27-EAA12BA9D444}'))
+	def _get_FFlexOutputCollection(self):
+		return self._ApplyTypes_(*(2065, 2, (9, 0), (), "FFlexOutputCollection", '{6A6D7961-36F5-4E1D-8024-839348CD5B35}'))
+	def _get_FFlexPatchSetCollection(self):
+		return self._ApplyTypes_(*(2068, 2, (9, 0), (), "FFlexPatchSetCollection", '{371C9D93-0F28-4531-833B-BE362169A845}'))
+	def _get_FFlexPropertyCollection(self):
+		return self._ApplyTypes_(*(2062, 2, (9, 0), (), "FFlexPropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_Graphic(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Graphic", '{4C8B7C23-7D92-4D39-B530-5D93DC97F771}'))
+	def _get_InitialRotationalVelocityX(self):
+		return self._ApplyTypes_(*(2014, 2, (9, 0), (), "InitialRotationalVelocityX", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_InitialRotationalVelocityY(self):
+		return self._ApplyTypes_(*(2015, 2, (9, 0), (), "InitialRotationalVelocityY", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_InitialRotationalVelocityZ(self):
+		return self._ApplyTypes_(*(2016, 2, (9, 0), (), "InitialRotationalVelocityZ", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_InitialTranslationalVelocityX(self):
+		return self._ApplyTypes_(*(2011, 2, (9, 0), (), "InitialTranslationalVelocityX", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_InitialTranslationalVelocityY(self):
+		return self._ApplyTypes_(*(2012, 2, (9, 0), (), "InitialTranslationalVelocityY", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_InitialTranslationalVelocityZ(self):
+		return self._ApplyTypes_(*(2013, 2, (9, 0), (), "InitialTranslationalVelocityZ", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Ixx(self):
+		return self._ApplyTypes_(*(2005, 2, (5, 0), (), "Ixx", None))
+	def _get_Ixy(self):
+		return self._ApplyTypes_(*(2008, 2, (5, 0), (), "Ixy", None))
+	def _get_Iyy(self):
+		return self._ApplyTypes_(*(2006, 2, (5, 0), (), "Iyy", None))
+	def _get_Iyz(self):
+		return self._ApplyTypes_(*(2009, 2, (5, 0), (), "Iyz", None))
+	def _get_Izx(self):
+		return self._ApplyTypes_(*(2010, 2, (5, 0), (), "Izx", None))
+	def _get_Izz(self):
+		return self._ApplyTypes_(*(2007, 2, (5, 0), (), "Izz", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(2110, 2, (19, 0), (), "LayerNumber", None))
+	def _get_MarkerCollection(self):
+		return self._ApplyTypes_(*(2075, 2, (9, 0), (), "MarkerCollection", '{6BEF9B6B-4708-445E-A3B5-0D65BA69F748}'))
+	def _get_Mass(self):
+		return self._ApplyTypes_(*(2004, 2, (5, 0), (), "Mass", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_OutputFileInfo(self):
+		return self._ApplyTypes_(*(2082, 2, (9, 0), (), "OutputFileInfo", '{14C926A7-96C8-4FA4-ABB4-516E07ABFD9E}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_ParametricPointCollection(self):
+		return self._ApplyTypes_(*(2112, 2, (9, 0), (), "ParametricPointCollection", '{65267578-7015-4BB5-BB65-F5F81CCEA244}'))
+	def _get_ParametricValueCollection(self):
+		return self._ApplyTypes_(*(2113, 2, (9, 0), (), "ParametricValueCollection", '{65267578-7015-4BB5-BB65-F5F81CCEA245}'))
+	def _get_RefFrame(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "RefFrame", '{6A3295D9-E76B-473C-9655-23B7B1CBD671}'))
+	def _get_RotationalVelocityRefMarker(self):
+		return self._ApplyTypes_(*(2024, 2, (9, 0), (), "RotationalVelocityRefMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_TranslationalVelocityRefMarker(self):
+		return self._ApplyTypes_(*(2023, 2, (9, 0), (), "TranslationalVelocityRefMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_UseInitialRotationalVelocityX(self):
+		return self._ApplyTypes_(*(2020, 2, (11, 0), (), "UseInitialRotationalVelocityX", None))
+	def _get_UseInitialRotationalVelocityY(self):
+		return self._ApplyTypes_(*(2021, 2, (11, 0), (), "UseInitialRotationalVelocityY", None))
+	def _get_UseInitialRotationalVelocityZ(self):
+		return self._ApplyTypes_(*(2022, 2, (11, 0), (), "UseInitialRotationalVelocityZ", None))
+	def _get_UseInitialTranslationalVelocityX(self):
+		return self._ApplyTypes_(*(2017, 2, (11, 0), (), "UseInitialTranslationalVelocityX", None))
+	def _get_UseInitialTranslationalVelocityY(self):
+		return self._ApplyTypes_(*(2018, 2, (11, 0), (), "UseInitialTranslationalVelocityY", None))
+	def _get_UseInitialTranslationalVelocityZ(self):
+		return self._ApplyTypes_(*(2019, 2, (11, 0), (), "UseInitialTranslationalVelocityZ", None))
+	def _get_UsePreAnalysis(self):
+		return self._ApplyTypes_(*(2081, 2, (11, 0), (), "UsePreAnalysis", None))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((2122, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((2110, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_RotationalVelocityRefMarker(self, value):
+		if "RotationalVelocityRefMarker" in self.__dict__: self.__dict__["RotationalVelocityRefMarker"] = value; return
+		self._oleobj_.Invoke(*((2024, LCID, 4, 0) + (value,) + ()))
+	def _set_TranslationalVelocityRefMarker(self, value):
+		if "TranslationalVelocityRefMarker" in self.__dict__: self.__dict__["TranslationalVelocityRefMarker"] = value; return
+		self._oleobj_.Invoke(*((2023, LCID, 4, 0) + (value,) + ()))
+	def _set_UseExtractWithoutPreStress(self, value):
+		if "UseExtractWithoutPreStress" in self.__dict__: self.__dict__["UseExtractWithoutPreStress"] = value; return
+		self._oleobj_.Invoke(*((2093, LCID, 4, 0) + (value,) + ()))
+	def _set_UseInitialRotationalVelocityX(self, value):
+		if "UseInitialRotationalVelocityX" in self.__dict__: self.__dict__["UseInitialRotationalVelocityX"] = value; return
+		self._oleobj_.Invoke(*((2020, LCID, 4, 0) + (value,) + ()))
+	def _set_UseInitialRotationalVelocityY(self, value):
+		if "UseInitialRotationalVelocityY" in self.__dict__: self.__dict__["UseInitialRotationalVelocityY"] = value; return
+		self._oleobj_.Invoke(*((2021, LCID, 4, 0) + (value,) + ()))
+	def _set_UseInitialRotationalVelocityZ(self, value):
+		if "UseInitialRotationalVelocityZ" in self.__dict__: self.__dict__["UseInitialRotationalVelocityZ"] = value; return
+		self._oleobj_.Invoke(*((2022, LCID, 4, 0) + (value,) + ()))
+	def _set_UseInitialTranslationalVelocityX(self, value):
+		if "UseInitialTranslationalVelocityX" in self.__dict__: self.__dict__["UseInitialTranslationalVelocityX"] = value; return
+		self._oleobj_.Invoke(*((2017, LCID, 4, 0) + (value,) + ()))
+	def _set_UseInitialTranslationalVelocityY(self, value):
+		if "UseInitialTranslationalVelocityY" in self.__dict__: self.__dict__["UseInitialTranslationalVelocityY"] = value; return
+		self._oleobj_.Invoke(*((2018, LCID, 4, 0) + (value,) + ()))
+	def _set_UseInitialTranslationalVelocityZ(self, value):
+		if "UseInitialTranslationalVelocityZ" in self.__dict__: self.__dict__["UseInitialTranslationalVelocityZ"] = value; return
+		self._oleobj_.Invoke(*((2019, LCID, 4, 0) + (value,) + ()))
+	def _set_UsePreAnalysis(self, value):
+		if "UsePreAnalysis" in self.__dict__: self.__dict__["UsePreAnalysis"] = value; return
+		self._oleobj_.Invoke(*((2081, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	AnimationScaling = property(_get_AnimationScaling, None)
+	'''
+	Animation Scaling
+
+	:type: recurdyn.FFlex.IFFlexAnimationDataScaling
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ConnectingParameters = property(_get_ConnectingParameters, None)
+	'''
+	Get Connecting Parameter
+
+	:type: recurdyn.FFlex.IFFlexConnectingParameters
+	'''
+	DisplaySetting = property(_get_DisplaySetting, None)
+	'''
+	Get Display Setting
+
+	:type: recurdyn.Flexible.IDisplaySetting
+	'''
+	ExportShellFormatData = property(_get_ExportShellFormatData, None)
+	'''
+	Get Export Shell Format Data
+
+	:type: recurdyn.Flexible.IExportShellFormatData
+	'''
+	FFlexBoundaryConditionCollection = property(_get_FFlexBoundaryConditionCollection, None)
+	'''
+	Contains BoundaryCondition
+
+	:type: recurdyn.FFlex.IFFlexBoundaryConditionCollection
+	'''
+	FFlexElementBeamCollection = property(_get_FFlexElementBeamCollection, None)
+	'''
+	Beam element collection
+
+	:type: recurdyn.FFlex.IFFlexElementBeamCollection
+	'''
+	FFlexElementCollection = property(_get_FFlexElementCollection, None)
+	'''
+	Contains Element
+
+	:type: recurdyn.FFlex.IFFlexElementCollection
+	'''
+	FFlexElementFDRCollection = property(_get_FFlexElementFDRCollection, None)
+	'''
+	FDR element collection
+
+	:type: recurdyn.FFlex.IFFlexElementFDRCollection
+	'''
+	FFlexElementMassCollection = property(_get_FFlexElementMassCollection, None)
+	'''
+	Mass element collection
+
+	:type: recurdyn.FFlex.IFFlexElementMassCollection
+	'''
+	FFlexElementSetCollection = property(_get_FFlexElementSetCollection, None)
+	'''
+	Contains ElementSet
+
+	:type: recurdyn.FFlex.IFFlexElementSetCollection
+	'''
+	FFlexElementShellCollection = property(_get_FFlexElementShellCollection, None)
+	'''
+	Shell element collection
+
+	:type: recurdyn.FFlex.IFFlexElementShellCollection
+	'''
+	FFlexLineSetCollection = property(_get_FFlexLineSetCollection, None)
+	'''
+	Contains LineSet
+
+	:type: recurdyn.FFlex.IFFlexLineSetCollection
+	'''
+	FFlexMaterialCollection = property(_get_FFlexMaterialCollection, None)
+	'''
+	Contains FFlex Material
+
+	:type: recurdyn.FFlex.IFFlexMaterialCollection
+	'''
+	FFlexNodeCollection = property(_get_FFlexNodeCollection, None)
+	'''
+	Contains Node
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	FFlexNodeSetCollection = property(_get_FFlexNodeSetCollection, None)
+	'''
+	Contains NodeSet
+
+	:type: recurdyn.FFlex.IFFlexNodeSetCollection
+	'''
+	FFlexOutputCollection = property(_get_FFlexOutputCollection, None)
+	'''
+	Contains Output
+
+	:type: recurdyn.FFlex.IFFlexOutputCollection
+	'''
+	FFlexPatchSetCollection = property(_get_FFlexPatchSetCollection, None)
+	'''
+	Contains PatchSet
+
+	:type: recurdyn.FFlex.IFFlexPatchSetCollection
+	'''
+	FFlexPropertyCollection = property(_get_FFlexPropertyCollection, None)
+	'''
+	Contains FFlex Property
+
+	:type: recurdyn.FFlex.IFFlexPropertyCollection
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	Graphic = property(_get_Graphic, None)
+	'''
+	Graphic
+
+	:type: recurdyn.ProcessNet.IGraphicProperty
+	'''
+	InitialRotationalVelocityX = property(_get_InitialRotationalVelocityX, None)
+	'''
+	InitialRotationalVelocity X
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	InitialRotationalVelocityY = property(_get_InitialRotationalVelocityY, None)
+	'''
+	InitialRotationalVelocity Y
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	InitialRotationalVelocityZ = property(_get_InitialRotationalVelocityZ, None)
+	'''
+	InitialRotationalVelocity Z
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	InitialTranslationalVelocityX = property(_get_InitialTranslationalVelocityX, None)
+	'''
+	InitialTranslationalVelocity X
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	InitialTranslationalVelocityY = property(_get_InitialTranslationalVelocityY, None)
+	'''
+	InitialTranslationalVelocity Y
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	InitialTranslationalVelocityZ = property(_get_InitialTranslationalVelocityZ, None)
+	'''
+	InitialTranslationalVelocity Z
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Ixx = property(_get_Ixx, None)
+	'''
+	Ixx
+
+	:type: float
+	'''
+	Ixy = property(_get_Ixy, None)
+	'''
+	Ixy
+
+	:type: float
+	'''
+	Iyy = property(_get_Iyy, None)
+	'''
+	Iyy
+
+	:type: float
+	'''
+	Iyz = property(_get_Iyz, None)
+	'''
+	Iyz
+
+	:type: float
+	'''
+	Izx = property(_get_Izx, None)
+	'''
+	Izx
+
+	:type: float
+	'''
+	Izz = property(_get_Izz, None)
+	'''
+	Izz
+
+	:type: float
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	MarkerCollection = property(_get_MarkerCollection, None)
+	'''
+	Contains Marker
+
+	:type: recurdyn.ProcessNet.IMarkerCollection
+	'''
+	Mass = property(_get_Mass, None)
+	'''
+	Mass
+
+	:type: float
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	OutputFileInfo = property(_get_OutputFileInfo, None)
+	'''
+	Get FFlex Output File Info
+
+	:type: recurdyn.FFlex.IFFlexOutputFileInfo
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	ParametricPointCollection = property(_get_ParametricPointCollection, None)
+	ParametricValueCollection = property(_get_ParametricValueCollection, None)
+	RefFrame = property(_get_RefFrame, None)
+	'''
+	Reference frame
+
+	:type: recurdyn.ProcessNet.IReferenceFrame
+	'''
+	RotationalVelocityRefMarker = property(_get_RotationalVelocityRefMarker, _set_RotationalVelocityRefMarker)
+	'''
+	Rotational velocity reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	TranslationalVelocityRefMarker = property(_get_TranslationalVelocityRefMarker, _set_TranslationalVelocityRefMarker)
+	'''
+	Translational velocity reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	UseInitialRotationalVelocityX = property(_get_UseInitialRotationalVelocityX, _set_UseInitialRotationalVelocityX)
+	'''
+	Use Initial rotational velocity X
+
+	:type: bool
+	'''
+	UseInitialRotationalVelocityY = property(_get_UseInitialRotationalVelocityY, _set_UseInitialRotationalVelocityY)
+	'''
+	Use Initial rotational velocity Y
+
+	:type: bool
+	'''
+	UseInitialRotationalVelocityZ = property(_get_UseInitialRotationalVelocityZ, _set_UseInitialRotationalVelocityZ)
+	'''
+	Use Initial rotational velocity Z
+
+	:type: bool
+	'''
+	UseInitialTranslationalVelocityX = property(_get_UseInitialTranslationalVelocityX, _set_UseInitialTranslationalVelocityX)
+	'''
+	Use initial translational velocity X
+
+	:type: bool
+	'''
+	UseInitialTranslationalVelocityY = property(_get_UseInitialTranslationalVelocityY, _set_UseInitialTranslationalVelocityY)
+	'''
+	Use initial translational velocity Y
+
+	:type: bool
+	'''
+	UseInitialTranslationalVelocityZ = property(_get_UseInitialTranslationalVelocityZ, _set_UseInitialTranslationalVelocityZ)
+	'''
+	Use initial translational velocity Z
+
+	:type: bool
+	'''
+	UsePreAnalysis = property(_get_UsePreAnalysis, _set_UsePreAnalysis)
+	'''
+	Include Pre-Analysis in Position and Velocity
+
+	:type: bool
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	UseExtractWithoutPreStress = property(None, _set_UseExtractWithoutPreStress)
+	'''
+	ExtractWithoutPreStress flag
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Active": _set_Active,
+		"_set_Comment": _set_Comment,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_RotationalVelocityRefMarker": _set_RotationalVelocityRefMarker,
+		"_set_TranslationalVelocityRefMarker": _set_TranslationalVelocityRefMarker,
+		"_set_UseExtractWithoutPreStress": _set_UseExtractWithoutPreStress,
+		"_set_UseInitialRotationalVelocityX": _set_UseInitialRotationalVelocityX,
+		"_set_UseInitialRotationalVelocityY": _set_UseInitialRotationalVelocityY,
+		"_set_UseInitialRotationalVelocityZ": _set_UseInitialRotationalVelocityZ,
+		"_set_UseInitialTranslationalVelocityX": _set_UseInitialTranslationalVelocityX,
+		"_set_UseInitialTranslationalVelocityY": _set_UseInitialTranslationalVelocityY,
+		"_set_UseInitialTranslationalVelocityZ": _set_UseInitialTranslationalVelocityZ,
+		"_set_UsePreAnalysis": _set_UsePreAnalysis,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Active": (2122, 2, (11, 0), (), "Active", None),
+		"AnimationScaling": (2002, 2, (9, 0), (), "AnimationScaling", '{50A578AD-8745-4F7F-9434-86142BB6670B}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ConnectingParameters": (2087, 2, (9, 0), (), "ConnectingParameters", '{13724ADC-4397-4109-8057-B4DA64C1CE4A}'),
+		"DisplaySetting": (2084, 2, (9, 0), (), "DisplaySetting", '{3FDF0768-0052-4B63-9D84-A644C3152051}'),
+		"ExportShellFormatData": (2086, 2, (9, 0), (), "ExportShellFormatData", '{2EE15E44-AD0C-4D9B-B53A-35BF7F1E1322}'),
+		"FFlexBoundaryConditionCollection": (2064, 2, (9, 0), (), "FFlexBoundaryConditionCollection", '{CB29570B-C43C-4422-804A-DC47A070D98D}'),
+		"FFlexElementBeamCollection": (2097, 2, (9, 0), (), "FFlexElementBeamCollection", '{D68E5B6D-04CF-4C9C-BF17-36B7BB59DAF9}'),
+		"FFlexElementCollection": (2061, 2, (9, 0), (), "FFlexElementCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB6}'),
+		"FFlexElementFDRCollection": (2083, 2, (9, 0), (), "FFlexElementFDRCollection", '{99FCED9D-CE12-47E8-8AE8-3F80DAEFB44F}'),
+		"FFlexElementMassCollection": (2090, 2, (9, 0), (), "FFlexElementMassCollection", '{E454DBF9-4B06-491A-A0AD-044B11EDCA9E}'),
+		"FFlexElementSetCollection": (2067, 2, (9, 0), (), "FFlexElementSetCollection", '{965101C9-95C4-4E9A-A2E7-CC202EBC2FC3}'),
+		"FFlexElementShellCollection": (2105, 2, (9, 0), (), "FFlexElementShellCollection", '{7BD0B108-6F9A-4CCA-89F1-17171343EE51}'),
+		"FFlexLineSetCollection": (2104, 2, (9, 0), (), "FFlexLineSetCollection", '{8235613D-438F-415F-9220-B8A72A332DFA}'),
+		"FFlexMaterialCollection": (2063, 2, (9, 0), (), "FFlexMaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'),
+		"FFlexNodeCollection": (2060, 2, (9, 0), (), "FFlexNodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"FFlexNodeSetCollection": (2066, 2, (9, 0), (), "FFlexNodeSetCollection", '{87219716-6C18-4072-BE27-EAA12BA9D444}'),
+		"FFlexOutputCollection": (2065, 2, (9, 0), (), "FFlexOutputCollection", '{6A6D7961-36F5-4E1D-8024-839348CD5B35}'),
+		"FFlexPatchSetCollection": (2068, 2, (9, 0), (), "FFlexPatchSetCollection", '{371C9D93-0F28-4531-833B-BE362169A845}'),
+		"FFlexPropertyCollection": (2062, 2, (9, 0), (), "FFlexPropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"Graphic": (2001, 2, (9, 0), (), "Graphic", '{4C8B7C23-7D92-4D39-B530-5D93DC97F771}'),
+		"InitialRotationalVelocityX": (2014, 2, (9, 0), (), "InitialRotationalVelocityX", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"InitialRotationalVelocityY": (2015, 2, (9, 0), (), "InitialRotationalVelocityY", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"InitialRotationalVelocityZ": (2016, 2, (9, 0), (), "InitialRotationalVelocityZ", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"InitialTranslationalVelocityX": (2011, 2, (9, 0), (), "InitialTranslationalVelocityX", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"InitialTranslationalVelocityY": (2012, 2, (9, 0), (), "InitialTranslationalVelocityY", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"InitialTranslationalVelocityZ": (2013, 2, (9, 0), (), "InitialTranslationalVelocityZ", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Ixx": (2005, 2, (5, 0), (), "Ixx", None),
+		"Ixy": (2008, 2, (5, 0), (), "Ixy", None),
+		"Iyy": (2006, 2, (5, 0), (), "Iyy", None),
+		"Iyz": (2009, 2, (5, 0), (), "Iyz", None),
+		"Izx": (2010, 2, (5, 0), (), "Izx", None),
+		"Izz": (2007, 2, (5, 0), (), "Izz", None),
+		"LayerNumber": (2110, 2, (19, 0), (), "LayerNumber", None),
+		"MarkerCollection": (2075, 2, (9, 0), (), "MarkerCollection", '{6BEF9B6B-4708-445E-A3B5-0D65BA69F748}'),
+		"Mass": (2004, 2, (5, 0), (), "Mass", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"OutputFileInfo": (2082, 2, (9, 0), (), "OutputFileInfo", '{14C926A7-96C8-4FA4-ABB4-516E07ABFD9E}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"ParametricPointCollection": (2112, 2, (9, 0), (), "ParametricPointCollection", '{65267578-7015-4BB5-BB65-F5F81CCEA244}'),
+		"ParametricValueCollection": (2113, 2, (9, 0), (), "ParametricValueCollection", '{65267578-7015-4BB5-BB65-F5F81CCEA245}'),
+		"RefFrame": (2003, 2, (9, 0), (), "RefFrame", '{6A3295D9-E76B-473C-9655-23B7B1CBD671}'),
+		"RotationalVelocityRefMarker": (2024, 2, (9, 0), (), "RotationalVelocityRefMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"TranslationalVelocityRefMarker": (2023, 2, (9, 0), (), "TranslationalVelocityRefMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"UseInitialRotationalVelocityX": (2020, 2, (11, 0), (), "UseInitialRotationalVelocityX", None),
+		"UseInitialRotationalVelocityY": (2021, 2, (11, 0), (), "UseInitialRotationalVelocityY", None),
+		"UseInitialRotationalVelocityZ": (2022, 2, (11, 0), (), "UseInitialRotationalVelocityZ", None),
+		"UseInitialTranslationalVelocityX": (2017, 2, (11, 0), (), "UseInitialTranslationalVelocityX", None),
+		"UseInitialTranslationalVelocityY": (2018, 2, (11, 0), (), "UseInitialTranslationalVelocityY", None),
+		"UseInitialTranslationalVelocityZ": (2019, 2, (11, 0), (), "UseInitialTranslationalVelocityZ", None),
+		"UsePreAnalysis": (2081, 2, (11, 0), (), "UsePreAnalysis", None),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Active": ((2122, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"LayerNumber": ((2110, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"RotationalVelocityRefMarker": ((2024, LCID, 4, 0),()),
+		"TranslationalVelocityRefMarker": ((2023, LCID, 4, 0),()),
+		"UseExtractWithoutPreStress": ((2093, LCID, 4, 0),()),
+		"UseInitialRotationalVelocityX": ((2020, LCID, 4, 0),()),
+		"UseInitialRotationalVelocityY": ((2021, LCID, 4, 0),()),
+		"UseInitialRotationalVelocityZ": ((2022, LCID, 4, 0),()),
+		"UseInitialTranslationalVelocityX": ((2017, LCID, 4, 0),()),
+		"UseInitialTranslationalVelocityY": ((2018, LCID, 4, 0),()),
+		"UseInitialTranslationalVelocityZ": ((2019, LCID, 4, 0),()),
+		"UsePreAnalysis": ((2081, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexBodyCollection(DispatchBaseClass):
+	'''IFFlexBodyCollection'''
+	CLSID = IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB5}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexBody
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{6302A81A-B3C0-404D-9179-8B17C939856D}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexBody
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{6302A81A-B3C0-404D-9179-8B17C939856D}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{6302A81A-B3C0-404D-9179-8B17C939856D}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{6302A81A-B3C0-404D-9179-8B17C939856D}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexBodyImportOption(DispatchBaseClass):
+	'''FFlexBody import option'''
+	CLSID = IID('{5B77012F-9E8B-4C5A-B418-ABC53AB8BDC9}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_AllowNullProperty(self):
+		return self._ApplyTypes_(*(2003, 2, (11, 0), (), "AllowNullProperty", None))
+	def _get_FileName(self):
+		return self._ApplyTypes_(*(2002, 2, (8, 0), (), "FileName", None))
+	def _get_FileType(self):
+		return self._ApplyTypes_(*(2001, 2, (3, 0), (), "FileType", '{AC634E00-47A7-49B9-954C-764359BE6A3E}'))
+	def _get_UseCreateBeamElementWithPreStress(self):
+		return self._ApplyTypes_(*(2005, 2, (11, 0), (), "UseCreateBeamElementWithPreStress", None))
+	def _get_UseGeneratePatchSetFromNodeElementSet(self):
+		return self._ApplyTypes_(*(2006, 2, (11, 0), (), "UseGeneratePatchSetFromNodeElementSet", None))
+	def _get_UseUnitForce(self):
+		return self._ApplyTypes_(*(2004, 2, (11, 0), (), "UseUnitForce", None))
+
+	def _set_AllowNullProperty(self, value):
+		if "AllowNullProperty" in self.__dict__: self.__dict__["AllowNullProperty"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+	def _set_FileName(self, value):
+		if "FileName" in self.__dict__: self.__dict__["FileName"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+	def _set_FileType(self, value):
+		if "FileType" in self.__dict__: self.__dict__["FileType"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_UseCreateBeamElementWithPreStress(self, value):
+		if "UseCreateBeamElementWithPreStress" in self.__dict__: self.__dict__["UseCreateBeamElementWithPreStress"] = value; return
+		self._oleobj_.Invoke(*((2005, LCID, 4, 0) + (value,) + ()))
+	def _set_UseGeneratePatchSetFromNodeElementSet(self, value):
+		if "UseGeneratePatchSetFromNodeElementSet" in self.__dict__: self.__dict__["UseGeneratePatchSetFromNodeElementSet"] = value; return
+		self._oleobj_.Invoke(*((2006, LCID, 4, 0) + (value,) + ()))
+	def _set_UseUnitForce(self, value):
+		if "UseUnitForce" in self.__dict__: self.__dict__["UseUnitForce"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+
+	AllowNullProperty = property(_get_AllowNullProperty, _set_AllowNullProperty)
+	'''
+	If True, default materials and properties are generated if a FE input file have no real material or property information
+
+	:type: bool
+	'''
+	FileName = property(_get_FileName, _set_FileName)
+	'''
+	FE input filename
+
+	:type: str
+	'''
+	FileType = property(_get_FileType, _set_FileType)
+	'''
+	FE input filetype
+
+	:type: recurdyn.FFlex.FFlexImportFileType
+	'''
+	UseCreateBeamElementWithPreStress = property(_get_UseCreateBeamElementWithPreStress, _set_UseCreateBeamElementWithPreStress)
+	'''
+	Create beam element with pre-stress
+
+	:type: bool
+	'''
+	UseGeneratePatchSetFromNodeElementSet = property(_get_UseGeneratePatchSetFromNodeElementSet, _set_UseGeneratePatchSetFromNodeElementSet)
+	'''
+	Generate Patch Set from Node/Element Set
+
+	:type: bool
+	'''
+	UseUnitForce = property(_get_UseUnitForce, _set_UseUnitForce)
+	'''
+	Force unit will be used for converting of Young's modulus of material
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_AllowNullProperty": _set_AllowNullProperty,
+		"_set_FileName": _set_FileName,
+		"_set_FileType": _set_FileType,
+		"_set_UseCreateBeamElementWithPreStress": _set_UseCreateBeamElementWithPreStress,
+		"_set_UseGeneratePatchSetFromNodeElementSet": _set_UseGeneratePatchSetFromNodeElementSet,
+		"_set_UseUnitForce": _set_UseUnitForce,
+	}
+	_prop_map_get_ = {
+		"AllowNullProperty": (2003, 2, (11, 0), (), "AllowNullProperty", None),
+		"FileName": (2002, 2, (8, 0), (), "FileName", None),
+		"FileType": (2001, 2, (3, 0), (), "FileType", '{AC634E00-47A7-49B9-954C-764359BE6A3E}'),
+		"UseCreateBeamElementWithPreStress": (2005, 2, (11, 0), (), "UseCreateBeamElementWithPreStress", None),
+		"UseGeneratePatchSetFromNodeElementSet": (2006, 2, (11, 0), (), "UseGeneratePatchSetFromNodeElementSet", None),
+		"UseUnitForce": (2004, 2, (11, 0), (), "UseUnitForce", None),
+	}
+	_prop_map_put_ = {
+		"AllowNullProperty": ((2003, LCID, 4, 0),()),
+		"FileName": ((2002, LCID, 4, 0),()),
+		"FileType": ((2001, LCID, 4, 0),()),
+		"UseCreateBeamElementWithPreStress": ((2005, LCID, 4, 0),()),
+		"UseGeneratePatchSetFromNodeElementSet": ((2006, LCID, 4, 0),()),
+		"UseUnitForce": ((2004, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexBodyMergeOption(DispatchBaseClass):
+	'''FFlexBody merge option'''
+	CLSID = IID('{837B713B-97C2-4238-93BB-B36A2D46AD0E}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_DeleteUnusedMaterialsProperties(self):
+		return self._ApplyTypes_(*(2103, 2, (11, 0), (), "DeleteUnusedMaterialsProperties", None))
+	def _get_SearchOnlyNodeSet(self):
+		return self._ApplyTypes_(*(2105, 2, (11, 0), (), "SearchOnlyNodeSet", None))
+	def _get_ShareCoincidentNodes(self):
+		return self._ApplyTypes_(*(2104, 2, (11, 0), (), "ShareCoincidentNodes", None))
+	def _get_SourceBody(self):
+		return self._ApplyTypes_(*(2102, 2, (8204, 0), (), "SourceBody", None))
+	def _get_TargetBody(self):
+		return self._ApplyTypes_(*(2101, 2, (9, 0), (), "TargetBody", '{6302A81A-B3C0-404D-9179-8B17C939856D}'))
+	def _get_Tolerance(self):
+		return self._ApplyTypes_(*(2106, 2, (5, 0), (), "Tolerance", None))
+
+	def _set_DeleteUnusedMaterialsProperties(self, value):
+		if "DeleteUnusedMaterialsProperties" in self.__dict__: self.__dict__["DeleteUnusedMaterialsProperties"] = value; return
+		self._oleobj_.Invoke(*((2103, LCID, 4, 0) + (value,) + ()))
+	def _set_SearchOnlyNodeSet(self, value):
+		if "SearchOnlyNodeSet" in self.__dict__: self.__dict__["SearchOnlyNodeSet"] = value; return
+		self._oleobj_.Invoke(*((2105, LCID, 4, 0) + (value,) + ()))
+	def _set_ShareCoincidentNodes(self, value):
+		if "ShareCoincidentNodes" in self.__dict__: self.__dict__["ShareCoincidentNodes"] = value; return
+		self._oleobj_.Invoke(*((2104, LCID, 4, 0) + (value,) + ()))
+	def _set_SourceBody(self, value):
+		if "SourceBody" in self.__dict__: self.__dict__["SourceBody"] = value; return
+		_value_type = True if value and isinstance(value[0], win32com.client.VARIANT) else False
+		if not _value_type:
+			value = [win32com.client.VARIANT(12, _data) for _data in value]
+		variantValue = win32com.client.VARIANT(8204, value)
+		self._oleobj_.Invoke(*((2102, LCID, 4, 0) + (variantValue,) + ()))
+		if not _value_type:
+			value = [_data.value for _data in value]
+	def _set_TargetBody(self, value):
+		if "TargetBody" in self.__dict__: self.__dict__["TargetBody"] = value; return
+		self._oleobj_.Invoke(*((2101, LCID, 4, 0) + (value,) + ()))
+	def _set_Tolerance(self, value):
+		if "Tolerance" in self.__dict__: self.__dict__["Tolerance"] = value; return
+		self._oleobj_.Invoke(*((2106, LCID, 4, 0) + (value,) + ()))
+
+	DeleteUnusedMaterialsProperties = property(_get_DeleteUnusedMaterialsProperties, _set_DeleteUnusedMaterialsProperties)
+	'''
+	Delete source body's unused materials and properties
+
+	:type: bool
+	'''
+	SearchOnlyNodeSet = property(_get_SearchOnlyNodeSet, _set_SearchOnlyNodeSet)
+	'''
+	Search only node sets
+
+	:type: bool
+	'''
+	ShareCoincidentNodes = property(_get_ShareCoincidentNodes, _set_ShareCoincidentNodes)
+	'''
+	Share coincident nodes
+
+	:type: bool
+	'''
+	SourceBody = property(_get_SourceBody, _set_SourceBody)
+	'''
+	Source body
+
+	:type: list[object]
+	'''
+	TargetBody = property(_get_TargetBody, _set_TargetBody)
+	'''
+	Target body
+
+	:type: recurdyn.FFlex.IFFlexBody
+	'''
+	Tolerance = property(_get_Tolerance, _set_Tolerance)
+	'''
+	Distance tolerance
+
+	:type: float
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_DeleteUnusedMaterialsProperties": _set_DeleteUnusedMaterialsProperties,
+		"_set_SearchOnlyNodeSet": _set_SearchOnlyNodeSet,
+		"_set_ShareCoincidentNodes": _set_ShareCoincidentNodes,
+		"_set_SourceBody": _set_SourceBody,
+		"_set_TargetBody": _set_TargetBody,
+		"_set_Tolerance": _set_Tolerance,
+	}
+	_prop_map_get_ = {
+		"DeleteUnusedMaterialsProperties": (2103, 2, (11, 0), (), "DeleteUnusedMaterialsProperties", None),
+		"SearchOnlyNodeSet": (2105, 2, (11, 0), (), "SearchOnlyNodeSet", None),
+		"ShareCoincidentNodes": (2104, 2, (11, 0), (), "ShareCoincidentNodes", None),
+		"SourceBody": (2102, 2, (8204, 0), (), "SourceBody", None),
+		"TargetBody": (2101, 2, (9, 0), (), "TargetBody", '{6302A81A-B3C0-404D-9179-8B17C939856D}'),
+		"Tolerance": (2106, 2, (5, 0), (), "Tolerance", None),
+	}
+	_prop_map_put_ = {
+		"DeleteUnusedMaterialsProperties": ((2103, LCID, 4, 0),()),
+		"SearchOnlyNodeSet": ((2105, LCID, 4, 0),()),
+		"ShareCoincidentNodes": ((2104, LCID, 4, 0),()),
+		"SourceBody": ((2102, LCID, 4, 0),()),
+		"TargetBody": ((2101, LCID, 4, 0),()),
+		"Tolerance": ((2106, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexBoundaryCondition(DispatchBaseClass):
+	CLSID = IID('{7C217E69-8B40-40FA-8D6B-C8555A17A89A}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Color(self):
+		return self._ApplyTypes_(*(2016, 2, (19, 0), (), "Color", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeCollection(self):
+		return self._ApplyTypes_(*(2015, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_RX(self):
+		return self._ApplyTypes_(*(2004, 2, (9, 0), (), "RX", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_RY(self):
+		return self._ApplyTypes_(*(2005, 2, (9, 0), (), "RY", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_RZ(self):
+		return self._ApplyTypes_(*(2006, 2, (9, 0), (), "RZ", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ReferenceMarker(self):
+		return self._ApplyTypes_(*(2014, 2, (9, 0), (), "ReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_UseRX(self):
+		return self._ApplyTypes_(*(2010, 2, (11, 0), (), "UseRX", None))
+	def _get_UseRY(self):
+		return self._ApplyTypes_(*(2011, 2, (11, 0), (), "UseRY", None))
+	def _get_UseRZ(self):
+		return self._ApplyTypes_(*(2012, 2, (11, 0), (), "UseRZ", None))
+	def _get_UseReferenceMarker(self):
+		return self._ApplyTypes_(*(2013, 2, (11, 0), (), "UseReferenceMarker", None))
+	def _get_UseX(self):
+		return self._ApplyTypes_(*(2007, 2, (11, 0), (), "UseX", None))
+	def _get_UseY(self):
+		return self._ApplyTypes_(*(2008, 2, (11, 0), (), "UseY", None))
+	def _get_UseZ(self):
+		return self._ApplyTypes_(*(2009, 2, (11, 0), (), "UseZ", None))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_X(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "X", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Y(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "Y", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Z(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "Z", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+
+	def _set_Color(self, value):
+		if "Color" in self.__dict__: self.__dict__["Color"] = value; return
+		self._oleobj_.Invoke(*((2016, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_ReferenceMarker(self, value):
+		if "ReferenceMarker" in self.__dict__: self.__dict__["ReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2014, LCID, 4, 0) + (value,) + ()))
+	def _set_UseRX(self, value):
+		if "UseRX" in self.__dict__: self.__dict__["UseRX"] = value; return
+		self._oleobj_.Invoke(*((2010, LCID, 4, 0) + (value,) + ()))
+	def _set_UseRY(self, value):
+		if "UseRY" in self.__dict__: self.__dict__["UseRY"] = value; return
+		self._oleobj_.Invoke(*((2011, LCID, 4, 0) + (value,) + ()))
+	def _set_UseRZ(self, value):
+		if "UseRZ" in self.__dict__: self.__dict__["UseRZ"] = value; return
+		self._oleobj_.Invoke(*((2012, LCID, 4, 0) + (value,) + ()))
+	def _set_UseReferenceMarker(self, value):
+		if "UseReferenceMarker" in self.__dict__: self.__dict__["UseReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2013, LCID, 4, 0) + (value,) + ()))
+	def _set_UseX(self, value):
+		if "UseX" in self.__dict__: self.__dict__["UseX"] = value; return
+		self._oleobj_.Invoke(*((2007, LCID, 4, 0) + (value,) + ()))
+	def _set_UseY(self, value):
+		if "UseY" in self.__dict__: self.__dict__["UseY"] = value; return
+		self._oleobj_.Invoke(*((2008, LCID, 4, 0) + (value,) + ()))
+	def _set_UseZ(self, value):
+		if "UseZ" in self.__dict__: self.__dict__["UseZ"] = value; return
+		self._oleobj_.Invoke(*((2009, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Color = property(_get_Color, _set_Color)
+	'''
+	Boundary condition color
+
+	:type: int
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeCollection = property(_get_NodeCollection, None)
+	'''
+	Node Collection
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	RX = property(_get_RX, None)
+	'''
+	RX Direction BC
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	RY = property(_get_RY, None)
+	'''
+	RY Direction BC
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	RZ = property(_get_RZ, None)
+	'''
+	RZ Direction BC
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ReferenceMarker = property(_get_ReferenceMarker, _set_ReferenceMarker)
+	'''
+	Reference Marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	UseRX = property(_get_UseRX, _set_UseRX)
+	'''
+	Use RX Direction BC
+
+	:type: bool
+	'''
+	UseRY = property(_get_UseRY, _set_UseRY)
+	'''
+	Use RY Direction BC
+
+	:type: bool
+	'''
+	UseRZ = property(_get_UseRZ, _set_UseRZ)
+	'''
+	Use RZ Direction BC
+
+	:type: bool
+	'''
+	UseReferenceMarker = property(_get_UseReferenceMarker, _set_UseReferenceMarker)
+	'''
+	Use Body Reference Frame
+
+	:type: bool
+	'''
+	UseX = property(_get_UseX, _set_UseX)
+	'''
+	Use X Direction BC
+
+	:type: bool
+	'''
+	UseY = property(_get_UseY, _set_UseY)
+	'''
+	Use Y Direction BC
+
+	:type: bool
+	'''
+	UseZ = property(_get_UseZ, _set_UseZ)
+	'''
+	Use Z Direction BC
+
+	:type: bool
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	X = property(_get_X, None)
+	'''
+	X Direction BC
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Y = property(_get_Y, None)
+	'''
+	Y Direction BC
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Z = property(_get_Z, None)
+	'''
+	Z Direction BC
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Color": _set_Color,
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_ReferenceMarker": _set_ReferenceMarker,
+		"_set_UseRX": _set_UseRX,
+		"_set_UseRY": _set_UseRY,
+		"_set_UseRZ": _set_UseRZ,
+		"_set_UseReferenceMarker": _set_UseReferenceMarker,
+		"_set_UseX": _set_UseX,
+		"_set_UseY": _set_UseY,
+		"_set_UseZ": _set_UseZ,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Color": (2016, 2, (19, 0), (), "Color", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeCollection": (2015, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"RX": (2004, 2, (9, 0), (), "RX", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"RY": (2005, 2, (9, 0), (), "RY", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"RZ": (2006, 2, (9, 0), (), "RZ", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ReferenceMarker": (2014, 2, (9, 0), (), "ReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"UseRX": (2010, 2, (11, 0), (), "UseRX", None),
+		"UseRY": (2011, 2, (11, 0), (), "UseRY", None),
+		"UseRZ": (2012, 2, (11, 0), (), "UseRZ", None),
+		"UseReferenceMarker": (2013, 2, (11, 0), (), "UseReferenceMarker", None),
+		"UseX": (2007, 2, (11, 0), (), "UseX", None),
+		"UseY": (2008, 2, (11, 0), (), "UseY", None),
+		"UseZ": (2009, 2, (11, 0), (), "UseZ", None),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"X": (2001, 2, (9, 0), (), "X", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Y": (2002, 2, (9, 0), (), "Y", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Z": (2003, 2, (9, 0), (), "Z", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+	}
+	_prop_map_put_ = {
+		"Color": ((2016, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"ReferenceMarker": ((2014, LCID, 4, 0),()),
+		"UseRX": ((2010, LCID, 4, 0),()),
+		"UseRY": ((2011, LCID, 4, 0),()),
+		"UseRZ": ((2012, LCID, 4, 0),()),
+		"UseReferenceMarker": ((2013, LCID, 4, 0),()),
+		"UseX": ((2007, LCID, 4, 0),()),
+		"UseY": ((2008, LCID, 4, 0),()),
+		"UseZ": ((2009, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexBoundaryConditionCollection(DispatchBaseClass):
+	'''IFFlexBoundaryConditionCollection'''
+	CLSID = IID('{CB29570B-C43C-4422-804A-DC47A070D98D}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexBoundaryCondition
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{7C217E69-8B40-40FA-8D6B-C8555A17A89A}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexBoundaryCondition
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{7C217E69-8B40-40FA-8D6B-C8555A17A89A}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{7C217E69-8B40-40FA-8D6B-C8555A17A89A}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{7C217E69-8B40-40FA-8D6B-C8555A17A89A}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexConnectingParameters(DispatchBaseClass):
+	'''FFlex connecting parameters'''
+	CLSID = IID('{13724ADC-4397-4109-8057-B4DA64C1CE4A}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_Mass(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "Mass", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_MomentOfInertia(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "MomentOfInertia", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_RotationnalDampingRatio(self):
+		return self._ApplyTypes_(*(2007, 2, (9, 0), (), "RotationnalDampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_RotationnalStiffness(self):
+		return self._ApplyTypes_(*(2006, 2, (9, 0), (), "RotationnalStiffness", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_TranslationalDampingRatio(self):
+		return self._ApplyTypes_(*(2005, 2, (9, 0), (), "TranslationalDampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_TranslationalStiffness(self):
+		return self._ApplyTypes_(*(2004, 2, (9, 0), (), "TranslationalStiffness", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UseForceConnector(self):
+		return self._ApplyTypes_(*(2000, 2, (11, 0), (), "UseForceConnector", None))
+	def _get_UseSyncFDR(self):
+		return self._ApplyTypes_(*(2001, 2, (11, 0), (), "UseSyncFDR", None))
+
+	def _set_UseForceConnector(self, value):
+		if "UseForceConnector" in self.__dict__: self.__dict__["UseForceConnector"] = value; return
+		self._oleobj_.Invoke(*((2000, LCID, 4, 0) + (value,) + ()))
+	def _set_UseSyncFDR(self, value):
+		if "UseSyncFDR" in self.__dict__: self.__dict__["UseSyncFDR"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+
+	Mass = property(_get_Mass, None)
+	'''
+	Mass
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	MomentOfInertia = property(_get_MomentOfInertia, None)
+	'''
+	Moment of inertia
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	RotationnalDampingRatio = property(_get_RotationnalDampingRatio, None)
+	'''
+	Rotationnal damping ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	RotationnalStiffness = property(_get_RotationnalStiffness, None)
+	'''
+	Rotationnal stiffness
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	TranslationalDampingRatio = property(_get_TranslationalDampingRatio, None)
+	'''
+	Translational damping ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	TranslationalStiffness = property(_get_TranslationalStiffness, None)
+	'''
+	Translational stiffness
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UseForceConnector = property(_get_UseForceConnector, _set_UseForceConnector)
+	'''
+	Use force connector
+
+	:type: bool
+	'''
+	UseSyncFDR = property(_get_UseSyncFDR, _set_UseSyncFDR)
+	'''
+	Use Sync. FDR
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_UseForceConnector": _set_UseForceConnector,
+		"_set_UseSyncFDR": _set_UseSyncFDR,
+	}
+	_prop_map_get_ = {
+		"Mass": (2002, 2, (9, 0), (), "Mass", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"MomentOfInertia": (2003, 2, (9, 0), (), "MomentOfInertia", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"RotationnalDampingRatio": (2007, 2, (9, 0), (), "RotationnalDampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"RotationnalStiffness": (2006, 2, (9, 0), (), "RotationnalStiffness", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"TranslationalDampingRatio": (2005, 2, (9, 0), (), "TranslationalDampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"TranslationalStiffness": (2004, 2, (9, 0), (), "TranslationalStiffness", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UseForceConnector": (2000, 2, (11, 0), (), "UseForceConnector", None),
+		"UseSyncFDR": (2001, 2, (11, 0), (), "UseSyncFDR", None),
+	}
+	_prop_map_put_ = {
+		"UseForceConnector": ((2000, LCID, 4, 0),()),
+		"UseSyncFDR": ((2001, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexConstraintNode(DispatchBaseClass):
+	'''NodeConstriant'''
+	CLSID = IID('{B2D185BE-60C8-482C-B9A4-EC253064E650}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeSetAction(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "NodeSetAction", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'))
+	def _get_NodeSetBase(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "NodeSetBase", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_NodeSetAction(self, value):
+		if "NodeSetAction" in self.__dict__: self.__dict__["NodeSetAction"] = value; return
+		self._oleobj_.Invoke(*((2052, LCID, 4, 0) + (value,) + ()))
+	def _set_NodeSetBase(self, value):
+		if "NodeSetBase" in self.__dict__: self.__dict__["NodeSetBase"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeSetAction = property(_get_NodeSetAction, _set_NodeSetAction)
+	'''
+	Action node set
+
+	:type: recurdyn.FFlex.IFFlexNodeSet
+	'''
+	NodeSetBase = property(_get_NodeSetBase, _set_NodeSetBase)
+	'''
+	Base node set
+
+	:type: recurdyn.FFlex.IFFlexNodeSet
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Active": _set_Active,
+		"_set_Comment": _set_Comment,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_NodeSetAction": _set_NodeSetAction,
+		"_set_NodeSetBase": _set_NodeSetBase,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeSetAction": (2052, 2, (9, 0), (), "NodeSetAction", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'),
+		"NodeSetBase": (2051, 2, (9, 0), (), "NodeSetBase", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Active": ((152, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"NodeSetAction": ((2052, LCID, 4, 0),()),
+		"NodeSetBase": ((2051, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexContact(DispatchBaseClass):
+	CLSID = IID('{84584C5A-48D9-4ADB-92E8-23D8A6D199A2}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_BufferRadiusFactor(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ContactProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'))
+	def _get_ForceDisplay(self):
+		return self._ApplyTypes_(*(2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_MaxStepSizeFactor(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_ForceDisplay(self, value):
+		if "ForceDisplay" in self.__dict__: self.__dict__["ForceDisplay"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	BufferRadiusFactor = property(_get_BufferRadiusFactor, None)
+	'''
+	Buffer radius factor. Numerical integrator reduces the step size by the maximum stepsize factor if the action body come closer than buffer radius factor*action body radius.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ContactProperty = property(_get_ContactProperty, None)
+	'''
+	Contact property
+
+	:type: recurdyn.ProcessNet.IContactProperty
+	'''
+	ForceDisplay = property(_get_ForceDisplay, _set_ForceDisplay)
+	'''
+	Force display
+
+	:type: recurdyn.ProcessNet.ForceDisplay
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	MaxStepSizeFactor = property(_get_MaxStepSizeFactor, None)
+	'''
+	Maximum step size factor. The maximum step size is reduced by a factor of maximum step size factor.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Active": _set_Active,
+		"_set_Comment": _set_Comment,
+		"_set_ForceDisplay": _set_ForceDisplay,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"BufferRadiusFactor": (2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ContactProperty": (2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'),
+		"ForceDisplay": (2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"MaxStepSizeFactor": (2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Active": ((152, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"ForceDisplay": ((2004, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexContactCollection(DispatchBaseClass):
+	'''IFFlexConactCollection'''
+	CLSID = IID('{179D3515-9CD6-4537-B668-0B90072CC73B}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexContact
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{84584C5A-48D9-4ADB-92E8-23D8A6D199A2}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexContact
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{84584C5A-48D9-4ADB-92E8-23D8A6D199A2}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{84584C5A-48D9-4ADB-92E8-23D8A6D199A2}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{84584C5A-48D9-4ADB-92E8-23D8A6D199A2}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexContactCylinderToFSurface(DispatchBaseClass):
+	CLSID = IID('{C7481369-4B52-47B6-8981-979598B40AEA}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_ActionEntity(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ActionEntity", '{5810C7E4-F627-4171-9D64-4BC97F14BB8E}'))
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_BaseEntity(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "BaseEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_BasePatchOption(self):
+		return self._ApplyTypes_(*(2055, 2, (9, 0), (), "BasePatchOption", '{F703C54E-A759-4DB3-9962-54BFBC825288}'))
+	def _get_BaseReferenceMarker(self):
+		return self._ApplyTypes_(*(2054, 2, (9, 0), (), "BaseReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_BaseUpDirection(self):
+		return self._ApplyTypes_(*(2053, 2, (11, 0), (), "BaseUpDirection", None))
+	def _get_BufferRadiusFactor(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ContactProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'))
+	def _get_ForceDisplay(self):
+		return self._ApplyTypes_(*(2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_MaxStepSizeFactor(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UseNodeOnly(self):
+		return self._ApplyTypes_(*(2056, 2, (11, 0), (), "UseNodeOnly", None))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_ActionEntity(self, value):
+		if "ActionEntity" in self.__dict__: self.__dict__["ActionEntity"] = value; return
+		self._oleobj_.Invoke(*((2052, LCID, 4, 0) + (value,) + ()))
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseEntity(self, value):
+		if "BaseEntity" in self.__dict__: self.__dict__["BaseEntity"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseReferenceMarker(self, value):
+		if "BaseReferenceMarker" in self.__dict__: self.__dict__["BaseReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2054, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseUpDirection(self, value):
+		if "BaseUpDirection" in self.__dict__: self.__dict__["BaseUpDirection"] = value; return
+		self._oleobj_.Invoke(*((2053, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_ForceDisplay(self, value):
+		if "ForceDisplay" in self.__dict__: self.__dict__["ForceDisplay"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UseNodeOnly(self, value):
+		if "UseNodeOnly" in self.__dict__: self.__dict__["UseNodeOnly"] = value; return
+		self._oleobj_.Invoke(*((2056, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	ActionEntity = property(_get_ActionEntity, _set_ActionEntity)
+	'''
+	Action entity
+
+	:type: recurdyn.ProcessNet.IGeometryCylinder
+	'''
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	BaseEntity = property(_get_BaseEntity, _set_BaseEntity)
+	'''
+	Base entity
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	BasePatchOption = property(_get_BasePatchOption, None)
+	'''
+	Base FSurface patch option
+
+	:type: recurdyn.FFlex.IFFlexContactFSurfacePatchOption
+	'''
+	BaseReferenceMarker = property(_get_BaseReferenceMarker, _set_BaseReferenceMarker)
+	'''
+	SphereToFSurface contact base reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	BaseUpDirection = property(_get_BaseUpDirection, _set_BaseUpDirection)
+	'''
+	Base up direction
+
+	:type: bool
+	'''
+	BufferRadiusFactor = property(_get_BufferRadiusFactor, None)
+	'''
+	Buffer radius factor. Numerical integrator reduces the step size by the maximum stepsize factor if the action body come closer than buffer radius factor*action body radius.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ContactProperty = property(_get_ContactProperty, None)
+	'''
+	Contact property
+
+	:type: recurdyn.ProcessNet.IContactProperty
+	'''
+	ForceDisplay = property(_get_ForceDisplay, _set_ForceDisplay)
+	'''
+	Force display
+
+	:type: recurdyn.ProcessNet.ForceDisplay
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	MaxStepSizeFactor = property(_get_MaxStepSizeFactor, None)
+	'''
+	Maximum step size factor. The maximum step size is reduced by a factor of maximum step size factor.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UseNodeOnly = property(_get_UseNodeOnly, _set_UseNodeOnly)
+	'''
+	Use node only
+
+	:type: bool
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ActionEntity": _set_ActionEntity,
+		"_set_Active": _set_Active,
+		"_set_BaseEntity": _set_BaseEntity,
+		"_set_BaseReferenceMarker": _set_BaseReferenceMarker,
+		"_set_BaseUpDirection": _set_BaseUpDirection,
+		"_set_Comment": _set_Comment,
+		"_set_ForceDisplay": _set_ForceDisplay,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_UseNodeOnly": _set_UseNodeOnly,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"ActionEntity": (2052, 2, (9, 0), (), "ActionEntity", '{5810C7E4-F627-4171-9D64-4BC97F14BB8E}'),
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"BaseEntity": (2051, 2, (9, 0), (), "BaseEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"BasePatchOption": (2055, 2, (9, 0), (), "BasePatchOption", '{F703C54E-A759-4DB3-9962-54BFBC825288}'),
+		"BaseReferenceMarker": (2054, 2, (9, 0), (), "BaseReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"BaseUpDirection": (2053, 2, (11, 0), (), "BaseUpDirection", None),
+		"BufferRadiusFactor": (2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ContactProperty": (2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'),
+		"ForceDisplay": (2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"MaxStepSizeFactor": (2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UseNodeOnly": (2056, 2, (11, 0), (), "UseNodeOnly", None),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"ActionEntity": ((2052, LCID, 4, 0),()),
+		"Active": ((152, LCID, 4, 0),()),
+		"BaseEntity": ((2051, LCID, 4, 0),()),
+		"BaseReferenceMarker": ((2054, LCID, 4, 0),()),
+		"BaseUpDirection": ((2053, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"ForceDisplay": ((2004, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UseNodeOnly": ((2056, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexContactFCurveSegmentOption(DispatchBaseClass):
+	CLSID = IID('{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_DividedCubicCellX(self):
+		return self._ApplyTypes_(*(2003, 2, (3, 0), (), "DividedCubicCellX", None))
+	def _get_DividedCubicCellY(self):
+		return self._ApplyTypes_(*(2004, 2, (3, 0), (), "DividedCubicCellY", None))
+	def _get_DividedCubicCellZ(self):
+		return self._ApplyTypes_(*(2005, 2, (3, 0), (), "DividedCubicCellZ", None))
+	def _get_Radius(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Radius", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UpdateContactNodesPosition(self):
+		return self._ApplyTypes_(*(2006, 2, (11, 0), (), "UpdateContactNodesPosition", None))
+	def _get_UseDividedCubicCellNumber(self):
+		return self._ApplyTypes_(*(2002, 2, (11, 0), (), "UseDividedCubicCellNumber", None))
+
+	def _set_DividedCubicCellX(self, value):
+		if "DividedCubicCellX" in self.__dict__: self.__dict__["DividedCubicCellX"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+	def _set_DividedCubicCellY(self, value):
+		if "DividedCubicCellY" in self.__dict__: self.__dict__["DividedCubicCellY"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_DividedCubicCellZ(self, value):
+		if "DividedCubicCellZ" in self.__dict__: self.__dict__["DividedCubicCellZ"] = value; return
+		self._oleobj_.Invoke(*((2005, LCID, 4, 0) + (value,) + ()))
+	def _set_UpdateContactNodesPosition(self, value):
+		if "UpdateContactNodesPosition" in self.__dict__: self.__dict__["UpdateContactNodesPosition"] = value; return
+		self._oleobj_.Invoke(*((2006, LCID, 4, 0) + (value,) + ()))
+	def _set_UseDividedCubicCellNumber(self, value):
+		if "UseDividedCubicCellNumber" in self.__dict__: self.__dict__["UseDividedCubicCellNumber"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+
+	DividedCubicCellX = property(_get_DividedCubicCellX, _set_DividedCubicCellX)
+	'''
+	Divided cubic cell number x
+
+	:type: int
+	'''
+	DividedCubicCellY = property(_get_DividedCubicCellY, _set_DividedCubicCellY)
+	'''
+	Divided cubic cell number y
+
+	:type: int
+	'''
+	DividedCubicCellZ = property(_get_DividedCubicCellZ, _set_DividedCubicCellZ)
+	'''
+	Divided cubic cell number z
+
+	:type: int
+	'''
+	Radius = property(_get_Radius, None)
+	'''
+	Radius
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UpdateContactNodesPosition = property(_get_UpdateContactNodesPosition, _set_UpdateContactNodesPosition)
+	'''
+	Update position of contact nodes
+
+	:type: bool
+	'''
+	UseDividedCubicCellNumber = property(_get_UseDividedCubicCellNumber, _set_UseDividedCubicCellNumber)
+	'''
+	Use divided cubic cell number
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_DividedCubicCellX": _set_DividedCubicCellX,
+		"_set_DividedCubicCellY": _set_DividedCubicCellY,
+		"_set_DividedCubicCellZ": _set_DividedCubicCellZ,
+		"_set_UpdateContactNodesPosition": _set_UpdateContactNodesPosition,
+		"_set_UseDividedCubicCellNumber": _set_UseDividedCubicCellNumber,
+	}
+	_prop_map_get_ = {
+		"DividedCubicCellX": (2003, 2, (3, 0), (), "DividedCubicCellX", None),
+		"DividedCubicCellY": (2004, 2, (3, 0), (), "DividedCubicCellY", None),
+		"DividedCubicCellZ": (2005, 2, (3, 0), (), "DividedCubicCellZ", None),
+		"Radius": (2001, 2, (9, 0), (), "Radius", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UpdateContactNodesPosition": (2006, 2, (11, 0), (), "UpdateContactNodesPosition", None),
+		"UseDividedCubicCellNumber": (2002, 2, (11, 0), (), "UseDividedCubicCellNumber", None),
+	}
+	_prop_map_put_ = {
+		"DividedCubicCellX": ((2003, LCID, 4, 0),()),
+		"DividedCubicCellY": ((2004, LCID, 4, 0),()),
+		"DividedCubicCellZ": ((2005, LCID, 4, 0),()),
+		"UpdateContactNodesPosition": ((2006, LCID, 4, 0),()),
+		"UseDividedCubicCellNumber": ((2002, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexContactFCurveToFCurve(DispatchBaseClass):
+	CLSID = IID('{E0F5CC9A-1686-4686-BA51-168070A9D8C9}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_ActionEntity(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ActionEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_ActionReferenceMarker(self):
+		return self._ApplyTypes_(*(2054, 2, (9, 0), (), "ActionReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_ActionSegmentOption(self):
+		return self._ApplyTypes_(*(2056, 2, (9, 0), (), "ActionSegmentOption", '{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}'))
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_BaseEntity(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "BaseEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_BaseReferenceMarker(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "BaseReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_BaseSegmentOption(self):
+		return self._ApplyTypes_(*(2055, 2, (9, 0), (), "BaseSegmentOption", '{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}'))
+	def _get_BufferRadiusFactor(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ContactProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'))
+	def _get_ForceDisplay(self):
+		return self._ApplyTypes_(*(2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_MaxStepSizeFactor(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_ActionEntity(self, value):
+		if "ActionEntity" in self.__dict__: self.__dict__["ActionEntity"] = value; return
+		self._oleobj_.Invoke(*((2052, LCID, 4, 0) + (value,) + ()))
+	def _set_ActionReferenceMarker(self, value):
+		if "ActionReferenceMarker" in self.__dict__: self.__dict__["ActionReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2054, LCID, 4, 0) + (value,) + ()))
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseEntity(self, value):
+		if "BaseEntity" in self.__dict__: self.__dict__["BaseEntity"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseReferenceMarker(self, value):
+		if "BaseReferenceMarker" in self.__dict__: self.__dict__["BaseReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2053, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_ForceDisplay(self, value):
+		if "ForceDisplay" in self.__dict__: self.__dict__["ForceDisplay"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	ActionEntity = property(_get_ActionEntity, _set_ActionEntity)
+	'''
+	Action entity
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	ActionReferenceMarker = property(_get_ActionReferenceMarker, _set_ActionReferenceMarker)
+	'''
+	FCurveToFCurve contact action reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	ActionSegmentOption = property(_get_ActionSegmentOption, None)
+	'''
+	Action FCurve segment option
+
+	:type: recurdyn.FFlex.IFFlexContactFCurveSegmentOption
+	'''
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	BaseEntity = property(_get_BaseEntity, _set_BaseEntity)
+	'''
+	Base entity
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	BaseReferenceMarker = property(_get_BaseReferenceMarker, _set_BaseReferenceMarker)
+	'''
+	FCurveToFCurve contact base reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	BaseSegmentOption = property(_get_BaseSegmentOption, None)
+	'''
+	Base FCurve segment option
+
+	:type: recurdyn.FFlex.IFFlexContactFCurveSegmentOption
+	'''
+	BufferRadiusFactor = property(_get_BufferRadiusFactor, None)
+	'''
+	Buffer radius factor. Numerical integrator reduces the step size by the maximum stepsize factor if the action body come closer than buffer radius factor*action body radius.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ContactProperty = property(_get_ContactProperty, None)
+	'''
+	Contact property
+
+	:type: recurdyn.ProcessNet.IContactProperty
+	'''
+	ForceDisplay = property(_get_ForceDisplay, _set_ForceDisplay)
+	'''
+	Force display
+
+	:type: recurdyn.ProcessNet.ForceDisplay
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	MaxStepSizeFactor = property(_get_MaxStepSizeFactor, None)
+	'''
+	Maximum step size factor. The maximum step size is reduced by a factor of maximum step size factor.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ActionEntity": _set_ActionEntity,
+		"_set_ActionReferenceMarker": _set_ActionReferenceMarker,
+		"_set_Active": _set_Active,
+		"_set_BaseEntity": _set_BaseEntity,
+		"_set_BaseReferenceMarker": _set_BaseReferenceMarker,
+		"_set_Comment": _set_Comment,
+		"_set_ForceDisplay": _set_ForceDisplay,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"ActionEntity": (2052, 2, (9, 0), (), "ActionEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"ActionReferenceMarker": (2054, 2, (9, 0), (), "ActionReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"ActionSegmentOption": (2056, 2, (9, 0), (), "ActionSegmentOption", '{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}'),
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"BaseEntity": (2051, 2, (9, 0), (), "BaseEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"BaseReferenceMarker": (2053, 2, (9, 0), (), "BaseReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"BaseSegmentOption": (2055, 2, (9, 0), (), "BaseSegmentOption", '{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}'),
+		"BufferRadiusFactor": (2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ContactProperty": (2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'),
+		"ForceDisplay": (2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"MaxStepSizeFactor": (2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"ActionEntity": ((2052, LCID, 4, 0),()),
+		"ActionReferenceMarker": ((2054, LCID, 4, 0),()),
+		"Active": ((152, LCID, 4, 0),()),
+		"BaseEntity": ((2051, LCID, 4, 0),()),
+		"BaseReferenceMarker": ((2053, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"ForceDisplay": ((2004, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexContactFCurveToFSurface(DispatchBaseClass):
+	CLSID = IID('{96734B88-960C-4AD5-9F09-891929036A86}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_ActionEntity(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ActionEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_ActionReferenceMarker(self):
+		return self._ApplyTypes_(*(2055, 2, (9, 0), (), "ActionReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_ActionSegmentOption(self):
+		return self._ApplyTypes_(*(2057, 2, (9, 0), (), "ActionSegmentOption", '{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}'))
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_BaseEntity(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "BaseEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_BasePatchOption(self):
+		return self._ApplyTypes_(*(2056, 2, (9, 0), (), "BasePatchOption", '{F703C54E-A759-4DB3-9962-54BFBC825288}'))
+	def _get_BaseReferenceMarker(self):
+		return self._ApplyTypes_(*(2054, 2, (9, 0), (), "BaseReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_BaseUpDirection(self):
+		return self._ApplyTypes_(*(2053, 2, (11, 0), (), "BaseUpDirection", None))
+	def _get_BufferRadiusFactor(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ContactProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'))
+	def _get_ForceDisplay(self):
+		return self._ApplyTypes_(*(2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_MaxStepSizeFactor(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_ActionEntity(self, value):
+		if "ActionEntity" in self.__dict__: self.__dict__["ActionEntity"] = value; return
+		self._oleobj_.Invoke(*((2052, LCID, 4, 0) + (value,) + ()))
+	def _set_ActionReferenceMarker(self, value):
+		if "ActionReferenceMarker" in self.__dict__: self.__dict__["ActionReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2055, LCID, 4, 0) + (value,) + ()))
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseEntity(self, value):
+		if "BaseEntity" in self.__dict__: self.__dict__["BaseEntity"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseReferenceMarker(self, value):
+		if "BaseReferenceMarker" in self.__dict__: self.__dict__["BaseReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2054, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseUpDirection(self, value):
+		if "BaseUpDirection" in self.__dict__: self.__dict__["BaseUpDirection"] = value; return
+		self._oleobj_.Invoke(*((2053, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_ForceDisplay(self, value):
+		if "ForceDisplay" in self.__dict__: self.__dict__["ForceDisplay"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	ActionEntity = property(_get_ActionEntity, _set_ActionEntity)
+	'''
+	Action entity
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	ActionReferenceMarker = property(_get_ActionReferenceMarker, _set_ActionReferenceMarker)
+	'''
+	FCurveToFSurface contact action reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	ActionSegmentOption = property(_get_ActionSegmentOption, None)
+	'''
+	Action FCurve segment option
+
+	:type: recurdyn.FFlex.IFFlexContactFCurveSegmentOption
+	'''
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	BaseEntity = property(_get_BaseEntity, _set_BaseEntity)
+	'''
+	Base entity
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	BasePatchOption = property(_get_BasePatchOption, None)
+	'''
+	Base FSurface patch option
+
+	:type: recurdyn.FFlex.IFFlexContactFSurfacePatchOption
+	'''
+	BaseReferenceMarker = property(_get_BaseReferenceMarker, _set_BaseReferenceMarker)
+	'''
+	FCurveToFSurface contact base reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	BaseUpDirection = property(_get_BaseUpDirection, _set_BaseUpDirection)
+	'''
+	Base up direction
+
+	:type: bool
+	'''
+	BufferRadiusFactor = property(_get_BufferRadiusFactor, None)
+	'''
+	Buffer radius factor. Numerical integrator reduces the step size by the maximum stepsize factor if the action body come closer than buffer radius factor*action body radius.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ContactProperty = property(_get_ContactProperty, None)
+	'''
+	Contact property
+
+	:type: recurdyn.ProcessNet.IContactProperty
+	'''
+	ForceDisplay = property(_get_ForceDisplay, _set_ForceDisplay)
+	'''
+	Force display
+
+	:type: recurdyn.ProcessNet.ForceDisplay
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	MaxStepSizeFactor = property(_get_MaxStepSizeFactor, None)
+	'''
+	Maximum step size factor. The maximum step size is reduced by a factor of maximum step size factor.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ActionEntity": _set_ActionEntity,
+		"_set_ActionReferenceMarker": _set_ActionReferenceMarker,
+		"_set_Active": _set_Active,
+		"_set_BaseEntity": _set_BaseEntity,
+		"_set_BaseReferenceMarker": _set_BaseReferenceMarker,
+		"_set_BaseUpDirection": _set_BaseUpDirection,
+		"_set_Comment": _set_Comment,
+		"_set_ForceDisplay": _set_ForceDisplay,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"ActionEntity": (2052, 2, (9, 0), (), "ActionEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"ActionReferenceMarker": (2055, 2, (9, 0), (), "ActionReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"ActionSegmentOption": (2057, 2, (9, 0), (), "ActionSegmentOption", '{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}'),
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"BaseEntity": (2051, 2, (9, 0), (), "BaseEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"BasePatchOption": (2056, 2, (9, 0), (), "BasePatchOption", '{F703C54E-A759-4DB3-9962-54BFBC825288}'),
+		"BaseReferenceMarker": (2054, 2, (9, 0), (), "BaseReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"BaseUpDirection": (2053, 2, (11, 0), (), "BaseUpDirection", None),
+		"BufferRadiusFactor": (2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ContactProperty": (2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'),
+		"ForceDisplay": (2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"MaxStepSizeFactor": (2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"ActionEntity": ((2052, LCID, 4, 0),()),
+		"ActionReferenceMarker": ((2055, LCID, 4, 0),()),
+		"Active": ((152, LCID, 4, 0),()),
+		"BaseEntity": ((2051, LCID, 4, 0),()),
+		"BaseReferenceMarker": ((2054, LCID, 4, 0),()),
+		"BaseUpDirection": ((2053, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"ForceDisplay": ((2004, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexContactFCurveToSurface(DispatchBaseClass):
+	CLSID = IID('{DBD60940-5FBF-4F13-96BD-70F15DF56CD1}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_ActionEntity(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ActionEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_ActionReferenceMarker(self):
+		return self._ApplyTypes_(*(2054, 2, (9, 0), (), "ActionReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_ActionSegmentOption(self):
+		return self._ApplyTypes_(*(2056, 2, (9, 0), (), "ActionSegmentOption", '{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}'))
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_BaseEntity(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "BaseEntity", '{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}'))
+	def _get_BasePatchOption(self):
+		return self._ApplyTypes_(*(2055, 2, (9, 0), (), "BasePatchOption", '{ED5F7902-56FD-482D-AEF2-D898A1EBFF1B}'))
+	def _get_BaseUpDirection(self):
+		return self._ApplyTypes_(*(2053, 2, (11, 0), (), "BaseUpDirection", None))
+	def _get_BufferRadiusFactor(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ContactProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'))
+	def _get_ForceDisplay(self):
+		return self._ApplyTypes_(*(2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_MaxStepSizeFactor(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_ActionEntity(self, value):
+		if "ActionEntity" in self.__dict__: self.__dict__["ActionEntity"] = value; return
+		self._oleobj_.Invoke(*((2052, LCID, 4, 0) + (value,) + ()))
+	def _set_ActionReferenceMarker(self, value):
+		if "ActionReferenceMarker" in self.__dict__: self.__dict__["ActionReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2054, LCID, 4, 0) + (value,) + ()))
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseEntity(self, value):
+		if "BaseEntity" in self.__dict__: self.__dict__["BaseEntity"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseUpDirection(self, value):
+		if "BaseUpDirection" in self.__dict__: self.__dict__["BaseUpDirection"] = value; return
+		self._oleobj_.Invoke(*((2053, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_ForceDisplay(self, value):
+		if "ForceDisplay" in self.__dict__: self.__dict__["ForceDisplay"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	ActionEntity = property(_get_ActionEntity, _set_ActionEntity)
+	'''
+	Action entity
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	ActionReferenceMarker = property(_get_ActionReferenceMarker, _set_ActionReferenceMarker)
+	'''
+	FCurveToSurface contact action reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	ActionSegmentOption = property(_get_ActionSegmentOption, None)
+	'''
+	Action FCurve segment option
+
+	:type: recurdyn.FFlex.IFFlexContactFCurveSegmentOption
+	'''
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	BaseEntity = property(_get_BaseEntity, _set_BaseEntity)
+	'''
+	Base entity
+
+	:type: recurdyn.ProcessNet.IGeometry
+	'''
+	BasePatchOption = property(_get_BasePatchOption, None)
+	'''
+	Base extended surface to surface contact patch option
+
+	:type: recurdyn.ProcessNet.IContactExtendedSurfaceToSurfacePatchOption
+	'''
+	BaseUpDirection = property(_get_BaseUpDirection, _set_BaseUpDirection)
+	'''
+	Base up direction
+
+	:type: bool
+	'''
+	BufferRadiusFactor = property(_get_BufferRadiusFactor, None)
+	'''
+	Buffer radius factor. Numerical integrator reduces the step size by the maximum stepsize factor if the action body come closer than buffer radius factor*action body radius.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ContactProperty = property(_get_ContactProperty, None)
+	'''
+	Contact property
+
+	:type: recurdyn.ProcessNet.IContactProperty
+	'''
+	ForceDisplay = property(_get_ForceDisplay, _set_ForceDisplay)
+	'''
+	Force display
+
+	:type: recurdyn.ProcessNet.ForceDisplay
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	MaxStepSizeFactor = property(_get_MaxStepSizeFactor, None)
+	'''
+	Maximum step size factor. The maximum step size is reduced by a factor of maximum step size factor.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ActionEntity": _set_ActionEntity,
+		"_set_ActionReferenceMarker": _set_ActionReferenceMarker,
+		"_set_Active": _set_Active,
+		"_set_BaseEntity": _set_BaseEntity,
+		"_set_BaseUpDirection": _set_BaseUpDirection,
+		"_set_Comment": _set_Comment,
+		"_set_ForceDisplay": _set_ForceDisplay,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"ActionEntity": (2052, 2, (9, 0), (), "ActionEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"ActionReferenceMarker": (2054, 2, (9, 0), (), "ActionReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"ActionSegmentOption": (2056, 2, (9, 0), (), "ActionSegmentOption", '{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}'),
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"BaseEntity": (2051, 2, (9, 0), (), "BaseEntity", '{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}'),
+		"BasePatchOption": (2055, 2, (9, 0), (), "BasePatchOption", '{ED5F7902-56FD-482D-AEF2-D898A1EBFF1B}'),
+		"BaseUpDirection": (2053, 2, (11, 0), (), "BaseUpDirection", None),
+		"BufferRadiusFactor": (2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ContactProperty": (2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'),
+		"ForceDisplay": (2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"MaxStepSizeFactor": (2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"ActionEntity": ((2052, LCID, 4, 0),()),
+		"ActionReferenceMarker": ((2054, LCID, 4, 0),()),
+		"Active": ((152, LCID, 4, 0),()),
+		"BaseEntity": ((2051, LCID, 4, 0),()),
+		"BaseUpDirection": ((2053, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"ForceDisplay": ((2004, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexContactFSurfacePatchOption(DispatchBaseClass):
+	CLSID = IID('{F703C54E-A759-4DB3-9962-54BFBC825288}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_DividedCubicCellX(self):
+		return self._ApplyTypes_(*(2003, 2, (3, 0), (), "DividedCubicCellX", None))
+	def _get_DividedCubicCellY(self):
+		return self._ApplyTypes_(*(2004, 2, (3, 0), (), "DividedCubicCellY", None))
+	def _get_DividedCubicCellZ(self):
+		return self._ApplyTypes_(*(2005, 2, (3, 0), (), "DividedCubicCellZ", None))
+	def _get_GeoPatchThicknessType(self):
+		return self._ApplyTypes_(*(2009, 2, (3, 0), (), "GeoPatchThicknessType", '{7ADE75E9-EF45-4421-88F9-9F4BA00B99F6}'))
+	def _get_MaxPenetration(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "MaxPenetration", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_SpecificThickness(self):
+		return self._ApplyTypes_(*(2008, 2, (9, 0), (), "SpecificThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UpdateContactNodesPosition(self):
+		return self._ApplyTypes_(*(2006, 2, (11, 0), (), "UpdateContactNodesPosition", None))
+	def _get_UseDividedCubicCellNumber(self):
+		return self._ApplyTypes_(*(2002, 2, (11, 0), (), "UseDividedCubicCellNumber", None))
+	def _get_UseSpecificThickness(self):
+		return self._ApplyTypes_(*(2007, 2, (11, 0), (), "UseSpecificThickness", None))
+
+	def _set_DividedCubicCellX(self, value):
+		if "DividedCubicCellX" in self.__dict__: self.__dict__["DividedCubicCellX"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+	def _set_DividedCubicCellY(self, value):
+		if "DividedCubicCellY" in self.__dict__: self.__dict__["DividedCubicCellY"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_DividedCubicCellZ(self, value):
+		if "DividedCubicCellZ" in self.__dict__: self.__dict__["DividedCubicCellZ"] = value; return
+		self._oleobj_.Invoke(*((2005, LCID, 4, 0) + (value,) + ()))
+	def _set_GeoPatchThicknessType(self, value):
+		if "GeoPatchThicknessType" in self.__dict__: self.__dict__["GeoPatchThicknessType"] = value; return
+		self._oleobj_.Invoke(*((2009, LCID, 4, 0) + (value,) + ()))
+	def _set_UpdateContactNodesPosition(self, value):
+		if "UpdateContactNodesPosition" in self.__dict__: self.__dict__["UpdateContactNodesPosition"] = value; return
+		self._oleobj_.Invoke(*((2006, LCID, 4, 0) + (value,) + ()))
+	def _set_UseDividedCubicCellNumber(self, value):
+		if "UseDividedCubicCellNumber" in self.__dict__: self.__dict__["UseDividedCubicCellNumber"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+	def _set_UseSpecificThickness(self, value):
+		if "UseSpecificThickness" in self.__dict__: self.__dict__["UseSpecificThickness"] = value; return
+		self._oleobj_.Invoke(*((2007, LCID, 4, 0) + (value,) + ()))
+
+	DividedCubicCellX = property(_get_DividedCubicCellX, _set_DividedCubicCellX)
+	'''
+	Divided cubic cell number x
+
+	:type: int
+	'''
+	DividedCubicCellY = property(_get_DividedCubicCellY, _set_DividedCubicCellY)
+	'''
+	Divided cubic cell number y
+
+	:type: int
+	'''
+	DividedCubicCellZ = property(_get_DividedCubicCellZ, _set_DividedCubicCellZ)
+	'''
+	Divided cubic cell number z
+
+	:type: int
+	'''
+	GeoPatchThicknessType = property(_get_GeoPatchThicknessType, _set_GeoPatchThicknessType)
+	'''
+	Geo Patch thickness type
+
+	:type: recurdyn.FFlex.GeoPatchThickness
+	'''
+	MaxPenetration = property(_get_MaxPenetration, None)
+	'''
+	A maximum penetration. If the penetration is greater than this value, the contact force is not generated.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	SpecificThickness = property(_get_SpecificThickness, None)
+	'''
+	Specific thickness
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UpdateContactNodesPosition = property(_get_UpdateContactNodesPosition, _set_UpdateContactNodesPosition)
+	'''
+	Update position of contact nodes
+
+	:type: bool
+	'''
+	UseDividedCubicCellNumber = property(_get_UseDividedCubicCellNumber, _set_UseDividedCubicCellNumber)
+	'''
+	Use divided cubic cell number
+
+	:type: bool
+	'''
+	UseSpecificThickness = property(_get_UseSpecificThickness, _set_UseSpecificThickness)
+	'''
+	Use specific thickness
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_DividedCubicCellX": _set_DividedCubicCellX,
+		"_set_DividedCubicCellY": _set_DividedCubicCellY,
+		"_set_DividedCubicCellZ": _set_DividedCubicCellZ,
+		"_set_GeoPatchThicknessType": _set_GeoPatchThicknessType,
+		"_set_UpdateContactNodesPosition": _set_UpdateContactNodesPosition,
+		"_set_UseDividedCubicCellNumber": _set_UseDividedCubicCellNumber,
+		"_set_UseSpecificThickness": _set_UseSpecificThickness,
+	}
+	_prop_map_get_ = {
+		"DividedCubicCellX": (2003, 2, (3, 0), (), "DividedCubicCellX", None),
+		"DividedCubicCellY": (2004, 2, (3, 0), (), "DividedCubicCellY", None),
+		"DividedCubicCellZ": (2005, 2, (3, 0), (), "DividedCubicCellZ", None),
+		"GeoPatchThicknessType": (2009, 2, (3, 0), (), "GeoPatchThicknessType", '{7ADE75E9-EF45-4421-88F9-9F4BA00B99F6}'),
+		"MaxPenetration": (2001, 2, (9, 0), (), "MaxPenetration", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"SpecificThickness": (2008, 2, (9, 0), (), "SpecificThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UpdateContactNodesPosition": (2006, 2, (11, 0), (), "UpdateContactNodesPosition", None),
+		"UseDividedCubicCellNumber": (2002, 2, (11, 0), (), "UseDividedCubicCellNumber", None),
+		"UseSpecificThickness": (2007, 2, (11, 0), (), "UseSpecificThickness", None),
+	}
+	_prop_map_put_ = {
+		"DividedCubicCellX": ((2003, LCID, 4, 0),()),
+		"DividedCubicCellY": ((2004, LCID, 4, 0),()),
+		"DividedCubicCellZ": ((2005, LCID, 4, 0),()),
+		"GeoPatchThicknessType": ((2009, LCID, 4, 0),()),
+		"UpdateContactNodesPosition": ((2006, LCID, 4, 0),()),
+		"UseDividedCubicCellNumber": ((2002, LCID, 4, 0),()),
+		"UseSpecificThickness": ((2007, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexContactFSurfaceToFSurface(DispatchBaseClass):
+	CLSID = IID('{4A53DC7E-87C8-4E2E-ADE5-76EE559B554E}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_ActionEntity(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ActionEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_ActionPatchOption(self):
+		return self._ApplyTypes_(*(2058, 2, (9, 0), (), "ActionPatchOption", '{F703C54E-A759-4DB3-9962-54BFBC825288}'))
+	def _get_ActionReferenceMarker(self):
+		return self._ApplyTypes_(*(2056, 2, (9, 0), (), "ActionReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_ActionSmoothContact(self):
+		return self._ApplyTypes_(*(2060, 2, (11, 0), (), "ActionSmoothContact", None))
+	def _get_ActionUpDirection(self):
+		return self._ApplyTypes_(*(2054, 2, (11, 0), (), "ActionUpDirection", None))
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_BaseEntity(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "BaseEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_BasePatchOption(self):
+		return self._ApplyTypes_(*(2057, 2, (9, 0), (), "BasePatchOption", '{F703C54E-A759-4DB3-9962-54BFBC825288}'))
+	def _get_BaseReferenceMarker(self):
+		return self._ApplyTypes_(*(2055, 2, (9, 0), (), "BaseReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_BaseSmoothContact(self):
+		return self._ApplyTypes_(*(2059, 2, (11, 0), (), "BaseSmoothContact", None))
+	def _get_BaseUpDirection(self):
+		return self._ApplyTypes_(*(2053, 2, (11, 0), (), "BaseUpDirection", None))
+	def _get_BufferRadiusFactor(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ContactProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'))
+	def _get_ForceDisplay(self):
+		return self._ApplyTypes_(*(2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_MaxStepSizeFactor(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UseNodeOnly(self):
+		return self._ApplyTypes_(*(2061, 2, (11, 0), (), "UseNodeOnly", None))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_ActionEntity(self, value):
+		if "ActionEntity" in self.__dict__: self.__dict__["ActionEntity"] = value; return
+		self._oleobj_.Invoke(*((2052, LCID, 4, 0) + (value,) + ()))
+	def _set_ActionReferenceMarker(self, value):
+		if "ActionReferenceMarker" in self.__dict__: self.__dict__["ActionReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2056, LCID, 4, 0) + (value,) + ()))
+	def _set_ActionSmoothContact(self, value):
+		if "ActionSmoothContact" in self.__dict__: self.__dict__["ActionSmoothContact"] = value; return
+		self._oleobj_.Invoke(*((2060, LCID, 4, 0) + (value,) + ()))
+	def _set_ActionUpDirection(self, value):
+		if "ActionUpDirection" in self.__dict__: self.__dict__["ActionUpDirection"] = value; return
+		self._oleobj_.Invoke(*((2054, LCID, 4, 0) + (value,) + ()))
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseEntity(self, value):
+		if "BaseEntity" in self.__dict__: self.__dict__["BaseEntity"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseReferenceMarker(self, value):
+		if "BaseReferenceMarker" in self.__dict__: self.__dict__["BaseReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2055, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseSmoothContact(self, value):
+		if "BaseSmoothContact" in self.__dict__: self.__dict__["BaseSmoothContact"] = value; return
+		self._oleobj_.Invoke(*((2059, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseUpDirection(self, value):
+		if "BaseUpDirection" in self.__dict__: self.__dict__["BaseUpDirection"] = value; return
+		self._oleobj_.Invoke(*((2053, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_ForceDisplay(self, value):
+		if "ForceDisplay" in self.__dict__: self.__dict__["ForceDisplay"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UseNodeOnly(self, value):
+		if "UseNodeOnly" in self.__dict__: self.__dict__["UseNodeOnly"] = value; return
+		self._oleobj_.Invoke(*((2061, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	ActionEntity = property(_get_ActionEntity, _set_ActionEntity)
+	'''
+	Action entity
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	ActionPatchOption = property(_get_ActionPatchOption, None)
+	'''
+	Action FSurface patch option
+
+	:type: recurdyn.FFlex.IFFlexContactFSurfacePatchOption
+	'''
+	ActionReferenceMarker = property(_get_ActionReferenceMarker, _set_ActionReferenceMarker)
+	'''
+	FSurfaceToFSurface contact action reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	ActionSmoothContact = property(_get_ActionSmoothContact, _set_ActionSmoothContact)
+	'''
+	Action smooth contact
+
+	:type: bool
+	'''
+	ActionUpDirection = property(_get_ActionUpDirection, _set_ActionUpDirection)
+	'''
+	Action up direction
+
+	:type: bool
+	'''
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	BaseEntity = property(_get_BaseEntity, _set_BaseEntity)
+	'''
+	Base entity
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	BasePatchOption = property(_get_BasePatchOption, None)
+	'''
+	Base FSurface patch option
+
+	:type: recurdyn.FFlex.IFFlexContactFSurfacePatchOption
+	'''
+	BaseReferenceMarker = property(_get_BaseReferenceMarker, _set_BaseReferenceMarker)
+	'''
+	FSurfaceToFSurface contact base reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	BaseSmoothContact = property(_get_BaseSmoothContact, _set_BaseSmoothContact)
+	'''
+	Base smooth contact
+
+	:type: bool
+	'''
+	BaseUpDirection = property(_get_BaseUpDirection, _set_BaseUpDirection)
+	'''
+	Base up direction
+
+	:type: bool
+	'''
+	BufferRadiusFactor = property(_get_BufferRadiusFactor, None)
+	'''
+	Buffer radius factor. Numerical integrator reduces the step size by the maximum stepsize factor if the action body come closer than buffer radius factor*action body radius.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ContactProperty = property(_get_ContactProperty, None)
+	'''
+	Contact property
+
+	:type: recurdyn.ProcessNet.IContactProperty
+	'''
+	ForceDisplay = property(_get_ForceDisplay, _set_ForceDisplay)
+	'''
+	Force display
+
+	:type: recurdyn.ProcessNet.ForceDisplay
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	MaxStepSizeFactor = property(_get_MaxStepSizeFactor, None)
+	'''
+	Maximum step size factor. The maximum step size is reduced by a factor of maximum step size factor.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UseNodeOnly = property(_get_UseNodeOnly, _set_UseNodeOnly)
+	'''
+	Use node only
+
+	:type: bool
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ActionEntity": _set_ActionEntity,
+		"_set_ActionReferenceMarker": _set_ActionReferenceMarker,
+		"_set_ActionSmoothContact": _set_ActionSmoothContact,
+		"_set_ActionUpDirection": _set_ActionUpDirection,
+		"_set_Active": _set_Active,
+		"_set_BaseEntity": _set_BaseEntity,
+		"_set_BaseReferenceMarker": _set_BaseReferenceMarker,
+		"_set_BaseSmoothContact": _set_BaseSmoothContact,
+		"_set_BaseUpDirection": _set_BaseUpDirection,
+		"_set_Comment": _set_Comment,
+		"_set_ForceDisplay": _set_ForceDisplay,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_UseNodeOnly": _set_UseNodeOnly,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"ActionEntity": (2052, 2, (9, 0), (), "ActionEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"ActionPatchOption": (2058, 2, (9, 0), (), "ActionPatchOption", '{F703C54E-A759-4DB3-9962-54BFBC825288}'),
+		"ActionReferenceMarker": (2056, 2, (9, 0), (), "ActionReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"ActionSmoothContact": (2060, 2, (11, 0), (), "ActionSmoothContact", None),
+		"ActionUpDirection": (2054, 2, (11, 0), (), "ActionUpDirection", None),
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"BaseEntity": (2051, 2, (9, 0), (), "BaseEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"BasePatchOption": (2057, 2, (9, 0), (), "BasePatchOption", '{F703C54E-A759-4DB3-9962-54BFBC825288}'),
+		"BaseReferenceMarker": (2055, 2, (9, 0), (), "BaseReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"BaseSmoothContact": (2059, 2, (11, 0), (), "BaseSmoothContact", None),
+		"BaseUpDirection": (2053, 2, (11, 0), (), "BaseUpDirection", None),
+		"BufferRadiusFactor": (2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ContactProperty": (2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'),
+		"ForceDisplay": (2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"MaxStepSizeFactor": (2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UseNodeOnly": (2061, 2, (11, 0), (), "UseNodeOnly", None),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"ActionEntity": ((2052, LCID, 4, 0),()),
+		"ActionReferenceMarker": ((2056, LCID, 4, 0),()),
+		"ActionSmoothContact": ((2060, LCID, 4, 0),()),
+		"ActionUpDirection": ((2054, LCID, 4, 0),()),
+		"Active": ((152, LCID, 4, 0),()),
+		"BaseEntity": ((2051, LCID, 4, 0),()),
+		"BaseReferenceMarker": ((2055, LCID, 4, 0),()),
+		"BaseSmoothContact": ((2059, LCID, 4, 0),()),
+		"BaseUpDirection": ((2053, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"ForceDisplay": ((2004, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UseNodeOnly": ((2061, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexContactFSurfaceToSurface(DispatchBaseClass):
+	CLSID = IID('{2FB3CBD7-86A2-4DC3-8E44-B0BD837F9A22}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_ActionEntity(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ActionEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_ActionPatchOption(self):
+		return self._ApplyTypes_(*(2057, 2, (9, 0), (), "ActionPatchOption", '{F703C54E-A759-4DB3-9962-54BFBC825288}'))
+	def _get_ActionReferenceMarker(self):
+		return self._ApplyTypes_(*(2055, 2, (9, 0), (), "ActionReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_ActionSmoothContact(self):
+		return self._ApplyTypes_(*(2058, 2, (11, 0), (), "ActionSmoothContact", None))
+	def _get_ActionUpDirection(self):
+		return self._ApplyTypes_(*(2053, 2, (11, 0), (), "ActionUpDirection", None))
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_BaseEntity(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "BaseEntity", '{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}'))
+	def _get_BasePatchOption(self):
+		return self._ApplyTypes_(*(2056, 2, (9, 0), (), "BasePatchOption", '{ED5F7902-56FD-482D-AEF2-D898A1EBFF1B}'))
+	def _get_BaseUpDirection(self):
+		return self._ApplyTypes_(*(2054, 2, (11, 0), (), "BaseUpDirection", None))
+	def _get_BufferRadiusFactor(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ContactProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'))
+	def _get_ForceDisplay(self):
+		return self._ApplyTypes_(*(2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_MaxStepSizeFactor(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UseNodeOnly(self):
+		return self._ApplyTypes_(*(2059, 2, (11, 0), (), "UseNodeOnly", None))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_ActionEntity(self, value):
+		if "ActionEntity" in self.__dict__: self.__dict__["ActionEntity"] = value; return
+		self._oleobj_.Invoke(*((2052, LCID, 4, 0) + (value,) + ()))
+	def _set_ActionReferenceMarker(self, value):
+		if "ActionReferenceMarker" in self.__dict__: self.__dict__["ActionReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2055, LCID, 4, 0) + (value,) + ()))
+	def _set_ActionSmoothContact(self, value):
+		if "ActionSmoothContact" in self.__dict__: self.__dict__["ActionSmoothContact"] = value; return
+		self._oleobj_.Invoke(*((2058, LCID, 4, 0) + (value,) + ()))
+	def _set_ActionUpDirection(self, value):
+		if "ActionUpDirection" in self.__dict__: self.__dict__["ActionUpDirection"] = value; return
+		self._oleobj_.Invoke(*((2053, LCID, 4, 0) + (value,) + ()))
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseEntity(self, value):
+		if "BaseEntity" in self.__dict__: self.__dict__["BaseEntity"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseUpDirection(self, value):
+		if "BaseUpDirection" in self.__dict__: self.__dict__["BaseUpDirection"] = value; return
+		self._oleobj_.Invoke(*((2054, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_ForceDisplay(self, value):
+		if "ForceDisplay" in self.__dict__: self.__dict__["ForceDisplay"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UseNodeOnly(self, value):
+		if "UseNodeOnly" in self.__dict__: self.__dict__["UseNodeOnly"] = value; return
+		self._oleobj_.Invoke(*((2059, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	ActionEntity = property(_get_ActionEntity, _set_ActionEntity)
+	'''
+	Action entity
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	ActionPatchOption = property(_get_ActionPatchOption, None)
+	'''
+	Action FSurface patch option
+
+	:type: recurdyn.FFlex.IFFlexContactFSurfacePatchOption
+	'''
+	ActionReferenceMarker = property(_get_ActionReferenceMarker, _set_ActionReferenceMarker)
+	'''
+	FSurfaceToSurface contact action reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	ActionSmoothContact = property(_get_ActionSmoothContact, _set_ActionSmoothContact)
+	'''
+	Action smooth contact
+
+	:type: bool
+	'''
+	ActionUpDirection = property(_get_ActionUpDirection, _set_ActionUpDirection)
+	'''
+	Action up direction
+
+	:type: bool
+	'''
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	BaseEntity = property(_get_BaseEntity, _set_BaseEntity)
+	'''
+	Base entity
+
+	:type: recurdyn.ProcessNet.IGeometry
+	'''
+	BasePatchOption = property(_get_BasePatchOption, None)
+	'''
+	Base extended surface to surface contact patch option
+
+	:type: recurdyn.ProcessNet.IContactExtendedSurfaceToSurfacePatchOption
+	'''
+	BaseUpDirection = property(_get_BaseUpDirection, _set_BaseUpDirection)
+	'''
+	Base up direction
+
+	:type: bool
+	'''
+	BufferRadiusFactor = property(_get_BufferRadiusFactor, None)
+	'''
+	Buffer radius factor. Numerical integrator reduces the step size by the maximum stepsize factor if the action body come closer than buffer radius factor*action body radius.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ContactProperty = property(_get_ContactProperty, None)
+	'''
+	Contact property
+
+	:type: recurdyn.ProcessNet.IContactProperty
+	'''
+	ForceDisplay = property(_get_ForceDisplay, _set_ForceDisplay)
+	'''
+	Force display
+
+	:type: recurdyn.ProcessNet.ForceDisplay
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	MaxStepSizeFactor = property(_get_MaxStepSizeFactor, None)
+	'''
+	Maximum step size factor. The maximum step size is reduced by a factor of maximum step size factor.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UseNodeOnly = property(_get_UseNodeOnly, _set_UseNodeOnly)
+	'''
+	Use node only
+
+	:type: bool
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ActionEntity": _set_ActionEntity,
+		"_set_ActionReferenceMarker": _set_ActionReferenceMarker,
+		"_set_ActionSmoothContact": _set_ActionSmoothContact,
+		"_set_ActionUpDirection": _set_ActionUpDirection,
+		"_set_Active": _set_Active,
+		"_set_BaseEntity": _set_BaseEntity,
+		"_set_BaseUpDirection": _set_BaseUpDirection,
+		"_set_Comment": _set_Comment,
+		"_set_ForceDisplay": _set_ForceDisplay,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_UseNodeOnly": _set_UseNodeOnly,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"ActionEntity": (2052, 2, (9, 0), (), "ActionEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"ActionPatchOption": (2057, 2, (9, 0), (), "ActionPatchOption", '{F703C54E-A759-4DB3-9962-54BFBC825288}'),
+		"ActionReferenceMarker": (2055, 2, (9, 0), (), "ActionReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"ActionSmoothContact": (2058, 2, (11, 0), (), "ActionSmoothContact", None),
+		"ActionUpDirection": (2053, 2, (11, 0), (), "ActionUpDirection", None),
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"BaseEntity": (2051, 2, (9, 0), (), "BaseEntity", '{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}'),
+		"BasePatchOption": (2056, 2, (9, 0), (), "BasePatchOption", '{ED5F7902-56FD-482D-AEF2-D898A1EBFF1B}'),
+		"BaseUpDirection": (2054, 2, (11, 0), (), "BaseUpDirection", None),
+		"BufferRadiusFactor": (2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ContactProperty": (2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'),
+		"ForceDisplay": (2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"MaxStepSizeFactor": (2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UseNodeOnly": (2059, 2, (11, 0), (), "UseNodeOnly", None),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"ActionEntity": ((2052, LCID, 4, 0),()),
+		"ActionReferenceMarker": ((2055, LCID, 4, 0),()),
+		"ActionSmoothContact": ((2058, LCID, 4, 0),()),
+		"ActionUpDirection": ((2053, LCID, 4, 0),()),
+		"Active": ((152, LCID, 4, 0),()),
+		"BaseEntity": ((2051, LCID, 4, 0),()),
+		"BaseUpDirection": ((2054, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"ForceDisplay": ((2004, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UseNodeOnly": ((2059, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexContactSphereToFCurve(DispatchBaseClass):
+	CLSID = IID('{4EF16E8C-46CC-45C8-B6B6-280A7331592B}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_ActionEntity(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ActionEntity", '{2122DEE7-EE07-4A20-9B49-5A9AF4599906}'))
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_BaseEntity(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "BaseEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_BaseReferenceMarker(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "BaseReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_BaseSegmentOption(self):
+		return self._ApplyTypes_(*(2054, 2, (9, 0), (), "BaseSegmentOption", '{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}'))
+	def _get_BufferRadiusFactor(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ContactProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'))
+	def _get_ForceDisplay(self):
+		return self._ApplyTypes_(*(2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_MaxStepSizeFactor(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_ActionEntity(self, value):
+		if "ActionEntity" in self.__dict__: self.__dict__["ActionEntity"] = value; return
+		self._oleobj_.Invoke(*((2052, LCID, 4, 0) + (value,) + ()))
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseEntity(self, value):
+		if "BaseEntity" in self.__dict__: self.__dict__["BaseEntity"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseReferenceMarker(self, value):
+		if "BaseReferenceMarker" in self.__dict__: self.__dict__["BaseReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2053, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_ForceDisplay(self, value):
+		if "ForceDisplay" in self.__dict__: self.__dict__["ForceDisplay"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	ActionEntity = property(_get_ActionEntity, _set_ActionEntity)
+	'''
+	Action entity
+
+	:type: recurdyn.ProcessNet.IGeometrySphere
+	'''
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	BaseEntity = property(_get_BaseEntity, _set_BaseEntity)
+	'''
+	Base entity
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	BaseReferenceMarker = property(_get_BaseReferenceMarker, _set_BaseReferenceMarker)
+	'''
+	SphrereToFCurve contact base reference frame
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	BaseSegmentOption = property(_get_BaseSegmentOption, None)
+	'''
+	Base FCurve segment option
+
+	:type: recurdyn.FFlex.IFFlexContactFCurveSegmentOption
+	'''
+	BufferRadiusFactor = property(_get_BufferRadiusFactor, None)
+	'''
+	Buffer radius factor. Numerical integrator reduces the step size by the maximum stepsize factor if the action body come closer than buffer radius factor*action body radius.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ContactProperty = property(_get_ContactProperty, None)
+	'''
+	Contact property
+
+	:type: recurdyn.ProcessNet.IContactProperty
+	'''
+	ForceDisplay = property(_get_ForceDisplay, _set_ForceDisplay)
+	'''
+	Force display
+
+	:type: recurdyn.ProcessNet.ForceDisplay
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	MaxStepSizeFactor = property(_get_MaxStepSizeFactor, None)
+	'''
+	Maximum step size factor. The maximum step size is reduced by a factor of maximum step size factor.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ActionEntity": _set_ActionEntity,
+		"_set_Active": _set_Active,
+		"_set_BaseEntity": _set_BaseEntity,
+		"_set_BaseReferenceMarker": _set_BaseReferenceMarker,
+		"_set_Comment": _set_Comment,
+		"_set_ForceDisplay": _set_ForceDisplay,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"ActionEntity": (2052, 2, (9, 0), (), "ActionEntity", '{2122DEE7-EE07-4A20-9B49-5A9AF4599906}'),
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"BaseEntity": (2051, 2, (9, 0), (), "BaseEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"BaseReferenceMarker": (2053, 2, (9, 0), (), "BaseReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"BaseSegmentOption": (2054, 2, (9, 0), (), "BaseSegmentOption", '{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}'),
+		"BufferRadiusFactor": (2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ContactProperty": (2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'),
+		"ForceDisplay": (2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"MaxStepSizeFactor": (2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"ActionEntity": ((2052, LCID, 4, 0),()),
+		"Active": ((152, LCID, 4, 0),()),
+		"BaseEntity": ((2051, LCID, 4, 0),()),
+		"BaseReferenceMarker": ((2053, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"ForceDisplay": ((2004, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexContactSphereToFSurface(DispatchBaseClass):
+	CLSID = IID('{F04DF01D-5633-4305-BB19-38240B6B1668}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_ActionEntity(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ActionEntity", '{2122DEE7-EE07-4A20-9B49-5A9AF4599906}'))
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_BaseEntity(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "BaseEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_BaseNodeContact(self):
+		return self._ApplyTypes_(*(2057, 2, (11, 0), (), "BaseNodeContact", None))
+	def _get_BasePatchOption(self):
+		return self._ApplyTypes_(*(2055, 2, (9, 0), (), "BasePatchOption", '{F703C54E-A759-4DB3-9962-54BFBC825288}'))
+	def _get_BaseReferenceMarker(self):
+		return self._ApplyTypes_(*(2054, 2, (9, 0), (), "BaseReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_BaseSmoothContact(self):
+		return self._ApplyTypes_(*(2056, 2, (11, 0), (), "BaseSmoothContact", None))
+	def _get_BaseUpDirection(self):
+		return self._ApplyTypes_(*(2053, 2, (11, 0), (), "BaseUpDirection", None))
+	def _get_BufferRadiusFactor(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ContactProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'))
+	def _get_ForceDisplay(self):
+		return self._ApplyTypes_(*(2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_MaxStepSizeFactor(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_ActionEntity(self, value):
+		if "ActionEntity" in self.__dict__: self.__dict__["ActionEntity"] = value; return
+		self._oleobj_.Invoke(*((2052, LCID, 4, 0) + (value,) + ()))
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseEntity(self, value):
+		if "BaseEntity" in self.__dict__: self.__dict__["BaseEntity"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseNodeContact(self, value):
+		if "BaseNodeContact" in self.__dict__: self.__dict__["BaseNodeContact"] = value; return
+		self._oleobj_.Invoke(*((2057, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseReferenceMarker(self, value):
+		if "BaseReferenceMarker" in self.__dict__: self.__dict__["BaseReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2054, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseSmoothContact(self, value):
+		if "BaseSmoothContact" in self.__dict__: self.__dict__["BaseSmoothContact"] = value; return
+		self._oleobj_.Invoke(*((2056, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseUpDirection(self, value):
+		if "BaseUpDirection" in self.__dict__: self.__dict__["BaseUpDirection"] = value; return
+		self._oleobj_.Invoke(*((2053, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_ForceDisplay(self, value):
+		if "ForceDisplay" in self.__dict__: self.__dict__["ForceDisplay"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	ActionEntity = property(_get_ActionEntity, _set_ActionEntity)
+	'''
+	Action entity
+
+	:type: recurdyn.ProcessNet.IGeometrySphere
+	'''
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	BaseEntity = property(_get_BaseEntity, _set_BaseEntity)
+	'''
+	Base entity
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	BaseNodeContact = property(_get_BaseNodeContact, _set_BaseNodeContact)
+	'''
+	Base node contact
+
+	:type: bool
+	'''
+	BasePatchOption = property(_get_BasePatchOption, None)
+	'''
+	Base FSurface patch option
+
+	:type: recurdyn.FFlex.IFFlexContactFSurfacePatchOption
+	'''
+	BaseReferenceMarker = property(_get_BaseReferenceMarker, _set_BaseReferenceMarker)
+	'''
+	SphereToFSurface contact base reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	BaseSmoothContact = property(_get_BaseSmoothContact, _set_BaseSmoothContact)
+	'''
+	Base smooth contact
+
+	:type: bool
+	'''
+	BaseUpDirection = property(_get_BaseUpDirection, _set_BaseUpDirection)
+	'''
+	Base up direction
+
+	:type: bool
+	'''
+	BufferRadiusFactor = property(_get_BufferRadiusFactor, None)
+	'''
+	Buffer radius factor. Numerical integrator reduces the step size by the maximum stepsize factor if the action body come closer than buffer radius factor*action body radius.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ContactProperty = property(_get_ContactProperty, None)
+	'''
+	Contact property
+
+	:type: recurdyn.ProcessNet.IContactProperty
+	'''
+	ForceDisplay = property(_get_ForceDisplay, _set_ForceDisplay)
+	'''
+	Force display
+
+	:type: recurdyn.ProcessNet.ForceDisplay
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	MaxStepSizeFactor = property(_get_MaxStepSizeFactor, None)
+	'''
+	Maximum step size factor. The maximum step size is reduced by a factor of maximum step size factor.
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ActionEntity": _set_ActionEntity,
+		"_set_Active": _set_Active,
+		"_set_BaseEntity": _set_BaseEntity,
+		"_set_BaseNodeContact": _set_BaseNodeContact,
+		"_set_BaseReferenceMarker": _set_BaseReferenceMarker,
+		"_set_BaseSmoothContact": _set_BaseSmoothContact,
+		"_set_BaseUpDirection": _set_BaseUpDirection,
+		"_set_Comment": _set_Comment,
+		"_set_ForceDisplay": _set_ForceDisplay,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"ActionEntity": (2052, 2, (9, 0), (), "ActionEntity", '{2122DEE7-EE07-4A20-9B49-5A9AF4599906}'),
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"BaseEntity": (2051, 2, (9, 0), (), "BaseEntity", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"BaseNodeContact": (2057, 2, (11, 0), (), "BaseNodeContact", None),
+		"BasePatchOption": (2055, 2, (9, 0), (), "BasePatchOption", '{F703C54E-A759-4DB3-9962-54BFBC825288}'),
+		"BaseReferenceMarker": (2054, 2, (9, 0), (), "BaseReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"BaseSmoothContact": (2056, 2, (11, 0), (), "BaseSmoothContact", None),
+		"BaseUpDirection": (2053, 2, (11, 0), (), "BaseUpDirection", None),
+		"BufferRadiusFactor": (2002, 2, (9, 0), (), "BufferRadiusFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ContactProperty": (2001, 2, (9, 0), (), "ContactProperty", '{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}'),
+		"ForceDisplay": (2004, 2, (3, 0), (), "ForceDisplay", '{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"MaxStepSizeFactor": (2003, 2, (9, 0), (), "MaxStepSizeFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"ActionEntity": ((2052, LCID, 4, 0),()),
+		"Active": ((152, LCID, 4, 0),()),
+		"BaseEntity": ((2051, LCID, 4, 0),()),
+		"BaseNodeContact": ((2057, LCID, 4, 0),()),
+		"BaseReferenceMarker": ((2054, LCID, 4, 0),()),
+		"BaseSmoothContact": ((2056, LCID, 4, 0),()),
+		"BaseUpDirection": ((2053, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"ForceDisplay": ((2004, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexElement(DispatchBaseClass):
+	'''FFlex Element'''
+	CLSID = IID('{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def SetNodeIDs(self, arrNodeID):
+		'''
+		Set node ID of a element
+		
+		:param arrNodeID: list[int]
+		'''
+		return self._oleobj_.InvokeTypes(2003, LCID, 1, (24, 0), ((8195, 1),),arrNodeID
+			)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ElementType(self):
+		return self._ApplyTypes_(*(152, 2, (3, 0), (), "ElementType", '{59250D4D-5C1C-4CEE-80A4-42A64F61F138}'))
+	def _get_FFlexProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeCollection(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexProperty(self, value):
+		if "FFlexProperty" in self.__dict__: self.__dict__["FFlexProperty"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_ID(self, value):
+		if "ID" in self.__dict__: self.__dict__["ID"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ElementType = property(_get_ElementType, None)
+	'''
+	Element type
+
+	:type: recurdyn.ProcessNet.FlexibleElementType
+	'''
+	FFlexProperty = property(_get_FFlexProperty, _set_FFlexProperty)
+	'''
+	Access FE Property Info.
+
+	:type: recurdyn.FFlex.IFFlexProperty
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, _set_ID)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeCollection = property(_get_NodeCollection, None)
+	'''
+	Node Collection
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_FFlexProperty": _set_FFlexProperty,
+		"_set_ID": _set_ID,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ElementType": (152, 2, (3, 0), (), "ElementType", '{59250D4D-5C1C-4CEE-80A4-42A64F61F138}'),
+		"FFlexProperty": (2001, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (151, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeCollection": (2002, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"FFlexProperty": ((2001, LCID, 4, 0),()),
+		"ID": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexElementBeam(DispatchBaseClass):
+	CLSID = IID('{3E133D96-B9A6-4E30-89A8-9049608BBEEA}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def SetNodeIDs(self, arrNodeID):
+		'''
+		Set node ID of a element
+		
+		:param arrNodeID: list[int]
+		'''
+		return self._oleobj_.InvokeTypes(2003, LCID, 1, (24, 0), ((8195, 1),),arrNodeID
+			)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ElementType(self):
+		return self._ApplyTypes_(*(152, 2, (3, 0), (), "ElementType", '{59250D4D-5C1C-4CEE-80A4-42A64F61F138}'))
+	def _get_FFlexProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeCollection(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_Orientation(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "Orientation", '{F67F5E56-F3F7-4249-BCBE-02B8D43716B0}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexProperty(self, value):
+		if "FFlexProperty" in self.__dict__: self.__dict__["FFlexProperty"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_ID(self, value):
+		if "ID" in self.__dict__: self.__dict__["ID"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ElementType = property(_get_ElementType, None)
+	'''
+	Element type
+
+	:type: recurdyn.ProcessNet.FlexibleElementType
+	'''
+	FFlexProperty = property(_get_FFlexProperty, _set_FFlexProperty)
+	'''
+	Access FE Property Info.
+
+	:type: recurdyn.FFlex.IFFlexProperty
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, _set_ID)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeCollection = property(_get_NodeCollection, None)
+	'''
+	Node Collection
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	Orientation = property(_get_Orientation, None)
+	'''
+	The orientation vector of Beam Element
+
+	:type: recurdyn.ProcessNet.IPoint3D
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_FFlexProperty": _set_FFlexProperty,
+		"_set_ID": _set_ID,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ElementType": (152, 2, (3, 0), (), "ElementType", '{59250D4D-5C1C-4CEE-80A4-42A64F61F138}'),
+		"FFlexProperty": (2001, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (151, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeCollection": (2002, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"Orientation": (2051, 2, (9, 0), (), "Orientation", '{F67F5E56-F3F7-4249-BCBE-02B8D43716B0}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"FFlexProperty": ((2001, LCID, 4, 0),()),
+		"ID": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexElementBeamCollection(DispatchBaseClass):
+	'''IFFlexElementBeamCollection'''
+	CLSID = IID('{D68E5B6D-04CF-4C9C-BF17-36B7BB59DAF9}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexElementBeam
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{3E133D96-B9A6-4E30-89A8-9049608BBEEA}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexElementBeam
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{3E133D96-B9A6-4E30-89A8-9049608BBEEA}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{3E133D96-B9A6-4E30-89A8-9049608BBEEA}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{3E133D96-B9A6-4E30-89A8-9049608BBEEA}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexElementBeamOrientation(DispatchBaseClass):
+	CLSID = IID('{82373A21-94B2-4230-9D14-9CF555B2321A}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_x(self):
+		return self._ApplyTypes_(*(51, 2, (5, 0), (), "x", None))
+	def _get_y(self):
+		return self._ApplyTypes_(*(52, 2, (5, 0), (), "y", None))
+	def _get_z(self):
+		return self._ApplyTypes_(*(53, 2, (5, 0), (), "z", None))
+
+	def _set_x(self, value):
+		if "x" in self.__dict__: self.__dict__["x"] = value; return
+		self._oleobj_.Invoke(*((51, LCID, 4, 0) + (value,) + ()))
+	def _set_y(self, value):
+		if "y" in self.__dict__: self.__dict__["y"] = value; return
+		self._oleobj_.Invoke(*((52, LCID, 4, 0) + (value,) + ()))
+	def _set_z(self, value):
+		if "z" in self.__dict__: self.__dict__["z"] = value; return
+		self._oleobj_.Invoke(*((53, LCID, 4, 0) + (value,) + ()))
+
+	x = property(_get_x, _set_x)
+	'''
+	x value
+
+	:type: float
+	'''
+	y = property(_get_y, _set_y)
+	'''
+	y value
+
+	:type: float
+	'''
+	z = property(_get_z, _set_z)
+	'''
+	z value
+
+	:type: float
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_x": _set_x,
+		"_set_y": _set_y,
+		"_set_z": _set_z,
+	}
+	_prop_map_get_ = {
+		"x": (51, 2, (5, 0), (), "x", None),
+		"y": (52, 2, (5, 0), (), "y", None),
+		"z": (53, 2, (5, 0), (), "z", None),
+	}
+	_prop_map_put_ = {
+		"x": ((51, LCID, 4, 0),()),
+		"y": ((52, LCID, 4, 0),()),
+		"z": ((53, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexElementCollection(DispatchBaseClass):
+	'''IFFlexElementCollection'''
+	CLSID = IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB6}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexElement
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexElement
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexElementFDR(DispatchBaseClass):
+	CLSID = IID('{A640D569-8E40-435F-B199-AB3145C56569}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def SetNodeIDs(self, arrNodeID):
+		'''
+		Set node ID of a element
+		
+		:param arrNodeID: list[int]
+		'''
+		return self._oleobj_.InvokeTypes(2003, LCID, 1, (24, 0), ((8195, 1),),arrNodeID
+			)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ElementType(self):
+		return self._ApplyTypes_(*(152, 2, (3, 0), (), "ElementType", '{59250D4D-5C1C-4CEE-80A4-42A64F61F138}'))
+	def _get_FFlexProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "ID", None))
+	def _get_MasterNode(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "MasterNode", '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeCollection(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexProperty(self, value):
+		if "FFlexProperty" in self.__dict__: self.__dict__["FFlexProperty"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_ID(self, value):
+		if "ID" in self.__dict__: self.__dict__["ID"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_MasterNode(self, value):
+		if "MasterNode" in self.__dict__: self.__dict__["MasterNode"] = value; return
+		self._oleobj_.Invoke(*((2052, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ElementType = property(_get_ElementType, None)
+	'''
+	Element type
+
+	:type: recurdyn.ProcessNet.FlexibleElementType
+	'''
+	FFlexProperty = property(_get_FFlexProperty, _set_FFlexProperty)
+	'''
+	Access FE Property Info.
+
+	:type: recurdyn.FFlex.IFFlexProperty
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, _set_ID)
+	'''
+	ID
+
+	:type: int
+	'''
+	MasterNode = property(_get_MasterNode, _set_MasterNode)
+	'''
+	Master Node
+
+	:type: recurdyn.FFlex.IFFlexNode
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeCollection = property(_get_NodeCollection, None)
+	'''
+	Node Collection
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_FFlexProperty": _set_FFlexProperty,
+		"_set_ID": _set_ID,
+		"_set_MasterNode": _set_MasterNode,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ElementType": (152, 2, (3, 0), (), "ElementType", '{59250D4D-5C1C-4CEE-80A4-42A64F61F138}'),
+		"FFlexProperty": (2001, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (151, 2, (19, 0), (), "ID", None),
+		"MasterNode": (2052, 2, (9, 0), (), "MasterNode", '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeCollection": (2002, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"FFlexProperty": ((2001, LCID, 4, 0),()),
+		"ID": ((151, LCID, 4, 0),()),
+		"MasterNode": ((2052, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexElementFDRCollection(DispatchBaseClass):
+	'''IFFlexElementFDRCollection'''
+	CLSID = IID('{99FCED9D-CE12-47E8-8AE8-3F80DAEFB44F}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexElementFDR
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{A640D569-8E40-435F-B199-AB3145C56569}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexElementFDR
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{A640D569-8E40-435F-B199-AB3145C56569}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{A640D569-8E40-435F-B199-AB3145C56569}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{A640D569-8E40-435F-B199-AB3145C56569}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexElementMass(DispatchBaseClass):
+	CLSID = IID('{7235D19C-5DAB-4BC7-B0A3-82AB05109017}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def SetNodeIDs(self, arrNodeID):
+		'''
+		Set node ID of a element
+		
+		:param arrNodeID: list[int]
+		'''
+		return self._oleobj_.InvokeTypes(2003, LCID, 1, (24, 0), ((8195, 1),),arrNodeID
+			)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ElementType(self):
+		return self._ApplyTypes_(*(152, 2, (3, 0), (), "ElementType", '{59250D4D-5C1C-4CEE-80A4-42A64F61F138}'))
+	def _get_FFlexProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeCollection(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_TargetNode(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "TargetNode", '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexProperty(self, value):
+		if "FFlexProperty" in self.__dict__: self.__dict__["FFlexProperty"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_ID(self, value):
+		if "ID" in self.__dict__: self.__dict__["ID"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_TargetNode(self, value):
+		if "TargetNode" in self.__dict__: self.__dict__["TargetNode"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ElementType = property(_get_ElementType, None)
+	'''
+	Element type
+
+	:type: recurdyn.ProcessNet.FlexibleElementType
+	'''
+	FFlexProperty = property(_get_FFlexProperty, _set_FFlexProperty)
+	'''
+	Access FE Property Info.
+
+	:type: recurdyn.FFlex.IFFlexProperty
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, _set_ID)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeCollection = property(_get_NodeCollection, None)
+	'''
+	Node Collection
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	TargetNode = property(_get_TargetNode, _set_TargetNode)
+	'''
+	Target Node
+
+	:type: recurdyn.FFlex.IFFlexNode
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_FFlexProperty": _set_FFlexProperty,
+		"_set_ID": _set_ID,
+		"_set_Name": _set_Name,
+		"_set_TargetNode": _set_TargetNode,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ElementType": (152, 2, (3, 0), (), "ElementType", '{59250D4D-5C1C-4CEE-80A4-42A64F61F138}'),
+		"FFlexProperty": (2001, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (151, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeCollection": (2002, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"TargetNode": (2051, 2, (9, 0), (), "TargetNode", '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"FFlexProperty": ((2001, LCID, 4, 0),()),
+		"ID": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"TargetNode": ((2051, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexElementMassCollection(DispatchBaseClass):
+	'''IFFlexElementMassCollection'''
+	CLSID = IID('{E454DBF9-4B06-491A-A0AD-044B11EDCA9E}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexElementMass
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{7235D19C-5DAB-4BC7-B0A3-82AB05109017}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexElementMass
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{7235D19C-5DAB-4BC7-B0A3-82AB05109017}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{7235D19C-5DAB-4BC7-B0A3-82AB05109017}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{7235D19C-5DAB-4BC7-B0A3-82AB05109017}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexElementSet(DispatchBaseClass):
+	CLSID = IID('{41220408-E869-466A-8D1E-03B99F02568B}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Color(self):
+		return self._ApplyTypes_(*(2051, 2, (19, 0), (), "Color", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ElementCollection(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ElementCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB6}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeCollection(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Color(self, value):
+		if "Color" in self.__dict__: self.__dict__["Color"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Color = property(_get_Color, _set_Color)
+	'''
+	Element set color
+
+	:type: int
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ElementCollection = property(_get_ElementCollection, None)
+	'''
+	Element Collection
+
+	:type: recurdyn.FFlex.IFFlexElementCollection
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeCollection = property(_get_NodeCollection, None)
+	'''
+	Node Collection of Element set
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Color": _set_Color,
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Color": (2051, 2, (19, 0), (), "Color", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ElementCollection": (2052, 2, (9, 0), (), "ElementCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB6}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeCollection": (2053, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Color": ((2051, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexElementSetCollection(DispatchBaseClass):
+	'''IFFlexElementSetCollection'''
+	CLSID = IID('{965101C9-95C4-4E9A-A2E7-CC202EBC2FC3}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexElementSet
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{41220408-E869-466A-8D1E-03B99F02568B}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexElementSet
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{41220408-E869-466A-8D1E-03B99F02568B}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{41220408-E869-466A-8D1E-03B99F02568B}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{41220408-E869-466A-8D1E-03B99F02568B}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexElementShell(DispatchBaseClass):
+	CLSID = IID('{096C5C5E-CBCD-4E54-96A6-B43712CA3CC7}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def SetNodeIDs(self, arrNodeID):
+		'''
+		Set node ID of a element
+		
+		:param arrNodeID: list[int]
+		'''
+		return self._oleobj_.InvokeTypes(2003, LCID, 1, (24, 0), ((8195, 1),),arrNodeID
+			)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ElementType(self):
+		return self._ApplyTypes_(*(152, 2, (3, 0), (), "ElementType", '{59250D4D-5C1C-4CEE-80A4-42A64F61F138}'))
+	def _get_FFlexProperty(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeCollection(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_NodeVariableThicknessCollection(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "NodeVariableThicknessCollection", '{11DF440C-A0EA-4BC3-B9F8-954A1C62DE01}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexProperty(self, value):
+		if "FFlexProperty" in self.__dict__: self.__dict__["FFlexProperty"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_ID(self, value):
+		if "ID" in self.__dict__: self.__dict__["ID"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ElementType = property(_get_ElementType, None)
+	'''
+	Element type
+
+	:type: recurdyn.ProcessNet.FlexibleElementType
+	'''
+	FFlexProperty = property(_get_FFlexProperty, _set_FFlexProperty)
+	'''
+	Access FE Property Info.
+
+	:type: recurdyn.FFlex.IFFlexProperty
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, _set_ID)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeCollection = property(_get_NodeCollection, None)
+	'''
+	Node Collection
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	NodeVariableThicknessCollection = property(_get_NodeVariableThicknessCollection, None)
+	'''
+	Node Variable Thickness Collection
+
+	:type: recurdyn.FFlex.IFFlexNodeVTCollection
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_FFlexProperty": _set_FFlexProperty,
+		"_set_ID": _set_ID,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ElementType": (152, 2, (3, 0), (), "ElementType", '{59250D4D-5C1C-4CEE-80A4-42A64F61F138}'),
+		"FFlexProperty": (2001, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (151, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeCollection": (2002, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"NodeVariableThicknessCollection": (2051, 2, (9, 0), (), "NodeVariableThicknessCollection", '{11DF440C-A0EA-4BC3-B9F8-954A1C62DE01}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"FFlexProperty": ((2001, LCID, 4, 0),()),
+		"ID": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexElementShellCollection(DispatchBaseClass):
+	'''IFFlexElementShellCollection'''
+	CLSID = IID('{7BD0B108-6F9A-4CCA-89F1-17171343EE51}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexElementShell
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{096C5C5E-CBCD-4E54-96A6-B43712CA3CC7}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexElementShell
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{096C5C5E-CBCD-4E54-96A6-B43712CA3CC7}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{096C5C5E-CBCD-4E54-96A6-B43712CA3CC7}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{096C5C5E-CBCD-4E54-96A6-B43712CA3CC7}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexExportDurabilityInterfaceOption(DispatchBaseClass):
+	'''FFlex Export Durability Interface Option'''
+	CLSID = IID('{F5429319-6E49-422B-BBB1-28B50A31AC88}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_ElementSet(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "ElementSet", '{41220408-E869-466A-8D1E-03B99F02568B}'))
+	def _get_FileName(self):
+		return self._ApplyTypes_(*(2004, 2, (8, 0), (), "FileName", None))
+	def _get_GenerateOneFileFlag(self):
+		return self._ApplyTypes_(*(2005, 2, (11, 0), (), "GenerateOneFileFlag", None))
+	def _get_IntervalFactor(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "IntervalFactor", None))
+	def _get_SoftwareType(self):
+		return self._ApplyTypes_(*(2001, 2, (3, 0), (), "SoftwareType", '{C3F401B4-3108-4D4C-8684-7E08A8EF5663}'))
+
+	def _set_ElementSet(self, value):
+		if "ElementSet" in self.__dict__: self.__dict__["ElementSet"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+	def _set_FileName(self, value):
+		if "FileName" in self.__dict__: self.__dict__["FileName"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_GenerateOneFileFlag(self, value):
+		if "GenerateOneFileFlag" in self.__dict__: self.__dict__["GenerateOneFileFlag"] = value; return
+		self._oleobj_.Invoke(*((2005, LCID, 4, 0) + (value,) + ()))
+	def _set_IntervalFactor(self, value):
+		if "IntervalFactor" in self.__dict__: self.__dict__["IntervalFactor"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+	def _set_SoftwareType(self, value):
+		if "SoftwareType" in self.__dict__: self.__dict__["SoftwareType"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+
+	ElementSet = property(_get_ElementSet, _set_ElementSet)
+	'''
+	Element Set
+
+	:type: recurdyn.FFlex.IFFlexElementSet
+	'''
+	FileName = property(_get_FileName, _set_FileName)
+	'''
+	Export File Name
+
+	:type: str
+	'''
+	GenerateOneFileFlag = property(_get_GenerateOneFileFlag, _set_GenerateOneFileFlag)
+	'''
+	This Flag is used for making file as one or several ones.
+
+	:type: bool
+	'''
+	IntervalFactor = property(_get_IntervalFactor, _set_IntervalFactor)
+	'''
+	Interval Factor
+
+	:type: int
+	'''
+	SoftwareType = property(_get_SoftwareType, _set_SoftwareType)
+	'''
+	Fatigue Software
+
+	:type: recurdyn.FFlex.FatigueSoftwareType
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ElementSet": _set_ElementSet,
+		"_set_FileName": _set_FileName,
+		"_set_GenerateOneFileFlag": _set_GenerateOneFileFlag,
+		"_set_IntervalFactor": _set_IntervalFactor,
+		"_set_SoftwareType": _set_SoftwareType,
+	}
+	_prop_map_get_ = {
+		"ElementSet": (2002, 2, (9, 0), (), "ElementSet", '{41220408-E869-466A-8D1E-03B99F02568B}'),
+		"FileName": (2004, 2, (8, 0), (), "FileName", None),
+		"GenerateOneFileFlag": (2005, 2, (11, 0), (), "GenerateOneFileFlag", None),
+		"IntervalFactor": (2003, 2, (19, 0), (), "IntervalFactor", None),
+		"SoftwareType": (2001, 2, (3, 0), (), "SoftwareType", '{C3F401B4-3108-4D4C-8684-7E08A8EF5663}'),
+	}
+	_prop_map_put_ = {
+		"ElementSet": ((2002, LCID, 4, 0),()),
+		"FileName": ((2004, LCID, 4, 0),()),
+		"GenerateOneFileFlag": ((2005, LCID, 4, 0),()),
+		"IntervalFactor": ((2003, LCID, 4, 0),()),
+		"SoftwareType": ((2001, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexExportMeshDataCommonOption(DispatchBaseClass):
+	'''FFlex Export Mesh Data Common Option'''
+	CLSID = IID('{04EADBFF-E43A-482B-985E-984B9C9E4E03}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_ExportAnimationFrame(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ExportAnimationFrame", None))
+	def _get_FFlexBodyName(self):
+		return self._ApplyTypes_(*(2001, 2, (8, 0), (), "FFlexBodyName", None))
+	def _get_FileName(self):
+		return self._ApplyTypes_(*(2004, 2, (8, 0), (), "FileName", None))
+	def _get_RefFrame(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "RefFrame", '{6A3295D9-E76B-473C-9655-23B7B1CBD671}'))
+
+	def _set_ExportAnimationFrame(self, value):
+		if "ExportAnimationFrame" in self.__dict__: self.__dict__["ExportAnimationFrame"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexBodyName(self, value):
+		if "FFlexBodyName" in self.__dict__: self.__dict__["FFlexBodyName"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_FileName(self, value):
+		if "FileName" in self.__dict__: self.__dict__["FileName"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_RefFrame(self, value):
+		if "RefFrame" in self.__dict__: self.__dict__["RefFrame"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+
+	ExportAnimationFrame = property(_get_ExportAnimationFrame, _set_ExportAnimationFrame)
+	'''
+	Export Animation Frame
+
+	:type: int
+	'''
+	FFlexBodyName = property(_get_FFlexBodyName, _set_FFlexBodyName)
+	'''
+	Export FFlexBody Name
+
+	:type: str
+	'''
+	FileName = property(_get_FileName, _set_FileName)
+	'''
+	Export File Name
+
+	:type: str
+	'''
+	RefFrame = property(_get_RefFrame, _set_RefFrame)
+	'''
+	Reference frame
+
+	:type: recurdyn.ProcessNet.IReferenceFrame
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ExportAnimationFrame": _set_ExportAnimationFrame,
+		"_set_FFlexBodyName": _set_FFlexBodyName,
+		"_set_FileName": _set_FileName,
+		"_set_RefFrame": _set_RefFrame,
+	}
+	_prop_map_get_ = {
+		"ExportAnimationFrame": (2003, 2, (19, 0), (), "ExportAnimationFrame", None),
+		"FFlexBodyName": (2001, 2, (8, 0), (), "FFlexBodyName", None),
+		"FileName": (2004, 2, (8, 0), (), "FileName", None),
+		"RefFrame": (2002, 2, (9, 0), (), "RefFrame", '{6A3295D9-E76B-473C-9655-23B7B1CBD671}'),
+	}
+	_prop_map_put_ = {
+		"ExportAnimationFrame": ((2003, LCID, 4, 0),()),
+		"FFlexBodyName": ((2001, LCID, 4, 0),()),
+		"FileName": ((2004, LCID, 4, 0),()),
+		"RefFrame": ((2002, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexExportMeshDataNastranFormatOption(DispatchBaseClass):
+	'''FFlex Export Mesh Data Nastran Format Option'''
+	CLSID = IID('{05CFB844-ADD5-46ED-AE95-532DA20EFF22}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_ConstraintFlag(self):
+		return self._ApplyTypes_(*(2003, 2, (11, 0), (), "ConstraintFlag", None))
+	def _get_ElementIDOffset(self):
+		return self._ApplyTypes_(*(2008, 2, (3, 0), (), "ElementIDOffset", None))
+	def _get_MaterialFlag(self):
+		return self._ApplyTypes_(*(2002, 2, (11, 0), (), "MaterialFlag", None))
+	def _get_OutputFlag(self):
+		return self._ApplyTypes_(*(2009, 2, (11, 0), (), "OutputFlag", None))
+	def _get_PropertyFlag(self):
+		return self._ApplyTypes_(*(2001, 2, (11, 0), (), "PropertyFlag", None))
+	def _get_SetFlag(self):
+		return self._ApplyTypes_(*(2004, 2, (11, 0), (), "SetFlag", None))
+	def _get_UnitOfTarget(self):
+		return self._ApplyTypes_(*(2005, 2, (9, 0), (), "UnitOfTarget", '{09A65909-6FBB-488A-9726-D320F5666395}'))
+	def _get_UseLargeFieldFormatFlag(self):
+		return self._ApplyTypes_(*(2007, 2, (11, 0), (), "UseLargeFieldFormatFlag", None))
+	def _get_UseUnitForceFlag(self):
+		return self._ApplyTypes_(*(2006, 2, (11, 0), (), "UseUnitForceFlag", None))
+
+	def _set_ConstraintFlag(self, value):
+		if "ConstraintFlag" in self.__dict__: self.__dict__["ConstraintFlag"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+	def _set_ElementIDOffset(self, value):
+		if "ElementIDOffset" in self.__dict__: self.__dict__["ElementIDOffset"] = value; return
+		self._oleobj_.Invoke(*((2008, LCID, 4, 0) + (value,) + ()))
+	def _set_MaterialFlag(self, value):
+		if "MaterialFlag" in self.__dict__: self.__dict__["MaterialFlag"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+	def _set_OutputFlag(self, value):
+		if "OutputFlag" in self.__dict__: self.__dict__["OutputFlag"] = value; return
+		self._oleobj_.Invoke(*((2009, LCID, 4, 0) + (value,) + ()))
+	def _set_PropertyFlag(self, value):
+		if "PropertyFlag" in self.__dict__: self.__dict__["PropertyFlag"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_SetFlag(self, value):
+		if "SetFlag" in self.__dict__: self.__dict__["SetFlag"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_UnitOfTarget(self, value):
+		if "UnitOfTarget" in self.__dict__: self.__dict__["UnitOfTarget"] = value; return
+		self._oleobj_.Invoke(*((2005, LCID, 4, 0) + (value,) + ()))
+	def _set_UseLargeFieldFormatFlag(self, value):
+		if "UseLargeFieldFormatFlag" in self.__dict__: self.__dict__["UseLargeFieldFormatFlag"] = value; return
+		self._oleobj_.Invoke(*((2007, LCID, 4, 0) + (value,) + ()))
+	def _set_UseUnitForceFlag(self, value):
+		if "UseUnitForceFlag" in self.__dict__: self.__dict__["UseUnitForceFlag"] = value; return
+		self._oleobj_.Invoke(*((2006, LCID, 4, 0) + (value,) + ()))
+
+	ConstraintFlag = property(_get_ConstraintFlag, _set_ConstraintFlag)
+	'''
+	Constraint Mesh Data Flag
+
+	:type: bool
+	'''
+	ElementIDOffset = property(_get_ElementIDOffset, _set_ElementIDOffset)
+	'''
+	Element ID OffSet
+
+	:type: int
+	'''
+	MaterialFlag = property(_get_MaterialFlag, _set_MaterialFlag)
+	'''
+	Material Mesh Data Flag
+
+	:type: bool
+	'''
+	OutputFlag = property(_get_OutputFlag, _set_OutputFlag)
+	'''
+	Output Mesh Data Flag
+
+	:type: bool
+	'''
+	PropertyFlag = property(_get_PropertyFlag, _set_PropertyFlag)
+	'''
+	Property Mesh Data Flag
+
+	:type: bool
+	'''
+	SetFlag = property(_get_SetFlag, _set_SetFlag)
+	'''
+	Set Mesh Data Flag
+
+	:type: bool
+	'''
+	UnitOfTarget = property(_get_UnitOfTarget, _set_UnitOfTarget)
+	'''
+	Unit of Target
+
+	:type: recurdyn.ProcessNet.IUnit
+	'''
+	UseLargeFieldFormatFlag = property(_get_UseLargeFieldFormatFlag, _set_UseLargeFieldFormatFlag)
+	'''
+	Use Large Field Format Flag
+
+	:type: bool
+	'''
+	UseUnitForceFlag = property(_get_UseUnitForceFlag, _set_UseUnitForceFlag)
+	'''
+	Use Force Unit Flag
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ConstraintFlag": _set_ConstraintFlag,
+		"_set_ElementIDOffset": _set_ElementIDOffset,
+		"_set_MaterialFlag": _set_MaterialFlag,
+		"_set_OutputFlag": _set_OutputFlag,
+		"_set_PropertyFlag": _set_PropertyFlag,
+		"_set_SetFlag": _set_SetFlag,
+		"_set_UnitOfTarget": _set_UnitOfTarget,
+		"_set_UseLargeFieldFormatFlag": _set_UseLargeFieldFormatFlag,
+		"_set_UseUnitForceFlag": _set_UseUnitForceFlag,
+	}
+	_prop_map_get_ = {
+		"ConstraintFlag": (2003, 2, (11, 0), (), "ConstraintFlag", None),
+		"ElementIDOffset": (2008, 2, (3, 0), (), "ElementIDOffset", None),
+		"MaterialFlag": (2002, 2, (11, 0), (), "MaterialFlag", None),
+		"OutputFlag": (2009, 2, (11, 0), (), "OutputFlag", None),
+		"PropertyFlag": (2001, 2, (11, 0), (), "PropertyFlag", None),
+		"SetFlag": (2004, 2, (11, 0), (), "SetFlag", None),
+		"UnitOfTarget": (2005, 2, (9, 0), (), "UnitOfTarget", '{09A65909-6FBB-488A-9726-D320F5666395}'),
+		"UseLargeFieldFormatFlag": (2007, 2, (11, 0), (), "UseLargeFieldFormatFlag", None),
+		"UseUnitForceFlag": (2006, 2, (11, 0), (), "UseUnitForceFlag", None),
+	}
+	_prop_map_put_ = {
+		"ConstraintFlag": ((2003, LCID, 4, 0),()),
+		"ElementIDOffset": ((2008, LCID, 4, 0),()),
+		"MaterialFlag": ((2002, LCID, 4, 0),()),
+		"OutputFlag": ((2009, LCID, 4, 0),()),
+		"PropertyFlag": ((2001, LCID, 4, 0),()),
+		"SetFlag": ((2004, LCID, 4, 0),()),
+		"UnitOfTarget": ((2005, LCID, 4, 0),()),
+		"UseLargeFieldFormatFlag": ((2007, LCID, 4, 0),()),
+		"UseUnitForceFlag": ((2006, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexLineSet(DispatchBaseClass):
+	CLSID = IID('{580DC463-613E-406A-B54C-42952E1FB79F}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def AutoAdjust(self):
+		'''
+		Automatic Adjust
+		'''
+		return self._oleobj_.InvokeTypes(2054, LCID, 1, (24, 0), (),)
+
+
+	def AutoSwitch(self):
+		'''
+		Automatic Switch
+		'''
+		return self._oleobj_.InvokeTypes(2055, LCID, 1, (24, 0), (),)
+
+
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def ManualSwitch(self, arrSelectNodeID):
+		'''
+		Manual Switch
+		
+		:param arrSelectNodeID: list[int]
+		'''
+		return self._oleobj_.InvokeTypes(2056, LCID, 1, (24, 0), ((8195, 1),),arrSelectNodeID
+			)
+
+
+	def _get_Color(self):
+		return self._ApplyTypes_(*(2053, 2, (19, 0), (), "Color", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeCollection(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_NodeIDs(self):
+		return self._ApplyTypes_(*(2051, 2, (8195, 0), (), "NodeIDs", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Color(self, value):
+		if "Color" in self.__dict__: self.__dict__["Color"] = value; return
+		self._oleobj_.Invoke(*((2053, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Color = property(_get_Color, _set_Color)
+	'''
+	Line set color
+
+	:type: int
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeCollection = property(_get_NodeCollection, None)
+	'''
+	Node Collection
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	NodeIDs = property(_get_NodeIDs, None)
+	'''
+	Contains Node
+
+	:type: list[int]
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Color": _set_Color,
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Color": (2053, 2, (19, 0), (), "Color", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeCollection": (2052, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"NodeIDs": (2051, 2, (8195, 0), (), "NodeIDs", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Color": ((2053, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexLineSetCollection(DispatchBaseClass):
+	'''IFFlexLineSetCollection'''
+	CLSID = IID('{8235613D-438F-415F-9220-B8A72A332DFA}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexLineSet
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{580DC463-613E-406A-B54C-42952E1FB79F}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexLineSet
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{580DC463-613E-406A-B54C-42952E1FB79F}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{580DC463-613E-406A-B54C-42952E1FB79F}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{580DC463-613E-406A-B54C-42952E1FB79F}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexLoad(DispatchBaseClass):
+	CLSID = IID('{2459DD31-7D96-4F02-A1E1-FCFF862CDA18}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Active": _set_Active,
+		"_set_Comment": _set_Comment,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Active": ((152, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexLoadCollection(DispatchBaseClass):
+	'''IFFlexLoadCollection'''
+	CLSID = IID('{D5094FE6-D4C1-4157-951C-38E79636352D}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexLoad
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{2459DD31-7D96-4F02-A1E1-FCFF862CDA18}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexLoad
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{2459DD31-7D96-4F02-A1E1-FCFF862CDA18}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{2459DD31-7D96-4F02-A1E1-FCFF862CDA18}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{2459DD31-7D96-4F02-A1E1-FCFF862CDA18}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexLoadConcentrated(DispatchBaseClass):
+	CLSID = IID('{57E5BBF7-1ABC-43EF-A252-6169C6594B82}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FM(self):
+		return self._ApplyTypes_(*(2009, 2, (9, 0), (), "FM", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'))
+	def _get_FX(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "FX", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'))
+	def _get_FY(self):
+		return self._ApplyTypes_(*(2004, 2, (9, 0), (), "FY", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'))
+	def _get_FZ(self):
+		return self._ApplyTypes_(*(2005, 2, (9, 0), (), "FZ", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeSet(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "NodeSet", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_ReferenceMarker(self):
+		return self._ApplyTypes_(*(2010, 2, (9, 0), (), "ReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_ReferenceNode(self):
+		return self._ApplyTypes_(*(2011, 2, (9, 0), (), "ReferenceNode", '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}'))
+	def _get_TX(self):
+		return self._ApplyTypes_(*(2006, 2, (9, 0), (), "TX", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'))
+	def _get_TY(self):
+		return self._ApplyTypes_(*(2007, 2, (9, 0), (), "TY", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'))
+	def _get_TZ(self):
+		return self._ApplyTypes_(*(2008, 2, (9, 0), (), "TZ", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'))
+	def _get_Type(self):
+		return self._ApplyTypes_(*(2001, 2, (3, 0), (), "Type", '{32695C8B-BE5A-4777-AD30-32493375EC34}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_FM(self, value):
+		if "FM" in self.__dict__: self.__dict__["FM"] = value; return
+		self._oleobj_.Invoke(*((2009, LCID, 4, 0) + (value,) + ()))
+	def _set_FX(self, value):
+		if "FX" in self.__dict__: self.__dict__["FX"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+	def _set_FY(self, value):
+		if "FY" in self.__dict__: self.__dict__["FY"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_FZ(self, value):
+		if "FZ" in self.__dict__: self.__dict__["FZ"] = value; return
+		self._oleobj_.Invoke(*((2005, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_NodeSet(self, value):
+		if "NodeSet" in self.__dict__: self.__dict__["NodeSet"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+	def _set_ReferenceMarker(self, value):
+		if "ReferenceMarker" in self.__dict__: self.__dict__["ReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2010, LCID, 4, 0) + (value,) + ()))
+	def _set_ReferenceNode(self, value):
+		if "ReferenceNode" in self.__dict__: self.__dict__["ReferenceNode"] = value; return
+		self._oleobj_.Invoke(*((2011, LCID, 4, 0) + (value,) + ()))
+	def _set_TX(self, value):
+		if "TX" in self.__dict__: self.__dict__["TX"] = value; return
+		self._oleobj_.Invoke(*((2006, LCID, 4, 0) + (value,) + ()))
+	def _set_TY(self, value):
+		if "TY" in self.__dict__: self.__dict__["TY"] = value; return
+		self._oleobj_.Invoke(*((2007, LCID, 4, 0) + (value,) + ()))
+	def _set_TZ(self, value):
+		if "TZ" in self.__dict__: self.__dict__["TZ"] = value; return
+		self._oleobj_.Invoke(*((2008, LCID, 4, 0) + (value,) + ()))
+	def _set_Type(self, value):
+		if "Type" in self.__dict__: self.__dict__["Type"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FM = property(_get_FM, _set_FM)
+	'''
+	FM
+
+	:type: recurdyn.ProcessNet.IExpression
+	'''
+	FX = property(_get_FX, _set_FX)
+	'''
+	FX
+
+	:type: recurdyn.ProcessNet.IExpression
+	'''
+	FY = property(_get_FY, _set_FY)
+	'''
+	FY
+
+	:type: recurdyn.ProcessNet.IExpression
+	'''
+	FZ = property(_get_FZ, _set_FZ)
+	'''
+	FZ
+
+	:type: recurdyn.ProcessNet.IExpression
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeSet = property(_get_NodeSet, _set_NodeSet)
+	'''
+	Node set
+
+	:type: recurdyn.FFlex.IFFlexNodeSet
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	ReferenceMarker = property(_get_ReferenceMarker, _set_ReferenceMarker)
+	'''
+	Reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	ReferenceNode = property(_get_ReferenceNode, _set_ReferenceNode)
+	'''
+	Reference node
+
+	:type: recurdyn.FFlex.IFFlexNode
+	'''
+	TX = property(_get_TX, _set_TX)
+	'''
+	TX
+
+	:type: recurdyn.ProcessNet.IExpression
+	'''
+	TY = property(_get_TY, _set_TY)
+	'''
+	TY
+
+	:type: recurdyn.ProcessNet.IExpression
+	'''
+	TZ = property(_get_TZ, _set_TZ)
+	'''
+	TZ
+
+	:type: recurdyn.ProcessNet.IExpression
+	'''
+	Type = property(_get_Type, _set_Type)
+	'''
+	Concentrated load type
+
+	:type: recurdyn.FFlex.ConcentratedLoadType
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Active": _set_Active,
+		"_set_Comment": _set_Comment,
+		"_set_FM": _set_FM,
+		"_set_FX": _set_FX,
+		"_set_FY": _set_FY,
+		"_set_FZ": _set_FZ,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_NodeSet": _set_NodeSet,
+		"_set_ReferenceMarker": _set_ReferenceMarker,
+		"_set_ReferenceNode": _set_ReferenceNode,
+		"_set_TX": _set_TX,
+		"_set_TY": _set_TY,
+		"_set_TZ": _set_TZ,
+		"_set_Type": _set_Type,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FM": (2009, 2, (9, 0), (), "FM", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'),
+		"FX": (2003, 2, (9, 0), (), "FX", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'),
+		"FY": (2004, 2, (9, 0), (), "FY", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'),
+		"FZ": (2005, 2, (9, 0), (), "FZ", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeSet": (2002, 2, (9, 0), (), "NodeSet", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"ReferenceMarker": (2010, 2, (9, 0), (), "ReferenceMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"ReferenceNode": (2011, 2, (9, 0), (), "ReferenceNode", '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}'),
+		"TX": (2006, 2, (9, 0), (), "TX", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'),
+		"TY": (2007, 2, (9, 0), (), "TY", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'),
+		"TZ": (2008, 2, (9, 0), (), "TZ", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'),
+		"Type": (2001, 2, (3, 0), (), "Type", '{32695C8B-BE5A-4777-AD30-32493375EC34}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Active": ((152, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"FM": ((2009, LCID, 4, 0),()),
+		"FX": ((2003, LCID, 4, 0),()),
+		"FY": ((2004, LCID, 4, 0),()),
+		"FZ": ((2005, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"NodeSet": ((2002, LCID, 4, 0),()),
+		"ReferenceMarker": ((2010, LCID, 4, 0),()),
+		"ReferenceNode": ((2011, LCID, 4, 0),()),
+		"TX": ((2006, LCID, 4, 0),()),
+		"TY": ((2007, LCID, 4, 0),()),
+		"TZ": ((2008, LCID, 4, 0),()),
+		"Type": ((2001, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexLoadConcentratedUSUB(DispatchBaseClass):
+	CLSID = IID('{52D19EDA-2066-41BB-B697-B8752940E39D}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_BaseBody(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "BaseBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeSet(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "NodeSet", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_ReportNodeIDs(self):
+		return self._ApplyTypes_(*(2056, 2, (8195, 0), (), "ReportNodeIDs", None))
+	def _get_UseReportNodes(self):
+		return self._ApplyTypes_(*(2055, 2, (11, 0), (), "UseReportNodes", None))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_UserSubroutine(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "UserSubroutine", '{9573C3F4-958E-4EC2-B9E6-C4660433CFA3}'))
+
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseBody(self, value):
+		if "BaseBody" in self.__dict__: self.__dict__["BaseBody"] = value; return
+		self._oleobj_.Invoke(*((2053, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_NodeSet(self, value):
+		if "NodeSet" in self.__dict__: self.__dict__["NodeSet"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_ReportNodeIDs(self, value):
+		if "ReportNodeIDs" in self.__dict__: self.__dict__["ReportNodeIDs"] = value; return
+		variantValue = win32com.client.VARIANT(8195, value)
+		self._oleobj_.Invoke(*((2056, LCID, 4, 0) + (variantValue,) + ()))
+	def _set_UseReportNodes(self, value):
+		if "UseReportNodes" in self.__dict__: self.__dict__["UseReportNodes"] = value; return
+		self._oleobj_.Invoke(*((2055, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+	def _set_UserSubroutine(self, value):
+		if "UserSubroutine" in self.__dict__: self.__dict__["UserSubroutine"] = value; return
+		self._oleobj_.Invoke(*((2052, LCID, 4, 0) + (value,) + ()))
+
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	BaseBody = property(_get_BaseBody, _set_BaseBody)
+	'''
+	Base Body
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeSet = property(_get_NodeSet, _set_NodeSet)
+	'''
+	Node set
+
+	:type: recurdyn.FFlex.IFFlexNodeSet
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	ReportNodeIDs = property(_get_ReportNodeIDs, _set_ReportNodeIDs)
+	'''
+	Report node IDs
+
+	:type: list[int]
+	'''
+	UseReportNodes = property(_get_UseReportNodes, _set_UseReportNodes)
+	'''
+	Use report nNodes
+
+	:type: bool
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	UserSubroutine = property(_get_UserSubroutine, _set_UserSubroutine)
+	'''
+	User subroutine
+
+	:type: recurdyn.ProcessNet.IUserSubroutine
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Active": _set_Active,
+		"_set_BaseBody": _set_BaseBody,
+		"_set_Comment": _set_Comment,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_NodeSet": _set_NodeSet,
+		"_set_ReportNodeIDs": _set_ReportNodeIDs,
+		"_set_UseReportNodes": _set_UseReportNodes,
+		"_set_UserData": _set_UserData,
+		"_set_UserSubroutine": _set_UserSubroutine,
+	}
+	_prop_map_get_ = {
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"BaseBody": (2053, 2, (9, 0), (), "BaseBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeSet": (2051, 2, (9, 0), (), "NodeSet", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"ReportNodeIDs": (2056, 2, (8195, 0), (), "ReportNodeIDs", None),
+		"UseReportNodes": (2055, 2, (11, 0), (), "UseReportNodes", None),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"UserSubroutine": (2052, 2, (9, 0), (), "UserSubroutine", '{9573C3F4-958E-4EC2-B9E6-C4660433CFA3}'),
+	}
+	_prop_map_put_ = {
+		"Active": ((152, LCID, 4, 0),()),
+		"BaseBody": ((2053, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"NodeSet": ((2051, LCID, 4, 0),()),
+		"ReportNodeIDs": ((2056, LCID, 4, 0),()),
+		"UseReportNodes": ((2055, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+		"UserSubroutine": ((2052, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexLoadConvection(DispatchBaseClass):
+	CLSID = IID('{3C8FD4A2-8942-437E-9DE9-3A6884BB86FF}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_AFTRTLFileName(self):
+		return self._ApplyTypes_(*(2009, 2, (8, 0), (), "AFTRTLFileName", None))
+	def _get_AFTRefMarker(self):
+		return self._ApplyTypes_(*(2008, 2, (9, 0), (), "AFTRefMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_AFTType(self):
+		return self._ApplyTypes_(*(2007, 2, (3, 0), (), "AFTType", '{6D13090A-B164-407F-A11D-159CB40B3F4C}'))
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_AmbientAirTemperature(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "AmbientAirTemperature", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_AmbientFluidTemperature(self):
+		return self._ApplyTypes_(*(2010, 2, (9, 0), (), "AmbientFluidTemperature", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_HTCRTLFileName(self):
+		return self._ApplyTypes_(*(2006, 2, (8, 0), (), "HTCRTLFileName", None))
+	def _get_HTCRefMarker(self):
+		return self._ApplyTypes_(*(2005, 2, (9, 0), (), "HTCRefMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_HTCType(self):
+		return self._ApplyTypes_(*(2004, 2, (3, 0), (), "HTCType", '{6D13090A-B164-407F-A11D-159CB40B3F4C}'))
+	def _get_HeatCoefficient(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "HeatCoefficient", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_PatchSet(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "PatchSet", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_AFTRTLFileName(self, value):
+		if "AFTRTLFileName" in self.__dict__: self.__dict__["AFTRTLFileName"] = value; return
+		self._oleobj_.Invoke(*((2009, LCID, 4, 0) + (value,) + ()))
+	def _set_AFTRefMarker(self, value):
+		if "AFTRefMarker" in self.__dict__: self.__dict__["AFTRefMarker"] = value; return
+		self._oleobj_.Invoke(*((2008, LCID, 4, 0) + (value,) + ()))
+	def _set_AFTType(self, value):
+		if "AFTType" in self.__dict__: self.__dict__["AFTType"] = value; return
+		self._oleobj_.Invoke(*((2007, LCID, 4, 0) + (value,) + ()))
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_HTCRTLFileName(self, value):
+		if "HTCRTLFileName" in self.__dict__: self.__dict__["HTCRTLFileName"] = value; return
+		self._oleobj_.Invoke(*((2006, LCID, 4, 0) + (value,) + ()))
+	def _set_HTCRefMarker(self, value):
+		if "HTCRefMarker" in self.__dict__: self.__dict__["HTCRefMarker"] = value; return
+		self._oleobj_.Invoke(*((2005, LCID, 4, 0) + (value,) + ()))
+	def _set_HTCType(self, value):
+		if "HTCType" in self.__dict__: self.__dict__["HTCType"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_PatchSet(self, value):
+		if "PatchSet" in self.__dict__: self.__dict__["PatchSet"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	AFTRTLFileName = property(_get_AFTRTLFileName, _set_AFTRTLFileName)
+	'''
+	AFT RTL File Name
+
+	:type: str
+	'''
+	AFTRefMarker = property(_get_AFTRefMarker, _set_AFTRefMarker)
+	'''
+	AFT Reference Marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	AFTType = property(_get_AFTType, _set_AFTType)
+	'''
+	Ambient Fluid Temperature Type
+
+	:type: recurdyn.FFlex.ConvectionDataType
+	'''
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	AmbientAirTemperature = property(_get_AmbientAirTemperature, None)
+	'''
+	AmbientAirTemperature is obsolete property, Use AmbientFluidTemperature. 
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	AmbientFluidTemperature = property(_get_AmbientFluidTemperature, None)
+	'''
+	Ambient Fluid Temperature
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	HTCRTLFileName = property(_get_HTCRTLFileName, _set_HTCRTLFileName)
+	'''
+	HTC RTL File Name
+
+	:type: str
+	'''
+	HTCRefMarker = property(_get_HTCRefMarker, _set_HTCRefMarker)
+	'''
+	HTC Reference Marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	HTCType = property(_get_HTCType, _set_HTCType)
+	'''
+	Heat Transfer Coefficient Type
+
+	:type: recurdyn.FFlex.ConvectionDataType
+	'''
+	HeatCoefficient = property(_get_HeatCoefficient, None)
+	'''
+	Heat Coefficient
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	PatchSet = property(_get_PatchSet, _set_PatchSet)
+	'''
+	Patch set
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_AFTRTLFileName": _set_AFTRTLFileName,
+		"_set_AFTRefMarker": _set_AFTRefMarker,
+		"_set_AFTType": _set_AFTType,
+		"_set_Active": _set_Active,
+		"_set_Comment": _set_Comment,
+		"_set_HTCRTLFileName": _set_HTCRTLFileName,
+		"_set_HTCRefMarker": _set_HTCRefMarker,
+		"_set_HTCType": _set_HTCType,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_PatchSet": _set_PatchSet,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"AFTRTLFileName": (2009, 2, (8, 0), (), "AFTRTLFileName", None),
+		"AFTRefMarker": (2008, 2, (9, 0), (), "AFTRefMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"AFTType": (2007, 2, (3, 0), (), "AFTType", '{6D13090A-B164-407F-A11D-159CB40B3F4C}'),
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"AmbientAirTemperature": (2003, 2, (9, 0), (), "AmbientAirTemperature", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"AmbientFluidTemperature": (2010, 2, (9, 0), (), "AmbientFluidTemperature", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"HTCRTLFileName": (2006, 2, (8, 0), (), "HTCRTLFileName", None),
+		"HTCRefMarker": (2005, 2, (9, 0), (), "HTCRefMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"HTCType": (2004, 2, (3, 0), (), "HTCType", '{6D13090A-B164-407F-A11D-159CB40B3F4C}'),
+		"HeatCoefficient": (2002, 2, (9, 0), (), "HeatCoefficient", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"PatchSet": (2001, 2, (9, 0), (), "PatchSet", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"AFTRTLFileName": ((2009, LCID, 4, 0),()),
+		"AFTRefMarker": ((2008, LCID, 4, 0),()),
+		"AFTType": ((2007, LCID, 4, 0),()),
+		"Active": ((152, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"HTCRTLFileName": ((2006, LCID, 4, 0),()),
+		"HTCRefMarker": ((2005, LCID, 4, 0),()),
+		"HTCType": ((2004, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"PatchSet": ((2001, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexLoadHeatFlux(DispatchBaseClass):
+	CLSID = IID('{2167B2D8-7716-45D5-8C18-35C158A0209E}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_HeatFlux(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "HeatFlux", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_PatchSet(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "PatchSet", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_UpDirection(self):
+		return self._ApplyTypes_(*(2002, 2, (11, 0), (), "UpDirection", None))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_HeatFlux(self, value):
+		if "HeatFlux" in self.__dict__: self.__dict__["HeatFlux"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_PatchSet(self, value):
+		if "PatchSet" in self.__dict__: self.__dict__["PatchSet"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_UpDirection(self, value):
+		if "UpDirection" in self.__dict__: self.__dict__["UpDirection"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	HeatFlux = property(_get_HeatFlux, _set_HeatFlux)
+	'''
+	Heat Flux
+
+	:type: recurdyn.ProcessNet.IExpression
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	PatchSet = property(_get_PatchSet, _set_PatchSet)
+	'''
+	Patch set
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	UpDirection = property(_get_UpDirection, _set_UpDirection)
+	'''
+	Up direction
+
+	:type: bool
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Active": _set_Active,
+		"_set_Comment": _set_Comment,
+		"_set_HeatFlux": _set_HeatFlux,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_PatchSet": _set_PatchSet,
+		"_set_UpDirection": _set_UpDirection,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"HeatFlux": (2003, 2, (9, 0), (), "HeatFlux", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"PatchSet": (2001, 2, (9, 0), (), "PatchSet", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"UpDirection": (2002, 2, (11, 0), (), "UpDirection", None),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Active": ((152, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"HeatFlux": ((2003, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"PatchSet": ((2001, LCID, 4, 0),()),
+		"UpDirection": ((2002, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexLoadHeatGeneration(DispatchBaseClass):
+	CLSID = IID('{03977164-5C40-4BEF-A912-806879FAC6DA}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_ElementSet(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "ElementSet", '{41220408-E869-466A-8D1E-03B99F02568B}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_HeatGeneration(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "HeatGeneration", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_ElementSet(self, value):
+		if "ElementSet" in self.__dict__: self.__dict__["ElementSet"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_HeatGeneration(self, value):
+		if "HeatGeneration" in self.__dict__: self.__dict__["HeatGeneration"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	ElementSet = property(_get_ElementSet, _set_ElementSet)
+	'''
+	Element set
+
+	:type: recurdyn.FFlex.IFFlexElementSet
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	HeatGeneration = property(_get_HeatGeneration, _set_HeatGeneration)
+	'''
+	Heat Generation
+
+	:type: recurdyn.ProcessNet.IExpression
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Active": _set_Active,
+		"_set_Comment": _set_Comment,
+		"_set_ElementSet": _set_ElementSet,
+		"_set_HeatGeneration": _set_HeatGeneration,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"ElementSet": (2001, 2, (9, 0), (), "ElementSet", '{41220408-E869-466A-8D1E-03B99F02568B}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"HeatGeneration": (2002, 2, (9, 0), (), "HeatGeneration", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Active": ((152, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"ElementSet": ((2001, LCID, 4, 0),()),
+		"HeatGeneration": ((2002, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexLoadNodalTemperature(DispatchBaseClass):
+	CLSID = IID('{CB65FF8A-8A83-4951-B3C7-0402BBA16146}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeSet(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "NodeSet", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_Temperature(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "Temperature", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_NodeSet(self, value):
+		if "NodeSet" in self.__dict__: self.__dict__["NodeSet"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_Temperature(self, value):
+		if "Temperature" in self.__dict__: self.__dict__["Temperature"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeSet = property(_get_NodeSet, _set_NodeSet)
+	'''
+	Node set
+
+	:type: recurdyn.FFlex.IFFlexNodeSet
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	Temperature = property(_get_Temperature, _set_Temperature)
+	'''
+	Temperature
+
+	:type: recurdyn.ProcessNet.IExpression
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Active": _set_Active,
+		"_set_Comment": _set_Comment,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_NodeSet": _set_NodeSet,
+		"_set_Temperature": _set_Temperature,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeSet": (2001, 2, (9, 0), (), "NodeSet", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"Temperature": (2002, 2, (9, 0), (), "Temperature", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Active": ((152, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"NodeSet": ((2001, LCID, 4, 0),()),
+		"Temperature": ((2002, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexLoadPressure(DispatchBaseClass):
+	CLSID = IID('{2168FEF3-7A08-4252-8DDE-4F418CD3B876}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_BaseBody(self):
+		return self._ApplyTypes_(*(2004, 2, (9, 0), (), "BaseBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_PatchSet(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "PatchSet", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'))
+	def _get_Pressure(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "Pressure", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'))
+	def _get_PressureUpDirction(self):
+		return self._ApplyTypes_(*(2002, 2, (11, 0), (), "PressureUpDirction", None))
+	def _get_ReportNodeIDs(self):
+		return self._ApplyTypes_(*(2006, 2, (8195, 0), (), "ReportNodeIDs", None))
+	def _get_UseReportNodes(self):
+		return self._ApplyTypes_(*(2005, 2, (11, 0), (), "UseReportNodes", None))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_BaseBody(self, value):
+		if "BaseBody" in self.__dict__: self.__dict__["BaseBody"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_PatchSet(self, value):
+		if "PatchSet" in self.__dict__: self.__dict__["PatchSet"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_Pressure(self, value):
+		if "Pressure" in self.__dict__: self.__dict__["Pressure"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+	def _set_PressureUpDirction(self, value):
+		if "PressureUpDirction" in self.__dict__: self.__dict__["PressureUpDirction"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+	def _set_ReportNodeIDs(self, value):
+		if "ReportNodeIDs" in self.__dict__: self.__dict__["ReportNodeIDs"] = value; return
+		variantValue = win32com.client.VARIANT(8195, value)
+		self._oleobj_.Invoke(*((2006, LCID, 4, 0) + (variantValue,) + ()))
+	def _set_UseReportNodes(self, value):
+		if "UseReportNodes" in self.__dict__: self.__dict__["UseReportNodes"] = value; return
+		self._oleobj_.Invoke(*((2005, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	BaseBody = property(_get_BaseBody, _set_BaseBody)
+	'''
+	Base Body
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	PatchSet = property(_get_PatchSet, _set_PatchSet)
+	'''
+	Patch set
+
+	:type: recurdyn.FFlex.IFFlexPatchSet
+	'''
+	Pressure = property(_get_Pressure, _set_Pressure)
+	'''
+	Pressure
+
+	:type: recurdyn.ProcessNet.IExpression
+	'''
+	PressureUpDirction = property(_get_PressureUpDirction, _set_PressureUpDirction)
+	'''
+	Pressure up dirction
+
+	:type: bool
+	'''
+	ReportNodeIDs = property(_get_ReportNodeIDs, _set_ReportNodeIDs)
+	'''
+	Report node IDs
+
+	:type: list[int]
+	'''
+	UseReportNodes = property(_get_UseReportNodes, _set_UseReportNodes)
+	'''
+	Use report nNodes
+
+	:type: bool
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Active": _set_Active,
+		"_set_BaseBody": _set_BaseBody,
+		"_set_Comment": _set_Comment,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_PatchSet": _set_PatchSet,
+		"_set_Pressure": _set_Pressure,
+		"_set_PressureUpDirction": _set_PressureUpDirction,
+		"_set_ReportNodeIDs": _set_ReportNodeIDs,
+		"_set_UseReportNodes": _set_UseReportNodes,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"BaseBody": (2004, 2, (9, 0), (), "BaseBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"PatchSet": (2001, 2, (9, 0), (), "PatchSet", '{4E4DF082-A504-46FA-84EC-6451025A4E33}'),
+		"Pressure": (2003, 2, (9, 0), (), "Pressure", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'),
+		"PressureUpDirction": (2002, 2, (11, 0), (), "PressureUpDirction", None),
+		"ReportNodeIDs": (2006, 2, (8195, 0), (), "ReportNodeIDs", None),
+		"UseReportNodes": (2005, 2, (11, 0), (), "UseReportNodes", None),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Active": ((152, LCID, 4, 0),()),
+		"BaseBody": ((2004, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"PatchSet": ((2001, LCID, 4, 0),()),
+		"Pressure": ((2003, LCID, 4, 0),()),
+		"PressureUpDirction": ((2002, LCID, 4, 0),()),
+		"ReportNodeIDs": ((2006, LCID, 4, 0),()),
+		"UseReportNodes": ((2005, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexLoadThermal(DispatchBaseClass):
+	CLSID = IID('{5078278E-AF8C-43F0-B77D-4D12F522E380}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Active(self):
+		return self._ApplyTypes_(*(152, 2, (11, 0), (), "Active", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_LayerNumber(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "LayerNumber", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeSet(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "NodeSet", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_RTLFileName(self):
+		return self._ApplyTypes_(*(2005, 2, (8, 0), (), "RTLFileName", None))
+	def _get_RefMarker(self):
+		return self._ApplyTypes_(*(2004, 2, (9, 0), (), "RefMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+	def _get_Temperature(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "Temperature", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'))
+	def _get_Type(self):
+		return self._ApplyTypes_(*(2003, 2, (3, 0), (), "Type", '{7DB9A0EC-5446-472C-9EF1-59C6C9C5FB9F}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Active(self, value):
+		if "Active" in self.__dict__: self.__dict__["Active"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_LayerNumber(self, value):
+		if "LayerNumber" in self.__dict__: self.__dict__["LayerNumber"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_NodeSet(self, value):
+		if "NodeSet" in self.__dict__: self.__dict__["NodeSet"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_RTLFileName(self, value):
+		if "RTLFileName" in self.__dict__: self.__dict__["RTLFileName"] = value; return
+		self._oleobj_.Invoke(*((2005, LCID, 4, 0) + (value,) + ()))
+	def _set_RefMarker(self, value):
+		if "RefMarker" in self.__dict__: self.__dict__["RefMarker"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_Temperature(self, value):
+		if "Temperature" in self.__dict__: self.__dict__["Temperature"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+	def _set_Type(self, value):
+		if "Type" in self.__dict__: self.__dict__["Type"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Active = property(_get_Active, _set_Active)
+	'''
+	Active
+
+	:type: bool
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	LayerNumber = property(_get_LayerNumber, _set_LayerNumber)
+	'''
+	Layer number
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeSet = property(_get_NodeSet, _set_NodeSet)
+	'''
+	Node set
+
+	:type: recurdyn.FFlex.IFFlexNodeSet
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	RTLFileName = property(_get_RTLFileName, _set_RTLFileName)
+	'''
+	RTL File Name
+
+	:type: str
+	'''
+	RefMarker = property(_get_RefMarker, _set_RefMarker)
+	'''
+	Reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+	Temperature = property(_get_Temperature, _set_Temperature)
+	'''
+	Temperature
+
+	:type: recurdyn.ProcessNet.IExpression
+	'''
+	Type = property(_get_Type, _set_Type)
+	'''
+	Thermal load type
+
+	:type: recurdyn.FFlex.ThermalLoadType
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Active": _set_Active,
+		"_set_Comment": _set_Comment,
+		"_set_LayerNumber": _set_LayerNumber,
+		"_set_Name": _set_Name,
+		"_set_NodeSet": _set_NodeSet,
+		"_set_RTLFileName": _set_RTLFileName,
+		"_set_RefMarker": _set_RefMarker,
+		"_set_Temperature": _set_Temperature,
+		"_set_Type": _set_Type,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Active": (152, 2, (11, 0), (), "Active", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"LayerNumber": (151, 2, (19, 0), (), "LayerNumber", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeSet": (2001, 2, (9, 0), (), "NodeSet", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"RTLFileName": (2005, 2, (8, 0), (), "RTLFileName", None),
+		"RefMarker": (2004, 2, (9, 0), (), "RefMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+		"Temperature": (2002, 2, (9, 0), (), "Temperature", '{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}'),
+		"Type": (2003, 2, (3, 0), (), "Type", '{7DB9A0EC-5446-472C-9EF1-59C6C9C5FB9F}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Active": ((152, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"LayerNumber": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"NodeSet": ((2001, LCID, 4, 0),()),
+		"RTLFileName": ((2005, LCID, 4, 0),()),
+		"RefMarker": ((2004, LCID, 4, 0),()),
+		"Temperature": ((2002, LCID, 4, 0),()),
+		"Type": ((2003, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterial(DispatchBaseClass):
+	CLSID = IID('{205F2A11-60B6-4F97-92FC-300B78C3BB29}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialAnisotropic2D(DispatchBaseClass):
+	CLSID = IID('{B6096033-E25F-476D-BD8D-FF06C3DD5925}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_ShearModulus11(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "ShearModulus11", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus12(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ShearModulus12", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus13(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "ShearModulus13", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus22(self):
+		return self._ApplyTypes_(*(2054, 2, (9, 0), (), "ShearModulus22", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus23(self):
+		return self._ApplyTypes_(*(2055, 2, (9, 0), (), "ShearModulus23", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus33(self):
+		return self._ApplyTypes_(*(2056, 2, (9, 0), (), "ShearModulus33", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	ShearModulus11 = property(_get_ShearModulus11, None)
+	'''
+	Shear Modulus 11
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus12 = property(_get_ShearModulus12, None)
+	'''
+	Shear Modulus 12
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus13 = property(_get_ShearModulus13, None)
+	'''
+	Shear Modulus 13
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus22 = property(_get_ShearModulus22, None)
+	'''
+	Shear Modulus 22
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus23 = property(_get_ShearModulus23, None)
+	'''
+	Shear Modulus 23
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus33 = property(_get_ShearModulus33, None)
+	'''
+	Shear Modulus 33
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"ShearModulus11": (2051, 2, (9, 0), (), "ShearModulus11", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus12": (2052, 2, (9, 0), (), "ShearModulus12", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus13": (2053, 2, (9, 0), (), "ShearModulus13", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus22": (2054, 2, (9, 0), (), "ShearModulus22", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus23": (2055, 2, (9, 0), (), "ShearModulus23", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus33": (2056, 2, (9, 0), (), "ShearModulus33", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialArrudaBoyce(DispatchBaseClass):
+	CLSID = IID('{2F03BAD9-F392-4D8F-A295-F1DF2AB5E2D2}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_LambdaM(self):
+		return self._ApplyTypes_(*(2102, 2, (9, 0), (), "LambdaM", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Mu(self):
+		return self._ApplyTypes_(*(2101, 2, (9, 0), (), "Mu", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	LambdaM = property(_get_LambdaM, None)
+	'''
+	LambdaM
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Mu = property(_get_Mu, None)
+	'''
+	Mu
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"LambdaM": (2102, 2, (9, 0), (), "LambdaM", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Mu": (2101, 2, (9, 0), (), "Mu", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialArrudaBoyceRubber(DispatchBaseClass):
+	CLSID = IID('{7647F371-D7FA-451E-8727-891DAE9B7FF0}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_LambdaM(self):
+		return self._ApplyTypes_(*(2102, 2, (5, 0), (), "LambdaM", None))
+	def _get_Mu(self):
+		return self._ApplyTypes_(*(2101, 2, (5, 0), (), "Mu", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	LambdaM = property(_get_LambdaM, None)
+	'''
+	LambdaM
+
+	:type: float
+	'''
+	Mu = property(_get_Mu, None)
+	'''
+	Mu
+
+	:type: float
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"LambdaM": (2102, 2, (5, 0), (), "LambdaM", None),
+		"Mu": (2101, 2, (5, 0), (), "Mu", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialCollection(DispatchBaseClass):
+	'''IFFlexMaterialCollection'''
+	CLSID = IID('{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexMaterial
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{205F2A11-60B6-4F97-92FC-300B78C3BB29}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexMaterial
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{205F2A11-60B6-4F97-92FC-300B78C3BB29}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{205F2A11-60B6-4F97-92FC-300B78C3BB29}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexMaterialElastic(DispatchBaseClass):
+	CLSID = IID('{61DFF327-8A0D-4ED9-8873-990EAEBF23AD}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_PoissonsRatio(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_YoungsModulus(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	PoissonsRatio = property(_get_PoissonsRatio, None)
+	'''
+	Poissons Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus = property(_get_ShearModulus, None)
+	'''
+	Shear Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	YoungsModulus = property(_get_YoungsModulus, None)
+	'''
+	Youngs Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"PoissonsRatio": (2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus": (2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"YoungsModulus": (2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialHyperelastic(DispatchBaseClass):
+	CLSID = IID('{6FC4534F-F29A-446B-8DC4-E52899694033}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialIsotropic(DispatchBaseClass):
+	CLSID = IID('{DE758DA3-29DE-4822-A4D7-5F7038D688A0}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def UpdateShearModulusAndPoissonsRatio(self):
+		'''
+		Update Shear Modulus and Poisson's Ratio
+		'''
+		return self._oleobj_.InvokeTypes(2102, LCID, 1, (24, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_IsotropicType(self):
+		return self._ApplyTypes_(*(2101, 2, (3, 0), (), "IsotropicType", '{9888A3C8-275D-418F-A53A-68E074247181}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_PoissonsRatio(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ReferenceTemperature(self):
+		return self._ApplyTypes_(*(2104, 2, (9, 0), (), "ReferenceTemperature", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_SpecificHeat(self):
+		return self._ApplyTypes_(*(2105, 2, (9, 0), (), "SpecificHeat", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ThermalCoefficient(self):
+		return self._ApplyTypes_(*(2103, 2, (9, 0), (), "ThermalCoefficient", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ThermalConductivity(self):
+		return self._ApplyTypes_(*(2106, 2, (9, 0), (), "ThermalConductivity", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_YoungsModulus(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_IsotropicType(self, value):
+		if "IsotropicType" in self.__dict__: self.__dict__["IsotropicType"] = value; return
+		self._oleobj_.Invoke(*((2101, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	IsotropicType = property(_get_IsotropicType, _set_IsotropicType)
+	'''
+	Type
+
+	:type: recurdyn.FFlex.IsotropicType
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	PoissonsRatio = property(_get_PoissonsRatio, None)
+	'''
+	Poissons Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ReferenceTemperature = property(_get_ReferenceTemperature, None)
+	'''
+	Thermal Reference Temperature
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus = property(_get_ShearModulus, None)
+	'''
+	Shear Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	SpecificHeat = property(_get_SpecificHeat, None)
+	'''
+	Specific Heat
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ThermalCoefficient = property(_get_ThermalCoefficient, None)
+	'''
+	Thermal Coefficient
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ThermalConductivity = property(_get_ThermalConductivity, None)
+	'''
+	Thermal Conductivity
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	YoungsModulus = property(_get_YoungsModulus, None)
+	'''
+	Youngs Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_IsotropicType": _set_IsotropicType,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"IsotropicType": (2101, 2, (3, 0), (), "IsotropicType", '{9888A3C8-275D-418F-A53A-68E074247181}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"PoissonsRatio": (2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ReferenceTemperature": (2104, 2, (9, 0), (), "ReferenceTemperature", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus": (2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"SpecificHeat": (2105, 2, (9, 0), (), "SpecificHeat", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ThermalCoefficient": (2103, 2, (9, 0), (), "ThermalCoefficient", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ThermalConductivity": (2106, 2, (9, 0), (), "ThermalConductivity", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"YoungsModulus": (2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"IsotropicType": ((2101, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialMooneyRivlin(DispatchBaseClass):
+	CLSID = IID('{FD878DE9-6486-4A86-8BC5-0C886A149D0A}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_C1(self):
+		return self._ApplyTypes_(*(2101, 2, (9, 0), (), "C1", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_C2(self):
+		return self._ApplyTypes_(*(2102, 2, (9, 0), (), "C2", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	C1 = property(_get_C1, None)
+	'''
+	C1
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	C2 = property(_get_C2, None)
+	'''
+	C2
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"C1": (2101, 2, (9, 0), (), "C1", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"C2": (2102, 2, (9, 0), (), "C2", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialMooneyRivlinRubber(DispatchBaseClass):
+	CLSID = IID('{E224EC31-E809-4532-937E-D5A4F567A0FF}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_C1(self):
+		return self._ApplyTypes_(*(2101, 2, (5, 0), (), "C1", None))
+	def _get_C2(self):
+		return self._ApplyTypes_(*(2102, 2, (5, 0), (), "C2", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	C1 = property(_get_C1, None)
+	'''
+	C1
+
+	:type: float
+	'''
+	C2 = property(_get_C2, None)
+	'''
+	C2
+
+	:type: float
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"C1": (2101, 2, (5, 0), (), "C1", None),
+		"C2": (2102, 2, (5, 0), (), "C2", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialNeoHooke(DispatchBaseClass):
+	CLSID = IID('{14AE3469-8DC3-41AD-AFD2-4201F13680DE}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_C10(self):
+		return self._ApplyTypes_(*(2101, 2, (9, 0), (), "C10", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	C10 = property(_get_C10, None)
+	'''
+	C10
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"C10": (2101, 2, (9, 0), (), "C10", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialNeoHookeRubber(DispatchBaseClass):
+	CLSID = IID('{F5587CEE-4C8B-403F-806D-7F5319E22A7E}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_C10(self):
+		return self._ApplyTypes_(*(2101, 2, (5, 0), (), "C10", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	C10 = property(_get_C10, None)
+	'''
+	C10
+
+	:type: float
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"C10": (2101, 2, (5, 0), (), "C10", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialOgden(DispatchBaseClass):
+	CLSID = IID('{BC264C3C-D1DA-4627-805D-F65F1700DAD3}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Alpha1(self):
+		return self._ApplyTypes_(*(2104, 2, (9, 0), (), "Alpha1", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Alpha2(self):
+		return self._ApplyTypes_(*(2105, 2, (9, 0), (), "Alpha2", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Alpha3(self):
+		return self._ApplyTypes_(*(2106, 2, (9, 0), (), "Alpha3", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Mu1(self):
+		return self._ApplyTypes_(*(2101, 2, (9, 0), (), "Mu1", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Mu2(self):
+		return self._ApplyTypes_(*(2102, 2, (9, 0), (), "Mu2", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Mu3(self):
+		return self._ApplyTypes_(*(2103, 2, (9, 0), (), "Mu3", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Alpha1 = property(_get_Alpha1, None)
+	'''
+	Alpha1
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Alpha2 = property(_get_Alpha2, None)
+	'''
+	Alpha2
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Alpha3 = property(_get_Alpha3, None)
+	'''
+	Alpha3
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Mu1 = property(_get_Mu1, None)
+	'''
+	Mu1
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Mu2 = property(_get_Mu2, None)
+	'''
+	Mu2
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Mu3 = property(_get_Mu3, None)
+	'''
+	Mu3
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Alpha1": (2104, 2, (9, 0), (), "Alpha1", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Alpha2": (2105, 2, (9, 0), (), "Alpha2", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Alpha3": (2106, 2, (9, 0), (), "Alpha3", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Mu1": (2101, 2, (9, 0), (), "Mu1", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Mu2": (2102, 2, (9, 0), (), "Mu2", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Mu3": (2103, 2, (9, 0), (), "Mu3", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialOgdenRubber(DispatchBaseClass):
+	CLSID = IID('{009F6400-AA7F-47C0-9B8B-DF4994350391}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Alpha1(self):
+		return self._ApplyTypes_(*(2104, 2, (5, 0), (), "Alpha1", None))
+	def _get_Alpha2(self):
+		return self._ApplyTypes_(*(2105, 2, (5, 0), (), "Alpha2", None))
+	def _get_Alpha3(self):
+		return self._ApplyTypes_(*(2106, 2, (5, 0), (), "Alpha3", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Mu1(self):
+		return self._ApplyTypes_(*(2101, 2, (5, 0), (), "Mu1", None))
+	def _get_Mu2(self):
+		return self._ApplyTypes_(*(2102, 2, (5, 0), (), "Mu2", None))
+	def _get_Mu3(self):
+		return self._ApplyTypes_(*(2103, 2, (5, 0), (), "Mu3", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Alpha1 = property(_get_Alpha1, None)
+	'''
+	Alpha1
+
+	:type: float
+	'''
+	Alpha2 = property(_get_Alpha2, None)
+	'''
+	Alpha2
+
+	:type: float
+	'''
+	Alpha3 = property(_get_Alpha3, None)
+	'''
+	Alpha3
+
+	:type: float
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Mu1 = property(_get_Mu1, None)
+	'''
+	Mu1
+
+	:type: float
+	'''
+	Mu2 = property(_get_Mu2, None)
+	'''
+	Mu2
+
+	:type: float
+	'''
+	Mu3 = property(_get_Mu3, None)
+	'''
+	Mu3
+
+	:type: float
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Alpha1": (2104, 2, (5, 0), (), "Alpha1", None),
+		"Alpha2": (2105, 2, (5, 0), (), "Alpha2", None),
+		"Alpha3": (2106, 2, (5, 0), (), "Alpha3", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Mu1": (2101, 2, (5, 0), (), "Mu1", None),
+		"Mu2": (2102, 2, (5, 0), (), "Mu2", None),
+		"Mu3": (2103, 2, (5, 0), (), "Mu3", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialOrthotropic(DispatchBaseClass):
+	CLSID = IID('{5BCEE724-266C-4C56-A0E2-74CAD32DC259}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_PoissonsRatio(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_YoungsModulus(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_YoungsModulus2(self):
+		return self._ApplyTypes_(*(2101, 2, (9, 0), (), "YoungsModulus2", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	PoissonsRatio = property(_get_PoissonsRatio, None)
+	'''
+	Poissons Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus = property(_get_ShearModulus, None)
+	'''
+	Shear Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	YoungsModulus = property(_get_YoungsModulus, None)
+	'''
+	Youngs Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	YoungsModulus2 = property(_get_YoungsModulus2, None)
+	'''
+	Youngs Modulus 2
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"PoissonsRatio": (2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus": (2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"YoungsModulus": (2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"YoungsModulus2": (2101, 2, (9, 0), (), "YoungsModulus2", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialOrthotropic2D(DispatchBaseClass):
+	CLSID = IID('{0D77D87F-DBFE-4B46-8035-2948E3D11060}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_PoissonsRatio(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_TransverseShearModulus(self):
+		return self._ApplyTypes_(*(2151, 2, (9, 0), (), "TransverseShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_TransverseShearModulus2(self):
+		return self._ApplyTypes_(*(2152, 2, (9, 0), (), "TransverseShearModulus2", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_YoungsModulus(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_YoungsModulus2(self):
+		return self._ApplyTypes_(*(2101, 2, (9, 0), (), "YoungsModulus2", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	PoissonsRatio = property(_get_PoissonsRatio, None)
+	'''
+	Poissons Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus = property(_get_ShearModulus, None)
+	'''
+	Shear Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	TransverseShearModulus = property(_get_TransverseShearModulus, None)
+	'''
+	Transverse Shear Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	TransverseShearModulus2 = property(_get_TransverseShearModulus2, None)
+	'''
+	Transverse Shear Modulus 2
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	YoungsModulus = property(_get_YoungsModulus, None)
+	'''
+	Youngs Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	YoungsModulus2 = property(_get_YoungsModulus2, None)
+	'''
+	Youngs Modulus 2
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"PoissonsRatio": (2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus": (2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"TransverseShearModulus": (2151, 2, (9, 0), (), "TransverseShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"TransverseShearModulus2": (2152, 2, (9, 0), (), "TransverseShearModulus2", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"YoungsModulus": (2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"YoungsModulus2": (2101, 2, (9, 0), (), "YoungsModulus2", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialPlastic(DispatchBaseClass):
+	CLSID = IID('{4119FC33-D474-46F2-8FBB-27946A2481AE}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_PoissonsRatio(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_YoungsModulus(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	PoissonsRatio = property(_get_PoissonsRatio, None)
+	'''
+	Poissons Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus = property(_get_ShearModulus, None)
+	'''
+	Shear Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	YoungsModulus = property(_get_YoungsModulus, None)
+	'''
+	Youngs Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"PoissonsRatio": (2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus": (2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"YoungsModulus": (2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialPlasticIsotropicBiNonLinear(DispatchBaseClass):
+	CLSID = IID('{65C5EEB7-502C-42FD-AF41-4E6C5122EF71}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_InitialYieldStress(self):
+		return self._ApplyTypes_(*(2151, 2, (9, 0), (), "InitialYieldStress", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_IsotropicHardening(self):
+		return self._ApplyTypes_(*(2152, 2, (9, 0), (), "IsotropicHardening", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NonLinearHardeningA(self):
+		return self._ApplyTypes_(*(2153, 2, (9, 0), (), "NonLinearHardeningA", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_NonLinearHardeningB(self):
+		return self._ApplyTypes_(*(2154, 2, (9, 0), (), "NonLinearHardeningB", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_PoissonsRatio(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_YoungsModulus(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	InitialYieldStress = property(_get_InitialYieldStress, None)
+	'''
+	Initial Yield Stress
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	IsotropicHardening = property(_get_IsotropicHardening, None)
+	'''
+	Isotropic Hardening
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NonLinearHardeningA = property(_get_NonLinearHardeningA, None)
+	'''
+	Non Linear Hardening A
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	NonLinearHardeningB = property(_get_NonLinearHardeningB, None)
+	'''
+	Non Linear Hardening B
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	PoissonsRatio = property(_get_PoissonsRatio, None)
+	'''
+	Poissons Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus = property(_get_ShearModulus, None)
+	'''
+	Shear Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	YoungsModulus = property(_get_YoungsModulus, None)
+	'''
+	Youngs Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"InitialYieldStress": (2151, 2, (9, 0), (), "InitialYieldStress", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"IsotropicHardening": (2152, 2, (9, 0), (), "IsotropicHardening", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NonLinearHardeningA": (2153, 2, (9, 0), (), "NonLinearHardeningA", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"NonLinearHardeningB": (2154, 2, (9, 0), (), "NonLinearHardeningB", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"PoissonsRatio": (2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus": (2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"YoungsModulus": (2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialPlasticIsotropicKinematicBiNonLinear(DispatchBaseClass):
+	CLSID = IID('{4CC03F94-7E4E-4082-8299-6288E232C5C0}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_InitialYieldStress(self):
+		return self._ApplyTypes_(*(2151, 2, (9, 0), (), "InitialYieldStress", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_IsotropicHardening(self):
+		return self._ApplyTypes_(*(2152, 2, (9, 0), (), "IsotropicHardening", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_KinematicHardening(self):
+		return self._ApplyTypes_(*(2201, 2, (9, 0), (), "KinematicHardening", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NonLinearHardeningA(self):
+		return self._ApplyTypes_(*(2153, 2, (9, 0), (), "NonLinearHardeningA", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_NonLinearHardeningB(self):
+		return self._ApplyTypes_(*(2154, 2, (9, 0), (), "NonLinearHardeningB", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_PoissonsRatio(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_YoungsModulus(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	InitialYieldStress = property(_get_InitialYieldStress, None)
+	'''
+	Initial Yield Stress
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	IsotropicHardening = property(_get_IsotropicHardening, None)
+	'''
+	Isotropic Hardening
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	KinematicHardening = property(_get_KinematicHardening, None)
+	'''
+	Kinematic Hardening
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NonLinearHardeningA = property(_get_NonLinearHardeningA, None)
+	'''
+	Non Linear Hardening A
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	NonLinearHardeningB = property(_get_NonLinearHardeningB, None)
+	'''
+	Non Linear Hardening B
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	PoissonsRatio = property(_get_PoissonsRatio, None)
+	'''
+	Poissons Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus = property(_get_ShearModulus, None)
+	'''
+	Shear Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	YoungsModulus = property(_get_YoungsModulus, None)
+	'''
+	Youngs Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"InitialYieldStress": (2151, 2, (9, 0), (), "InitialYieldStress", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"IsotropicHardening": (2152, 2, (9, 0), (), "IsotropicHardening", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"KinematicHardening": (2201, 2, (9, 0), (), "KinematicHardening", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NonLinearHardeningA": (2153, 2, (9, 0), (), "NonLinearHardeningA", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"NonLinearHardeningB": (2154, 2, (9, 0), (), "NonLinearHardeningB", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"PoissonsRatio": (2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus": (2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"YoungsModulus": (2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialPlasticIsotropicKinematicMultiLinear(DispatchBaseClass):
+	CLSID = IID('{7F3A9496-9CCA-41FF-9211-E67CF5CB889C}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_KinematicHardening(self):
+		return self._ApplyTypes_(*(2201, 2, (9, 0), (), "KinematicHardening", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_PlasticStrain(self):
+		return self._ApplyTypes_(*(2151, 2, (8197, 0), (), "PlasticStrain", None))
+	def _get_PoissonsRatio(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_YieldStress(self):
+		return self._ApplyTypes_(*(2152, 2, (8197, 0), (), "YieldStress", None))
+	def _get_YoungsModulus(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_PlasticStrain(self, value):
+		if "PlasticStrain" in self.__dict__: self.__dict__["PlasticStrain"] = value; return
+		variantValue = win32com.client.VARIANT(8197, value)
+		self._oleobj_.Invoke(*((2151, LCID, 4, 0) + (variantValue,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+	def _set_YieldStress(self, value):
+		if "YieldStress" in self.__dict__: self.__dict__["YieldStress"] = value; return
+		variantValue = win32com.client.VARIANT(8197, value)
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (variantValue,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	KinematicHardening = property(_get_KinematicHardening, None)
+	'''
+	Kinematic Hardening
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	PlasticStrain = property(_get_PlasticStrain, _set_PlasticStrain)
+	'''
+	Plastic Strain
+
+	:type: list[float]
+	'''
+	PoissonsRatio = property(_get_PoissonsRatio, None)
+	'''
+	Poissons Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus = property(_get_ShearModulus, None)
+	'''
+	Shear Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	YieldStress = property(_get_YieldStress, _set_YieldStress)
+	'''
+	Yield Stress
+
+	:type: list[float]
+	'''
+	YoungsModulus = property(_get_YoungsModulus, None)
+	'''
+	Youngs Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_PlasticStrain": _set_PlasticStrain,
+		"_set_UserData": _set_UserData,
+		"_set_YieldStress": _set_YieldStress,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"KinematicHardening": (2201, 2, (9, 0), (), "KinematicHardening", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"PlasticStrain": (2151, 2, (8197, 0), (), "PlasticStrain", None),
+		"PoissonsRatio": (2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus": (2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"YieldStress": (2152, 2, (8197, 0), (), "YieldStress", None),
+		"YoungsModulus": (2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"PlasticStrain": ((2151, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+		"YieldStress": ((2152, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexMaterialPlasticIsotropicMultiLinear(DispatchBaseClass):
+	CLSID = IID('{E8252A77-AAE7-4ADB-BD09-27D62CCFEEE3}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Density(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_PlasticStrain(self):
+		return self._ApplyTypes_(*(2151, 2, (8197, 0), (), "PlasticStrain", None))
+	def _get_PoissonsRatio(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ShearModulus(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_YieldStress(self):
+		return self._ApplyTypes_(*(2152, 2, (8197, 0), (), "YieldStress", None))
+	def _get_YoungsModulus(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_PlasticStrain(self, value):
+		if "PlasticStrain" in self.__dict__: self.__dict__["PlasticStrain"] = value; return
+		variantValue = win32com.client.VARIANT(8197, value)
+		self._oleobj_.Invoke(*((2151, LCID, 4, 0) + (variantValue,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+	def _set_YieldStress(self, value):
+		if "YieldStress" in self.__dict__: self.__dict__["YieldStress"] = value; return
+		variantValue = win32com.client.VARIANT(8197, value)
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (variantValue,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Density = property(_get_Density, None)
+	'''
+	Density
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	PlasticStrain = property(_get_PlasticStrain, _set_PlasticStrain)
+	'''
+	Plastic Strain
+
+	:type: list[float]
+	'''
+	PoissonsRatio = property(_get_PoissonsRatio, None)
+	'''
+	Poissons Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ShearModulus = property(_get_ShearModulus, None)
+	'''
+	Shear Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	YieldStress = property(_get_YieldStress, _set_YieldStress)
+	'''
+	Yield Stress
+
+	:type: list[float]
+	'''
+	YoungsModulus = property(_get_YoungsModulus, None)
+	'''
+	Youngs Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_PlasticStrain": _set_PlasticStrain,
+		"_set_UserData": _set_UserData,
+		"_set_YieldStress": _set_YieldStress,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2002, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Density": (2001, 2, (9, 0), (), "Density", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"PlasticStrain": (2151, 2, (8197, 0), (), "PlasticStrain", None),
+		"PoissonsRatio": (2053, 2, (9, 0), (), "PoissonsRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ShearModulus": (2052, 2, (9, 0), (), "ShearModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"YieldStress": (2152, 2, (8197, 0), (), "YieldStress", None),
+		"YoungsModulus": (2051, 2, (9, 0), (), "YoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"PlasticStrain": ((2151, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+		"YieldStress": ((2152, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexNode(DispatchBaseClass):
+	'''FFlex Node'''
+	CLSID = IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_x(self):
+		return self._ApplyTypes_(*(152, 2, (5, 0), (), "x", None))
+	def _get_y(self):
+		return self._ApplyTypes_(*(153, 2, (5, 0), (), "y", None))
+	def _get_z(self):
+		return self._ApplyTypes_(*(154, 2, (5, 0), (), "z", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_ID(self, value):
+		if "ID" in self.__dict__: self.__dict__["ID"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+	def _set_x(self, value):
+		if "x" in self.__dict__: self.__dict__["x"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_y(self, value):
+		if "y" in self.__dict__: self.__dict__["y"] = value; return
+		self._oleobj_.Invoke(*((153, LCID, 4, 0) + (value,) + ()))
+	def _set_z(self, value):
+		if "z" in self.__dict__: self.__dict__["z"] = value; return
+		self._oleobj_.Invoke(*((154, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, _set_ID)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	x = property(_get_x, _set_x)
+	'''
+	Position X
+
+	:type: float
+	'''
+	y = property(_get_y, _set_y)
+	'''
+	Position Y
+
+	:type: float
+	'''
+	z = property(_get_z, _set_z)
+	'''
+	Position Z
+
+	:type: float
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_ID": _set_ID,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+		"_set_x": _set_x,
+		"_set_y": _set_y,
+		"_set_z": _set_z,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (151, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"x": (152, 2, (5, 0), (), "x", None),
+		"y": (153, 2, (5, 0), (), "y", None),
+		"z": (154, 2, (5, 0), (), "z", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"ID": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+		"x": ((152, LCID, 4, 0),()),
+		"y": ((153, LCID, 4, 0),()),
+		"z": ((154, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexNodeCollection(DispatchBaseClass):
+	'''IFFlexNodeCollection'''
+	CLSID = IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB7}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexNode
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexNode
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexNodeSet(DispatchBaseClass):
+	CLSID = IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def AddNodes(self, val):
+		'''
+		Add Nodes
+		
+		:param val: list[int]
+		'''
+		return self._oleobj_.InvokeTypes(2054, LCID, 1, (24, 0), ((8195, 1),),val
+			)
+
+
+	def DeleteNodes(self, val):
+		'''
+		Delete Nodes
+		
+		:param val: list[int]
+		'''
+		return self._oleobj_.InvokeTypes(2055, LCID, 1, (24, 0), ((8195, 1),),val
+			)
+
+
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Color(self):
+		return self._ApplyTypes_(*(2053, 2, (19, 0), (), "Color", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeCollection(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_NodeIDs(self):
+		return self._ApplyTypes_(*(2051, 2, (8195, 0), (), "NodeIDs", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Color(self, value):
+		if "Color" in self.__dict__: self.__dict__["Color"] = value; return
+		self._oleobj_.Invoke(*((2053, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Color = property(_get_Color, _set_Color)
+	'''
+	Node set color
+
+	:type: int
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeCollection = property(_get_NodeCollection, None)
+	'''
+	Node Collection
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	NodeIDs = property(_get_NodeIDs, None)
+	'''
+	Contains Node
+
+	:type: list[int]
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Color": _set_Color,
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Color": (2053, 2, (19, 0), (), "Color", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeCollection": (2052, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"NodeIDs": (2051, 2, (8195, 0), (), "NodeIDs", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Color": ((2053, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexNodeSetCollection(DispatchBaseClass):
+	'''IFFlexNodeSetCollection'''
+	CLSID = IID('{87219716-6C18-4072-BE27-EAA12BA9D444}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexNodeSet
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexNodeSet
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexNodeVT(DispatchBaseClass):
+	'''FFlex Node Variable Thickness'''
+	CLSID = IID('{83C6E147-4506-47D2-BF10-A5C05702C376}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(151, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_Thickness(self):
+		return self._ApplyTypes_(*(2001, 2, (5, 0), (), "Thickness", None))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+	def _get_x(self):
+		return self._ApplyTypes_(*(152, 2, (5, 0), (), "x", None))
+	def _get_y(self):
+		return self._ApplyTypes_(*(153, 2, (5, 0), (), "y", None))
+	def _get_z(self):
+		return self._ApplyTypes_(*(154, 2, (5, 0), (), "z", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_ID(self, value):
+		if "ID" in self.__dict__: self.__dict__["ID"] = value; return
+		self._oleobj_.Invoke(*((151, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_Thickness(self, value):
+		if "Thickness" in self.__dict__: self.__dict__["Thickness"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+	def _set_x(self, value):
+		if "x" in self.__dict__: self.__dict__["x"] = value; return
+		self._oleobj_.Invoke(*((152, LCID, 4, 0) + (value,) + ()))
+	def _set_y(self, value):
+		if "y" in self.__dict__: self.__dict__["y"] = value; return
+		self._oleobj_.Invoke(*((153, LCID, 4, 0) + (value,) + ()))
+	def _set_z(self, value):
+		if "z" in self.__dict__: self.__dict__["z"] = value; return
+		self._oleobj_.Invoke(*((154, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, _set_ID)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	Thickness = property(_get_Thickness, _set_Thickness)
+	'''
+	Variable Thickness
+
+	:type: float
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+	x = property(_get_x, _set_x)
+	'''
+	Position X
+
+	:type: float
+	'''
+	y = property(_get_y, _set_y)
+	'''
+	Position Y
+
+	:type: float
+	'''
+	z = property(_get_z, _set_z)
+	'''
+	Position Z
+
+	:type: float
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_ID": _set_ID,
+		"_set_Name": _set_Name,
+		"_set_Thickness": _set_Thickness,
+		"_set_UserData": _set_UserData,
+		"_set_x": _set_x,
+		"_set_y": _set_y,
+		"_set_z": _set_z,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (151, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"Thickness": (2001, 2, (5, 0), (), "Thickness", None),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+		"x": (152, 2, (5, 0), (), "x", None),
+		"y": (153, 2, (5, 0), (), "y", None),
+		"z": (154, 2, (5, 0), (), "z", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"ID": ((151, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"Thickness": ((2001, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+		"x": ((152, LCID, 4, 0),()),
+		"y": ((153, LCID, 4, 0),()),
+		"z": ((154, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexNodeVTCollection(DispatchBaseClass):
+	'''IFFlexNodeVTCollection'''
+	CLSID = IID('{11DF440C-A0EA-4BC3-B9F8-954A1C62DE01}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexNodeVT
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{83C6E147-4506-47D2-BF10-A5C05702C376}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexNodeVT
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{83C6E147-4506-47D2-BF10-A5C05702C376}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{83C6E147-4506-47D2-BF10-A5C05702C376}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{83C6E147-4506-47D2-BF10-A5C05702C376}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexOutput(DispatchBaseClass):
+	CLSID = IID('{C07D2858-4BD8-429E-98F9-BBAD0AE619CA}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Color(self):
+		return self._ApplyTypes_(*(4003, 2, (19, 0), (), "Color", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeCollection(self):
+		return self._ApplyTypes_(*(4002, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_NodeIDs(self):
+		return self._ApplyTypes_(*(4001, 2, (8195, 0), (), "NodeIDs", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Color(self, value):
+		if "Color" in self.__dict__: self.__dict__["Color"] = value; return
+		self._oleobj_.Invoke(*((4003, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Color = property(_get_Color, _set_Color)
+	'''
+	Output color
+
+	:type: int
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeCollection = property(_get_NodeCollection, None)
+	'''
+	Node Collection
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	NodeIDs = property(_get_NodeIDs, None)
+	'''
+	Contains Node
+
+	:type: list[int]
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Color": _set_Color,
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Color": (4003, 2, (19, 0), (), "Color", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeCollection": (4002, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"NodeIDs": (4001, 2, (8195, 0), (), "NodeIDs", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Color": ((4003, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexOutputCollection(DispatchBaseClass):
+	'''IFFlexOutputCollection'''
+	CLSID = IID('{6A6D7961-36F5-4E1D-8024-839348CD5B35}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexOutput
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{C07D2858-4BD8-429E-98F9-BBAD0AE619CA}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexOutput
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{C07D2858-4BD8-429E-98F9-BBAD0AE619CA}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{C07D2858-4BD8-429E-98F9-BBAD0AE619CA}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{C07D2858-4BD8-429E-98F9-BBAD0AE619CA}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexOutputFileInfo(DispatchBaseClass):
+	'''FFlex Output File Information'''
+	CLSID = IID('{14C926A7-96C8-4FA4-ABB4-516E07ABFD9E}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_BeamRecoveryType(self):
+		return self._ApplyTypes_(*(2008, 2, (3, 0), (), "BeamRecoveryType", '{01D83516-829A-4D6E-8D5F-CB043CA860A5}'))
+	def _get_BodyName(self):
+		return self._ApplyTypes_(*(2001, 2, (8, 0), (), "BodyName", None))
+	def _get_DisplacementDataPrecision(self):
+		return self._ApplyTypes_(*(2007, 2, (3, 0), (), "DisplacementDataPrecision", '{07DA99C8-2650-46F7-9207-26E6A5C7191A}'))
+	def _get_ReferenceMarker(self):
+		return self._ApplyTypes_(*(2004, 2, (9, 0), (), "ReferenceMarker", '{6A3295D9-E76B-473C-9655-23B7B1CBD671}'))
+	def _get_ShellRecoveryType(self):
+		return self._ApplyTypes_(*(2003, 2, (3, 0), (), "ShellRecoveryType", '{3EB2A2CA-EBC9-44F7-8FBD-1246E02B5849}'))
+	def _get_StrainFileState(self):
+		return self._ApplyTypes_(*(2005, 2, (8, 0), (), "StrainFileState", None))
+	def _get_StressFileState(self):
+		return self._ApplyTypes_(*(2006, 2, (8, 0), (), "StressFileState", None))
+	def _get_Use(self):
+		return self._ApplyTypes_(*(2002, 2, (11, 0), (), "Use", None))
+
+	def _set_BeamRecoveryType(self, value):
+		if "BeamRecoveryType" in self.__dict__: self.__dict__["BeamRecoveryType"] = value; return
+		self._oleobj_.Invoke(*((2008, LCID, 4, 0) + (value,) + ()))
+	def _set_DisplacementDataPrecision(self, value):
+		if "DisplacementDataPrecision" in self.__dict__: self.__dict__["DisplacementDataPrecision"] = value; return
+		self._oleobj_.Invoke(*((2007, LCID, 4, 0) + (value,) + ()))
+	def _set_ReferenceMarker(self, value):
+		if "ReferenceMarker" in self.__dict__: self.__dict__["ReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_ShellRecoveryType(self, value):
+		if "ShellRecoveryType" in self.__dict__: self.__dict__["ShellRecoveryType"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+	def _set_Use(self, value):
+		if "Use" in self.__dict__: self.__dict__["Use"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+
+	BeamRecoveryType = property(_get_BeamRecoveryType, _set_BeamRecoveryType)
+	'''
+	Beam recovery type
+
+	:type: recurdyn.FFlex.BeamRecoveryType
+	'''
+	BodyName = property(_get_BodyName, None)
+	'''
+	Body name
+
+	:type: str
+	'''
+	DisplacementDataPrecision = property(_get_DisplacementDataPrecision, _set_DisplacementDataPrecision)
+	'''
+	Displacement(.rfa) Precision
+
+	:type: recurdyn.FFlex.DisplacementDataPrecision
+	'''
+	ReferenceMarker = property(_get_ReferenceMarker, _set_ReferenceMarker)
+	'''
+	Reference marker
+
+	:type: recurdyn.ProcessNet.IReferenceFrame
+	'''
+	ShellRecoveryType = property(_get_ShellRecoveryType, _set_ShellRecoveryType)
+	'''
+	Shell recovery type
+
+	:type: recurdyn.FFlex.ShellRecoveryType
+	'''
+	StrainFileState = property(_get_StrainFileState, None)
+	'''
+	Get erd file state
+
+	:type: str
+	'''
+	StressFileState = property(_get_StressFileState, None)
+	'''
+	Get srd file state
+
+	:type: str
+	'''
+	Use = property(_get_Use, _set_Use)
+	'''
+	Generate flag
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_BeamRecoveryType": _set_BeamRecoveryType,
+		"_set_DisplacementDataPrecision": _set_DisplacementDataPrecision,
+		"_set_ReferenceMarker": _set_ReferenceMarker,
+		"_set_ShellRecoveryType": _set_ShellRecoveryType,
+		"_set_Use": _set_Use,
+	}
+	_prop_map_get_ = {
+		"BeamRecoveryType": (2008, 2, (3, 0), (), "BeamRecoveryType", '{01D83516-829A-4D6E-8D5F-CB043CA860A5}'),
+		"BodyName": (2001, 2, (8, 0), (), "BodyName", None),
+		"DisplacementDataPrecision": (2007, 2, (3, 0), (), "DisplacementDataPrecision", '{07DA99C8-2650-46F7-9207-26E6A5C7191A}'),
+		"ReferenceMarker": (2004, 2, (9, 0), (), "ReferenceMarker", '{6A3295D9-E76B-473C-9655-23B7B1CBD671}'),
+		"ShellRecoveryType": (2003, 2, (3, 0), (), "ShellRecoveryType", '{3EB2A2CA-EBC9-44F7-8FBD-1246E02B5849}'),
+		"StrainFileState": (2005, 2, (8, 0), (), "StrainFileState", None),
+		"StressFileState": (2006, 2, (8, 0), (), "StressFileState", None),
+		"Use": (2002, 2, (11, 0), (), "Use", None),
+	}
+	_prop_map_put_ = {
+		"BeamRecoveryType": ((2008, LCID, 4, 0),()),
+		"DisplacementDataPrecision": ((2007, LCID, 4, 0),()),
+		"ReferenceMarker": ((2004, LCID, 4, 0),()),
+		"ShellRecoveryType": ((2003, LCID, 4, 0),()),
+		"Use": ((2002, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexOutputFileRegenerator(DispatchBaseClass):
+	'''Output File Regenerator'''
+	CLSID = IID('{67734FD0-EBD1-40DE-ADD5-11D4490D0E4F}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Execute(self):
+		'''
+		Generate
+		'''
+		return self._oleobj_.InvokeTypes(2006, LCID, 1, (24, 0), (),)
+
+
+	def _get_BeamRecoveryType(self):
+		return self._ApplyTypes_(*(2008, 2, (3, 0), (), "BeamRecoveryType", '{01D83516-829A-4D6E-8D5F-CB043CA860A5}'))
+	def _get_DisplacementDataPrecision(self):
+		return self._ApplyTypes_(*(2007, 2, (3, 0), (), "DisplacementDataPrecision", '{07DA99C8-2650-46F7-9207-26E6A5C7191A}'))
+	def _get_OutputFileSetting(self):
+		return self._ApplyTypes_(*(2005, 2, (9, 0), (), "OutputFileSetting", '{350C9018-D3B8-4D6B-B9EC-271CE461FDC0}'))
+	def _get_RecoverData(self):
+		return self._ApplyTypes_(*(2002, 2, (11, 0), (), "RecoverData", None))
+	def _get_ReferenceMarker(self):
+		return self._ApplyTypes_(*(2004, 2, (9, 0), (), "ReferenceMarker", '{6A3295D9-E76B-473C-9655-23B7B1CBD671}'))
+	def _get_SameOptionsforAllFFlexBodies(self):
+		return self._ApplyTypes_(*(2001, 2, (11, 0), (), "SameOptionsforAllFFlexBodies", None))
+	def _get_ShellRecoveryType(self):
+		return self._ApplyTypes_(*(2003, 2, (3, 0), (), "ShellRecoveryType", '{3EB2A2CA-EBC9-44F7-8FBD-1246E02B5849}'))
+
+	def _set_BeamRecoveryType(self, value):
+		if "BeamRecoveryType" in self.__dict__: self.__dict__["BeamRecoveryType"] = value; return
+		self._oleobj_.Invoke(*((2008, LCID, 4, 0) + (value,) + ()))
+	def _set_DisplacementDataPrecision(self, value):
+		if "DisplacementDataPrecision" in self.__dict__: self.__dict__["DisplacementDataPrecision"] = value; return
+		self._oleobj_.Invoke(*((2007, LCID, 4, 0) + (value,) + ()))
+	def _set_RecoverData(self, value):
+		if "RecoverData" in self.__dict__: self.__dict__["RecoverData"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+	def _set_ReferenceMarker(self, value):
+		if "ReferenceMarker" in self.__dict__: self.__dict__["ReferenceMarker"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+	def _set_SameOptionsforAllFFlexBodies(self, value):
+		if "SameOptionsforAllFFlexBodies" in self.__dict__: self.__dict__["SameOptionsforAllFFlexBodies"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_ShellRecoveryType(self, value):
+		if "ShellRecoveryType" in self.__dict__: self.__dict__["ShellRecoveryType"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+
+	BeamRecoveryType = property(_get_BeamRecoveryType, _set_BeamRecoveryType)
+	'''
+	Beam recovery type
+
+	:type: recurdyn.FFlex.BeamRecoveryType
+	'''
+	DisplacementDataPrecision = property(_get_DisplacementDataPrecision, _set_DisplacementDataPrecision)
+	'''
+	Displacement(.rfa) Precision
+
+	:type: recurdyn.FFlex.DisplacementDataPrecision
+	'''
+	OutputFileSetting = property(_get_OutputFileSetting, None)
+	'''
+	Output file Setting
+
+	:type: recurdyn.ProcessNet.IStrainStressOutputFileSetting
+	'''
+	RecoverData = property(_get_RecoverData, _set_RecoverData)
+	'''
+	Recover data flag
+
+	:type: bool
+	'''
+	ReferenceMarker = property(_get_ReferenceMarker, _set_ReferenceMarker)
+	'''
+	Reference marker
+
+	:type: recurdyn.ProcessNet.IReferenceFrame
+	'''
+	SameOptionsforAllFFlexBodies = property(_get_SameOptionsforAllFFlexBodies, _set_SameOptionsforAllFFlexBodies)
+	'''
+	Same options for all bodies flag
+
+	:type: bool
+	'''
+	ShellRecoveryType = property(_get_ShellRecoveryType, _set_ShellRecoveryType)
+	'''
+	Shell recovery type
+
+	:type: recurdyn.FFlex.ShellRecoveryType
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_BeamRecoveryType": _set_BeamRecoveryType,
+		"_set_DisplacementDataPrecision": _set_DisplacementDataPrecision,
+		"_set_RecoverData": _set_RecoverData,
+		"_set_ReferenceMarker": _set_ReferenceMarker,
+		"_set_SameOptionsforAllFFlexBodies": _set_SameOptionsforAllFFlexBodies,
+		"_set_ShellRecoveryType": _set_ShellRecoveryType,
+	}
+	_prop_map_get_ = {
+		"BeamRecoveryType": (2008, 2, (3, 0), (), "BeamRecoveryType", '{01D83516-829A-4D6E-8D5F-CB043CA860A5}'),
+		"DisplacementDataPrecision": (2007, 2, (3, 0), (), "DisplacementDataPrecision", '{07DA99C8-2650-46F7-9207-26E6A5C7191A}'),
+		"OutputFileSetting": (2005, 2, (9, 0), (), "OutputFileSetting", '{350C9018-D3B8-4D6B-B9EC-271CE461FDC0}'),
+		"RecoverData": (2002, 2, (11, 0), (), "RecoverData", None),
+		"ReferenceMarker": (2004, 2, (9, 0), (), "ReferenceMarker", '{6A3295D9-E76B-473C-9655-23B7B1CBD671}'),
+		"SameOptionsforAllFFlexBodies": (2001, 2, (11, 0), (), "SameOptionsforAllFFlexBodies", None),
+		"ShellRecoveryType": (2003, 2, (3, 0), (), "ShellRecoveryType", '{3EB2A2CA-EBC9-44F7-8FBD-1246E02B5849}'),
+	}
+	_prop_map_put_ = {
+		"BeamRecoveryType": ((2008, LCID, 4, 0),()),
+		"DisplacementDataPrecision": ((2007, LCID, 4, 0),()),
+		"RecoverData": ((2002, LCID, 4, 0),()),
+		"ReferenceMarker": ((2004, LCID, 4, 0),()),
+		"SameOptionsforAllFFlexBodies": ((2001, LCID, 4, 0),()),
+		"ShellRecoveryType": ((2003, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexPatchSet(DispatchBaseClass):
+	CLSID = IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def AutoAdjust(self):
+		'''
+		Automatic Adjust
+		'''
+		return self._oleobj_.InvokeTypes(2054, LCID, 1, (24, 0), (),)
+
+
+	def AutoSwitch(self):
+		'''
+		Automatic Switch
+		'''
+		return self._oleobj_.InvokeTypes(2055, LCID, 1, (24, 0), (),)
+
+
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def ManualSwitch(self, arrSelectNodeID):
+		'''
+		Manual Switch
+		
+		:param arrSelectNodeID: list[int]
+		'''
+		return self._oleobj_.InvokeTypes(2056, LCID, 1, (24, 0), ((8195, 1),),arrSelectNodeID
+			)
+
+
+	def _get_Color(self):
+		return self._ApplyTypes_(*(2053, 2, (19, 0), (), "Color", None))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_NodeCollection(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_NodeIDs(self):
+		return self._ApplyTypes_(*(2051, 2, (8195, 0), (), "NodeIDs", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Color(self, value):
+		if "Color" in self.__dict__: self.__dict__["Color"] = value; return
+		self._oleobj_.Invoke(*((2053, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Color = property(_get_Color, _set_Color)
+	'''
+	Patch set color
+
+	:type: int
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	NodeCollection = property(_get_NodeCollection, None)
+	'''
+	Node Collection
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	NodeIDs = property(_get_NodeIDs, None)
+	'''
+	Contains Node
+
+	:type: list[int]
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Color": _set_Color,
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Color": (2053, 2, (19, 0), (), "Color", None),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"NodeCollection": (2052, 2, (9, 0), (), "NodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"NodeIDs": (2051, 2, (8195, 0), (), "NodeIDs", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Color": ((2053, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexPatchSetCollection(DispatchBaseClass):
+	'''IFFlexPatchSetCollection'''
+	CLSID = IID('{371C9D93-0F28-4531-833B-BE362169A845}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexProperty(DispatchBaseClass):
+	CLSID = IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FFlexMaterial(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "FFlexMaterial", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexMaterial(self, value):
+		if "FFlexMaterial" in self.__dict__: self.__dict__["FFlexMaterial"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FFlexMaterial = property(_get_FFlexMaterial, _set_FFlexMaterial)
+	'''
+	FFlexMaterial
+
+	:type: recurdyn.FFlex.IFFlexMaterial
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_FFlexMaterial": _set_FFlexMaterial,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FFlexMaterial": (2001, 2, (9, 0), (), "FFlexMaterial", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"FFlexMaterial": ((2001, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexPropertyBeam(DispatchBaseClass):
+	CLSID = IID('{038F4D84-103E-4E16-ADBE-30CD7D809A5F}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def ReCalculation(self, syncRecoveryPoints):
+		'''
+		ReCalculation method
+		
+		:param syncRecoveryPoints: bool
+		'''
+		return self._oleobj_.InvokeTypes(2089, LCID, 1, (24, 0), ((11, 1),),syncRecoveryPoints
+			)
+
+
+	def _get_Area(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "Area", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Asy(self):
+		return self._ApplyTypes_(*(2057, 2, (9, 0), (), "Asy", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Asz(self):
+		return self._ApplyTypes_(*(2058, 2, (9, 0), (), "Asz", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_CY(self):
+		return self._ApplyTypes_(*(2059, 2, (5, 0), (), "CY", None))
+	def _get_CZ(self):
+		return self._ApplyTypes_(*(2060, 2, (5, 0), (), "CZ", None))
+	def _get_CircleRadius(self):
+		return self._ApplyTypes_(*(2068, 2, (9, 0), (), "CircleRadius", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_CrossSectionType(self):
+		return self._ApplyTypes_(*(2067, 2, (3, 0), (), "CrossSectionType", '{2B3F0B13-DAD7-47FD-A065-40C7D5B58606}'))
+	def _get_DY(self):
+		return self._ApplyTypes_(*(2061, 2, (5, 0), (), "DY", None))
+	def _get_DZ(self):
+		return self._ApplyTypes_(*(2062, 2, (5, 0), (), "DZ", None))
+	def _get_EY(self):
+		return self._ApplyTypes_(*(2063, 2, (5, 0), (), "EY", None))
+	def _get_EZ(self):
+		return self._ApplyTypes_(*(2064, 2, (5, 0), (), "EZ", None))
+	def _get_EllipticHeight(self):
+		return self._ApplyTypes_(*(2070, 2, (9, 0), (), "EllipticHeight", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_EllipticWidth(self):
+		return self._ApplyTypes_(*(2069, 2, (9, 0), (), "EllipticWidth", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FFlexMaterial(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "FFlexMaterial", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}'))
+	def _get_FY(self):
+		return self._ApplyTypes_(*(2065, 2, (5, 0), (), "FY", None))
+	def _get_FZ(self):
+		return self._ApplyTypes_(*(2066, 2, (5, 0), (), "FZ", None))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_HollowRectangleHeight(self):
+		return self._ApplyTypes_(*(2078, 2, (9, 0), (), "HollowRectangleHeight", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_HollowRectangleWidth(self):
+		return self._ApplyTypes_(*(2077, 2, (9, 0), (), "HollowRectangleWidth", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_HollowRectangleYThickness(self):
+		return self._ApplyTypes_(*(2079, 2, (9, 0), (), "HollowRectangleYThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_HollowRectangleZThickness(self):
+		return self._ApplyTypes_(*(2080, 2, (9, 0), (), "HollowRectangleZThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_IBeamFlangeThickness(self):
+		return self._ApplyTypes_(*(2084, 2, (9, 0), (), "IBeamFlangeThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_IBeamHeight(self):
+		return self._ApplyTypes_(*(2082, 2, (9, 0), (), "IBeamHeight", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_IBeamWebThickness(self):
+		return self._ApplyTypes_(*(2083, 2, (9, 0), (), "IBeamWebThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_IBeamWidth(self):
+		return self._ApplyTypes_(*(2081, 2, (9, 0), (), "IBeamWidth", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Iyy(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "Iyy", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Iyz(self):
+		return self._ApplyTypes_(*(2055, 2, (9, 0), (), "Iyz", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Izz(self):
+		return self._ApplyTypes_(*(2054, 2, (9, 0), (), "Izz", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Orientation(self):
+		return self._ApplyTypes_(*(2056, 2, (9, 0), (), "Orientation", '{918CAF9A-7A62-4EC4-B45D-C259C997B661}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_RectangleHeight(self):
+		return self._ApplyTypes_(*(2072, 2, (9, 0), (), "RectangleHeight", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_RectangleWidth(self):
+		return self._ApplyTypes_(*(2071, 2, (9, 0), (), "RectangleWidth", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_TBeamFlangeThickness(self):
+		return self._ApplyTypes_(*(2088, 2, (9, 0), (), "TBeamFlangeThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_TBeamHeight(self):
+		return self._ApplyTypes_(*(2086, 2, (9, 0), (), "TBeamHeight", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_TBeamWebThickness(self):
+		return self._ApplyTypes_(*(2087, 2, (9, 0), (), "TBeamWebThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_TBeamWidth(self):
+		return self._ApplyTypes_(*(2085, 2, (9, 0), (), "TBeamWidth", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ThickHollowCircleInnerRadius(self):
+		return self._ApplyTypes_(*(2075, 2, (9, 0), (), "ThickHollowCircleInnerRadius", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ThickHollowCircleOuterRadius(self):
+		return self._ApplyTypes_(*(2076, 2, (9, 0), (), "ThickHollowCircleOuterRadius", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ThinHollowCircleRadius(self):
+		return self._ApplyTypes_(*(2073, 2, (9, 0), (), "ThinHollowCircleRadius", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_ThinHollowCircleThickness(self):
+		return self._ApplyTypes_(*(2074, 2, (9, 0), (), "ThinHollowCircleThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_TortionalInertia(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "TortionalInertia", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_CY(self, value):
+		if "CY" in self.__dict__: self.__dict__["CY"] = value; return
+		self._oleobj_.Invoke(*((2059, LCID, 4, 0) + (value,) + ()))
+	def _set_CZ(self, value):
+		if "CZ" in self.__dict__: self.__dict__["CZ"] = value; return
+		self._oleobj_.Invoke(*((2060, LCID, 4, 0) + (value,) + ()))
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_CrossSectionType(self, value):
+		if "CrossSectionType" in self.__dict__: self.__dict__["CrossSectionType"] = value; return
+		self._oleobj_.Invoke(*((2067, LCID, 4, 0) + (value,) + ()))
+	def _set_DY(self, value):
+		if "DY" in self.__dict__: self.__dict__["DY"] = value; return
+		self._oleobj_.Invoke(*((2061, LCID, 4, 0) + (value,) + ()))
+	def _set_DZ(self, value):
+		if "DZ" in self.__dict__: self.__dict__["DZ"] = value; return
+		self._oleobj_.Invoke(*((2062, LCID, 4, 0) + (value,) + ()))
+	def _set_EY(self, value):
+		if "EY" in self.__dict__: self.__dict__["EY"] = value; return
+		self._oleobj_.Invoke(*((2063, LCID, 4, 0) + (value,) + ()))
+	def _set_EZ(self, value):
+		if "EZ" in self.__dict__: self.__dict__["EZ"] = value; return
+		self._oleobj_.Invoke(*((2064, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexMaterial(self, value):
+		if "FFlexMaterial" in self.__dict__: self.__dict__["FFlexMaterial"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_FY(self, value):
+		if "FY" in self.__dict__: self.__dict__["FY"] = value; return
+		self._oleobj_.Invoke(*((2065, LCID, 4, 0) + (value,) + ()))
+	def _set_FZ(self, value):
+		if "FZ" in self.__dict__: self.__dict__["FZ"] = value; return
+		self._oleobj_.Invoke(*((2066, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Area = property(_get_Area, None)
+	'''
+	Area
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Asy = property(_get_Asy, None)
+	'''
+	Asy
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Asz = property(_get_Asz, None)
+	'''
+	Asz
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	CY = property(_get_CY, _set_CY)
+	'''
+	Stress Recovery Points CY
+
+	:type: float
+	'''
+	CZ = property(_get_CZ, _set_CZ)
+	'''
+	Stress Recovery Points CZ
+
+	:type: float
+	'''
+	CircleRadius = property(_get_CircleRadius, None)
+	'''
+	Circle Radius
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	CrossSectionType = property(_get_CrossSectionType, _set_CrossSectionType)
+	'''
+	Cross Section Type
+
+	:type: recurdyn.FFlex.BeamCrossSection
+	'''
+	DY = property(_get_DY, _set_DY)
+	'''
+	Stress Recovery Points DY
+
+	:type: float
+	'''
+	DZ = property(_get_DZ, _set_DZ)
+	'''
+	Stress Recovery Points DZ
+
+	:type: float
+	'''
+	EY = property(_get_EY, _set_EY)
+	'''
+	Stress Recovery Points EY
+
+	:type: float
+	'''
+	EZ = property(_get_EZ, _set_EZ)
+	'''
+	Stress Recovery Points EZ
+
+	:type: float
+	'''
+	EllipticHeight = property(_get_EllipticHeight, None)
+	'''
+	Elliptic Height
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	EllipticWidth = property(_get_EllipticWidth, None)
+	'''
+	Elliptic Width
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FFlexMaterial = property(_get_FFlexMaterial, _set_FFlexMaterial)
+	'''
+	FFlexMaterial
+
+	:type: recurdyn.FFlex.IFFlexMaterial
+	'''
+	FY = property(_get_FY, _set_FY)
+	'''
+	Stress Recovery Points FY
+
+	:type: float
+	'''
+	FZ = property(_get_FZ, _set_FZ)
+	'''
+	Stress Recovery Points FZ
+
+	:type: float
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	HollowRectangleHeight = property(_get_HollowRectangleHeight, None)
+	'''
+	Hollow Rectangle Height
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	HollowRectangleWidth = property(_get_HollowRectangleWidth, None)
+	'''
+	Hollow Rectangle Width
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	HollowRectangleYThickness = property(_get_HollowRectangleYThickness, None)
+	'''
+	Hollow Rectangle Y Thickness
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	HollowRectangleZThickness = property(_get_HollowRectangleZThickness, None)
+	'''
+	Hollow Rectangle Z Thickness
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	IBeamFlangeThickness = property(_get_IBeamFlangeThickness, None)
+	'''
+	I Beam Flange Thickness
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	IBeamHeight = property(_get_IBeamHeight, None)
+	'''
+	I Beam Height
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	IBeamWebThickness = property(_get_IBeamWebThickness, None)
+	'''
+	I Beam Web Thickness
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	IBeamWidth = property(_get_IBeamWidth, None)
+	'''
+	I Beam Width
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Iyy = property(_get_Iyy, None)
+	'''
+	Iyy
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Iyz = property(_get_Iyz, None)
+	'''
+	Iyz
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Izz = property(_get_Izz, None)
+	'''
+	Izz
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Orientation = property(_get_Orientation, None)
+	'''
+	Orientation
+
+	:type: recurdyn.ProcessNet.IVector
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	RectangleHeight = property(_get_RectangleHeight, None)
+	'''
+	Rectangle Height
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	RectangleWidth = property(_get_RectangleWidth, None)
+	'''
+	Rectangle Width
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	TBeamFlangeThickness = property(_get_TBeamFlangeThickness, None)
+	'''
+	T Beam Flange Thickness
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	TBeamHeight = property(_get_TBeamHeight, None)
+	'''
+	T Beam Height
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	TBeamWebThickness = property(_get_TBeamWebThickness, None)
+	'''
+	T Beam Web Thickness
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	TBeamWidth = property(_get_TBeamWidth, None)
+	'''
+	T Beam Width
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ThickHollowCircleInnerRadius = property(_get_ThickHollowCircleInnerRadius, None)
+	'''
+	Thick Hollow Circle Inner Radius
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ThickHollowCircleOuterRadius = property(_get_ThickHollowCircleOuterRadius, None)
+	'''
+	Thick Hollow Circle Outer Radius
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ThinHollowCircleRadius = property(_get_ThinHollowCircleRadius, None)
+	'''
+	Thin Hollow Circle Radius
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	ThinHollowCircleThickness = property(_get_ThinHollowCircleThickness, None)
+	'''
+	Thin Hollow Circle Thickness
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	TortionalInertia = property(_get_TortionalInertia, None)
+	'''
+	Tortional Inertia
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_CY": _set_CY,
+		"_set_CZ": _set_CZ,
+		"_set_Comment": _set_Comment,
+		"_set_CrossSectionType": _set_CrossSectionType,
+		"_set_DY": _set_DY,
+		"_set_DZ": _set_DZ,
+		"_set_EY": _set_EY,
+		"_set_EZ": _set_EZ,
+		"_set_FFlexMaterial": _set_FFlexMaterial,
+		"_set_FY": _set_FY,
+		"_set_FZ": _set_FZ,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Area": (2051, 2, (9, 0), (), "Area", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Asy": (2057, 2, (9, 0), (), "Asy", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Asz": (2058, 2, (9, 0), (), "Asz", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"CY": (2059, 2, (5, 0), (), "CY", None),
+		"CZ": (2060, 2, (5, 0), (), "CZ", None),
+		"CircleRadius": (2068, 2, (9, 0), (), "CircleRadius", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"CrossSectionType": (2067, 2, (3, 0), (), "CrossSectionType", '{2B3F0B13-DAD7-47FD-A065-40C7D5B58606}'),
+		"DY": (2061, 2, (5, 0), (), "DY", None),
+		"DZ": (2062, 2, (5, 0), (), "DZ", None),
+		"EY": (2063, 2, (5, 0), (), "EY", None),
+		"EZ": (2064, 2, (5, 0), (), "EZ", None),
+		"EllipticHeight": (2070, 2, (9, 0), (), "EllipticHeight", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"EllipticWidth": (2069, 2, (9, 0), (), "EllipticWidth", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FFlexMaterial": (2001, 2, (9, 0), (), "FFlexMaterial", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}'),
+		"FY": (2065, 2, (5, 0), (), "FY", None),
+		"FZ": (2066, 2, (5, 0), (), "FZ", None),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"HollowRectangleHeight": (2078, 2, (9, 0), (), "HollowRectangleHeight", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"HollowRectangleWidth": (2077, 2, (9, 0), (), "HollowRectangleWidth", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"HollowRectangleYThickness": (2079, 2, (9, 0), (), "HollowRectangleYThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"HollowRectangleZThickness": (2080, 2, (9, 0), (), "HollowRectangleZThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"IBeamFlangeThickness": (2084, 2, (9, 0), (), "IBeamFlangeThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"IBeamHeight": (2082, 2, (9, 0), (), "IBeamHeight", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"IBeamWebThickness": (2083, 2, (9, 0), (), "IBeamWebThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"IBeamWidth": (2081, 2, (9, 0), (), "IBeamWidth", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Iyy": (2053, 2, (9, 0), (), "Iyy", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Iyz": (2055, 2, (9, 0), (), "Iyz", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Izz": (2054, 2, (9, 0), (), "Izz", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Orientation": (2056, 2, (9, 0), (), "Orientation", '{918CAF9A-7A62-4EC4-B45D-C259C997B661}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"RectangleHeight": (2072, 2, (9, 0), (), "RectangleHeight", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"RectangleWidth": (2071, 2, (9, 0), (), "RectangleWidth", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"TBeamFlangeThickness": (2088, 2, (9, 0), (), "TBeamFlangeThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"TBeamHeight": (2086, 2, (9, 0), (), "TBeamHeight", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"TBeamWebThickness": (2087, 2, (9, 0), (), "TBeamWebThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"TBeamWidth": (2085, 2, (9, 0), (), "TBeamWidth", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ThickHollowCircleInnerRadius": (2075, 2, (9, 0), (), "ThickHollowCircleInnerRadius", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ThickHollowCircleOuterRadius": (2076, 2, (9, 0), (), "ThickHollowCircleOuterRadius", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ThinHollowCircleRadius": (2073, 2, (9, 0), (), "ThinHollowCircleRadius", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"ThinHollowCircleThickness": (2074, 2, (9, 0), (), "ThinHollowCircleThickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"TortionalInertia": (2052, 2, (9, 0), (), "TortionalInertia", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"CY": ((2059, LCID, 4, 0),()),
+		"CZ": ((2060, LCID, 4, 0),()),
+		"Comment": ((102, LCID, 4, 0),()),
+		"CrossSectionType": ((2067, LCID, 4, 0),()),
+		"DY": ((2061, LCID, 4, 0),()),
+		"DZ": ((2062, LCID, 4, 0),()),
+		"EY": ((2063, LCID, 4, 0),()),
+		"EZ": ((2064, LCID, 4, 0),()),
+		"FFlexMaterial": ((2001, LCID, 4, 0),()),
+		"FY": ((2065, LCID, 4, 0),()),
+		"FZ": ((2066, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexPropertyCollection(DispatchBaseClass):
+	'''IFFlexPropertyCollection'''
+	CLSID = IID('{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexProperty
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{DB406626-3064-4709-933F-C7E7F9AD92E4}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: object
+		:rtype: recurdyn.FFlex.IFFlexProperty
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((12, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{DB406626-3064-4709-933F-C7E7F9AD92E4}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{DB406626-3064-4709-933F-C7E7F9AD92E4}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{DB406626-3064-4709-933F-C7E7F9AD92E4}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IFFlexPropertyFDR(DispatchBaseClass):
+	CLSID = IID('{11FD7485-CC44-459B-848C-130D43231C20}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DampingRatio(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_EffectiveYoungsModulus(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "EffectiveYoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FDRElementType(self):
+		return self._ApplyTypes_(*(2051, 2, (3, 0), (), "FDRElementType", '{4E9D97A2-A294-4CE7-AF7A-CD6B4EB70268}'))
+	def _get_FFlexMaterial(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "FFlexMaterial", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_InterpEType(self):
+		return self._ApplyTypes_(*(2056, 2, (3, 0), (), "InterpEType", '{984C74BA-6EAC-4E05-9061-0C65667402E4}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UseForceConnectorFlag(self):
+		return self._ApplyTypes_(*(2055, 2, (11, 0), (), "UseForceConnectorFlag", None))
+	def _get_UseMinimumBeamLengthFlag(self):
+		return self._ApplyTypes_(*(2054, 2, (11, 0), (), "UseMinimumBeamLengthFlag", None))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_FDRElementType(self, value):
+		if "FDRElementType" in self.__dict__: self.__dict__["FDRElementType"] = value; return
+		self._oleobj_.Invoke(*((2051, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexMaterial(self, value):
+		if "FFlexMaterial" in self.__dict__: self.__dict__["FFlexMaterial"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_InterpEType(self, value):
+		if "InterpEType" in self.__dict__: self.__dict__["InterpEType"] = value; return
+		self._oleobj_.Invoke(*((2056, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UseForceConnectorFlag(self, value):
+		if "UseForceConnectorFlag" in self.__dict__: self.__dict__["UseForceConnectorFlag"] = value; return
+		self._oleobj_.Invoke(*((2055, LCID, 4, 0) + (value,) + ()))
+	def _set_UseMinimumBeamLengthFlag(self, value):
+		if "UseMinimumBeamLengthFlag" in self.__dict__: self.__dict__["UseMinimumBeamLengthFlag"] = value; return
+		self._oleobj_.Invoke(*((2054, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DampingRatio = property(_get_DampingRatio, None)
+	'''
+	Damping Ratio
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	EffectiveYoungsModulus = property(_get_EffectiveYoungsModulus, None)
+	'''
+	Effective Youngs Modulus
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FDRElementType = property(_get_FDRElementType, _set_FDRElementType)
+	'''
+	FDR Element Type
+
+	:type: recurdyn.FFlex.FDRElementType
+	'''
+	FFlexMaterial = property(_get_FFlexMaterial, _set_FFlexMaterial)
+	'''
+	FFlexMaterial
+
+	:type: recurdyn.FFlex.IFFlexMaterial
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	InterpEType = property(_get_InterpEType, _set_InterpEType)
+	'''
+	InterpE Type
+
+	:type: recurdyn.FFlex.InterpEType
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UseForceConnectorFlag = property(_get_UseForceConnectorFlag, _set_UseForceConnectorFlag)
+	'''
+	Use Force Connector Flag
+
+	:type: bool
+	'''
+	UseMinimumBeamLengthFlag = property(_get_UseMinimumBeamLengthFlag, _set_UseMinimumBeamLengthFlag)
+	'''
+	Use Minimum Beam Length Flag
+
+	:type: bool
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_FDRElementType": _set_FDRElementType,
+		"_set_FFlexMaterial": _set_FFlexMaterial,
+		"_set_InterpEType": _set_InterpEType,
+		"_set_Name": _set_Name,
+		"_set_UseForceConnectorFlag": _set_UseForceConnectorFlag,
+		"_set_UseMinimumBeamLengthFlag": _set_UseMinimumBeamLengthFlag,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DampingRatio": (2053, 2, (9, 0), (), "DampingRatio", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"EffectiveYoungsModulus": (2052, 2, (9, 0), (), "EffectiveYoungsModulus", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FDRElementType": (2051, 2, (3, 0), (), "FDRElementType", '{4E9D97A2-A294-4CE7-AF7A-CD6B4EB70268}'),
+		"FFlexMaterial": (2001, 2, (9, 0), (), "FFlexMaterial", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"InterpEType": (2056, 2, (3, 0), (), "InterpEType", '{984C74BA-6EAC-4E05-9061-0C65667402E4}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UseForceConnectorFlag": (2055, 2, (11, 0), (), "UseForceConnectorFlag", None),
+		"UseMinimumBeamLengthFlag": (2054, 2, (11, 0), (), "UseMinimumBeamLengthFlag", None),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"FDRElementType": ((2051, LCID, 4, 0),()),
+		"FFlexMaterial": ((2001, LCID, 4, 0),()),
+		"InterpEType": ((2056, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UseForceConnectorFlag": ((2055, LCID, 4, 0),()),
+		"UseMinimumBeamLengthFlag": ((2054, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexPropertyMass(DispatchBaseClass):
+	CLSID = IID('{415EE4E6-8069-4221-BCE4-17CC7960FEC3}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FFlexMaterial(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "FFlexMaterial", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Ixx(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "Ixx", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Iyy(self):
+		return self._ApplyTypes_(*(2053, 2, (9, 0), (), "Iyy", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Izz(self):
+		return self._ApplyTypes_(*(2054, 2, (9, 0), (), "Izz", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Mass(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "Mass", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexMaterial(self, value):
+		if "FFlexMaterial" in self.__dict__: self.__dict__["FFlexMaterial"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FFlexMaterial = property(_get_FFlexMaterial, _set_FFlexMaterial)
+	'''
+	FFlexMaterial
+
+	:type: recurdyn.FFlex.IFFlexMaterial
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Ixx = property(_get_Ixx, None)
+	'''
+	Ixx
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Iyy = property(_get_Iyy, None)
+	'''
+	Iyy
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Izz = property(_get_Izz, None)
+	'''
+	Izz
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Mass = property(_get_Mass, None)
+	'''
+	Mass
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_FFlexMaterial": _set_FFlexMaterial,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FFlexMaterial": (2001, 2, (9, 0), (), "FFlexMaterial", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Ixx": (2052, 2, (9, 0), (), "Ixx", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Iyy": (2053, 2, (9, 0), (), "Iyy", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Izz": (2054, 2, (9, 0), (), "Izz", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Mass": (2051, 2, (9, 0), (), "Mass", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"FFlexMaterial": ((2001, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexPropertyShell(DispatchBaseClass):
+	CLSID = IID('{0566BC2A-5A19-4556-A760-2DE6D6F1DB6C}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DrillingStiffnessFactor(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "DrillingStiffnessFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_FFlexMaterial(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "FFlexMaterial", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_Thickness(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "Thickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexMaterial(self, value):
+		if "FFlexMaterial" in self.__dict__: self.__dict__["FFlexMaterial"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DrillingStiffnessFactor = property(_get_DrillingStiffnessFactor, None)
+	'''
+	Drilling Stiffness Factor
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	FFlexMaterial = property(_get_FFlexMaterial, _set_FFlexMaterial)
+	'''
+	FFlexMaterial
+
+	:type: recurdyn.FFlex.IFFlexMaterial
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	Thickness = property(_get_Thickness, None)
+	'''
+	Thickness
+
+	:type: recurdyn.ProcessNet.IDouble
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_FFlexMaterial": _set_FFlexMaterial,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DrillingStiffnessFactor": (2052, 2, (9, 0), (), "DrillingStiffnessFactor", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"FFlexMaterial": (2001, 2, (9, 0), (), "FFlexMaterial", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"Thickness": (2051, 2, (9, 0), (), "Thickness", '{2B5166E3-4B31-4607-B157-BE237A670336}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"FFlexMaterial": ((2001, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexPropertySolid(DispatchBaseClass):
+	CLSID = IID('{EBD74EA0-7D25-46AB-A257-9E8874545750}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_FFlexMaterial(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "FFlexMaterial", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_ID(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ID", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexMaterial(self, value):
+		if "FFlexMaterial" in self.__dict__: self.__dict__["FFlexMaterial"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	FFlexMaterial = property(_get_FFlexMaterial, _set_FFlexMaterial)
+	'''
+	FFlexMaterial
+
+	:type: recurdyn.FFlex.IFFlexMaterial
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	ID = property(_get_ID, None)
+	'''
+	ID
+
+	:type: int
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_FFlexMaterial": _set_FFlexMaterial,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"FFlexMaterial": (2001, 2, (9, 0), (), "FFlexMaterial", '{205F2A11-60B6-4F97-92FC-300B78C3BB29}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"ID": (2003, 2, (19, 0), (), "ID", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"FFlexMaterial": ((2001, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexRTLGenerationOption(DispatchBaseClass):
+	CLSID = IID('{E251879E-85B5-4FDE-8C34-F414F1D2A4BD}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_DataType(self):
+		return self._ApplyTypes_(*(2002, 2, (3, 0), (), "DataType", '{D1B6FC85-56B3-4D09-951A-4C4999D11A52}'))
+	def _get_ExportFrame(self):
+		return self._ApplyTypes_(*(2003, 2, (19, 0), (), "ExportFrame", None))
+	def _get_NodeSet(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "NodeSet", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'))
+	def _get_RTLFileName(self):
+		return self._ApplyTypes_(*(2005, 2, (8, 0), (), "RTLFileName", None))
+	def _get_RefMarker(self):
+		return self._ApplyTypes_(*(2004, 2, (9, 0), (), "RefMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'))
+
+	def _set_DataType(self, value):
+		if "DataType" in self.__dict__: self.__dict__["DataType"] = value; return
+		self._oleobj_.Invoke(*((2002, LCID, 4, 0) + (value,) + ()))
+	def _set_ExportFrame(self, value):
+		if "ExportFrame" in self.__dict__: self.__dict__["ExportFrame"] = value; return
+		self._oleobj_.Invoke(*((2003, LCID, 4, 0) + (value,) + ()))
+	def _set_NodeSet(self, value):
+		if "NodeSet" in self.__dict__: self.__dict__["NodeSet"] = value; return
+		self._oleobj_.Invoke(*((2001, LCID, 4, 0) + (value,) + ()))
+	def _set_RTLFileName(self, value):
+		if "RTLFileName" in self.__dict__: self.__dict__["RTLFileName"] = value; return
+		self._oleobj_.Invoke(*((2005, LCID, 4, 0) + (value,) + ()))
+	def _set_RefMarker(self, value):
+		if "RefMarker" in self.__dict__: self.__dict__["RefMarker"] = value; return
+		self._oleobj_.Invoke(*((2004, LCID, 4, 0) + (value,) + ()))
+
+	DataType = property(_get_DataType, _set_DataType)
+	'''
+	Data type
+
+	:type: recurdyn.FFlex.RTLFileDataType
+	'''
+	ExportFrame = property(_get_ExportFrame, _set_ExportFrame)
+	'''
+	Export Animation Frame
+
+	:type: int
+	'''
+	NodeSet = property(_get_NodeSet, _set_NodeSet)
+	'''
+	Node set
+
+	:type: recurdyn.FFlex.IFFlexNodeSet
+	'''
+	RTLFileName = property(_get_RTLFileName, _set_RTLFileName)
+	'''
+	RTL File Name
+
+	:type: str
+	'''
+	RefMarker = property(_get_RefMarker, _set_RefMarker)
+	'''
+	Reference marker
+
+	:type: recurdyn.ProcessNet.IMarker
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_DataType": _set_DataType,
+		"_set_ExportFrame": _set_ExportFrame,
+		"_set_NodeSet": _set_NodeSet,
+		"_set_RTLFileName": _set_RTLFileName,
+		"_set_RefMarker": _set_RefMarker,
+	}
+	_prop_map_get_ = {
+		"DataType": (2002, 2, (3, 0), (), "DataType", '{D1B6FC85-56B3-4D09-951A-4C4999D11A52}'),
+		"ExportFrame": (2003, 2, (19, 0), (), "ExportFrame", None),
+		"NodeSet": (2001, 2, (9, 0), (), "NodeSet", '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}'),
+		"RTLFileName": (2005, 2, (8, 0), (), "RTLFileName", None),
+		"RefMarker": (2004, 2, (9, 0), (), "RefMarker", '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}'),
+	}
+	_prop_map_put_ = {
+		"DataType": ((2002, LCID, 4, 0),()),
+		"ExportFrame": ((2003, LCID, 4, 0),()),
+		"NodeSet": ((2001, LCID, 4, 0),()),
+		"RTLFileName": ((2005, LCID, 4, 0),()),
+		"RefMarker": ((2004, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexToolFunction(DispatchBaseClass):
+	'''FFlex Tool Function'''
+	CLSID = IID('{2929013E-6D50-4228-879E-0C6F3DE83187}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetNodeIDsFromMidNode(self, pVal, val):
+		'''
+		Get Node IDs From Mid-Node
+		
+		:param pVal: IFFlexBody
+		:param val: int
+		:rtype: list[int]
+		'''
+		return self._ApplyTypes_(2001, 1, (8195, 0), ((9, 1), (3, 1)), 'GetNodeIDsFromMidNode', None,pVal
+			, val)
+
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+	}
+	_prop_map_put_ = {
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexToolkit(DispatchBaseClass):
+	'''FFlex Toolkit'''
+	CLSID = IID('{8486F9C1-3C36-4F56-9EFB-96CB20D923F7}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def CreateConstraintNode(self, strName, pNodeSetBase, pNodeSetActioin):
+		'''
+		Creates a node constraint
+		
+		:param strName: str
+		:param pNodeSetBase: IFFlexNodeSet
+		:param pNodeSetActioin: IFFlexNodeSet
+		:rtype: recurdyn.FFlex.IFFlexConstraintNode
+		'''
+		ret = self._oleobj_.InvokeTypes(2110, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pNodeSetBase, pNodeSetActioin)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateConstraintNode', '{B2D185BE-60C8-482C-B9A4-EC253064E650}')
+		return ret
+
+	def CreateContactCylinderToFSurface(self, strName, pBaseEntity, pActionEntity):
+		'''
+		Creates a CylinderToFSurface contact
+		
+		:param strName: str
+		:param pBaseEntity: IFFlexPatchSet
+		:param pActionEntity: IGeometryCylinder
+		:rtype: recurdyn.FFlex.IFFlexContactCylinderToFSurface
+		'''
+		ret = self._oleobj_.InvokeTypes(2069, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pBaseEntity, pActionEntity)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateContactCylinderToFSurface', '{C7481369-4B52-47B6-8981-979598B40AEA}')
+		return ret
+
+	def CreateContactCylinderToFSurface2(self, strName, pBaseEntity, pActionCylinder):
+		'''
+		Creates a CylinderToFSurface contact
+		
+		:param strName: str
+		:param pBaseEntity: IFFlexPatchSet
+		:param pActionCylinder: IGeometry
+		:rtype: recurdyn.FFlex.IFFlexContactCylinderToFSurface
+		'''
+		ret = self._oleobj_.InvokeTypes(2096, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pBaseEntity, pActionCylinder)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateContactCylinderToFSurface2', '{C7481369-4B52-47B6-8981-979598B40AEA}')
+		return ret
+
+	def CreateContactFCurveToFCurve(self, strName, pBaseEntity, pActionEntity):
+		'''
+		Creates a FCurveToFCurve contact
+		
+		:param strName: str
+		:param pBaseEntity: IFFlexPatchSet
+		:param pActionEntity: IFFlexPatchSet
+		:rtype: recurdyn.FFlex.IFFlexContactFCurveToFCurve
+		'''
+		ret = self._oleobj_.InvokeTypes(2059, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pBaseEntity, pActionEntity)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateContactFCurveToFCurve', '{E0F5CC9A-1686-4686-BA51-168070A9D8C9}')
+		return ret
+
+	def CreateContactFCurveToFSurface(self, strName, pBaseEntity, pActionEntity):
+		'''
+		Creates a FCurveToFSurface contact
+		
+		:param strName: str
+		:param pBaseEntity: IFFlexPatchSet
+		:param pActionEntity: IFFlexPatchSet
+		:rtype: recurdyn.FFlex.IFFlexContactFCurveToFSurface
+		'''
+		ret = self._oleobj_.InvokeTypes(2058, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pBaseEntity, pActionEntity)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateContactFCurveToFSurface', '{96734B88-960C-4AD5-9F09-891929036A86}')
+		return ret
+
+	def CreateContactFCurveToSurface(self, strName, pBaseEntity, pActionEntity):
+		'''
+		Creates a FCurveToSurface contact
+		
+		:param strName: str
+		:param pBaseEntity: IGeometry
+		:param pActionEntity: IFFlexPatchSet
+		:rtype: recurdyn.FFlex.IFFlexContactFCurveToSurface
+		'''
+		ret = self._oleobj_.InvokeTypes(2060, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pBaseEntity, pActionEntity)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateContactFCurveToSurface', '{DBD60940-5FBF-4F13-96BD-70F15DF56CD1}')
+		return ret
+
+	def CreateContactFSurfaceToFSurface(self, strName, pBaseEntity, pActionEntity):
+		'''
+		Creates a FSurfaceToFSurface contact
+		
+		:param strName: str
+		:param pBaseEntity: IFFlexPatchSet
+		:param pActionEntity: IFFlexPatchSet
+		:rtype: recurdyn.FFlex.IFFlexContactFSurfaceToFSurface
+		'''
+		ret = self._oleobj_.InvokeTypes(2055, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pBaseEntity, pActionEntity)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateContactFSurfaceToFSurface', '{4A53DC7E-87C8-4E2E-ADE5-76EE559B554E}')
+		return ret
+
+	def CreateContactFSurfaceToSurface(self, strName, pBaseEntity, pActionEntity):
+		'''
+		Creates a FSurfaceToSurface contact
+		
+		:param strName: str
+		:param pBaseEntity: IGeometry
+		:param pActionEntity: IFFlexPatchSet
+		:rtype: recurdyn.FFlex.IFFlexContactFSurfaceToSurface
+		'''
+		ret = self._oleobj_.InvokeTypes(2056, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pBaseEntity, pActionEntity)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateContactFSurfaceToSurface', '{2FB3CBD7-86A2-4DC3-8E44-B0BD837F9A22}')
+		return ret
+
+	def CreateContactSphereToFCurve(self, strName, pBaseEntity, pActionEntity):
+		'''
+		Creates a SphereToFCurve contact
+		
+		:param strName: str
+		:param pBaseEntity: IFFlexPatchSet
+		:param pActionEntity: IGeometrySphere
+		:rtype: recurdyn.FFlex.IFFlexContactSphereToFCurve
+		'''
+		ret = self._oleobj_.InvokeTypes(2061, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pBaseEntity, pActionEntity)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateContactSphereToFCurve', '{4EF16E8C-46CC-45C8-B6B6-280A7331592B}')
+		return ret
+
+	def CreateContactSphereToFCurve2(self, strName, pBaseEntity, pActionSphere):
+		'''
+		Creates a SphereToFCurve contact
+		
+		:param strName: str
+		:param pBaseEntity: IFFlexPatchSet
+		:param pActionSphere: IGeometry
+		:rtype: recurdyn.FFlex.IFFlexContactSphereToFCurve
+		'''
+		ret = self._oleobj_.InvokeTypes(2095, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pBaseEntity, pActionSphere)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateContactSphereToFCurve2', '{4EF16E8C-46CC-45C8-B6B6-280A7331592B}')
+		return ret
+
+	def CreateContactSphereToFSurface(self, strName, pBaseEntity, pActionEntity):
+		'''
+		Creates a SphereToFSurface contact
+		
+		:param strName: str
+		:param pBaseEntity: IFFlexPatchSet
+		:param pActionEntity: IGeometrySphere
+		:rtype: recurdyn.FFlex.IFFlexContactSphereToFSurface
+		'''
+		ret = self._oleobj_.InvokeTypes(2057, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pBaseEntity, pActionEntity)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateContactSphereToFSurface', '{F04DF01D-5633-4305-BB19-38240B6B1668}')
+		return ret
+
+	def CreateContactSphereToFSurface2(self, strName, pBaseEntity, pActionSphere):
+		'''
+		Creates a SphereToFSurface contact
+		
+		:param strName: str
+		:param pBaseEntity: IFFlexPatchSet
+		:param pActionSphere: IGeometry
+		:rtype: recurdyn.FFlex.IFFlexContactSphereToFSurface
+		'''
+		ret = self._oleobj_.InvokeTypes(2094, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pBaseEntity, pActionSphere)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateContactSphereToFSurface2', '{F04DF01D-5633-4305-BB19-38240B6B1668}')
+		return ret
+
+	def CreateForceConcentratedLoad(self, strName, enLoadType, pNodeSet, pReference):
+		'''
+		Creates a ConcentratedLoad
+		
+		:param strName: str
+		:param enLoadType: ConcentratedLoadType
+		:param pNodeSet: IFFlexNodeSet
+		:param pReference: IGeneric
+		:rtype: recurdyn.FFlex.IFFlexLoadConcentrated
+		'''
+		ret = self._oleobj_.InvokeTypes(2062, LCID, 1, (9, 0), ((8, 1), (3, 1), (9, 1), (9, 1)),strName
+			, enLoadType, pNodeSet, pReference)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForceConcentratedLoad', '{57E5BBF7-1ABC-43EF-A252-6169C6594B82}')
+		return ret
+
+	def CreateForceConcentratedLoadRelative(self, strName, pNodeSet, pRefNode):
+		'''
+		Creates a Relative ConcentratedLoad
+		
+		:param strName: str
+		:param pNodeSet: IFFlexNodeSet
+		:param pRefNode: IFFlexNode
+		:rtype: recurdyn.FFlex.IFFlexLoadConcentrated
+		'''
+		ret = self._oleobj_.InvokeTypes(2067, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pNodeSet, pRefNode)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForceConcentratedLoadRelative', '{57E5BBF7-1ABC-43EF-A252-6169C6594B82}')
+		return ret
+
+	def CreateForceConcentratedLoadUSUB(self, strName, pNodeSet):
+		'''
+		Creates a ConcentratedLoadUSUB
+		
+		:param strName: str
+		:param pNodeSet: IFFlexNodeSet
+		:rtype: recurdyn.FFlex.IFFlexLoadConcentratedUSUB
+		'''
+		ret = self._oleobj_.InvokeTypes(2068, LCID, 1, (9, 0), ((8, 1), (9, 1)),strName
+			, pNodeSet)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForceConcentratedLoadUSUB', '{52D19EDA-2066-41BB-B697-B8752940E39D}')
+		return ret
+
+	def CreateForceConcentratedLoadUSUB2(self, strName, pNodeSet, pUsub):
+		'''
+		Creates a ConcentratedLoadUSUB with USUB
+		
+		:param strName: str
+		:param pNodeSet: IFFlexNodeSet
+		:param pUsub: IUserSubroutine
+		:rtype: recurdyn.FFlex.IFFlexLoadConcentratedUSUB
+		'''
+		ret = self._oleobj_.InvokeTypes(2100, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pNodeSet, pUsub)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForceConcentratedLoadUSUB2', '{52D19EDA-2066-41BB-B697-B8752940E39D}')
+		return ret
+
+	def CreateForceConcentratedLoadUniform(self, strName, pNodeSet, pRefMarker):
+		'''
+		Creates an Uniform ConcentratedLoad
+		
+		:param strName: str
+		:param pNodeSet: IFFlexNodeSet
+		:param pRefMarker: IMarker
+		:rtype: recurdyn.FFlex.IFFlexLoadConcentrated
+		'''
+		ret = self._oleobj_.InvokeTypes(2066, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pNodeSet, pRefMarker)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForceConcentratedLoadUniform', '{57E5BBF7-1ABC-43EF-A252-6169C6594B82}')
+		return ret
+
+	def CreateForceConvectionLoad(self, strName, PatchSet):
+		'''
+		Creates a Convection Load
+		
+		:param strName: str
+		:param PatchSet: IFFlexPatchSet
+		:rtype: recurdyn.FFlex.IFFlexLoadConvection
+		'''
+		ret = self._oleobj_.InvokeTypes(2107, LCID, 1, (9, 0), ((8, 1), (9, 1)),strName
+			, PatchSet)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForceConvectionLoad', '{3C8FD4A2-8942-437E-9DE9-3A6884BB86FF}')
+		return ret
+
+	def CreateForceHeatFluxLoad(self, strName, PatchSet, HeatFlux):
+		'''
+		Creates a Heat Flux Load
+		
+		:param strName: str
+		:param PatchSet: IFFlexPatchSet
+		:param HeatFlux: IExpression
+		:rtype: recurdyn.FFlex.IFFlexLoadHeatFlux
+		'''
+		ret = self._oleobj_.InvokeTypes(2106, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, PatchSet, HeatFlux)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForceHeatFluxLoad', '{2167B2D8-7716-45D5-8C18-35C158A0209E}')
+		return ret
+
+	def CreateForceHeatGenerationLoad(self, strName, ElementSet, HeatGeneration):
+		'''
+		Creates a Heat Generation Load
+		
+		:param strName: str
+		:param ElementSet: IFFlexElementSet
+		:param HeatGeneration: IExpression
+		:rtype: recurdyn.FFlex.IFFlexLoadHeatGeneration
+		'''
+		ret = self._oleobj_.InvokeTypes(2105, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, ElementSet, HeatGeneration)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForceHeatGenerationLoad', '{03977164-5C40-4BEF-A912-806879FAC6DA}')
+		return ret
+
+	def CreateForceNodalTemperatureLoad(self, strName, NodeSet, Temperature):
+		'''
+		Creates a Nodal Temperature Load
+		
+		:param strName: str
+		:param NodeSet: IFFlexNodeSet
+		:param Temperature: IExpression
+		:rtype: recurdyn.FFlex.IFFlexLoadNodalTemperature
+		'''
+		ret = self._oleobj_.InvokeTypes(2104, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, NodeSet, Temperature)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForceNodalTemperatureLoad', '{CB65FF8A-8A83-4951-B3C7-0402BBA16146}')
+		return ret
+
+	def CreateForcePressureLoad(self, strName, pPatchSet):
+		'''
+		Creates a PressureLoad
+		
+		:param strName: str
+		:param pPatchSet: IFFlexPatchSet
+		:rtype: recurdyn.FFlex.IFFlexLoadPressure
+		'''
+		ret = self._oleobj_.InvokeTypes(2063, LCID, 1, (9, 0), ((8, 1), (9, 1)),strName
+			, pPatchSet)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForcePressureLoad', '{2168FEF3-7A08-4252-8DDE-4F418CD3B876}')
+		return ret
+
+	def CreateForcePressureLoad2(self, strName, pPatchSet, pIExpression):
+		'''
+		Creates a PressureLoad with Expresion
+		
+		:param strName: str
+		:param pPatchSet: IFFlexPatchSet
+		:param pIExpression: IExpression
+		:rtype: recurdyn.FFlex.IFFlexLoadPressure
+		'''
+		ret = self._oleobj_.InvokeTypes(2101, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pPatchSet, pIExpression)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForcePressureLoad2', '{2168FEF3-7A08-4252-8DDE-4F418CD3B876}')
+		return ret
+
+	def CreateForceThermalLoad(self, strName, NodeSet, Temperature):
+		'''
+		Creates a Thermal Load
+		
+		:param strName: str
+		:param NodeSet: IFFlexNodeSet
+		:param Temperature: IExpression
+		:rtype: recurdyn.FFlex.IFFlexLoadThermal
+		'''
+		ret = self._oleobj_.InvokeTypes(2102, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, NodeSet, Temperature)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForceThermalLoad', '{5078278E-AF8C-43F0-B77D-4D12F522E380}')
+		return ret
+
+	def CreateForceThermalLoad2(self, strName, NodeSet, RefMarker, RTLFileName):
+		'''
+		Creates a Thermal Load with RTL File
+		
+		:param strName: str
+		:param NodeSet: IFFlexNodeSet
+		:param RefMarker: IMarker
+		:param RTLFileName: str
+		:rtype: recurdyn.FFlex.IFFlexLoadThermal
+		'''
+		ret = self._oleobj_.InvokeTypes(2103, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1), (8, 1)),strName
+			, NodeSet, RefMarker, RTLFileName)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateForceThermalLoad2', '{5078278E-AF8C-43F0-B77D-4D12F522E380}')
+		return ret
+
+	def CreateMarker(self, strName, pIGeneric, pIRefFrame):
+		'''
+		Creates a marker
+		
+		:param strName: str
+		:param pIGeneric: IGeneric
+		:param pIRefFrame: IReferenceFrame
+		:rtype: recurdyn.ProcessNet.IMarker
+		'''
+		ret = self._oleobj_.InvokeTypes(2064, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1)),strName
+			, pIGeneric, pIRefFrame)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateMarker', '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')
+		return ret
+
+	def CreateMarkerOnNode(self, strName, pIFFlexBody, nNodeID):
+		'''
+		Creates a marker on node
+		
+		:param strName: str
+		:param pIFFlexBody: IFFlexBody
+		:param nNodeID: int
+		:rtype: recurdyn.ProcessNet.IMarker
+		'''
+		ret = self._oleobj_.InvokeTypes(2065, LCID, 1, (9, 0), ((8, 1), (9, 1), (19, 1)),strName
+			, pIFFlexBody, nNodeID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateMarkerOnNode', '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')
+		return ret
+
+	def ExportDurabilityInterfaceFile(self, pExportDurabilityInterfaceOption):
+		'''
+		Export Durability Interface
+		
+		:param pExportDurabilityInterfaceOption: IFFlexExportDurabilityInterfaceOption
+		'''
+		return self._oleobj_.InvokeTypes(2080, LCID, 1, (24, 0), ((9, 1),),pExportDurabilityInterfaceOption
+			)
+
+
+	def ExportMeshDataAnsysType(self, pExportMeshDataCommonOption, pUnitForLength):
+		'''
+		Export Mesh Data Ansys Type
+		
+		:param pExportMeshDataCommonOption: IFFlexExportMeshDataCommonOption
+		:param pUnitForLength: IUnit
+		'''
+		return self._oleobj_.InvokeTypes(2082, LCID, 1, (24, 0), ((9, 1), (9, 1)),pExportMeshDataCommonOption
+			, pUnitForLength)
+
+
+	def ExportMeshDataNastranType(self, pExportMeshDataCommonOption, pExportMeshDataNastranFormatOption):
+		'''
+		Export Mesh Data Nastran Type
+		
+		:param pExportMeshDataCommonOption: IFFlexExportMeshDataCommonOption
+		:param pExportMeshDataNastranFormatOption: IFFlexExportMeshDataNastranFormatOption
+		'''
+		return self._oleobj_.InvokeTypes(2081, LCID, 1, (24, 0), ((9, 1), (9, 1)),pExportMeshDataCommonOption
+			, pExportMeshDataNastranFormatOption)
+
+
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def ImportBody(self, strName, pRefFrame, pBodyImportOption, UnitFactor):
+		'''
+		Import FFlexBody with predefined option
+		
+		:param strName: str
+		:param pRefFrame: IReferenceFrame
+		:param pBodyImportOption: IFFlexBodyImportOption
+		:param UnitFactor: IUnit
+		:rtype: recurdyn.FFlex.IFFlexBody
+		'''
+		ret = self._oleobj_.InvokeTypes(2053, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1), (9, 1)),strName
+			, pRefFrame, pBodyImportOption, UnitFactor)
+		if ret is not None:
+			ret = Dispatch(ret, 'ImportBody', '{6302A81A-B3C0-404D-9179-8B17C939856D}')
+		return ret
+
+	def MergeFFlexBody(self, pOption):
+		'''
+		Merge two FFlex bodies
+		
+		:param pOption: IFFlexBodyMergeOption
+		'''
+		return self._oleobj_.InvokeTypes(2098, LCID, 1, (24, 0), ((9, 1),),pOption
+			)
+
+
+	def RTLGeneration(self, option):
+		'''
+		RTL Generation
+		
+		:param option: IFFlexRTLGenerationOption
+		'''
+		return self._oleobj_.InvokeTypes(2109, LCID, 1, (24, 0), ((9, 1),),option
+			)
+
+
+	def SplitFFlexBody(self, pBody, pSet):
+		'''
+		Split a FFlex body
+		
+		:param pBody: IFFlexBody
+		:param pSet: IFFlexElementSet
+		:rtype: recurdyn.FFlex.IFFlexBody
+		'''
+		ret = self._oleobj_.InvokeTypes(2099, LCID, 1, (9, 0), ((9, 1), (9, 1)),pBody
+			, pSet)
+		if ret is not None:
+			ret = Dispatch(ret, 'SplitFFlexBody', '{6302A81A-B3C0-404D-9179-8B17C939856D}')
+		return ret
+
+	def SwapBody(self, strName, pTargetBody, pBodyImportOption, UnitFactor):
+		'''
+		Swap Existing Body for FFlexBody
+		
+		:param strName: str
+		:param pTargetBody: IBody
+		:param pBodyImportOption: IFFlexBodyImportOption
+		:param UnitFactor: IUnit
+		:rtype: recurdyn.FFlex.IFFlexBody
+		'''
+		ret = self._oleobj_.InvokeTypes(2054, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1), (9, 1)),strName
+			, pTargetBody, pBodyImportOption, UnitFactor)
+		if ret is not None:
+			ret = Dispatch(ret, 'SwapBody', '{6302A81A-B3C0-404D-9179-8B17C939856D}')
+		return ret
+
+	def SwapBodyGeneral(self, strName, pTargetBody, pBodyImportOption, UnitFactor):
+		'''
+		Swap Existing Body for FFlexBody
+		
+		:param strName: str
+		:param pTargetBody: IGeneric
+		:param pBodyImportOption: IFFlexBodyImportOption
+		:param UnitFactor: IUnit
+		:rtype: recurdyn.FFlex.IFFlexBody
+		'''
+		ret = self._oleobj_.InvokeTypes(2093, LCID, 1, (9, 0), ((8, 1), (9, 1), (9, 1), (9, 1)),strName
+			, pTargetBody, pBodyImportOption, UnitFactor)
+		if ret is not None:
+			ret = Dispatch(ret, 'SwapBodyGeneral', '{6302A81A-B3C0-404D-9179-8B17C939856D}')
+		return ret
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_Contour(self):
+		return self._ApplyTypes_(*(2086, 2, (9, 0), (), "Contour", '{BDF4F979-28B7-48D2-BF06-9C59B70D467B}'))
+	def _get_ExportDurabilityInterfaceOption(self):
+		return self._ApplyTypes_(*(2083, 2, (9, 0), (), "ExportDurabilityInterfaceOption", '{F5429319-6E49-422B-BBB1-28B50A31AC88}'))
+	def _get_ExportMeshDataCommonOption(self):
+		return self._ApplyTypes_(*(2084, 2, (9, 0), (), "ExportMeshDataCommonOption", '{04EADBFF-E43A-482B-985E-984B9C9E4E03}'))
+	def _get_ExportMeshDataNastranFormatOption(self):
+		return self._ApplyTypes_(*(2085, 2, (9, 0), (), "ExportMeshDataNastranFormatOption", '{05CFB844-ADD5-46ED-AE95-532DA20EFF22}'))
+	def _get_FFlexBodyCollection(self):
+		return self._ApplyTypes_(*(2070, 2, (9, 0), (), "FFlexBodyCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB5}'))
+	def _get_FFlexBodyMergeOption(self):
+		return self._ApplyTypes_(*(2097, 2, (9, 0), (), "FFlexBodyMergeOption", '{837B713B-97C2-4238-93BB-B36A2D46AD0E}'))
+	def _get_FFlexContactCollection(self):
+		return self._ApplyTypes_(*(2071, 2, (9, 0), (), "FFlexContactCollection", '{179D3515-9CD6-4537-B668-0B90072CC73B}'))
+	def _get_FFlexLoadCollection(self):
+		return self._ApplyTypes_(*(2072, 2, (9, 0), (), "FFlexLoadCollection", '{D5094FE6-D4C1-4157-951C-38E79636352D}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_GeneralSubSystem(self):
+		return self._ApplyTypes_(*(2051, 2, (9, 0), (), "GeneralSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_ImportBodyOption(self):
+		return self._ApplyTypes_(*(2052, 2, (9, 0), (), "ImportBodyOption", '{5B77012F-9E8B-4C5A-B418-ABC53AB8BDC9}'))
+	def _get_MeshMode(self):
+		return self._ApplyTypes_(*(2089, 2, (9, 0), (), "MeshMode", '{D2FA19C5-A579-44BC-8096-B544B165853D}'))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_OutputFileRegenerator(self):
+		return self._ApplyTypes_(*(2090, 2, (9, 0), (), "OutputFileRegenerator", '{67734FD0-EBD1-40DE-ADD5-11D4490D0E4F}'))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_RTLGenerationOption(self):
+		return self._ApplyTypes_(*(2108, 2, (9, 0), (), "RTLGenerationOption", '{E251879E-85B5-4FDE-8C34-F414F1D2A4BD}'))
+	def _get_ToolFunction(self):
+		return self._ApplyTypes_(*(2092, 2, (9, 0), (), "ToolFunction", '{2929013E-6D50-4228-879E-0C6F3DE83187}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	Contour = property(_get_Contour, None)
+	'''
+	Get Contour
+
+	:type: recurdyn.Flexible.IContour
+	'''
+	ExportDurabilityInterfaceOption = property(_get_ExportDurabilityInterfaceOption, None)
+	'''
+	Export Durability Interface option
+
+	:type: recurdyn.FFlex.IFFlexExportDurabilityInterfaceOption
+	'''
+	ExportMeshDataCommonOption = property(_get_ExportMeshDataCommonOption, None)
+	'''
+	Export Mesh Data Common option
+
+	:type: recurdyn.FFlex.IFFlexExportMeshDataCommonOption
+	'''
+	ExportMeshDataNastranFormatOption = property(_get_ExportMeshDataNastranFormatOption, None)
+	'''
+	Export Mesh Data Nastran Format option
+
+	:type: recurdyn.FFlex.IFFlexExportMeshDataNastranFormatOption
+	'''
+	FFlexBodyCollection = property(_get_FFlexBodyCollection, None)
+	'''
+	Contains FFlexBody
+
+	:type: recurdyn.FFlex.IFFlexBodyCollection
+	'''
+	FFlexBodyMergeOption = property(_get_FFlexBodyMergeOption, None)
+	'''
+	FFlexBody merge option
+
+	:type: recurdyn.FFlex.IFFlexBodyMergeOption
+	'''
+	FFlexContactCollection = property(_get_FFlexContactCollection, None)
+	'''
+	Contains FFlexContact
+
+	:type: recurdyn.FFlex.IFFlexContactCollection
+	'''
+	FFlexLoadCollection = property(_get_FFlexLoadCollection, None)
+	'''
+	Contains FFlexLoad
+
+	:type: recurdyn.FFlex.IFFlexLoadCollection
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	GeneralSubSystem = property(_get_GeneralSubSystem, None)
+	'''
+	Access general SubSystem
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	ImportBodyOption = property(_get_ImportBodyOption, None)
+	'''
+	FFlexBody import option
+
+	:type: recurdyn.FFlex.IFFlexBodyImportOption
+	'''
+	MeshMode = property(_get_MeshMode, None)
+	'''
+	Get Mesh Mode
+
+	:type: recurdyn.FFlex.IMeshMode
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	OutputFileRegenerator = property(_get_OutputFileRegenerator, None)
+	'''
+	Get Output File Regenerator
+
+	:type: recurdyn.FFlex.IFFlexOutputFileRegenerator
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	RTLGenerationOption = property(_get_RTLGenerationOption, None)
+	'''
+	RTL Generation option
+
+	:type: recurdyn.FFlex.IFFlexRTLGenerationOption
+	'''
+	ToolFunction = property(_get_ToolFunction, None)
+	'''
+	FFlexBody Tool Function
+
+	:type: recurdyn.FFlex.IFFlexToolFunction
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"Contour": (2086, 2, (9, 0), (), "Contour", '{BDF4F979-28B7-48D2-BF06-9C59B70D467B}'),
+		"ExportDurabilityInterfaceOption": (2083, 2, (9, 0), (), "ExportDurabilityInterfaceOption", '{F5429319-6E49-422B-BBB1-28B50A31AC88}'),
+		"ExportMeshDataCommonOption": (2084, 2, (9, 0), (), "ExportMeshDataCommonOption", '{04EADBFF-E43A-482B-985E-984B9C9E4E03}'),
+		"ExportMeshDataNastranFormatOption": (2085, 2, (9, 0), (), "ExportMeshDataNastranFormatOption", '{05CFB844-ADD5-46ED-AE95-532DA20EFF22}'),
+		"FFlexBodyCollection": (2070, 2, (9, 0), (), "FFlexBodyCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB5}'),
+		"FFlexBodyMergeOption": (2097, 2, (9, 0), (), "FFlexBodyMergeOption", '{837B713B-97C2-4238-93BB-B36A2D46AD0E}'),
+		"FFlexContactCollection": (2071, 2, (9, 0), (), "FFlexContactCollection", '{179D3515-9CD6-4537-B668-0B90072CC73B}'),
+		"FFlexLoadCollection": (2072, 2, (9, 0), (), "FFlexLoadCollection", '{D5094FE6-D4C1-4157-951C-38E79636352D}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"GeneralSubSystem": (2051, 2, (9, 0), (), "GeneralSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"ImportBodyOption": (2052, 2, (9, 0), (), "ImportBodyOption", '{5B77012F-9E8B-4C5A-B418-ABC53AB8BDC9}'),
+		"MeshMode": (2089, 2, (9, 0), (), "MeshMode", '{D2FA19C5-A579-44BC-8096-B544B165853D}'),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"OutputFileRegenerator": (2090, 2, (9, 0), (), "OutputFileRegenerator", '{67734FD0-EBD1-40DE-ADD5-11D4490D0E4F}'),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"RTLGenerationOption": (2108, 2, (9, 0), (), "RTLGenerationOption", '{E251879E-85B5-4FDE-8C34-F414F1D2A4BD}'),
+		"ToolFunction": (2092, 2, (9, 0), (), "ToolFunction", '{2929013E-6D50-4228-879E-0C6F3DE83187}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IFFlexToolkitBody(DispatchBaseClass):
+	'''Toolkit FFlex Body interface'''
+	CLSID = IID('{9257FD72-F3D0-4E57-A114-2045356D78CD}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def CreateElementSet(self, strName, arrElementID):
+		'''
+		Create a element set
+		
+		:param strName: str
+		:param arrElementID: list[int]
+		:rtype: recurdyn.FFlex.IFFlexElementSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2014, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrElementID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateElementSet', '{41220408-E869-466A-8D1E-03B99F02568B}')
+		return ret
+
+	def CreateLineSet(self, strName, arrNodeID):
+		'''
+		Create a line set
+		
+		:param strName: str
+		:param arrNodeID: list[int]
+		:rtype: recurdyn.FFlex.IFFlexLineSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2017, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrNodeID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateLineSet', '{580DC463-613E-406A-B54C-42952E1FB79F}')
+		return ret
+
+	def CreateMarker(self, strName, pRefFrame):
+		'''
+		Create a marker
+		
+		:param strName: str
+		:param pRefFrame: IReferenceFrame
+		:rtype: recurdyn.ProcessNet.IMarker
+		'''
+		ret = self._oleobj_.InvokeTypes(2009, LCID, 1, (9, 0), ((8, 1), (9, 1)),strName
+			, pRefFrame)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateMarker', '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')
+		return ret
+
+	def CreateMarkerOnNode(self, strName, uiNodeID):
+		'''
+		Create a marker on target node
+		
+		:param strName: str
+		:param uiNodeID: int
+		:rtype: recurdyn.ProcessNet.IMarker
+		'''
+		ret = self._oleobj_.InvokeTypes(2010, LCID, 1, (9, 0), ((8, 1), (19, 1)),strName
+			, uiNodeID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateMarkerOnNode', '{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')
+		return ret
+
+	def CreateNodeSet(self, strName, arrNodeID):
+		'''
+		Create a node set
+		
+		:param strName: str
+		:param arrNodeID: list[int]
+		:rtype: recurdyn.FFlex.IFFlexNodeSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2013, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrNodeID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreateNodeSet', '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')
+		return ret
+
+	def CreatePatchSet(self, strName, arrNodeID):
+		'''
+		Create a patch set
+		
+		:param strName: str
+		:param arrNodeID: list[int]
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2015, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrNodeID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreatePatchSet', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def CreatePatchSetWithElementIDs(self, strName, arrElementID):
+		'''
+		Create a patch set with ElementIDs
+		
+		:param strName: str
+		:param arrElementID: list[int]
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2016, LCID, 1, (9, 0), ((8, 1), (8195, 1)),strName
+			, arrElementID)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreatePatchSetWithElementIDs', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def GetElementByID(self, nID):
+		'''
+		Get element by ID
+		
+		:param nID: int
+		:rtype: recurdyn.FFlex.IFFlexElement
+		'''
+		ret = self._oleobj_.InvokeTypes(2008, LCID, 1, (9, 0), ((3, 1),),nID
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GetElementByID', '{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')
+		return ret
+
+	def GetNodeByID(self, nID):
+		'''
+		Get node by ID
+		
+		:param nID: int
+		:rtype: recurdyn.FFlex.IFFlexNode
+		'''
+		ret = self._oleobj_.InvokeTypes(2007, LCID, 1, (9, 0), ((3, 1),),nID
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GetNodeByID', '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')
+		return ret
+
+	def GetRDGeneric(self):
+		'''
+		FunctionBay Internal Use Only
+		
+		:rtype: int
+		'''
+		return self._oleobj_.InvokeTypes(51, LCID, 1, (20, 0), (),)
+
+
+	def _get_Comment(self):
+		return self._ApplyTypes_(*(102, 2, (8, 0), (), "Comment", None))
+	def _get_DisplaySetting(self):
+		return self._ApplyTypes_(*(2011, 2, (9, 0), (), "DisplaySetting", '{3FDF0768-0052-4B63-9D84-A644C3152051}'))
+	def _get_ExportShellFormatData(self):
+		return self._ApplyTypes_(*(2012, 2, (9, 0), (), "ExportShellFormatData", '{2EE15E44-AD0C-4D9B-B53A-35BF7F1E1322}'))
+	def _get_FFlexElementCollection(self):
+		return self._ApplyTypes_(*(2002, 2, (9, 0), (), "FFlexElementCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB6}'))
+	def _get_FFlexElementSetCollection(self):
+		return self._ApplyTypes_(*(2004, 2, (9, 0), (), "FFlexElementSetCollection", '{965101C9-95C4-4E9A-A2E7-CC202EBC2FC3}'))
+	def _get_FFlexLineSetCollection(self):
+		return self._ApplyTypes_(*(2006, 2, (9, 0), (), "FFlexLineSetCollection", '{8235613D-438F-415F-9220-B8A72A332DFA}'))
+	def _get_FFlexNodeCollection(self):
+		return self._ApplyTypes_(*(2001, 2, (9, 0), (), "FFlexNodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'))
+	def _get_FFlexNodeSetCollection(self):
+		return self._ApplyTypes_(*(2003, 2, (9, 0), (), "FFlexNodeSetCollection", '{87219716-6C18-4072-BE27-EAA12BA9D444}'))
+	def _get_FFlexPatchSetCollection(self):
+		return self._ApplyTypes_(*(2005, 2, (9, 0), (), "FFlexPatchSetCollection", '{371C9D93-0F28-4531-833B-BE362169A845}'))
+	def _get_FullName(self):
+		return self._ApplyTypes_(*(103, 2, (8, 0), (), "FullName", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(101, 2, (8, 0), (), "Name", None))
+	def _get_Owner(self):
+		return self._ApplyTypes_(*(106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_OwnerBody(self):
+		return self._ApplyTypes_(*(105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'))
+	def _get_OwnerSubSystem(self):
+		return self._ApplyTypes_(*(104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'))
+	def _get_UserData(self):
+		return self._ApplyTypes_(*(107, 2, (8, 0), (), "UserData", None))
+
+	def _set_Comment(self, value):
+		if "Comment" in self.__dict__: self.__dict__["Comment"] = value; return
+		self._oleobj_.Invoke(*((102, LCID, 4, 0) + (value,) + ()))
+	def _set_Name(self, value):
+		if "Name" in self.__dict__: self.__dict__["Name"] = value; return
+		self._oleobj_.Invoke(*((101, LCID, 4, 0) + (value,) + ()))
+	def _set_UserData(self, value):
+		if "UserData" in self.__dict__: self.__dict__["UserData"] = value; return
+		self._oleobj_.Invoke(*((107, LCID, 4, 0) + (value,) + ()))
+
+	Comment = property(_get_Comment, _set_Comment)
+	'''
+	Comment
+
+	:type: str
+	'''
+	DisplaySetting = property(_get_DisplaySetting, None)
+	'''
+	Get Display Setting
+
+	:type: recurdyn.Flexible.IDisplaySetting
+	'''
+	ExportShellFormatData = property(_get_ExportShellFormatData, None)
+	'''
+	Get Export Shell Format Data
+
+	:type: recurdyn.Flexible.IExportShellFormatData
+	'''
+	FFlexElementCollection = property(_get_FFlexElementCollection, None)
+	'''
+	Contains Element
+
+	:type: recurdyn.FFlex.IFFlexElementCollection
+	'''
+	FFlexElementSetCollection = property(_get_FFlexElementSetCollection, None)
+	'''
+	Contains ElementSet
+
+	:type: recurdyn.FFlex.IFFlexElementSetCollection
+	'''
+	FFlexLineSetCollection = property(_get_FFlexLineSetCollection, None)
+	'''
+	Contains LineSet
+
+	:type: recurdyn.FFlex.IFFlexLineSetCollection
+	'''
+	FFlexNodeCollection = property(_get_FFlexNodeCollection, None)
+	'''
+	Contains Node
+
+	:type: recurdyn.FFlex.IFFlexNodeCollection
+	'''
+	FFlexNodeSetCollection = property(_get_FFlexNodeSetCollection, None)
+	'''
+	Contains NodeSet
+
+	:type: recurdyn.FFlex.IFFlexNodeSetCollection
+	'''
+	FFlexPatchSetCollection = property(_get_FFlexPatchSetCollection, None)
+	'''
+	Contains PatchSet
+
+	:type: recurdyn.FFlex.IFFlexPatchSetCollection
+	'''
+	FullName = property(_get_FullName, None)
+	'''
+	FullName such as Body1.Marker1@Model1
+
+	:type: str
+	'''
+	Name = property(_get_Name, _set_Name)
+	'''
+	Name
+
+	:type: str
+	'''
+	Owner = property(_get_Owner, None)
+	'''
+	Owner returns owning IGeneric interface, use Owner for IRFlexBody, IFFlexBody
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	OwnerBody = property(_get_OwnerBody, None)
+	'''
+	OwnerBody returns owning IBody interface
+
+	:type: recurdyn.ProcessNet.IBody
+	'''
+	OwnerSubSystem = property(_get_OwnerSubSystem, None)
+	'''
+	OwnerSubSystem returns owning ISubSubSystem interface
+
+	:type: recurdyn.ProcessNet.ISubSystem
+	'''
+	UserData = property(_get_UserData, _set_UserData)
+	'''
+	User supplied data
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Comment": _set_Comment,
+		"_set_Name": _set_Name,
+		"_set_UserData": _set_UserData,
+	}
+	_prop_map_get_ = {
+		"Comment": (102, 2, (8, 0), (), "Comment", None),
+		"DisplaySetting": (2011, 2, (9, 0), (), "DisplaySetting", '{3FDF0768-0052-4B63-9D84-A644C3152051}'),
+		"ExportShellFormatData": (2012, 2, (9, 0), (), "ExportShellFormatData", '{2EE15E44-AD0C-4D9B-B53A-35BF7F1E1322}'),
+		"FFlexElementCollection": (2002, 2, (9, 0), (), "FFlexElementCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB6}'),
+		"FFlexElementSetCollection": (2004, 2, (9, 0), (), "FFlexElementSetCollection", '{965101C9-95C4-4E9A-A2E7-CC202EBC2FC3}'),
+		"FFlexLineSetCollection": (2006, 2, (9, 0), (), "FFlexLineSetCollection", '{8235613D-438F-415F-9220-B8A72A332DFA}'),
+		"FFlexNodeCollection": (2001, 2, (9, 0), (), "FFlexNodeCollection", '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}'),
+		"FFlexNodeSetCollection": (2003, 2, (9, 0), (), "FFlexNodeSetCollection", '{87219716-6C18-4072-BE27-EAA12BA9D444}'),
+		"FFlexPatchSetCollection": (2005, 2, (9, 0), (), "FFlexPatchSetCollection", '{371C9D93-0F28-4531-833B-BE362169A845}'),
+		"FullName": (103, 2, (8, 0), (), "FullName", None),
+		"Name": (101, 2, (8, 0), (), "Name", None),
+		"Owner": (106, 2, (9, 0), (), "Owner", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"OwnerBody": (105, 2, (9, 0), (), "OwnerBody", '{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}'),
+		"OwnerSubSystem": (104, 2, (9, 0), (), "OwnerSubSystem", '{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}'),
+		"UserData": (107, 2, (8, 0), (), "UserData", None),
+	}
+	_prop_map_put_ = {
+		"Comment": ((102, LCID, 4, 0),()),
+		"Name": ((101, LCID, 4, 0),()),
+		"UserData": ((107, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMeshMode(DispatchBaseClass):
+	'''Mesher'''
+	CLSID = IID('{D2FA19C5-A579-44BC-8096-B544B165853D}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def AddImprintNodeSet(self, pVal):
+		'''
+		Add node set to imprint
+		
+		:param pVal: IFFlexNodeSet
+		'''
+		return self._oleobj_.InvokeTypes(2120, LCID, 1, (24, 0), ((9, 1),),pVal
+			)
+
+
+	def AdvancedMesh(self):
+		'''
+		Advanced mesh
+		'''
+		return self._oleobj_.InvokeTypes(2109, LCID, 1, (24, 0), (),)
+
+
+	def AdvancedMeshOption(self, pVal):
+		'''
+		Advanced mesh option
+		
+		:param pVal: IGeometry
+		:rtype: recurdyn.FFlex.IMesherAdvancedMeshOption
+		'''
+		ret = self._oleobj_.InvokeTypes(2108, LCID, 1, (9, 0), ((9, 1),),pVal
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'AdvancedMeshOption', '{BCDC5A57-0884-491D-A239-546282F794CE}')
+		return ret
+
+	def AssistModeling(self, pVal):
+		'''
+		Assist modeling
+		
+		:param pVal: IGeometry
+		:rtype: recurdyn.FFlex.IMesherAssistModeling
+		'''
+		ret = self._oleobj_.InvokeTypes(2111, LCID, 1, (9, 0), ((9, 1),),pVal
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'AssistModeling', '{22952159-A8DE-49AD-A59E-7D85147A7223}')
+		return ret
+
+	def BeamMesh(self):
+		'''
+		Beam mesh
+		'''
+		return self._oleobj_.InvokeTypes(2141, LCID, 1, (24, 0), (),)
+
+
+	def BeamMeshOption(self, pVal):
+		'''
+		Beam mesh option
+		
+		:param pVal: IGeometry
+		:rtype: recurdyn.FFlex.IMesherBeamMeshOption
+		'''
+		ret = self._oleobj_.InvokeTypes(2140, LCID, 1, (9, 0), ((9, 1),),pVal
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'BeamMeshOption', '{C87D803F-9025-4DBA-A7D1-0FBEFDBBC949}')
+		return ret
+
+	def ChangeNodePositionsToImprintPoints(self, val):
+		'''
+		Change node positions to imprint points
+		
+		:param val: float
+		'''
+		return self._oleobj_.InvokeTypes(2123, LCID, 1, (24, 0), ((5, 1),),val
+			)
+
+
+	def CombineShell3(self, pElemFirst, pElemSecond):
+		'''
+		Combine two shell3 elements
+		
+		:param pElemFirst: IFFlexElement
+		:param pElemSecond: IFFlexElement
+		'''
+		return self._oleobj_.InvokeTypes(2128, LCID, 1, (24, 0), ((9, 1), (9, 1)),pElemFirst
+			, pElemSecond)
+
+
+	def CreatePatchSetWithFaces(self, strName, pFaceArray):
+		'''
+		Create a patch set with faces of a rigid body
+		
+		:param strName: str
+		:param pFaceArray: list[str]
+		:rtype: recurdyn.FFlex.IFFlexPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2126, LCID, 1, (9, 0), ((8, 1), (8200, 1)),strName
+			, pFaceArray)
+		if ret is not None:
+			ret = Dispatch(ret, 'CreatePatchSetWithFaces', '{4E4DF082-A504-46FA-84EC-6451025A4E33}')
+		return ret
+
+	def DeleteImprintNodeSet(self, pVal):
+		'''
+		Delete node set to imprint
+		
+		:param pVal: IFFlexNodeSet
+		'''
+		return self._oleobj_.InvokeTypes(2121, LCID, 1, (24, 0), ((9, 1),),pVal
+			)
+
+
+	def End(self):
+		'''
+		Exit from the mesh mode
+		
+		:rtype: recurdyn.FFlex.IFFlexBody
+		'''
+		ret = self._oleobj_.InvokeTypes(2105, LCID, 1, (9, 0), (),)
+		if ret is not None:
+			ret = Dispatch(ret, 'End', '{6302A81A-B3C0-404D-9179-8B17C939856D}')
+		return ret
+
+	def FlexMerge(self, pSource, dTolerance):
+		'''
+		Merge result elements of meshing
+		
+		:param pSource: list[str]
+		:param dTolerance: float
+		'''
+		return self._oleobj_.InvokeTypes(2135, LCID, 1, (24, 0), ((8200, 1), (5, 1)),pSource
+			, dTolerance)
+
+
+	def GenerateAssistModeling(self):
+		'''
+		Asisst Modeling for generating FDRs, line sets and patch sets after meshing
+		
+		:rtype: recurdyn.FFlex.IMesherAssistModeling
+		'''
+		ret = self._oleobj_.InvokeTypes(2122, LCID, 1, (9, 0), (),)
+		if ret is not None:
+			ret = Dispatch(ret, 'GenerateAssistModeling', '{22952159-A8DE-49AD-A59E-7D85147A7223}')
+		return ret
+
+	def GeometryRefinement(self, pVal):
+		'''
+		Geometry refinement
+		
+		:param pVal: IGeometry
+		:rtype: recurdyn.FFlex.IMesherGeometryRefinement
+		'''
+		ret = self._oleobj_.InvokeTypes(2110, LCID, 1, (9, 0), ((9, 1),),pVal
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GeometryRefinement', '{3BFCDA3B-C39F-457A-BE5E-F7F169221C06}')
+		return ret
+
+	def ImprintEdge(self, pTargetBody, pToolBody):
+		'''
+		Imprint edge
+		
+		:param pTargetBody: IGeometry
+		:param pToolBody: IGeometry
+		'''
+		return self._oleobj_.InvokeTypes(2114, LCID, 1, (24, 0), ((9, 1), (9, 1)),pTargetBody
+			, pToolBody)
+
+
+	def ImprintLine(self, pTargetGeometry, strName, pDirection):
+		'''
+		Imprint Edge with a LineSet or a PatchSet
+		
+		:param pTargetGeometry: IGeometry
+		:param strName: str
+		:param pDirection: list[float]
+		'''
+		return self._oleobj_.InvokeTypes(2137, LCID, 1, (24, 0), ((9, 1), (8, 1), (8197, 1)),pTargetGeometry
+			, strName, pDirection)
+
+
+	def ImprintLineSet(self, pVal):
+		'''
+		Imprint Line
+		
+		:param pVal: IGeometry
+		:rtype: recurdyn.FFlex.IMesherImprintLineSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2133, LCID, 1, (9, 0), ((9, 1),),pVal
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'ImprintLineSet', '{0EC4E9EC-52FC-48B8-99CB-201A060B9F33}')
+		return ret
+
+	def ImprintLineWithOption(self, pTargetEntity, strName, pIOption):
+		'''
+		Imprint edges on the geometry with otpions
+		
+		:param pTargetEntity: IGeometry
+		:param strName: str
+		:param pIOption: IImprintEdgeOption
+		:rtype: recurdyn.ProcessNet.IGeometry
+		'''
+		ret = self._oleobj_.InvokeTypes(2139, LCID, 1, (9, 0), ((9, 1), (8, 1), (9, 1)),pTargetEntity
+			, strName, pIOption)
+		if ret is not None:
+			ret = Dispatch(ret, 'ImprintLineWithOption', '{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')
+		return ret
+
+	def ImprintPatchSet(self, pVal):
+		'''
+		Imprint Patch
+		
+		:param pVal: IGeometry
+		:rtype: recurdyn.FFlex.IMesherImprintPatchSet
+		'''
+		ret = self._oleobj_.InvokeTypes(2134, LCID, 1, (9, 0), ((9, 1),),pVal
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'ImprintPatchSet', '{D33A9F82-B096-42D3-B9F7-136A635FDB57}')
+		return ret
+
+	def ManualMesh(self):
+		'''
+		Manual mesh
+		'''
+		return self._oleobj_.InvokeTypes(2117, LCID, 1, (24, 0), (),)
+
+
+	def ManualMeshOption(self, Type):
+		'''
+		Manual mesh option
+		
+		:param Type: ManualMeshType
+		:rtype: recurdyn.FFlex.IMesherManualMeshOption
+		'''
+		ret = self._oleobj_.InvokeTypes(2116, LCID, 1, (9, 0), ((3, 1),),Type
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'ManualMeshOption', '{53DBAC32-9F55-4985-9D4C-72273C33F567}')
+		return ret
+
+	def Mesh(self):
+		'''
+		Mesh method
+		'''
+		return self._oleobj_.InvokeTypes(2103, LCID, 1, (24, 0), (),)
+
+
+	def MeshOption(self, pVal):
+		'''
+		Mesh option
+		
+		:param pVal: IGeometry
+		:rtype: recurdyn.FFlex.IMesherMeshOption
+		'''
+		ret = self._oleobj_.InvokeTypes(2102, LCID, 1, (9, 0), ((9, 1),),pVal
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'MeshOption', '{422ADC13-1282-476A-870B-79AF4BAED1D4}')
+		return ret
+
+	def MeshOptionWithShellMeshInfo(self):
+		'''
+		Mesh option with current shell mesh information
+		
+		:rtype: recurdyn.FFlex.IMesherMeshOption
+		'''
+		ret = self._oleobj_.InvokeTypes(2127, LCID, 1, (9, 0), (),)
+		if ret is not None:
+			ret = Dispatch(ret, 'MeshOptionWithShellMeshInfo', '{422ADC13-1282-476A-870B-79AF4BAED1D4}')
+		return ret
+
+	def NodeMergeWithElement(self, pElement, pos):
+		'''
+		Merge nodes with an element
+		
+		:param pElement: IFFlexElement
+		:param pos: MergeNodePosition
+		'''
+		return self._oleobj_.InvokeTypes(2132, LCID, 1, (24, 0), ((9, 1), (3, 1)),pElement
+			, pos)
+
+
+	def NodeMergeWithNodes(self, pNodeFirst, pNodeSecond, pos):
+		'''
+		Merge nodes with two nodes
+		
+		:param pNodeFirst: IFFlexNode
+		:param pNodeSecond: IFFlexNode
+		:param pos: MergeNodePosition
+		'''
+		return self._oleobj_.InvokeTypes(2131, LCID, 1, (24, 0), ((9, 1), (9, 1), (3, 1)),pNodeFirst
+			, pNodeSecond, pos)
+
+
+	def NodePointCollection(self, pVal, val):
+		'''
+		3D point collection that is coincident with other flexible body.
+		
+		:param pVal: IFFlexBody
+		:param val: float
+		:rtype: recurdyn.ProcessNet.IPoint3DCollection
+		'''
+		ret = self._oleobj_.InvokeTypes(2118, LCID, 1, (9, 0), ((9, 1), (5, 1)),pVal
+			, val)
+		if ret is not None:
+			ret = Dispatch(ret, 'NodePointCollection', '{7AAA986F-35DD-4DCF-843A-CEBA8E09D33A}')
+		return ret
+
+	def QualityCheck(self):
+		'''
+		Quality check the mesh result
+		
+		:rtype: recurdyn.FFlex.IMesherQualityCheck
+		'''
+		ret = self._oleobj_.InvokeTypes(2112, LCID, 1, (9, 0), (),)
+		if ret is not None:
+			ret = Dispatch(ret, 'QualityCheck', '{A7DE6834-7983-4723-8B02-842CF33AB66C}')
+		return ret
+
+	def Remesh(self):
+		'''
+		Remesh method
+		'''
+		return self._oleobj_.InvokeTypes(2107, LCID, 1, (24, 0), (),)
+
+
+	def RemeshOption(self):
+		'''
+		Remesh option
+		
+		:rtype: recurdyn.FFlex.IMesherRemeshOption
+		'''
+		ret = self._oleobj_.InvokeTypes(2106, LCID, 1, (9, 0), (),)
+		if ret is not None:
+			ret = Dispatch(ret, 'RemeshOption', '{A0D78F70-FF33-4C16-92F2-CA86E74A945D}')
+		return ret
+
+	def Revert(self):
+		'''
+		Revert the mesh operation
+		'''
+		return self._oleobj_.InvokeTypes(2104, LCID, 1, (24, 0), (),)
+
+
+	def SelectOriginalGeometriesUsingGUI(self, val):
+		'''
+		Select original body geometries (faces, edges) by using GUI
+		
+		:param val: OriginalGeometryType
+		:rtype: list[str]
+		'''
+		return self._ApplyTypes_(2113, 1, (8200, 0), ((3, 1),), 'SelectOriginalGeometriesUsingGUI', None,val
+			)
+
+
+	def SplitShell4(self, pElemFirst):
+		'''
+		Split shell4 element
+		
+		:param pElemFirst: IFFlexElement
+		'''
+		return self._oleobj_.InvokeTypes(2129, LCID, 1, (24, 0), ((9, 1),),pElemFirst
+			)
+
+
+	def SplitShell4WithNodes(self, pNodeFirst, pNodeSecond):
+		'''
+		Split shell4 element with nodes
+		
+		:param pNodeFirst: IFFlexNode
+		:param pNodeSecond: IFFlexNode
+		'''
+		return self._oleobj_.InvokeTypes(2130, LCID, 1, (24, 0), ((9, 1), (9, 1)),pNodeFirst
+			, pNodeSecond)
+
+
+	def Start(self, pVal):
+		'''
+		Start the mesh mode
+		
+		:param pVal: IGeneric
+		'''
+		return self._oleobj_.InvokeTypes(2101, LCID, 1, (24, 0), ((9, 1),),pVal
+			)
+
+
+	def _get_FFlexBody(self):
+		return self._ApplyTypes_(*(2136, 2, (9, 0), (), "FFlexBody", '{6302A81A-B3C0-404D-9179-8B17C939856D}'))
+	def _get_ImprintEdgeOption(self):
+		return self._ApplyTypes_(*(2138, 2, (9, 0), (), "ImprintEdgeOption", '{48DE281A-8619-46F6-BAA5-3A429A0AF97E}'))
+	def _get_ImprintNodeSetCollection(self):
+		return self._ApplyTypes_(*(2119, 2, (9, 0), (), "ImprintNodeSetCollection", '{87219716-6C18-4072-BE27-EAA12BA9D444}'))
+	def _get_ImprintPointCollection(self):
+		return self._ApplyTypes_(*(2115, 2, (9, 0), (), "ImprintPointCollection", '{7AAA986F-35DD-4DCF-843A-CEBA8E09D33A}'))
+	def _get_ImprintPointTolerance(self):
+		return self._ApplyTypes_(*(2125, 2, (5, 0), (), "ImprintPointTolerance", None))
+	def _get_UseImprintPointTolerance(self):
+		return self._ApplyTypes_(*(2124, 2, (11, 0), (), "UseImprintPointTolerance", None))
+
+	def _set_ImprintPointTolerance(self, value):
+		if "ImprintPointTolerance" in self.__dict__: self.__dict__["ImprintPointTolerance"] = value; return
+		self._oleobj_.Invoke(*((2125, LCID, 4, 0) + (value,) + ()))
+	def _set_UseImprintPointTolerance(self, value):
+		if "UseImprintPointTolerance" in self.__dict__: self.__dict__["UseImprintPointTolerance"] = value; return
+		self._oleobj_.Invoke(*((2124, LCID, 4, 0) + (value,) + ()))
+
+	FFlexBody = property(_get_FFlexBody, None)
+	'''
+	FFlexBody in the mesh mode
+
+	:type: recurdyn.FFlex.IFFlexBody
+	'''
+	ImprintEdgeOption = property(_get_ImprintEdgeOption, None)
+	'''
+	Get imprint edge option
+
+	:type: recurdyn.ProcessNet.IImprintEdgeOption
+	'''
+	ImprintNodeSetCollection = property(_get_ImprintNodeSetCollection, None)
+	'''
+	Node set collection to imprint
+
+	:type: recurdyn.FFlex.IFFlexNodeSetCollection
+	'''
+	ImprintPointCollection = property(_get_ImprintPointCollection, None)
+	'''
+	3D point collection to imprint
+
+	:type: recurdyn.ProcessNet.IPoint3DCollection
+	'''
+	ImprintPointTolerance = property(_get_ImprintPointTolerance, _set_ImprintPointTolerance)
+	'''
+	Imprint point tolerance
+
+	:type: float
+	'''
+	UseImprintPointTolerance = property(_get_UseImprintPointTolerance, _set_UseImprintPointTolerance)
+	'''
+	Use imprint point tolerance
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ImprintPointTolerance": _set_ImprintPointTolerance,
+		"_set_UseImprintPointTolerance": _set_UseImprintPointTolerance,
+	}
+	_prop_map_get_ = {
+		"FFlexBody": (2136, 2, (9, 0), (), "FFlexBody", '{6302A81A-B3C0-404D-9179-8B17C939856D}'),
+		"ImprintEdgeOption": (2138, 2, (9, 0), (), "ImprintEdgeOption", '{48DE281A-8619-46F6-BAA5-3A429A0AF97E}'),
+		"ImprintNodeSetCollection": (2119, 2, (9, 0), (), "ImprintNodeSetCollection", '{87219716-6C18-4072-BE27-EAA12BA9D444}'),
+		"ImprintPointCollection": (2115, 2, (9, 0), (), "ImprintPointCollection", '{7AAA986F-35DD-4DCF-843A-CEBA8E09D33A}'),
+		"ImprintPointTolerance": (2125, 2, (5, 0), (), "ImprintPointTolerance", None),
+		"UseImprintPointTolerance": (2124, 2, (11, 0), (), "UseImprintPointTolerance", None),
+	}
+	_prop_map_put_ = {
+		"ImprintPointTolerance": ((2125, LCID, 4, 0),()),
+		"UseImprintPointTolerance": ((2124, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherAdvancedMeshOption(DispatchBaseClass):
+	'''Advanced mesh option'''
+	CLSID = IID('{BCDC5A57-0884-491D-A239-546282F794CE}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def AddSeedInfo(self, pMultiEdges, iNoOfElement):
+		'''
+		Add Seed Info
+		
+		:param pMultiEdges: list[str]
+		:param iNoOfElement: int
+		'''
+		return self._oleobj_.InvokeTypes(2168, LCID, 1, (24, 0), ((8200, 1), (19, 1)),pMultiEdges
+			, iNoOfElement)
+
+
+	def ClearSeedInfo(self):
+		'''
+		Clear Seed Info
+		'''
+		return self._oleobj_.InvokeTypes(2170, LCID, 1, (24, 0), (),)
+
+
+	def DeleteSeedInfo(self, pMultiEdges):
+		'''
+		Delete Seed Info
+		
+		:param pMultiEdges: list[str]
+		'''
+		return self._oleobj_.InvokeTypes(2169, LCID, 1, (24, 0), ((8200, 1),),pMultiEdges
+			)
+
+
+	def GetFFlexProperty(self, val):
+		'''
+		Get FFlex property
+		
+		:param val: FFlexPropertyType
+		:rtype: recurdyn.FFlex.IFFlexProperty
+		'''
+		ret = self._oleobj_.InvokeTypes(2166, LCID, 1, (9, 0), ((3, 1),),val
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GetFFlexProperty', '{DB406626-3064-4709-933F-C7E7F9AD92E4}')
+		return ret
+
+	def _get_AvgElementSize(self):
+		return self._ApplyTypes_(*(2154, 2, (5, 0), (), "AvgElementSize", None))
+	def _get_FFlexProperty(self):
+		return self._ApplyTypes_(*(2153, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'))
+	def _get_MaterialCollection(self):
+		return self._ApplyTypes_(*(2161, 2, (9, 0), (), "MaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'))
+	def _get_MeshType(self):
+		return self._ApplyTypes_(*(2152, 2, (3, 0), (), "MeshType", '{5366C7D1-4613-420A-A683-32D460607E81}'))
+	def _get_MinElementSize(self):
+		return self._ApplyTypes_(*(2155, 2, (5, 0), (), "MinElementSize", None))
+	def _get_OriginalBodyEdges(self):
+		return self._ApplyTypes_(*(2167, 2, (8200, 0), (), "OriginalBodyEdges", None))
+	def _get_PropertyCollection(self):
+		return self._ApplyTypes_(*(2160, 2, (9, 0), (), "PropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'))
+	def _get_SeedInfoCollection(self):
+		return self._ApplyTypes_(*(2171, 2, (9, 0), (), "SeedInfoCollection", '{B62D333D-4E39-4B7E-AD82-A8F4604F866E}'))
+	def _get_StructuredOutput(self):
+		return self._ApplyTypes_(*(2157, 2, (3, 0), (), "StructuredOutput", '{0C1D63F6-16E9-47EE-8E4E-58C46D84DE85}'))
+	def _get_TargetFace4SidedMoreCollection(self):
+		return self._ApplyTypes_(*(2165, 2, (9, 0), (), "TargetFace4SidedMoreCollection", '{7A70474E-B7CA-43AD-B71D-373E1E0522CE}'))
+	def _get_TargetFaceCollection(self):
+		return self._ApplyTypes_(*(2164, 2, (9, 0), (), "TargetFaceCollection", '{012BED7B-CFB1-4210-91B6-5D4B5D70855C}'))
+	def _get_UseCloseGaps(self):
+		return self._ApplyTypes_(*(2158, 2, (11, 0), (), "UseCloseGaps", None))
+	def _get_UseIncludeAssistModeling(self):
+		return self._ApplyTypes_(*(2159, 2, (11, 0), (), "UseIncludeAssistModeling", None))
+	def _get_UseStructuredOutput(self):
+		return self._ApplyTypes_(*(2156, 2, (11, 0), (), "UseStructuredOutput", None))
+
+	def _set_AvgElementSize(self, value):
+		if "AvgElementSize" in self.__dict__: self.__dict__["AvgElementSize"] = value; return
+		self._oleobj_.Invoke(*((2154, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexProperty(self, value):
+		if "FFlexProperty" in self.__dict__: self.__dict__["FFlexProperty"] = value; return
+		self._oleobj_.Invoke(*((2153, LCID, 4, 0) + (value,) + ()))
+	def _set_MeshType(self, value):
+		if "MeshType" in self.__dict__: self.__dict__["MeshType"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+	def _set_MinElementSize(self, value):
+		if "MinElementSize" in self.__dict__: self.__dict__["MinElementSize"] = value; return
+		self._oleobj_.Invoke(*((2155, LCID, 4, 0) + (value,) + ()))
+	def _set_StructuredOutput(self, value):
+		if "StructuredOutput" in self.__dict__: self.__dict__["StructuredOutput"] = value; return
+		self._oleobj_.Invoke(*((2157, LCID, 4, 0) + (value,) + ()))
+	def _set_TargetBody(self, value):
+		if "TargetBody" in self.__dict__: self.__dict__["TargetBody"] = value; return
+		self._oleobj_.Invoke(*((2151, LCID, 4, 0) + (value,) + ()))
+	def _set_UseCloseGaps(self, value):
+		if "UseCloseGaps" in self.__dict__: self.__dict__["UseCloseGaps"] = value; return
+		self._oleobj_.Invoke(*((2158, LCID, 4, 0) + (value,) + ()))
+	def _set_UseIncludeAssistModeling(self, value):
+		if "UseIncludeAssistModeling" in self.__dict__: self.__dict__["UseIncludeAssistModeling"] = value; return
+		self._oleobj_.Invoke(*((2159, LCID, 4, 0) + (value,) + ()))
+	def _set_UseStructuredOutput(self, value):
+		if "UseStructuredOutput" in self.__dict__: self.__dict__["UseStructuredOutput"] = value; return
+		self._oleobj_.Invoke(*((2156, LCID, 4, 0) + (value,) + ()))
+
+	AvgElementSize = property(_get_AvgElementSize, _set_AvgElementSize)
+	'''
+	Average element size
+
+	:type: float
+	'''
+	FFlexProperty = property(_get_FFlexProperty, _set_FFlexProperty)
+	'''
+	Property
+
+	:type: recurdyn.FFlex.IFFlexProperty
+	'''
+	MaterialCollection = property(_get_MaterialCollection, None)
+	'''
+	Contains FFlex Material
+
+	:type: recurdyn.FFlex.IFFlexMaterialCollection
+	'''
+	MeshType = property(_get_MeshType, _set_MeshType)
+	'''
+	Mesh type
+
+	:type: recurdyn.FFlex.MeshType
+	'''
+	MinElementSize = property(_get_MinElementSize, _set_MinElementSize)
+	'''
+	Min element size
+
+	:type: float
+	'''
+	OriginalBodyEdges = property(_get_OriginalBodyEdges, None)
+	'''
+	Original body edges
+
+	:type: list[str]
+	'''
+	PropertyCollection = property(_get_PropertyCollection, None)
+	'''
+	Contains FFlex Property
+
+	:type: recurdyn.FFlex.IFFlexPropertyCollection
+	'''
+	SeedInfoCollection = property(_get_SeedInfoCollection, None)
+	'''
+	Get the collection of the edges and Number of elements to control the seeds
+
+	:type: recurdyn.FFlex.ISeedInfoCollection
+	'''
+	StructuredOutput = property(_get_StructuredOutput, _set_StructuredOutput)
+	'''
+	Structured output
+
+	:type: recurdyn.FFlex.StructuredOutputType
+	'''
+	TargetFace4SidedMoreCollection = property(_get_TargetFace4SidedMoreCollection, None)
+	'''
+	Get the 4-sided more face collection of the targe body
+
+	:type: recurdyn.FFlex.ITargetFace4SidedMoreCollection
+	'''
+	TargetFaceCollection = property(_get_TargetFaceCollection, None)
+	'''
+	Get the face collection of the targe body
+
+	:type: recurdyn.FFlex.ITargetFaceCollection
+	'''
+	UseCloseGaps = property(_get_UseCloseGaps, _set_UseCloseGaps)
+	'''
+	Use close gaps
+
+	:type: bool
+	'''
+	UseIncludeAssistModeling = property(_get_UseIncludeAssistModeling, _set_UseIncludeAssistModeling)
+	'''
+	Use include assist modeling
+
+	:type: bool
+	'''
+	UseStructuredOutput = property(_get_UseStructuredOutput, _set_UseStructuredOutput)
+	'''
+	Use structured output
+
+	:type: bool
+	'''
+	TargetBody = property(None, _set_TargetBody)
+	'''
+	Target body
+
+	:type: recurdyn.ProcessNet.IGeometry
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_AvgElementSize": _set_AvgElementSize,
+		"_set_FFlexProperty": _set_FFlexProperty,
+		"_set_MeshType": _set_MeshType,
+		"_set_MinElementSize": _set_MinElementSize,
+		"_set_StructuredOutput": _set_StructuredOutput,
+		"_set_TargetBody": _set_TargetBody,
+		"_set_UseCloseGaps": _set_UseCloseGaps,
+		"_set_UseIncludeAssistModeling": _set_UseIncludeAssistModeling,
+		"_set_UseStructuredOutput": _set_UseStructuredOutput,
+	}
+	_prop_map_get_ = {
+		"AvgElementSize": (2154, 2, (5, 0), (), "AvgElementSize", None),
+		"FFlexProperty": (2153, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'),
+		"MaterialCollection": (2161, 2, (9, 0), (), "MaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'),
+		"MeshType": (2152, 2, (3, 0), (), "MeshType", '{5366C7D1-4613-420A-A683-32D460607E81}'),
+		"MinElementSize": (2155, 2, (5, 0), (), "MinElementSize", None),
+		"OriginalBodyEdges": (2167, 2, (8200, 0), (), "OriginalBodyEdges", None),
+		"PropertyCollection": (2160, 2, (9, 0), (), "PropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'),
+		"SeedInfoCollection": (2171, 2, (9, 0), (), "SeedInfoCollection", '{B62D333D-4E39-4B7E-AD82-A8F4604F866E}'),
+		"StructuredOutput": (2157, 2, (3, 0), (), "StructuredOutput", '{0C1D63F6-16E9-47EE-8E4E-58C46D84DE85}'),
+		"TargetFace4SidedMoreCollection": (2165, 2, (9, 0), (), "TargetFace4SidedMoreCollection", '{7A70474E-B7CA-43AD-B71D-373E1E0522CE}'),
+		"TargetFaceCollection": (2164, 2, (9, 0), (), "TargetFaceCollection", '{012BED7B-CFB1-4210-91B6-5D4B5D70855C}'),
+		"UseCloseGaps": (2158, 2, (11, 0), (), "UseCloseGaps", None),
+		"UseIncludeAssistModeling": (2159, 2, (11, 0), (), "UseIncludeAssistModeling", None),
+		"UseStructuredOutput": (2156, 2, (11, 0), (), "UseStructuredOutput", None),
+	}
+	_prop_map_put_ = {
+		"AvgElementSize": ((2154, LCID, 4, 0),()),
+		"FFlexProperty": ((2153, LCID, 4, 0),()),
+		"MeshType": ((2152, LCID, 4, 0),()),
+		"MinElementSize": ((2155, LCID, 4, 0),()),
+		"StructuredOutput": ((2157, LCID, 4, 0),()),
+		"TargetBody": ((2151, LCID, 4, 0),()),
+		"UseCloseGaps": ((2158, LCID, 4, 0),()),
+		"UseIncludeAssistModeling": ((2159, LCID, 4, 0),()),
+		"UseStructuredOutput": ((2156, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherAssistModeling(DispatchBaseClass):
+	'''Assist modeling'''
+	CLSID = IID('{22952159-A8DE-49AD-A59E-7D85147A7223}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Generate(self):
+		'''
+		Generate FDRs , line sets and patch set after meshing
+		'''
+		return self._oleobj_.InvokeTypes(2158, LCID, 1, (24, 0), (),)
+
+
+	def _get_ConstraintCollection(self):
+		return self._ApplyTypes_(*(2153, 2, (9, 0), (), "ConstraintCollection", '{4F9E4D3C-5462-438D-98F9-C20806DFC34D}'))
+	def _get_OriginalBodyEdges(self):
+		return self._ApplyTypes_(*(2159, 2, (8200, 0), (), "OriginalBodyEdges", None))
+	def _get_OriginalBodyFaces(self):
+		return self._ApplyTypes_(*(2156, 2, (8200, 0), (), "OriginalBodyFaces", None))
+	def _get_PrePatchSetCollection(self):
+		return self._ApplyTypes_(*(2155, 2, (9, 0), (), "PrePatchSetCollection", '{9EFB7046-D94C-4565-9B0C-3AA3FCB9D15B}'))
+	def _get_PreSetCollection(self):
+		return self._ApplyTypes_(*(2157, 2, (9, 0), (), "PreSetCollection", '{A531E76E-A614-49F6-A4F6-E193ED3A2E18}'))
+	def _get_UsePreCreatePatchSet(self):
+		return self._ApplyTypes_(*(2154, 2, (11, 0), (), "UsePreCreatePatchSet", None))
+	def _get_UsePreserveConstraint(self):
+		return self._ApplyTypes_(*(2152, 2, (11, 0), (), "UsePreserveConstraint", None))
+
+	def _set_TargetBody(self, value):
+		if "TargetBody" in self.__dict__: self.__dict__["TargetBody"] = value; return
+		self._oleobj_.Invoke(*((2151, LCID, 4, 0) + (value,) + ()))
+	def _set_UsePreCreatePatchSet(self, value):
+		if "UsePreCreatePatchSet" in self.__dict__: self.__dict__["UsePreCreatePatchSet"] = value; return
+		self._oleobj_.Invoke(*((2154, LCID, 4, 0) + (value,) + ()))
+	def _set_UsePreserveConstraint(self, value):
+		if "UsePreserveConstraint" in self.__dict__: self.__dict__["UsePreserveConstraint"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+
+	ConstraintCollection = property(_get_ConstraintCollection, None)
+	'''
+	Contraint collection to assist modeling
+
+	:type: recurdyn.FFlex.IAssistConstraintCollection
+	'''
+	OriginalBodyEdges = property(_get_OriginalBodyEdges, None)
+	'''
+	Original body's edges
+
+	:type: list[str]
+	'''
+	OriginalBodyFaces = property(_get_OriginalBodyFaces, None)
+	'''
+	Original body's faces
+
+	:type: list[str]
+	'''
+	PrePatchSetCollection = property(_get_PrePatchSetCollection, None)
+	'''
+	Contraint collection surface or solid contacts to assist modeling
+
+	:type: recurdyn.FFlex.IAssistPrePatchSetCollection
+	'''
+	PreSetCollection = property(_get_PreSetCollection, None)
+	'''
+	Contraint collection of curve contacts to assist modeling
+
+	:type: recurdyn.FFlex.IAssistPreSetCollection
+	'''
+	UsePreCreatePatchSet = property(_get_UsePreCreatePatchSet, _set_UsePreCreatePatchSet)
+	'''
+	Use precreate patch set
+
+	:type: bool
+	'''
+	UsePreserveConstraint = property(_get_UsePreserveConstraint, _set_UsePreserveConstraint)
+	'''
+	Use preserve contraint
+
+	:type: bool
+	'''
+	TargetBody = property(None, _set_TargetBody)
+	'''
+	Target body
+
+	:type: recurdyn.ProcessNet.IGeometry
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_TargetBody": _set_TargetBody,
+		"_set_UsePreCreatePatchSet": _set_UsePreCreatePatchSet,
+		"_set_UsePreserveConstraint": _set_UsePreserveConstraint,
+	}
+	_prop_map_get_ = {
+		"ConstraintCollection": (2153, 2, (9, 0), (), "ConstraintCollection", '{4F9E4D3C-5462-438D-98F9-C20806DFC34D}'),
+		"OriginalBodyEdges": (2159, 2, (8200, 0), (), "OriginalBodyEdges", None),
+		"OriginalBodyFaces": (2156, 2, (8200, 0), (), "OriginalBodyFaces", None),
+		"PrePatchSetCollection": (2155, 2, (9, 0), (), "PrePatchSetCollection", '{9EFB7046-D94C-4565-9B0C-3AA3FCB9D15B}'),
+		"PreSetCollection": (2157, 2, (9, 0), (), "PreSetCollection", '{A531E76E-A614-49F6-A4F6-E193ED3A2E18}'),
+		"UsePreCreatePatchSet": (2154, 2, (11, 0), (), "UsePreCreatePatchSet", None),
+		"UsePreserveConstraint": (2152, 2, (11, 0), (), "UsePreserveConstraint", None),
+	}
+	_prop_map_put_ = {
+		"TargetBody": ((2151, LCID, 4, 0),()),
+		"UsePreCreatePatchSet": ((2154, LCID, 4, 0),()),
+		"UsePreserveConstraint": ((2152, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherBeamMeshOption(DispatchBaseClass):
+	'''Beam mesh option'''
+	CLSID = IID('{C87D803F-9025-4DBA-A7D1-0FBEFDBBC949}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def AddVertexToIgnore(self, strVertex):
+		'''
+		Add a vertex to ignore
+		
+		:param strVertex: str
+		'''
+		return self._oleobj_.InvokeTypes(2166, LCID, 1, (24, 0), ((8, 1),),strVertex
+			)
+
+
+	def ClearAllVerticesToIgnore(self):
+		'''
+		Delete a vertex to ignore
+		'''
+		return self._oleobj_.InvokeTypes(2168, LCID, 1, (24, 0), (),)
+
+
+	def DeleteVertexToIgnore(self, strVertex):
+		'''
+		Delete a vertex to ignore
+		
+		:param strVertex: str
+		'''
+		return self._oleobj_.InvokeTypes(2167, LCID, 1, (24, 0), ((8, 1),),strVertex
+			)
+
+
+	def GetFFlexProperty(self, val):
+		'''
+		Get FFlex property
+		
+		:param val: FFlexPropertyType
+		:rtype: recurdyn.FFlex.IFFlexProperty
+		'''
+		ret = self._oleobj_.InvokeTypes(2162, LCID, 1, (9, 0), ((3, 1),),val
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GetFFlexProperty', '{DB406626-3064-4709-933F-C7E7F9AD92E4}')
+		return ret
+
+	def _get_ElementSize(self):
+		return self._ApplyTypes_(*(2154, 2, (5, 0), (), "ElementSize", None))
+	def _get_FFlexProperty(self):
+		return self._ApplyTypes_(*(2153, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'))
+	def _get_IgnoreVertices(self):
+		return self._ApplyTypes_(*(2164, 2, (11, 0), (), "IgnoreVertices", None))
+	def _get_IgnoreVerticesAll(self):
+		return self._ApplyTypes_(*(2165, 2, (11, 0), (), "IgnoreVerticesAll", None))
+	def _get_MaterialCollection(self):
+		return self._ApplyTypes_(*(2161, 2, (9, 0), (), "MaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'))
+	def _get_MeshType(self):
+		return self._ApplyTypes_(*(2152, 2, (3, 0), (), "MeshType", '{5366C7D1-4613-420A-A683-32D460607E81}'))
+	def _get_PropertyCollection(self):
+		return self._ApplyTypes_(*(2160, 2, (9, 0), (), "PropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'))
+	def _get_UseCreateBeamElementWithPreStress(self):
+		return self._ApplyTypes_(*(2163, 2, (11, 0), (), "UseCreateBeamElementWithPreStress", None))
+	def _get_UseIncludeAssistModeling(self):
+		return self._ApplyTypes_(*(2159, 2, (11, 0), (), "UseIncludeAssistModeling", None))
+
+	def _set_ElementSize(self, value):
+		if "ElementSize" in self.__dict__: self.__dict__["ElementSize"] = value; return
+		self._oleobj_.Invoke(*((2154, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexProperty(self, value):
+		if "FFlexProperty" in self.__dict__: self.__dict__["FFlexProperty"] = value; return
+		self._oleobj_.Invoke(*((2153, LCID, 4, 0) + (value,) + ()))
+	def _set_IgnoreVertices(self, value):
+		if "IgnoreVertices" in self.__dict__: self.__dict__["IgnoreVertices"] = value; return
+		self._oleobj_.Invoke(*((2164, LCID, 4, 0) + (value,) + ()))
+	def _set_IgnoreVerticesAll(self, value):
+		if "IgnoreVerticesAll" in self.__dict__: self.__dict__["IgnoreVerticesAll"] = value; return
+		self._oleobj_.Invoke(*((2165, LCID, 4, 0) + (value,) + ()))
+	def _set_MeshType(self, value):
+		if "MeshType" in self.__dict__: self.__dict__["MeshType"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+	def _set_TargetBody(self, value):
+		if "TargetBody" in self.__dict__: self.__dict__["TargetBody"] = value; return
+		self._oleobj_.Invoke(*((2151, LCID, 4, 0) + (value,) + ()))
+	def _set_UseCreateBeamElementWithPreStress(self, value):
+		if "UseCreateBeamElementWithPreStress" in self.__dict__: self.__dict__["UseCreateBeamElementWithPreStress"] = value; return
+		self._oleobj_.Invoke(*((2163, LCID, 4, 0) + (value,) + ()))
+	def _set_UseIncludeAssistModeling(self, value):
+		if "UseIncludeAssistModeling" in self.__dict__: self.__dict__["UseIncludeAssistModeling"] = value; return
+		self._oleobj_.Invoke(*((2159, LCID, 4, 0) + (value,) + ()))
+
+	ElementSize = property(_get_ElementSize, _set_ElementSize)
+	'''
+	Element size
+
+	:type: float
+	'''
+	FFlexProperty = property(_get_FFlexProperty, _set_FFlexProperty)
+	'''
+	Property
+
+	:type: recurdyn.FFlex.IFFlexProperty
+	'''
+	IgnoreVertices = property(_get_IgnoreVertices, _set_IgnoreVertices)
+	'''
+	Ignore vertices
+
+	:type: bool
+	'''
+	IgnoreVerticesAll = property(_get_IgnoreVerticesAll, _set_IgnoreVerticesAll)
+	'''
+	Ignore all vertices
+
+	:type: bool
+	'''
+	MaterialCollection = property(_get_MaterialCollection, None)
+	'''
+	Contains FFlex Material
+
+	:type: recurdyn.FFlex.IFFlexMaterialCollection
+	'''
+	MeshType = property(_get_MeshType, _set_MeshType)
+	'''
+	Mesh type
+
+	:type: recurdyn.FFlex.MeshType
+	'''
+	PropertyCollection = property(_get_PropertyCollection, None)
+	'''
+	Contains FFlex Property
+
+	:type: recurdyn.FFlex.IFFlexPropertyCollection
+	'''
+	UseCreateBeamElementWithPreStress = property(_get_UseCreateBeamElementWithPreStress, _set_UseCreateBeamElementWithPreStress)
+	'''
+	Use Create Beam Element with Pre-Stress
+
+	:type: bool
+	'''
+	UseIncludeAssistModeling = property(_get_UseIncludeAssistModeling, _set_UseIncludeAssistModeling)
+	'''
+	Use include assist modeling
+
+	:type: bool
+	'''
+	TargetBody = property(None, _set_TargetBody)
+	'''
+	Target body
+
+	:type: recurdyn.ProcessNet.IGeometry
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_ElementSize": _set_ElementSize,
+		"_set_FFlexProperty": _set_FFlexProperty,
+		"_set_IgnoreVertices": _set_IgnoreVertices,
+		"_set_IgnoreVerticesAll": _set_IgnoreVerticesAll,
+		"_set_MeshType": _set_MeshType,
+		"_set_TargetBody": _set_TargetBody,
+		"_set_UseCreateBeamElementWithPreStress": _set_UseCreateBeamElementWithPreStress,
+		"_set_UseIncludeAssistModeling": _set_UseIncludeAssistModeling,
+	}
+	_prop_map_get_ = {
+		"ElementSize": (2154, 2, (5, 0), (), "ElementSize", None),
+		"FFlexProperty": (2153, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'),
+		"IgnoreVertices": (2164, 2, (11, 0), (), "IgnoreVertices", None),
+		"IgnoreVerticesAll": (2165, 2, (11, 0), (), "IgnoreVerticesAll", None),
+		"MaterialCollection": (2161, 2, (9, 0), (), "MaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'),
+		"MeshType": (2152, 2, (3, 0), (), "MeshType", '{5366C7D1-4613-420A-A683-32D460607E81}'),
+		"PropertyCollection": (2160, 2, (9, 0), (), "PropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'),
+		"UseCreateBeamElementWithPreStress": (2163, 2, (11, 0), (), "UseCreateBeamElementWithPreStress", None),
+		"UseIncludeAssistModeling": (2159, 2, (11, 0), (), "UseIncludeAssistModeling", None),
+	}
+	_prop_map_put_ = {
+		"ElementSize": ((2154, LCID, 4, 0),()),
+		"FFlexProperty": ((2153, LCID, 4, 0),()),
+		"IgnoreVertices": ((2164, LCID, 4, 0),()),
+		"IgnoreVerticesAll": ((2165, LCID, 4, 0),()),
+		"MeshType": ((2152, LCID, 4, 0),()),
+		"TargetBody": ((2151, LCID, 4, 0),()),
+		"UseCreateBeamElementWithPreStress": ((2163, LCID, 4, 0),()),
+		"UseIncludeAssistModeling": ((2159, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherGeometryRefinement(DispatchBaseClass):
+	'''Geometry refinement'''
+	CLSID = IID('{3BFCDA3B-C39F-457A-BE5E-F7F169221C06}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def CalculateSmallFeatureEffectiveRatio(self, pMultiFaces):
+		'''
+		Calculate effecitve ratio of the remove small feature 
+		
+		:param pMultiFaces: list[object]
+		:rtype: float
+		'''
+		_pMultiFaces_type = True if pMultiFaces and isinstance(pMultiFaces[0], win32com.client.VARIANT) else False
+		if not _pMultiFaces_type:
+			pMultiFaces = [win32com.client.VARIANT(12, _data) for _data in pMultiFaces]
+
+		ret = self._oleobj_.InvokeTypes(2159, LCID, 1, (5, 0), ((8204, 1),),pMultiFaces
+			)
+
+		if not _pMultiFaces_type:
+			pMultiFaces = [_data.value for _data in pMultiFaces]
+
+		return ret
+
+
+	def ClearRemoveEdges(self):
+		'''
+		clear Selected Edges for remove
+		'''
+		return self._oleobj_.InvokeTypes(2163, LCID, 1, (24, 0), (),)
+
+
+	def _get_AngleTolerance(self):
+		return self._ApplyTypes_(*(2155, 2, (5, 0), (), "AngleTolerance", None))
+	def _get_AngleToleranceEffectiveMinValue(self):
+		return self._ApplyTypes_(*(2156, 2, (5, 0), (), "AngleToleranceEffectiveMinValue", None))
+	def _get_MaxFacetSize(self):
+		return self._ApplyTypes_(*(2165, 2, (5, 0), (), "MaxFacetSize", None))
+	def _get_PlaneTolerance(self):
+		return self._ApplyTypes_(*(2152, 2, (5, 0), (), "PlaneTolerance", None))
+	def _get_PlaneToleranceEffectiveMinValue(self):
+		return self._ApplyTypes_(*(2153, 2, (5, 0), (), "PlaneToleranceEffectiveMinValue", None))
+	def _get_SmallFeatureValue(self):
+		return self._ApplyTypes_(*(2158, 2, (5, 0), (), "SmallFeatureValue", None))
+	def _get_UseAngleTolerance(self):
+		return self._ApplyTypes_(*(2154, 2, (11, 0), (), "UseAngleTolerance", None))
+	def _get_UseMaxFacetSize(self):
+		return self._ApplyTypes_(*(2164, 2, (11, 0), (), "UseMaxFacetSize", None))
+	def _get_UsePlaneTolerance(self):
+		return self._ApplyTypes_(*(2151, 2, (11, 0), (), "UsePlaneTolerance", None))
+	def _get_UseRemoveAllEdges(self):
+		return self._ApplyTypes_(*(2161, 2, (11, 0), (), "UseRemoveAllEdges", None))
+	def _get_UseRemoveEdge(self):
+		return self._ApplyTypes_(*(2160, 2, (11, 0), (), "UseRemoveEdge", None))
+	def _get_UseRemoveSmallFeature(self):
+		return self._ApplyTypes_(*(2157, 2, (11, 0), (), "UseRemoveSmallFeature", None))
+
+	def _set_AngleTolerance(self, value):
+		if "AngleTolerance" in self.__dict__: self.__dict__["AngleTolerance"] = value; return
+		self._oleobj_.Invoke(*((2155, LCID, 4, 0) + (value,) + ()))
+	def _set_MaxFacetSize(self, value):
+		if "MaxFacetSize" in self.__dict__: self.__dict__["MaxFacetSize"] = value; return
+		self._oleobj_.Invoke(*((2165, LCID, 4, 0) + (value,) + ()))
+	def _set_PlaneTolerance(self, value):
+		if "PlaneTolerance" in self.__dict__: self.__dict__["PlaneTolerance"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+	def _set_RemoveEdges(self, value):
+		if "RemoveEdges" in self.__dict__: self.__dict__["RemoveEdges"] = value; return
+		_value_type = True if value and isinstance(value[0], win32com.client.VARIANT) else False
+		if not _value_type:
+			value = [win32com.client.VARIANT(12, _data) for _data in value]
+		variantValue = win32com.client.VARIANT(8204, value)
+		self._oleobj_.Invoke(*((2162, LCID, 4, 0) + (variantValue,) + ()))
+		if not _value_type:
+			value = [_data.value for _data in value]
+	def _set_SmallFeatureValue(self, value):
+		if "SmallFeatureValue" in self.__dict__: self.__dict__["SmallFeatureValue"] = value; return
+		self._oleobj_.Invoke(*((2158, LCID, 4, 0) + (value,) + ()))
+	def _set_UseAngleTolerance(self, value):
+		if "UseAngleTolerance" in self.__dict__: self.__dict__["UseAngleTolerance"] = value; return
+		self._oleobj_.Invoke(*((2154, LCID, 4, 0) + (value,) + ()))
+	def _set_UseMaxFacetSize(self, value):
+		if "UseMaxFacetSize" in self.__dict__: self.__dict__["UseMaxFacetSize"] = value; return
+		self._oleobj_.Invoke(*((2164, LCID, 4, 0) + (value,) + ()))
+	def _set_UsePlaneTolerance(self, value):
+		if "UsePlaneTolerance" in self.__dict__: self.__dict__["UsePlaneTolerance"] = value; return
+		self._oleobj_.Invoke(*((2151, LCID, 4, 0) + (value,) + ()))
+	def _set_UseRemoveAllEdges(self, value):
+		if "UseRemoveAllEdges" in self.__dict__: self.__dict__["UseRemoveAllEdges"] = value; return
+		self._oleobj_.Invoke(*((2161, LCID, 4, 0) + (value,) + ()))
+	def _set_UseRemoveEdge(self, value):
+		if "UseRemoveEdge" in self.__dict__: self.__dict__["UseRemoveEdge"] = value; return
+		self._oleobj_.Invoke(*((2160, LCID, 4, 0) + (value,) + ()))
+	def _set_UseRemoveSmallFeature(self, value):
+		if "UseRemoveSmallFeature" in self.__dict__: self.__dict__["UseRemoveSmallFeature"] = value; return
+		self._oleobj_.Invoke(*((2157, LCID, 4, 0) + (value,) + ()))
+
+	AngleTolerance = property(_get_AngleTolerance, _set_AngleTolerance)
+	'''
+	Angle tolerance
+
+	:type: float
+	'''
+	AngleToleranceEffectiveMinValue = property(_get_AngleToleranceEffectiveMinValue, None)
+	'''
+	Effecitve min value of the angle tolerance 
+
+	:type: float
+	'''
+	MaxFacetSize = property(_get_MaxFacetSize, _set_MaxFacetSize)
+	'''
+	Max facet size
+
+	:type: float
+	'''
+	PlaneTolerance = property(_get_PlaneTolerance, _set_PlaneTolerance)
+	'''
+	Plane tolerance
+
+	:type: float
+	'''
+	PlaneToleranceEffectiveMinValue = property(_get_PlaneToleranceEffectiveMinValue, None)
+	'''
+	Effecitve min value of the plance tolerance 
+
+	:type: float
+	'''
+	SmallFeatureValue = property(_get_SmallFeatureValue, _set_SmallFeatureValue)
+	'''
+	Small feature value
+
+	:type: float
+	'''
+	UseAngleTolerance = property(_get_UseAngleTolerance, _set_UseAngleTolerance)
+	'''
+	Use angle tolerance
+
+	:type: bool
+	'''
+	UseMaxFacetSize = property(_get_UseMaxFacetSize, _set_UseMaxFacetSize)
+	'''
+	Use max facet size
+
+	:type: bool
+	'''
+	UsePlaneTolerance = property(_get_UsePlaneTolerance, _set_UsePlaneTolerance)
+	'''
+	Use plane tolerance
+
+	:type: bool
+	'''
+	UseRemoveAllEdges = property(_get_UseRemoveAllEdges, _set_UseRemoveAllEdges)
+	'''
+	Use Select All
+
+	:type: bool
+	'''
+	UseRemoveEdge = property(_get_UseRemoveEdge, _set_UseRemoveEdge)
+	'''
+	Use Remove Edge
+
+	:type: bool
+	'''
+	UseRemoveSmallFeature = property(_get_UseRemoveSmallFeature, _set_UseRemoveSmallFeature)
+	'''
+	Use removing small feature
+
+	:type: bool
+	'''
+	RemoveEdges = property(None, _set_RemoveEdges)
+	'''
+	Set removing edges
+
+	:type: list[object]
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_AngleTolerance": _set_AngleTolerance,
+		"_set_MaxFacetSize": _set_MaxFacetSize,
+		"_set_PlaneTolerance": _set_PlaneTolerance,
+		"_set_RemoveEdges": _set_RemoveEdges,
+		"_set_SmallFeatureValue": _set_SmallFeatureValue,
+		"_set_UseAngleTolerance": _set_UseAngleTolerance,
+		"_set_UseMaxFacetSize": _set_UseMaxFacetSize,
+		"_set_UsePlaneTolerance": _set_UsePlaneTolerance,
+		"_set_UseRemoveAllEdges": _set_UseRemoveAllEdges,
+		"_set_UseRemoveEdge": _set_UseRemoveEdge,
+		"_set_UseRemoveSmallFeature": _set_UseRemoveSmallFeature,
+	}
+	_prop_map_get_ = {
+		"AngleTolerance": (2155, 2, (5, 0), (), "AngleTolerance", None),
+		"AngleToleranceEffectiveMinValue": (2156, 2, (5, 0), (), "AngleToleranceEffectiveMinValue", None),
+		"MaxFacetSize": (2165, 2, (5, 0), (), "MaxFacetSize", None),
+		"PlaneTolerance": (2152, 2, (5, 0), (), "PlaneTolerance", None),
+		"PlaneToleranceEffectiveMinValue": (2153, 2, (5, 0), (), "PlaneToleranceEffectiveMinValue", None),
+		"SmallFeatureValue": (2158, 2, (5, 0), (), "SmallFeatureValue", None),
+		"UseAngleTolerance": (2154, 2, (11, 0), (), "UseAngleTolerance", None),
+		"UseMaxFacetSize": (2164, 2, (11, 0), (), "UseMaxFacetSize", None),
+		"UsePlaneTolerance": (2151, 2, (11, 0), (), "UsePlaneTolerance", None),
+		"UseRemoveAllEdges": (2161, 2, (11, 0), (), "UseRemoveAllEdges", None),
+		"UseRemoveEdge": (2160, 2, (11, 0), (), "UseRemoveEdge", None),
+		"UseRemoveSmallFeature": (2157, 2, (11, 0), (), "UseRemoveSmallFeature", None),
+	}
+	_prop_map_put_ = {
+		"AngleTolerance": ((2155, LCID, 4, 0),()),
+		"MaxFacetSize": ((2165, LCID, 4, 0),()),
+		"PlaneTolerance": ((2152, LCID, 4, 0),()),
+		"RemoveEdges": ((2162, LCID, 4, 0),()),
+		"SmallFeatureValue": ((2158, LCID, 4, 0),()),
+		"UseAngleTolerance": ((2154, LCID, 4, 0),()),
+		"UseMaxFacetSize": ((2164, LCID, 4, 0),()),
+		"UsePlaneTolerance": ((2151, LCID, 4, 0),()),
+		"UseRemoveAllEdges": ((2161, LCID, 4, 0),()),
+		"UseRemoveEdge": ((2160, LCID, 4, 0),()),
+		"UseRemoveSmallFeature": ((2157, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherImprintLineSet(DispatchBaseClass):
+	'''Imprint LineSet'''
+	CLSID = IID('{0EC4E9EC-52FC-48B8-99CB-201A060B9F33}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def SetLineSets(self, pLineSets):
+		'''
+		Set Imprint LineSets
+		
+		:param pLineSets: list[str]
+		'''
+		return self._oleobj_.InvokeTypes(2151, LCID, 1, (24, 0), ((8200, 1),),pLineSets
+			)
+
+
+	def _set_Tolerance(self, value):
+		if "Tolerance" in self.__dict__: self.__dict__["Tolerance"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+
+	Tolerance = property(None, _set_Tolerance)
+	'''
+	Tolerance
+
+	:type: float
+	'''
+	_prop_map_set_function_ = {
+		"_set_Tolerance": _set_Tolerance,
+	}
+	_prop_map_get_ = {
+	}
+	_prop_map_put_ = {
+		"Tolerance": ((2152, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherImprintPatchSet(DispatchBaseClass):
+	'''Imprint PatchSet'''
+	CLSID = IID('{D33A9F82-B096-42D3-B9F7-136A635FDB57}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def SetPatchSets(self, pPatchSets):
+		'''
+		Set Imprint PatchSets
+		
+		:param pPatchSets: list[str]
+		'''
+		return self._oleobj_.InvokeTypes(2151, LCID, 1, (24, 0), ((8200, 1),),pPatchSets
+			)
+
+
+	def _set_Tolerance(self, value):
+		if "Tolerance" in self.__dict__: self.__dict__["Tolerance"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+
+	Tolerance = property(None, _set_Tolerance)
+	'''
+	Tolerance
+
+	:type: float
+	'''
+	_prop_map_set_function_ = {
+		"_set_Tolerance": _set_Tolerance,
+	}
+	_prop_map_get_ = {
+	}
+	_prop_map_put_ = {
+		"Tolerance": ((2152, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherManualMeshExtrudeOption(DispatchBaseClass):
+	'''Manual mesh extrude option'''
+	CLSID = IID('{80BDD953-CC33-40C9-ADF1-6B779BAB1046}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetFFlexProperty(self, val):
+		'''
+		Get FFlex property
+		
+		:param val: FFlexPropertyType
+		:rtype: recurdyn.FFlex.IFFlexProperty
+		'''
+		ret = self._oleobj_.InvokeTypes(2151, LCID, 1, (9, 0), ((3, 1),),val
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GetFFlexProperty', '{DB406626-3064-4709-933F-C7E7F9AD92E4}')
+		return ret
+
+	def _get_FaceEdge(self):
+		return self._ApplyTypes_(*(2207, 2, (8, 0), (), "FaceEdge", None))
+	def _get_MaterialCollection(self):
+		return self._ApplyTypes_(*(2206, 2, (9, 0), (), "MaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'))
+	def _get_MergewithSourceMesh(self):
+		return self._ApplyTypes_(*(2213, 2, (11, 0), (), "MergewithSourceMesh", None))
+	def _get_PatchLineSet(self):
+		return self._ApplyTypes_(*(2211, 2, (9, 0), (), "PatchLineSet", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_PropertyCollection(self):
+		return self._ApplyTypes_(*(2205, 2, (9, 0), (), "PropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'))
+	def _get_SelectType(self):
+		return self._ApplyTypes_(*(2210, 2, (3, 0), (), "SelectType", '{BEA8A68A-74CF-40BD-94D1-1C543FE06506}'))
+	def _get_UseMaintainExistingMesh(self):
+		return self._ApplyTypes_(*(2208, 2, (11, 0), (), "UseMaintainExistingMesh", None))
+	def _get_UseMaintainSourceMesh(self):
+		return self._ApplyTypes_(*(2212, 2, (11, 0), (), "UseMaintainSourceMesh", None))
+	def _get_UseSplitQuadIntoTria(self):
+		return self._ApplyTypes_(*(2209, 2, (11, 0), (), "UseSplitQuadIntoTria", None))
+
+	def _set_Axis(self, value):
+		if "Axis" in self.__dict__: self.__dict__["Axis"] = value; return
+		variantValue = win32com.client.VARIANT(8197, value)
+		self._oleobj_.Invoke(*((2202, LCID, 4, 0) + (variantValue,) + ()))
+	def _set_FFlexProperty(self, value):
+		if "FFlexProperty" in self.__dict__: self.__dict__["FFlexProperty"] = value; return
+		self._oleobj_.Invoke(*((2201, LCID, 4, 0) + (value,) + ()))
+	def _set_FaceEdge(self, value):
+		if "FaceEdge" in self.__dict__: self.__dict__["FaceEdge"] = value; return
+		self._oleobj_.Invoke(*((2207, LCID, 4, 0) + (value,) + ()))
+	def _set_MergewithSourceMesh(self, value):
+		if "MergewithSourceMesh" in self.__dict__: self.__dict__["MergewithSourceMesh"] = value; return
+		self._oleobj_.Invoke(*((2213, LCID, 4, 0) + (value,) + ()))
+	def _set_NoOfSegments(self, value):
+		if "NoOfSegments" in self.__dict__: self.__dict__["NoOfSegments"] = value; return
+		self._oleobj_.Invoke(*((2203, LCID, 4, 0) + (value,) + ()))
+	def _set_PatchLineSet(self, value):
+		if "PatchLineSet" in self.__dict__: self.__dict__["PatchLineSet"] = value; return
+		self._oleobj_.Invoke(*((2211, LCID, 4, 0) + (value,) + ()))
+	def _set_SelectType(self, value):
+		if "SelectType" in self.__dict__: self.__dict__["SelectType"] = value; return
+		self._oleobj_.Invoke(*((2210, LCID, 4, 0) + (value,) + ()))
+	def _set_TargetGeometry(self, value):
+		if "TargetGeometry" in self.__dict__: self.__dict__["TargetGeometry"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+	def _set_TotalLength(self, value):
+		if "TotalLength" in self.__dict__: self.__dict__["TotalLength"] = value; return
+		self._oleobj_.Invoke(*((2204, LCID, 4, 0) + (value,) + ()))
+	def _set_UseMaintainExistingMesh(self, value):
+		if "UseMaintainExistingMesh" in self.__dict__: self.__dict__["UseMaintainExistingMesh"] = value; return
+		self._oleobj_.Invoke(*((2208, LCID, 4, 0) + (value,) + ()))
+	def _set_UseMaintainSourceMesh(self, value):
+		if "UseMaintainSourceMesh" in self.__dict__: self.__dict__["UseMaintainSourceMesh"] = value; return
+		self._oleobj_.Invoke(*((2212, LCID, 4, 0) + (value,) + ()))
+	def _set_UseSplitQuadIntoTria(self, value):
+		if "UseSplitQuadIntoTria" in self.__dict__: self.__dict__["UseSplitQuadIntoTria"] = value; return
+		self._oleobj_.Invoke(*((2209, LCID, 4, 0) + (value,) + ()))
+
+	FaceEdge = property(_get_FaceEdge, _set_FaceEdge)
+	'''
+	Face or Edge
+
+	:type: str
+	'''
+	MaterialCollection = property(_get_MaterialCollection, None)
+	'''
+	Contains FFlex Material
+
+	:type: recurdyn.FFlex.IFFlexMaterialCollection
+	'''
+	MergewithSourceMesh = property(_get_MergewithSourceMesh, _set_MergewithSourceMesh)
+	'''
+	Merge nodes at the same position
+
+	:type: bool
+	'''
+	PatchLineSet = property(_get_PatchLineSet, _set_PatchLineSet)
+	'''
+	Patch or Line Set
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	PropertyCollection = property(_get_PropertyCollection, None)
+	'''
+	Contains FFlex Property
+
+	:type: recurdyn.FFlex.IFFlexPropertyCollection
+	'''
+	SelectType = property(_get_SelectType, _set_SelectType)
+	'''
+	Select Type
+
+	:type: recurdyn.FFlex.ManualMeshSelectType
+	'''
+	UseMaintainExistingMesh = property(_get_UseMaintainExistingMesh, _set_UseMaintainExistingMesh)
+	'''
+	Same as UseMaintainSourceMesh
+
+	:type: bool
+	'''
+	UseMaintainSourceMesh = property(_get_UseMaintainSourceMesh, _set_UseMaintainSourceMesh)
+	'''
+	Use Maintain Existing Mesh
+
+	:type: bool
+	'''
+	UseSplitQuadIntoTria = property(_get_UseSplitQuadIntoTria, _set_UseSplitQuadIntoTria)
+	'''
+	Use Split Quad into Tria
+
+	:type: bool
+	'''
+	Axis = property(None, _set_Axis)
+	'''
+	Axis
+
+	:type: list[float]
+	'''
+	FFlexProperty = property(None, _set_FFlexProperty)
+	'''
+	Property
+
+	:type: recurdyn.FFlex.IFFlexProperty
+	'''
+	NoOfSegments = property(None, _set_NoOfSegments)
+	'''
+	No of segments
+
+	:type: float
+	'''
+	TargetGeometry = property(None, _set_TargetGeometry)
+	'''
+	Target Entity
+
+	:type: str
+	'''
+	TotalLength = property(None, _set_TotalLength)
+	'''
+	Total length
+
+	:type: float
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Axis": _set_Axis,
+		"_set_FFlexProperty": _set_FFlexProperty,
+		"_set_FaceEdge": _set_FaceEdge,
+		"_set_MergewithSourceMesh": _set_MergewithSourceMesh,
+		"_set_NoOfSegments": _set_NoOfSegments,
+		"_set_PatchLineSet": _set_PatchLineSet,
+		"_set_SelectType": _set_SelectType,
+		"_set_TargetGeometry": _set_TargetGeometry,
+		"_set_TotalLength": _set_TotalLength,
+		"_set_UseMaintainExistingMesh": _set_UseMaintainExistingMesh,
+		"_set_UseMaintainSourceMesh": _set_UseMaintainSourceMesh,
+		"_set_UseSplitQuadIntoTria": _set_UseSplitQuadIntoTria,
+	}
+	_prop_map_get_ = {
+		"FaceEdge": (2207, 2, (8, 0), (), "FaceEdge", None),
+		"MaterialCollection": (2206, 2, (9, 0), (), "MaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'),
+		"MergewithSourceMesh": (2213, 2, (11, 0), (), "MergewithSourceMesh", None),
+		"PatchLineSet": (2211, 2, (9, 0), (), "PatchLineSet", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"PropertyCollection": (2205, 2, (9, 0), (), "PropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'),
+		"SelectType": (2210, 2, (3, 0), (), "SelectType", '{BEA8A68A-74CF-40BD-94D1-1C543FE06506}'),
+		"UseMaintainExistingMesh": (2208, 2, (11, 0), (), "UseMaintainExistingMesh", None),
+		"UseMaintainSourceMesh": (2212, 2, (11, 0), (), "UseMaintainSourceMesh", None),
+		"UseSplitQuadIntoTria": (2209, 2, (11, 0), (), "UseSplitQuadIntoTria", None),
+	}
+	_prop_map_put_ = {
+		"Axis": ((2202, LCID, 4, 0),()),
+		"FFlexProperty": ((2201, LCID, 4, 0),()),
+		"FaceEdge": ((2207, LCID, 4, 0),()),
+		"MergewithSourceMesh": ((2213, LCID, 4, 0),()),
+		"NoOfSegments": ((2203, LCID, 4, 0),()),
+		"PatchLineSet": ((2211, LCID, 4, 0),()),
+		"SelectType": ((2210, LCID, 4, 0),()),
+		"TargetGeometry": ((2152, LCID, 4, 0),()),
+		"TotalLength": ((2204, LCID, 4, 0),()),
+		"UseMaintainExistingMesh": ((2208, LCID, 4, 0),()),
+		"UseMaintainSourceMesh": ((2212, LCID, 4, 0),()),
+		"UseSplitQuadIntoTria": ((2209, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherManualMeshOption(DispatchBaseClass):
+	'''Manual mesh option'''
+	CLSID = IID('{53DBAC32-9F55-4985-9D4C-72273C33F567}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetFFlexProperty(self, val):
+		'''
+		Get FFlex property
+		
+		:param val: FFlexPropertyType
+		:rtype: recurdyn.FFlex.IFFlexProperty
+		'''
+		ret = self._oleobj_.InvokeTypes(2151, LCID, 1, (9, 0), ((3, 1),),val
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GetFFlexProperty', '{DB406626-3064-4709-933F-C7E7F9AD92E4}')
+		return ret
+
+	def _set_TargetGeometry(self, value):
+		if "TargetGeometry" in self.__dict__: self.__dict__["TargetGeometry"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+
+	TargetGeometry = property(None, _set_TargetGeometry)
+	'''
+	Target Entity
+
+	:type: str
+	'''
+	_prop_map_set_function_ = {
+		"_set_TargetGeometry": _set_TargetGeometry,
+	}
+	_prop_map_get_ = {
+	}
+	_prop_map_put_ = {
+		"TargetGeometry": ((2152, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherManualMeshSpinOption(DispatchBaseClass):
+	'''Manual mesh spin option'''
+	CLSID = IID('{9A0D32EB-DD32-45E0-8B69-39B6C0503EFE}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetFFlexProperty(self, val):
+		'''
+		Get FFlex property
+		
+		:param val: FFlexPropertyType
+		:rtype: recurdyn.FFlex.IFFlexProperty
+		'''
+		ret = self._oleobj_.InvokeTypes(2151, LCID, 1, (9, 0), ((3, 1),),val
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GetFFlexProperty', '{DB406626-3064-4709-933F-C7E7F9AD92E4}')
+		return ret
+
+	def _get_FaceEdge(self):
+		return self._ApplyTypes_(*(2209, 2, (8, 0), (), "FaceEdge", None))
+	def _get_MaterialCollection(self):
+		return self._ApplyTypes_(*(2208, 2, (9, 0), (), "MaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'))
+	def _get_MergewithSourceMesh(self):
+		return self._ApplyTypes_(*(2215, 2, (11, 0), (), "MergewithSourceMesh", None))
+	def _get_PatchLineSet(self):
+		return self._ApplyTypes_(*(2213, 2, (9, 0), (), "PatchLineSet", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_PropertyCollection(self):
+		return self._ApplyTypes_(*(2207, 2, (9, 0), (), "PropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'))
+	def _get_SelectType(self):
+		return self._ApplyTypes_(*(2212, 2, (3, 0), (), "SelectType", '{BEA8A68A-74CF-40BD-94D1-1C543FE06506}'))
+	def _get_UseMaintainExistingMesh(self):
+		return self._ApplyTypes_(*(2210, 2, (11, 0), (), "UseMaintainExistingMesh", None))
+	def _get_UseMaintainSourceMesh(self):
+		return self._ApplyTypes_(*(2214, 2, (11, 0), (), "UseMaintainSourceMesh", None))
+	def _get_UseSplitQuadIntoTria(self):
+		return self._ApplyTypes_(*(2211, 2, (11, 0), (), "UseSplitQuadIntoTria", None))
+
+	def _set_Axis(self, value):
+		if "Axis" in self.__dict__: self.__dict__["Axis"] = value; return
+		variantValue = win32com.client.VARIANT(8197, value)
+		self._oleobj_.Invoke(*((2203, LCID, 4, 0) + (variantValue,) + ()))
+	def _set_EndAngle(self, value):
+		if "EndAngle" in self.__dict__: self.__dict__["EndAngle"] = value; return
+		self._oleobj_.Invoke(*((2206, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexProperty(self, value):
+		if "FFlexProperty" in self.__dict__: self.__dict__["FFlexProperty"] = value; return
+		self._oleobj_.Invoke(*((2201, LCID, 4, 0) + (value,) + ()))
+	def _set_FaceEdge(self, value):
+		if "FaceEdge" in self.__dict__: self.__dict__["FaceEdge"] = value; return
+		self._oleobj_.Invoke(*((2209, LCID, 4, 0) + (value,) + ()))
+	def _set_MergewithSourceMesh(self, value):
+		if "MergewithSourceMesh" in self.__dict__: self.__dict__["MergewithSourceMesh"] = value; return
+		self._oleobj_.Invoke(*((2215, LCID, 4, 0) + (value,) + ()))
+	def _set_NoOfSegments(self, value):
+		if "NoOfSegments" in self.__dict__: self.__dict__["NoOfSegments"] = value; return
+		self._oleobj_.Invoke(*((2204, LCID, 4, 0) + (value,) + ()))
+	def _set_PatchLineSet(self, value):
+		if "PatchLineSet" in self.__dict__: self.__dict__["PatchLineSet"] = value; return
+		self._oleobj_.Invoke(*((2213, LCID, 4, 0) + (value,) + ()))
+	def _set_SelectType(self, value):
+		if "SelectType" in self.__dict__: self.__dict__["SelectType"] = value; return
+		self._oleobj_.Invoke(*((2212, LCID, 4, 0) + (value,) + ()))
+	def _set_SpinPoint(self, value):
+		if "SpinPoint" in self.__dict__: self.__dict__["SpinPoint"] = value; return
+		variantValue = win32com.client.VARIANT(8197, value)
+		self._oleobj_.Invoke(*((2202, LCID, 4, 0) + (variantValue,) + ()))
+	def _set_StartAngle(self, value):
+		if "StartAngle" in self.__dict__: self.__dict__["StartAngle"] = value; return
+		self._oleobj_.Invoke(*((2205, LCID, 4, 0) + (value,) + ()))
+	def _set_TargetGeometry(self, value):
+		if "TargetGeometry" in self.__dict__: self.__dict__["TargetGeometry"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+	def _set_UseMaintainExistingMesh(self, value):
+		if "UseMaintainExistingMesh" in self.__dict__: self.__dict__["UseMaintainExistingMesh"] = value; return
+		self._oleobj_.Invoke(*((2210, LCID, 4, 0) + (value,) + ()))
+	def _set_UseMaintainSourceMesh(self, value):
+		if "UseMaintainSourceMesh" in self.__dict__: self.__dict__["UseMaintainSourceMesh"] = value; return
+		self._oleobj_.Invoke(*((2214, LCID, 4, 0) + (value,) + ()))
+	def _set_UseSplitQuadIntoTria(self, value):
+		if "UseSplitQuadIntoTria" in self.__dict__: self.__dict__["UseSplitQuadIntoTria"] = value; return
+		self._oleobj_.Invoke(*((2211, LCID, 4, 0) + (value,) + ()))
+
+	FaceEdge = property(_get_FaceEdge, _set_FaceEdge)
+	'''
+	Face or Edge
+
+	:type: str
+	'''
+	MaterialCollection = property(_get_MaterialCollection, None)
+	'''
+	Contains FFlex Material
+
+	:type: recurdyn.FFlex.IFFlexMaterialCollection
+	'''
+	MergewithSourceMesh = property(_get_MergewithSourceMesh, _set_MergewithSourceMesh)
+	'''
+	Merge nodes at the same position
+
+	:type: bool
+	'''
+	PatchLineSet = property(_get_PatchLineSet, _set_PatchLineSet)
+	'''
+	Patch or Line Set
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	PropertyCollection = property(_get_PropertyCollection, None)
+	'''
+	Contains FFlex Property
+
+	:type: recurdyn.FFlex.IFFlexPropertyCollection
+	'''
+	SelectType = property(_get_SelectType, _set_SelectType)
+	'''
+	Select Type
+
+	:type: recurdyn.FFlex.ManualMeshSelectType
+	'''
+	UseMaintainExistingMesh = property(_get_UseMaintainExistingMesh, _set_UseMaintainExistingMesh)
+	'''
+	Same as UseMaintainSourceMesh
+
+	:type: bool
+	'''
+	UseMaintainSourceMesh = property(_get_UseMaintainSourceMesh, _set_UseMaintainSourceMesh)
+	'''
+	Use Maintain Existing Mesh
+
+	:type: bool
+	'''
+	UseSplitQuadIntoTria = property(_get_UseSplitQuadIntoTria, _set_UseSplitQuadIntoTria)
+	'''
+	Use Split Quad into Tria
+
+	:type: bool
+	'''
+	Axis = property(None, _set_Axis)
+	'''
+	Axis
+
+	:type: list[float]
+	'''
+	EndAngle = property(None, _set_EndAngle)
+	'''
+	End angle
+
+	:type: float
+	'''
+	FFlexProperty = property(None, _set_FFlexProperty)
+	'''
+	Property
+
+	:type: recurdyn.FFlex.IFFlexProperty
+	'''
+	NoOfSegments = property(None, _set_NoOfSegments)
+	'''
+	No of segments
+
+	:type: float
+	'''
+	SpinPoint = property(None, _set_SpinPoint)
+	'''
+	Spin point
+
+	:type: list[float]
+	'''
+	StartAngle = property(None, _set_StartAngle)
+	'''
+	Start angle
+
+	:type: float
+	'''
+	TargetGeometry = property(None, _set_TargetGeometry)
+	'''
+	Target Entity
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Axis": _set_Axis,
+		"_set_EndAngle": _set_EndAngle,
+		"_set_FFlexProperty": _set_FFlexProperty,
+		"_set_FaceEdge": _set_FaceEdge,
+		"_set_MergewithSourceMesh": _set_MergewithSourceMesh,
+		"_set_NoOfSegments": _set_NoOfSegments,
+		"_set_PatchLineSet": _set_PatchLineSet,
+		"_set_SelectType": _set_SelectType,
+		"_set_SpinPoint": _set_SpinPoint,
+		"_set_StartAngle": _set_StartAngle,
+		"_set_TargetGeometry": _set_TargetGeometry,
+		"_set_UseMaintainExistingMesh": _set_UseMaintainExistingMesh,
+		"_set_UseMaintainSourceMesh": _set_UseMaintainSourceMesh,
+		"_set_UseSplitQuadIntoTria": _set_UseSplitQuadIntoTria,
+	}
+	_prop_map_get_ = {
+		"FaceEdge": (2209, 2, (8, 0), (), "FaceEdge", None),
+		"MaterialCollection": (2208, 2, (9, 0), (), "MaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'),
+		"MergewithSourceMesh": (2215, 2, (11, 0), (), "MergewithSourceMesh", None),
+		"PatchLineSet": (2213, 2, (9, 0), (), "PatchLineSet", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"PropertyCollection": (2207, 2, (9, 0), (), "PropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'),
+		"SelectType": (2212, 2, (3, 0), (), "SelectType", '{BEA8A68A-74CF-40BD-94D1-1C543FE06506}'),
+		"UseMaintainExistingMesh": (2210, 2, (11, 0), (), "UseMaintainExistingMesh", None),
+		"UseMaintainSourceMesh": (2214, 2, (11, 0), (), "UseMaintainSourceMesh", None),
+		"UseSplitQuadIntoTria": (2211, 2, (11, 0), (), "UseSplitQuadIntoTria", None),
+	}
+	_prop_map_put_ = {
+		"Axis": ((2203, LCID, 4, 0),()),
+		"EndAngle": ((2206, LCID, 4, 0),()),
+		"FFlexProperty": ((2201, LCID, 4, 0),()),
+		"FaceEdge": ((2209, LCID, 4, 0),()),
+		"MergewithSourceMesh": ((2215, LCID, 4, 0),()),
+		"NoOfSegments": ((2204, LCID, 4, 0),()),
+		"PatchLineSet": ((2213, LCID, 4, 0),()),
+		"SelectType": ((2212, LCID, 4, 0),()),
+		"SpinPoint": ((2202, LCID, 4, 0),()),
+		"StartAngle": ((2205, LCID, 4, 0),()),
+		"TargetGeometry": ((2152, LCID, 4, 0),()),
+		"UseMaintainExistingMesh": ((2210, LCID, 4, 0),()),
+		"UseMaintainSourceMesh": ((2214, LCID, 4, 0),()),
+		"UseSplitQuadIntoTria": ((2211, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherManualMeshSweepOption(DispatchBaseClass):
+	'''Manual mesh sweep option'''
+	CLSID = IID('{5EBC8EA0-272A-4C0B-8D4F-A8A94F42D8B2}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetFFlexProperty(self, val):
+		'''
+		Get FFlex property
+		
+		:param val: FFlexPropertyType
+		:rtype: recurdyn.FFlex.IFFlexProperty
+		'''
+		ret = self._oleobj_.InvokeTypes(2151, LCID, 1, (9, 0), ((3, 1),),val
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GetFFlexProperty', '{DB406626-3064-4709-933F-C7E7F9AD92E4}')
+		return ret
+
+	def _get_FaceEdge(self):
+		return self._ApplyTypes_(*(2211, 2, (8, 0), (), "FaceEdge", None))
+	def _get_MaterialCollection(self):
+		return self._ApplyTypes_(*(2208, 2, (9, 0), (), "MaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'))
+	def _get_MergewithSourceMesh(self):
+		return self._ApplyTypes_(*(2216, 2, (11, 0), (), "MergewithSourceMesh", None))
+	def _get_PatchLineSet(self):
+		return self._ApplyTypes_(*(2213, 2, (9, 0), (), "PatchLineSet", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'))
+	def _get_PropertyCollection(self):
+		return self._ApplyTypes_(*(2207, 2, (9, 0), (), "PropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'))
+	def _get_SelectType(self):
+		return self._ApplyTypes_(*(2212, 2, (3, 0), (), "SelectType", '{BEA8A68A-74CF-40BD-94D1-1C543FE06506}'))
+	def _get_UseMaintainSourceMesh(self):
+		return self._ApplyTypes_(*(2215, 2, (11, 0), (), "UseMaintainSourceMesh", None))
+	def _get_UseSplitQuadIntoTria(self):
+		return self._ApplyTypes_(*(2214, 2, (11, 0), (), "UseSplitQuadIntoTria", None))
+
+	def _set_CurvePath(self, value):
+		if "CurvePath" in self.__dict__: self.__dict__["CurvePath"] = value; return
+		self._oleobj_.Invoke(*((2202, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexProperty(self, value):
+		if "FFlexProperty" in self.__dict__: self.__dict__["FFlexProperty"] = value; return
+		self._oleobj_.Invoke(*((2201, LCID, 4, 0) + (value,) + ()))
+	def _set_FaceEdge(self, value):
+		if "FaceEdge" in self.__dict__: self.__dict__["FaceEdge"] = value; return
+		self._oleobj_.Invoke(*((2211, LCID, 4, 0) + (value,) + ()))
+	def _set_FixedAxis(self, value):
+		if "FixedAxis" in self.__dict__: self.__dict__["FixedAxis"] = value; return
+		variantValue = win32com.client.VARIANT(8197, value)
+		self._oleobj_.Invoke(*((2206, LCID, 4, 0) + (variantValue,) + ()))
+	def _set_MergewithSourceMesh(self, value):
+		if "MergewithSourceMesh" in self.__dict__: self.__dict__["MergewithSourceMesh"] = value; return
+		self._oleobj_.Invoke(*((2216, LCID, 4, 0) + (value,) + ()))
+	def _set_NoOfSegments(self, value):
+		if "NoOfSegments" in self.__dict__: self.__dict__["NoOfSegments"] = value; return
+		self._oleobj_.Invoke(*((2203, LCID, 4, 0) + (value,) + ()))
+	def _set_PatchLineSet(self, value):
+		if "PatchLineSet" in self.__dict__: self.__dict__["PatchLineSet"] = value; return
+		self._oleobj_.Invoke(*((2213, LCID, 4, 0) + (value,) + ()))
+	def _set_Scale(self, value):
+		if "Scale" in self.__dict__: self.__dict__["Scale"] = value; return
+		self._oleobj_.Invoke(*((2209, LCID, 4, 0) + (value,) + ()))
+	def _set_SelectType(self, value):
+		if "SelectType" in self.__dict__: self.__dict__["SelectType"] = value; return
+		self._oleobj_.Invoke(*((2212, LCID, 4, 0) + (value,) + ()))
+	def _set_TargetGeometry(self, value):
+		if "TargetGeometry" in self.__dict__: self.__dict__["TargetGeometry"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+	def _set_Twist(self, value):
+		if "Twist" in self.__dict__: self.__dict__["Twist"] = value; return
+		self._oleobj_.Invoke(*((2210, LCID, 4, 0) + (value,) + ()))
+	def _set_UseFixedAxis(self, value):
+		if "UseFixedAxis" in self.__dict__: self.__dict__["UseFixedAxis"] = value; return
+		self._oleobj_.Invoke(*((2205, LCID, 4, 0) + (value,) + ()))
+	def _set_UseMaintainSourceMesh(self, value):
+		if "UseMaintainSourceMesh" in self.__dict__: self.__dict__["UseMaintainSourceMesh"] = value; return
+		self._oleobj_.Invoke(*((2215, LCID, 4, 0) + (value,) + ()))
+	def _set_UseSplitQuadIntoTria(self, value):
+		if "UseSplitQuadIntoTria" in self.__dict__: self.__dict__["UseSplitQuadIntoTria"] = value; return
+		self._oleobj_.Invoke(*((2214, LCID, 4, 0) + (value,) + ()))
+	def _set_UseTangent(self, value):
+		if "UseTangent" in self.__dict__: self.__dict__["UseTangent"] = value; return
+		self._oleobj_.Invoke(*((2204, LCID, 4, 0) + (value,) + ()))
+
+	FaceEdge = property(_get_FaceEdge, _set_FaceEdge)
+	'''
+	Face or Edge
+
+	:type: str
+	'''
+	MaterialCollection = property(_get_MaterialCollection, None)
+	'''
+	Contains FFlex Material
+
+	:type: recurdyn.FFlex.IFFlexMaterialCollection
+	'''
+	MergewithSourceMesh = property(_get_MergewithSourceMesh, _set_MergewithSourceMesh)
+	'''
+	Merge nodes at the same position
+
+	:type: bool
+	'''
+	PatchLineSet = property(_get_PatchLineSet, _set_PatchLineSet)
+	'''
+	Patch or Line Set
+
+	:type: recurdyn.ProcessNet.IGeneric
+	'''
+	PropertyCollection = property(_get_PropertyCollection, None)
+	'''
+	Contains FFlex Property
+
+	:type: recurdyn.FFlex.IFFlexPropertyCollection
+	'''
+	SelectType = property(_get_SelectType, _set_SelectType)
+	'''
+	Select Type
+
+	:type: recurdyn.FFlex.ManualMeshSelectType
+	'''
+	UseMaintainSourceMesh = property(_get_UseMaintainSourceMesh, _set_UseMaintainSourceMesh)
+	'''
+	Use Maintain Source Mesh
+
+	:type: bool
+	'''
+	UseSplitQuadIntoTria = property(_get_UseSplitQuadIntoTria, _set_UseSplitQuadIntoTria)
+	'''
+	Use Split Quad into Tria
+
+	:type: bool
+	'''
+	CurvePath = property(None, _set_CurvePath)
+	'''
+	Curve path geometry
+
+	:type: str
+	'''
+	FFlexProperty = property(None, _set_FFlexProperty)
+	'''
+	Property
+
+	:type: recurdyn.FFlex.IFFlexProperty
+	'''
+	FixedAxis = property(None, _set_FixedAxis)
+	'''
+	Fixed axis
+
+	:type: list[float]
+	'''
+	NoOfSegments = property(None, _set_NoOfSegments)
+	'''
+	No of segments
+
+	:type: float
+	'''
+	Scale = property(None, _set_Scale)
+	'''
+	Scale
+
+	:type: float
+	'''
+	TargetGeometry = property(None, _set_TargetGeometry)
+	'''
+	Target Entity
+
+	:type: str
+	'''
+	Twist = property(None, _set_Twist)
+	'''
+	Twist Angle
+
+	:type: float
+	'''
+	UseFixedAxis = property(None, _set_UseFixedAxis)
+	'''
+	Use fixed axis
+
+	:type: bool
+	'''
+	UseTangent = property(None, _set_UseTangent)
+	'''
+	Use curve tangent
+
+	:type: bool
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_CurvePath": _set_CurvePath,
+		"_set_FFlexProperty": _set_FFlexProperty,
+		"_set_FaceEdge": _set_FaceEdge,
+		"_set_FixedAxis": _set_FixedAxis,
+		"_set_MergewithSourceMesh": _set_MergewithSourceMesh,
+		"_set_NoOfSegments": _set_NoOfSegments,
+		"_set_PatchLineSet": _set_PatchLineSet,
+		"_set_Scale": _set_Scale,
+		"_set_SelectType": _set_SelectType,
+		"_set_TargetGeometry": _set_TargetGeometry,
+		"_set_Twist": _set_Twist,
+		"_set_UseFixedAxis": _set_UseFixedAxis,
+		"_set_UseMaintainSourceMesh": _set_UseMaintainSourceMesh,
+		"_set_UseSplitQuadIntoTria": _set_UseSplitQuadIntoTria,
+		"_set_UseTangent": _set_UseTangent,
+	}
+	_prop_map_get_ = {
+		"FaceEdge": (2211, 2, (8, 0), (), "FaceEdge", None),
+		"MaterialCollection": (2208, 2, (9, 0), (), "MaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'),
+		"MergewithSourceMesh": (2216, 2, (11, 0), (), "MergewithSourceMesh", None),
+		"PatchLineSet": (2213, 2, (9, 0), (), "PatchLineSet", '{27A86788-8B85-40CF-BE7F-BA915103A7DB}'),
+		"PropertyCollection": (2207, 2, (9, 0), (), "PropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'),
+		"SelectType": (2212, 2, (3, 0), (), "SelectType", '{BEA8A68A-74CF-40BD-94D1-1C543FE06506}'),
+		"UseMaintainSourceMesh": (2215, 2, (11, 0), (), "UseMaintainSourceMesh", None),
+		"UseSplitQuadIntoTria": (2214, 2, (11, 0), (), "UseSplitQuadIntoTria", None),
+	}
+	_prop_map_put_ = {
+		"CurvePath": ((2202, LCID, 4, 0),()),
+		"FFlexProperty": ((2201, LCID, 4, 0),()),
+		"FaceEdge": ((2211, LCID, 4, 0),()),
+		"FixedAxis": ((2206, LCID, 4, 0),()),
+		"MergewithSourceMesh": ((2216, LCID, 4, 0),()),
+		"NoOfSegments": ((2203, LCID, 4, 0),()),
+		"PatchLineSet": ((2213, LCID, 4, 0),()),
+		"Scale": ((2209, LCID, 4, 0),()),
+		"SelectType": ((2212, LCID, 4, 0),()),
+		"TargetGeometry": ((2152, LCID, 4, 0),()),
+		"Twist": ((2210, LCID, 4, 0),()),
+		"UseFixedAxis": ((2205, LCID, 4, 0),()),
+		"UseMaintainSourceMesh": ((2215, LCID, 4, 0),()),
+		"UseSplitQuadIntoTria": ((2214, LCID, 4, 0),()),
+		"UseTangent": ((2204, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherMeshOption(DispatchBaseClass):
+	'''Mesh option'''
+	CLSID = IID('{422ADC13-1282-476A-870B-79AF4BAED1D4}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def GetFFlexProperty(self, val):
+		'''
+		Get FFlex property
+		
+		:param val: FFlexPropertyType
+		:rtype: recurdyn.FFlex.IFFlexProperty
+		'''
+		ret = self._oleobj_.InvokeTypes(2162, LCID, 1, (9, 0), ((3, 1),),val
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'GetFFlexProperty', '{DB406626-3064-4709-933F-C7E7F9AD92E4}')
+		return ret
+
+	def _get_AutoFlexMerge(self):
+		return self._ApplyTypes_(*(2184, 2, (11, 0), (), "AutoFlexMerge", None))
+	def _get_ChordalError(self):
+		return self._ApplyTypes_(*(2164, 2, (5, 0), (), "ChordalError", None))
+	def _get_ChordalErrorType(self):
+		return self._ApplyTypes_(*(2163, 2, (3, 0), (), "ChordalErrorType", '{C87731AE-B38F-4432-881E-5498C0F17316}'))
+	def _get_FFlexProperty(self):
+		return self._ApplyTypes_(*(2153, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'))
+	def _get_FacetAngleTolerance(self):
+		return self._ApplyTypes_(*(2169, 2, (5, 0), (), "FacetAngleTolerance", None))
+	def _get_ForceNoLineEven(self):
+		return self._ApplyTypes_(*(2175, 2, (11, 0), (), "ForceNoLineEven", None))
+	def _get_GradationFactor(self):
+		return self._ApplyTypes_(*(2167, 2, (5, 0), (), "GradationFactor", None))
+	def _get_MaterialCollection(self):
+		return self._ApplyTypes_(*(2161, 2, (9, 0), (), "MaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'))
+	def _get_MaxElementSize(self):
+		return self._ApplyTypes_(*(2154, 2, (5, 0), (), "MaxElementSize", None))
+	def _get_MaxNoOfEdgesAlongLoops(self):
+		return self._ApplyTypes_(*(2173, 2, (19, 0), (), "MaxNoOfEdgesAlongLoops", None))
+	def _get_MeshType(self):
+		return self._ApplyTypes_(*(2152, 2, (3, 0), (), "MeshType", '{5366C7D1-4613-420A-A683-32D460607E81}'))
+	def _get_MinElementSize(self):
+		return self._ApplyTypes_(*(2155, 2, (5, 0), (), "MinElementSize", None))
+	def _get_MinNoOfEdgesAlongLoops(self):
+		return self._ApplyTypes_(*(2174, 2, (19, 0), (), "MinNoOfEdgesAlongLoops", None))
+	def _get_OptimizationLevel(self):
+		return self._ApplyTypes_(*(2170, 2, (19, 0), (), "OptimizationLevel", None))
+	def _get_PropertyCollection(self):
+		return self._ApplyTypes_(*(2160, 2, (9, 0), (), "PropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'))
+	def _get_QuadrangleWeight(self):
+		return self._ApplyTypes_(*(2176, 2, (5, 0), (), "QuadrangleWeight", None))
+	def _get_SameTypeFaceJunctionOnly(self):
+		return self._ApplyTypes_(*(2181, 2, (11, 0), (), "SameTypeFaceJunctionOnly", None))
+	def _get_ShellInternalElementSize(self):
+		return self._ApplyTypes_(*(2172, 2, (5, 0), (), "ShellInternalElementSize", None))
+	def _get_SolidGradationFactor(self):
+		return self._ApplyTypes_(*(2178, 2, (5, 0), (), "SolidGradationFactor", None))
+	def _get_SolidInternalElementSize(self):
+		return self._ApplyTypes_(*(2180, 2, (5, 0), (), "SolidInternalElementSize", None))
+	def _get_StructuredOutput(self):
+		return self._ApplyTypes_(*(2157, 2, (3, 0), (), "StructuredOutput", '{0C1D63F6-16E9-47EE-8E4E-58C46D84DE85}'))
+	def _get_UseAutoCleanupShellMesh(self):
+		return self._ApplyTypes_(*(2182, 2, (11, 0), (), "UseAutoCleanupShellMesh", None))
+	def _get_UseCloseGaps(self):
+		return self._ApplyTypes_(*(2158, 2, (11, 0), (), "UseCloseGaps", None))
+	def _get_UseCreateBeamElementWithPreStress(self):
+		return self._ApplyTypes_(*(2183, 2, (11, 0), (), "UseCreateBeamElementWithPreStress", None))
+	def _get_UseCurrentShellMeshInfo(self):
+		return self._ApplyTypes_(*(2168, 2, (11, 0), (), "UseCurrentShellMeshInfo", None))
+	def _get_UseIncludeAssistModeling(self):
+		return self._ApplyTypes_(*(2159, 2, (11, 0), (), "UseIncludeAssistModeling", None))
+	def _get_UseMinimizeTriangleElement(self):
+		return self._ApplyTypes_(*(2166, 2, (11, 0), (), "UseMinimizeTriangleElement", None))
+	def _get_UseQuadElementOnly(self):
+		return self._ApplyTypes_(*(2165, 2, (11, 0), (), "UseQuadElementOnly", None))
+	def _get_UseShellInternalElementSize(self):
+		return self._ApplyTypes_(*(2171, 2, (11, 0), (), "UseShellInternalElementSize", None))
+	def _get_UseSolidInternalElementSize(self):
+		return self._ApplyTypes_(*(2179, 2, (11, 0), (), "UseSolidInternalElementSize", None))
+	def _get_UseStructuredOutput(self):
+		return self._ApplyTypes_(*(2156, 2, (11, 0), (), "UseStructuredOutput", None))
+
+	def _set_AutoFlexMerge(self, value):
+		if "AutoFlexMerge" in self.__dict__: self.__dict__["AutoFlexMerge"] = value; return
+		self._oleobj_.Invoke(*((2184, LCID, 4, 0) + (value,) + ()))
+	def _set_ChordalError(self, value):
+		if "ChordalError" in self.__dict__: self.__dict__["ChordalError"] = value; return
+		self._oleobj_.Invoke(*((2164, LCID, 4, 0) + (value,) + ()))
+	def _set_ChordalErrorType(self, value):
+		if "ChordalErrorType" in self.__dict__: self.__dict__["ChordalErrorType"] = value; return
+		self._oleobj_.Invoke(*((2163, LCID, 4, 0) + (value,) + ()))
+	def _set_FFlexProperty(self, value):
+		if "FFlexProperty" in self.__dict__: self.__dict__["FFlexProperty"] = value; return
+		self._oleobj_.Invoke(*((2153, LCID, 4, 0) + (value,) + ()))
+	def _set_FacetAngleTolerance(self, value):
+		if "FacetAngleTolerance" in self.__dict__: self.__dict__["FacetAngleTolerance"] = value; return
+		self._oleobj_.Invoke(*((2169, LCID, 4, 0) + (value,) + ()))
+	def _set_ForceNoLineEven(self, value):
+		if "ForceNoLineEven" in self.__dict__: self.__dict__["ForceNoLineEven"] = value; return
+		self._oleobj_.Invoke(*((2175, LCID, 4, 0) + (value,) + ()))
+	def _set_GradationFactor(self, value):
+		if "GradationFactor" in self.__dict__: self.__dict__["GradationFactor"] = value; return
+		self._oleobj_.Invoke(*((2167, LCID, 4, 0) + (value,) + ()))
+	def _set_MaxElementSize(self, value):
+		if "MaxElementSize" in self.__dict__: self.__dict__["MaxElementSize"] = value; return
+		self._oleobj_.Invoke(*((2154, LCID, 4, 0) + (value,) + ()))
+	def _set_MaxNoOfEdgesAlongLoops(self, value):
+		if "MaxNoOfEdgesAlongLoops" in self.__dict__: self.__dict__["MaxNoOfEdgesAlongLoops"] = value; return
+		self._oleobj_.Invoke(*((2173, LCID, 4, 0) + (value,) + ()))
+	def _set_MeshType(self, value):
+		if "MeshType" in self.__dict__: self.__dict__["MeshType"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+	def _set_MinElementSize(self, value):
+		if "MinElementSize" in self.__dict__: self.__dict__["MinElementSize"] = value; return
+		self._oleobj_.Invoke(*((2155, LCID, 4, 0) + (value,) + ()))
+	def _set_MinNoOfEdgesAlongLoops(self, value):
+		if "MinNoOfEdgesAlongLoops" in self.__dict__: self.__dict__["MinNoOfEdgesAlongLoops"] = value; return
+		self._oleobj_.Invoke(*((2174, LCID, 4, 0) + (value,) + ()))
+	def _set_OptimizationLevel(self, value):
+		if "OptimizationLevel" in self.__dict__: self.__dict__["OptimizationLevel"] = value; return
+		self._oleobj_.Invoke(*((2170, LCID, 4, 0) + (value,) + ()))
+	def _set_QuadrangleWeight(self, value):
+		if "QuadrangleWeight" in self.__dict__: self.__dict__["QuadrangleWeight"] = value; return
+		self._oleobj_.Invoke(*((2176, LCID, 4, 0) + (value,) + ()))
+	def _set_SameTypeFaceJunctionOnly(self, value):
+		if "SameTypeFaceJunctionOnly" in self.__dict__: self.__dict__["SameTypeFaceJunctionOnly"] = value; return
+		self._oleobj_.Invoke(*((2181, LCID, 4, 0) + (value,) + ()))
+	def _set_ShellInternalElementSize(self, value):
+		if "ShellInternalElementSize" in self.__dict__: self.__dict__["ShellInternalElementSize"] = value; return
+		self._oleobj_.Invoke(*((2172, LCID, 4, 0) + (value,) + ()))
+	def _set_SolidGradationFactor(self, value):
+		if "SolidGradationFactor" in self.__dict__: self.__dict__["SolidGradationFactor"] = value; return
+		self._oleobj_.Invoke(*((2178, LCID, 4, 0) + (value,) + ()))
+	def _set_SolidInternalElementSize(self, value):
+		if "SolidInternalElementSize" in self.__dict__: self.__dict__["SolidInternalElementSize"] = value; return
+		self._oleobj_.Invoke(*((2180, LCID, 4, 0) + (value,) + ()))
+	def _set_StructuredOutput(self, value):
+		if "StructuredOutput" in self.__dict__: self.__dict__["StructuredOutput"] = value; return
+		self._oleobj_.Invoke(*((2157, LCID, 4, 0) + (value,) + ()))
+	def _set_TargetBody(self, value):
+		if "TargetBody" in self.__dict__: self.__dict__["TargetBody"] = value; return
+		self._oleobj_.Invoke(*((2151, LCID, 4, 0) + (value,) + ()))
+	def _set_UseAutoCleanupShellMesh(self, value):
+		if "UseAutoCleanupShellMesh" in self.__dict__: self.__dict__["UseAutoCleanupShellMesh"] = value; return
+		self._oleobj_.Invoke(*((2182, LCID, 4, 0) + (value,) + ()))
+	def _set_UseCloseGaps(self, value):
+		if "UseCloseGaps" in self.__dict__: self.__dict__["UseCloseGaps"] = value; return
+		self._oleobj_.Invoke(*((2158, LCID, 4, 0) + (value,) + ()))
+	def _set_UseCreateBeamElementWithPreStress(self, value):
+		if "UseCreateBeamElementWithPreStress" in self.__dict__: self.__dict__["UseCreateBeamElementWithPreStress"] = value; return
+		self._oleobj_.Invoke(*((2183, LCID, 4, 0) + (value,) + ()))
+	def _set_UseCurrentShellMeshInfo(self, value):
+		if "UseCurrentShellMeshInfo" in self.__dict__: self.__dict__["UseCurrentShellMeshInfo"] = value; return
+		self._oleobj_.Invoke(*((2168, LCID, 4, 0) + (value,) + ()))
+	def _set_UseIncludeAssistModeling(self, value):
+		if "UseIncludeAssistModeling" in self.__dict__: self.__dict__["UseIncludeAssistModeling"] = value; return
+		self._oleobj_.Invoke(*((2159, LCID, 4, 0) + (value,) + ()))
+	def _set_UseMinimizeTriangleElement(self, value):
+		if "UseMinimizeTriangleElement" in self.__dict__: self.__dict__["UseMinimizeTriangleElement"] = value; return
+		self._oleobj_.Invoke(*((2166, LCID, 4, 0) + (value,) + ()))
+	def _set_UseQuadElementOnly(self, value):
+		if "UseQuadElementOnly" in self.__dict__: self.__dict__["UseQuadElementOnly"] = value; return
+		self._oleobj_.Invoke(*((2165, LCID, 4, 0) + (value,) + ()))
+	def _set_UseShellInternalElementSize(self, value):
+		if "UseShellInternalElementSize" in self.__dict__: self.__dict__["UseShellInternalElementSize"] = value; return
+		self._oleobj_.Invoke(*((2171, LCID, 4, 0) + (value,) + ()))
+	def _set_UseSolidInternalElementSize(self, value):
+		if "UseSolidInternalElementSize" in self.__dict__: self.__dict__["UseSolidInternalElementSize"] = value; return
+		self._oleobj_.Invoke(*((2179, LCID, 4, 0) + (value,) + ()))
+	def _set_UseStructuredOutput(self, value):
+		if "UseStructuredOutput" in self.__dict__: self.__dict__["UseStructuredOutput"] = value; return
+		self._oleobj_.Invoke(*((2156, LCID, 4, 0) + (value,) + ()))
+
+	AutoFlexMerge = property(_get_AutoFlexMerge, _set_AutoFlexMerge)
+	'''
+	Merge nodes at the same position
+
+	:type: bool
+	'''
+	ChordalError = property(_get_ChordalError, _set_ChordalError)
+	'''
+	Chordal Error
+
+	:type: float
+	'''
+	ChordalErrorType = property(_get_ChordalErrorType, _set_ChordalErrorType)
+	'''
+	Chordal Error Type
+
+	:type: recurdyn.FFlex.ChordalErrorType
+	'''
+	FFlexProperty = property(_get_FFlexProperty, _set_FFlexProperty)
+	'''
+	Property
+
+	:type: recurdyn.FFlex.IFFlexProperty
+	'''
+	FacetAngleTolerance = property(_get_FacetAngleTolerance, _set_FacetAngleTolerance)
+	'''
+	Facet Angle Tolerance
+
+	:type: float
+	'''
+	ForceNoLineEven = property(_get_ForceNoLineEven, _set_ForceNoLineEven)
+	'''
+	Force the Number of Lines in Edges to be Even
+
+	:type: bool
+	'''
+	GradationFactor = property(_get_GradationFactor, _set_GradationFactor)
+	'''
+	Gradation Factor
+
+	:type: float
+	'''
+	MaterialCollection = property(_get_MaterialCollection, None)
+	'''
+	Contains FFlex Material
+
+	:type: recurdyn.FFlex.IFFlexMaterialCollection
+	'''
+	MaxElementSize = property(_get_MaxElementSize, _set_MaxElementSize)
+	'''
+	Max element size
+
+	:type: float
+	'''
+	MaxNoOfEdgesAlongLoops = property(_get_MaxNoOfEdgesAlongLoops, _set_MaxNoOfEdgesAlongLoops)
+	'''
+	Max Number of Edges Along Loops
+
+	:type: int
+	'''
+	MeshType = property(_get_MeshType, _set_MeshType)
+	'''
+	Mesh type
+
+	:type: recurdyn.FFlex.MeshType
+	'''
+	MinElementSize = property(_get_MinElementSize, _set_MinElementSize)
+	'''
+	Min element size
+
+	:type: float
+	'''
+	MinNoOfEdgesAlongLoops = property(_get_MinNoOfEdgesAlongLoops, _set_MinNoOfEdgesAlongLoops)
+	'''
+	Min Number of Edges Along Loops
+
+	:type: int
+	'''
+	OptimizationLevel = property(_get_OptimizationLevel, _set_OptimizationLevel)
+	'''
+	Optimization Level
+
+	:type: int
+	'''
+	PropertyCollection = property(_get_PropertyCollection, None)
+	'''
+	Contains FFlex Property
+
+	:type: recurdyn.FFlex.IFFlexPropertyCollection
+	'''
+	QuadrangleWeight = property(_get_QuadrangleWeight, _set_QuadrangleWeight)
+	'''
+	Weight on Quadrangles
+
+	:type: float
+	'''
+	SameTypeFaceJunctionOnly = property(_get_SameTypeFaceJunctionOnly, _set_SameTypeFaceJunctionOnly)
+	'''
+	Triangle-Triangle and Quad-Quad Junctions Only
+
+	:type: bool
+	'''
+	ShellInternalElementSize = property(_get_ShellInternalElementSize, _set_ShellInternalElementSize)
+	'''
+	Shell Internal Element Size
+
+	:type: float
+	'''
+	SolidGradationFactor = property(_get_SolidGradationFactor, _set_SolidGradationFactor)
+	'''
+	Solid Gradation Factor
+
+	:type: float
+	'''
+	SolidInternalElementSize = property(_get_SolidInternalElementSize, _set_SolidInternalElementSize)
+	'''
+	Internal Element Size
+
+	:type: float
+	'''
+	StructuredOutput = property(_get_StructuredOutput, _set_StructuredOutput)
+	'''
+	Structured output
+
+	:type: recurdyn.FFlex.StructuredOutputType
+	'''
+	UseAutoCleanupShellMesh = property(_get_UseAutoCleanupShellMesh, _set_UseAutoCleanupShellMesh)
+	'''
+	Use Auto Cleanup Shell Mesh
+
+	:type: bool
+	'''
+	UseCloseGaps = property(_get_UseCloseGaps, _set_UseCloseGaps)
+	'''
+	Use close gaps
+
+	:type: bool
+	'''
+	UseCreateBeamElementWithPreStress = property(_get_UseCreateBeamElementWithPreStress, _set_UseCreateBeamElementWithPreStress)
+	'''
+	Use Create Beam Element with Pre-Stress
+
+	:type: bool
+	'''
+	UseCurrentShellMeshInfo = property(_get_UseCurrentShellMeshInfo, _set_UseCurrentShellMeshInfo)
+	'''
+	Use current shell mesh information, when meshing
+
+	:type: bool
+	'''
+	UseIncludeAssistModeling = property(_get_UseIncludeAssistModeling, _set_UseIncludeAssistModeling)
+	'''
+	Use include assist modeling
+
+	:type: bool
+	'''
+	UseMinimizeTriangleElement = property(_get_UseMinimizeTriangleElement, _set_UseMinimizeTriangleElement)
+	'''
+	UseMinimizeTriangleElement is obsolete property, Use QuadrangleWeight.
+
+	:type: bool
+	'''
+	UseQuadElementOnly = property(_get_UseQuadElementOnly, _set_UseQuadElementOnly)
+	'''
+	Use Quad Element Only
+
+	:type: bool
+	'''
+	UseShellInternalElementSize = property(_get_UseShellInternalElementSize, _set_UseShellInternalElementSize)
+	'''
+	Use Shell Internal Element Size
+
+	:type: bool
+	'''
+	UseSolidInternalElementSize = property(_get_UseSolidInternalElementSize, _set_UseSolidInternalElementSize)
+	'''
+	Use Solid Internal Element Size
+
+	:type: bool
+	'''
+	UseStructuredOutput = property(_get_UseStructuredOutput, _set_UseStructuredOutput)
+	'''
+	Use structured output
+
+	:type: bool
+	'''
+	TargetBody = property(None, _set_TargetBody)
+	'''
+	Target body
+
+	:type: recurdyn.ProcessNet.IGeometry
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_AutoFlexMerge": _set_AutoFlexMerge,
+		"_set_ChordalError": _set_ChordalError,
+		"_set_ChordalErrorType": _set_ChordalErrorType,
+		"_set_FFlexProperty": _set_FFlexProperty,
+		"_set_FacetAngleTolerance": _set_FacetAngleTolerance,
+		"_set_ForceNoLineEven": _set_ForceNoLineEven,
+		"_set_GradationFactor": _set_GradationFactor,
+		"_set_MaxElementSize": _set_MaxElementSize,
+		"_set_MaxNoOfEdgesAlongLoops": _set_MaxNoOfEdgesAlongLoops,
+		"_set_MeshType": _set_MeshType,
+		"_set_MinElementSize": _set_MinElementSize,
+		"_set_MinNoOfEdgesAlongLoops": _set_MinNoOfEdgesAlongLoops,
+		"_set_OptimizationLevel": _set_OptimizationLevel,
+		"_set_QuadrangleWeight": _set_QuadrangleWeight,
+		"_set_SameTypeFaceJunctionOnly": _set_SameTypeFaceJunctionOnly,
+		"_set_ShellInternalElementSize": _set_ShellInternalElementSize,
+		"_set_SolidGradationFactor": _set_SolidGradationFactor,
+		"_set_SolidInternalElementSize": _set_SolidInternalElementSize,
+		"_set_StructuredOutput": _set_StructuredOutput,
+		"_set_TargetBody": _set_TargetBody,
+		"_set_UseAutoCleanupShellMesh": _set_UseAutoCleanupShellMesh,
+		"_set_UseCloseGaps": _set_UseCloseGaps,
+		"_set_UseCreateBeamElementWithPreStress": _set_UseCreateBeamElementWithPreStress,
+		"_set_UseCurrentShellMeshInfo": _set_UseCurrentShellMeshInfo,
+		"_set_UseIncludeAssistModeling": _set_UseIncludeAssistModeling,
+		"_set_UseMinimizeTriangleElement": _set_UseMinimizeTriangleElement,
+		"_set_UseQuadElementOnly": _set_UseQuadElementOnly,
+		"_set_UseShellInternalElementSize": _set_UseShellInternalElementSize,
+		"_set_UseSolidInternalElementSize": _set_UseSolidInternalElementSize,
+		"_set_UseStructuredOutput": _set_UseStructuredOutput,
+	}
+	_prop_map_get_ = {
+		"AutoFlexMerge": (2184, 2, (11, 0), (), "AutoFlexMerge", None),
+		"ChordalError": (2164, 2, (5, 0), (), "ChordalError", None),
+		"ChordalErrorType": (2163, 2, (3, 0), (), "ChordalErrorType", '{C87731AE-B38F-4432-881E-5498C0F17316}'),
+		"FFlexProperty": (2153, 2, (9, 0), (), "FFlexProperty", '{DB406626-3064-4709-933F-C7E7F9AD92E4}'),
+		"FacetAngleTolerance": (2169, 2, (5, 0), (), "FacetAngleTolerance", None),
+		"ForceNoLineEven": (2175, 2, (11, 0), (), "ForceNoLineEven", None),
+		"GradationFactor": (2167, 2, (5, 0), (), "GradationFactor", None),
+		"MaterialCollection": (2161, 2, (9, 0), (), "MaterialCollection", '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}'),
+		"MaxElementSize": (2154, 2, (5, 0), (), "MaxElementSize", None),
+		"MaxNoOfEdgesAlongLoops": (2173, 2, (19, 0), (), "MaxNoOfEdgesAlongLoops", None),
+		"MeshType": (2152, 2, (3, 0), (), "MeshType", '{5366C7D1-4613-420A-A683-32D460607E81}'),
+		"MinElementSize": (2155, 2, (5, 0), (), "MinElementSize", None),
+		"MinNoOfEdgesAlongLoops": (2174, 2, (19, 0), (), "MinNoOfEdgesAlongLoops", None),
+		"OptimizationLevel": (2170, 2, (19, 0), (), "OptimizationLevel", None),
+		"PropertyCollection": (2160, 2, (9, 0), (), "PropertyCollection", '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}'),
+		"QuadrangleWeight": (2176, 2, (5, 0), (), "QuadrangleWeight", None),
+		"SameTypeFaceJunctionOnly": (2181, 2, (11, 0), (), "SameTypeFaceJunctionOnly", None),
+		"ShellInternalElementSize": (2172, 2, (5, 0), (), "ShellInternalElementSize", None),
+		"SolidGradationFactor": (2178, 2, (5, 0), (), "SolidGradationFactor", None),
+		"SolidInternalElementSize": (2180, 2, (5, 0), (), "SolidInternalElementSize", None),
+		"StructuredOutput": (2157, 2, (3, 0), (), "StructuredOutput", '{0C1D63F6-16E9-47EE-8E4E-58C46D84DE85}'),
+		"UseAutoCleanupShellMesh": (2182, 2, (11, 0), (), "UseAutoCleanupShellMesh", None),
+		"UseCloseGaps": (2158, 2, (11, 0), (), "UseCloseGaps", None),
+		"UseCreateBeamElementWithPreStress": (2183, 2, (11, 0), (), "UseCreateBeamElementWithPreStress", None),
+		"UseCurrentShellMeshInfo": (2168, 2, (11, 0), (), "UseCurrentShellMeshInfo", None),
+		"UseIncludeAssistModeling": (2159, 2, (11, 0), (), "UseIncludeAssistModeling", None),
+		"UseMinimizeTriangleElement": (2166, 2, (11, 0), (), "UseMinimizeTriangleElement", None),
+		"UseQuadElementOnly": (2165, 2, (11, 0), (), "UseQuadElementOnly", None),
+		"UseShellInternalElementSize": (2171, 2, (11, 0), (), "UseShellInternalElementSize", None),
+		"UseSolidInternalElementSize": (2179, 2, (11, 0), (), "UseSolidInternalElementSize", None),
+		"UseStructuredOutput": (2156, 2, (11, 0), (), "UseStructuredOutput", None),
+	}
+	_prop_map_put_ = {
+		"AutoFlexMerge": ((2184, LCID, 4, 0),()),
+		"ChordalError": ((2164, LCID, 4, 0),()),
+		"ChordalErrorType": ((2163, LCID, 4, 0),()),
+		"FFlexProperty": ((2153, LCID, 4, 0),()),
+		"FacetAngleTolerance": ((2169, LCID, 4, 0),()),
+		"ForceNoLineEven": ((2175, LCID, 4, 0),()),
+		"GradationFactor": ((2167, LCID, 4, 0),()),
+		"MaxElementSize": ((2154, LCID, 4, 0),()),
+		"MaxNoOfEdgesAlongLoops": ((2173, LCID, 4, 0),()),
+		"MeshType": ((2152, LCID, 4, 0),()),
+		"MinElementSize": ((2155, LCID, 4, 0),()),
+		"MinNoOfEdgesAlongLoops": ((2174, LCID, 4, 0),()),
+		"OptimizationLevel": ((2170, LCID, 4, 0),()),
+		"QuadrangleWeight": ((2176, LCID, 4, 0),()),
+		"SameTypeFaceJunctionOnly": ((2181, LCID, 4, 0),()),
+		"ShellInternalElementSize": ((2172, LCID, 4, 0),()),
+		"SolidGradationFactor": ((2178, LCID, 4, 0),()),
+		"SolidInternalElementSize": ((2180, LCID, 4, 0),()),
+		"StructuredOutput": ((2157, LCID, 4, 0),()),
+		"TargetBody": ((2151, LCID, 4, 0),()),
+		"UseAutoCleanupShellMesh": ((2182, LCID, 4, 0),()),
+		"UseCloseGaps": ((2158, LCID, 4, 0),()),
+		"UseCreateBeamElementWithPreStress": ((2183, LCID, 4, 0),()),
+		"UseCurrentShellMeshInfo": ((2168, LCID, 4, 0),()),
+		"UseIncludeAssistModeling": ((2159, LCID, 4, 0),()),
+		"UseMinimizeTriangleElement": ((2166, LCID, 4, 0),()),
+		"UseQuadElementOnly": ((2165, LCID, 4, 0),()),
+		"UseShellInternalElementSize": ((2171, LCID, 4, 0),()),
+		"UseSolidInternalElementSize": ((2179, LCID, 4, 0),()),
+		"UseStructuredOutput": ((2156, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherQualityCheck(DispatchBaseClass):
+	'''Quality check'''
+	CLSID = IID('{A7DE6834-7983-4723-8B02-842CF33AB66C}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def CheckAngle(self, valMin, valMax):
+		'''
+		Check angle
+		
+		:param valMin: float
+		:param valMax: float
+		:rtype: recurdyn.FFlex.IQualityCheckResult
+		'''
+		ret = self._oleobj_.InvokeTypes(2152, LCID, 1, (9, 0), ((5, 1), (5, 1)),valMin
+			, valMax)
+		if ret is not None:
+			ret = Dispatch(ret, 'CheckAngle', '{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}')
+		return ret
+
+	def CheckAspectRatio(self, val):
+		'''
+		Check aspect ratio
+		
+		:param val: float
+		:rtype: recurdyn.FFlex.IQualityCheckResult
+		'''
+		ret = self._oleobj_.InvokeTypes(2151, LCID, 1, (9, 0), ((5, 1),),val
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CheckAspectRatio', '{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}')
+		return ret
+
+	def CheckFreeLines(self):
+		'''
+		Check free lines
+		
+		:rtype: recurdyn.FFlex.IQualityCheckLineResult
+		'''
+		ret = self._oleobj_.InvokeTypes(2156, LCID, 1, (9, 0), (),)
+		if ret is not None:
+			ret = Dispatch(ret, 'CheckFreeLines', '{82707715-CB95-4DC7-B768-FD6CE5552F04}')
+		return ret
+
+	def CheckIntersectionLines(self):
+		'''
+		Check intersection lines
+		
+		:rtype: recurdyn.FFlex.IQualityCheckLineResult
+		'''
+		ret = self._oleobj_.InvokeTypes(2158, LCID, 1, (9, 0), (),)
+		if ret is not None:
+			ret = Dispatch(ret, 'CheckIntersectionLines', '{82707715-CB95-4DC7-B768-FD6CE5552F04}')
+		return ret
+
+	def CheckSkewness(self, val):
+		'''
+		Check skewness
+		
+		:param val: float
+		:rtype: recurdyn.FFlex.IQualityCheckResult
+		'''
+		ret = self._oleobj_.InvokeTypes(2153, LCID, 1, (9, 0), ((5, 1),),val
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CheckSkewness', '{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}')
+		return ret
+
+	def CheckTConnectionLines(self):
+		'''
+		Check T-connection lines
+		
+		:rtype: recurdyn.FFlex.IQualityCheckLineResult
+		'''
+		ret = self._oleobj_.InvokeTypes(2157, LCID, 1, (9, 0), (),)
+		if ret is not None:
+			ret = Dispatch(ret, 'CheckTConnectionLines', '{82707715-CB95-4DC7-B768-FD6CE5552F04}')
+		return ret
+
+	def CheckTapering(self, val):
+		'''
+		Check tapering
+		
+		:param val: float
+		:rtype: recurdyn.FFlex.IQualityCheckResult
+		'''
+		ret = self._oleobj_.InvokeTypes(2155, LCID, 1, (9, 0), ((5, 1),),val
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CheckTapering', '{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}')
+		return ret
+
+	def CheckWarping(self, val):
+		'''
+		Check warping
+		
+		:param val: float
+		:rtype: recurdyn.FFlex.IQualityCheckResult
+		'''
+		ret = self._oleobj_.InvokeTypes(2154, LCID, 1, (9, 0), ((5, 1),),val
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'CheckWarping', '{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}')
+		return ret
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+	}
+	_prop_map_put_ = {
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherRemeshOption(DispatchBaseClass):
+	'''Remesh option'''
+	CLSID = IID('{A0D78F70-FF33-4C16-92F2-CA86E74A945D}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def AddRemeshOptionEach(self, pVal):
+		'''
+		Add a option to the each remesh option collecion
+		
+		:param pVal: IMesherRemeshOptionEach
+		'''
+		return self._oleobj_.InvokeTypes(2158, LCID, 1, (24, 0), ((9, 1),),pVal
+			)
+
+
+	def DeleteRemeshOptionEach(self, iIndex):
+		'''
+		Delete a option from the each remesh option collecion
+		
+		:param iIndex: int
+		'''
+		return self._oleobj_.InvokeTypes(2160, LCID, 1, (24, 0), ((3, 1),),iIndex
+			)
+
+
+	def InsertRemeshOptionEach(self, iIndex, pVal):
+		'''
+		Insert a option to the each remesh option collection
+		
+		:param iIndex: int
+		:param pVal: IMesherRemeshOptionEach
+		'''
+		return self._oleobj_.InvokeTypes(2159, LCID, 1, (24, 0), ((3, 1), (9, 1)),iIndex
+			, pVal)
+
+
+	def RemeshOptionEach(self):
+		'''
+		Remesh option Each
+		
+		:rtype: recurdyn.FFlex.IMesherRemeshOptionEach
+		'''
+		ret = self._oleobj_.InvokeTypes(2156, LCID, 1, (9, 0), (),)
+		if ret is not None:
+			ret = Dispatch(ret, 'RemeshOptionEach', '{D5C73BAB-B87D-481F-9501-ECA820738621}')
+		return ret
+
+	def _get_MaxElementSize(self):
+		return self._ApplyTypes_(*(2152, 2, (5, 0), (), "MaxElementSize", None))
+	def _get_MinElementSize(self):
+		return self._ApplyTypes_(*(2153, 2, (5, 0), (), "MinElementSize", None))
+	def _get_OriginalBodyFaces(self):
+		return self._ApplyTypes_(*(2155, 2, (8200, 0), (), "OriginalBodyFaces", None))
+	def _get_TargetFaceCollection(self):
+		return self._ApplyTypes_(*(2157, 2, (9, 0), (), "TargetFaceCollection", '{E6B6DEAC-05C2-46C8-877F-C23CCDE9EC3F}'))
+	def _get_UseFitToCADGeometry(self):
+		return self._ApplyTypes_(*(2154, 2, (11, 0), (), "UseFitToCADGeometry", None))
+
+	def _set_MaxElementSize(self, value):
+		if "MaxElementSize" in self.__dict__: self.__dict__["MaxElementSize"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+	def _set_MinElementSize(self, value):
+		if "MinElementSize" in self.__dict__: self.__dict__["MinElementSize"] = value; return
+		self._oleobj_.Invoke(*((2153, LCID, 4, 0) + (value,) + ()))
+	def _set_TargetFaces(self, value):
+		if "TargetFaces" in self.__dict__: self.__dict__["TargetFaces"] = value; return
+		variantValue = win32com.client.VARIANT(8200, value)
+		self._oleobj_.Invoke(*((2151, LCID, 4, 0) + (variantValue,) + ()))
+	def _set_TargetGeometry(self, value):
+		if "TargetGeometry" in self.__dict__: self.__dict__["TargetGeometry"] = value; return
+		self._oleobj_.Invoke(*((2161, LCID, 4, 0) + (value,) + ()))
+	def _set_UseFitToCADGeometry(self, value):
+		if "UseFitToCADGeometry" in self.__dict__: self.__dict__["UseFitToCADGeometry"] = value; return
+		self._oleobj_.Invoke(*((2154, LCID, 4, 0) + (value,) + ()))
+
+	MaxElementSize = property(_get_MaxElementSize, _set_MaxElementSize)
+	'''
+	Max element size
+
+	:type: float
+	'''
+	MinElementSize = property(_get_MinElementSize, _set_MinElementSize)
+	'''
+	Min element size
+
+	:type: float
+	'''
+	OriginalBodyFaces = property(_get_OriginalBodyFaces, None)
+	'''
+	Original body faces
+
+	:type: list[str]
+	'''
+	TargetFaceCollection = property(_get_TargetFaceCollection, None)
+	'''
+	Get the face collection of the targe body
+
+	:type: recurdyn.FFlex.IMesherRemeshOptionCollection
+	'''
+	UseFitToCADGeometry = property(_get_UseFitToCADGeometry, _set_UseFitToCADGeometry)
+	'''
+	Use structured output
+
+	:type: bool
+	'''
+	TargetFaces = property(None, _set_TargetFaces)
+	'''
+	Target faces
+
+	:type: list[str]
+	'''
+	TargetGeometry = property(None, _set_TargetGeometry)
+	'''
+	Target Geometry
+
+	:type: recurdyn.ProcessNet.IGeometry
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_MaxElementSize": _set_MaxElementSize,
+		"_set_MinElementSize": _set_MinElementSize,
+		"_set_TargetFaces": _set_TargetFaces,
+		"_set_TargetGeometry": _set_TargetGeometry,
+		"_set_UseFitToCADGeometry": _set_UseFitToCADGeometry,
+	}
+	_prop_map_get_ = {
+		"MaxElementSize": (2152, 2, (5, 0), (), "MaxElementSize", None),
+		"MinElementSize": (2153, 2, (5, 0), (), "MinElementSize", None),
+		"OriginalBodyFaces": (2155, 2, (8200, 0), (), "OriginalBodyFaces", None),
+		"TargetFaceCollection": (2157, 2, (9, 0), (), "TargetFaceCollection", '{E6B6DEAC-05C2-46C8-877F-C23CCDE9EC3F}'),
+		"UseFitToCADGeometry": (2154, 2, (11, 0), (), "UseFitToCADGeometry", None),
+	}
+	_prop_map_put_ = {
+		"MaxElementSize": ((2152, LCID, 4, 0),()),
+		"MinElementSize": ((2153, LCID, 4, 0),()),
+		"TargetFaces": ((2151, LCID, 4, 0),()),
+		"TargetGeometry": ((2161, LCID, 4, 0),()),
+		"UseFitToCADGeometry": ((2154, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IMesherRemeshOptionCollection(DispatchBaseClass):
+	'''IMesherRemeshOptionCollection'''
+	CLSID = IID('{E6B6DEAC-05C2-46C8-877F-C23CCDE9EC3F}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.IMesherRemeshOptionEach
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{D5C73BAB-B87D-481F-9501-ECA820738621}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.IMesherRemeshOptionEach
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{D5C73BAB-B87D-481F-9501-ECA820738621}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{D5C73BAB-B87D-481F-9501-ECA820738621}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{D5C73BAB-B87D-481F-9501-ECA820738621}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class IMesherRemeshOptionEach(DispatchBaseClass):
+	'''Remesh option Each'''
+	CLSID = IID('{D5C73BAB-B87D-481F-9501-ECA820738621}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_MaxElementSize(self):
+		return self._ApplyTypes_(*(2152, 2, (5, 0), (), "MaxElementSize", None))
+	def _get_MinElementSize(self):
+		return self._ApplyTypes_(*(2153, 2, (5, 0), (), "MinElementSize", None))
+	def _get_TargetFace(self):
+		return self._ApplyTypes_(*(2151, 2, (8, 0), (), "TargetFace", None))
+
+	def _set_MaxElementSize(self, value):
+		if "MaxElementSize" in self.__dict__: self.__dict__["MaxElementSize"] = value; return
+		self._oleobj_.Invoke(*((2152, LCID, 4, 0) + (value,) + ()))
+	def _set_MinElementSize(self, value):
+		if "MinElementSize" in self.__dict__: self.__dict__["MinElementSize"] = value; return
+		self._oleobj_.Invoke(*((2153, LCID, 4, 0) + (value,) + ()))
+	def _set_TargetFace(self, value):
+		if "TargetFace" in self.__dict__: self.__dict__["TargetFace"] = value; return
+		self._oleobj_.Invoke(*((2151, LCID, 4, 0) + (value,) + ()))
+
+	MaxElementSize = property(_get_MaxElementSize, _set_MaxElementSize)
+	'''
+	Max element size
+
+	:type: float
+	'''
+	MinElementSize = property(_get_MinElementSize, _set_MinElementSize)
+	'''
+	Min element size
+
+	:type: float
+	'''
+	TargetFace = property(_get_TargetFace, _set_TargetFace)
+	'''
+	Target face
+
+	:type: str
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_MaxElementSize": _set_MaxElementSize,
+		"_set_MinElementSize": _set_MinElementSize,
+		"_set_TargetFace": _set_TargetFace,
+	}
+	_prop_map_get_ = {
+		"MaxElementSize": (2152, 2, (5, 0), (), "MaxElementSize", None),
+		"MinElementSize": (2153, 2, (5, 0), (), "MinElementSize", None),
+		"TargetFace": (2151, 2, (8, 0), (), "TargetFace", None),
+	}
+	_prop_map_put_ = {
+		"MaxElementSize": ((2152, LCID, 4, 0),()),
+		"MinElementSize": ((2153, LCID, 4, 0),()),
+		"TargetFace": ((2151, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IQualityCheckLineResult(DispatchBaseClass):
+	'''Line quality check result'''
+	CLSID = IID('{82707715-CB95-4DC7-B768-FD6CE5552F04}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_NoOfLines(self):
+		return self._ApplyTypes_(*(2201, 2, (3, 0), (), "NoOfLines", None))
+
+	NoOfLines = property(_get_NoOfLines, None)
+	'''
+	Number of the lines
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"NoOfLines": (2201, 2, (3, 0), (), "NoOfLines", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class IQualityCheckResult(DispatchBaseClass):
+	'''Quality check result'''
+	CLSID = IID('{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_IDsOfElements(self):
+		return self._ApplyTypes_(*(2204, 2, (8195, 0), (), "IDsOfElements", None))
+	def _get_MaxValue(self):
+		return self._ApplyTypes_(*(2202, 2, (5, 0), (), "MaxValue", None))
+	def _get_MinValue(self):
+		return self._ApplyTypes_(*(2201, 2, (5, 0), (), "MinValue", None))
+	def _get_NoOfElements(self):
+		return self._ApplyTypes_(*(2203, 2, (3, 0), (), "NoOfElements", None))
+
+	IDsOfElements = property(_get_IDsOfElements, None)
+	'''
+	ID of the elements
+
+	:type: list[int]
+	'''
+	MaxValue = property(_get_MaxValue, None)
+	'''
+	Max value
+
+	:type: float
+	'''
+	MinValue = property(_get_MinValue, None)
+	'''
+	Min value
+
+	:type: float
+	'''
+	NoOfElements = property(_get_NoOfElements, None)
+	'''
+	Number of the elements
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"IDsOfElements": (2204, 2, (8195, 0), (), "IDsOfElements", None),
+		"MaxValue": (2202, 2, (5, 0), (), "MaxValue", None),
+		"MinValue": (2201, 2, (5, 0), (), "MinValue", None),
+		"NoOfElements": (2203, 2, (3, 0), (), "NoOfElements", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class ISeedInfo(DispatchBaseClass):
+	'''Edge and No. of Elements Info'''
+	CLSID = IID('{C0FA0EDA-1CCA-4016-A1A6-86D2F751BB18}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_Edges(self):
+		return self._ApplyTypes_(*(2201, 2, (8200, 0), (), "Edges", None))
+	def _get_NoOfElement(self):
+		return self._ApplyTypes_(*(2202, 2, (19, 0), (), "NoOfElement", None))
+
+	def _set_Edges(self, value):
+		if "Edges" in self.__dict__: self.__dict__["Edges"] = value; return
+		variantValue = win32com.client.VARIANT(8200, value)
+		self._oleobj_.Invoke(*((2201, LCID, 4, 0) + (variantValue,) + ()))
+	def _set_NoOfElement(self, value):
+		if "NoOfElement" in self.__dict__: self.__dict__["NoOfElement"] = value; return
+		self._oleobj_.Invoke(*((2202, LCID, 4, 0) + (value,) + ()))
+
+	Edges = property(_get_Edges, _set_Edges)
+	'''
+	Edge
+
+	:type: list[str]
+	'''
+	NoOfElement = property(_get_NoOfElement, _set_NoOfElement)
+	'''
+	NO. of elements
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Edges": _set_Edges,
+		"_set_NoOfElement": _set_NoOfElement,
+	}
+	_prop_map_get_ = {
+		"Edges": (2201, 2, (8200, 0), (), "Edges", None),
+		"NoOfElement": (2202, 2, (19, 0), (), "NoOfElement", None),
+	}
+	_prop_map_put_ = {
+		"Edges": ((2201, LCID, 4, 0),()),
+		"NoOfElement": ((2202, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class ISeedInfoCollection(DispatchBaseClass):
+	'''ISeedInfoCollection'''
+	CLSID = IID('{B62D333D-4E39-4B7E-AD82-A8F4604F866E}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.ISeedInfo
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{C0FA0EDA-1CCA-4016-A1A6-86D2F751BB18}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.ISeedInfo
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{C0FA0EDA-1CCA-4016-A1A6-86D2F751BB18}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{C0FA0EDA-1CCA-4016-A1A6-86D2F751BB18}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{C0FA0EDA-1CCA-4016-A1A6-86D2F751BB18}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class ITargetFace(DispatchBaseClass):
+	'''Target body face'''
+	CLSID = IID('{03EBC2D6-DF08-4472-8529-5F05FE931154}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_Check(self):
+		return self._ApplyTypes_(*(2202, 2, (11, 0), (), "Check", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(2201, 2, (8, 0), (), "Name", None))
+	def _get_TargetFaceType(self):
+		return self._ApplyTypes_(*(2203, 2, (3, 0), (), "TargetFaceType", '{1999DEF2-F79C-4121-B8F0-63E01EDFE449}'))
+
+	def _set_Check(self, value):
+		if "Check" in self.__dict__: self.__dict__["Check"] = value; return
+		self._oleobj_.Invoke(*((2202, LCID, 4, 0) + (value,) + ()))
+
+	Check = property(_get_Check, _set_Check)
+	'''
+	Check
+
+	:type: bool
+	'''
+	Name = property(_get_Name, None)
+	'''
+	Face name
+
+	:type: str
+	'''
+	TargetFaceType = property(_get_TargetFaceType, None)
+	'''
+	Face name
+
+	:type: recurdyn.FFlex.TargetFaceType
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Check": _set_Check,
+	}
+	_prop_map_get_ = {
+		"Check": (2202, 2, (11, 0), (), "Check", None),
+		"Name": (2201, 2, (8, 0), (), "Name", None),
+		"TargetFaceType": (2203, 2, (3, 0), (), "TargetFaceType", '{1999DEF2-F79C-4121-B8F0-63E01EDFE449}'),
+	}
+	_prop_map_put_ = {
+		"Check": ((2202, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class ITargetFace4SidedMore(DispatchBaseClass):
+	'''Target body face 4-sided more'''
+	CLSID = IID('{28ED48CC-F63E-4508-B7B6-05B38850D385}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def _get_Check(self):
+		return self._ApplyTypes_(*(2252, 2, (11, 0), (), "Check", None))
+	def _get_FirstEdge(self):
+		return self._ApplyTypes_(*(2253, 2, (8200, 0), (), "FirstEdge", None))
+	def _get_Name(self):
+		return self._ApplyTypes_(*(2251, 2, (8, 0), (), "Name", None))
+	def _get_ThirdEdge(self):
+		return self._ApplyTypes_(*(2254, 2, (8200, 0), (), "ThirdEdge", None))
+
+	def _set_Check(self, value):
+		if "Check" in self.__dict__: self.__dict__["Check"] = value; return
+		self._oleobj_.Invoke(*((2252, LCID, 4, 0) + (value,) + ()))
+	def _set_FirstEdge(self, value):
+		if "FirstEdge" in self.__dict__: self.__dict__["FirstEdge"] = value; return
+		variantValue = win32com.client.VARIANT(8200, value)
+		self._oleobj_.Invoke(*((2253, LCID, 4, 0) + (variantValue,) + ()))
+	def _set_ThirdEdge(self, value):
+		if "ThirdEdge" in self.__dict__: self.__dict__["ThirdEdge"] = value; return
+		variantValue = win32com.client.VARIANT(8200, value)
+		self._oleobj_.Invoke(*((2254, LCID, 4, 0) + (variantValue,) + ()))
+
+	Check = property(_get_Check, _set_Check)
+	'''
+	Check
+
+	:type: bool
+	'''
+	FirstEdge = property(_get_FirstEdge, _set_FirstEdge)
+	'''
+	1st edges
+
+	:type: list[str]
+	'''
+	Name = property(_get_Name, None)
+	'''
+	Face name
+
+	:type: str
+	'''
+	ThirdEdge = property(_get_ThirdEdge, _set_ThirdEdge)
+	'''
+	3rd edges
+
+	:type: list[str]
+	'''
+
+	_prop_map_set_function_ = {
+		"_set_Check": _set_Check,
+		"_set_FirstEdge": _set_FirstEdge,
+		"_set_ThirdEdge": _set_ThirdEdge,
+	}
+	_prop_map_get_ = {
+		"Check": (2252, 2, (11, 0), (), "Check", None),
+		"FirstEdge": (2253, 2, (8200, 0), (), "FirstEdge", None),
+		"Name": (2251, 2, (8, 0), (), "Name", None),
+		"ThirdEdge": (2254, 2, (8200, 0), (), "ThirdEdge", None),
+	}
+	_prop_map_put_ = {
+		"Check": ((2252, LCID, 4, 0),()),
+		"FirstEdge": ((2253, LCID, 4, 0),()),
+		"ThirdEdge": ((2254, LCID, 4, 0),()),
+	}
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,3,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, None)
+
+class ITargetFace4SidedMoreCollection(DispatchBaseClass):
+	'''Target face collection, 4sided more'''
+	CLSID = IID('{7A70474E-B7CA-43AD-B71D-373E1E0522CE}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.ITargetFace4SidedMore
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{28ED48CC-F63E-4508-B7B6-05B38850D385}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.ITargetFace4SidedMore
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{28ED48CC-F63E-4508-B7B6-05B38850D385}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{28ED48CC-F63E-4508-B7B6-05B38850D385}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{28ED48CC-F63E-4508-B7B6-05B38850D385}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+class ITargetFaceCollection(DispatchBaseClass):
+	'''Target face collection'''
+	CLSID = IID('{012BED7B-CFB1-4210-91B6-5D4B5D70855C}')
+	coclass_clsid = None
+
+	def __setattr__(self, attr, value):
+		if '_set_'+attr in dir(self):
+			try:
+				self._prop_map_set_function_['_set_'+attr](self, value)
+			except:
+				super().__setattr__(attr, value)
+		else:
+			super().__setattr__(attr, value)
+	def Item(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.ITargetFace
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, 'Item', '{03EBC2D6-DF08-4472-8529-5F05FE931154}')
+		return ret
+
+	def _get_Count(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+
+	Count = property(_get_Count, None)
+	'''
+	Returns the number of items in the collection.
+
+	:type: int
+	'''
+
+	_prop_map_set_function_ = {
+	}
+	_prop_map_get_ = {
+		"Count": (1, 2, (3, 0), (), "Count", None),
+		"_NewEnum": (-4, 2, (13, 0), (), "_NewEnum", None),
+	}
+	_prop_map_put_ = {
+	}
+	def __call__(self, var):
+		'''
+		Returns a specific item.
+		
+		:param var: int
+		:rtype: recurdyn.FFlex.ITargetFace
+		'''
+		ret = self._oleobj_.InvokeTypes(0, LCID, 2, (9, 0), ((3, 1),),var
+			)
+		if ret is not None:
+			ret = Dispatch(ret, '__call__', '{03EBC2D6-DF08-4472-8529-5F05FE931154}')
+		return ret
+
+	def __str__(self, *args):
+		return str(self.__call__(*args))
+	def __int__(self, *args):
+		return int(self.__call__(*args))
+	def __iter__(self):
+		"Return a Python iterator for this object"
+		try:
+			ob = self._oleobj_.InvokeTypes(-4,LCID,2,(13, 10),())
+		except pythoncom.error:
+			raise TypeError("This object does not support enumeration")
+		return win32com.client.util.Iterator(ob, '{03EBC2D6-DF08-4472-8529-5F05FE931154}')
+	def __getitem__(self, key):
+		return self._get_good_object_(self._oleobj_.Invoke(*(0, LCID, 2, 1, key)), "Item", '{03EBC2D6-DF08-4472-8529-5F05FE931154}')
+	#This class has Count() property - allow len(ob) to provide this
+	def __len__(self):
+		return self._ApplyTypes_(*(1, 2, (3, 0), (), "Count", None))
+	#This class has a __len__ - this is needed so 'if object:' always returns TRUE.
+	def __nonzero__(self):
+		return True
+
+IAssistConstraint_vtables_dispatch_ = 1
+IAssistConstraint_vtables_ = [
+	(( 'Name' , 'pVal' , ), 2201, (2201, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'UseFDR' , 'pVal' , ), 2202, (2202, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'UseFDR' , 'pVal' , ), 2202, (2202, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'SetGeometries' , 'pFaceArray' , ), 2203, (2203, (), [ (8200, 1, None, None) , ], 1 , 1 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'UseSelection' , 'pVal' , ), 2204, (2204, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'UseSelection' , 'pVal' , ), 2204, (2204, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'GeometryName' , 'pFaceArray' , ), 2205, (2205, (), [ (24584, 10, None, None) , ], 1 , 2 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+]
+
+IAssistConstraintCollection_vtables_dispatch_ = 1
+IAssistConstraintCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (3, 1, None, None) , 
+			 (16393, 10, None, "IID('{D32C11C3-8CCF-4839-BE15-0E1708BAE694}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IAssistPrePatchSet_vtables_dispatch_ = 1
+IAssistPrePatchSet_vtables_ = [
+	(( 'Name' , 'pVal' , ), 2201, (2201, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'GeometryName' , 'pFaceArray' , ), 2202, (2202, (), [ (24584, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'UseSelection' , 'pVal' , ), 2203, (2203, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'UseSelection' , 'pVal' , ), 2203, (2203, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'PatchSet' , 'pVal' , ), 2204, (2204, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'PatchSet' , 'pVal' , ), 2204, (2204, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'KeepGeoContact' , 'pVal' , ), 2205, (2205, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'KeepGeoContact' , 'pVal' , ), 2205, (2205, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+]
+
+IAssistPrePatchSetCollection_vtables_dispatch_ = 1
+IAssistPrePatchSetCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (3, 1, None, None) , 
+			 (16393, 10, None, "IID('{B2C8341A-D45F-4061-8216-6CBE2548669C}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IAssistPreSet_vtables_dispatch_ = 1
+IAssistPreSet_vtables_ = [
+	(( 'Name' , 'pVal' , ), 2201, (2201, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'GeometryName' , 'pEdgeArray' , ), 2202, (2202, (), [ (24584, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'UseSelection' , 'pVal' , ), 2203, (2203, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'UseSelection' , 'pVal' , ), 2203, (2203, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'LineSet' , 'pVal' , ), 2204, (2204, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'LineSet' , 'pVal' , ), 2204, (2204, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'KeepGeoContact' , 'pVal' , ), 2205, (2205, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'KeepGeoContact' , 'pVal' , ), 2205, (2205, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+]
+
+IAssistPreSetCollection_vtables_dispatch_ = 1
+IAssistPreSetCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (3, 1, None, None) , 
+			 (16393, 10, None, "IID('{684C17D2-63FF-409F-A635-1239505DC5F8}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexAnimationDataScaling_vtables_dispatch_ = 1
+IFFlexAnimationDataScaling_vtables_ = [
+	(( 'ReferenceNode' , 'ppVal' , ), 2001, (2001, (), [ (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'ReferenceNode' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexBody_vtables_dispatch_ = 1
+IFFlexBody_vtables_ = [
+	(( 'Graphic' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{4C8B7C23-7D92-4D39-B530-5D93DC97F771}')") , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'AnimationScaling' , 'ppVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{50A578AD-8745-4F7F-9434-86142BB6670B}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'RefFrame' , 'ppVal' , ), 2003, (2003, (), [ (16393, 10, None, "IID('{6A3295D9-E76B-473C-9655-23B7B1CBD671}')") , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'Mass' , 'pVal' , ), 2004, (2004, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'Ixx' , 'pVal' , ), 2005, (2005, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'Iyy' , 'pVal' , ), 2006, (2006, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'Izz' , 'pVal' , ), 2007, (2007, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'Ixy' , 'pVal' , ), 2008, (2008, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'Iyz' , 'pVal' , ), 2009, (2009, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'Izx' , 'pVal' , ), 2010, (2010, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'InitialTranslationalVelocityX' , 'ppVal' , ), 2011, (2011, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'InitialTranslationalVelocityY' , 'ppVal' , ), 2012, (2012, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'InitialTranslationalVelocityZ' , 'ppVal' , ), 2013, (2013, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'InitialRotationalVelocityX' , 'ppVal' , ), 2014, (2014, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'InitialRotationalVelocityY' , 'ppVal' , ), 2015, (2015, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'InitialRotationalVelocityZ' , 'ppVal' , ), 2016, (2016, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'UseInitialTranslationalVelocityX' , 'pVal' , ), 2017, (2017, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'UseInitialTranslationalVelocityX' , 'pVal' , ), 2017, (2017, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'UseInitialTranslationalVelocityY' , 'pVal' , ), 2018, (2018, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'UseInitialTranslationalVelocityY' , 'pVal' , ), 2018, (2018, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+	(( 'UseInitialTranslationalVelocityZ' , 'pVal' , ), 2019, (2019, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 304 , (3, 0, None, None) , 0 , )),
+	(( 'UseInitialTranslationalVelocityZ' , 'pVal' , ), 2019, (2019, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 312 , (3, 0, None, None) , 0 , )),
+	(( 'UseInitialRotationalVelocityX' , 'pVal' , ), 2020, (2020, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 320 , (3, 0, None, None) , 0 , )),
+	(( 'UseInitialRotationalVelocityX' , 'pVal' , ), 2020, (2020, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 328 , (3, 0, None, None) , 0 , )),
+	(( 'UseInitialRotationalVelocityY' , 'pVal' , ), 2021, (2021, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 336 , (3, 0, None, None) , 0 , )),
+	(( 'UseInitialRotationalVelocityY' , 'pVal' , ), 2021, (2021, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 344 , (3, 0, None, None) , 0 , )),
+	(( 'UseInitialRotationalVelocityZ' , 'pVal' , ), 2022, (2022, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 352 , (3, 0, None, None) , 0 , )),
+	(( 'UseInitialRotationalVelocityZ' , 'pVal' , ), 2022, (2022, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 360 , (3, 0, None, None) , 0 , )),
+	(( 'TranslationalVelocityRefMarker' , 'ppVal' , ), 2023, (2023, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 368 , (3, 0, None, None) , 0 , )),
+	(( 'TranslationalVelocityRefMarker' , 'ppVal' , ), 2023, (2023, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 376 , (3, 0, None, None) , 0 , )),
+	(( 'RotationalVelocityRefMarker' , 'ppVal' , ), 2024, (2024, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 384 , (3, 0, None, None) , 0 , )),
+	(( 'RotationalVelocityRefMarker' , 'ppVal' , ), 2024, (2024, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 392 , (3, 0, None, None) , 0 , )),
+	(( 'CreateNode' , 'uiID' , 'arrPosition' , 'ppVal' , ), 2035, (2035, (), [ 
+			 (19, 1, None, None) , (8197, 1, None, None) , (16393, 10, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 1 , 4 , 0 , 400 , (3, 0, None, None) , 0 , )),
+	(( 'CreateElementFDR' , 'uiID' , 'pMasterNode' , 'pNodeSet' , 'ppVal' , 
+			 ), 2036, (2036, (), [ (19, 1, None, None) , (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , (16393, 10, None, "IID('{A640D569-8E40-435F-B199-AB3145C56569}')") , ], 1 , 1 , 4 , 0 , 408 , (3, 0, None, None) , 0 , )),
+	(( 'CreateNodeSet' , 'strName' , 'arrNodeID' , 'ppVal' , ), 2037, (2037, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 1 , 4 , 0 , 416 , (3, 0, None, None) , 0 , )),
+	(( 'CreateElementSet' , 'strName' , 'arrElementID' , 'ppVal' , ), 2038, (2038, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{41220408-E869-466A-8D1E-03B99F02568B}')") , ], 1 , 1 , 4 , 0 , 424 , (3, 0, None, None) , 0 , )),
+	(( 'CreatePatchSet' , 'strName' , 'arrNodeID' , 'ppVal' , ), 2039, (2039, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 1 , 4 , 0 , 432 , (3, 0, None, None) , 0 , )),
+	(( 'CreateBoundaryCondition' , 'strName' , 'arrNodeID' , 'ppVal' , ), 2040, (2040, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{7C217E69-8B40-40FA-8D6B-C8555A17A89A}')") , ], 1 , 1 , 4 , 0 , 440 , (3, 0, None, None) , 0 , )),
+	(( 'CreateOutput' , 'strName' , 'arrNodeID' , 'ppVal' , ), 2041, (2041, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{C07D2858-4BD8-429E-98F9-BBAD0AE619CA}')") , ], 1 , 1 , 4 , 0 , 448 , (3, 0, None, None) , 0 , )),
+	(( 'ChangeNodeID' , 'pNode' , 'uiID' , ), 2042, (2042, (), [ (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , 
+			 (19, 1, None, None) , ], 1 , 1 , 4 , 0 , 456 , (3, 0, None, None) , 0 , )),
+	(( 'ChangeElementID' , 'pElement' , 'uiID' , ), 2043, (2043, (), [ (9, 1, None, "IID('{54A07879-AC7A-4B8D-BE87-914AD441CB69}')") , 
+			 (19, 1, None, None) , ], 1 , 1 , 4 , 0 , 464 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexPropertyBeam' , 'strName' , 'pMaterial' , 'ppVal' , ), 2044, (2044, (), [ 
+			 (8, 1, None, None) , (9, 1, None, "IID('{205F2A11-60B6-4F97-92FC-300B78C3BB29}')") , (16393, 10, None, "IID('{038F4D84-103E-4E16-ADBE-30CD7D809A5F}')") , ], 1 , 1 , 4 , 0 , 472 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexPropertyShell' , 'strName' , 'pMaterial' , 'ppVal' , ), 2045, (2045, (), [ 
+			 (8, 1, None, None) , (9, 1, None, "IID('{205F2A11-60B6-4F97-92FC-300B78C3BB29}')") , (16393, 10, None, "IID('{0566BC2A-5A19-4556-A760-2DE6D6F1DB6C}')") , ], 1 , 1 , 4 , 0 , 480 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexPropertySolid' , 'strName' , 'pMaterial' , 'ppVal' , ), 2046, (2046, (), [ 
+			 (8, 1, None, None) , (9, 1, None, "IID('{205F2A11-60B6-4F97-92FC-300B78C3BB29}')") , (16393, 10, None, "IID('{EBD74EA0-7D25-46AB-A257-9E8874545750}')") , ], 1 , 1 , 4 , 0 , 488 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialIsotropic' , 'strName' , 'ppVal' , ), 2047, (2047, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{DE758DA3-29DE-4822-A4D7-5F7038D688A0}')") , ], 1 , 1 , 4 , 0 , 496 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialOrthotropic' , 'strName' , 'ppVal' , ), 2048, (2048, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{5BCEE724-266C-4C56-A0E2-74CAD32DC259}')") , ], 1 , 1 , 4 , 0 , 504 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialArrudaBoyce' , 'strName' , 'ppVal' , ), 2049, (2049, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{2F03BAD9-F392-4D8F-A295-F1DF2AB5E2D2}')") , ], 1 , 1 , 4 , 0 , 512 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialArrudaBoyceRubber' , 'strName' , 'ppVal' , ), 2050, (2050, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{7647F371-D7FA-451E-8727-891DAE9B7FF0}')") , ], 1 , 1 , 4 , 0 , 520 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialNeoHooke' , 'strName' , 'ppVal' , ), 2051, (2051, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{14AE3469-8DC3-41AD-AFD2-4201F13680DE}')") , ], 1 , 1 , 4 , 0 , 528 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialNeoHookeRubber' , 'strName' , 'ppVal' , ), 2052, (2052, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{F5587CEE-4C8B-403F-806D-7F5319E22A7E}')") , ], 1 , 1 , 4 , 0 , 536 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialOgden' , 'strName' , 'ppVal' , ), 2053, (2053, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{BC264C3C-D1DA-4627-805D-F65F1700DAD3}')") , ], 1 , 1 , 4 , 0 , 544 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialOgdenRubber' , 'strName' , 'ppVal' , ), 2054, (2054, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{009F6400-AA7F-47C0-9B8B-DF4994350391}')") , ], 1 , 1 , 4 , 0 , 552 , (3, 0, None, None) , 0 , )),
+	(( 'GetEntity' , 'strName' , 'ppVal' , ), 2055, (2055, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{27A86788-8B85-40CF-BE7F-BA915103A7DB}')") , ], 1 , 1 , 4 , 0 , 560 , (3, 0, None, None) , 0 , )),
+	(( 'CreateMarker' , 'strName' , 'pRefFrame' , 'ppVal' , ), 2056, (2056, (), [ 
+			 (8, 1, None, None) , (9, 1, None, "IID('{6A3295D9-E76B-473C-9655-23B7B1CBD671}')") , (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 1 , 4 , 0 , 568 , (3, 0, None, None) , 0 , )),
+	(( 'CreateMarkerOnNode' , 'strName' , 'uiNodeID' , 'ppVal' , ), 2057, (2057, (), [ 
+			 (8, 1, None, None) , (19, 1, None, None) , (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 1 , 4 , 0 , 576 , (3, 0, None, None) , 0 , )),
+	(( 'GetNodeByID' , 'nID' , 'ppVal' , ), 2058, (2058, (), [ (3, 1, None, None) , 
+			 (16393, 10, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 1 , 4 , 0 , 584 , (3, 0, None, None) , 0 , )),
+	(( 'CreateElementFDRWithProperty' , 'uiID' , 'pMasterNode' , 'pNodeSet' , 'pPropertyFDR' , 
+			 'ppVal' , ), 2059, (2059, (), [ (19, 1, None, None) , (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , 
+			 (9, 1, None, "IID('{11FD7485-CC44-459B-848C-130D43231C20}')") , (16393, 10, None, "IID('{A640D569-8E40-435F-B199-AB3145C56569}')") , ], 1 , 1 , 4 , 0 , 592 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexPropertyFDR' , 'strName' , 'ppVal' , ), 2070, (2070, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{11FD7485-CC44-459B-848C-130D43231C20}')") , ], 1 , 1 , 4 , 0 , 600 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexPropertyMass' , 'strName' , 'ppVal' , ), 2071, (2071, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{415EE4E6-8069-4221-BCE4-17CC7960FEC3}')") , ], 1 , 1 , 4 , 0 , 608 , (3, 0, None, None) , 0 , )),
+	(( 'GetElementByID' , 'nID' , 'ppVal' , ), 2072, (2072, (), [ (3, 1, None, None) , 
+			 (16393, 10, None, "IID('{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')") , ], 1 , 1 , 4 , 0 , 616 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexNodeCollection' , 'pVal' , ), 2060, (2060, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB7}')") , ], 1 , 2 , 4 , 0 , 624 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexElementCollection' , 'pVal' , ), 2061, (2061, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB6}')") , ], 1 , 2 , 4 , 0 , 632 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexPropertyCollection' , 'pVal' , ), 2062, (2062, (), [ (16393, 10, None, "IID('{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}')") , ], 1 , 2 , 4 , 0 , 640 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexMaterialCollection' , 'pVal' , ), 2063, (2063, (), [ (16393, 10, None, "IID('{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}')") , ], 1 , 2 , 4 , 0 , 648 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexBoundaryConditionCollection' , 'pVal' , ), 2064, (2064, (), [ (16393, 10, None, "IID('{CB29570B-C43C-4422-804A-DC47A070D98D}')") , ], 1 , 2 , 4 , 0 , 656 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexOutputCollection' , 'pVal' , ), 2065, (2065, (), [ (16393, 10, None, "IID('{6A6D7961-36F5-4E1D-8024-839348CD5B35}')") , ], 1 , 2 , 4 , 0 , 664 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexNodeSetCollection' , 'pVal' , ), 2066, (2066, (), [ (16393, 10, None, "IID('{87219716-6C18-4072-BE27-EAA12BA9D444}')") , ], 1 , 2 , 4 , 0 , 672 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexElementSetCollection' , 'pVal' , ), 2067, (2067, (), [ (16393, 10, None, "IID('{965101C9-95C4-4E9A-A2E7-CC202EBC2FC3}')") , ], 1 , 2 , 4 , 0 , 680 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexPatchSetCollection' , 'pVal' , ), 2068, (2068, (), [ (16393, 10, None, "IID('{371C9D93-0F28-4531-833B-BE362169A845}')") , ], 1 , 2 , 4 , 0 , 688 , (3, 0, None, None) , 0 , )),
+	(( 'MarkerCollection' , 'ppVal' , ), 2075, (2075, (), [ (16393, 10, None, "IID('{6BEF9B6B-4708-445E-A3B5-0D65BA69F748}')") , ], 1 , 2 , 4 , 0 , 696 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialMooneyRivlin' , 'strName' , 'ppVal' , ), 2073, (2073, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{FD878DE9-6486-4A86-8BC5-0C886A149D0A}')") , ], 1 , 1 , 4 , 0 , 704 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialMooneyRivlinRubber' , 'strName' , 'ppVal' , ), 2074, (2074, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{E224EC31-E809-4532-937E-D5A4F567A0FF}')") , ], 1 , 1 , 4 , 0 , 712 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialPlasticIsotropicMultilinear' , 'strName' , 'ppVal' , ), 2076, (2076, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{E8252A77-AAE7-4ADB-BD09-27D62CCFEEE3}')") , ], 1 , 1 , 4 , 0 , 720 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialPlasticIsotropicBiNonlinear' , 'strName' , 'ppVal' , ), 2077, (2077, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{65C5EEB7-502C-42FD-AF41-4E6C5122EF71}')") , ], 1 , 1 , 4 , 0 , 728 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialPlasticIsotropicKinematicMultilinear' , 'strName' , 'ppVal' , ), 2078, (2078, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{7F3A9496-9CCA-41FF-9211-E67CF5CB889C}')") , ], 1 , 1 , 4 , 0 , 736 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialPlasticIsotropicKinematicBiNonlinear' , 'strName' , 'ppVal' , ), 2079, (2079, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{4CC03F94-7E4E-4082-8299-6288E232C5C0}')") , ], 1 , 1 , 4 , 0 , 744 , (3, 0, None, None) , 0 , )),
+	(( 'QueryIsStandAloneFFlexNode' , 'pIFFlexNode' , 'pVal' , ), 2080, (2080, (), [ (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , 
+			 (16395, 10, None, None) , ], 1 , 1 , 4 , 0 , 752 , (3, 0, None, None) , 0 , )),
+	(( 'UsePreAnalysis' , 'val' , ), 2081, (2081, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 760 , (3, 0, None, None) , 0 , )),
+	(( 'UsePreAnalysis' , 'val' , ), 2081, (2081, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 768 , (3, 0, None, None) , 0 , )),
+	(( 'OutputFileInfo' , 'ppVal' , ), 2082, (2082, (), [ (16393, 10, None, "IID('{14C926A7-96C8-4FA4-ABB4-516E07ABFD9E}')") , ], 1 , 2 , 4 , 0 , 776 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexElementFDRCollection' , 'pVal' , ), 2083, (2083, (), [ (16393, 10, None, "IID('{99FCED9D-CE12-47E8-8AE8-3F80DAEFB44F}')") , ], 1 , 2 , 4 , 0 , 784 , (3, 0, None, None) , 0 , )),
+	(( 'DisplaySetting' , 'ppVal' , ), 2084, (2084, (), [ (16393, 10, None, "IID('{3FDF0768-0052-4B63-9D84-A644C3152051}')") , ], 1 , 2 , 4 , 0 , 792 , (3, 0, None, None) , 0 , )),
+	(( 'CreatePatchSetWithElementIDs' , 'strName' , 'arrElementID' , 'ppVal' , ), 2085, (2085, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 1 , 4 , 0 , 800 , (3, 0, None, None) , 0 , )),
+	(( 'ExportShellFormatData' , 'ppVal' , ), 2086, (2086, (), [ (16393, 10, None, "IID('{2EE15E44-AD0C-4D9B-B53A-35BF7F1E1322}')") , ], 1 , 2 , 4 , 0 , 808 , (3, 0, None, None) , 0 , )),
+	(( 'ConnectingParameters' , 'ppVal' , ), 2087, (2087, (), [ (16393, 10, None, "IID('{13724ADC-4397-4109-8057-B4DA64C1CE4A}')") , ], 1 , 2 , 4 , 0 , 816 , (3, 0, None, None) , 0 , )),
+	(( 'DeleteStandAloneNodes' , ), 2088, (2088, (), [ ], 1 , 1 , 4 , 0 , 824 , (3, 0, None, None) , 0 , )),
+	(( 'CreateElementMass' , 'uiID' , 'pMasterNode' , 'pPropertyMass' , 'ppVal' , 
+			 ), 2089, (2089, (), [ (19, 1, None, None) , (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , (9, 1, None, "IID('{415EE4E6-8069-4221-BCE4-17CC7960FEC3}')") , (16393, 10, None, "IID('{7235D19C-5DAB-4BC7-B0A3-82AB05109017}')") , ], 1 , 1 , 4 , 0 , 832 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexElementMassCollection' , 'pVal' , ), 2090, (2090, (), [ (16393, 10, None, "IID('{E454DBF9-4B06-491A-A0AD-044B11EDCA9E}')") , ], 1 , 2 , 4 , 0 , 840 , (3, 0, None, None) , 0 , )),
+	(( 'CreateLineSet' , 'strName' , 'arrNodeID' , 'ppVal' , ), 2091, (2091, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{580DC463-613E-406A-B54C-42952E1FB79F}')") , ], 1 , 1 , 4 , 0 , 848 , (3, 0, None, None) , 0 , )),
+	(( 'UseExtractWithoutPreStress' , ), 2093, (2093, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 856 , (3, 0, None, None) , 0 , )),
+	(( 'DeleteElements' , 'arrElementID' , ), 2094, (2094, (), [ (8195, 1, None, None) , ], 1 , 1 , 4 , 0 , 864 , (3, 0, None, None) , 0 , )),
+	(( 'CreateElement' , 'uiID' , 'ElementType' , 'pMultiPoint' , 'pProperty' , 
+			 'ppVal' , ), 2095, (2095, (), [ (19, 1, None, None) , (3, 1, None, "IID('{DB287E0D-43CE-4A0A-8891-30F064844F67}')") , (8204, 1, None, None) , 
+			 (9, 1, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , (16393, 10, None, "IID('{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')") , ], 1 , 1 , 4 , 0 , 872 , (3, 0, None, None) , 0 , )),
+	(( 'UpdateMassProperty' , ), 2096, (2096, (), [ ], 1 , 1 , 4 , 0 , 880 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexElementBeamCollection' , 'pVal' , ), 2097, (2097, (), [ (16393, 10, None, "IID('{D68E5B6D-04CF-4C9C-BF17-36B7BB59DAF9}')") , ], 1 , 2 , 4 , 0 , 888 , (3, 0, None, None) , 0 , )),
+	(( 'CreatePatchSetWithBox' , 'strName' , 'pRefFrame' , 'dWidth' , 'dHeight' , 
+			 'dDepth' , 'ppVal' , ), 2098, (2098, (), [ (8, 1, None, None) , (9, 1, None, "IID('{6A3295D9-E76B-473C-9655-23B7B1CBD671}')") , 
+			 (5, 1, None, None) , (5, 1, None, None) , (5, 1, None, None) , (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 1 , 4 , 0 , 896 , (3, 0, None, None) , 0 , )),
+	(( 'CreatePatchSetWithNodeSet' , 'strName' , 'pNodeSet' , 'ppVal' , ), 2099, (2099, (), [ 
+			 (8, 1, None, None) , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 1 , 4 , 0 , 904 , (3, 0, None, None) , 0 , )),
+	(( 'CreatePatchSetWithElementIDsContinuous' , 'strName' , 'arrElementID' , 'dAngle' , 'bCheckReverse' , 
+			 'ppVal' , ), 2100, (2100, (), [ (8, 1, None, None) , (8195, 1, None, None) , (5, 1, None, None) , 
+			 (11, 1, None, None) , (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 1 , 4 , 0 , 912 , (3, 0, None, None) , 0 , )),
+	(( 'CreatePatchSetWithPatchIndices' , 'strName' , 'arrPatchesIndices' , 'ppVal' , ), 2101, (2101, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 1 , 4 , 0 , 920 , (3, 0, None, None) , 0 , )),
+	(( 'CreatePatchSetWithPatchIndicesContinuous' , 'strName' , 'arrPatchesIndices' , 'dAngle' , 'bCheckReverse' , 
+			 'ppVal' , ), 2102, (2102, (), [ (8, 1, None, None) , (8195, 1, None, None) , (5, 1, None, None) , 
+			 (11, 1, None, None) , (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 1 , 4 , 0 , 928 , (3, 0, None, None) , 0 , )),
+	(( 'CreatePatchSetWithCone' , 'strName' , 'pFirstPoint' , 'pSecondPoint' , 'dTopRadius' , 
+			 'dBottomRadius' , 'dTolerance' , 'ppVal' , ), 2103, (2103, (), [ (8, 1, None, None) , 
+			 (8197, 1, None, None) , (8197, 1, None, None) , (5, 1, None, None) , (5, 1, None, None) , (5, 1, None, None) , 
+			 (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 1 , 4 , 0 , 936 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexLineSetCollection' , 'pVal' , ), 2104, (2104, (), [ (16393, 10, None, "IID('{8235613D-438F-415F-9220-B8A72A332DFA}')") , ], 1 , 2 , 4 , 0 , 944 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexElementShellCollection' , 'pVal' , ), 2105, (2105, (), [ (16393, 10, None, "IID('{7BD0B108-6F9A-4CCA-89F1-17171343EE51}')") , ], 1 , 2 , 4 , 0 , 952 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialOrthotropic2D' , 'strName' , 'ppVal' , ), 2106, (2106, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{0D77D87F-DBFE-4B46-8035-2948E3D11060}')") , ], 1 , 1 , 4 , 0 , 960 , (3, 0, None, None) , 0 , )),
+	(( 'CreateFFlexMaterialAnisotropic2D' , 'strName' , 'ppVal' , ), 2107, (2107, (), [ (8, 1, None, None) , 
+			 (16393, 10, None, "IID('{B6096033-E25F-476D-BD8D-FF06C3DD5925}')") , ], 1 , 1 , 4 , 0 , 968 , (3, 0, None, None) , 0 , )),
+	(( 'CreateNodeSetWithPatchIndicesContinuous' , 'strName' , 'arrPatchesIndices' , 'dAngle' , 'bCheckReverse' , 
+			 'ppVal' , ), 2108, (2108, (), [ (8, 1, None, None) , (8195, 1, None, None) , (5, 1, None, None) , 
+			 (11, 1, None, None) , (16393, 10, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 1 , 4 , 0 , 976 , (3, 0, None, None) , 0 , )),
+	(( 'CreateNodeSetWithLineIndicesContinuous' , 'strName' , 'arrLineIndices' , 'dAngle' , 'ppVal' , 
+			 ), 2109, (2109, (), [ (8, 1, None, None) , (8195, 1, None, None) , (5, 1, None, None) , (16393, 10, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 1 , 4 , 0 , 984 , (3, 0, None, None) , 0 , )),
+	(( 'LayerNumber' , 'pVal' , ), 2110, (2110, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 992 , (3, 0, None, None) , 0 , )),
+	(( 'LayerNumber' , 'pVal' , ), 2110, (2110, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 1000 , (3, 0, None, None) , 0 , )),
+	(( 'SearchNodeIDs' , 'pGeo' , 'dTolerance' , 'arrNodeID' , ), 2111, (2111, (), [ 
+			 (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , (5, 1, None, None) , (24579, 10, None, None) , ], 1 , 1 , 4 , 0 , 1008 , (3, 0, None, None) , 0 , )),
+	(( 'ParametricPointCollection' , 'ppVal' , ), 2112, (2112, (), [ (16393, 10, None, "IID('{65267578-7015-4BB5-BB65-F5F81CCEA244}')") , ], 1 , 2 , 4 , 0 , 1016 , (3, 0, None, None) , 0 , )),
+	(( 'ParametricValueCollection' , 'ppVal' , ), 2113, (2113, (), [ (16393, 10, None, "IID('{65267578-7015-4BB5-BB65-F5F81CCEA245}')") , ], 1 , 2 , 4 , 0 , 1024 , (3, 0, None, None) , 0 , )),
+	(( 'ImportParametricPoint' , 'strFileName' , ), 2114, (2114, (), [ (8, 1, None, None) , ], 1 , 1 , 4 , 0 , 1032 , (3, 0, None, None) , 0 , )),
+	(( 'ExportParametricPoint' , 'strFileName' , ), 2115, (2115, (), [ (8, 1, None, None) , ], 1 , 1 , 4 , 0 , 1040 , (3, 0, None, None) , 0 , )),
+	(( 'ImportParametricValue' , 'strFileName' , ), 2116, (2116, (), [ (8, 1, None, None) , ], 1 , 1 , 4 , 0 , 1048 , (3, 0, None, None) , 0 , )),
+	(( 'ExportParametricValue' , 'strFileName' , ), 2117, (2117, (), [ (8, 1, None, None) , ], 1 , 1 , 4 , 0 , 1056 , (3, 0, None, None) , 0 , )),
+	(( 'CreateParametricPoint' , 'strName' , 'pPoint' , 'pRefMarker' , 'ppVal' , 
+			 ), 2118, (2118, (), [ (8, 1, None, None) , (8197, 1, None, None) , (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , (16393, 10, None, "IID('{64B0B5B9-7662-40E8-B27C-9E42C3A158BF}')") , ], 1 , 1 , 4 , 0 , 1064 , (3, 0, None, None) , 0 , )),
+	(( 'CreateParametricValue' , 'strName' , 'dValue' , 'ppVal' , ), 2119, (2119, (), [ 
+			 (8, 1, None, None) , (5, 1, None, None) , (16393, 10, None, "IID('{3EEED3CE-62E8-4882-AAE6-4812B49927B5}')") , ], 1 , 1 , 4 , 0 , 1072 , (3, 0, None, None) , 0 , )),
+	(( 'CreateParametricPointWithText' , 'strName' , 'strText' , 'pRefMarker' , 'ppVal' , 
+			 ), 2120, (2120, (), [ (8, 1, None, None) , (8, 1, None, None) , (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , (16393, 10, None, "IID('{64B0B5B9-7662-40E8-B27C-9E42C3A158BF}')") , ], 1 , 1 , 4 , 0 , 1080 , (3, 0, None, None) , 0 , )),
+	(( 'CreateParametricValueWithText' , 'strName' , 'strText' , 'ppVal' , ), 2121, (2121, (), [ 
+			 (8, 1, None, None) , (8, 1, None, None) , (16393, 10, None, "IID('{3EEED3CE-62E8-4882-AAE6-4812B49927B5}')") , ], 1 , 1 , 4 , 0 , 1088 , (3, 0, None, None) , 0 , )),
+	(( 'Active' , 'pVal' , ), 2122, (2122, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 1096 , (3, 0, None, None) , 0 , )),
+	(( 'Active' , 'pVal' , ), 2122, (2122, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 1104 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexBodyCollection_vtables_dispatch_ = 1
+IFFlexBodyCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexBodyImportOption_vtables_dispatch_ = 1
+IFFlexBodyImportOption_vtables_ = [
+	(( 'FileType' , 'pVal' , ), 2001, (2001, (), [ (3, 1, None, "IID('{AC634E00-47A7-49B9-954C-764359BE6A3E}')") , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'FileType' , 'pVal' , ), 2001, (2001, (), [ (16387, 10, None, "IID('{AC634E00-47A7-49B9-954C-764359BE6A3E}')") , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'FileName' , 'pVal' , ), 2002, (2002, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'FileName' , 'pVal' , ), 2002, (2002, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'AllowNullProperty' , 'pVal' , ), 2003, (2003, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'AllowNullProperty' , 'pVal' , ), 2003, (2003, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'UseUnitForce' , 'pVal' , ), 2004, (2004, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'UseUnitForce' , 'pVal' , ), 2004, (2004, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'UseCreateBeamElementWithPreStress' , 'pVal' , ), 2005, (2005, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'UseCreateBeamElementWithPreStress' , 'pVal' , ), 2005, (2005, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'UseGeneratePatchSetFromNodeElementSet' , 'pVal' , ), 2006, (2006, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'UseGeneratePatchSetFromNodeElementSet' , 'pVal' , ), 2006, (2006, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexBodyMergeOption_vtables_dispatch_ = 1
+IFFlexBodyMergeOption_vtables_ = [
+	(( 'TargetBody' , 'ppVal' , ), 2101, (2101, (), [ (9, 1, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'TargetBody' , 'ppVal' , ), 2101, (2101, (), [ (16393, 10, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'SourceBody' , 'arrSource' , ), 2102, (2102, (), [ (8204, 1, None, None) , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'SourceBody' , 'arrSource' , ), 2102, (2102, (), [ (24588, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'DeleteUnusedMaterialsProperties' , 'pVal' , ), 2103, (2103, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'DeleteUnusedMaterialsProperties' , 'pVal' , ), 2103, (2103, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'ShareCoincidentNodes' , 'pVal' , ), 2104, (2104, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'ShareCoincidentNodes' , 'pVal' , ), 2104, (2104, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'SearchOnlyNodeSet' , 'pVal' , ), 2105, (2105, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'SearchOnlyNodeSet' , 'pVal' , ), 2105, (2105, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'Tolerance' , 'pVal' , ), 2106, (2106, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'Tolerance' , 'pVal' , ), 2106, (2106, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexBoundaryCondition_vtables_dispatch_ = 1
+IFFlexBoundaryCondition_vtables_ = [
+	(( 'X' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'Y' , 'ppVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'Z' , 'ppVal' , ), 2003, (2003, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'RX' , 'ppVal' , ), 2004, (2004, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'RY' , 'ppVal' , ), 2005, (2005, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'RZ' , 'ppVal' , ), 2006, (2006, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'UseX' , 'pVal' , ), 2007, (2007, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'UseX' , 'pVal' , ), 2007, (2007, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'UseY' , 'pVal' , ), 2008, (2008, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'UseY' , 'pVal' , ), 2008, (2008, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'UseZ' , 'pVal' , ), 2009, (2009, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'UseZ' , 'pVal' , ), 2009, (2009, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'UseRX' , 'pVal' , ), 2010, (2010, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'UseRX' , 'pVal' , ), 2010, (2010, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'UseRY' , 'pVal' , ), 2011, (2011, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'UseRY' , 'pVal' , ), 2011, (2011, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'UseRZ' , 'pVal' , ), 2012, (2012, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'UseRZ' , 'pVal' , ), 2012, (2012, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'UseReferenceMarker' , 'pVal' , ), 2013, (2013, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'UseReferenceMarker' , 'pVal' , ), 2013, (2013, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+	(( 'ReferenceMarker' , 'ppVal' , ), 2014, (2014, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 304 , (3, 0, None, None) , 0 , )),
+	(( 'ReferenceMarker' , 'ppVal' , ), 2014, (2014, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 312 , (3, 0, None, None) , 0 , )),
+	(( 'NodeCollection' , 'pVal' , ), 2015, (2015, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB7}')") , ], 1 , 2 , 4 , 0 , 320 , (3, 0, None, None) , 0 , )),
+	(( 'Color' , 'pVal' , ), 2016, (2016, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 328 , (3, 0, None, None) , 0 , )),
+	(( 'Color' , 'pVal' , ), 2016, (2016, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 336 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexBoundaryConditionCollection_vtables_dispatch_ = 1
+IFFlexBoundaryConditionCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{7C217E69-8B40-40FA-8D6B-C8555A17A89A}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexConnectingParameters_vtables_dispatch_ = 1
+IFFlexConnectingParameters_vtables_ = [
+	(( 'UseForceConnector' , 'pVal' , ), 2000, (2000, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'UseForceConnector' , 'pVal' , ), 2000, (2000, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'UseSyncFDR' , 'pVal' , ), 2001, (2001, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'UseSyncFDR' , 'pVal' , ), 2001, (2001, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'Mass' , 'ppVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'MomentOfInertia' , 'ppVal' , ), 2003, (2003, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'TranslationalStiffness' , 'ppVal' , ), 2004, (2004, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'TranslationalDampingRatio' , 'ppVal' , ), 2005, (2005, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'RotationnalStiffness' , 'ppVal' , ), 2006, (2006, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'RotationnalDampingRatio' , 'ppVal' , ), 2007, (2007, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexConstraintNode_vtables_dispatch_ = 1
+IFFlexConstraintNode_vtables_ = [
+	(( 'NodeSetBase' , 'ppVal' , ), 2051, (2051, (), [ (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 4 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'NodeSetBase' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'NodeSetAction' , 'ppVal' , ), 2052, (2052, (), [ (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 4 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'NodeSetAction' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexContact_vtables_dispatch_ = 1
+IFFlexContact_vtables_ = [
+	(( 'ContactProperty' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{E1DBBE0C-5542-4AB1-A7EB-C8E1FAE51DC1}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'BufferRadiusFactor' , 'ppVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'MaxStepSizeFactor' , 'ppVal' , ), 2003, (2003, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'ForceDisplay' , 'pVal' , ), 2004, (2004, (), [ (3, 1, None, "IID('{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}')") , ], 1 , 4 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'ForceDisplay' , 'pVal' , ), 2004, (2004, (), [ (16387, 10, None, "IID('{DEB6BDB3-9D28-4F34-953B-9D96D9A147ED}')") , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexContactCollection_vtables_dispatch_ = 1
+IFFlexContactCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{84584C5A-48D9-4ADB-92E8-23D8A6D199A2}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexContactCylinderToFSurface_vtables_dispatch_ = 1
+IFFlexContactCylinderToFSurface_vtables_ = [
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (9, 1, None, "IID('{5810C7E4-F627-4171-9D64-4BC97F14BB8E}')") , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{5810C7E4-F627-4171-9D64-4BC97F14BB8E}')") , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'BaseUpDirection' , 'pVal' , ), 2053, (2053, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'BaseUpDirection' , 'pVal' , ), 2053, (2053, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'BaseReferenceMarker' , 'ppVal' , ), 2054, (2054, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'BaseReferenceMarker' , 'ppVal' , ), 2054, (2054, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'BasePatchOption' , 'ppVal' , ), 2055, (2055, (), [ (16393, 10, None, "IID('{F703C54E-A759-4DB3-9962-54BFBC825288}')") , ], 1 , 2 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'UseNodeOnly' , 'pVal' , ), 2056, (2056, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'UseNodeOnly' , 'pVal' , ), 2056, (2056, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexContactFCurveSegmentOption_vtables_dispatch_ = 1
+IFFlexContactFCurveSegmentOption_vtables_ = [
+	(( 'Radius' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'UseDividedCubicCellNumber' , 'pVal' , ), 2002, (2002, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'UseDividedCubicCellNumber' , 'pVal' , ), 2002, (2002, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'DividedCubicCellX' , 'pVal' , ), 2003, (2003, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'DividedCubicCellX' , 'pVal' , ), 2003, (2003, (), [ (3, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'DividedCubicCellY' , 'pVal' , ), 2004, (2004, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'DividedCubicCellY' , 'pVal' , ), 2004, (2004, (), [ (3, 1, None, None) , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'DividedCubicCellZ' , 'pVal' , ), 2005, (2005, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'DividedCubicCellZ' , 'pVal' , ), 2005, (2005, (), [ (3, 1, None, None) , ], 1 , 4 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'UpdateContactNodesPosition' , 'pVal' , ), 2006, (2006, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'UpdateContactNodesPosition' , 'pVal' , ), 2006, (2006, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexContactFCurveToFCurve_vtables_dispatch_ = 1
+IFFlexContactFCurveToFCurve_vtables_ = [
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'BaseReferenceMarker' , 'ppVal' , ), 2053, (2053, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'BaseReferenceMarker' , 'ppVal' , ), 2053, (2053, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'ActionReferenceMarker' , 'ppVal' , ), 2054, (2054, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'ActionReferenceMarker' , 'ppVal' , ), 2054, (2054, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'BaseSegmentOption' , 'ppVal' , ), 2055, (2055, (), [ (16393, 10, None, "IID('{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}')") , ], 1 , 2 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'ActionSegmentOption' , 'ppVal' , ), 2056, (2056, (), [ (16393, 10, None, "IID('{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}')") , ], 1 , 2 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexContactFCurveToFSurface_vtables_dispatch_ = 1
+IFFlexContactFCurveToFSurface_vtables_ = [
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'BaseUpDirection' , 'pVal' , ), 2053, (2053, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'BaseUpDirection' , 'pVal' , ), 2053, (2053, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'BaseReferenceMarker' , 'ppVal' , ), 2054, (2054, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'BaseReferenceMarker' , 'ppVal' , ), 2054, (2054, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'ActionReferenceMarker' , 'ppVal' , ), 2055, (2055, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'ActionReferenceMarker' , 'ppVal' , ), 2055, (2055, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'BasePatchOption' , 'ppVal' , ), 2056, (2056, (), [ (16393, 10, None, "IID('{F703C54E-A759-4DB3-9962-54BFBC825288}')") , ], 1 , 2 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+	(( 'ActionSegmentOption' , 'ppVal' , ), 2057, (2057, (), [ (16393, 10, None, "IID('{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}')") , ], 1 , 2 , 4 , 0 , 304 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexContactFCurveToSurface_vtables_dispatch_ = 1
+IFFlexContactFCurveToSurface_vtables_ = [
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'BaseUpDirection' , 'pVal' , ), 2053, (2053, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'BaseUpDirection' , 'pVal' , ), 2053, (2053, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'ActionReferenceMarker' , 'ppVal' , ), 2054, (2054, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'ActionReferenceMarker' , 'ppVal' , ), 2054, (2054, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'BasePatchOption' , 'ppVal' , ), 2055, (2055, (), [ (16393, 10, None, "IID('{ED5F7902-56FD-482D-AEF2-D898A1EBFF1B}')") , ], 1 , 2 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'ActionSegmentOption' , 'ppVal' , ), 2056, (2056, (), [ (16393, 10, None, "IID('{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}')") , ], 1 , 2 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexContactFSurfacePatchOption_vtables_dispatch_ = 1
+IFFlexContactFSurfacePatchOption_vtables_ = [
+	(( 'MaxPenetration' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'UseDividedCubicCellNumber' , 'pVal' , ), 2002, (2002, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'UseDividedCubicCellNumber' , 'pVal' , ), 2002, (2002, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'DividedCubicCellX' , 'pVal' , ), 2003, (2003, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'DividedCubicCellX' , 'pVal' , ), 2003, (2003, (), [ (3, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'DividedCubicCellY' , 'pVal' , ), 2004, (2004, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'DividedCubicCellY' , 'pVal' , ), 2004, (2004, (), [ (3, 1, None, None) , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'DividedCubicCellZ' , 'pVal' , ), 2005, (2005, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'DividedCubicCellZ' , 'pVal' , ), 2005, (2005, (), [ (3, 1, None, None) , ], 1 , 4 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'UpdateContactNodesPosition' , 'pVal' , ), 2006, (2006, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'UpdateContactNodesPosition' , 'pVal' , ), 2006, (2006, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'UseSpecificThickness' , 'pVal' , ), 2007, (2007, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'UseSpecificThickness' , 'pVal' , ), 2007, (2007, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'SpecificThickness' , 'ppVal' , ), 2008, (2008, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'GeoPatchThicknessType' , 'pVal' , ), 2009, (2009, (), [ (3, 1, None, "IID('{7ADE75E9-EF45-4421-88F9-9F4BA00B99F6}')") , ], 1 , 4 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'GeoPatchThicknessType' , 'pVal' , ), 2009, (2009, (), [ (16387, 10, None, "IID('{7ADE75E9-EF45-4421-88F9-9F4BA00B99F6}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexContactFSurfaceToFSurface_vtables_dispatch_ = 1
+IFFlexContactFSurfaceToFSurface_vtables_ = [
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'BaseUpDirection' , 'pVal' , ), 2053, (2053, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'BaseUpDirection' , 'pVal' , ), 2053, (2053, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'ActionUpDirection' , 'pVal' , ), 2054, (2054, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'ActionUpDirection' , 'pVal' , ), 2054, (2054, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'BaseReferenceMarker' , 'ppVal' , ), 2055, (2055, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'BaseReferenceMarker' , 'ppVal' , ), 2055, (2055, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'ActionReferenceMarker' , 'ppVal' , ), 2056, (2056, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+	(( 'ActionReferenceMarker' , 'ppVal' , ), 2056, (2056, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 304 , (3, 0, None, None) , 0 , )),
+	(( 'BasePatchOption' , 'ppVal' , ), 2057, (2057, (), [ (16393, 10, None, "IID('{F703C54E-A759-4DB3-9962-54BFBC825288}')") , ], 1 , 2 , 4 , 0 , 312 , (3, 0, None, None) , 0 , )),
+	(( 'ActionPatchOption' , 'ppVal' , ), 2058, (2058, (), [ (16393, 10, None, "IID('{F703C54E-A759-4DB3-9962-54BFBC825288}')") , ], 1 , 2 , 4 , 0 , 320 , (3, 0, None, None) , 0 , )),
+	(( 'BaseSmoothContact' , 'pVal' , ), 2059, (2059, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 328 , (3, 0, None, None) , 0 , )),
+	(( 'BaseSmoothContact' , 'pVal' , ), 2059, (2059, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 336 , (3, 0, None, None) , 0 , )),
+	(( 'ActionSmoothContact' , 'pVal' , ), 2060, (2060, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 344 , (3, 0, None, None) , 0 , )),
+	(( 'ActionSmoothContact' , 'pVal' , ), 2060, (2060, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 352 , (3, 0, None, None) , 0 , )),
+	(( 'UseNodeOnly' , 'pVal' , ), 2061, (2061, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 360 , (3, 0, None, None) , 0 , )),
+	(( 'UseNodeOnly' , 'pVal' , ), 2061, (2061, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 368 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexContactFSurfaceToSurface_vtables_dispatch_ = 1
+IFFlexContactFSurfaceToSurface_vtables_ = [
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'ActionUpDirection' , 'pVal' , ), 2053, (2053, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'ActionUpDirection' , 'pVal' , ), 2053, (2053, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'BaseUpDirection' , 'pVal' , ), 2054, (2054, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'BaseUpDirection' , 'pVal' , ), 2054, (2054, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'ActionReferenceMarker' , 'ppVal' , ), 2055, (2055, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'ActionReferenceMarker' , 'ppVal' , ), 2055, (2055, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'BasePatchOption' , 'ppVal' , ), 2056, (2056, (), [ (16393, 10, None, "IID('{ED5F7902-56FD-482D-AEF2-D898A1EBFF1B}')") , ], 1 , 2 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+	(( 'ActionPatchOption' , 'ppVal' , ), 2057, (2057, (), [ (16393, 10, None, "IID('{F703C54E-A759-4DB3-9962-54BFBC825288}')") , ], 1 , 2 , 4 , 0 , 304 , (3, 0, None, None) , 0 , )),
+	(( 'ActionSmoothContact' , 'pVal' , ), 2058, (2058, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 312 , (3, 0, None, None) , 0 , )),
+	(( 'ActionSmoothContact' , 'pVal' , ), 2058, (2058, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 320 , (3, 0, None, None) , 0 , )),
+	(( 'UseNodeOnly' , 'pVal' , ), 2059, (2059, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 328 , (3, 0, None, None) , 0 , )),
+	(( 'UseNodeOnly' , 'pVal' , ), 2059, (2059, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 336 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexContactSphereToFCurve_vtables_dispatch_ = 1
+IFFlexContactSphereToFCurve_vtables_ = [
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (9, 1, None, "IID('{2122DEE7-EE07-4A20-9B49-5A9AF4599906}')") , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{2122DEE7-EE07-4A20-9B49-5A9AF4599906}')") , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'BaseReferenceMarker' , 'ppVal' , ), 2053, (2053, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'BaseReferenceMarker' , 'ppVal' , ), 2053, (2053, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'BaseSegmentOption' , 'ppVal' , ), 2054, (2054, (), [ (16393, 10, None, "IID('{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}')") , ], 1 , 2 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexContactSphereToFSurface_vtables_dispatch_ = 1
+IFFlexContactSphereToFSurface_vtables_ = [
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'BaseEntity' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (9, 1, None, "IID('{2122DEE7-EE07-4A20-9B49-5A9AF4599906}')") , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'ActionEntity' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{2122DEE7-EE07-4A20-9B49-5A9AF4599906}')") , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'BaseUpDirection' , 'pVal' , ), 2053, (2053, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'BaseUpDirection' , 'pVal' , ), 2053, (2053, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'BaseReferenceMarker' , 'ppVal' , ), 2054, (2054, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'BaseReferenceMarker' , 'ppVal' , ), 2054, (2054, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'BasePatchOption' , 'ppVal' , ), 2055, (2055, (), [ (16393, 10, None, "IID('{F703C54E-A759-4DB3-9962-54BFBC825288}')") , ], 1 , 2 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'BaseSmoothContact' , 'pVal' , ), 2056, (2056, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'BaseSmoothContact' , 'pVal' , ), 2056, (2056, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+	(( 'BaseNodeContact' , 'pVal' , ), 2057, (2057, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 304 , (3, 0, None, None) , 0 , )),
+	(( 'BaseNodeContact' , 'pVal' , ), 2057, (2057, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 312 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexElement_vtables_dispatch_ = 1
+IFFlexElement_vtables_ = [
+	(( 'FFlexProperty' , 'ppVal' , ), 2001, (2001, (), [ (9, 1, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 4 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexProperty' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'NodeCollection' , 'pVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB7}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'SetNodeIDs' , 'arrNodeID' , ), 2003, (2003, (), [ (8195, 1, None, None) , ], 1 , 1 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexElementBeam_vtables_dispatch_ = 1
+IFFlexElementBeam_vtables_ = [
+	(( 'Orientation' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{F67F5E56-F3F7-4249-BCBE-02B8D43716B0}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexElementBeamCollection_vtables_dispatch_ = 1
+IFFlexElementBeamCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{3E133D96-B9A6-4E30-89A8-9049608BBEEA}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexElementBeamOrientation_vtables_dispatch_ = 1
+IFFlexElementBeamOrientation_vtables_ = [
+]
+
+IFFlexElementCollection_vtables_dispatch_ = 1
+IFFlexElementCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexElementFDR_vtables_dispatch_ = 1
+IFFlexElementFDR_vtables_ = [
+	(( 'MasterNode' , 'ppVal' , ), 2052, (2052, (), [ (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 4 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'MasterNode' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexElementFDRCollection_vtables_dispatch_ = 1
+IFFlexElementFDRCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{A640D569-8E40-435F-B199-AB3145C56569}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexElementMass_vtables_dispatch_ = 1
+IFFlexElementMass_vtables_ = [
+	(( 'TargetNode' , 'ppVal' , ), 2051, (2051, (), [ (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 4 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'TargetNode' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexElementMassCollection_vtables_dispatch_ = 1
+IFFlexElementMassCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{7235D19C-5DAB-4BC7-B0A3-82AB05109017}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexElementSet_vtables_dispatch_ = 1
+IFFlexElementSet_vtables_ = [
+	(( 'Color' , 'pVal' , ), 2051, (2051, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'Color' , 'pVal' , ), 2051, (2051, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'ElementCollection' , 'pVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB6}')") , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'NodeCollection' , 'pVal' , ), 2053, (2053, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB7}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexElementSetCollection_vtables_dispatch_ = 1
+IFFlexElementSetCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{41220408-E869-466A-8D1E-03B99F02568B}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexElementShell_vtables_dispatch_ = 1
+IFFlexElementShell_vtables_ = [
+	(( 'NodeVariableThicknessCollection' , 'pVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{11DF440C-A0EA-4BC3-B9F8-954A1C62DE01}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexElementShellCollection_vtables_dispatch_ = 1
+IFFlexElementShellCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{096C5C5E-CBCD-4E54-96A6-B43712CA3CC7}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexExportDurabilityInterfaceOption_vtables_dispatch_ = 1
+IFFlexExportDurabilityInterfaceOption_vtables_ = [
+	(( 'SoftwareType' , 'pVal' , ), 2001, (2001, (), [ (3, 1, None, "IID('{C3F401B4-3108-4D4C-8684-7E08A8EF5663}')") , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'SoftwareType' , 'pVal' , ), 2001, (2001, (), [ (16387, 10, None, "IID('{C3F401B4-3108-4D4C-8684-7E08A8EF5663}')") , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'ElementSet' , 'ppVal' , ), 2002, (2002, (), [ (9, 1, None, "IID('{41220408-E869-466A-8D1E-03B99F02568B}')") , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'ElementSet' , 'ppVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{41220408-E869-466A-8D1E-03B99F02568B}')") , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'IntervalFactor' , 'pVal' , ), 2003, (2003, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'IntervalFactor' , 'pVal' , ), 2003, (2003, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'FileName' , 'pVal' , ), 2004, (2004, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'FileName' , 'pVal' , ), 2004, (2004, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'GenerateOneFileFlag' , 'pVal' , ), 2005, (2005, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'GenerateOneFileFlag' , 'pVal' , ), 2005, (2005, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexExportMeshDataCommonOption_vtables_dispatch_ = 1
+IFFlexExportMeshDataCommonOption_vtables_ = [
+	(( 'FFlexBodyName' , 'pVal' , ), 2001, (2001, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexBodyName' , 'pVal' , ), 2001, (2001, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'RefFrame' , 'ppVal' , ), 2002, (2002, (), [ (9, 1, None, "IID('{6A3295D9-E76B-473C-9655-23B7B1CBD671}')") , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'RefFrame' , 'ppVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{6A3295D9-E76B-473C-9655-23B7B1CBD671}')") , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'ExportAnimationFrame' , 'pVal' , ), 2003, (2003, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'ExportAnimationFrame' , 'pVal' , ), 2003, (2003, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'FileName' , 'pVal' , ), 2004, (2004, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'FileName' , 'pVal' , ), 2004, (2004, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexExportMeshDataNastranFormatOption_vtables_dispatch_ = 1
+IFFlexExportMeshDataNastranFormatOption_vtables_ = [
+	(( 'PropertyFlag' , 'pVal' , ), 2001, (2001, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'PropertyFlag' , 'pVal' , ), 2001, (2001, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'MaterialFlag' , 'pVal' , ), 2002, (2002, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'MaterialFlag' , 'pVal' , ), 2002, (2002, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'ConstraintFlag' , 'pVal' , ), 2003, (2003, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'ConstraintFlag' , 'pVal' , ), 2003, (2003, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'SetFlag' , 'pVal' , ), 2004, (2004, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'SetFlag' , 'pVal' , ), 2004, (2004, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'UnitOfTarget' , 'ppVal' , ), 2005, (2005, (), [ (9, 1, None, "IID('{09A65909-6FBB-488A-9726-D320F5666395}')") , ], 1 , 4 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'UnitOfTarget' , 'ppVal' , ), 2005, (2005, (), [ (16393, 10, None, "IID('{09A65909-6FBB-488A-9726-D320F5666395}')") , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'UseUnitForceFlag' , 'pVal' , ), 2006, (2006, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'UseUnitForceFlag' , 'pVal' , ), 2006, (2006, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'UseLargeFieldFormatFlag' , 'pVal' , ), 2007, (2007, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'UseLargeFieldFormatFlag' , 'pVal' , ), 2007, (2007, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'ElementIDOffset' , 'pVal' , ), 2008, (2008, (), [ (3, 1, None, None) , ], 1 , 4 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'ElementIDOffset' , 'pVal' , ), 2008, (2008, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'OutputFlag' , 'pVal' , ), 2009, (2009, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'OutputFlag' , 'pVal' , ), 2009, (2009, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexLineSet_vtables_dispatch_ = 1
+IFFlexLineSet_vtables_ = [
+	(( 'NodeIDs' , 'arrNodeIDs' , ), 2051, (2051, (), [ (24579, 10, None, None) , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'NodeCollection' , 'pVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB7}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'Color' , 'pVal' , ), 2053, (2053, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'Color' , 'pVal' , ), 2053, (2053, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'AutoAdjust' , ), 2054, (2054, (), [ ], 1 , 1 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'AutoSwitch' , ), 2055, (2055, (), [ ], 1 , 1 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'ManualSwitch' , 'arrSelectNodeID' , ), 2056, (2056, (), [ (8195, 1, None, None) , ], 1 , 1 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexLineSetCollection_vtables_dispatch_ = 1
+IFFlexLineSetCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{580DC463-613E-406A-B54C-42952E1FB79F}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexLoad_vtables_dispatch_ = 1
+IFFlexLoad_vtables_ = [
+]
+
+IFFlexLoadCollection_vtables_dispatch_ = 1
+IFFlexLoadCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{2459DD31-7D96-4F02-A1E1-FCFF862CDA18}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexLoadConcentrated_vtables_dispatch_ = 1
+IFFlexLoadConcentrated_vtables_ = [
+	(( 'Type' , 'pVal' , ), 2001, (2001, (), [ (3, 1, None, "IID('{32695C8B-BE5A-4777-AD30-32493375EC34}')") , ], 1 , 4 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'Type' , 'pVal' , ), 2001, (2001, (), [ (16387, 10, None, "IID('{32695C8B-BE5A-4777-AD30-32493375EC34}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'NodeSet' , 'ppVal' , ), 2002, (2002, (), [ (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 4 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'NodeSet' , 'ppVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'FX' , 'ppVal' , ), 2003, (2003, (), [ (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 4 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'FX' , 'ppVal' , ), 2003, (2003, (), [ (16393, 10, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'FY' , 'ppVal' , ), 2004, (2004, (), [ (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 4 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'FY' , 'ppVal' , ), 2004, (2004, (), [ (16393, 10, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 2 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'FZ' , 'ppVal' , ), 2005, (2005, (), [ (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 4 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'FZ' , 'ppVal' , ), 2005, (2005, (), [ (16393, 10, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 2 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'TX' , 'ppVal' , ), 2006, (2006, (), [ (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 4 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'TX' , 'ppVal' , ), 2006, (2006, (), [ (16393, 10, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 2 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'TY' , 'ppVal' , ), 2007, (2007, (), [ (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 4 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'TY' , 'ppVal' , ), 2007, (2007, (), [ (16393, 10, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 2 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'TZ' , 'ppVal' , ), 2008, (2008, (), [ (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 4 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'TZ' , 'ppVal' , ), 2008, (2008, (), [ (16393, 10, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 2 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+	(( 'FM' , 'ppVal' , ), 2009, (2009, (), [ (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 4 , 4 , 0 , 304 , (3, 0, None, None) , 0 , )),
+	(( 'FM' , 'ppVal' , ), 2009, (2009, (), [ (16393, 10, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 2 , 4 , 0 , 312 , (3, 0, None, None) , 0 , )),
+	(( 'ReferenceMarker' , 'ppVal' , ), 2010, (2010, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 320 , (3, 0, None, None) , 0 , )),
+	(( 'ReferenceMarker' , 'ppVal' , ), 2010, (2010, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 328 , (3, 0, None, None) , 0 , )),
+	(( 'ReferenceNode' , 'ppVal' , ), 2011, (2011, (), [ (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 4 , 4 , 0 , 336 , (3, 0, None, None) , 0 , )),
+	(( 'ReferenceNode' , 'ppVal' , ), 2011, (2011, (), [ (16393, 10, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 2 , 4 , 0 , 344 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexLoadConcentratedUSUB_vtables_dispatch_ = 1
+IFFlexLoadConcentratedUSUB_vtables_ = [
+	(( 'NodeSet' , 'ppVal' , ), 2051, (2051, (), [ (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 4 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'NodeSet' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'UserSubroutine' , 'ppVal' , ), 2052, (2052, (), [ (9, 1, None, "IID('{9573C3F4-958E-4EC2-B9E6-C4660433CFA3}')") , ], 1 , 4 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'UserSubroutine' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{9573C3F4-958E-4EC2-B9E6-C4660433CFA3}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'BaseBody' , 'ppVal' , ), 2053, (2053, (), [ (9, 1, None, "IID('{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}')") , ], 1 , 4 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'BaseBody' , 'ppVal' , ), 2053, (2053, (), [ (16393, 10, None, "IID('{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}')") , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'UseReportNodes' , 'pVal' , ), 2055, (2055, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'UseReportNodes' , 'pVal' , ), 2055, (2055, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'ReportNodeIDs' , 'arrNodeIDs' , ), 2056, (2056, (), [ (8195, 1, None, None) , ], 1 , 4 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'ReportNodeIDs' , 'arrNodeIDs' , ), 2056, (2056, (), [ (24579, 10, None, None) , ], 1 , 2 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexLoadConvection_vtables_dispatch_ = 1
+IFFlexLoadConvection_vtables_ = [
+	(( 'PatchSet' , 'ppVal' , ), 2001, (2001, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'PatchSet' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'HeatCoefficient' , 'ppVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'AmbientAirTemperature' , 'ppVal' , ), 2003, (2003, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'HTCType' , 'pVal' , ), 2004, (2004, (), [ (3, 1, None, "IID('{6D13090A-B164-407F-A11D-159CB40B3F4C}')") , ], 1 , 4 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'HTCType' , 'pVal' , ), 2004, (2004, (), [ (16387, 10, None, "IID('{6D13090A-B164-407F-A11D-159CB40B3F4C}')") , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'HTCRefMarker' , 'ppVal' , ), 2005, (2005, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'HTCRefMarker' , 'ppVal' , ), 2005, (2005, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'HTCRTLFileName' , 'pVal' , ), 2006, (2006, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'HTCRTLFileName' , 'pVal' , ), 2006, (2006, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'AFTType' , 'pVal' , ), 2007, (2007, (), [ (3, 1, None, "IID('{6D13090A-B164-407F-A11D-159CB40B3F4C}')") , ], 1 , 4 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'AFTType' , 'pVal' , ), 2007, (2007, (), [ (16387, 10, None, "IID('{6D13090A-B164-407F-A11D-159CB40B3F4C}')") , ], 1 , 2 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'AFTRefMarker' , 'ppVal' , ), 2008, (2008, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'AFTRefMarker' , 'ppVal' , ), 2008, (2008, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'AFTRTLFileName' , 'pVal' , ), 2009, (2009, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'AFTRTLFileName' , 'pVal' , ), 2009, (2009, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+	(( 'AmbientFluidTemperature' , 'ppVal' , ), 2010, (2010, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 304 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexLoadHeatFlux_vtables_dispatch_ = 1
+IFFlexLoadHeatFlux_vtables_ = [
+	(( 'PatchSet' , 'ppVal' , ), 2001, (2001, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'PatchSet' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'UpDirection' , 'pVal' , ), 2002, (2002, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'UpDirection' , 'pVal' , ), 2002, (2002, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'HeatFlux' , 'ppVal' , ), 2003, (2003, (), [ (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 4 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'HeatFlux' , 'ppVal' , ), 2003, (2003, (), [ (16393, 10, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexLoadHeatGeneration_vtables_dispatch_ = 1
+IFFlexLoadHeatGeneration_vtables_ = [
+	(( 'ElementSet' , 'ppVal' , ), 2001, (2001, (), [ (9, 1, None, "IID('{41220408-E869-466A-8D1E-03B99F02568B}')") , ], 1 , 4 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'ElementSet' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{41220408-E869-466A-8D1E-03B99F02568B}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'HeatGeneration' , 'ppVal' , ), 2002, (2002, (), [ (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 4 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'HeatGeneration' , 'ppVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexLoadNodalTemperature_vtables_dispatch_ = 1
+IFFlexLoadNodalTemperature_vtables_ = [
+	(( 'NodeSet' , 'ppVal' , ), 2001, (2001, (), [ (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 4 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'NodeSet' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'Temperature' , 'ppVal' , ), 2002, (2002, (), [ (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 4 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'Temperature' , 'ppVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexLoadPressure_vtables_dispatch_ = 1
+IFFlexLoadPressure_vtables_ = [
+	(( 'PatchSet' , 'ppVal' , ), 2001, (2001, (), [ (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 4 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'PatchSet' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'PressureUpDirction' , 'pVal' , ), 2002, (2002, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'PressureUpDirction' , 'pVal' , ), 2002, (2002, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'Pressure' , 'ppVal' , ), 2003, (2003, (), [ (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 4 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'Pressure' , 'ppVal' , ), 2003, (2003, (), [ (16393, 10, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'BaseBody' , 'ppVal' , ), 2004, (2004, (), [ (9, 1, None, "IID('{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}')") , ], 1 , 4 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'BaseBody' , 'ppVal' , ), 2004, (2004, (), [ (16393, 10, None, "IID('{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}')") , ], 1 , 2 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'UseReportNodes' , 'pVal' , ), 2005, (2005, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'UseReportNodes' , 'pVal' , ), 2005, (2005, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'ReportNodeIDs' , 'arrNodeIDs' , ), 2006, (2006, (), [ (8195, 1, None, None) , ], 1 , 4 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'ReportNodeIDs' , 'arrNodeIDs' , ), 2006, (2006, (), [ (24579, 10, None, None) , ], 1 , 2 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexLoadThermal_vtables_dispatch_ = 1
+IFFlexLoadThermal_vtables_ = [
+	(( 'NodeSet' , 'ppVal' , ), 2001, (2001, (), [ (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 4 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'NodeSet' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'Temperature' , 'ppVal' , ), 2002, (2002, (), [ (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 4 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'Temperature' , 'ppVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'Type' , 'pVal' , ), 2003, (2003, (), [ (3, 1, None, "IID('{7DB9A0EC-5446-472C-9EF1-59C6C9C5FB9F}')") , ], 1 , 4 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'Type' , 'pVal' , ), 2003, (2003, (), [ (16387, 10, None, "IID('{7DB9A0EC-5446-472C-9EF1-59C6C9C5FB9F}')") , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'RefMarker' , 'ppVal' , ), 2004, (2004, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'RefMarker' , 'ppVal' , ), 2004, (2004, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'RTLFileName' , 'pVal' , ), 2005, (2005, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'RTLFileName' , 'pVal' , ), 2005, (2005, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterial_vtables_dispatch_ = 1
+IFFlexMaterial_vtables_ = [
+	(( 'Density' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'DampingRatio' , 'ppVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'ID' , 'pVal' , ), 2003, (2003, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialAnisotropic2D_vtables_dispatch_ = 1
+IFFlexMaterialAnisotropic2D_vtables_ = [
+	(( 'ShearModulus11' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'ShearModulus12' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'ShearModulus13' , 'ppVal' , ), 2053, (2053, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'ShearModulus22' , 'ppVal' , ), 2054, (2054, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'ShearModulus23' , 'ppVal' , ), 2055, (2055, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'ShearModulus33' , 'ppVal' , ), 2056, (2056, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialArrudaBoyce_vtables_dispatch_ = 1
+IFFlexMaterialArrudaBoyce_vtables_ = [
+	(( 'Mu' , 'ppVal' , ), 2101, (2101, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'LambdaM' , 'ppVal' , ), 2102, (2102, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialArrudaBoyceRubber_vtables_dispatch_ = 1
+IFFlexMaterialArrudaBoyceRubber_vtables_ = [
+	(( 'Mu' , 'pVal' , ), 2101, (2101, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'LambdaM' , 'pVal' , ), 2102, (2102, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialCollection_vtables_dispatch_ = 1
+IFFlexMaterialCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{205F2A11-60B6-4F97-92FC-300B78C3BB29}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexMaterialElastic_vtables_dispatch_ = 1
+IFFlexMaterialElastic_vtables_ = [
+	(( 'YoungsModulus' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'ShearModulus' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'PoissonsRatio' , 'ppVal' , ), 2053, (2053, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialHyperelastic_vtables_dispatch_ = 1
+IFFlexMaterialHyperelastic_vtables_ = [
+]
+
+IFFlexMaterialIsotropic_vtables_dispatch_ = 1
+IFFlexMaterialIsotropic_vtables_ = [
+	(( 'IsotropicType' , 'pVal' , ), 2101, (2101, (), [ (3, 1, None, "IID('{9888A3C8-275D-418F-A53A-68E074247181}')") , ], 1 , 4 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'IsotropicType' , 'pVal' , ), 2101, (2101, (), [ (16387, 10, None, "IID('{9888A3C8-275D-418F-A53A-68E074247181}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'UpdateShearModulusAndPoissonsRatio' , ), 2102, (2102, (), [ ], 1 , 1 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'ThermalCoefficient' , 'ppVal' , ), 2103, (2103, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'ReferenceTemperature' , 'ppVal' , ), 2104, (2104, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'SpecificHeat' , 'ppVal' , ), 2105, (2105, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'ThermalConductivity' , 'ppVal' , ), 2106, (2106, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialMooneyRivlin_vtables_dispatch_ = 1
+IFFlexMaterialMooneyRivlin_vtables_ = [
+	(( 'C1' , 'ppVal' , ), 2101, (2101, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'C2' , 'ppVal' , ), 2102, (2102, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialMooneyRivlinRubber_vtables_dispatch_ = 1
+IFFlexMaterialMooneyRivlinRubber_vtables_ = [
+	(( 'C1' , 'pVal' , ), 2101, (2101, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'C2' , 'pVal' , ), 2102, (2102, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialNeoHooke_vtables_dispatch_ = 1
+IFFlexMaterialNeoHooke_vtables_ = [
+	(( 'C10' , 'ppVal' , ), 2101, (2101, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialNeoHookeRubber_vtables_dispatch_ = 1
+IFFlexMaterialNeoHookeRubber_vtables_ = [
+	(( 'C10' , 'pVal' , ), 2101, (2101, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialOgden_vtables_dispatch_ = 1
+IFFlexMaterialOgden_vtables_ = [
+	(( 'Mu1' , 'ppVal' , ), 2101, (2101, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'Mu2' , 'ppVal' , ), 2102, (2102, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'Mu3' , 'ppVal' , ), 2103, (2103, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'Alpha1' , 'ppVal' , ), 2104, (2104, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'Alpha2' , 'ppVal' , ), 2105, (2105, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'Alpha3' , 'ppVal' , ), 2106, (2106, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialOgdenRubber_vtables_dispatch_ = 1
+IFFlexMaterialOgdenRubber_vtables_ = [
+	(( 'Mu1' , 'pVal' , ), 2101, (2101, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'Mu2' , 'pVal' , ), 2102, (2102, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'Mu3' , 'pVal' , ), 2103, (2103, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'Alpha1' , 'pVal' , ), 2104, (2104, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'Alpha2' , 'pVal' , ), 2105, (2105, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'Alpha3' , 'pVal' , ), 2106, (2106, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialOrthotropic_vtables_dispatch_ = 1
+IFFlexMaterialOrthotropic_vtables_ = [
+	(( 'YoungsModulus2' , 'ppVal' , ), 2101, (2101, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialOrthotropic2D_vtables_dispatch_ = 1
+IFFlexMaterialOrthotropic2D_vtables_ = [
+	(( 'TransverseShearModulus' , 'ppVal' , ), 2151, (2151, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'TransverseShearModulus2' , 'ppVal' , ), 2152, (2152, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialPlastic_vtables_dispatch_ = 1
+IFFlexMaterialPlastic_vtables_ = [
+]
+
+IFFlexMaterialPlasticIsotropicBiNonLinear_vtables_dispatch_ = 1
+IFFlexMaterialPlasticIsotropicBiNonLinear_vtables_ = [
+	(( 'InitialYieldStress' , 'ppVal' , ), 2151, (2151, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'IsotropicHardening' , 'ppVal' , ), 2152, (2152, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'NonLinearHardeningA' , 'ppVal' , ), 2153, (2153, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'NonLinearHardeningB' , 'ppVal' , ), 2154, (2154, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialPlasticIsotropicKinematicBiNonLinear_vtables_dispatch_ = 1
+IFFlexMaterialPlasticIsotropicKinematicBiNonLinear_vtables_ = [
+	(( 'KinematicHardening' , 'ppVal' , ), 2201, (2201, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialPlasticIsotropicKinematicMultiLinear_vtables_dispatch_ = 1
+IFFlexMaterialPlasticIsotropicKinematicMultiLinear_vtables_ = [
+	(( 'KinematicHardening' , 'ppVal' , ), 2201, (2201, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexMaterialPlasticIsotropicMultiLinear_vtables_dispatch_ = 1
+IFFlexMaterialPlasticIsotropicMultiLinear_vtables_ = [
+	(( 'PlasticStrain' , 'pVal' , ), 2151, (2151, (), [ (24581, 10, None, None) , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'PlasticStrain' , 'pVal' , ), 2151, (2151, (), [ (8197, 1, None, None) , ], 1 , 4 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'YieldStress' , 'pVal' , ), 2152, (2152, (), [ (24581, 10, None, None) , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'YieldStress' , 'pVal' , ), 2152, (2152, (), [ (8197, 1, None, None) , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexNode_vtables_dispatch_ = 1
+IFFlexNode_vtables_ = [
+]
+
+IFFlexNodeCollection_vtables_dispatch_ = 1
+IFFlexNodeCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexNodeSet_vtables_dispatch_ = 1
+IFFlexNodeSet_vtables_ = [
+	(( 'NodeIDs' , 'arrNodeIDs' , ), 2051, (2051, (), [ (24579, 10, None, None) , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'NodeCollection' , 'pVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB7}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'Color' , 'pVal' , ), 2053, (2053, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'Color' , 'pVal' , ), 2053, (2053, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'AddNodes' , 'val' , ), 2054, (2054, (), [ (8195, 1, None, None) , ], 1 , 1 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'DeleteNodes' , 'val' , ), 2055, (2055, (), [ (8195, 1, None, None) , ], 1 , 1 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexNodeSetCollection_vtables_dispatch_ = 1
+IFFlexNodeSetCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexNodeVT_vtables_dispatch_ = 1
+IFFlexNodeVT_vtables_ = [
+	(( 'Thickness' , 'pVal' , ), 2001, (2001, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'Thickness' , 'pVal' , ), 2001, (2001, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexNodeVTCollection_vtables_dispatch_ = 1
+IFFlexNodeVTCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{83C6E147-4506-47D2-BF10-A5C05702C376}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexOutput_vtables_dispatch_ = 1
+IFFlexOutput_vtables_ = [
+	(( 'NodeIDs' , 'arrNodeIDs' , ), 4001, (4001, (), [ (24579, 10, None, None) , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'NodeCollection' , 'ppVal' , ), 4002, (4002, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB7}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'Color' , 'pVal' , ), 4003, (4003, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'Color' , 'pVal' , ), 4003, (4003, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexOutputCollection_vtables_dispatch_ = 1
+IFFlexOutputCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{C07D2858-4BD8-429E-98F9-BBAD0AE619CA}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexOutputFileInfo_vtables_dispatch_ = 1
+IFFlexOutputFileInfo_vtables_ = [
+	(( 'BodyName' , 'pVal' , ), 2001, (2001, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Use' , 'pVal' , ), 2002, (2002, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'Use' , 'pVal' , ), 2002, (2002, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'ShellRecoveryType' , 'pVal' , ), 2003, (2003, (), [ (3, 1, None, "IID('{3EB2A2CA-EBC9-44F7-8FBD-1246E02B5849}')") , ], 1 , 4 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'ShellRecoveryType' , 'pVal' , ), 2003, (2003, (), [ (16387, 10, None, "IID('{3EB2A2CA-EBC9-44F7-8FBD-1246E02B5849}')") , ], 1 , 2 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'ReferenceMarker' , 'ppVal' , ), 2004, (2004, (), [ (9, 1, None, "IID('{6A3295D9-E76B-473C-9655-23B7B1CBD671}')") , ], 1 , 4 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'ReferenceMarker' , 'ppVal' , ), 2004, (2004, (), [ (16393, 10, None, "IID('{6A3295D9-E76B-473C-9655-23B7B1CBD671}')") , ], 1 , 2 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'StrainFileState' , 'pVal' , ), 2005, (2005, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'StressFileState' , 'pVal' , ), 2006, (2006, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'DisplacementDataPrecision' , 'pVal' , ), 2007, (2007, (), [ (3, 1, None, "IID('{07DA99C8-2650-46F7-9207-26E6A5C7191A}')") , ], 1 , 4 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'DisplacementDataPrecision' , 'pVal' , ), 2007, (2007, (), [ (16387, 10, None, "IID('{07DA99C8-2650-46F7-9207-26E6A5C7191A}')") , ], 1 , 2 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'BeamRecoveryType' , 'pVal' , ), 2008, (2008, (), [ (3, 1, None, "IID('{01D83516-829A-4D6E-8D5F-CB043CA860A5}')") , ], 1 , 4 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'BeamRecoveryType' , 'pVal' , ), 2008, (2008, (), [ (16387, 10, None, "IID('{01D83516-829A-4D6E-8D5F-CB043CA860A5}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexOutputFileRegenerator_vtables_dispatch_ = 1
+IFFlexOutputFileRegenerator_vtables_ = [
+	(( 'SameOptionsforAllFFlexBodies' , 'pVal' , ), 2001, (2001, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'SameOptionsforAllFFlexBodies' , 'pVal' , ), 2001, (2001, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'RecoverData' , 'pVal' , ), 2002, (2002, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'RecoverData' , 'pVal' , ), 2002, (2002, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'ShellRecoveryType' , 'pVal' , ), 2003, (2003, (), [ (3, 1, None, "IID('{3EB2A2CA-EBC9-44F7-8FBD-1246E02B5849}')") , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'ShellRecoveryType' , 'pVal' , ), 2003, (2003, (), [ (16387, 10, None, "IID('{3EB2A2CA-EBC9-44F7-8FBD-1246E02B5849}')") , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'ReferenceMarker' , 'ppVal' , ), 2004, (2004, (), [ (9, 1, None, "IID('{6A3295D9-E76B-473C-9655-23B7B1CBD671}')") , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'ReferenceMarker' , 'ppVal' , ), 2004, (2004, (), [ (16393, 10, None, "IID('{6A3295D9-E76B-473C-9655-23B7B1CBD671}')") , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'OutputFileSetting' , 'ppVal' , ), 2005, (2005, (), [ (16393, 10, None, "IID('{350C9018-D3B8-4D6B-B9EC-271CE461FDC0}')") , ], 1 , 2 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'Execute' , ), 2006, (2006, (), [ ], 1 , 1 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'DisplacementDataPrecision' , 'pVal' , ), 2007, (2007, (), [ (3, 1, None, "IID('{07DA99C8-2650-46F7-9207-26E6A5C7191A}')") , ], 1 , 4 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'DisplacementDataPrecision' , 'pVal' , ), 2007, (2007, (), [ (16387, 10, None, "IID('{07DA99C8-2650-46F7-9207-26E6A5C7191A}')") , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'BeamRecoveryType' , 'pVal' , ), 2008, (2008, (), [ (3, 1, None, "IID('{01D83516-829A-4D6E-8D5F-CB043CA860A5}')") , ], 1 , 4 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'BeamRecoveryType' , 'pVal' , ), 2008, (2008, (), [ (16387, 10, None, "IID('{01D83516-829A-4D6E-8D5F-CB043CA860A5}')") , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexPatchSet_vtables_dispatch_ = 1
+IFFlexPatchSet_vtables_ = [
+	(( 'NodeIDs' , 'arrNodeIDs' , ), 2051, (2051, (), [ (24579, 10, None, None) , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'NodeCollection' , 'pVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB7}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'Color' , 'pVal' , ), 2053, (2053, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'Color' , 'pVal' , ), 2053, (2053, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'AutoAdjust' , ), 2054, (2054, (), [ ], 1 , 1 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'AutoSwitch' , ), 2055, (2055, (), [ ], 1 , 1 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'ManualSwitch' , 'arrSelectNodeID' , ), 2056, (2056, (), [ (8195, 1, None, None) , ], 1 , 1 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexPatchSetCollection_vtables_dispatch_ = 1
+IFFlexPatchSetCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexProperty_vtables_dispatch_ = 1
+IFFlexProperty_vtables_ = [
+	(( 'FFlexMaterial' , 'ppVal' , ), 2001, (2001, (), [ (9, 1, None, "IID('{205F2A11-60B6-4F97-92FC-300B78C3BB29}')") , ], 1 , 4 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexMaterial' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{205F2A11-60B6-4F97-92FC-300B78C3BB29}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'ID' , 'pVal' , ), 2003, (2003, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexPropertyBeam_vtables_dispatch_ = 1
+IFFlexPropertyBeam_vtables_ = [
+	(( 'Area' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'TortionalInertia' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'Iyy' , 'ppVal' , ), 2053, (2053, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'Izz' , 'ppVal' , ), 2054, (2054, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'Iyz' , 'ppVal' , ), 2055, (2055, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'Orientation' , 'ppVal' , ), 2056, (2056, (), [ (16393, 10, None, "IID('{918CAF9A-7A62-4EC4-B45D-C259C997B661}')") , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'Asy' , 'ppVal' , ), 2057, (2057, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'Asz' , 'ppVal' , ), 2058, (2058, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'CY' , 'pVal' , ), 2059, (2059, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'CY' , 'pVal' , ), 2059, (2059, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'CZ' , 'pVal' , ), 2060, (2060, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'CZ' , 'pVal' , ), 2060, (2060, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'DY' , 'pVal' , ), 2061, (2061, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'DY' , 'pVal' , ), 2061, (2061, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'DZ' , 'pVal' , ), 2062, (2062, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'DZ' , 'pVal' , ), 2062, (2062, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'EY' , 'pVal' , ), 2063, (2063, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+	(( 'EY' , 'pVal' , ), 2063, (2063, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 304 , (3, 0, None, None) , 0 , )),
+	(( 'EZ' , 'pVal' , ), 2064, (2064, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 312 , (3, 0, None, None) , 0 , )),
+	(( 'EZ' , 'pVal' , ), 2064, (2064, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 320 , (3, 0, None, None) , 0 , )),
+	(( 'FY' , 'pVal' , ), 2065, (2065, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 328 , (3, 0, None, None) , 0 , )),
+	(( 'FY' , 'pVal' , ), 2065, (2065, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 336 , (3, 0, None, None) , 0 , )),
+	(( 'FZ' , 'pVal' , ), 2066, (2066, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 344 , (3, 0, None, None) , 0 , )),
+	(( 'FZ' , 'pVal' , ), 2066, (2066, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 352 , (3, 0, None, None) , 0 , )),
+	(( 'CrossSectionType' , 'pVal' , ), 2067, (2067, (), [ (3, 1, None, "IID('{2B3F0B13-DAD7-47FD-A065-40C7D5B58606}')") , ], 1 , 4 , 4 , 0 , 360 , (3, 0, None, None) , 0 , )),
+	(( 'CrossSectionType' , 'pVal' , ), 2067, (2067, (), [ (16387, 10, None, "IID('{2B3F0B13-DAD7-47FD-A065-40C7D5B58606}')") , ], 1 , 2 , 4 , 0 , 368 , (3, 0, None, None) , 0 , )),
+	(( 'CircleRadius' , 'ppVal' , ), 2068, (2068, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 376 , (3, 0, None, None) , 0 , )),
+	(( 'EllipticWidth' , 'ppVal' , ), 2069, (2069, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 384 , (3, 0, None, None) , 0 , )),
+	(( 'EllipticHeight' , 'ppVal' , ), 2070, (2070, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 392 , (3, 0, None, None) , 0 , )),
+	(( 'RectangleWidth' , 'ppVal' , ), 2071, (2071, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 400 , (3, 0, None, None) , 0 , )),
+	(( 'RectangleHeight' , 'ppVal' , ), 2072, (2072, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 408 , (3, 0, None, None) , 0 , )),
+	(( 'ThinHollowCircleRadius' , 'ppVal' , ), 2073, (2073, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 416 , (3, 0, None, None) , 0 , )),
+	(( 'ThinHollowCircleThickness' , 'ppVal' , ), 2074, (2074, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 424 , (3, 0, None, None) , 0 , )),
+	(( 'ThickHollowCircleInnerRadius' , 'ppVal' , ), 2075, (2075, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 432 , (3, 0, None, None) , 0 , )),
+	(( 'ThickHollowCircleOuterRadius' , 'ppVal' , ), 2076, (2076, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 440 , (3, 0, None, None) , 0 , )),
+	(( 'HollowRectangleWidth' , 'ppVal' , ), 2077, (2077, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 448 , (3, 0, None, None) , 0 , )),
+	(( 'HollowRectangleHeight' , 'ppVal' , ), 2078, (2078, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 456 , (3, 0, None, None) , 0 , )),
+	(( 'HollowRectangleYThickness' , 'ppVal' , ), 2079, (2079, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 464 , (3, 0, None, None) , 0 , )),
+	(( 'HollowRectangleZThickness' , 'ppVal' , ), 2080, (2080, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 472 , (3, 0, None, None) , 0 , )),
+	(( 'IBeamWidth' , 'ppVal' , ), 2081, (2081, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 480 , (3, 0, None, None) , 0 , )),
+	(( 'IBeamHeight' , 'ppVal' , ), 2082, (2082, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 488 , (3, 0, None, None) , 0 , )),
+	(( 'IBeamWebThickness' , 'ppVal' , ), 2083, (2083, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 496 , (3, 0, None, None) , 0 , )),
+	(( 'IBeamFlangeThickness' , 'ppVal' , ), 2084, (2084, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 504 , (3, 0, None, None) , 0 , )),
+	(( 'TBeamWidth' , 'ppVal' , ), 2085, (2085, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 512 , (3, 0, None, None) , 0 , )),
+	(( 'TBeamHeight' , 'ppVal' , ), 2086, (2086, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 520 , (3, 0, None, None) , 0 , )),
+	(( 'TBeamWebThickness' , 'ppVal' , ), 2087, (2087, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 528 , (3, 0, None, None) , 0 , )),
+	(( 'TBeamFlangeThickness' , 'ppVal' , ), 2088, (2088, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 536 , (3, 0, None, None) , 0 , )),
+	(( 'ReCalculation' , 'syncRecoveryPoints' , ), 2089, (2089, (), [ (11, 1, None, None) , ], 1 , 1 , 4 , 0 , 544 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexPropertyCollection_vtables_dispatch_ = 1
+IFFlexPropertyCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (12, 1, None, None) , 
+			 (16393, 10, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IFFlexPropertyFDR_vtables_dispatch_ = 1
+IFFlexPropertyFDR_vtables_ = [
+	(( 'FDRElementType' , 'pVal' , ), 2051, (2051, (), [ (3, 1, None, "IID('{4E9D97A2-A294-4CE7-AF7A-CD6B4EB70268}')") , ], 1 , 4 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'FDRElementType' , 'pVal' , ), 2051, (2051, (), [ (16387, 10, None, "IID('{4E9D97A2-A294-4CE7-AF7A-CD6B4EB70268}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'EffectiveYoungsModulus' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'DampingRatio' , 'ppVal' , ), 2053, (2053, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'UseMinimumBeamLengthFlag' , 'pVal' , ), 2054, (2054, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'UseMinimumBeamLengthFlag' , 'pVal' , ), 2054, (2054, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'UseForceConnectorFlag' , 'pVal' , ), 2055, (2055, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'UseForceConnectorFlag' , 'pVal' , ), 2055, (2055, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'InterpEType' , 'pVal' , ), 2056, (2056, (), [ (3, 1, None, "IID('{984C74BA-6EAC-4E05-9061-0C65667402E4}')") , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'InterpEType' , 'pVal' , ), 2056, (2056, (), [ (16387, 10, None, "IID('{984C74BA-6EAC-4E05-9061-0C65667402E4}')") , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexPropertyMass_vtables_dispatch_ = 1
+IFFlexPropertyMass_vtables_ = [
+	(( 'Mass' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'Ixx' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'Iyy' , 'ppVal' , ), 2053, (2053, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'Izz' , 'ppVal' , ), 2054, (2054, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexPropertyShell_vtables_dispatch_ = 1
+IFFlexPropertyShell_vtables_ = [
+	(( 'Thickness' , 'ppVal' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'DrillingStiffnessFactor' , 'ppVal' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{2B5166E3-4B31-4607-B157-BE237A670336}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexPropertySolid_vtables_dispatch_ = 1
+IFFlexPropertySolid_vtables_ = [
+]
+
+IFFlexRTLGenerationOption_vtables_dispatch_ = 1
+IFFlexRTLGenerationOption_vtables_ = [
+	(( 'NodeSet' , 'ppVal' , ), 2001, (2001, (), [ (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'NodeSet' , 'ppVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'DataType' , 'pVal' , ), 2002, (2002, (), [ (3, 1, None, "IID('{D1B6FC85-56B3-4D09-951A-4C4999D11A52}')") , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'DataType' , 'pVal' , ), 2002, (2002, (), [ (16387, 10, None, "IID('{D1B6FC85-56B3-4D09-951A-4C4999D11A52}')") , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'ExportFrame' , 'pVal' , ), 2003, (2003, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'ExportFrame' , 'pVal' , ), 2003, (2003, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'RefMarker' , 'ppVal' , ), 2004, (2004, (), [ (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'RefMarker' , 'ppVal' , ), 2004, (2004, (), [ (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'RTLFileName' , 'pVal' , ), 2005, (2005, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'RTLFileName' , 'pVal' , ), 2005, (2005, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexToolFunction_vtables_dispatch_ = 1
+IFFlexToolFunction_vtables_ = [
+	(( 'GetNodeIDsFromMidNode' , 'pVal' , 'val' , 'arrNodes' , ), 2001, (2001, (), [ 
+			 (9, 1, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , (3, 1, None, None) , (24579, 10, None, None) , ], 1 , 1 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexToolkit_vtables_dispatch_ = 1
+IFFlexToolkit_vtables_ = [
+	(( 'GeneralSubSystem' , 'ppSubSystem' , ), 2051, (2051, (), [ (16393, 10, None, "IID('{15C1E9DF-9C1A-404F-8E27-92B26D8F03AA}')") , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'ImportBodyOption' , 'ppResult' , ), 2052, (2052, (), [ (16393, 10, None, "IID('{5B77012F-9E8B-4C5A-B418-ABC53AB8BDC9}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'ImportBody' , 'strName' , 'pRefFrame' , 'pBodyImportOption' , 'UnitFactor' , 
+			 'ppResult' , ), 2053, (2053, (), [ (8, 1, None, None) , (9, 1, None, "IID('{6A3295D9-E76B-473C-9655-23B7B1CBD671}')") , (9, 1, None, "IID('{5B77012F-9E8B-4C5A-B418-ABC53AB8BDC9}')") , 
+			 (9, 1, None, "IID('{09A65909-6FBB-488A-9726-D320F5666395}')") , (16393, 10, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , ], 1 , 1 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'SwapBody' , 'strName' , 'pTargetBody' , 'pBodyImportOption' , 'UnitFactor' , 
+			 'ppResult' , ), 2054, (2054, (), [ (8, 1, None, None) , (9, 1, None, "IID('{26ED5B8E-FF6B-45C8-B6A9-0AA52F6A27B8}')") , (9, 1, None, "IID('{5B77012F-9E8B-4C5A-B418-ABC53AB8BDC9}')") , 
+			 (9, 1, None, "IID('{09A65909-6FBB-488A-9726-D320F5666395}')") , (16393, 10, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , ], 1 , 1 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'CreateContactFSurfaceToFSurface' , 'strName' , 'pBaseEntity' , 'pActionEntity' , 'ppVal' , 
+			 ), 2055, (2055, (), [ (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (16393, 10, None, "IID('{4A53DC7E-87C8-4E2E-ADE5-76EE559B554E}')") , ], 1 , 1 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'CreateContactFSurfaceToSurface' , 'strName' , 'pBaseEntity' , 'pActionEntity' , 'ppVal' , 
+			 ), 2056, (2056, (), [ (8, 1, None, None) , (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (16393, 10, None, "IID('{2FB3CBD7-86A2-4DC3-8E44-B0BD837F9A22}')") , ], 1 , 1 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'CreateContactSphereToFSurface' , 'strName' , 'pBaseEntity' , 'pActionEntity' , 'ppVal' , 
+			 ), 2057, (2057, (), [ (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (9, 1, None, "IID('{2122DEE7-EE07-4A20-9B49-5A9AF4599906}')") , (16393, 10, None, "IID('{F04DF01D-5633-4305-BB19-38240B6B1668}')") , ], 1 , 1 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'CreateContactFCurveToFSurface' , 'strName' , 'pBaseEntity' , 'pActionEntity' , 'ppVal' , 
+			 ), 2058, (2058, (), [ (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (16393, 10, None, "IID('{96734B88-960C-4AD5-9F09-891929036A86}')") , ], 1 , 1 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'CreateContactFCurveToFCurve' , 'strName' , 'pBaseEntity' , 'pActionEntity' , 'ppVal' , 
+			 ), 2059, (2059, (), [ (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (16393, 10, None, "IID('{E0F5CC9A-1686-4686-BA51-168070A9D8C9}')") , ], 1 , 1 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'CreateContactFCurveToSurface' , 'strName' , 'pBaseEntity' , 'pActionEntity' , 'ppVal' , 
+			 ), 2060, (2060, (), [ (8, 1, None, None) , (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (16393, 10, None, "IID('{DBD60940-5FBF-4F13-96BD-70F15DF56CD1}')") , ], 1 , 1 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'CreateContactSphereToFCurve' , 'strName' , 'pBaseEntity' , 'pActionEntity' , 'ppVal' , 
+			 ), 2061, (2061, (), [ (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (9, 1, None, "IID('{2122DEE7-EE07-4A20-9B49-5A9AF4599906}')") , (16393, 10, None, "IID('{4EF16E8C-46CC-45C8-B6B6-280A7331592B}')") , ], 1 , 1 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForceConcentratedLoad' , 'strName' , 'enLoadType' , 'pNodeSet' , 'pReference' , 
+			 'ppVal' , ), 2062, (2062, (), [ (8, 1, None, None) , (3, 1, None, "IID('{32695C8B-BE5A-4777-AD30-32493375EC34}')") , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , 
+			 (9, 1, None, "IID('{27A86788-8B85-40CF-BE7F-BA915103A7DB}')") , (16393, 10, None, "IID('{57E5BBF7-1ABC-43EF-A252-6169C6594B82}')") , ], 1 , 1 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForcePressureLoad' , 'strName' , 'pPatchSet' , 'ppVal' , ), 2063, (2063, (), [ 
+			 (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (16393, 10, None, "IID('{2168FEF3-7A08-4252-8DDE-4F418CD3B876}')") , ], 1 , 1 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'CreateMarker' , 'strName' , 'pIGeneric' , 'pIRefFrame' , 'ppVal' , 
+			 ), 2064, (2064, (), [ (8, 1, None, None) , (9, 1, None, "IID('{27A86788-8B85-40CF-BE7F-BA915103A7DB}')") , (9, 1, None, "IID('{6A3295D9-E76B-473C-9655-23B7B1CBD671}')") , (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 1 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'CreateMarkerOnNode' , 'strName' , 'pIFFlexBody' , 'nNodeID' , 'ppVal' , 
+			 ), 2065, (2065, (), [ (8, 1, None, None) , (9, 1, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , (19, 1, None, None) , (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 1 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForceConcentratedLoadUniform' , 'strName' , 'pNodeSet' , 'pRefMarker' , 'ppVal' , 
+			 ), 2066, (2066, (), [ (8, 1, None, None) , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , (16393, 10, None, "IID('{57E5BBF7-1ABC-43EF-A252-6169C6594B82}')") , ], 1 , 1 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForceConcentratedLoadRelative' , 'strName' , 'pNodeSet' , 'pRefNode' , 'ppVal' , 
+			 ), 2067, (2067, (), [ (8, 1, None, None) , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , (16393, 10, None, "IID('{57E5BBF7-1ABC-43EF-A252-6169C6594B82}')") , ], 1 , 1 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForceConcentratedLoadUSUB' , 'strName' , 'pNodeSet' , 'ppVal' , ), 2068, (2068, (), [ 
+			 (8, 1, None, None) , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , (16393, 10, None, "IID('{52D19EDA-2066-41BB-B697-B8752940E39D}')") , ], 1 , 1 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'CreateContactCylinderToFSurface' , 'strName' , 'pBaseEntity' , 'pActionEntity' , 'ppVal' , 
+			 ), 2069, (2069, (), [ (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (9, 1, None, "IID('{5810C7E4-F627-4171-9D64-4BC97F14BB8E}')") , (16393, 10, None, "IID('{C7481369-4B52-47B6-8981-979598B40AEA}')") , ], 1 , 1 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexBodyCollection' , 'pVal' , ), 2070, (2070, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB5}')") , ], 1 , 2 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexContactCollection' , 'pVal' , ), 2071, (2071, (), [ (16393, 10, None, "IID('{179D3515-9CD6-4537-B668-0B90072CC73B}')") , ], 1 , 2 , 4 , 0 , 304 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexLoadCollection' , 'pVal' , ), 2072, (2072, (), [ (16393, 10, None, "IID('{D5094FE6-D4C1-4157-951C-38E79636352D}')") , ], 1 , 2 , 4 , 0 , 312 , (3, 0, None, None) , 0 , )),
+	(( 'ExportDurabilityInterfaceFile' , 'pExportDurabilityInterfaceOption' , ), 2080, (2080, (), [ (9, 1, None, "IID('{F5429319-6E49-422B-BBB1-28B50A31AC88}')") , ], 1 , 1 , 4 , 0 , 320 , (3, 0, None, None) , 0 , )),
+	(( 'ExportMeshDataNastranType' , 'pExportMeshDataCommonOption' , 'pExportMeshDataNastranFormatOption' , ), 2081, (2081, (), [ (9, 1, None, "IID('{04EADBFF-E43A-482B-985E-984B9C9E4E03}')") , 
+			 (9, 1, None, "IID('{05CFB844-ADD5-46ED-AE95-532DA20EFF22}')") , ], 1 , 1 , 4 , 0 , 328 , (3, 0, None, None) , 0 , )),
+	(( 'ExportMeshDataAnsysType' , 'pExportMeshDataCommonOption' , 'pUnitForLength' , ), 2082, (2082, (), [ (9, 1, None, "IID('{04EADBFF-E43A-482B-985E-984B9C9E4E03}')") , 
+			 (9, 1, None, "IID('{09A65909-6FBB-488A-9726-D320F5666395}')") , ], 1 , 1 , 4 , 0 , 336 , (3, 0, None, None) , 0 , )),
+	(( 'ExportDurabilityInterfaceOption' , 'ppResult' , ), 2083, (2083, (), [ (16393, 10, None, "IID('{F5429319-6E49-422B-BBB1-28B50A31AC88}')") , ], 1 , 2 , 4 , 0 , 344 , (3, 0, None, None) , 0 , )),
+	(( 'ExportMeshDataCommonOption' , 'ppResult' , ), 2084, (2084, (), [ (16393, 10, None, "IID('{04EADBFF-E43A-482B-985E-984B9C9E4E03}')") , ], 1 , 2 , 4 , 0 , 352 , (3, 0, None, None) , 0 , )),
+	(( 'ExportMeshDataNastranFormatOption' , 'ppResult' , ), 2085, (2085, (), [ (16393, 10, None, "IID('{05CFB844-ADD5-46ED-AE95-532DA20EFF22}')") , ], 1 , 2 , 4 , 0 , 360 , (3, 0, None, None) , 0 , )),
+	(( 'Contour' , 'ppVal' , ), 2086, (2086, (), [ (16393, 10, None, "IID('{BDF4F979-28B7-48D2-BF06-9C59B70D467B}')") , ], 1 , 2 , 4 , 0 , 368 , (3, 0, None, None) , 0 , )),
+	(( 'MeshMode' , 'ppResult' , ), 2089, (2089, (), [ (16393, 10, None, "IID('{D2FA19C5-A579-44BC-8096-B544B165853D}')") , ], 1 , 2 , 4 , 0 , 376 , (3, 0, None, None) , 0 , )),
+	(( 'OutputFileRegenerator' , 'ppVal' , ), 2090, (2090, (), [ (16393, 10, None, "IID('{67734FD0-EBD1-40DE-ADD5-11D4490D0E4F}')") , ], 1 , 2 , 4 , 0 , 384 , (3, 0, None, None) , 0 , )),
+	(( 'ToolFunction' , 'ppResult' , ), 2092, (2092, (), [ (16393, 10, None, "IID('{2929013E-6D50-4228-879E-0C6F3DE83187}')") , ], 1 , 2 , 4 , 0 , 392 , (3, 0, None, None) , 0 , )),
+	(( 'SwapBodyGeneral' , 'strName' , 'pTargetBody' , 'pBodyImportOption' , 'UnitFactor' , 
+			 'ppResult' , ), 2093, (2093, (), [ (8, 1, None, None) , (9, 1, None, "IID('{27A86788-8B85-40CF-BE7F-BA915103A7DB}')") , (9, 1, None, "IID('{5B77012F-9E8B-4C5A-B418-ABC53AB8BDC9}')") , 
+			 (9, 1, None, "IID('{09A65909-6FBB-488A-9726-D320F5666395}')") , (16393, 10, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , ], 1 , 1 , 4 , 0 , 400 , (3, 0, None, None) , 0 , )),
+	(( 'CreateContactSphereToFSurface2' , 'strName' , 'pBaseEntity' , 'pActionSphere' , 'ppVal' , 
+			 ), 2094, (2094, (), [ (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , (16393, 10, None, "IID('{F04DF01D-5633-4305-BB19-38240B6B1668}')") , ], 1 , 1 , 4 , 0 , 408 , (3, 0, None, None) , 0 , )),
+	(( 'CreateContactSphereToFCurve2' , 'strName' , 'pBaseEntity' , 'pActionSphere' , 'ppVal' , 
+			 ), 2095, (2095, (), [ (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , (16393, 10, None, "IID('{4EF16E8C-46CC-45C8-B6B6-280A7331592B}')") , ], 1 , 1 , 4 , 0 , 416 , (3, 0, None, None) , 0 , )),
+	(( 'CreateContactCylinderToFSurface2' , 'strName' , 'pBaseEntity' , 'pActionCylinder' , 'ppVal' , 
+			 ), 2096, (2096, (), [ (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , (16393, 10, None, "IID('{C7481369-4B52-47B6-8981-979598B40AEA}')") , ], 1 , 1 , 4 , 0 , 424 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexBodyMergeOption' , 'ppResult' , ), 2097, (2097, (), [ (16393, 10, None, "IID('{837B713B-97C2-4238-93BB-B36A2D46AD0E}')") , ], 1 , 2 , 4 , 0 , 432 , (3, 0, None, None) , 0 , )),
+	(( 'MergeFFlexBody' , 'pOption' , ), 2098, (2098, (), [ (9, 1, None, "IID('{837B713B-97C2-4238-93BB-B36A2D46AD0E}')") , ], 1 , 1 , 4 , 0 , 440 , (3, 0, None, None) , 0 , )),
+	(( 'SplitFFlexBody' , 'pBody' , 'pSet' , 'pNewBody' , ), 2099, (2099, (), [ 
+			 (9, 1, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , (9, 1, None, "IID('{41220408-E869-466A-8D1E-03B99F02568B}')") , (16393, 10, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , ], 1 , 1 , 4 , 0 , 448 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForceConcentratedLoadUSUB2' , 'strName' , 'pNodeSet' , 'pUsub' , 'ppVal' , 
+			 ), 2100, (2100, (), [ (8, 1, None, None) , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , (9, 1, None, "IID('{9573C3F4-958E-4EC2-B9E6-C4660433CFA3}')") , (16393, 10, None, "IID('{52D19EDA-2066-41BB-B697-B8752940E39D}')") , ], 1 , 1 , 4 , 0 , 456 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForcePressureLoad2' , 'strName' , 'pPatchSet' , 'pIExpression' , 'ppVal' , 
+			 ), 2101, (2101, (), [ (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , (16393, 10, None, "IID('{2168FEF3-7A08-4252-8DDE-4F418CD3B876}')") , ], 1 , 1 , 4 , 0 , 464 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForceThermalLoad' , 'strName' , 'NodeSet' , 'Temperature' , 'thermalLoad' , 
+			 ), 2102, (2102, (), [ (8, 1, None, None) , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , (16393, 10, None, "IID('{5078278E-AF8C-43F0-B77D-4D12F522E380}')") , ], 1 , 1 , 4 , 0 , 472 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForceThermalLoad2' , 'strName' , 'NodeSet' , 'RefMarker' , 'RTLFileName' , 
+			 'thermalLoad' , ), 2103, (2103, (), [ (8, 1, None, None) , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , (9, 1, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , 
+			 (8, 1, None, None) , (16393, 10, None, "IID('{5078278E-AF8C-43F0-B77D-4D12F522E380}')") , ], 1 , 1 , 4 , 0 , 480 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForceNodalTemperatureLoad' , 'strName' , 'NodeSet' , 'Temperature' , 'load' , 
+			 ), 2104, (2104, (), [ (8, 1, None, None) , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , (16393, 10, None, "IID('{CB65FF8A-8A83-4951-B3C7-0402BBA16146}')") , ], 1 , 1 , 4 , 0 , 488 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForceHeatGenerationLoad' , 'strName' , 'ElementSet' , 'HeatGeneration' , 'load' , 
+			 ), 2105, (2105, (), [ (8, 1, None, None) , (9, 1, None, "IID('{41220408-E869-466A-8D1E-03B99F02568B}')") , (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , (16393, 10, None, "IID('{03977164-5C40-4BEF-A912-806879FAC6DA}')") , ], 1 , 1 , 4 , 0 , 496 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForceHeatFluxLoad' , 'strName' , 'PatchSet' , 'HeatFlux' , 'load' , 
+			 ), 2106, (2106, (), [ (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (9, 1, None, "IID('{81E4B241-3167-4FAE-B0FE-3ED5AB7F4040}')") , (16393, 10, None, "IID('{2167B2D8-7716-45D5-8C18-35C158A0209E}')") , ], 1 , 1 , 4 , 0 , 504 , (3, 0, None, None) , 0 , )),
+	(( 'CreateForceConvectionLoad' , 'strName' , 'PatchSet' , 'load' , ), 2107, (2107, (), [ 
+			 (8, 1, None, None) , (9, 1, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , (16393, 10, None, "IID('{3C8FD4A2-8942-437E-9DE9-3A6884BB86FF}')") , ], 1 , 1 , 4 , 0 , 512 , (3, 0, None, None) , 0 , )),
+	(( 'RTLGenerationOption' , 'ppResult' , ), 2108, (2108, (), [ (16393, 10, None, "IID('{E251879E-85B5-4FDE-8C34-F414F1D2A4BD}')") , ], 1 , 2 , 4 , 0 , 520 , (3, 0, None, None) , 0 , )),
+	(( 'RTLGeneration' , 'option' , ), 2109, (2109, (), [ (9, 1, None, "IID('{E251879E-85B5-4FDE-8C34-F414F1D2A4BD}')") , ], 1 , 1 , 4 , 0 , 528 , (3, 0, None, None) , 0 , )),
+	(( 'CreateConstraintNode' , 'strName' , 'pNodeSetBase' , 'pNodeSetActioin' , 'ppVal' , 
+			 ), 2110, (2110, (), [ (8, 1, None, None) , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , (16393, 10, None, "IID('{B2D185BE-60C8-482C-B9A4-EC253064E650}')") , ], 1 , 1 , 4 , 0 , 536 , (3, 0, None, None) , 0 , )),
+]
+
+IFFlexToolkitBody_vtables_dispatch_ = 1
+IFFlexToolkitBody_vtables_ = [
+	(( 'FFlexNodeCollection' , 'pVal' , ), 2001, (2001, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB7}')") , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexElementCollection' , 'pVal' , ), 2002, (2002, (), [ (16393, 10, None, "IID('{E5FF2995-2945-4432-BD36-CA5E1F264CB6}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexNodeSetCollection' , 'pVal' , ), 2003, (2003, (), [ (16393, 10, None, "IID('{87219716-6C18-4072-BE27-EAA12BA9D444}')") , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexElementSetCollection' , 'pVal' , ), 2004, (2004, (), [ (16393, 10, None, "IID('{965101C9-95C4-4E9A-A2E7-CC202EBC2FC3}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexPatchSetCollection' , 'pVal' , ), 2005, (2005, (), [ (16393, 10, None, "IID('{371C9D93-0F28-4531-833B-BE362169A845}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexLineSetCollection' , 'pVal' , ), 2006, (2006, (), [ (16393, 10, None, "IID('{8235613D-438F-415F-9220-B8A72A332DFA}')") , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'GetNodeByID' , 'nID' , 'ppVal' , ), 2007, (2007, (), [ (3, 1, None, None) , 
+			 (16393, 10, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 1 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'GetElementByID' , 'nID' , 'ppVal' , ), 2008, (2008, (), [ (3, 1, None, None) , 
+			 (16393, 10, None, "IID('{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')") , ], 1 , 1 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'CreateMarker' , 'strName' , 'pRefFrame' , 'ppVal' , ), 2009, (2009, (), [ 
+			 (8, 1, None, None) , (9, 1, None, "IID('{6A3295D9-E76B-473C-9655-23B7B1CBD671}')") , (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 1 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'CreateMarkerOnNode' , 'strName' , 'uiNodeID' , 'ppVal' , ), 2010, (2010, (), [ 
+			 (8, 1, None, None) , (19, 1, None, None) , (16393, 10, None, "IID('{6B6F192C-B83F-4503-89E8-5CAB8DE726AA}')") , ], 1 , 1 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'DisplaySetting' , 'ppVal' , ), 2011, (2011, (), [ (16393, 10, None, "IID('{3FDF0768-0052-4B63-9D84-A644C3152051}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'ExportShellFormatData' , 'ppVal' , ), 2012, (2012, (), [ (16393, 10, None, "IID('{2EE15E44-AD0C-4D9B-B53A-35BF7F1E1322}')") , ], 1 , 2 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'CreateNodeSet' , 'strName' , 'arrNodeID' , 'ppVal' , ), 2013, (2013, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 1 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'CreateElementSet' , 'strName' , 'arrElementID' , 'ppVal' , ), 2014, (2014, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{41220408-E869-466A-8D1E-03B99F02568B}')") , ], 1 , 1 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'CreatePatchSet' , 'strName' , 'arrNodeID' , 'ppVal' , ), 2015, (2015, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 1 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'CreatePatchSetWithElementIDs' , 'strName' , 'arrElementID' , 'ppVal' , ), 2016, (2016, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 1 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'CreateLineSet' , 'strName' , 'arrNodeID' , 'ppVal' , ), 2017, (2017, (), [ 
+			 (8, 1, None, None) , (8195, 1, None, None) , (16393, 10, None, "IID('{580DC463-613E-406A-B54C-42952E1FB79F}')") , ], 1 , 1 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+]
+
+IMeshMode_vtables_dispatch_ = 1
+IMeshMode_vtables_ = [
+	(( 'Start' , 'pVal' , ), 2101, (2101, (), [ (9, 1, None, "IID('{27A86788-8B85-40CF-BE7F-BA915103A7DB}')") , ], 1 , 1 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'MeshOption' , 'pVal' , 'ppVal' , ), 2102, (2102, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , 
+			 (16393, 10, None, "IID('{422ADC13-1282-476A-870B-79AF4BAED1D4}')") , ], 1 , 1 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'Mesh' , ), 2103, (2103, (), [ ], 1 , 1 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'Revert' , ), 2104, (2104, (), [ ], 1 , 1 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'End' , 'ppVal' , ), 2105, (2105, (), [ (16393, 10, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , ], 1 , 1 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'RemeshOption' , 'ppVal' , ), 2106, (2106, (), [ (16393, 10, None, "IID('{A0D78F70-FF33-4C16-92F2-CA86E74A945D}')") , ], 1 , 1 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'Remesh' , ), 2107, (2107, (), [ ], 1 , 1 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'AdvancedMeshOption' , 'pVal' , 'ppVal' , ), 2108, (2108, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , 
+			 (16393, 10, None, "IID('{BCDC5A57-0884-491D-A239-546282F794CE}')") , ], 1 , 1 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'AdvancedMesh' , ), 2109, (2109, (), [ ], 1 , 1 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'GeometryRefinement' , 'pVal' , 'ppVal' , ), 2110, (2110, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , 
+			 (16393, 10, None, "IID('{3BFCDA3B-C39F-457A-BE5E-F7F169221C06}')") , ], 1 , 1 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'AssistModeling' , 'pVal' , 'ppVal' , ), 2111, (2111, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , 
+			 (16393, 10, None, "IID('{22952159-A8DE-49AD-A59E-7D85147A7223}')") , ], 1 , 1 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'QualityCheck' , 'ppVal' , ), 2112, (2112, (), [ (16393, 10, None, "IID('{A7DE6834-7983-4723-8B02-842CF33AB66C}')") , ], 1 , 1 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'SelectOriginalGeometriesUsingGUI' , 'val' , 'ppArray' , ), 2113, (2113, (), [ (3, 1, None, "IID('{08B5D347-462C-455A-81E4-37ADDCF33508}')") , 
+			 (24584, 10, None, None) , ], 1 , 1 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'ImprintEdge' , 'pTargetBody' , 'pToolBody' , ), 2114, (2114, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , 
+			 (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , ], 1 , 1 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'ImprintPointCollection' , 'ppVal' , ), 2115, (2115, (), [ (16393, 10, None, "IID('{7AAA986F-35DD-4DCF-843A-CEBA8E09D33A}')") , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'ManualMeshOption' , 'Type' , 'ppVal' , ), 2116, (2116, (), [ (3, 1, None, "IID('{38D34DA7-13E5-45AD-BC73-29300623B488}')") , 
+			 (16393, 10, None, "IID('{53DBAC32-9F55-4985-9D4C-72273C33F567}')") , ], 1 , 1 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'ManualMesh' , ), 2117, (2117, (), [ ], 1 , 1 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'NodePointCollection' , 'pVal' , 'val' , 'ppVal' , ), 2118, (2118, (), [ 
+			 (9, 1, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , (5, 1, None, None) , (16393, 10, None, "IID('{7AAA986F-35DD-4DCF-843A-CEBA8E09D33A}')") , ], 1 , 1 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'ImprintNodeSetCollection' , 'ppVal' , ), 2119, (2119, (), [ (16393, 10, None, "IID('{87219716-6C18-4072-BE27-EAA12BA9D444}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'AddImprintNodeSet' , 'pVal' , ), 2120, (2120, (), [ (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 1 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'DeleteImprintNodeSet' , 'pVal' , ), 2121, (2121, (), [ (9, 1, None, "IID('{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}')") , ], 1 , 1 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'GenerateAssistModeling' , 'ppVal' , ), 2122, (2122, (), [ (16393, 10, None, "IID('{22952159-A8DE-49AD-A59E-7D85147A7223}')") , ], 1 , 1 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'ChangeNodePositionsToImprintPoints' , 'val' , ), 2123, (2123, (), [ (5, 1, None, None) , ], 1 , 1 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'UseImprintPointTolerance' , 'pVal' , ), 2124, (2124, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'UseImprintPointTolerance' , 'pVal' , ), 2124, (2124, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'ImprintPointTolerance' , 'pVal' , ), 2125, (2125, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'ImprintPointTolerance' , 'pVal' , ), 2125, (2125, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'CreatePatchSetWithFaces' , 'strName' , 'pFaceArray' , 'ppVal' , ), 2126, (2126, (), [ 
+			 (8, 1, None, None) , (8200, 1, None, None) , (16393, 10, None, "IID('{4E4DF082-A504-46FA-84EC-6451025A4E33}')") , ], 1 , 1 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'MeshOptionWithShellMeshInfo' , 'ppVal' , ), 2127, (2127, (), [ (16393, 10, None, "IID('{422ADC13-1282-476A-870B-79AF4BAED1D4}')") , ], 1 , 1 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'CombineShell3' , 'pElemFirst' , 'pElemSecond' , ), 2128, (2128, (), [ (9, 1, None, "IID('{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')") , 
+			 (9, 1, None, "IID('{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')") , ], 1 , 1 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'SplitShell4' , 'pElemFirst' , ), 2129, (2129, (), [ (9, 1, None, "IID('{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')") , ], 1 , 1 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+	(( 'SplitShell4WithNodes' , 'pNodeFirst' , 'pNodeSecond' , ), 2130, (2130, (), [ (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , 
+			 (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , ], 1 , 1 , 4 , 0 , 304 , (3, 0, None, None) , 0 , )),
+	(( 'NodeMergeWithNodes' , 'pNodeFirst' , 'pNodeSecond' , 'pos' , ), 2131, (2131, (), [ 
+			 (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , (9, 1, None, "IID('{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}')") , (3, 1, None, "IID('{E3BFF886-781F-47F1-A08A-B5E45872038C}')") , ], 1 , 1 , 4 , 0 , 312 , (3, 0, None, None) , 0 , )),
+	(( 'NodeMergeWithElement' , 'pElement' , 'pos' , ), 2132, (2132, (), [ (9, 1, None, "IID('{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}')") , 
+			 (3, 1, None, "IID('{E3BFF886-781F-47F1-A08A-B5E45872038C}')") , ], 1 , 1 , 4 , 0 , 320 , (3, 0, None, None) , 0 , )),
+	(( 'ImprintLineSet' , 'pVal' , 'ppVal' , ), 2133, (2133, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , 
+			 (16393, 10, None, "IID('{0EC4E9EC-52FC-48B8-99CB-201A060B9F33}')") , ], 1 , 1 , 4 , 0 , 328 , (3, 0, None, None) , 0 , )),
+	(( 'ImprintPatchSet' , 'pVal' , 'ppVal' , ), 2134, (2134, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , 
+			 (16393, 10, None, "IID('{D33A9F82-B096-42D3-B9F7-136A635FDB57}')") , ], 1 , 1 , 4 , 0 , 336 , (3, 0, None, None) , 0 , )),
+	(( 'FlexMerge' , 'pSource' , 'dTolerance' , ), 2135, (2135, (), [ (8200, 1, None, None) , 
+			 (5, 1, None, None) , ], 1 , 1 , 4 , 0 , 344 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexBody' , 'ppVal' , ), 2136, (2136, (), [ (16393, 10, None, "IID('{6302A81A-B3C0-404D-9179-8B17C939856D}')") , ], 1 , 2 , 4 , 0 , 352 , (3, 0, None, None) , 0 , )),
+	(( 'ImprintLine' , 'pTargetGeometry' , 'strName' , 'pDirection' , ), 2137, (2137, (), [ 
+			 (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , (8, 1, None, None) , (8197, 1, None, None) , ], 1 , 1 , 4 , 0 , 360 , (3, 0, None, None) , 0 , )),
+	(( 'ImprintEdgeOption' , 'ppResult' , ), 2138, (2138, (), [ (16393, 10, None, "IID('{48DE281A-8619-46F6-BAA5-3A429A0AF97E}')") , ], 1 , 2 , 4 , 0 , 368 , (3, 0, None, None) , 0 , )),
+	(( 'ImprintLineWithOption' , 'pTargetEntity' , 'strName' , 'pIOption' , 'ppVal' , 
+			 ), 2139, (2139, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , (8, 1, None, None) , (9, 1, None, "IID('{48DE281A-8619-46F6-BAA5-3A429A0AF97E}')") , (16393, 10, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , ], 1 , 1 , 4 , 0 , 376 , (3, 0, None, None) , 0 , )),
+	(( 'BeamMeshOption' , 'pVal' , 'ppVal' , ), 2140, (2140, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , 
+			 (16393, 10, None, "IID('{C87D803F-9025-4DBA-A7D1-0FBEFDBBC949}')") , ], 1 , 1 , 4 , 0 , 384 , (3, 0, None, None) , 0 , )),
+	(( 'BeamMesh' , ), 2141, (2141, (), [ ], 1 , 1 , 4 , 0 , 392 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherAdvancedMeshOption_vtables_dispatch_ = 1
+IMesherAdvancedMeshOption_vtables_ = [
+	(( 'TargetBody' , ), 2151, (2151, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'MeshType' , 'pVal' , ), 2152, (2152, (), [ (3, 1, None, "IID('{5366C7D1-4613-420A-A683-32D460607E81}')") , ], 1 , 4 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'MeshType' , 'pVal' , ), 2152, (2152, (), [ (16387, 10, None, "IID('{5366C7D1-4613-420A-A683-32D460607E81}')") , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexProperty' , 'ppVal' , ), 2153, (2153, (), [ (9, 1, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 4 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexProperty' , 'ppVal' , ), 2153, (2153, (), [ (16393, 10, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 2 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'AvgElementSize' , 'pVal' , ), 2154, (2154, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'AvgElementSize' , 'pVal' , ), 2154, (2154, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'MinElementSize' , 'pVal' , ), 2155, (2155, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'MinElementSize' , 'pVal' , ), 2155, (2155, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'UseStructuredOutput' , 'pVal' , ), 2156, (2156, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'UseStructuredOutput' , 'pVal' , ), 2156, (2156, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'StructuredOutput' , 'pVal' , ), 2157, (2157, (), [ (3, 1, None, "IID('{0C1D63F6-16E9-47EE-8E4E-58C46D84DE85}')") , ], 1 , 4 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'StructuredOutput' , 'pVal' , ), 2157, (2157, (), [ (16387, 10, None, "IID('{0C1D63F6-16E9-47EE-8E4E-58C46D84DE85}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'UseCloseGaps' , 'pVal' , ), 2158, (2158, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'UseCloseGaps' , 'pVal' , ), 2158, (2158, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'UseIncludeAssistModeling' , 'pVal' , ), 2159, (2159, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'UseIncludeAssistModeling' , 'pVal' , ), 2159, (2159, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'PropertyCollection' , 'ppVal' , ), 2160, (2160, (), [ (16393, 10, None, "IID('{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'MaterialCollection' , 'ppVal' , ), 2161, (2161, (), [ (16393, 10, None, "IID('{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'TargetFaceCollection' , 'pVal' , ), 2164, (2164, (), [ (16393, 10, None, "IID('{012BED7B-CFB1-4210-91B6-5D4B5D70855C}')") , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'TargetFace4SidedMoreCollection' , 'pVal' , ), 2165, (2165, (), [ (16393, 10, None, "IID('{7A70474E-B7CA-43AD-B71D-373E1E0522CE}')") , ], 1 , 2 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'GetFFlexProperty' , 'val' , 'ppVal' , ), 2166, (2166, (), [ (3, 1, None, "IID('{E56340F6-1A44-4403-8B30-39D4E4AB47AE}')") , 
+			 (16393, 10, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 1 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'OriginalBodyEdges' , 'ppEdgeArray' , ), 2167, (2167, (), [ (24584, 10, None, None) , ], 1 , 2 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'AddSeedInfo' , 'pMultiEdges' , 'iNoOfElement' , ), 2168, (2168, (), [ (8200, 1, None, None) , 
+			 (19, 1, None, None) , ], 1 , 1 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'DeleteSeedInfo' , 'pMultiEdges' , ), 2169, (2169, (), [ (8200, 1, None, None) , ], 1 , 1 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'ClearSeedInfo' , ), 2170, (2170, (), [ ], 1 , 1 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'SeedInfoCollection' , 'pVal' , ), 2171, (2171, (), [ (16393, 10, None, "IID('{B62D333D-4E39-4B7E-AD82-A8F4604F866E}')") , ], 1 , 2 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherAssistModeling_vtables_dispatch_ = 1
+IMesherAssistModeling_vtables_ = [
+	(( 'TargetBody' , ), 2151, (2151, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'UsePreserveConstraint' , 'pVal' , ), 2152, (2152, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'UsePreserveConstraint' , 'pVal' , ), 2152, (2152, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'ConstraintCollection' , 'pVal' , ), 2153, (2153, (), [ (16393, 10, None, "IID('{4F9E4D3C-5462-438D-98F9-C20806DFC34D}')") , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'UsePreCreatePatchSet' , 'pVal' , ), 2154, (2154, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'UsePreCreatePatchSet' , 'pVal' , ), 2154, (2154, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'PrePatchSetCollection' , 'pVal' , ), 2155, (2155, (), [ (16393, 10, None, "IID('{9EFB7046-D94C-4565-9B0C-3AA3FCB9D15B}')") , ], 1 , 2 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'OriginalBodyFaces' , 'ppFaceArray' , ), 2156, (2156, (), [ (24584, 10, None, None) , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'PreSetCollection' , 'pVal' , ), 2157, (2157, (), [ (16393, 10, None, "IID('{A531E76E-A614-49F6-A4F6-E193ED3A2E18}')") , ], 1 , 2 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'Generate' , ), 2158, (2158, (), [ ], 1 , 1 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'OriginalBodyEdges' , 'ppEdgeArray' , ), 2159, (2159, (), [ (24584, 10, None, None) , ], 1 , 2 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherBeamMeshOption_vtables_dispatch_ = 1
+IMesherBeamMeshOption_vtables_ = [
+	(( 'TargetBody' , ), 2151, (2151, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'MeshType' , 'pVal' , ), 2152, (2152, (), [ (3, 1, None, "IID('{5366C7D1-4613-420A-A683-32D460607E81}')") , ], 1 , 4 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'MeshType' , 'pVal' , ), 2152, (2152, (), [ (16387, 10, None, "IID('{5366C7D1-4613-420A-A683-32D460607E81}')") , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexProperty' , 'ppVal' , ), 2153, (2153, (), [ (9, 1, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 4 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexProperty' , 'ppVal' , ), 2153, (2153, (), [ (16393, 10, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 2 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'ElementSize' , 'pVal' , ), 2154, (2154, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'ElementSize' , 'pVal' , ), 2154, (2154, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'UseIncludeAssistModeling' , 'pVal' , ), 2159, (2159, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'UseIncludeAssistModeling' , 'pVal' , ), 2159, (2159, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'PropertyCollection' , 'ppVal' , ), 2160, (2160, (), [ (16393, 10, None, "IID('{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}')") , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'MaterialCollection' , 'ppVal' , ), 2161, (2161, (), [ (16393, 10, None, "IID('{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}')") , ], 1 , 2 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'GetFFlexProperty' , 'val' , 'ppVal' , ), 2162, (2162, (), [ (3, 1, None, "IID('{E56340F6-1A44-4403-8B30-39D4E4AB47AE}')") , 
+			 (16393, 10, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 1 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'UseCreateBeamElementWithPreStress' , 'pVal' , ), 2163, (2163, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'UseCreateBeamElementWithPreStress' , 'pVal' , ), 2163, (2163, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'IgnoreVertices' , 'pVal' , ), 2164, (2164, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'IgnoreVertices' , 'pVal' , ), 2164, (2164, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'IgnoreVerticesAll' , 'pVal' , ), 2165, (2165, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'IgnoreVerticesAll' , 'pVal' , ), 2165, (2165, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'AddVertexToIgnore' , 'strVertex' , ), 2166, (2166, (), [ (8, 1, None, None) , ], 1 , 1 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'DeleteVertexToIgnore' , 'strVertex' , ), 2167, (2167, (), [ (8, 1, None, None) , ], 1 , 1 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'ClearAllVerticesToIgnore' , ), 2168, (2168, (), [ ], 1 , 1 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherGeometryRefinement_vtables_dispatch_ = 1
+IMesherGeometryRefinement_vtables_ = [
+	(( 'UsePlaneTolerance' , 'pVal' , ), 2151, (2151, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'UsePlaneTolerance' , 'pVal' , ), 2151, (2151, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'PlaneTolerance' , 'pVal' , ), 2152, (2152, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'PlaneTolerance' , 'pVal' , ), 2152, (2152, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'PlaneToleranceEffectiveMinValue' , 'pVal' , ), 2153, (2153, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'UseAngleTolerance' , 'pVal' , ), 2154, (2154, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'UseAngleTolerance' , 'pVal' , ), 2154, (2154, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'AngleTolerance' , 'pVal' , ), 2155, (2155, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'AngleTolerance' , 'pVal' , ), 2155, (2155, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'AngleToleranceEffectiveMinValue' , 'pVal' , ), 2156, (2156, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'UseRemoveSmallFeature' , 'pVal' , ), 2157, (2157, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'UseRemoveSmallFeature' , 'pVal' , ), 2157, (2157, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'SmallFeatureValue' , 'pVal' , ), 2158, (2158, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'SmallFeatureValue' , 'pVal' , ), 2158, (2158, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'CalculateSmallFeatureEffectiveRatio' , 'pMultiFaces' , 'pVal' , ), 2159, (2159, (), [ (8204, 1, None, None) , 
+			 (16389, 10, None, None) , ], 1 , 1 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'UseRemoveEdge' , 'pVal' , ), 2160, (2160, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'UseRemoveEdge' , 'pVal' , ), 2160, (2160, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'UseRemoveAllEdges' , 'pVal' , ), 2161, (2161, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'UseRemoveAllEdges' , 'pVal' , ), 2161, (2161, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'RemoveEdges' , ), 2162, (2162, (), [ (8204, 1, None, None) , ], 1 , 4 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'ClearRemoveEdges' , ), 2163, (2163, (), [ ], 1 , 1 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'UseMaxFacetSize' , 'pVal' , ), 2164, (2164, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'UseMaxFacetSize' , 'pVal' , ), 2164, (2164, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'MaxFacetSize' , 'pVal' , ), 2165, (2165, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'MaxFacetSize' , 'pVal' , ), 2165, (2165, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherImprintLineSet_vtables_dispatch_ = 1
+IMesherImprintLineSet_vtables_ = [
+	(( 'SetLineSets' , 'pLineSets' , ), 2151, (2151, (), [ (8200, 1, None, None) , ], 1 , 1 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Tolerance' , ), 2152, (2152, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherImprintPatchSet_vtables_dispatch_ = 1
+IMesherImprintPatchSet_vtables_ = [
+	(( 'SetPatchSets' , 'pPatchSets' , ), 2151, (2151, (), [ (8200, 1, None, None) , ], 1 , 1 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Tolerance' , ), 2152, (2152, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherManualMeshExtrudeOption_vtables_dispatch_ = 1
+IMesherManualMeshExtrudeOption_vtables_ = [
+	(( 'FFlexProperty' , ), 2201, (2201, (), [ (9, 1, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'Axis' , ), 2202, (2202, (), [ (8197, 1, None, None) , ], 1 , 4 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'NoOfSegments' , ), 2203, (2203, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'TotalLength' , ), 2204, (2204, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'PropertyCollection' , 'ppVal' , ), 2205, (2205, (), [ (16393, 10, None, "IID('{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}')") , ], 1 , 2 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'MaterialCollection' , 'ppVal' , ), 2206, (2206, (), [ (16393, 10, None, "IID('{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}')") , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'FaceEdge' , 'pVal' , ), 2207, (2207, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'FaceEdge' , 'pVal' , ), 2207, (2207, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'UseMaintainExistingMesh' , 'pVal' , ), 2208, (2208, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'UseMaintainExistingMesh' , 'pVal' , ), 2208, (2208, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'UseSplitQuadIntoTria' , 'pVal' , ), 2209, (2209, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'UseSplitQuadIntoTria' , 'pVal' , ), 2209, (2209, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'SelectType' , 'pVal' , ), 2210, (2210, (), [ (3, 1, None, "IID('{BEA8A68A-74CF-40BD-94D1-1C543FE06506}')") , ], 1 , 4 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'SelectType' , 'pVal' , ), 2210, (2210, (), [ (16387, 10, None, "IID('{BEA8A68A-74CF-40BD-94D1-1C543FE06506}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'PatchLineSet' , 'ppVal' , ), 2211, (2211, (), [ (9, 1, None, "IID('{27A86788-8B85-40CF-BE7F-BA915103A7DB}')") , ], 1 , 4 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'PatchLineSet' , 'ppVal' , ), 2211, (2211, (), [ (16393, 10, None, "IID('{27A86788-8B85-40CF-BE7F-BA915103A7DB}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'UseMaintainSourceMesh' , 'pVal' , ), 2212, (2212, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'UseMaintainSourceMesh' , 'pVal' , ), 2212, (2212, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'MergewithSourceMesh' , 'pVal' , ), 2213, (2213, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'MergewithSourceMesh' , 'pVal' , ), 2213, (2213, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherManualMeshOption_vtables_dispatch_ = 1
+IMesherManualMeshOption_vtables_ = [
+	(( 'GetFFlexProperty' , 'val' , 'ppVal' , ), 2151, (2151, (), [ (3, 1, None, "IID('{E56340F6-1A44-4403-8B30-39D4E4AB47AE}')") , 
+			 (16393, 10, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 1 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'TargetGeometry' , ), 2152, (2152, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherManualMeshSpinOption_vtables_dispatch_ = 1
+IMesherManualMeshSpinOption_vtables_ = [
+	(( 'FFlexProperty' , ), 2201, (2201, (), [ (9, 1, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'SpinPoint' , ), 2202, (2202, (), [ (8197, 1, None, None) , ], 1 , 4 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'Axis' , ), 2203, (2203, (), [ (8197, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'NoOfSegments' , ), 2204, (2204, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'StartAngle' , ), 2205, (2205, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'EndAngle' , ), 2206, (2206, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'PropertyCollection' , 'ppVal' , ), 2207, (2207, (), [ (16393, 10, None, "IID('{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}')") , ], 1 , 2 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'MaterialCollection' , 'ppVal' , ), 2208, (2208, (), [ (16393, 10, None, "IID('{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}')") , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'FaceEdge' , 'pVal' , ), 2209, (2209, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'FaceEdge' , 'pVal' , ), 2209, (2209, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'UseMaintainExistingMesh' , 'pVal' , ), 2210, (2210, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'UseMaintainExistingMesh' , 'pVal' , ), 2210, (2210, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'UseSplitQuadIntoTria' , 'pVal' , ), 2211, (2211, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'UseSplitQuadIntoTria' , 'pVal' , ), 2211, (2211, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'SelectType' , 'pVal' , ), 2212, (2212, (), [ (3, 1, None, "IID('{BEA8A68A-74CF-40BD-94D1-1C543FE06506}')") , ], 1 , 4 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'SelectType' , 'pVal' , ), 2212, (2212, (), [ (16387, 10, None, "IID('{BEA8A68A-74CF-40BD-94D1-1C543FE06506}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'PatchLineSet' , 'ppVal' , ), 2213, (2213, (), [ (9, 1, None, "IID('{27A86788-8B85-40CF-BE7F-BA915103A7DB}')") , ], 1 , 4 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'PatchLineSet' , 'ppVal' , ), 2213, (2213, (), [ (16393, 10, None, "IID('{27A86788-8B85-40CF-BE7F-BA915103A7DB}')") , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'UseMaintainSourceMesh' , 'pVal' , ), 2214, (2214, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'UseMaintainSourceMesh' , 'pVal' , ), 2214, (2214, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'MergewithSourceMesh' , 'pVal' , ), 2215, (2215, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'MergewithSourceMesh' , 'pVal' , ), 2215, (2215, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherManualMeshSweepOption_vtables_dispatch_ = 1
+IMesherManualMeshSweepOption_vtables_ = [
+	(( 'FFlexProperty' , ), 2201, (2201, (), [ (9, 1, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'CurvePath' , ), 2202, (2202, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'NoOfSegments' , ), 2203, (2203, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'UseTangent' , ), 2204, (2204, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'UseFixedAxis' , ), 2205, (2205, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'FixedAxis' , ), 2206, (2206, (), [ (8197, 1, None, None) , ], 1 , 4 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'PropertyCollection' , 'ppVal' , ), 2207, (2207, (), [ (16393, 10, None, "IID('{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}')") , ], 1 , 2 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'MaterialCollection' , 'ppVal' , ), 2208, (2208, (), [ (16393, 10, None, "IID('{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}')") , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'Scale' , ), 2209, (2209, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'Twist' , ), 2210, (2210, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'FaceEdge' , 'pVal' , ), 2211, (2211, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'FaceEdge' , 'pVal' , ), 2211, (2211, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'SelectType' , 'pVal' , ), 2212, (2212, (), [ (3, 1, None, "IID('{BEA8A68A-74CF-40BD-94D1-1C543FE06506}')") , ], 1 , 4 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'SelectType' , 'pVal' , ), 2212, (2212, (), [ (16387, 10, None, "IID('{BEA8A68A-74CF-40BD-94D1-1C543FE06506}')") , ], 1 , 2 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'PatchLineSet' , 'ppVal' , ), 2213, (2213, (), [ (9, 1, None, "IID('{27A86788-8B85-40CF-BE7F-BA915103A7DB}')") , ], 1 , 4 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'PatchLineSet' , 'ppVal' , ), 2213, (2213, (), [ (16393, 10, None, "IID('{27A86788-8B85-40CF-BE7F-BA915103A7DB}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'UseSplitQuadIntoTria' , 'pVal' , ), 2214, (2214, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'UseSplitQuadIntoTria' , 'pVal' , ), 2214, (2214, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'UseMaintainSourceMesh' , 'pVal' , ), 2215, (2215, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'UseMaintainSourceMesh' , 'pVal' , ), 2215, (2215, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'MergewithSourceMesh' , 'pVal' , ), 2216, (2216, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'MergewithSourceMesh' , 'pVal' , ), 2216, (2216, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherMeshOption_vtables_dispatch_ = 1
+IMesherMeshOption_vtables_ = [
+	(( 'TargetBody' , ), 2151, (2151, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'MeshType' , 'pVal' , ), 2152, (2152, (), [ (3, 1, None, "IID('{5366C7D1-4613-420A-A683-32D460607E81}')") , ], 1 , 4 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'MeshType' , 'pVal' , ), 2152, (2152, (), [ (16387, 10, None, "IID('{5366C7D1-4613-420A-A683-32D460607E81}')") , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexProperty' , 'ppVal' , ), 2153, (2153, (), [ (9, 1, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 4 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'FFlexProperty' , 'ppVal' , ), 2153, (2153, (), [ (16393, 10, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 2 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'MaxElementSize' , 'pVal' , ), 2154, (2154, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'MaxElementSize' , 'pVal' , ), 2154, (2154, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'MinElementSize' , 'pVal' , ), 2155, (2155, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'MinElementSize' , 'pVal' , ), 2155, (2155, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'UseStructuredOutput' , 'pVal' , ), 2156, (2156, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'UseStructuredOutput' , 'pVal' , ), 2156, (2156, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'StructuredOutput' , 'pVal' , ), 2157, (2157, (), [ (3, 1, None, "IID('{0C1D63F6-16E9-47EE-8E4E-58C46D84DE85}')") , ], 1 , 4 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'StructuredOutput' , 'pVal' , ), 2157, (2157, (), [ (16387, 10, None, "IID('{0C1D63F6-16E9-47EE-8E4E-58C46D84DE85}')") , ], 1 , 2 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'UseCloseGaps' , 'pVal' , ), 2158, (2158, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+	(( 'UseCloseGaps' , 'pVal' , ), 2158, (2158, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 168 , (3, 0, None, None) , 0 , )),
+	(( 'UseIncludeAssistModeling' , 'pVal' , ), 2159, (2159, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 176 , (3, 0, None, None) , 0 , )),
+	(( 'UseIncludeAssistModeling' , 'pVal' , ), 2159, (2159, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 184 , (3, 0, None, None) , 0 , )),
+	(( 'PropertyCollection' , 'ppVal' , ), 2160, (2160, (), [ (16393, 10, None, "IID('{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}')") , ], 1 , 2 , 4 , 0 , 192 , (3, 0, None, None) , 0 , )),
+	(( 'MaterialCollection' , 'ppVal' , ), 2161, (2161, (), [ (16393, 10, None, "IID('{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}')") , ], 1 , 2 , 4 , 0 , 200 , (3, 0, None, None) , 0 , )),
+	(( 'GetFFlexProperty' , 'val' , 'ppVal' , ), 2162, (2162, (), [ (3, 1, None, "IID('{E56340F6-1A44-4403-8B30-39D4E4AB47AE}')") , 
+			 (16393, 10, None, "IID('{DB406626-3064-4709-933F-C7E7F9AD92E4}')") , ], 1 , 1 , 4 , 0 , 208 , (3, 0, None, None) , 0 , )),
+	(( 'ChordalErrorType' , 'pVal' , ), 2163, (2163, (), [ (3, 1, None, "IID('{C87731AE-B38F-4432-881E-5498C0F17316}')") , ], 1 , 4 , 4 , 0 , 216 , (3, 0, None, None) , 0 , )),
+	(( 'ChordalErrorType' , 'pVal' , ), 2163, (2163, (), [ (16387, 10, None, "IID('{C87731AE-B38F-4432-881E-5498C0F17316}')") , ], 1 , 2 , 4 , 0 , 224 , (3, 0, None, None) , 0 , )),
+	(( 'ChordalError' , 'pVal' , ), 2164, (2164, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 232 , (3, 0, None, None) , 0 , )),
+	(( 'ChordalError' , 'pVal' , ), 2164, (2164, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 240 , (3, 0, None, None) , 0 , )),
+	(( 'UseQuadElementOnly' , 'pVal' , ), 2165, (2165, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 248 , (3, 0, None, None) , 0 , )),
+	(( 'UseQuadElementOnly' , 'pVal' , ), 2165, (2165, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 256 , (3, 0, None, None) , 0 , )),
+	(( 'UseMinimizeTriangleElement' , 'pVal' , ), 2166, (2166, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 264 , (3, 0, None, None) , 0 , )),
+	(( 'UseMinimizeTriangleElement' , 'pVal' , ), 2166, (2166, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 272 , (3, 0, None, None) , 0 , )),
+	(( 'GradationFactor' , 'pVal' , ), 2167, (2167, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 280 , (3, 0, None, None) , 0 , )),
+	(( 'GradationFactor' , 'pVal' , ), 2167, (2167, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 288 , (3, 0, None, None) , 0 , )),
+	(( 'UseCurrentShellMeshInfo' , 'pVal' , ), 2168, (2168, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 296 , (3, 0, None, None) , 0 , )),
+	(( 'UseCurrentShellMeshInfo' , 'pVal' , ), 2168, (2168, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 304 , (3, 0, None, None) , 0 , )),
+	(( 'FacetAngleTolerance' , 'pVal' , ), 2169, (2169, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 312 , (3, 0, None, None) , 0 , )),
+	(( 'FacetAngleTolerance' , 'pVal' , ), 2169, (2169, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 320 , (3, 0, None, None) , 0 , )),
+	(( 'OptimizationLevel' , 'pVal' , ), 2170, (2170, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 328 , (3, 0, None, None) , 0 , )),
+	(( 'OptimizationLevel' , 'pVal' , ), 2170, (2170, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 336 , (3, 0, None, None) , 0 , )),
+	(( 'UseShellInternalElementSize' , 'pVal' , ), 2171, (2171, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 344 , (3, 0, None, None) , 0 , )),
+	(( 'UseShellInternalElementSize' , 'pVal' , ), 2171, (2171, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 352 , (3, 0, None, None) , 0 , )),
+	(( 'ShellInternalElementSize' , 'pVal' , ), 2172, (2172, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 360 , (3, 0, None, None) , 0 , )),
+	(( 'ShellInternalElementSize' , 'pVal' , ), 2172, (2172, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 368 , (3, 0, None, None) , 0 , )),
+	(( 'MaxNoOfEdgesAlongLoops' , 'pVal' , ), 2173, (2173, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 376 , (3, 0, None, None) , 0 , )),
+	(( 'MaxNoOfEdgesAlongLoops' , 'pVal' , ), 2173, (2173, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 384 , (3, 0, None, None) , 0 , )),
+	(( 'MinNoOfEdgesAlongLoops' , 'pVal' , ), 2174, (2174, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 392 , (3, 0, None, None) , 0 , )),
+	(( 'MinNoOfEdgesAlongLoops' , 'pVal' , ), 2174, (2174, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 400 , (3, 0, None, None) , 0 , )),
+	(( 'ForceNoLineEven' , 'pVal' , ), 2175, (2175, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 408 , (3, 0, None, None) , 0 , )),
+	(( 'ForceNoLineEven' , 'pVal' , ), 2175, (2175, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 416 , (3, 0, None, None) , 0 , )),
+	(( 'QuadrangleWeight' , 'pVal' , ), 2176, (2176, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 424 , (3, 0, None, None) , 0 , )),
+	(( 'QuadrangleWeight' , 'pVal' , ), 2176, (2176, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 432 , (3, 0, None, None) , 0 , )),
+	(( 'SolidGradationFactor' , 'pVal' , ), 2178, (2178, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 440 , (3, 0, None, None) , 0 , )),
+	(( 'SolidGradationFactor' , 'pVal' , ), 2178, (2178, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 448 , (3, 0, None, None) , 0 , )),
+	(( 'UseSolidInternalElementSize' , 'pVal' , ), 2179, (2179, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 456 , (3, 0, None, None) , 0 , )),
+	(( 'UseSolidInternalElementSize' , 'pVal' , ), 2179, (2179, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 464 , (3, 0, None, None) , 0 , )),
+	(( 'SolidInternalElementSize' , 'pVal' , ), 2180, (2180, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 472 , (3, 0, None, None) , 0 , )),
+	(( 'SolidInternalElementSize' , 'pVal' , ), 2180, (2180, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 480 , (3, 0, None, None) , 0 , )),
+	(( 'SameTypeFaceJunctionOnly' , 'pVal' , ), 2181, (2181, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 488 , (3, 0, None, None) , 0 , )),
+	(( 'SameTypeFaceJunctionOnly' , 'pVal' , ), 2181, (2181, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 496 , (3, 0, None, None) , 0 , )),
+	(( 'UseAutoCleanupShellMesh' , 'pVal' , ), 2182, (2182, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 504 , (3, 0, None, None) , 0 , )),
+	(( 'UseAutoCleanupShellMesh' , 'pVal' , ), 2182, (2182, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 512 , (3, 0, None, None) , 0 , )),
+	(( 'UseCreateBeamElementWithPreStress' , 'pVal' , ), 2183, (2183, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 520 , (3, 0, None, None) , 0 , )),
+	(( 'UseCreateBeamElementWithPreStress' , 'pVal' , ), 2183, (2183, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 528 , (3, 0, None, None) , 0 , )),
+	(( 'AutoFlexMerge' , 'pVal' , ), 2184, (2184, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 536 , (3, 0, None, None) , 0 , )),
+	(( 'AutoFlexMerge' , 'pVal' , ), 2184, (2184, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 544 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherQualityCheck_vtables_dispatch_ = 1
+IMesherQualityCheck_vtables_ = [
+	(( 'CheckAspectRatio' , 'val' , 'ppVal' , ), 2151, (2151, (), [ (5, 1, None, None) , 
+			 (16393, 10, None, "IID('{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}')") , ], 1 , 1 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'CheckAngle' , 'valMin' , 'valMax' , 'ppVal' , ), 2152, (2152, (), [ 
+			 (5, 1, None, None) , (5, 1, None, None) , (16393, 10, None, "IID('{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}')") , ], 1 , 1 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'CheckSkewness' , 'val' , 'ppVal' , ), 2153, (2153, (), [ (5, 1, None, None) , 
+			 (16393, 10, None, "IID('{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}')") , ], 1 , 1 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'CheckWarping' , 'val' , 'ppVal' , ), 2154, (2154, (), [ (5, 1, None, None) , 
+			 (16393, 10, None, "IID('{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}')") , ], 1 , 1 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'CheckTapering' , 'val' , 'ppVal' , ), 2155, (2155, (), [ (5, 1, None, None) , 
+			 (16393, 10, None, "IID('{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}')") , ], 1 , 1 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'CheckFreeLines' , 'ppVal' , ), 2156, (2156, (), [ (16393, 10, None, "IID('{82707715-CB95-4DC7-B768-FD6CE5552F04}')") , ], 1 , 1 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'CheckTConnectionLines' , 'ppVal' , ), 2157, (2157, (), [ (16393, 10, None, "IID('{82707715-CB95-4DC7-B768-FD6CE5552F04}')") , ], 1 , 1 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'CheckIntersectionLines' , 'ppVal' , ), 2158, (2158, (), [ (16393, 10, None, "IID('{82707715-CB95-4DC7-B768-FD6CE5552F04}')") , ], 1 , 1 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherRemeshOption_vtables_dispatch_ = 1
+IMesherRemeshOption_vtables_ = [
+	(( 'TargetFaces' , ), 2151, (2151, (), [ (8200, 1, None, None) , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'MaxElementSize' , 'pVal' , ), 2152, (2152, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'MaxElementSize' , 'pVal' , ), 2152, (2152, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'MinElementSize' , 'pVal' , ), 2153, (2153, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'MinElementSize' , 'pVal' , ), 2153, (2153, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'UseFitToCADGeometry' , 'pVal' , ), 2154, (2154, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'UseFitToCADGeometry' , 'pVal' , ), 2154, (2154, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+	(( 'OriginalBodyFaces' , 'ppFaceArray' , ), 2155, (2155, (), [ (24584, 10, None, None) , ], 1 , 2 , 4 , 0 , 112 , (3, 0, None, None) , 0 , )),
+	(( 'RemeshOptionEach' , 'ppVal' , ), 2156, (2156, (), [ (16393, 10, None, "IID('{D5C73BAB-B87D-481F-9501-ECA820738621}')") , ], 1 , 1 , 4 , 0 , 120 , (3, 0, None, None) , 0 , )),
+	(( 'TargetFaceCollection' , 'pVal' , ), 2157, (2157, (), [ (16393, 10, None, "IID('{E6B6DEAC-05C2-46C8-877F-C23CCDE9EC3F}')") , ], 1 , 2 , 4 , 0 , 128 , (3, 0, None, None) , 0 , )),
+	(( 'AddRemeshOptionEach' , 'pVal' , ), 2158, (2158, (), [ (9, 1, None, "IID('{D5C73BAB-B87D-481F-9501-ECA820738621}')") , ], 1 , 1 , 4 , 0 , 136 , (3, 0, None, None) , 0 , )),
+	(( 'InsertRemeshOptionEach' , 'iIndex' , 'pVal' , ), 2159, (2159, (), [ (3, 1, None, None) , 
+			 (9, 1, None, "IID('{D5C73BAB-B87D-481F-9501-ECA820738621}')") , ], 1 , 1 , 4 , 0 , 144 , (3, 0, None, None) , 0 , )),
+	(( 'DeleteRemeshOptionEach' , 'iIndex' , ), 2160, (2160, (), [ (3, 1, None, None) , ], 1 , 1 , 4 , 0 , 152 , (3, 0, None, None) , 0 , )),
+	(( 'TargetGeometry' , ), 2161, (2161, (), [ (9, 1, None, "IID('{07DEC20D-9506-49E3-BF94-8CD7C78FA1EB}')") , ], 1 , 4 , 4 , 0 , 160 , (3, 0, None, None) , 0 , )),
+]
+
+IMesherRemeshOptionCollection_vtables_dispatch_ = 1
+IMesherRemeshOptionCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (3, 1, None, None) , 
+			 (16393, 10, None, "IID('{D5C73BAB-B87D-481F-9501-ECA820738621}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+IMesherRemeshOptionEach_vtables_dispatch_ = 1
+IMesherRemeshOptionEach_vtables_ = [
+	(( 'TargetFace' , 'pVal' , ), 2151, (2151, (), [ (8, 1, None, None) , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'TargetFace' , 'pVal' , ), 2151, (2151, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'MaxElementSize' , 'pVal' , ), 2152, (2152, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'MaxElementSize' , 'pVal' , ), 2152, (2152, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'MinElementSize' , 'pVal' , ), 2153, (2153, (), [ (5, 1, None, None) , ], 1 , 4 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'MinElementSize' , 'pVal' , ), 2153, (2153, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+]
+
+IQualityCheckLineResult_vtables_dispatch_ = 1
+IQualityCheckLineResult_vtables_ = [
+	(( 'NoOfLines' , 'pVal' , ), 2201, (2201, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+]
+
+IQualityCheckResult_vtables_dispatch_ = 1
+IQualityCheckResult_vtables_ = [
+	(( 'MinValue' , 'pVal' , ), 2201, (2201, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'MaxValue' , 'pVal' , ), 2202, (2202, (), [ (16389, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'NoOfElements' , 'pVal' , ), 2203, (2203, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'IDsOfElements' , 'arrIDs' , ), 2204, (2204, (), [ (24579, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+]
+
+ISeedInfo_vtables_dispatch_ = 1
+ISeedInfo_vtables_ = [
+	(( 'Edges' , 'ppEdgeArray' , ), 2201, (2201, (), [ (8200, 1, None, None) , ], 1 , 4 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Edges' , 'ppEdgeArray' , ), 2201, (2201, (), [ (24584, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'NoOfElement' , 'pVal' , ), 2202, (2202, (), [ (19, 1, None, None) , ], 1 , 4 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'NoOfElement' , 'pVal' , ), 2202, (2202, (), [ (16403, 10, None, None) , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+]
+
+ISeedInfoCollection_vtables_dispatch_ = 1
+ISeedInfoCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (3, 1, None, None) , 
+			 (16393, 10, None, "IID('{C0FA0EDA-1CCA-4016-A1A6-86D2F751BB18}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+ITargetFace_vtables_dispatch_ = 1
+ITargetFace_vtables_ = [
+	(( 'Name' , 'pVal' , ), 2201, (2201, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Check' , 'pVal' , ), 2202, (2202, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'Check' , 'pVal' , ), 2202, (2202, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'TargetFaceType' , 'pVal' , ), 2203, (2203, (), [ (16387, 10, None, "IID('{1999DEF2-F79C-4121-B8F0-63E01EDFE449}')") , ], 1 , 2 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+]
+
+ITargetFace4SidedMore_vtables_dispatch_ = 1
+ITargetFace4SidedMore_vtables_ = [
+	(( 'Name' , 'pVal' , ), 2251, (2251, (), [ (16392, 10, None, None) , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Check' , 'pVal' , ), 2252, (2252, (), [ (11, 1, None, None) , ], 1 , 4 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( 'Check' , 'pVal' , ), 2252, (2252, (), [ (16395, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 0 , )),
+	(( 'FirstEdge' , 'pMultiEdge' , ), 2253, (2253, (), [ (8200, 1, None, None) , ], 1 , 4 , 4 , 0 , 80 , (3, 0, None, None) , 0 , )),
+	(( 'FirstEdge' , 'pMultiEdge' , ), 2253, (2253, (), [ (24584, 10, None, None) , ], 1 , 2 , 4 , 0 , 88 , (3, 0, None, None) , 0 , )),
+	(( 'ThirdEdge' , 'pMultiEdge' , ), 2254, (2254, (), [ (8200, 1, None, None) , ], 1 , 4 , 4 , 0 , 96 , (3, 0, None, None) , 0 , )),
+	(( 'ThirdEdge' , 'pMultiEdge' , ), 2254, (2254, (), [ (24584, 10, None, None) , ], 1 , 2 , 4 , 0 , 104 , (3, 0, None, None) , 0 , )),
+]
+
+ITargetFace4SidedMoreCollection_vtables_dispatch_ = 1
+ITargetFace4SidedMoreCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (3, 1, None, None) , 
+			 (16393, 10, None, "IID('{28ED48CC-F63E-4508-B7B6-05B38850D385}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+ITargetFaceCollection_vtables_dispatch_ = 1
+ITargetFaceCollection_vtables_ = [
+	(( 'Item' , 'var' , 'ppVal' , ), 0, (0, (), [ (3, 1, None, None) , 
+			 (16393, 10, None, "IID('{03EBC2D6-DF08-4472-8529-5F05FE931154}')") , ], 1 , 2 , 4 , 0 , 56 , (3, 0, None, None) , 0 , )),
+	(( 'Count' , 'pVal' , ), 1, (1, (), [ (16387, 10, None, None) , ], 1 , 2 , 4 , 0 , 64 , (3, 0, None, None) , 0 , )),
+	(( '_NewEnum' , 'ppEnum' , ), -4, (-4, (), [ (16397, 10, None, None) , ], 1 , 2 , 4 , 0 , 72 , (3, 0, None, None) , 1 , )),
+]
+
+RecordMap = {
+}
+
+CLSIDToClassMap = {
+	'{6302A81A-B3C0-404D-9179-8B17C939856D}' : IFFlexBody,
+	'{50A578AD-8745-4F7F-9434-86142BB6670B}' : IFFlexAnimationDataScaling,
+	'{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}' : IFFlexNode,
+	'{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}' : IFFlexNodeSet,
+	'{E5FF2995-2945-4432-BD36-CA5E1F264CB7}' : IFFlexNodeCollection,
+	'{A640D569-8E40-435F-B199-AB3145C56569}' : IFFlexElementFDR,
+	'{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}' : IFFlexElement,
+	'{DB406626-3064-4709-933F-C7E7F9AD92E4}' : IFFlexProperty,
+	'{205F2A11-60B6-4F97-92FC-300B78C3BB29}' : IFFlexMaterial,
+	'{41220408-E869-466A-8D1E-03B99F02568B}' : IFFlexElementSet,
+	'{E5FF2995-2945-4432-BD36-CA5E1F264CB6}' : IFFlexElementCollection,
+	'{4E4DF082-A504-46FA-84EC-6451025A4E33}' : IFFlexPatchSet,
+	'{7C217E69-8B40-40FA-8D6B-C8555A17A89A}' : IFFlexBoundaryCondition,
+	'{C07D2858-4BD8-429E-98F9-BBAD0AE619CA}' : IFFlexOutput,
+	'{038F4D84-103E-4E16-ADBE-30CD7D809A5F}' : IFFlexPropertyBeam,
+	'{0566BC2A-5A19-4556-A760-2DE6D6F1DB6C}' : IFFlexPropertyShell,
+	'{EBD74EA0-7D25-46AB-A257-9E8874545750}' : IFFlexPropertySolid,
+	'{DE758DA3-29DE-4822-A4D7-5F7038D688A0}' : IFFlexMaterialIsotropic,
+	'{61DFF327-8A0D-4ED9-8873-990EAEBF23AD}' : IFFlexMaterialElastic,
+	'{5BCEE724-266C-4C56-A0E2-74CAD32DC259}' : IFFlexMaterialOrthotropic,
+	'{2F03BAD9-F392-4D8F-A295-F1DF2AB5E2D2}' : IFFlexMaterialArrudaBoyce,
+	'{6FC4534F-F29A-446B-8DC4-E52899694033}' : IFFlexMaterialHyperelastic,
+	'{7647F371-D7FA-451E-8727-891DAE9B7FF0}' : IFFlexMaterialArrudaBoyceRubber,
+	'{14AE3469-8DC3-41AD-AFD2-4201F13680DE}' : IFFlexMaterialNeoHooke,
+	'{F5587CEE-4C8B-403F-806D-7F5319E22A7E}' : IFFlexMaterialNeoHookeRubber,
+	'{BC264C3C-D1DA-4627-805D-F65F1700DAD3}' : IFFlexMaterialOgden,
+	'{009F6400-AA7F-47C0-9B8B-DF4994350391}' : IFFlexMaterialOgdenRubber,
+	'{11FD7485-CC44-459B-848C-130D43231C20}' : IFFlexPropertyFDR,
+	'{415EE4E6-8069-4221-BCE4-17CC7960FEC3}' : IFFlexPropertyMass,
+	'{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}' : IFFlexPropertyCollection,
+	'{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}' : IFFlexMaterialCollection,
+	'{CB29570B-C43C-4422-804A-DC47A070D98D}' : IFFlexBoundaryConditionCollection,
+	'{6A6D7961-36F5-4E1D-8024-839348CD5B35}' : IFFlexOutputCollection,
+	'{87219716-6C18-4072-BE27-EAA12BA9D444}' : IFFlexNodeSetCollection,
+	'{965101C9-95C4-4E9A-A2E7-CC202EBC2FC3}' : IFFlexElementSetCollection,
+	'{371C9D93-0F28-4531-833B-BE362169A845}' : IFFlexPatchSetCollection,
+	'{FD878DE9-6486-4A86-8BC5-0C886A149D0A}' : IFFlexMaterialMooneyRivlin,
+	'{E224EC31-E809-4532-937E-D5A4F567A0FF}' : IFFlexMaterialMooneyRivlinRubber,
+	'{E8252A77-AAE7-4ADB-BD09-27D62CCFEEE3}' : IFFlexMaterialPlasticIsotropicMultiLinear,
+	'{4119FC33-D474-46F2-8FBB-27946A2481AE}' : IFFlexMaterialPlastic,
+	'{65C5EEB7-502C-42FD-AF41-4E6C5122EF71}' : IFFlexMaterialPlasticIsotropicBiNonLinear,
+	'{7F3A9496-9CCA-41FF-9211-E67CF5CB889C}' : IFFlexMaterialPlasticIsotropicKinematicMultiLinear,
+	'{4CC03F94-7E4E-4082-8299-6288E232C5C0}' : IFFlexMaterialPlasticIsotropicKinematicBiNonLinear,
+	'{14C926A7-96C8-4FA4-ABB4-516E07ABFD9E}' : IFFlexOutputFileInfo,
+	'{99FCED9D-CE12-47E8-8AE8-3F80DAEFB44F}' : IFFlexElementFDRCollection,
+	'{13724ADC-4397-4109-8057-B4DA64C1CE4A}' : IFFlexConnectingParameters,
+	'{7235D19C-5DAB-4BC7-B0A3-82AB05109017}' : IFFlexElementMass,
+	'{E454DBF9-4B06-491A-A0AD-044B11EDCA9E}' : IFFlexElementMassCollection,
+	'{580DC463-613E-406A-B54C-42952E1FB79F}' : IFFlexLineSet,
+	'{D68E5B6D-04CF-4C9C-BF17-36B7BB59DAF9}' : IFFlexElementBeamCollection,
+	'{3E133D96-B9A6-4E30-89A8-9049608BBEEA}' : IFFlexElementBeam,
+	'{8235613D-438F-415F-9220-B8A72A332DFA}' : IFFlexLineSetCollection,
+	'{7BD0B108-6F9A-4CCA-89F1-17171343EE51}' : IFFlexElementShellCollection,
+	'{096C5C5E-CBCD-4E54-96A6-B43712CA3CC7}' : IFFlexElementShell,
+	'{11DF440C-A0EA-4BC3-B9F8-954A1C62DE01}' : IFFlexNodeVTCollection,
+	'{83C6E147-4506-47D2-BF10-A5C05702C376}' : IFFlexNodeVT,
+	'{0D77D87F-DBFE-4B46-8035-2948E3D11060}' : IFFlexMaterialOrthotropic2D,
+	'{B6096033-E25F-476D-BD8D-FF06C3DD5925}' : IFFlexMaterialAnisotropic2D,
+	'{5B77012F-9E8B-4C5A-B418-ABC53AB8BDC9}' : IFFlexBodyImportOption,
+	'{F5429319-6E49-422B-BBB1-28B50A31AC88}' : IFFlexExportDurabilityInterfaceOption,
+	'{05CFB844-ADD5-46ED-AE95-532DA20EFF22}' : IFFlexExportMeshDataNastranFormatOption,
+	'{04EADBFF-E43A-482B-985E-984B9C9E4E03}' : IFFlexExportMeshDataCommonOption,
+	'{82373A21-94B2-4230-9D14-9CF555B2321A}' : IFFlexElementBeamOrientation,
+	'{837B713B-97C2-4238-93BB-B36A2D46AD0E}' : IFFlexBodyMergeOption,
+	'{F703C54E-A759-4DB3-9962-54BFBC825288}' : IFFlexContactFSurfacePatchOption,
+	'{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}' : IFFlexContactFCurveSegmentOption,
+	'{84584C5A-48D9-4ADB-92E8-23D8A6D199A2}' : IFFlexContact,
+	'{4A53DC7E-87C8-4E2E-ADE5-76EE559B554E}' : IFFlexContactFSurfaceToFSurface,
+	'{2FB3CBD7-86A2-4DC3-8E44-B0BD837F9A22}' : IFFlexContactFSurfaceToSurface,
+	'{F04DF01D-5633-4305-BB19-38240B6B1668}' : IFFlexContactSphereToFSurface,
+	'{C7481369-4B52-47B6-8981-979598B40AEA}' : IFFlexContactCylinderToFSurface,
+	'{96734B88-960C-4AD5-9F09-891929036A86}' : IFFlexContactFCurveToFSurface,
+	'{E0F5CC9A-1686-4686-BA51-168070A9D8C9}' : IFFlexContactFCurveToFCurve,
+	'{DBD60940-5FBF-4F13-96BD-70F15DF56CD1}' : IFFlexContactFCurveToSurface,
+	'{4EF16E8C-46CC-45C8-B6B6-280A7331592B}' : IFFlexContactSphereToFCurve,
+	'{2459DD31-7D96-4F02-A1E1-FCFF862CDA18}' : IFFlexLoad,
+	'{57E5BBF7-1ABC-43EF-A252-6169C6594B82}' : IFFlexLoadConcentrated,
+	'{52D19EDA-2066-41BB-B697-B8752940E39D}' : IFFlexLoadConcentratedUSUB,
+	'{2168FEF3-7A08-4252-8DDE-4F418CD3B876}' : IFFlexLoadPressure,
+	'{5078278E-AF8C-43F0-B77D-4D12F522E380}' : IFFlexLoadThermal,
+	'{CB65FF8A-8A83-4951-B3C7-0402BBA16146}' : IFFlexLoadNodalTemperature,
+	'{03977164-5C40-4BEF-A912-806879FAC6DA}' : IFFlexLoadHeatGeneration,
+	'{2167B2D8-7716-45D5-8C18-35C158A0209E}' : IFFlexLoadHeatFlux,
+	'{3C8FD4A2-8942-437E-9DE9-3A6884BB86FF}' : IFFlexLoadConvection,
+	'{E251879E-85B5-4FDE-8C34-F414F1D2A4BD}' : IFFlexRTLGenerationOption,
+	'{D32C11C3-8CCF-4839-BE15-0E1708BAE694}' : IAssistConstraint,
+	'{B2C8341A-D45F-4061-8216-6CBE2548669C}' : IAssistPrePatchSet,
+	'{684C17D2-63FF-409F-A635-1239505DC5F8}' : IAssistPreSet,
+	'{E5FF2995-2945-4432-BD36-CA5E1F264CB5}' : IFFlexBodyCollection,
+	'{179D3515-9CD6-4537-B668-0B90072CC73B}' : IFFlexContactCollection,
+	'{D5094FE6-D4C1-4157-951C-38E79636352D}' : IFFlexLoadCollection,
+	'{4F9E4D3C-5462-438D-98F9-C20806DFC34D}' : IAssistConstraintCollection,
+	'{9EFB7046-D94C-4565-9B0C-3AA3FCB9D15B}' : IAssistPrePatchSetCollection,
+	'{A531E76E-A614-49F6-A4F6-E193ED3A2E18}' : IAssistPreSetCollection,
+	'{03EBC2D6-DF08-4472-8529-5F05FE931154}' : ITargetFace,
+	'{012BED7B-CFB1-4210-91B6-5D4B5D70855C}' : ITargetFaceCollection,
+	'{28ED48CC-F63E-4508-B7B6-05B38850D385}' : ITargetFace4SidedMore,
+	'{7A70474E-B7CA-43AD-B71D-373E1E0522CE}' : ITargetFace4SidedMoreCollection,
+	'{C87D803F-9025-4DBA-A7D1-0FBEFDBBC949}' : IMesherBeamMeshOption,
+	'{422ADC13-1282-476A-870B-79AF4BAED1D4}' : IMesherMeshOption,
+	'{D5C73BAB-B87D-481F-9501-ECA820738621}' : IMesherRemeshOptionEach,
+	'{E6B6DEAC-05C2-46C8-877F-C23CCDE9EC3F}' : IMesherRemeshOptionCollection,
+	'{A0D78F70-FF33-4C16-92F2-CA86E74A945D}' : IMesherRemeshOption,
+	'{C0FA0EDA-1CCA-4016-A1A6-86D2F751BB18}' : ISeedInfo,
+	'{B62D333D-4E39-4B7E-AD82-A8F4604F866E}' : ISeedInfoCollection,
+	'{BCDC5A57-0884-491D-A239-546282F794CE}' : IMesherAdvancedMeshOption,
+	'{53DBAC32-9F55-4985-9D4C-72273C33F567}' : IMesherManualMeshOption,
+	'{80BDD953-CC33-40C9-ADF1-6B779BAB1046}' : IMesherManualMeshExtrudeOption,
+	'{9A0D32EB-DD32-45E0-8B69-39B6C0503EFE}' : IMesherManualMeshSpinOption,
+	'{5EBC8EA0-272A-4C0B-8D4F-A8A94F42D8B2}' : IMesherManualMeshSweepOption,
+	'{3BFCDA3B-C39F-457A-BE5E-F7F169221C06}' : IMesherGeometryRefinement,
+	'{22952159-A8DE-49AD-A59E-7D85147A7223}' : IMesherAssistModeling,
+	'{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}' : IQualityCheckResult,
+	'{82707715-CB95-4DC7-B768-FD6CE5552F04}' : IQualityCheckLineResult,
+	'{A7DE6834-7983-4723-8B02-842CF33AB66C}' : IMesherQualityCheck,
+	'{0EC4E9EC-52FC-48B8-99CB-201A060B9F33}' : IMesherImprintLineSet,
+	'{D33A9F82-B096-42D3-B9F7-136A635FDB57}' : IMesherImprintPatchSet,
+	'{D2FA19C5-A579-44BC-8096-B544B165853D}' : IMeshMode,
+	'{67734FD0-EBD1-40DE-ADD5-11D4490D0E4F}' : IFFlexOutputFileRegenerator,
+	'{B2D185BE-60C8-482C-B9A4-EC253064E650}' : IFFlexConstraintNode,
+	'{9257FD72-F3D0-4E57-A114-2045356D78CD}' : IFFlexToolkitBody,
+	'{2929013E-6D50-4228-879E-0C6F3DE83187}' : IFFlexToolFunction,
+	'{8486F9C1-3C36-4F56-9EFB-96CB20D923F7}' : IFFlexToolkit,
+}
+CLSIDToPackageMap = {}
+win32com.client.CLSIDToClass.RegisterCLSIDsFromDict( CLSIDToClassMap )
+VTablesToPackageMap = {}
+VTablesToClassMap = {
+	'{6302A81A-B3C0-404D-9179-8B17C939856D}' : 'IFFlexBody',
+	'{50A578AD-8745-4F7F-9434-86142BB6670B}' : 'IFFlexAnimationDataScaling',
+	'{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}' : 'IFFlexNode',
+	'{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}' : 'IFFlexNodeSet',
+	'{E5FF2995-2945-4432-BD36-CA5E1F264CB7}' : 'IFFlexNodeCollection',
+	'{A640D569-8E40-435F-B199-AB3145C56569}' : 'IFFlexElementFDR',
+	'{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}' : 'IFFlexElement',
+	'{DB406626-3064-4709-933F-C7E7F9AD92E4}' : 'IFFlexProperty',
+	'{205F2A11-60B6-4F97-92FC-300B78C3BB29}' : 'IFFlexMaterial',
+	'{41220408-E869-466A-8D1E-03B99F02568B}' : 'IFFlexElementSet',
+	'{E5FF2995-2945-4432-BD36-CA5E1F264CB6}' : 'IFFlexElementCollection',
+	'{4E4DF082-A504-46FA-84EC-6451025A4E33}' : 'IFFlexPatchSet',
+	'{7C217E69-8B40-40FA-8D6B-C8555A17A89A}' : 'IFFlexBoundaryCondition',
+	'{C07D2858-4BD8-429E-98F9-BBAD0AE619CA}' : 'IFFlexOutput',
+	'{038F4D84-103E-4E16-ADBE-30CD7D809A5F}' : 'IFFlexPropertyBeam',
+	'{0566BC2A-5A19-4556-A760-2DE6D6F1DB6C}' : 'IFFlexPropertyShell',
+	'{EBD74EA0-7D25-46AB-A257-9E8874545750}' : 'IFFlexPropertySolid',
+	'{DE758DA3-29DE-4822-A4D7-5F7038D688A0}' : 'IFFlexMaterialIsotropic',
+	'{61DFF327-8A0D-4ED9-8873-990EAEBF23AD}' : 'IFFlexMaterialElastic',
+	'{5BCEE724-266C-4C56-A0E2-74CAD32DC259}' : 'IFFlexMaterialOrthotropic',
+	'{2F03BAD9-F392-4D8F-A295-F1DF2AB5E2D2}' : 'IFFlexMaterialArrudaBoyce',
+	'{6FC4534F-F29A-446B-8DC4-E52899694033}' : 'IFFlexMaterialHyperelastic',
+	'{7647F371-D7FA-451E-8727-891DAE9B7FF0}' : 'IFFlexMaterialArrudaBoyceRubber',
+	'{14AE3469-8DC3-41AD-AFD2-4201F13680DE}' : 'IFFlexMaterialNeoHooke',
+	'{F5587CEE-4C8B-403F-806D-7F5319E22A7E}' : 'IFFlexMaterialNeoHookeRubber',
+	'{BC264C3C-D1DA-4627-805D-F65F1700DAD3}' : 'IFFlexMaterialOgden',
+	'{009F6400-AA7F-47C0-9B8B-DF4994350391}' : 'IFFlexMaterialOgdenRubber',
+	'{11FD7485-CC44-459B-848C-130D43231C20}' : 'IFFlexPropertyFDR',
+	'{415EE4E6-8069-4221-BCE4-17CC7960FEC3}' : 'IFFlexPropertyMass',
+	'{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}' : 'IFFlexPropertyCollection',
+	'{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}' : 'IFFlexMaterialCollection',
+	'{CB29570B-C43C-4422-804A-DC47A070D98D}' : 'IFFlexBoundaryConditionCollection',
+	'{6A6D7961-36F5-4E1D-8024-839348CD5B35}' : 'IFFlexOutputCollection',
+	'{87219716-6C18-4072-BE27-EAA12BA9D444}' : 'IFFlexNodeSetCollection',
+	'{965101C9-95C4-4E9A-A2E7-CC202EBC2FC3}' : 'IFFlexElementSetCollection',
+	'{371C9D93-0F28-4531-833B-BE362169A845}' : 'IFFlexPatchSetCollection',
+	'{FD878DE9-6486-4A86-8BC5-0C886A149D0A}' : 'IFFlexMaterialMooneyRivlin',
+	'{E224EC31-E809-4532-937E-D5A4F567A0FF}' : 'IFFlexMaterialMooneyRivlinRubber',
+	'{E8252A77-AAE7-4ADB-BD09-27D62CCFEEE3}' : 'IFFlexMaterialPlasticIsotropicMultiLinear',
+	'{4119FC33-D474-46F2-8FBB-27946A2481AE}' : 'IFFlexMaterialPlastic',
+	'{65C5EEB7-502C-42FD-AF41-4E6C5122EF71}' : 'IFFlexMaterialPlasticIsotropicBiNonLinear',
+	'{7F3A9496-9CCA-41FF-9211-E67CF5CB889C}' : 'IFFlexMaterialPlasticIsotropicKinematicMultiLinear',
+	'{4CC03F94-7E4E-4082-8299-6288E232C5C0}' : 'IFFlexMaterialPlasticIsotropicKinematicBiNonLinear',
+	'{14C926A7-96C8-4FA4-ABB4-516E07ABFD9E}' : 'IFFlexOutputFileInfo',
+	'{99FCED9D-CE12-47E8-8AE8-3F80DAEFB44F}' : 'IFFlexElementFDRCollection',
+	'{13724ADC-4397-4109-8057-B4DA64C1CE4A}' : 'IFFlexConnectingParameters',
+	'{7235D19C-5DAB-4BC7-B0A3-82AB05109017}' : 'IFFlexElementMass',
+	'{E454DBF9-4B06-491A-A0AD-044B11EDCA9E}' : 'IFFlexElementMassCollection',
+	'{580DC463-613E-406A-B54C-42952E1FB79F}' : 'IFFlexLineSet',
+	'{D68E5B6D-04CF-4C9C-BF17-36B7BB59DAF9}' : 'IFFlexElementBeamCollection',
+	'{3E133D96-B9A6-4E30-89A8-9049608BBEEA}' : 'IFFlexElementBeam',
+	'{8235613D-438F-415F-9220-B8A72A332DFA}' : 'IFFlexLineSetCollection',
+	'{7BD0B108-6F9A-4CCA-89F1-17171343EE51}' : 'IFFlexElementShellCollection',
+	'{096C5C5E-CBCD-4E54-96A6-B43712CA3CC7}' : 'IFFlexElementShell',
+	'{11DF440C-A0EA-4BC3-B9F8-954A1C62DE01}' : 'IFFlexNodeVTCollection',
+	'{83C6E147-4506-47D2-BF10-A5C05702C376}' : 'IFFlexNodeVT',
+	'{0D77D87F-DBFE-4B46-8035-2948E3D11060}' : 'IFFlexMaterialOrthotropic2D',
+	'{B6096033-E25F-476D-BD8D-FF06C3DD5925}' : 'IFFlexMaterialAnisotropic2D',
+	'{5B77012F-9E8B-4C5A-B418-ABC53AB8BDC9}' : 'IFFlexBodyImportOption',
+	'{F5429319-6E49-422B-BBB1-28B50A31AC88}' : 'IFFlexExportDurabilityInterfaceOption',
+	'{05CFB844-ADD5-46ED-AE95-532DA20EFF22}' : 'IFFlexExportMeshDataNastranFormatOption',
+	'{04EADBFF-E43A-482B-985E-984B9C9E4E03}' : 'IFFlexExportMeshDataCommonOption',
+	'{82373A21-94B2-4230-9D14-9CF555B2321A}' : 'IFFlexElementBeamOrientation',
+	'{837B713B-97C2-4238-93BB-B36A2D46AD0E}' : 'IFFlexBodyMergeOption',
+	'{F703C54E-A759-4DB3-9962-54BFBC825288}' : 'IFFlexContactFSurfacePatchOption',
+	'{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}' : 'IFFlexContactFCurveSegmentOption',
+	'{84584C5A-48D9-4ADB-92E8-23D8A6D199A2}' : 'IFFlexContact',
+	'{4A53DC7E-87C8-4E2E-ADE5-76EE559B554E}' : 'IFFlexContactFSurfaceToFSurface',
+	'{2FB3CBD7-86A2-4DC3-8E44-B0BD837F9A22}' : 'IFFlexContactFSurfaceToSurface',
+	'{F04DF01D-5633-4305-BB19-38240B6B1668}' : 'IFFlexContactSphereToFSurface',
+	'{C7481369-4B52-47B6-8981-979598B40AEA}' : 'IFFlexContactCylinderToFSurface',
+	'{96734B88-960C-4AD5-9F09-891929036A86}' : 'IFFlexContactFCurveToFSurface',
+	'{E0F5CC9A-1686-4686-BA51-168070A9D8C9}' : 'IFFlexContactFCurveToFCurve',
+	'{DBD60940-5FBF-4F13-96BD-70F15DF56CD1}' : 'IFFlexContactFCurveToSurface',
+	'{4EF16E8C-46CC-45C8-B6B6-280A7331592B}' : 'IFFlexContactSphereToFCurve',
+	'{2459DD31-7D96-4F02-A1E1-FCFF862CDA18}' : 'IFFlexLoad',
+	'{57E5BBF7-1ABC-43EF-A252-6169C6594B82}' : 'IFFlexLoadConcentrated',
+	'{52D19EDA-2066-41BB-B697-B8752940E39D}' : 'IFFlexLoadConcentratedUSUB',
+	'{2168FEF3-7A08-4252-8DDE-4F418CD3B876}' : 'IFFlexLoadPressure',
+	'{5078278E-AF8C-43F0-B77D-4D12F522E380}' : 'IFFlexLoadThermal',
+	'{CB65FF8A-8A83-4951-B3C7-0402BBA16146}' : 'IFFlexLoadNodalTemperature',
+	'{03977164-5C40-4BEF-A912-806879FAC6DA}' : 'IFFlexLoadHeatGeneration',
+	'{2167B2D8-7716-45D5-8C18-35C158A0209E}' : 'IFFlexLoadHeatFlux',
+	'{3C8FD4A2-8942-437E-9DE9-3A6884BB86FF}' : 'IFFlexLoadConvection',
+	'{E251879E-85B5-4FDE-8C34-F414F1D2A4BD}' : 'IFFlexRTLGenerationOption',
+	'{D32C11C3-8CCF-4839-BE15-0E1708BAE694}' : 'IAssistConstraint',
+	'{B2C8341A-D45F-4061-8216-6CBE2548669C}' : 'IAssistPrePatchSet',
+	'{684C17D2-63FF-409F-A635-1239505DC5F8}' : 'IAssistPreSet',
+	'{E5FF2995-2945-4432-BD36-CA5E1F264CB5}' : 'IFFlexBodyCollection',
+	'{179D3515-9CD6-4537-B668-0B90072CC73B}' : 'IFFlexContactCollection',
+	'{D5094FE6-D4C1-4157-951C-38E79636352D}' : 'IFFlexLoadCollection',
+	'{4F9E4D3C-5462-438D-98F9-C20806DFC34D}' : 'IAssistConstraintCollection',
+	'{9EFB7046-D94C-4565-9B0C-3AA3FCB9D15B}' : 'IAssistPrePatchSetCollection',
+	'{A531E76E-A614-49F6-A4F6-E193ED3A2E18}' : 'IAssistPreSetCollection',
+	'{03EBC2D6-DF08-4472-8529-5F05FE931154}' : 'ITargetFace',
+	'{012BED7B-CFB1-4210-91B6-5D4B5D70855C}' : 'ITargetFaceCollection',
+	'{28ED48CC-F63E-4508-B7B6-05B38850D385}' : 'ITargetFace4SidedMore',
+	'{7A70474E-B7CA-43AD-B71D-373E1E0522CE}' : 'ITargetFace4SidedMoreCollection',
+	'{C87D803F-9025-4DBA-A7D1-0FBEFDBBC949}' : 'IMesherBeamMeshOption',
+	'{422ADC13-1282-476A-870B-79AF4BAED1D4}' : 'IMesherMeshOption',
+	'{D5C73BAB-B87D-481F-9501-ECA820738621}' : 'IMesherRemeshOptionEach',
+	'{E6B6DEAC-05C2-46C8-877F-C23CCDE9EC3F}' : 'IMesherRemeshOptionCollection',
+	'{A0D78F70-FF33-4C16-92F2-CA86E74A945D}' : 'IMesherRemeshOption',
+	'{C0FA0EDA-1CCA-4016-A1A6-86D2F751BB18}' : 'ISeedInfo',
+	'{B62D333D-4E39-4B7E-AD82-A8F4604F866E}' : 'ISeedInfoCollection',
+	'{BCDC5A57-0884-491D-A239-546282F794CE}' : 'IMesherAdvancedMeshOption',
+	'{53DBAC32-9F55-4985-9D4C-72273C33F567}' : 'IMesherManualMeshOption',
+	'{80BDD953-CC33-40C9-ADF1-6B779BAB1046}' : 'IMesherManualMeshExtrudeOption',
+	'{9A0D32EB-DD32-45E0-8B69-39B6C0503EFE}' : 'IMesherManualMeshSpinOption',
+	'{5EBC8EA0-272A-4C0B-8D4F-A8A94F42D8B2}' : 'IMesherManualMeshSweepOption',
+	'{3BFCDA3B-C39F-457A-BE5E-F7F169221C06}' : 'IMesherGeometryRefinement',
+	'{22952159-A8DE-49AD-A59E-7D85147A7223}' : 'IMesherAssistModeling',
+	'{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}' : 'IQualityCheckResult',
+	'{82707715-CB95-4DC7-B768-FD6CE5552F04}' : 'IQualityCheckLineResult',
+	'{A7DE6834-7983-4723-8B02-842CF33AB66C}' : 'IMesherQualityCheck',
+	'{0EC4E9EC-52FC-48B8-99CB-201A060B9F33}' : 'IMesherImprintLineSet',
+	'{D33A9F82-B096-42D3-B9F7-136A635FDB57}' : 'IMesherImprintPatchSet',
+	'{D2FA19C5-A579-44BC-8096-B544B165853D}' : 'IMeshMode',
+	'{67734FD0-EBD1-40DE-ADD5-11D4490D0E4F}' : 'IFFlexOutputFileRegenerator',
+	'{B2D185BE-60C8-482C-B9A4-EC253064E650}' : 'IFFlexConstraintNode',
+	'{9257FD72-F3D0-4E57-A114-2045356D78CD}' : 'IFFlexToolkitBody',
+	'{2929013E-6D50-4228-879E-0C6F3DE83187}' : 'IFFlexToolFunction',
+	'{8486F9C1-3C36-4F56-9EFB-96CB20D923F7}' : 'IFFlexToolkit',
+}
+
+
+NamesToIIDMap = {
+	'IFFlexBody' : '{6302A81A-B3C0-404D-9179-8B17C939856D}',
+	'IFFlexAnimationDataScaling' : '{50A578AD-8745-4F7F-9434-86142BB6670B}',
+	'IFFlexNode' : '{84DBE12B-D26F-48F6-B478-5EBDBBA86F73}',
+	'IFFlexNodeSet' : '{39D5CBAA-8AD7-43C7-989C-361AFC36DD5A}',
+	'IFFlexNodeCollection' : '{E5FF2995-2945-4432-BD36-CA5E1F264CB7}',
+	'IFFlexElementFDR' : '{A640D569-8E40-435F-B199-AB3145C56569}',
+	'IFFlexElement' : '{46307FB3-5EA5-4DE6-B3A4-1ED24B240597}',
+	'IFFlexProperty' : '{DB406626-3064-4709-933F-C7E7F9AD92E4}',
+	'IFFlexMaterial' : '{205F2A11-60B6-4F97-92FC-300B78C3BB29}',
+	'IFFlexElementSet' : '{41220408-E869-466A-8D1E-03B99F02568B}',
+	'IFFlexElementCollection' : '{E5FF2995-2945-4432-BD36-CA5E1F264CB6}',
+	'IFFlexPatchSet' : '{4E4DF082-A504-46FA-84EC-6451025A4E33}',
+	'IFFlexBoundaryCondition' : '{7C217E69-8B40-40FA-8D6B-C8555A17A89A}',
+	'IFFlexOutput' : '{C07D2858-4BD8-429E-98F9-BBAD0AE619CA}',
+	'IFFlexPropertyBeam' : '{038F4D84-103E-4E16-ADBE-30CD7D809A5F}',
+	'IFFlexPropertyShell' : '{0566BC2A-5A19-4556-A760-2DE6D6F1DB6C}',
+	'IFFlexPropertySolid' : '{EBD74EA0-7D25-46AB-A257-9E8874545750}',
+	'IFFlexMaterialIsotropic' : '{DE758DA3-29DE-4822-A4D7-5F7038D688A0}',
+	'IFFlexMaterialElastic' : '{61DFF327-8A0D-4ED9-8873-990EAEBF23AD}',
+	'IFFlexMaterialOrthotropic' : '{5BCEE724-266C-4C56-A0E2-74CAD32DC259}',
+	'IFFlexMaterialArrudaBoyce' : '{2F03BAD9-F392-4D8F-A295-F1DF2AB5E2D2}',
+	'IFFlexMaterialHyperelastic' : '{6FC4534F-F29A-446B-8DC4-E52899694033}',
+	'IFFlexMaterialArrudaBoyceRubber' : '{7647F371-D7FA-451E-8727-891DAE9B7FF0}',
+	'IFFlexMaterialNeoHooke' : '{14AE3469-8DC3-41AD-AFD2-4201F13680DE}',
+	'IFFlexMaterialNeoHookeRubber' : '{F5587CEE-4C8B-403F-806D-7F5319E22A7E}',
+	'IFFlexMaterialOgden' : '{BC264C3C-D1DA-4627-805D-F65F1700DAD3}',
+	'IFFlexMaterialOgdenRubber' : '{009F6400-AA7F-47C0-9B8B-DF4994350391}',
+	'IFFlexPropertyFDR' : '{11FD7485-CC44-459B-848C-130D43231C20}',
+	'IFFlexPropertyMass' : '{415EE4E6-8069-4221-BCE4-17CC7960FEC3}',
+	'IFFlexPropertyCollection' : '{D590239C-E1AF-40F6-971B-ECA6D49DE9FC}',
+	'IFFlexMaterialCollection' : '{C9999CC8-9CE4-48E1-87B3-78B96B17BB82}',
+	'IFFlexBoundaryConditionCollection' : '{CB29570B-C43C-4422-804A-DC47A070D98D}',
+	'IFFlexOutputCollection' : '{6A6D7961-36F5-4E1D-8024-839348CD5B35}',
+	'IFFlexNodeSetCollection' : '{87219716-6C18-4072-BE27-EAA12BA9D444}',
+	'IFFlexElementSetCollection' : '{965101C9-95C4-4E9A-A2E7-CC202EBC2FC3}',
+	'IFFlexPatchSetCollection' : '{371C9D93-0F28-4531-833B-BE362169A845}',
+	'IFFlexMaterialMooneyRivlin' : '{FD878DE9-6486-4A86-8BC5-0C886A149D0A}',
+	'IFFlexMaterialMooneyRivlinRubber' : '{E224EC31-E809-4532-937E-D5A4F567A0FF}',
+	'IFFlexMaterialPlasticIsotropicMultiLinear' : '{E8252A77-AAE7-4ADB-BD09-27D62CCFEEE3}',
+	'IFFlexMaterialPlastic' : '{4119FC33-D474-46F2-8FBB-27946A2481AE}',
+	'IFFlexMaterialPlasticIsotropicBiNonLinear' : '{65C5EEB7-502C-42FD-AF41-4E6C5122EF71}',
+	'IFFlexMaterialPlasticIsotropicKinematicMultiLinear' : '{7F3A9496-9CCA-41FF-9211-E67CF5CB889C}',
+	'IFFlexMaterialPlasticIsotropicKinematicBiNonLinear' : '{4CC03F94-7E4E-4082-8299-6288E232C5C0}',
+	'IFFlexOutputFileInfo' : '{14C926A7-96C8-4FA4-ABB4-516E07ABFD9E}',
+	'IFFlexElementFDRCollection' : '{99FCED9D-CE12-47E8-8AE8-3F80DAEFB44F}',
+	'IFFlexConnectingParameters' : '{13724ADC-4397-4109-8057-B4DA64C1CE4A}',
+	'IFFlexElementMass' : '{7235D19C-5DAB-4BC7-B0A3-82AB05109017}',
+	'IFFlexElementMassCollection' : '{E454DBF9-4B06-491A-A0AD-044B11EDCA9E}',
+	'IFFlexLineSet' : '{580DC463-613E-406A-B54C-42952E1FB79F}',
+	'IFFlexElementBeamCollection' : '{D68E5B6D-04CF-4C9C-BF17-36B7BB59DAF9}',
+	'IFFlexElementBeam' : '{3E133D96-B9A6-4E30-89A8-9049608BBEEA}',
+	'IFFlexLineSetCollection' : '{8235613D-438F-415F-9220-B8A72A332DFA}',
+	'IFFlexElementShellCollection' : '{7BD0B108-6F9A-4CCA-89F1-17171343EE51}',
+	'IFFlexElementShell' : '{096C5C5E-CBCD-4E54-96A6-B43712CA3CC7}',
+	'IFFlexNodeVTCollection' : '{11DF440C-A0EA-4BC3-B9F8-954A1C62DE01}',
+	'IFFlexNodeVT' : '{83C6E147-4506-47D2-BF10-A5C05702C376}',
+	'IFFlexMaterialOrthotropic2D' : '{0D77D87F-DBFE-4B46-8035-2948E3D11060}',
+	'IFFlexMaterialAnisotropic2D' : '{B6096033-E25F-476D-BD8D-FF06C3DD5925}',
+	'IFFlexBodyImportOption' : '{5B77012F-9E8B-4C5A-B418-ABC53AB8BDC9}',
+	'IFFlexExportDurabilityInterfaceOption' : '{F5429319-6E49-422B-BBB1-28B50A31AC88}',
+	'IFFlexExportMeshDataNastranFormatOption' : '{05CFB844-ADD5-46ED-AE95-532DA20EFF22}',
+	'IFFlexExportMeshDataCommonOption' : '{04EADBFF-E43A-482B-985E-984B9C9E4E03}',
+	'IFFlexElementBeamOrientation' : '{82373A21-94B2-4230-9D14-9CF555B2321A}',
+	'IFFlexBodyMergeOption' : '{837B713B-97C2-4238-93BB-B36A2D46AD0E}',
+	'IFFlexContactFSurfacePatchOption' : '{F703C54E-A759-4DB3-9962-54BFBC825288}',
+	'IFFlexContactFCurveSegmentOption' : '{2E41263C-A274-4F0E-BF9F-9B8959DB32C0}',
+	'IFFlexContact' : '{84584C5A-48D9-4ADB-92E8-23D8A6D199A2}',
+	'IFFlexContactFSurfaceToFSurface' : '{4A53DC7E-87C8-4E2E-ADE5-76EE559B554E}',
+	'IFFlexContactFSurfaceToSurface' : '{2FB3CBD7-86A2-4DC3-8E44-B0BD837F9A22}',
+	'IFFlexContactSphereToFSurface' : '{F04DF01D-5633-4305-BB19-38240B6B1668}',
+	'IFFlexContactCylinderToFSurface' : '{C7481369-4B52-47B6-8981-979598B40AEA}',
+	'IFFlexContactFCurveToFSurface' : '{96734B88-960C-4AD5-9F09-891929036A86}',
+	'IFFlexContactFCurveToFCurve' : '{E0F5CC9A-1686-4686-BA51-168070A9D8C9}',
+	'IFFlexContactFCurveToSurface' : '{DBD60940-5FBF-4F13-96BD-70F15DF56CD1}',
+	'IFFlexContactSphereToFCurve' : '{4EF16E8C-46CC-45C8-B6B6-280A7331592B}',
+	'IFFlexLoad' : '{2459DD31-7D96-4F02-A1E1-FCFF862CDA18}',
+	'IFFlexLoadConcentrated' : '{57E5BBF7-1ABC-43EF-A252-6169C6594B82}',
+	'IFFlexLoadConcentratedUSUB' : '{52D19EDA-2066-41BB-B697-B8752940E39D}',
+	'IFFlexLoadPressure' : '{2168FEF3-7A08-4252-8DDE-4F418CD3B876}',
+	'IFFlexLoadThermal' : '{5078278E-AF8C-43F0-B77D-4D12F522E380}',
+	'IFFlexLoadNodalTemperature' : '{CB65FF8A-8A83-4951-B3C7-0402BBA16146}',
+	'IFFlexLoadHeatGeneration' : '{03977164-5C40-4BEF-A912-806879FAC6DA}',
+	'IFFlexLoadHeatFlux' : '{2167B2D8-7716-45D5-8C18-35C158A0209E}',
+	'IFFlexLoadConvection' : '{3C8FD4A2-8942-437E-9DE9-3A6884BB86FF}',
+	'IFFlexRTLGenerationOption' : '{E251879E-85B5-4FDE-8C34-F414F1D2A4BD}',
+	'IAssistConstraint' : '{D32C11C3-8CCF-4839-BE15-0E1708BAE694}',
+	'IAssistPrePatchSet' : '{B2C8341A-D45F-4061-8216-6CBE2548669C}',
+	'IAssistPreSet' : '{684C17D2-63FF-409F-A635-1239505DC5F8}',
+	'IFFlexBodyCollection' : '{E5FF2995-2945-4432-BD36-CA5E1F264CB5}',
+	'IFFlexContactCollection' : '{179D3515-9CD6-4537-B668-0B90072CC73B}',
+	'IFFlexLoadCollection' : '{D5094FE6-D4C1-4157-951C-38E79636352D}',
+	'IAssistConstraintCollection' : '{4F9E4D3C-5462-438D-98F9-C20806DFC34D}',
+	'IAssistPrePatchSetCollection' : '{9EFB7046-D94C-4565-9B0C-3AA3FCB9D15B}',
+	'IAssistPreSetCollection' : '{A531E76E-A614-49F6-A4F6-E193ED3A2E18}',
+	'ITargetFace' : '{03EBC2D6-DF08-4472-8529-5F05FE931154}',
+	'ITargetFaceCollection' : '{012BED7B-CFB1-4210-91B6-5D4B5D70855C}',
+	'ITargetFace4SidedMore' : '{28ED48CC-F63E-4508-B7B6-05B38850D385}',
+	'ITargetFace4SidedMoreCollection' : '{7A70474E-B7CA-43AD-B71D-373E1E0522CE}',
+	'IMesherBeamMeshOption' : '{C87D803F-9025-4DBA-A7D1-0FBEFDBBC949}',
+	'IMesherMeshOption' : '{422ADC13-1282-476A-870B-79AF4BAED1D4}',
+	'IMesherRemeshOptionEach' : '{D5C73BAB-B87D-481F-9501-ECA820738621}',
+	'IMesherRemeshOptionCollection' : '{E6B6DEAC-05C2-46C8-877F-C23CCDE9EC3F}',
+	'IMesherRemeshOption' : '{A0D78F70-FF33-4C16-92F2-CA86E74A945D}',
+	'ISeedInfo' : '{C0FA0EDA-1CCA-4016-A1A6-86D2F751BB18}',
+	'ISeedInfoCollection' : '{B62D333D-4E39-4B7E-AD82-A8F4604F866E}',
+	'IMesherAdvancedMeshOption' : '{BCDC5A57-0884-491D-A239-546282F794CE}',
+	'IMesherManualMeshOption' : '{53DBAC32-9F55-4985-9D4C-72273C33F567}',
+	'IMesherManualMeshExtrudeOption' : '{80BDD953-CC33-40C9-ADF1-6B779BAB1046}',
+	'IMesherManualMeshSpinOption' : '{9A0D32EB-DD32-45E0-8B69-39B6C0503EFE}',
+	'IMesherManualMeshSweepOption' : '{5EBC8EA0-272A-4C0B-8D4F-A8A94F42D8B2}',
+	'IMesherGeometryRefinement' : '{3BFCDA3B-C39F-457A-BE5E-F7F169221C06}',
+	'IMesherAssistModeling' : '{22952159-A8DE-49AD-A59E-7D85147A7223}',
+	'IQualityCheckResult' : '{097BB1A6-79D5-4F9E-9BED-E8A217090ED3}',
+	'IQualityCheckLineResult' : '{82707715-CB95-4DC7-B768-FD6CE5552F04}',
+	'IMesherQualityCheck' : '{A7DE6834-7983-4723-8B02-842CF33AB66C}',
+	'IMesherImprintLineSet' : '{0EC4E9EC-52FC-48B8-99CB-201A060B9F33}',
+	'IMesherImprintPatchSet' : '{D33A9F82-B096-42D3-B9F7-136A635FDB57}',
+	'IMeshMode' : '{D2FA19C5-A579-44BC-8096-B544B165853D}',
+	'IFFlexOutputFileRegenerator' : '{67734FD0-EBD1-40DE-ADD5-11D4490D0E4F}',
+	'IFFlexConstraintNode' : '{B2D185BE-60C8-482C-B9A4-EC253064E650}',
+	'IFFlexToolkitBody' : '{9257FD72-F3D0-4E57-A114-2045356D78CD}',
+	'IFFlexToolFunction' : '{2929013E-6D50-4228-879E-0C6F3DE83187}',
+	'IFFlexToolkit' : '{8486F9C1-3C36-4F56-9EFB-96CB20D923F7}',
+}
+
+
