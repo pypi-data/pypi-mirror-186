@@ -1,0 +1,60 @@
+[package]
+name = "oxigraph"
+version = "0.3.11"
+authors = ["Tpt <thomas@pellissier-tanon.fr>"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["RDF", "SPARQL", "graph-database", "database"]
+categories = ["database-implementations"]
+repository = "https://github.com/oxigraph/oxigraph/tree/main/lib"
+homepage = "https://oxigraph.org/"
+description = """
+a SPARQL database and RDF toolkit
+"""
+edition = "2021"
+rust-version = "1.60"
+
+[package.metadata.docs.rs]
+all-features = true
+
+[features]
+default = []
+http_client = ["oxhttp", "oxhttp/rustls"]
+
+[dependencies]
+rand = "0.8"
+md-5 = "0.10"
+sha-1 = "0.10"
+sha2 = "0.10"
+digest = "0.10"
+regex = "1"
+oxilangtag = "0.1"
+oxiri = "0.2"
+rio_api = "0.8"
+rio_turtle = "0.8"
+rio_xml = "0.8"
+hex = "0.4"
+siphasher = "0.3"
+lazy_static = "1"
+sysinfo = "0.27"
+oxrdf = { version = "0.1.2", path= "../oxrdf", features = ["rdf-star", "oxsdatatypes"] }
+oxsdatatypes = { version = "0.1.0", path= "../oxsdatatypes" }
+spargebra = { version = "0.2.4", path= "../spargebra", features = ["rdf-star", "sep-0002", "sep-0006"] }
+sparesults = { version = "0.1.4", path= "../sparesults", features = ["rdf-star"] }
+
+[target.'cfg(not(target_family = "wasm"))'.dependencies]
+libc = "0.2"
+oxrocksdb-sys = { version = "0.3.11", path="../oxrocksdb-sys" }
+oxhttp = { version = "0.1", optional = true }
+
+[target.'cfg(all(target_family = "wasm", target_os = "unknown"))'.dependencies]
+getrandom = { version = "0.2", features = ["js"] }
+
+[target.'cfg(not(target_family = "wasm"))'.dev-dependencies]
+criterion = "0.4"
+oxhttp = "0.1"
+zstd = "0.12"
+
+[[bench]]
+name = "store"
+harness = false
