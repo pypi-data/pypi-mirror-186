@@ -1,0 +1,62 @@
+title = "nRoBo - Automated Testing Framework By NamasteyDigitalIndia.com (NDI)"
+
+[owner]
+name = "Panchdev Singh Chauhan"
+
+authors = [
+    { name = "Panchdev Chauhan", email = "erpanchdev@gmail.com" }
+]
+
+[project]
+name = "nrobo"
+description = "nRoBo - Automated Testing Framework By NamasteyDigitalIndia.com (NDI)"
+readme = "README.rst"
+version = "2.0.3"
+keywords = ["test automation", "test automation framework", "automated testing", "automation testing", "testing", "qa", "acceptance test", "automation"]
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Testing :: Acceptance",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Testing :: Unit",
+    "Operating System :: MacOS",
+    "Operating System :: Unix",
+    "License :: Freeware",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Other Audience",
+    "Intended Audience :: Information Technology",
+    "Framework :: Pytest"
+]
+
+include = ["CHANGELOG.rst"]
+
+dependencies = [
+    "pytest"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest"
+]
+
+
+[project.urls]
+"Homepage" = "https://pypi.org/project/nrobo/"
+"Bug Tracker" = "https://github.com/pancht/speedboat/issues"
+"changelog" = "https://github.com/pancht/speedboat/blob/master/CHANGELOG.md"
+
+[project.scripts]
+nrobo = "nrobo:launch_nRoBo"
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+    "tests_api",
+    "tests_performance"
+]
