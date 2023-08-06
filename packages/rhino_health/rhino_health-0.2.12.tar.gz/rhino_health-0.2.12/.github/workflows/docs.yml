@@ -1,0 +1,38 @@
+name: Docs
+on:
+  push:
+    branches:
+      - main
+jobs:
+  generate_docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --no-cache-dir --upgrade pip setuptools wheel
+          pip install -r requirements.txt
+      - name: Generate Docs
+        run: |
+          touch docs/html/.gitkeep
+          rm -rf docs/html
+          git rm -r docs/html
+          sphinx-build -M html docs_src/source docs/
+      - name: Push to public repo
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+        with:
+          source-directory: 'docs'
+          destination-github-username: 'RhinoHealth'
+          destination-repository-name: 'rhino_sdk_docs'
+          user-email: "rhino_sdk@noreply.github.com"
+          user-name: "github-actions[bot]"
+          target-branch: main
+          commit-message: "Autogenerate Docs"
+          target-directory: 'docs'
