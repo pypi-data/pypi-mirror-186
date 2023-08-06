@@ -1,0 +1,67 @@
+Metadata-Version: 2.1
+Name: notebooker
+Version: 0.5.0
+Summary: Tool for parametrizing, executing, and displaying Jupyter Notebooks as reports.
+Home-page: https://github.com/man-group/notebooker
+Author: Man Quant Technology
+Author-email: ManAlphaTech@man.com
+License: AGPLv3
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3
+Classifier: Framework :: Flask
+Classifier: Framework :: IPython
+Classifier: Framework :: Jupyter
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows :: Windows 10
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: WSGI :: Application
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: requests
+Requires-Dist: apscheduler
+Requires-Dist: babel
+Requires-Dist: cachelib
+Requires-Dist: click (>7.1.0)
+Requires-Dist: flask
+Requires-Dist: gevent
+Requires-Dist: gitpython
+Requires-Dist: inflection
+Requires-Dist: ipykernel
+Requires-Dist: ipython
+Requires-Dist: ipython-genutils
+Requires-Dist: jupytext (>=1.2.0)
+Requires-Dist: matplotlib
+Requires-Dist: nbconvert
+Requires-Dist: nbformat
+Requires-Dist: pandas
+Requires-Dist: papermill
+Requires-Dist: pymongo
+Requires-Dist: python-dateutil
+Requires-Dist: retrying
+Requires-Dist: stashy
+Requires-Dist: Werkzeug (<2.2)
+Requires-Dist: importlib-metadata ; python_version < "3.8"
+Requires-Dist: dataclasses ; python_version < "3.8"
+Provides-Extra: docs
+Requires-Dist: docutils (<0.18) ; extra == 'docs'
+Requires-Dist: sphinx (<3.0.0) ; extra == 'docs'
+Requires-Dist: numpydoc ; extra == 'docs'
+Requires-Dist: sphinxcontrib-httpdomain ; extra == 'docs'
+Requires-Dist: sphinx-click ; extra == 'docs'
+Provides-Extra: prometheus
+Requires-Dist: prometheus-client ; extra == 'prometheus'
+Provides-Extra: test
+Requires-Dist: openpyxl ; extra == 'test'
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: mock ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+Requires-Dist: pytest-timeout ; extra == 'test'
+Requires-Dist: pytest-xdist ; extra == 'test'
+Requires-Dist: pytest-server-fixtures ; extra == 'test'
+Requires-Dist: freezegun ; extra == 'test'
+Requires-Dist: hypothesis (>=3.83.2) ; extra == 'test'
+
