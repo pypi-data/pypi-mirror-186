@@ -1,0 +1,12 @@
+version: '{build}'
+
+build: off
+
+test_script:
+    - pip install pyyaml
+    - pip install -r requirements_dev.txt
+# test also on latest version
+    - py.test -vvs tests
+    - pip uninstall -y pyyaml
+    - pip install pyyaml
+    - py.test -vvs tests
