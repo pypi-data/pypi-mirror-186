@@ -1,0 +1,37 @@
+start: command
+
+command: list_files
+        | search
+        | info
+        | peek
+        | create_table
+        | create_view
+
+list_files: "list files"
+search: "search" WS search_query
+info: "info" WS file_or_gsheet_id
+peek: "peek" WS file_or_gsheet_id (WS tab_name)?
+create_table: "create table" WS table_name WS "from" WS file_or_gsheet_id (WS "tab" WS tab_name)?
+create_view: "create view" WS table_name WS "from" WS file_or_gsheet_id (WS "tab" WS tab_name)?
+search_query: SINGLE_QUOTED_STRING
+
+table_name: WORD
+file_or_gsheet_id: SINGLE_QUOTED_STRING
+tab_name: SINGLE_QUOTED_STRING
+
+SINGLE_QUOTED_STRING  : /'[^']*'/
+ANY             : /.+/ [WS /.*/]*
+DIGIT           : "0".."9"
+LCASE_LETTER    : "a".."z"
+UCASE_LETTER    : "A".."Z"
+ALPHA           : UCASE_LETTER | LCASE_LETTER | "_"
+ALPHANUM        : ALPHA [ ALPHA | DIGIT ]*
+SPACE           : " "
+TAB             : SPACE+
+FROM            : "from" | "FROM"
+NAME            : ALPHANUM+
+WORD            : ALPHANUM+
+NUMBER          : DIGIT+
+WS              : /[ \t\f\r\n]/+
+
+%ignore WS
