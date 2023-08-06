@@ -1,0 +1,20 @@
+{% if base_url %}
+<picture{% if css_class %} class="{{ css_class }}"{% endif %}>
+    {% for type, source in sources.items %}
+    <source
+        type="image/{{ type }}"
+        srcset="{{ source.srcset }}"
+    >
+    {% endfor %}
+
+    <img
+        src="{{ base_url }}"
+        alt="{{ alt }}"
+        width="{{ size.width }}"
+        height="{{ size.height }}"
+    >
+</picture>
+{% elif spec_width and spec_height %}
+    <div style="width:{{spec_width}}px; height: {{spec_height}}px;" class="wools-no-image-error"></div>
+{% endif %}
+

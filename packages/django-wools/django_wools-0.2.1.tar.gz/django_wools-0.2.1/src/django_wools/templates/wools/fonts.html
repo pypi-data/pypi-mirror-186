@@ -1,0 +1,13 @@
+{% templatetag openblock %} load static {% templatetag closeblock %}
+
+<style>
+{% for font_face, formats in converted.items %}
+@font-face {
+    font-family: "{{ font_face.family }}";
+    src: {% for format in formats %}{% if not forloop.first %}, {% endif %}url("{% templatetag openblock %} static "{{ static_path }}/{{ format.file_name }}" {% templatetag closeblock %}") format("{{ format.format.value }}"){% endfor %};
+    font-style: {{ font_face.style }};
+    font-weight: {{ font_face.weight }};
+    font-display: swap;
+}
+{% endfor %}
+</style>
