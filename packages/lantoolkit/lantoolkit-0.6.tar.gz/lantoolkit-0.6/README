@@ -1,0 +1,35 @@
+一个小工具箱
+功能如下：
+提权
+logo相关操作（无法使用）
+文件相关操作
+清屏
+powershell引用
+pip相关操作
+ntp对时
+v0.5更新日志
+	进一步解决setup.py问题
+	修复ntp对时
+	全新powershell引用
+	全新默认shell引用
+使用纠错：
+	lantoolkit.sudopy()：
+		当你想要把一个带有其他变量的命令运行时
+		如：
+			a='1145141919810'
+			print(a)
+		当你要把“print(a)”提权运行时：
+			错误示范：
+				a='1145141919810'
+				lantoolkit.sudopy('print(a)')
+			运行过后会报错，因为lantoolkit.sudopy()在运行时会新建一个临时文件“temp.py”
+			当你把“print(a)”传入temp.py时，不会把a变量也传给"temp.py"
+			python找不到a变量，于是就报错了。
+			正确示范：
+			def homo():
+				a='1145141919810'
+				lantoolkit.sudopy(print(a))
+			lantoolkit.sudopy(homo((), 'main')
+			正确示范2:
+				lantoolkit.sudopy('''a='1145141919810'
+				print(a)''')
