@@ -1,0 +1,699 @@
+{
+  "actions": {
+    "DescribeAvailableCvmInstanceTypes": {
+      "document": "This API is used to view the information of available CVM model configurations.",
+      "input": "DescribeAvailableCvmInstanceTypesRequest",
+      "name": "Gets the information of CVM model configurations available to BatchCompute",
+      "output": "DescribeAvailableCvmInstanceTypesResponse"
+    },
+    "DescribeCvmZoneInstanceConfigInfos": {
+      "document": "This API is used to get the model configuration information of the availability zone of BatchCompute.",
+      "input": "DescribeCvmZoneInstanceConfigInfosRequest",
+      "name": "Gets the model configuration information of the availability zone of BatchCompute",
+      "output": "DescribeCvmZoneInstanceConfigInfosResponse"
+    },
+    "DescribeInstanceCategories": {
+      "document": "Currently, CVM instance families are classified into different category, and each category contains several instance families. This API is used to query the instance category information.",
+      "input": "DescribeInstanceCategoriesRequest",
+      "name": "Queries instance category information",
+      "output": "DescribeInstanceCategoriesResponse"
+    }
+  },
+  "metadata": {
+    "apiVersion": "2017-03-12",
+    "serviceNameCN": "批量计算",
+    "serviceShortName": "batch"
+  },
+  "objects": {
+    "DescribeAvailableCvmInstanceTypesRequest": {
+      "document": "DescribeAvailableCvmInstanceTypes request structure.",
+      "members": [
+        {
+          "default": "",
+          "document": "Filter.\n<li> zone - String - Required: No - (Filter) Filter by availability zone.</li>\n<li> instance-family - String - Required: No - (Filter) Filter by model family such as S1, I1, and M1.</li>",
+          "member": "Filter",
+          "name": "Filters",
+          "required": false,
+          "type": "list"
+        }
+      ],
+      "type": "object"
+    },
+    "DescribeAvailableCvmInstanceTypesResponse": {
+      "document": "DescribeAvailableCvmInstanceTypes response structure.",
+      "members": [
+        {
+          "document": "Array of model configurations",
+          "member": "InstanceTypeConfig",
+          "name": "InstanceTypeConfigSet",
+          "type": "list",
+          "value_allowed_null": false
+        },
+        {
+          "document": "The unique request ID, which is returned for each request. RequestId is required for locating a problem.",
+          "member": "string",
+          "name": "RequestId",
+          "type": "string"
+        }
+      ],
+      "type": "object"
+    },
+    "DescribeCvmZoneInstanceConfigInfosRequest": {
+      "document": "DescribeCvmZoneInstanceConfigInfos request structure.",
+      "members": [
+        {
+          "default": "",
+          "document": "Filter.\n<li> zone - String - Required: No - (Filter) Filter by availability zone.</li>\n<li> instance-family - String - Required: No - (Filter) Filter by model family such as S1, I1, and M1.</li>\n<li> instance-type - String - Required: No - (Filter) Filter by model.</li>\n<li> instance-charge-type - String - Required: No - (Filter) Filter by instance billing method. ( POSTPAID_BY_HOUR: pay-as-you-go | SPOTPAID: bidding.)  </li>",
+          "member": "Filter",
+          "name": "Filters",
+          "required": false,
+          "type": "list"
+        }
+      ],
+      "type": "object"
+    },
+    "DescribeCvmZoneInstanceConfigInfosResponse": {
+      "document": "DescribeCvmZoneInstanceConfigInfos response structure.",
+      "members": [
+        {
+          "document": "List of model configurations in the availability zone.",
+          "member": "InstanceTypeQuotaItem",
+          "name": "InstanceTypeQuotaSet",
+          "type": "list",
+          "value_allowed_null": false
+        },
+        {
+          "document": "The unique request ID, which is returned for each request. RequestId is required for locating a problem.",
+          "member": "string",
+          "name": "RequestId",
+          "type": "string"
+        }
+      ],
+      "type": "object"
+    },
+    "DescribeInstanceCategoriesRequest": {
+      "document": "DescribeInstanceCategories request structure.",
+      "members": [],
+      "type": "object"
+    },
+    "DescribeInstanceCategoriesResponse": {
+      "document": "DescribeInstanceCategories response structure.",
+      "members": [
+        {
+          "document": "List of CVM instance categories",
+          "member": "InstanceCategoryItem",
+          "name": "InstanceCategorySet",
+          "type": "list",
+          "value_allowed_null": false
+        },
+        {
+          "document": "The unique request ID, which is returned for each request. RequestId is required for locating a problem.",
+          "member": "string",
+          "name": "RequestId",
+          "type": "string"
+        }
+      ],
+      "type": "object"
+    },
+    "Externals": {
+      "document": "Additional data",
+      "members": [
+        {
+          "default": "",
+          "document": "Release address\nNote: This field may return null, indicating that no valid value is found.",
+          "member": "bool",
+          "name": "ReleaseAddress",
+          "required": false,
+          "type": "bool",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Not supported network. Value: <br><li>BASIC: classic network<br><li>VPC1.0: VPC1.0\nNote: This field may return null, indicating that no valid value was found.",
+          "member": "string",
+          "name": "UnsupportNetworks",
+          "required": false,
+          "type": "list",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Attributes of local HDD storage\nNote: This field may return null, indicating that no valid value is found.",
+          "member": "StorageBlock",
+          "name": "StorageBlockAttr",
+          "required": false,
+          "type": "object",
+          "value_allowed_null": true
+        }
+      ],
+      "usage": "both"
+    },
+    "Filter": {
+      "document": "> Key-value pair filters used for conditional queries, such as filtering results by ID, name, and state.\n> * If there are multiple `Filter` parameters, they are evaluated using the logical `AND` operator.\n> * If a `Filter` contains multiple `Values`, they are evaluated using the logical `OR` operator.\n>\n> Take [DescribeInstances](https://intl.cloud.tencent.com/document/api/213/15728?from_cn_redirect=1) as an example. You can use the following filters to query the instances in availability zone (`zone`) Guangzhou Zone 1 ***and*** whose billing plan (`instance-charge-type`) is pay-as-you-go:\n```\nFilters.0.Name=zone\n&Filters.0.Values.0=ap-guangzhou-1\n&Filters.1.Name=instance-charge-type\n&Filters.1.Values.0=POSTPAID_BY_HOUR\n```",
+      "members": [
+        {
+          "default": "无",
+          "document": "Filters.",
+          "member": "string",
+          "name": "Name",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "无",
+          "document": "Filter values.",
+          "member": "string",
+          "name": "Values",
+          "required": true,
+          "type": "list",
+          "value_allowed_null": false
+        }
+      ],
+      "usage": "in"
+    },
+    "InstanceCategoryItem": {
+      "document": "List of instance categories",
+      "members": [
+        {
+          "default": "",
+          "document": "Instance type name",
+          "member": "string",
+          "name": "InstanceCategory",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "List of instance families",
+          "member": "string",
+          "name": "InstanceFamilySet",
+          "required": true,
+          "type": "list",
+          "value_allowed_null": false
+        }
+      ],
+      "usage": "out"
+    },
+    "InstanceTypeConfig": {
+      "document": "Information of InstanceTypeConfig available to BatchCompute",
+      "members": [
+        {
+          "default": "",
+          "document": "Memory size in GB.",
+          "member": "int64",
+          "name": "Mem",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Number of CPU cores.",
+          "member": "int64",
+          "name": "Cpu",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Instance model.",
+          "member": "string",
+          "name": "InstanceType",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Availability zone.",
+          "member": "string",
+          "name": "Zone",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Instance model family.",
+          "member": "string",
+          "name": "InstanceFamily",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        }
+      ],
+      "usage": "out"
+    },
+    "InstanceTypeQuotaItem": {
+      "document": "Describes instance model quota.",
+      "members": [
+        {
+          "default": "",
+          "document": "Availability zone.",
+          "member": "string",
+          "name": "Zone",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Instance model.",
+          "member": "string",
+          "name": "InstanceType",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Instance billing plan. Valid values: <br><li>POSTPAID_BY_HOUR: pay after use. You are billed for your traffic by the hour.<br><li>`CDHPAID`: [`CDH`](https://intl.cloud.tencent.com/document/product/416?from_cn_redirect=1) billing plan. Applicable to `CDH` only, not the instances on the host.",
+          "member": "string",
+          "name": "InstanceChargeType",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "ENI type. For example, 25 represents an ENI of 25 GB.",
+          "member": "int64",
+          "name": "NetworkCard",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Additional data.\nNote: This field may return null, indicating that no valid value is found.",
+          "member": "Externals",
+          "name": "Externals",
+          "required": true,
+          "type": "object",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Number of CPU cores of an instance model.",
+          "member": "int64",
+          "name": "Cpu",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Instance memory capacity; unit: `GB`.",
+          "member": "int64",
+          "name": "Memory",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Instance model family.",
+          "member": "string",
+          "name": "InstanceFamily",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Model name.",
+          "member": "string",
+          "name": "TypeName",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "List of local disk specifications. If the parameter returns null, it means that local disks cannot be created.",
+          "member": "LocalDiskType",
+          "name": "LocalDiskTypeList",
+          "required": true,
+          "type": "list",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Whether an instance model is available. Valid values: <br><li>SELL: available <br><li>SOLD_OUT: sold out",
+          "member": "string",
+          "name": "Status",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Price of an instance model.",
+          "member": "ItemPrice",
+          "name": "Price",
+          "required": true,
+          "type": "object",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Details of out-of-stock items\nNote: this field may return null, indicating that no valid value is obtained.",
+          "member": "string",
+          "name": "SoldOutReason",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Private network bandwidth, in Gbps.",
+          "member": "float",
+          "name": "InstanceBandwidth",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "The max packet sending and receiving capability (in 10k PPS).",
+          "member": "int64",
+          "name": "InstancePps",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Number of local storage blocks.",
+          "member": "int64",
+          "name": "StorageBlockAmount",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "CPU type.",
+          "member": "string",
+          "name": "CpuType",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Number of GPUs of the instance.",
+          "member": "int64",
+          "name": "Gpu",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Number of FPGAs of the instance.",
+          "member": "int64",
+          "name": "Fpga",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Descriptive information of the instance.",
+          "member": "string",
+          "name": "Remark",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        }
+      ],
+      "usage": "out"
+    },
+    "ItemPrice": {
+      "document": "Describes pricing information.",
+      "members": [
+        {
+          "default": "",
+          "document": "The original unit price for pay-as-you-go mode in USD. <br><li>When a billing tier is returned, it indicates the price fo the returned billing tier. For example, if `UnitPriceSecondStep` is returned, it refers to the unit price for the usage between 0 to 96 hours. Otherwise, it refers to that the unit price for unlimited usage.\nNote: this field may return null, indicating that no valid value is obtained.",
+          "member": "float",
+          "name": "UnitPrice",
+          "required": false,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Billing unit for pay-as-you-go mode. Valid values: <br><li>HOUR: billed on an hourly basis. It's used for hourly postpaid instances (`POSTPAID_BY_HOUR`). <br><li>GB: bill by traffic in GB. It's used for postpaid products that are billed by the hourly traffic (`TRAFFIC_POSTPAID_BY_HOUR`).\nNote: this field may return null, indicating that no valid value is obtained.",
+          "member": "string",
+          "name": "ChargeUnit",
+          "required": false,
+          "type": "string",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "The original price of a pay-in-advance instance, in USD.\nNote: this field may return null, indicating that no valid value is obtained.",
+          "member": "float",
+          "name": "OriginalPrice",
+          "required": false,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Discount price of a prepaid instance, in USD.\nNote: this field may return null, indicating that no valid value is obtained.",
+          "member": "float",
+          "name": "DiscountPrice",
+          "required": false,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Percentage of the original price. For example, if you enter \"20.0\", the discounted price will be 20% of the original price.\nNote: this field may return null, indicating that no valid values can be obtained.",
+          "member": "float",
+          "name": "Discount",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "The discounted unit price for pay-as-you-go mode in USD. <br><li>When a billing tier is returned, it indicates the price fo the returned billing tier. For example, if `UnitPriceSecondStep` is returned, it refers to the unit price for the usage between 0 to 96 hours. Otherwise, it refers to that the unit price for unlimited usage.\nNote: this field may return null, indicating that no valid value is obtained.",
+          "member": "float",
+          "name": "UnitPriceDiscount",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Original unit price for the usage between 96 to 360 hours in USD. It's applicable to pay-as-you-go mode.\nNote: this field may return null, indicating that no valid value is obtained.",
+          "member": "float",
+          "name": "UnitPriceSecondStep",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Discounted unit price for the usage between 96 to 360 hours in USD. It's applicable to pay-as-you-go mode.\nNote: this field may return null, indicating that no valid value is obtained.",
+          "member": "float",
+          "name": "UnitPriceDiscountSecondStep",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Original unit price for the usage after 360 hours in USD. It's applicable to pay-as-you-go mode.\nNote: this field may return null, indicating that no valid value is obtained.",
+          "member": "float",
+          "name": "UnitPriceThirdStep",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Discounted unit price for the usage after 360 hours in USD. It's applicable to pay-as-you-go mode.\nNote: this field may return null, indicating that no valid value is obtained.",
+          "member": "float",
+          "name": "UnitPriceDiscountThirdStep",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Original 3-year payment, in USD. This parameter is only available to upfront payment mode.\nNote: this field may return `null`, indicating that no valid value was found.\nNote: this field may return `null`, indicating that no valid value was found.",
+          "member": "float",
+          "name": "OriginalPriceThreeYear",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Discounted 3-year upfront payment, in USD. This parameter is only available to upfront payment mode.\nNote: this field may return `null`, indicating that no valid value was found.\nNote: this field may return `null`, indicating that no valid value was found.",
+          "member": "float",
+          "name": "DiscountPriceThreeYear",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Discount for 3-year upfront payment. For example, 20.0 indicates 80% off.\nNote: this field may return `null`, indicating that no valid value was found.\nNote: this field may return `null`, indicating that no valid value was found.",
+          "member": "float",
+          "name": "DiscountThreeYear",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Original 5-year payment, in USD. This parameter is only available to upfront payment mode.\nNote: this field may return `null`, indicating that no valid value was found.\nNote: this field may return `null`, indicating that no valid value was found.",
+          "member": "float",
+          "name": "OriginalPriceFiveYear",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Discounted 5-year upfront payment, in USD. This parameter is only available to upfront payment mode.\nNote: this field may return `null`, indicating that no valid value was found.\nNote: this field may return `null`, indicating that no valid value was found.",
+          "member": "float",
+          "name": "DiscountPriceFiveYear",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Discount for 5-year upfront payment. For example, 20.0 indicates 80% off.\nNote: this field may return `null`, indicating that no valid value was found.\nNote: this field may return `null`, indicating that no valid value was found.",
+          "member": "float",
+          "name": "DiscountFiveYear",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Original 1-year payment, in USD. This parameter is only available to upfront payment mode.\nNote: this field may return `null`, indicating that no valid value was found.\nNote: this field may return `null`, indicating that no valid value was found.",
+          "member": "float",
+          "name": "OriginalPriceOneYear",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Discounted 1-year payment, in USD. This parameter is only available to upfront payment mode.\nNote: this field may return `null`, indicating that no valid value was found.\nNote: this field may return `null`, indicating that no valid value was found.",
+          "member": "float",
+          "name": "DiscountPriceOneYear",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Discount for 1-year upfront payment. For example, 20.0 indicates 80% off.\nNote: this field may return `null`, indicating that no valid value was found.\nNote: this field may return `null`, indicating that no valid value was found.",
+          "member": "float",
+          "name": "DiscountOneYear",
+          "required": true,
+          "type": "float",
+          "value_allowed_null": true
+        }
+      ],
+      "usage": "out"
+    },
+    "LocalDiskType": {
+      "document": "Describes local disk specifications.",
+      "members": [
+        {
+          "default": "",
+          "document": "Type of a local disk.",
+          "member": "string",
+          "name": "Type",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Attributes of a local disk.",
+          "member": "string",
+          "name": "PartitionType",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Minimum size of a local disk.",
+          "member": "int64",
+          "name": "MinSize",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Maximum size of a local disk.",
+          "member": "int64",
+          "name": "MaxSize",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": false
+        },
+        {
+          "default": "",
+          "document": "Whether a local disk is required during purchase. Valid values:<br><li>REQUIRED: required<br><li>OPTIONAL: optional",
+          "member": "string",
+          "name": "Required",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": false
+        }
+      ],
+      "usage": "out"
+    },
+    "StorageBlock": {
+      "document": "Information on local HDD storage.",
+      "members": [
+        {
+          "default": "LOCAL_PRO",
+          "document": "Local HDD storage type. Value: LOCAL_PRO.\nNote: This field may return null, indicating that no valid value is found.",
+          "member": "string",
+          "name": "Type",
+          "required": true,
+          "type": "string",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Minimum capacity of local HDD storage\nNote: This field may return null, indicating that no valid value is found.",
+          "member": "int64",
+          "name": "MinSize",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": true
+        },
+        {
+          "default": "",
+          "document": "Maximum capacity of local HDD storage\nNote: This field may return null, indicating that no valid value is found.",
+          "member": "int64",
+          "name": "MaxSize",
+          "required": true,
+          "type": "int",
+          "value_allowed_null": true
+        }
+      ],
+      "usage": "out"
+    }
+  },
+  "version": "1.0"
+}
