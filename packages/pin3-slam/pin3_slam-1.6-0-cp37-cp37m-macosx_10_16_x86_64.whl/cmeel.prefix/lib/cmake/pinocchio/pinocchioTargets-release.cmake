@@ -1,0 +1,39 @@
+#----------------------------------------------------------------
+# Generated CMake target import file for configuration "Release".
+#----------------------------------------------------------------
+
+# Commands may need to know the format version.
+set(CMAKE_IMPORT_FILE_VERSION 1)
+
+# Import target "pinocchio::pinocchio" for configuration "Release"
+set_property(TARGET pinocchio::pinocchio APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+set_target_properties(pinocchio::pinocchio PROPERTIES
+  IMPORTED_LOCATION_RELEASE "${PACKAGE_PREFIX_DIR}/lib/libpinocchio.2.9.1.dylib"
+  IMPORTED_SONAME_RELEASE "@rpath/libpinocchio.2.9.1.dylib"
+  )
+
+list(APPEND _cmake_import_check_targets pinocchio::pinocchio )
+list(APPEND _cmake_import_check_files_for_pinocchio::pinocchio "${PACKAGE_PREFIX_DIR}/lib/libpinocchio.2.9.1.dylib" )
+
+# Import target "pinocchio::pinocchio_pywrap_default" for configuration "Release"
+set_property(TARGET pinocchio::pinocchio_pywrap_default APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+set_target_properties(pinocchio::pinocchio_pywrap_default PROPERTIES
+  IMPORTED_LOCATION_RELEASE "${PACKAGE_PREFIX_DIR}/lib/python3.7/site-packages/pinocchio/pinocchio_pywrap_default.2.9.1.cpython-37m-darwin.so"
+  IMPORTED_SONAME_RELEASE "@rpath/pinocchio_pywrap_default.2.9.1.cpython-37m-darwin.so"
+  )
+
+list(APPEND _cmake_import_check_targets pinocchio::pinocchio_pywrap_default )
+list(APPEND _cmake_import_check_files_for_pinocchio::pinocchio_pywrap_default "${PACKAGE_PREFIX_DIR}/lib/python3.7/site-packages/pinocchio/pinocchio_pywrap_default.2.9.1.cpython-37m-darwin.so" )
+
+# Import target "pinocchio::pinocchio_pywrap_casadi" for configuration "Release"
+set_property(TARGET pinocchio::pinocchio_pywrap_casadi APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+set_target_properties(pinocchio::pinocchio_pywrap_casadi PROPERTIES
+  IMPORTED_LOCATION_RELEASE "${PACKAGE_PREFIX_DIR}/lib/python3.7/site-packages/pinocchio/pinocchio_pywrap_casadi.2.9.1.cpython-37m-darwin.so"
+  IMPORTED_SONAME_RELEASE "@rpath/pinocchio_pywrap_casadi.2.9.1.cpython-37m-darwin.so"
+  )
+
+list(APPEND _cmake_import_check_targets pinocchio::pinocchio_pywrap_casadi )
+list(APPEND _cmake_import_check_files_for_pinocchio::pinocchio_pywrap_casadi "${PACKAGE_PREFIX_DIR}/lib/python3.7/site-packages/pinocchio/pinocchio_pywrap_casadi.2.9.1.cpython-37m-darwin.so" )
+
+# Commands beyond this point should not need to know the version.
+set(CMAKE_IMPORT_FILE_VERSION)
