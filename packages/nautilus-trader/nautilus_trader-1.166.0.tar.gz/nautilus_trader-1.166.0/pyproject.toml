@@ -1,0 +1,185 @@
+[tool.poetry]
+name = "nautilus_trader"
+version = "1.166.0"
+description = "A high-performance algorithmic trading platform and event-driven backtester"
+authors = ["Nautech Systems <info@nautechsystems.io>"]
+license = "LGPL-3.0-or-later"
+readme = "README.md"
+homepage = "https://nautilustrader.io"
+repository = "https://github.com/nautechsystems/nautilus_trader"
+classifiers = [
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+    "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Science/Research",
+]
+include = [
+    # Rust source must be included in the source distributions
+    { path = "nautilus_core/*", format = "sdist" },
+    { path = "nautilus_core/*[!target]*/*", format = "sdist" },
+    # Compiled extensions must be included in the wheel distributions
+    { path = "nautilus_trader/**/*.so", format = "wheel" },
+    { path = "nautilus_trader/**/*.pyd", format = "wheel" },
+]
+
+[build-system]
+requires = [
+    "setuptools",
+    "poetry-core>=1.4.0",
+    "numpy>=1.24.1",
+    "Cython==3.0.0a11",
+]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.build]
+script = "build.py"
+generate-setup-file = false
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+cython = "==3.0.0a11"
+aiodns = "^3.0.0"
+aiohttp = "^3.8.3"
+click = "^8.1.3"
+frozendict = "^2.3.4"
+fsspec = "^2022.11.0"
+msgspec = "^0.12.0"
+numpy = "^1.24.1"
+pandas = "^1.5.2"
+psutil = "^5.9.4"
+pyarrow = "^10.0.1"
+pytz = "^2022.7.1"
+tabulate = "^0.9.0"
+toml = "^0.10.2"
+tqdm = "^4.64.1"
+uvloop = {version = "^0.17.0", markers = "sys_platform != 'win32'"}
+hiredis = {version = "^2.1.1", optional = true}
+ib_insync = {version = "^0.9.81", optional = true}
+redis = {version = "^4.4.2", optional = true}
+docker = {version = "^6.0.1", optional = true}
+betfair_parser = {version = "==0.1.9", optional = true}
+
+[tool.poetry.extras]
+betfair = ["betfair_parser"]
+docker = ["docker"]
+ib = ["ib_insync"]
+redis = ["hiredis", "redis"]
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.12.0"
+flake8 = "^6.0.0"
+isort = "^5.11.4"
+mypy = "^0.991"
+pre-commit = "^2.21.0"
+pyproject-flake8 = "^6.0.0"
+types-pytz = "^2022.6.0"
+types-redis = "^4.3.21"
+types-requests = "^2.28.11"
+types-toml = "^0.10.8"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+coverage = "^6.5.0"
+pytest = "^7.2.1"
+pytest-asyncio = "^0.20.2"
+pytest-benchmark = "^4.0.0"
+pytest-cov = "4.0.0"
+pytest-mock = "^3.10.0"
+pytest-xdist = { version = "^3.1.0", extras = ["psutil"] }
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+numpydoc = "^1.5.0"
+linkify-it-py = "^2.0.0"
+myst-parser = "^0.18.1"
+sphinx_comments = "^0.0.3"
+sphinx_copybutton = "^0.5.0"
+sphinx-external-toc = "^0.3.1"
+sphinx-material = "^0.0.35"
+sphinx_togglebutton = "^0.3.0"
+
+##########################################################
+# Formatter configs                                      #
+##########################################################
+[tool.isort]
+py_version = "39"
+skip_glob = ["**/core/rust/*"]
+combine_as_imports = true
+line_length = 100
+ensure_newline_before_comments = true
+force_single_line = true
+single_line_exclusions = ["typing"]
+include_trailing_comma = true
+multi_line_output = 3
+lines_after_imports = 2
+use_parentheses = true
+filter_files = true
+
+[tool.black]
+target_version = ["py39", "py310", "py311"]
+line_length = 100
+
+##########################################################
+# Linter configs                                         #
+##########################################################
+[tool.flake8]
+max_line_length = 150  # (Reduce to 120)
+max_complexity = 10
+extend_ignore = ["E203"]
+minimum_python_version = "3.9"
+
+##########################################################
+# Static analysis configs                                #
+##########################################################
+[tool.mypy]
+python_version = "3.9"
+# disallow_incomplete_defs = true
+explicit_package_bases = true
+ignore_missing_imports = true
+namespace_packages = true
+no_strict_optional = true
+warn_no_return = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+##########################################################
+# Test configs                                           #
+##########################################################
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --new-first --failed-first --doctest-modules --doctest-glob=\"*.pyx\""
+asyncio_mode = "strict"
+filterwarnings = [
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
+
+[tool.coverage.run]
+plugins = ["Cython.Coverage"]
+source = ["nautilus_trader"]
+omit = [
+    "nautilus_trader/adapters/*",
+    "nautilus_trader/examples/*",
+    "nautilus_trader/test_kit/*",
+]
+
+[tool.coverage.report]
+fail_under = 0
+show_missing = true
