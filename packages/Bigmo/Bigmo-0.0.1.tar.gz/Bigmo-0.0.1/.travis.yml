@@ -1,0 +1,16 @@
+language: python
+python:
+  - 3.7
+install:
+  - pip install -r requirements.txt
+  - pip install .
+script: pytest
+deploy:
+  provider: pypi
+  user: __token__
+  password:
+    secure: pypi-AgEIcHlwaS5vcmcCJDE5MWQ5N2M5LWY1MDItNDNjYy05MmNlLTIzY2VhZDQ1OTg2NAACKlszLCIwNTgxODkyZi05ZjI2LTQ2NTItOTY2YS1jMjNhODNjOGYwNmQiXQAABiDJm6415LFs6qJ-akP4KpQj_Ma8W_zjYWLWz4fe4tgYzw
+  on:
+    tags: true
+  skip_existing: true
+  distributions: sdist bdist_wheel
