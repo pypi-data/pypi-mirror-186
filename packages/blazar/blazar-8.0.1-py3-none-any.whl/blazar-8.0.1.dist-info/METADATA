@@ -1,0 +1,115 @@
+Metadata-Version: 2.1
+Name: blazar
+Version: 8.0.1
+Summary: Reservation Service for OpenStack clouds
+Home-page: https://docs.openstack.org/blazar/latest/
+Author: OpenStack
+Author-email: openstack-discuss@lists.openstack.org
+License: Apache Software License
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Environment :: OpenStack
+Classifier: Development Status :: 3 - Alpha
+Classifier: Framework :: Setuptools Plugin
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: POSIX :: Linux
+Requires-Python: >=3.6
+Requires-Dist: Flask (>=1.0.2)
+Requires-Dist: Routes (>=2.3.1)
+Requires-Dist: SQLAlchemy (!=1.1.5,!=1.1.6,!=1.1.7,!=1.1.8,>=1.0.10)
+Requires-Dist: WSME (>=0.8.0)
+Requires-Dist: WebOb (>=1.7.1)
+Requires-Dist: alembic (>=0.9.6)
+Requires-Dist: eventlet (!=0.18.3,!=0.20.1,!=0.21.0,!=0.23.0,!=0.25.0,>=0.18.2)
+Requires-Dist: iso8601 (>=0.1.11)
+Requires-Dist: keystoneauth1 (>=3.13.0)
+Requires-Dist: keystonemiddleware (>=4.17.0)
+Requires-Dist: microversion-parse (>=0.2.1)
+Requires-Dist: netaddr (>=0.7.18)
+Requires-Dist: oslo.concurrency (>=3.26.0)
+Requires-Dist: oslo.config (>=6.8.0)
+Requires-Dist: oslo.context (>=2.22.0)
+Requires-Dist: oslo.db (>=4.40.0)
+Requires-Dist: oslo.i18n (>=3.15.3)
+Requires-Dist: oslo.log (>=3.36.0)
+Requires-Dist: oslo.messaging (>=5.29.0)
+Requires-Dist: oslo.middleware (>=3.31.0)
+Requires-Dist: oslo.policy (>=3.6.0)
+Requires-Dist: oslo.serialization (!=2.19.1,>=2.18.0)
+Requires-Dist: oslo.service (>=1.34.0)
+Requires-Dist: oslo.upgradecheck (>=1.3.0)
+Requires-Dist: oslo.utils (>=4.5.0)
+Requires-Dist: pbr (!=2.1.0,>=2.0.0)
+Requires-Dist: pecan (!=1.0.2,!=1.0.3,!=1.0.4,!=1.2,>=1.0.0)
+Requires-Dist: python-keystoneclient (>=3.8.0)
+Requires-Dist: python-neutronclient (>=6.0.0)
+Requires-Dist: python-novaclient (>=9.1.0)
+Requires-Dist: requests (>=2.18.4)
+Requires-Dist: retrying (!=1.3.0,>=1.3.3)
+Requires-Dist: stevedore (>=1.20.0)
+
+Team and repository tags
+========================
+
+.. image:: https://governance.openstack.org/tc/badges/blazar.svg
+    :target: https://governance.openstack.org/tc/reference/tags/index.html
+
+.. Change things from this point on
+
+Blazar
+======
+
+Blazar is a resource reservation service for OpenStack. Blazar enables users
+to reserve a specific type/amount of resources for a specific time period and
+it leases these resources to users based on their reservations.
+
+The following two resource types are currently supported:
+
+* Compute host: reserve and lease with a unit of a whole host
+
+* Instance: reserve and lease with a unit of a flavor
+
+Please see the following resources to learn more.
+
+API
+---
+
+See `Blazar API reference <https://docs.openstack.org/blazar/latest/restapi/>`__.
+
+Operators
+---------
+
+To learn how to deploy and configure Blazar,
+see `the installation guide <https://docs.openstack.org/blazar/latest/install/>`__
+and `the configuration reference <https://docs.openstack.org/blazar/latest/configuration/>`__.
+
+Developers
+----------
+
+To learn how to contribute to Blazar, see `the contributor guide <https://docs.openstack.org/blazar/latest/contributor/>`__.
+
+Other Resources
+---------------
+
+* Source code:
+
+  * `Blazar <https://opendev.org/openstack/blazar>`__
+  * `Nova scheduler filter <https://opendev.org/openstack/blazar-nova>`__
+  * `Client tools <https://opendev.org/openstack/python-blazarclient>`__
+  * `Dashboard (Horizon plugin) <https://opendev.org/openstack/blazar-dashboard>`__
+
+* Blueprints/Bugs: https://launchpad.net/blazar
+* Documentation: https://docs.openstack.org/blazar/latest/
+* Release notes: https://docs.openstack.org/releasenotes/blazar/
+* Design specifications: https://specs.openstack.org/openstack/blazar-specs/
+
+
+
