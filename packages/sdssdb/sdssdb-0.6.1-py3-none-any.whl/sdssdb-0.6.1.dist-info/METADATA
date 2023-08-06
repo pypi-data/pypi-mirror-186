@@ -1,0 +1,91 @@
+Metadata-Version: 2.1
+Name: sdssdb
+Version: 0.6.1
+Summary: SDSS product for database management
+Home-page: https://github.com/sdss/sdssdb
+Author: José Sánchez-Gallego
+Author-email: gallegoj@uw.edu
+License: BSD 3-Clause License
+Project-URL: Repository, https://github.com/sdss/sdssdb
+Project-URL: Documentation, https://sdssdb.readthedocs.org
+Keywords: astronomy,software,database
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Documentation :: Sphinx
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.6
+Description-Content-Type: text/x-rst
+License-File: LICENSE.md
+Requires-Dist: pyyaml (>=5.1)
+Requires-Dist: pygments
+Requires-Dist: pgpasslib (>=1.1.0)
+Requires-Dist: psycopg2-binary (>=2.7.7)
+Requires-Dist: six (>=1.12.0)
+Requires-Dist: peewee (>=3.9.6)
+Requires-Dist: sqlalchemy (>=1.3.6)
+Requires-Dist: sdsstools (>=0.1.11)
+Requires-Dist: numpy (>=1.18.2)
+Provides-Extra: all
+Requires-Dist: progressbar2 (>=3.46.1) ; extra == 'all'
+Requires-Dist: pydot (>=1.4.1) ; extra == 'all'
+Requires-Dist: astropy (>=4.0.0) ; extra == 'all'
+Requires-Dist: pandas (>=1.0.0) ; extra == 'all'
+Requires-Dist: inflect (>=4.1.0) ; extra == 'all'
+Provides-Extra: dev
+Requires-Dist: pytest (>=5.2) ; extra == 'dev'
+Requires-Dist: pytest-cov (>=2.4.0) ; extra == 'dev'
+Requires-Dist: pytest-sugar (>=0.8.0) ; extra == 'dev'
+Requires-Dist: ipython (>=7.13.0) ; extra == 'dev'
+Requires-Dist: ipdb (>=0.13.2) ; extra == 'dev'
+Requires-Dist: pytest-postgresql (>=2.2.1) ; extra == 'dev'
+Requires-Dist: factory-boy (>=2.12.0) ; extra == 'dev'
+Requires-Dist: pytest-factoryboy (>=2.0.3) ; extra == 'dev'
+Requires-Dist: astropy (>=4.0.0) ; extra == 'dev'
+Requires-Dist: pydot (>=1.4.2) ; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: Sphinx (<4.0.0,>=3.0.0) ; extra == 'docs'
+Requires-Dist: sphinx-bootstrap-theme (>=0.4.12) ; extra == 'docs'
+Requires-Dist: jinja2 (==3.0.0) ; extra == 'docs'
+
+sdssdb
+======
+
+|python| |docs| |travis|
+
+`SDSS <https://sdss.org>`__ product for database management.
+
+**sdssdb is in active development. Although the code is stable and can be used for production, the implementation of existing features may be changed without previous notice. This will change when we reach version 1.0.0.**
+
+Useful links
+------------
+
+- GitHub: https://github.com/sdss/sdssdb
+- Documentation: https://sdssdb.readthedocs.org
+- Issues: https://github.com/sdss/sdssdb/issues
+
+How to use
+----------
+::
+
+    >>> from sdssdb.peewee.sdss5db import catalogdb
+    >>> targets = catalogdb.GaiaDR2Source.select().where(catalogdb.GaiaDR2Source.phot_g_mean_mag < 15)
+
+
+.. |python| image:: https://img.shields.io/badge/python-3.6%2B-green.svg
+    :alt: Requires Python 3.6+
+    :scale: 100%
+
+.. |docs| image:: https://readthedocs.org/projects/sdssdb/badge/?version=latest
+    :alt: Documentation Status
+    :scale: 100%
+    :target: https://sdssdb.readthedocs.io/en/latest/?badge=latest
+
+.. |travis| image:: https://travis-ci.org/sdss/sdssdb.svg?branch=main
+    :target: https://travis-ci.org/sdss/sdssdb
+
+.. |Python application| image:: https://github.com/sdss/sdssdb/workflows/Python%20application/badge.svg
