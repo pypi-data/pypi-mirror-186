@@ -1,0 +1,84 @@
+Metadata-Version: 2.1
+Name: justrpa
+Version: 0.1.2
+Summary: Just RPA Common Library
+Home-page: https://justrpa.com/
+Author: loop
+Author-email: jing.yan.cn@gmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+Requires-Dist: rpaframework (==9.5.0)
+Requires-Dist: pandas (==1.2.5)
+Requires-Dist: xlsxwriter (==3.0.3)
+Requires-Dist: psutil (==5.9.1)
+
+# JUSTRPA LIBRARY
+
+## Installation
+```
+pip install justrpa
+```
+
+### Get started
+How to use this library
+
+#### Define your Browser class 
+
+You can inherit from TaskBrowser to create your own browser object for browser tasks.
+
+```Python
+from justrpa.browser import TaskBrowser
+
+class TestBrowser(TaskBrowser):
+    def before_task_run(self, task_context:dict):
+        print("real before task implementation.")
+        return task_context
+
+    def do_test_task(self, task_params:dict):
+        print("Do real task")
+        print(task_params)
+        return task_params
+```
+#### Run Task Executer
+
+```Python
+from justrpa.task import TaskExecuter 
+
+env = {"account":"TestAccount", "taskname":"test_task", "new_browser":1, "headless":1}
+task_params = {"United States": [{"test":"test"}]}
+t = TaskExecuter("test_task", "tests.executer_test.TestBrowser", "do_test_task", env, task_params)
+task_context = t.run()
+```
+
+#### Run Task Handler
+
+```Python
+import argparse
+from justrpa.task import TaskHandler
+
+def run_task(taskname:str):
+    handler = TaskHandler()
+    handler.run(taskname)
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("task",default="", nargs="?", help="task name to run")
+    args = ap.parse_args()
+    task_name = args.task
+    run_task(task_name)
+```
+
+#### Robot Example 
+
+[justrpa example repository](https://github.com/jingyan/justrpa-example)
+
