@@ -1,0 +1,837 @@
+#!python
+
+# Created on Tue Dec 16 10:22:41 2014
+
+# Author: XiaoTao Wang
+
+## Required Modules
+import os, sys, argparse, logging, logging.handlers, glob, atexit, \
+       traceback, pickle, xmlrpc.client, time, runHiC
+from pkg_resources import parse_version as V
+
+try:
+    import numpy as np
+except ImportError:
+    pass
+
+## Check for update
+currentVersion = runHiC.__version__
+try:
+    pypi = xmlrpc.client.ServerProxy('http://pypi.python.org/pypi')
+    available = pypi.package_releases('runHiC')
+    if V(currentVersion) < V(available[0]):
+        print('*'*75)
+        print('Version {0} is out of date, Version {1} is available.'.format(currentVersion, available[0]))
+        print()
+        print('*'*75)
+except:
+    pass
+
+def getargs():
+    ## Construct an ArgumentParser object for command-line arguments
+    parser = argparse.ArgumentParser(description = '''A easy-to-use Hi-C data processing software
+                                     supporting distributed computation''',
+                                     formatter_class = argparse.ArgumentDefaultsHelpFormatter)
+    # Version
+    parser.add_argument('-v', '--version', action = 'version',
+                        version = ' '.join(['%(prog)s', currentVersion]),
+                        help = 'Print version number and exit')
+    
+    ## Sub-commands
+    subparser = parser.add_subparsers(title = 'sub-commands',
+                                      description = '''Read pair mapping, filtering, binning,
+                                      ICE correcting and quality assessment modules are contained.
+                                      You can perform each stage of the analysis separately, or streamline
+                                      the pipeline by "pileup" subcommand.''',
+                                      dest = 'subcommand')
+    ## Iterative Mapping
+    iterM = subparser.add_parser('mapping',
+                                 help = '''Map raw pair-end sequencing reads to a supplied
+                                 genome. It works well with .sra, .fastq, and .fastq.gz formats.
+                                 pairtools is used to parse original alignments, detect ligation
+                                 junctions, and output a valid 4DN pairs file (.pairsam).
+                                 ''',
+                                 formatter_class = argparse.ArgumentDefaultsHelpFormatter)
+    iterM.add_argument('-m', '--metadata', default = 'datasets.tsv',
+                       help = '''Metadata file describing each SRA/FASTQ file. You should place
+                       it under current working directory. Four columns are required: prefix
+                       of SRA/FASTQ file name, cell line/sample name, biological replicate label, and
+                       restriction enzyme name.''')
+    iterM.add_argument('-p', '--dataFolder',
+                       help = '''Path to the root data folder. Both sequencing reads and reference genome
+                       should be placed under this folder.''')
+    iterM.add_argument('-g', '--genomeName',
+                       help = '''Name of the folder containing the reference genome fasta file.''')
+    iterM.add_argument('-C', '--chromsizes-file',
+                       help = '''Path to the file containing the chromosome size information. The order of the chromosomes
+                       in this file determines the chromosome order in the outputed .pairs and .mcool files. If not specified,
+                       we will try to generate one according to the reference genome.''')
+    iterM.add_argument('-f', '--fastqDir', help = 'Name of the folder containing sequencing reads.')
+    iterM.add_argument('-F', '--Format', default = 'SRA', choices = ['SRA', 'FASTQ'],
+                       help = 'Format of the sequencing reads.')
+    iterM.add_argument('-A', '--aligner', default = 'chromap', choices = ['bwa-mem', 'chromap', 'minimap2'],
+                       help = '''Name of the sequence alignment software to invoke.''')
+    iterM.add_argument('-i', '--Index',
+                       help = '''Path to the bwa/chromap/minimap2 genome index. For example, if your reference genome
+                       is hg38.fa, and it is located within ~/data/hg38, then you need to specify --Index as "~/data/hg38/hg38.fa",
+                       "~/data/hg38/hg38.chromap-runhic.mmi", and "~/data/hg38/hg38.minimap2.mmi" for bwa-mem, chromap, and
+                       minimap2, respectively. When not specified, the index will be built automatically according to
+                       your aligner choice.''')
+    iterM.add_argument('-t', '--threads', type = int, default = 8, help = 'Number of threads.')
+    iterM.add_argument('--min-mapq', type = int, default = 1,
+                       help = '''The minimal MAPQ score to consider a read as uniquely mapped.''')
+    iterM.add_argument('--max-molecule-size', type = int, default = 2000,
+                       help = '''The maximal size of a Hi-C molecule, used to rescue single ligations from
+                       molecules with three alignments.''')
+    iterM.add_argument('--max-inter-align-gap', type = int, default = 20,
+                       help = '''A key parameter used by pairtools to rescue single ligations from walks.''')
+    iterM.add_argument('--walks-policy', default = 'all', choices = ['mask', '5any', '5unique', '3any', '3unique', 'all'],
+                       help = '''The policy used by pairtools to report unrescuable walks.''')
+    iterM.add_argument('--include-readid', action = 'store_true',
+                       help = '''If specified, add read IDs to the outputed .pairsam files.''')
+    iterM.add_argument('--include-sam', action = 'store_true',
+                       help = '''If specified, add sam columns to the outputed .pairsam files.''')
+    iterM.add_argument('--drop-seq', action = 'store_true',
+                       help = '''If specified, exclude SEQ and QUAL from the sam fields in the outputed .pairsam files.''')
+    iterM.add_argument('--add-frag', action = 'store_true',
+                       help = '''If specified, add the restriction fragment information to each pair.
+                       This information will be used to filter out reads that were mapped to the same fragment, including
+                       self-ligation reads and dangling reads.''')
+    iterM.add_argument('--memory', default='8G', help = '''The amount of memory allocated for pairtools sort.''')
+    iterM.add_argument('--chunkSize', type = int, help = '''On a low-memory machine, it's better
+                       to split the raw read file into chunks and map them separatively. This
+                       parameter specifies the size of each chunk. By default, no split is performed.''')
+    iterM.add_argument('--tmpdir', default='.runHiC', help='''Temporary folder for intermediate results.''')
+    iterM.add_argument('--logFile', default = 'runHiC.log', help = '''Logging file name.''')
+    iterM.set_defaults(func = mapping)
+    
+    ## Merging and Filtering
+    removeNoise = subparser.add_parser('filtering',
+                                       help = '''Perform read-/fragment-level filtering processes.
+                                       Data with the same biological replicate label, and multiple replicates
+                                       from the same cell line will also be merged together at this stage.
+                                       ''',
+                                       epilog = '''Please find the final valid contact pairs in *.pairs.gz.
+                                       If you specified the "--include-sam" flag when you ran "runHiC mapping",
+                                       it will also output a .bam file which only contains those read alignments
+                                       that passed all filtering criteria.''',
+                                       formatter_class = argparse.ArgumentDefaultsHelpFormatter)
+    removeNoise.add_argument('-m', '--metadata', default = 'datasets.tsv',
+                             help = '''Metadata file describing each SRA/FASTQ file. You should place
+                             it under current working directory. Four columns are required: prefix
+                             of SRA/FASTQ file name, cell line name, biological replicate label, and
+                             restriction enzyme name.''')
+    removeNoise.add_argument('--pairFolder',
+                             help = '''Path to the root folder(prefixed with "pairs-") of .pairsam.gz files generated
+                             during the mapping stage.''')
+    removeNoise.add_argument('--tmpdir', default='.runHiC', help='''Temporary folder for intermediate results.''')
+    removeNoise.add_argument('--nproc', type = int, default = 8, help = '''Number of allocated proccesses.''')
+    removeNoise.add_argument('--memory', default='8G', help = '''The amount of memory allocated for pairtools merge.''')
+    removeNoise.add_argument('--stats-cache', default = 'allinone.cache',
+                             help = 'Name the output cache file for data quality statistics.')
+    removeNoise.add_argument('--logFile', default = 'runHiC.log', help = '''Logging file name.''')
+    removeNoise.set_defaults(func = filtering)
+    
+    ## Binning / ICE
+    binReads = subparser.add_parser('binning',
+                                    help = '''Generate multi-resolution contact matrices in .mcool''',
+                                    formatter_class = argparse.ArgumentDefaultsHelpFormatter)
+    binReads.add_argument('-f', '--filtered', nargs = '+',
+                          help = '''Path to the filtered *.pairs.gz files generated during the filtering stage.
+                          Wild cards are allowed. If the path points to a folder, the binning procedure
+                          will be performed on each .pairs.gz file under that folder.''')
+    binReads.add_argument('-D', '--ignore-diags', type = int, default = 2,
+                          help = '''Number of diagonals of the contact matrix to ignore during ICE correcting. 0
+                          ignores nothing, 1 ignores the main diagonal, and 2 ignores diagonals (-1, 0, 1).''')
+    binReads.add_argument('--min-nnz', type = int, default = 10,
+                          help = '''Before ICE, drop bins whose marginal number of nonzeros is less than this
+                          number.''')
+    binReads.add_argument('--min-count', type = int, default = 0,
+                          help = '''Before ICE, drop bins whose marginal count is less than this number.''')
+    binReads.add_argument('--mad-max', type = int, default = 5,
+                          help = '''Before ICE, drop bins whose log marginal sum is less than ``mad_max``
+                          median absolute deviations below the median log marginal sum.''')
+    binReads.add_argument('--high-res', action = 'store_true', help='''If specified, bin pairs at 11 base-pair-delimited resolutions:
+                          2500000,1000000,500000,250000,100000,50000,25000,10000,5000,2000,1000. The default setting is binning pairs at
+                          9 resolutions: 2500000,1000000,500000,250000,100000,50000,25000,10000,5000.''')
+    binReads.add_argument('--nproc', type = int, default = 8, help = '''Number of allocated proccesses.''')
+    binReads.add_argument('--max-split', type = int, default = 2, help = '''Divide the pairs from each chromosome
+                          into at most this many chunks.''')
+    binReads.add_argument('--logFile', default = 'runHiC.log', help = '''Logging file name.''')
+    binReads.set_defaults(func = binning)
+    
+    ## Quality Assessment
+    QA = subparser.add_parser('quality',
+                              help = '''Assess data quality after filtering.''',
+                              formatter_class = argparse.ArgumentDefaultsHelpFormatter)
+    QA.add_argument('-L', '--Locator', help = '''Path to the folder containing *.pairs.gz files.''')
+    QA.add_argument('-m', '--metadata', default = 'datasets.tsv',
+                     help = '''Metadata file describing each SRA/FASTQ file. You should place
+                    it under current working directory. Four columns are required: prefix
+                    of SRA/FASTQ file name, cell line name, biological replicate label, and
+                    restriction enzyme name.''')
+    QA.add_argument('--stats-cache', default = 'allinone.cache',
+                    help = '''Name of the cache file generated by "runHiC filtering".''')
+    QA.add_argument('--logFile', default = 'runHiC.log', help = '''Logging file name.''')
+    QA.set_defaults(func = quality)
+                    
+    ## Pile Up
+    streamline = subparser.add_parser('pileup',
+                                      parents = [iterM],
+                                      help = '''Perform the entire analysis from mapping reads
+                                      to generating contact matrices''',
+                                      description = '''A more convenient but less flexible
+                                      command for Hi-C data processing.''',
+                                      formatter_class = argparse.ArgumentDefaultsHelpFormatter,
+                                      add_help = False)
+    streamline.add_argument('--max-split', type = int, default = 2, help = '''Divide the pairs from each chromosome
+                            into at most this many chunks.''')
+    streamline.add_argument('--high-res', action = 'store_true', help='''If specified, bin pairs at 11 base-pair-delimited resolutions:
+                            2500000,1000000,500000,250000,100000,50000,25000,10000,5000,2000,1000. The default setting is binning pairs at
+                            9 resolutions: 2500000,1000000,500000,250000,100000,50000,25000,10000,5000.''')
+    streamline.set_defaults(func = pileup)
+    
+     ## Parse the command-line arguments
+    commands = sys.argv[1:]
+    if ((not commands) or ((commands[0] in ['mapping', 'filtering', 'binning', 'pileup', 'quality'])
+        and len(commands) == 1)):
+        commands.append('-h')
+    args = parser.parse_args(commands)
+    
+    return args, commands
+    
+
+def run(args, commands):
+    
+    # Improve the performance if you don't want to run it
+    if commands[-1] not in ['-h', '-v', '--help', '--version']:
+        
+        if 'genomeName' in args:
+            if args.genomeName.endswith(os.path.sep):
+                args.genomeName = args.genomeName.rpartition(os.path.sep)[0]
+            
+        # Define a special level name
+        logging.addLevelName(21, 'main')
+        ## Root Logger Configuration
+        logger = logging.getLogger()
+        # Logger Level
+        logger.setLevel(21)
+        filehandler = logging.FileHandler(args.logFile)
+
+        # Set level for Handlers
+        filehandler.setLevel(21)
+        # Customizing Formatter
+        formatter = logging.Formatter(fmt = '%(name)-20s %(levelname)-7s @ %(asctime)s: %(message)s',
+                                      datefmt = '%m/%d/%y %H:%M:%S')
+        ## Unified Formatter
+        filehandler.setFormatter(formatter)
+        # Add Handlers
+        logger.addHandler(filehandler)
+        ## Logging for argument setting
+        arglist = ['# ARGUMENT LIST:',
+                   '# Sub-Command Name = {0}'.format(commands[0]),
+                   ]
+        if (commands[0] == 'mapping') or (commands[0] == 'pileup'):
+            args.dataFolder = os.path.abspath(os.path.expanduser(args.dataFolder))
+            arglist.extend(['# MetaData = {0}'.format(args.metadata), 
+                            '# Data Root Folder = {0}'.format(args.dataFolder),
+                            '# Genome Name = {0}'.format(args.genomeName),
+                            '# Chromsome Sizes = {0}'.format(args.chromsizes_file),
+                            '# Sequencing Data Folder = {0}'.format(args.fastqDir),
+                            '# Sequencing Format = {0}'.format(args.Format),
+                            '# Alignment Software = {0}'.format(args.aligner),
+                            '# Genome Index = {0}'.format(args.Index),
+                            '# Mapping Threads = {0}'.format(args.threads),
+                            '# Minimal MAPQ = {0}'.format(args.min_mapq),
+                            '# Maximal Molecule Size = {0}'.format(args.max_molecule_size),
+                            '# Max Inter Align Gap = {0}'.format(args.max_inter_align_gap),
+                            '# Walks Policy = {0}'.format(args.walks_policy),
+                            '# Include Read ID = {0}'.format(args.include_readid),
+                            '# Include Sam = {0}'.format(args.include_sam),
+                            '# Drop SEQ and QUAL = {0}'.format(args.drop_seq),
+                            '# Add Restriction Fragment = {0}'.format(args.add_frag),
+                            '# Memory for sort = {0}'.format(args.memory),
+                            '# Chunk size = {0}'.format(args.chunkSize),
+                            '# Temporary Dir = {0}'.format(args.tmpdir)
+                            ])
+        if (commands[0] == 'pileup'):
+            arglist.extend(['# Generate contact maps at 11 resolutions = {0}'.format(args.high_res)])
+                            
+        if commands[0] == 'filtering':
+            arglist.extend(['# Original Pairs = {0}'.format(args.pairFolder),
+                            '# MetaData = {0}'.format(args.metadata),
+                            '# Stats Cache = {0}'.format(args.stats_cache),
+                            '# Temporary Dir = {0}'.format(args.tmpdir),
+                            '# Number of processes = {0}'.format(args.nproc),
+                            '# Memory for merge = {0}'.format(args.memory)])
+        if commands[0] == 'binning':
+            arglist.extend(['# Filtered Pairs = {0}'.format(args.filtered),
+                            '# Number of Diagonals to ignore = {0}'.format(args.ignore_diags),
+                            '# Minimum Marginal Nonzeros = {0}'.format(args.min_nnz),
+                            '# Minimum Marginal Counts = {0}'.format(args.min_count),
+                            '# MAD Max = {0}'.format(args.mad_max),
+                            '# Generate contact maps at 11 resolutions = {0}'.format(args.high_res),
+                            '# Number of processes = {0}'.format(args.nproc)])
+        
+        if commands[0] == 'quality':
+            arglist.extend(['# MetaData = {0}'.format(args.metadata),
+                            '# Stats Cache File = {0}'.format(args.stats_cache)])
+        
+        argtxt = '\n'.join(arglist)
+        logging.log(21, '\n' + argtxt)
+            
+        # Subcommand
+        args.func(args, commands)
+
+def mapping(args, commands):
+    ## Import necessary modules
+    from runHiC.mapping import splitSRA, splitSingleFastq, uncompressSRA, buildMapIndex, map_core, parse_align
+    from runHiC.utilities import cleanDirectory, cleanFile, chromsizes_from_fasta, chrname_sort_flip_order
+
+    # customize temporary dir
+    tmpdir = os.path.abspath(os.path.expanduser(args.tmpdir))
+    if not os.path.exists(tmpdir):
+        os.makedirs(tmpdir)
+    
+    # Preparing
+    genomeFolder = os.path.join(args.dataFolder, args.genomeName)
+    fastqDir = os.path.join(args.dataFolder, args.fastqDir)
+    genomeName = args.genomeName
+    aligner = args.aligner
+    mFile = args.metadata
+    genomepath = os.path.join(genomeFolder, '.'.join([genomeName, 'fa']))
+    if not args.Index is None:
+        indexpath = os.path.abspath(os.path.expanduser(args.Index))
+    else:
+        if aligner=='minimap2':
+            indexpath = os.path.join(genomeFolder, '.'.join([genomeName, 'minimap2', 'mmi']))
+        elif aligner=='chromap':
+            indexpath = os.path.join(genomeFolder, '.'.join([genomeName, 'chromap-runhic', 'mmi']))
+        else:
+            indexpath = os.path.join(genomeFolder, '.'.join([genomeName, 'fa']))
+    
+    if args.chromsizes_file is None:
+        logging.log(21, 'Chromosome sizes are not provided, attempt to fetch from fasta reference genome ...')
+        chromsize_file = chromsizes_from_fasta(genomeFolder, genomeName)
+        logging.log(21, 'Done')
+    else:
+        chromsize_file = os.path.abspath(os.path.expanduser(args.chromsizes_file))
+    
+    # interrnally generate chromosome order files for chromap
+    flip_order_fil, sort_order_fil = chrname_sort_flip_order(genomepath, chromsize_file, tmpdir)
+    
+    if args.Index is None:
+        logging.log(21, 'You didn\'t specify the Genome Index Path. Try to find it under {0}'.format(genomeFolder))
+        indexlock = os.path.join(genomeFolder, '.'.join([genomeName, aligner, 'lock']))
+        if os.path.exists(indexlock):
+            raise Exception('''Another index building process is on. Leaving''')
+        if aligner in ['minimap2', 'chromap']:
+            icheck = glob.glob(indexpath)
+        else:
+            icheck = glob.glob(indexpath+'.sa')
+        if len(icheck):
+            logging.log(21, 'Set --Index to {0}'.format(indexpath))
+        else:
+            logging.log(21, '''Index files can not be found. Start to generate them ...''')
+            buildMapIndex(aligner, genomeFolder, genomeName)
+            logging.log(21, 'Done')
+    
+    ## Output Folders
+    bamFolder = 'alignments-{0}'.format(genomeName)
+    pairFolder = 'pairs-{0}'.format(genomeName)
+    args.pairFolder = pairFolder # To communicate with next processing step (filtering)
+    args.chromsizes_file = chromsize_file
+    if not os.path.exists(bamFolder):
+        os.makedirs(bamFolder)
+    if not os.path.exists(pairFolder):
+        os.makedirs(pairFolder)
+    
+    logging.log(21, 'Alignment results will be outputed under {0}'.format(bamFolder))
+    logging.log(21, 'Original alignments will be parsed into .pairs format under {0}'.format(pairFolder))
+    
+    # Read Metadata
+    metadata = [l.rstrip().split() for l in open(mFile, 'r') if not l.isspace()]
+    database = dict([(i[0], i[-1]) for i in metadata])
+    readformat = args.Format.lower()
+    logging.log(21, 'Dump/chunk read pairs from {0} format ...'.format(readformat))
+    for i, enzyme in database.items():
+        logging.log(21, 'Current: {0}'.format(i))
+            
+        chunkFolder = os.path.join(fastqDir, i)
+        
+        Indicator = os.path.join(fastqDir, '{0}.completed'.format(i))
+        lockFile = os.path.join(fastqDir, '{0}.lock'.format(i))
+        
+        if os.path.exists(Indicator):
+            logging.log(21, 'Completed process, skip')
+            continue
+        
+        if os.path.exists(lockFile):
+            logging.log(21, 'Conflict process, skip')
+            continue
+        
+        if not os.path.exists(chunkFolder):
+            os.makedirs(chunkFolder)
+        
+        if readformat == 'sra':
+            sourceFile = os.path.join(fastqDir, i + '.sra')
+            if not os.path.exists(sourceFile):
+                logging.warning('{0} can not be found on your system, skip'.format(sourceFile))
+                continue
+        else:
+            tryFile_1 = os.path.join(fastqDir, i + '_1.fastq')
+            tryFile_2 = os.path.join(fastqDir, i + '_1.fastq.gz')
+            tryFile_3 = os.path.join(fastqDir, i + '_2.fastq')
+            tryFile_4 = os.path.join(fastqDir, i + '_2.fastq.gz')
+            if os.path.exists(tryFile_1) and os.path.exists(tryFile_3):
+                Fastq_1 = tryFile_1
+                Fastq_2 = tryFile_3
+            elif os.path.exists(tryFile_2) and os.path.exists(tryFile_4):
+                Fastq_1 = tryFile_2
+                Fastq_2 = tryFile_4
+            else:
+                logging.warning('No proper FASTQ pairs can be found, skip')
+                continue
+        
+        cleanDirectory(chunkFolder)
+        
+        # Chunking/Dumping lock, not the mapping lock
+        lock = open(lockFile, 'wb')
+        lock.close()
+
+        atexit.register(cleanFile, lockFile)
+        
+        ## Make chunks according to --chunksize
+        if readformat == 'sra':
+            if not args.chunkSize:
+                logging.log(21, '{0}: Dump SRA ...'.format(i))
+                uncompressSRA(sourceFile, chunkFolder)
+                logging.log(21, '{0}: Done'.format(i))
+            else:
+                logging.log(21, '{0}: Split raw SRA into chunks ...'.format(i))
+                splitSRA(sourceFile, chunkFolder, splitBy = args.chunkSize)
+                logging.log(21, '{0}: Done'.format(i))
+        else:
+            if not args.chunkSize:
+                os.symlink(Fastq_1, os.path.join(chunkFolder, os.path.split(Fastq_1)[1]))
+                os.symlink(Fastq_2, os.path.join(chunkFolder, os.path.split(Fastq_2)[1]))
+            else:
+                logging.log(21, '{0}: Split raw FASTQs into chunks ...'.format(i))
+                splitSingleFastq(Fastq_1, i, 1, chunkFolder, splitBy = args.chunkSize)
+                splitSingleFastq(Fastq_2, i, 2, chunkFolder, splitBy = args.chunkSize)
+                logging.log(21, '{0}: Done'.format(i))
+        
+        completed = open(Indicator, 'wb')
+        completed.close()
+
+        # Release lock
+        os.remove(lockFile)
+    
+    logging.log(21, 'Map read pairs to {0} ...'.format(genomeName))
+    for i in database:
+        logging.log(21, 'Current: {0}'.format(i))
+
+        chunkFolder = os.path.join(fastqDir, i)
+        subbamFolder = os.path.join(bamFolder, i)
+        subPair = os.path.join(pairFolder, i)
+        for folder in [subbamFolder, subPair]:
+            if not os.path.exists(folder):
+                os.makedirs(folder)
+        
+        globalIndicator = os.path.join(pairFolder, '{0}.completed'.format(i))
+
+        if os.path.exists(globalIndicator):
+            logging.log(21, 'Completed work, skip')
+            continue
+
+        ReadFiles = [os.path.join(chunkFolder, f) for f in os.listdir(chunkFolder)]
+        Read_1 = sorted([f for f in ReadFiles if (f.endswith('_1.fastq.gz') or f.endswith('_1.fastq'))])
+        Read_2 = sorted([f for f in ReadFiles if (f.endswith('_2.fastq.gz') or f.endswith('_2.fastq'))])
+        if all([f.endswith('_1.fastq') for f in Read_1]) and all([f.endswith('_2.fastq') for f in Read_2]):
+            OutFiles = [os.path.join(subPair, os.path.split(f)[1].replace('_1.fastq', '.pairsam.gz')) for f in Read_1]
+        else:
+            OutFiles = [os.path.join(subPair, os.path.split(f)[1].replace('_1.fastq.gz', '.pairsam.gz')) for f in Read_1]
+            
+        Assignments = zip(Read_1, Read_2, OutFiles)
+        
+        childchecks = []
+        for count, (r1, r2, out) in enumerate(Assignments):
+            if len(Read_1)>1:
+                logging.log(21, '{0}: Chunk {1} ...'.format(i, count))
+            Indicator = os.path.join(subPair, os.path.split(out)[1].replace('.pairsam.gz', '.completed'))
+            lockFile = os.path.join(subPair, os.path.split(out)[1].replace('.pairsam.gz', '.lock'))
+
+            childchecks.append(Indicator)
+
+            if os.path.exists(Indicator):
+                logging.log(21, 'Chunk {0} of {1}: Completed work, skip'.format(count, i))
+                continue
+        
+            if os.path.exists(lockFile):
+                logging.log(21, 'Chunk {0} of {1}: Someone is working on it, skip'.format(count, i))
+                continue
+            
+            # Mapping lock
+            lock = open(lockFile, 'wb')
+            lock.close()
+
+            atexit.register(cleanFile, lockFile)
+
+            # BAM/SAM
+            align_path, align_stats = map_core(r1, r2, genomepath, indexpath, subbamFolder, tmpdir, aligner, nthread=args.threads, min_mapq=args.min_mapq,
+                                               flip_order_fil=flip_order_fil, sort_order_fil=sort_order_fil)
+            nproc_out = max(args.threads, 8)
+            nproc_in = max(nproc_out // 2, 3)
+            parse_align(align_path, align_stats, out, genomepath, chromsize_file, genomeName, args.min_mapq, args.max_molecule_size,
+                        args.max_inter_align_gap, args.walks_policy, args.include_readid, args.include_sam,
+                        args.drop_seq, tmpdir, enzyme, nproc_in, nproc_out, args.memory, args.add_frag)
+
+            completed = open(Indicator, 'wb')
+            completed.close()
+
+            logging.log(21, 'Chunk {0} of {1}: Done'.format(count, i))
+
+            os.remove(lockFile)
+        
+        if all([os.path.exists(child) for child in childchecks]):
+            completed = open(globalIndicator, 'wb')
+            completed.close()
+
+def filtering(args, commands):
+    # Necessary Modules
+    from runHiC.utilities import cleanDirectory, cleanFile
+    from runHiC.filtering import merge_pairs, biorep_level, enzyme_level, create_frag, split_pairsam, collect_stats, dedup
+    from runHiC.quality import outStatsCache, update_stats_pool
+
+    # customize temporary dir
+    tmpdir = os.path.abspath(os.path.expanduser(args.tmpdir))
+    if not os.path.exists(tmpdir):
+        os.makedirs(tmpdir)
+
+    Sources = os.path.abspath(os.path.expanduser(args.pairFolder))
+    mFile = args.metadata
+    
+    # Output Folder
+    filteredFolder = os.path.split(Sources)[-1].replace('pairs-', 'filtered-')
+    if not os.path.exists(filteredFolder):
+        os.makedirs(filteredFolder)
+    filteredFolder = os.path.abspath(filteredFolder)
+
+    stats_out_pre = os.path.join(filteredFolder, args.stats_cache)
+    
+    logging.log(21, 'Filtered files will be saved under {0}'.format(filteredFolder))
+    
+    metadata = [l.rstrip().split() for l in open(mFile) if not l.isspace()]
+    database = dict([(i[0], i[-1]) for i in metadata])
+    ## Hierarchical merging structures
+    bioReps = set((i[1], i[3], i[2]) for i in metadata if not os.path.exists(os.path.join(filteredFolder, '{0}-{1}-{2}.completed'.format(i[1], i[3], i[2]))))
+    cellLines = set((i[1], i[3]) for i in metadata if not os.path.exists(os.path.join(filteredFolder, '{0}-{1}-allReps.completed'.format(i[1], i[3]))))
+    
+    preList1 = [i[0] for i in metadata if os.path.exists(os.path.join(filteredFolder, '{0}-{1}-{2}.completed'.format(i[1], i[3], i[2])))]
+    preList2 = [i[0] for i in metadata if os.path.exists(os.path.join(filteredFolder, '{0}-{1}-allReps.completed'.format(i[1], i[3])))]
+    preSet = set(preList1) | set(preList2)
+    for ps in preSet:
+        if ps in database:
+            del database[ps]
+    
+    # To communicate with next processing step (binning)
+    args.filtered = []
+    for i in glob.glob(os.path.join(filteredFolder, '*.completed')):
+        filtered = i.replace('.completed', '-filtered.pairs.gz')
+        args.filtered.append(filtered)
+    
+    nproc_out = max(args.nproc, 8)
+    nproc_in = max(nproc_out // 2, 3)
+    logging.log(21, 'Merge chunks ...')
+    for SRR in database:
+        logging.log(21, 'Current SRA/FASTQ: {0} ...'.format(SRR))
+        subPair = os.path.join(Sources, SRR)
+        if not os.path.exists(os.path.join(Sources, '{0}.completed'.format(SRR))):
+            logging.log(21, '{0} is still in mapping stage, skip'.format(SRR))
+            continue
+        
+        subFilter = os.path.join(filteredFolder, SRR)
+        
+        Indicator = os.path.join(subFilter, '{0}.completed'.format(SRR))
+        lockFile = os.path.join(subFilter, '{0}.lock'.format(SRR))
+        
+        if os.path.exists(Indicator):
+            logging.log(21, 'Completed work, skip')
+            continue
+        
+        if os.path.exists(lockFile):
+            logging.log(21, 'Someone is working on it, skip')
+            continue
+        
+        if not os.path.exists(subFilter):
+            os.makedirs(subFilter)
+        
+        cleanDirectory(subFilter)
+        
+        lock = open(lockFile, 'w')
+        lock.close()
+        
+        atexit.register(cleanFile, lockFile)
+        
+        inFiles = glob.glob(os.path.join(subPair, SRR + '*.pairsam.gz'))
+        intermediate = os.path.join(subFilter, SRR + '.total.pairsam.gz')
+        poolName = os.path.join(subFilter, SRR + '.pairsam.gz')
+        logging.log(21, '{0}: merging pairs from {1} chunks ...'.format(SRR, len(inFiles)))
+        merge_pairs(inFiles, intermediate, tmpdir, nproc_in, nproc_out, args.memory)
+        stats = collect_stats(inFiles)['pseudo']
+        logging.log(21, '{0}: removing PCR duplicates ...'.format(SRR))
+        dedup(intermediate, poolName, stats, nproc_in, nproc_out) # remove PCR duplicates
+        outStatsCache({'pseudo': stats}, poolName.replace('.pairsam.gz', '.pstats'))
+        
+        logging.log(21, '{0}: Done'.format(SRR))
+        
+        completed = open(Indicator, 'wb')
+        completed.close()
+                    
+        os.remove(lockFile)
+    
+    ## The First level, biological replicates
+    logging.log(21, 'Merge data of the same biological replicates and perform read/fragment-level filtering ...')
+    for rep in bioReps:
+        logging.log(21, 'Current work ID: {0}-{1}-{2}'.format(*rep))
+        checkComplete = [os.path.join(filteredFolder, i[0], '{0}.completed'.format(i[0])) for i in metadata
+                         if ((i[1], i[3], i[2]) == rep)]
+        if not all([os.path.exists(i) for i in checkComplete]):
+            logging.log(21, 'Merging on some SRA/FASTQ hasn\'t been completed, skip')
+            continue
+        
+        Indicator = os.path.join(filteredFolder, '{0}-{1}-{2}.completed'.format(*rep))
+        lockFile = os.path.join(filteredFolder, '{0}-{1}-{2}.lock'.format(*rep))
+        
+        if os.path.exists(Indicator):
+            logging.log(21, 'Completed work, skip')
+            continue
+        
+        if os.path.exists(lockFile):
+            logging.log(21, 'Conflicted work, skip')
+            continue
+        
+        lock = open(lockFile, 'w')
+        lock.close()
+        
+        atexit.register(cleanFile, lockFile)
+        
+        filenames = [os.path.join(filteredFolder, i[0], '{0}.pairsam.gz'.format(i[0])) for i in metadata
+                    if ((i[1], i[3], i[2]) == rep)]
+        outpre = os.path.join(filteredFolder, '{0}-{1}-{2}-filtered'.format(*rep))
+        # rep: (cell line, enzyme, replicate label)
+        stats, outpath = biorep_level(filenames, outpre, tmpdir, nproc_in, nproc_out, args.memory)
+        stats_pool = {}
+        stats_pool[rep] = stats
+
+        outStatsCache(stats_pool, stats_out_pre)
+
+        pairpath = split_pairsam(outpath)
+        args.filtered.append(pairpath)
+        
+        completed = open(Indicator, 'wb')
+        completed.close()
+               
+        os.remove(lockFile)
+        
+        logging.log(21, '{0}-{1}-{2}: Done'.format(*rep))
+    
+    logging.log(21, 'Merge biological replicates ...')
+    bioList = set((i[1], i[3], i[2]) for i in metadata)
+    for cell in cellLines:
+        filenames = [os.path.join(filteredFolder, '{0}-{1}-{2}-filtered.pairsam.gz'.format(*i)) for i in bioList
+                     if ((i[0], i[1]) == cell)]
+        if len(filenames) > 1:
+            logging.log(21, 'Current work ID: {0}-{1}'.format(*cell))
+            checkComplete = [os.path.exists(os.path.join(filteredFolder, '{0}-{1}-{2}.completed'.format(*i))) for i in bioList
+                            if ((i[0], i[1]) == cell)]
+            if not all(checkComplete):
+                logging.log(21, 'Filtering on some reps hasn\'t been completed, skip')
+                continue
+            Indicator = os.path.join(filteredFolder, '{0}-{1}-allReps.completed'.format(*cell))
+            lockFile = os.path.join(filteredFolder, '{0}-{1}.lock'.format(*cell))
+            if os.path.exists(Indicator):
+                logging.log(21, 'Completed work, skip')
+                continue
+            if os.path.exists(lockFile):
+                logging.log(21, 'Conflicted work, skip')
+                continue
+            lock = open(lockFile, 'w')
+            lock.close()
+
+            atexit.register(cleanFile, lockFile)
+
+            keys = [i for i in bioList if ((i[0], i[1]) == cell)] # for stats
+            outkey = cell + ('allReps',) # for stats
+            outpre = os.path.join(filteredFolder, '{0}-{1}-allReps-filtered'.format(*cell))
+
+            stats_pool = {}
+            update_stats_pool(stats_pool, keys, stats_out_pre)
+            stats_pool, outpath = enzyme_level(filenames, outpre, keys, outkey, stats_pool, tmpdir, nproc_in, nproc_out, args.memory)
+            outStatsCache(stats_pool, stats_out_pre)
+
+            ########### should consider situation when no replicates exist
+            pairpath = split_pairsam(outpath)
+            args.filtered.append(pairpath)
+
+            for f in filenames:
+                cleanFile(f)
+            cleanFile(outpath)
+            
+            completed = open(Indicator, 'wb')
+            completed.close()
+
+            os.remove(lockFile)
+            logging.log(21, '{0}-{1}: Done'.format(*cell))
+        else:
+            for f in filenames:
+                cleanFile(f)
+    
+
+def binning(args, commands):
+    # Necessary Modules
+    from runHiC.binning import mcool_from_pairs
+    from runHiC.utilities import cleanFile
+    
+    Sources = [os.path.abspath(os.path.expanduser(i)) for i in args.filtered]
+
+    logging.log(21, 'Binning start ...')
+    
+    ## Generate Matrices
+    for S in Sources:
+        if os.path.isdir(S):
+            sFolder = S
+            queue = glob.glob(os.path.join(S, '*.pairs.gz'))
+        else:
+            parse = os.path.split(S)
+            sFolder = parse[0]
+            queue = [i for i in glob.glob(S) if i.endswith('.pairs.gz')]
+        
+        # Output Dir
+        hFolder = os.path.split(sFolder)[-1].replace('filtered-', 'coolers-')
+        if not os.path.exists(hFolder):
+            os.makedirs(hFolder)
+            
+        for f in queue:
+            logging.log(21, 'Current pairs file: {0}'.format(f))
+            completeFile = f.replace('-filtered.pairs.gz', '.completed')
+            if not os.path.exists(completeFile):
+                logging.log(21, 'Filtering not completed, skip')
+                continue
+            
+            Indicator = os.path.join(hFolder, os.path.basename(f).replace('.pairs.gz', '.completed'))
+            lockFile = os.path.join(hFolder, os.path.basename(f).replace('.pairs.gz', '.lock'))
+            
+            if os.path.exists(Indicator):
+                logging.log(21, 'Completed work, skip')
+                continue
+        
+            if os.path.exists(lockFile):
+                logging.log(21, 'Conflicted work, skip')
+                continue
+            
+            lock = open(lockFile, 'w')
+            lock.close()
+            
+            atexit.register(cleanFile, lockFile)
+            
+            logging.log(21, 'Contact Matrices will be saved in .mcool format under {0}'.format(hFolder))
+            
+            if args.high_res:
+                intermediate = os.path.join(hFolder, os.path.basename(f).replace('.pairs.gz', '.1kb.cool'))
+            else:
+                intermediate = os.path.join(hFolder, os.path.basename(f).replace('.pairs.gz', '.5kb.cool'))
+            hFile = os.path.join(hFolder, os.path.basename(f).replace('.pairs.gz', '.mcool'))
+            mcool_from_pairs(f, intermediate, hFile, ignore_diags=args.ignore_diags, nproc=args.nproc,
+                            mad_max=args.mad_max, min_count=args.min_count, min_nnz=args.min_nnz,
+                            max_split=args.max_split, high_res=args.high_res)
+        
+            completed = open(Indicator, 'wb')
+            completed.close()
+                    
+            os.remove(lockFile)
+
+def quality(args, commands):
+
+    from runHiC.quality import loadStats, printStats, plot_libsize, typePlot, plot_piechart
+    
+    locator = os.path.abspath(os.path.expanduser(args.Locator))
+    cache_pre = os.path.join(locator, args.stats_cache)
+    stats_pool = loadStats(cache_pre)
+    
+    mFile = args.metadata
+    
+    metadata = [l.rstrip().split() for l in open(mFile) if not l.isspace()]
+        
+    bioReps = set((i[1], i[3], i[2]) for i in metadata)
+    cellLines = set((i[1], i[3]) for i in metadata)
+    
+    logging.log(21, 'Replicate-level assessment ...')
+    for rep in bioReps:
+        logging.log(21, 'Current rep ID: {0}-{1}-{2}'.format(*rep))
+        logging.log(21, 'Generate statistic table ...')
+        outStats = os.path.join(locator, '{0}-{1}-{2}.stats'.format(*rep))
+        stats = stats_pool[rep]
+        printStats(stats, outStats)
+        logging.log(21, 'Done')
+        logging.log(21, 'Figure for basic statistics')
+        outFig = os.path.join(locator, '{0}-{1}-{2}-stats.png'.format(*rep))
+        plot_piechart(stats, outFig, dpi = 300)
+        logging.log(21, 'Done')
+        logging.log(21, 'Figure for read-pair types ...')
+        outFig = os.path.join(locator, '{0}-{1}-{2}-PairType.png'.format(*rep))
+        typePlot(stats, outFig, dpi = 300)
+        logging.log(21, 'Done')
+        if '120_SameFragmentReads' in stats:
+            logging.log(21, 'Estimate library size with dangling reads ...')
+            outFig = os.path.join(locator, '{0}-{1}-{2}-librarySize.png'.format(*rep))
+            plot_libsize(stats, outFig, dpi = 300)
+            logging.log(21, 'Done')
+    
+    logging.log(21, 'Cell-line-level assessment ...')
+    for cell in cellLines:
+        logging.log(21, 'Current cell ID: {0}-{1}'.format(*cell))
+        logging.log(21, 'Generate statistic table ...')
+        outStats = os.path.join(locator, '{0}-{1}-allReps.stats'.format(*cell))
+        stats = stats_pool[cell + ('allReps',)]
+        printStats(stats, outStats)
+        logging.log(21, 'Done')
+        logging.log(21, 'Figure for basic statistics')
+        outFig = os.path.join(locator, '{0}-{1}-allReps-stats.png'.format(*cell))
+        plot_piechart(stats, outFig, dpi = 300)
+        logging.log(21, 'Done')
+        logging.log(21, 'Figure for read-pair types ...')
+        outFig = os.path.join(locator, '{0}-{1}-allReps-PairType.png'.format(*cell))
+        typePlot(stats, outFig, dpi = 300)
+        logging.log(21, 'Done')
+        if '120_SameFragmentReads' in stats:
+            logging.log(21, 'Estimate library size with dangling reads ...')
+            outFig = os.path.join(locator, '{0}-{1}-allReps-librarySize.png'.format(*cell))
+            plot_libsize(stats, outFig, dpi = 300)
+            logging.log(21, 'Done')
+
+          
+def pileup(args, commands):
+    """
+    A customized pipeline covering the whole process.
+    
+    """
+    mapping(args, commands)
+    args.stats_cache = 'allinone.cache'
+    args.nproc = args.threads
+    filtering(args, commands)
+    args.ignore_diags = 2
+    args.mad_max = 5
+    args.min_nnz = 10
+    args.min_count = 0
+    binning(args, commands)
+    
+
+if __name__ == '__main__':
+    # Parse Arguments
+    args, commands = getargs()
+    try:
+        run(args, commands)
+    except:
+        traceback.print_exc(file = open(args.logFile, 'a'))
+        sys.exit(1)
