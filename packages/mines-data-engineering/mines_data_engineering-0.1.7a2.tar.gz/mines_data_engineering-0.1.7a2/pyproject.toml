@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "mines-data-engineering"
+version = "0.1.7a2"
+description = "Helper package for the Data Engineering course at Colorado School of Mines"
+authors = ["Gabe Fierro <gtfierro@mines.edu>"]
+readme = "README.md"
+packages = [{include = "mines_data_engineering"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+xattr = "^0.10.1"
+spython = "^0.3.0"
+pymongo = "^4.3.3"
+docker = "^6.0.1"
+psycopg2-binary = "^2.9.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
