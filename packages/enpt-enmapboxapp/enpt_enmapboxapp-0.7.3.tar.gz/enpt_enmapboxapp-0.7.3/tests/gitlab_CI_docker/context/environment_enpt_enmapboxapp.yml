@@ -1,0 +1,44 @@
+name: enpt_enmapboxapp
+
+channels: &id1
+  - conda-forge
+
+dependencies:
+  - python<3.9  # QGIS 3.18 is not compatible with Python 3.9+ (https://git.gfz-potsdam.de/EnMAP/GFZ_Tools_EnMAP_BOX/enpt_enmapboxapp/-/issues/26)
+  - pip>=20.0  # avoids that conda uses the wrong pip
+  - enpt
+  - qgis>=3.18
+
+  # EnMAP-Box
+  - matplotlib>=3.0
+  - netcdf4
+  - numba
+  - numpy>=1.15
+  - pyopengl
+  - scikit-learn>=0.24
+
+  - pip:
+    - h5py  # installation with mamba seems to cause issues: https://github.com/h5py/h5py/issues/1880
+    - psutil
+
+    # EnMAP-Box
+    # - enmapbox  # not installable via PyPI
+    - astropy
+    - scipy
+
+    # docs
+    - sphinx-argparse
+    - sphinx_rtd_theme
+
+    # linting
+    - pycodestyle
+    - flake8
+    - pylint
+    - pydocstyle
+
+    # tests
+    - pytest
+    - pytest-cov
+    - pytest-reporter-html1
+    - pytest-xvfb  # allow tests to be run without windows popping up in CI
+    - urlchecker<0.0.33  # setup of 0.0.33 fails -> https://github.com/urlstechie/urlchecker-python/issues/84
