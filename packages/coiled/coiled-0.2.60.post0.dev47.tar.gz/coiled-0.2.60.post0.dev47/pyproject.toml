@@ -1,0 +1,27 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools", "wheel", "pbr", "versioneer-518"]
+
+[tool.isort]
+honor_noqa = true
+known_first_party = "coiled"
+profile = "black"
+
+[tool.ruff]
+exclude = [
+  '__init__.py',
+  "cloud/settings/local.py",
+  '*/migrations/*.py',
+]
+ignore = [
+  'E4',
+  'E721',
+  'E731',
+  'E741',
+]
+line-length = 120
+select = [
+  'E',
+  'F',
+  'W',
+]
