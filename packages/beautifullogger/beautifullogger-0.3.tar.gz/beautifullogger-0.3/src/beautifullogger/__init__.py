@@ -1,0 +1,1 @@
+from beautifullogger.beautifullogger import add_beautiful_handler
