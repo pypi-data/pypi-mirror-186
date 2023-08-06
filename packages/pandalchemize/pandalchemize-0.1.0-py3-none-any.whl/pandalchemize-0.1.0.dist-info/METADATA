@@ -1,0 +1,24 @@
+Metadata-Version: 2.1
+Name: pandalchemize
+Version: 0.1.0
+Summary: An intuitive combination of Pandas and sqlalchemy to manipulate sql databases with Pandas.
+Author: Odos Matthews
+License: MIT
+Platform: unix
+Platform: linux
+Platform: osx
+Platform: cygwin
+Platform: win32
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.9
+License-File: LICENSE
+Requires-Dist: pandas
+Requires-Dist: tabulize (>=0.1.0)
+Provides-Extra: testing
+Requires-Dist: mypy (>=0.910) ; extra == 'testing'
+Requires-Dist: flake8 (>=3.9) ; extra == 'testing'
+Requires-Dist: tox (>=3.24) ; extra == 'testing'
+
