@@ -1,0 +1,65 @@
+Metadata-Version: 2.1
+Name: MegEngine
+Version: 1.12.1
+Summary: Framework for numerical evaluation with auto-differentiation
+Home-page: UNKNOWN
+Author: Megvii Engine Team
+Author-email: megengine@megvii.com
+License: Apache 2.0
+Keywords: megengine deep learning
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: C++
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: numpy (>=1.18)
+Requires-Dist: opencv-python
+Requires-Dist: pyarrow
+Requires-Dist: requests
+Requires-Dist: tabulate
+Requires-Dist: tqdm
+Requires-Dist: deprecated
+Requires-Dist: mprop
+Requires-Dist: wheel
+Requires-Dist: megfile (>=0.0.10)
+Requires-Dist: filelock
+Requires-Dist: psutil
+Requires-Dist: setuptools
+Provides-Extra: ci
+Requires-Dist: pytest-sphinx (==0.3.1) ; extra == 'ci'
+Requires-Dist: tensorboardX (==2.4) ; extra == 'ci'
+Requires-Dist: six (==1.16.0) ; extra == 'ci'
+Requires-Dist: redislite ; (platform_system == "Linux" or platform_system == "Darwin") and extra == 'ci'
+Requires-Dist: pytest (==5.3.0) ; (python_version <= "3.9") and extra == 'ci'
+Requires-Dist: protobuf (==3.20.0) ; (python_version > "3.8") and extra == 'ci'
+Requires-Dist: pytest (==6.2.5) ; (python_version > "3.9") and extra == 'ci'
+Provides-Extra: dev
+Requires-Dist: black (==19.10b0) ; extra == 'dev'
+Requires-Dist: isort (==4.3.21) ; extra == 'dev'
+Requires-Dist: pylint (==2.4.3) ; extra == 'dev'
+Requires-Dist: mypy (==0.982) ; extra == 'dev'
+Requires-Dist: pytest-sphinx (==0.3.1) ; extra == 'dev'
+Requires-Dist: tensorboardX (==2.4) ; extra == 'dev'
+Requires-Dist: six (==1.16.0) ; extra == 'dev'
+Requires-Dist: redislite ; (platform_system == "Linux" or platform_system == "Darwin") and extra == 'dev'
+Requires-Dist: pytest (==5.3.0) ; (python_version <= "3.9") and extra == 'dev'
+Requires-Dist: typed-ast (==1.5.0) ; (python_version > "3.8") and extra == 'dev'
+Requires-Dist: protobuf (==3.20.0) ; (python_version > "3.8") and extra == 'dev'
+Requires-Dist: pytest (==6.2.5) ; (python_version > "3.9") and extra == 'dev'
+
+UNKNOWN
+
