@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=62.1"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "mysql_enc_ini"
+version = "0.6.5"
+authors = [
+  { name="Joel Sabouret", email="joel@netwitch.de" },
+]
+description = "Encrypt MySQL connection information"
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  'cryptography >= 37.0',
+  'configparser >= 5.2',
+  ]
+
+[project.urls]
+"Homepage" = "https://github.com/jsabouret/mysql_enc_ini"
+"Bug Tracker" = "https://github.com/jsabouret/mysql_enc_ini/issues"
