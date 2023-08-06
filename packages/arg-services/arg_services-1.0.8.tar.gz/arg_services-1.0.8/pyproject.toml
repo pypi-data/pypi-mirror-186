@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "arg-services"
+version = "1.0.8"
+description = "gRPC definitions for microservice-based argumentation machines"
+authors = ["Mirko Lenz <info@mirko-lenz.de>"]
+license = "MIT"
+readme = "README.md"
+homepage = "http://recap.uni-trier.de"
+repository = "https://github.com/recap-utr/arg-services-python"
+include = ["src/**/*"]
+packages = [
+    { include = "arg_services", from = "src" },
+    { include = "google", from = "src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+grpcio = "^1.51.1"
+protobuf = "^4.21.12"
+grpcio-reflection = "^1.51.1"
+grpc-stubs = "^1.24.12"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

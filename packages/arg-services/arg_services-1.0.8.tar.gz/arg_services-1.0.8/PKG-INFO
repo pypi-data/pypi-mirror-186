@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: arg-services
+Version: 1.0.8
+Summary: gRPC definitions for microservice-based argumentation machines
+Home-page: http://recap.uni-trier.de
+License: MIT
+Author: Mirko Lenz
+Author-email: info@mirko-lenz.de
+Requires-Python: >=3.9,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: grpc-stubs (>=1.24.12,<2.0.0)
+Requires-Dist: grpcio (>=1.51.1,<2.0.0)
+Requires-Dist: grpcio-reflection (>=1.51.1,<2.0.0)
+Requires-Dist: protobuf (>=4.21.12,<5.0.0)
+Project-URL: Repository, https://github.com/recap-utr/arg-services-python
+Description-Content-Type: text/markdown
+
+# Argumentation Microservices
+
+This project contains Protobuf definitions for building complex argumentation machines.
+The idea is to facilitate a microservice-oriented architecture where individual parts can be swapped out easily.
+Along with the Protobuf files, the project also contains code for generating libraries for multiple programming languages that are released as packages in their respective registries:
+
+- [Python](https://pypi.org/project/arg-services/)
+- [TypeScript](https://www.npmjs.com/package/arg-services)
+
+Documentation can be found at the [Buf Schema Registry](https://buf.build/recap/arg-services).
+
+# Build Locally
+
+`./generate.sh`
+
