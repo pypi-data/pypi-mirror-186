@@ -1,0 +1,65 @@
+Metadata-Version: 2.1
+Name: pyproject_fmt
+Version: 0.5.0
+Summary: Format your pyproject.toml file
+Project-URL: Bug Tracker, https://github.com/tox-dev/pyproject-fmt/issues
+Project-URL: Documentation, https://github.com/tox-dev/pyproject-fmt/
+Project-URL: Source Code, https://github.com/tox-dev/pyproject-fmt
+Author-email: Bernat Gabor <gaborjbernat@gmail.com>
+License: Permission is hereby granted, free of charge, to any person obtaining a
+        copy of this software and associated documentation files (the
+        "Software"), to deal in the Software without restriction, including
+        without limitation the rights to use, copy, modify, merge, publish,
+        distribute, sublicense, and/or sell copies of the Software, and to
+        permit persons to whom the Software is furnished to do so, subject to
+        the following conditions:
+        
+        The above copyright notice and this permission notice shall be included
+        in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+        OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+        IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+        CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+        TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+        SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+License-File: LICENSE.txt
+Keywords: format,pyproject
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.7
+Requires-Dist: packaging>=21.3
+Requires-Dist: tomlkit>=0.11.6
+Requires-Dist: typing-extensions>=4.4; python_version < '3.8'
+Provides-Extra: docs
+Requires-Dist: furo>=2022.9.29; extra == 'docs'
+Requires-Dist: sphinx-argparse-cli>=1.10; extra == 'docs'
+Requires-Dist: sphinx-autodoc-typehints>=1.19.4; extra == 'docs'
+Requires-Dist: sphinx-copybutton>=0.5; extra == 'docs'
+Requires-Dist: sphinx>=5.3; extra == 'docs'
+Provides-Extra: test
+Requires-Dist: covdefaults>=2.2; extra == 'test'
+Requires-Dist: pytest-cov>=4; extra == 'test'
+Requires-Dist: pytest-mock>=3.10; extra == 'test'
+Requires-Dist: pytest>=7.2; extra == 'test'
+Description-Content-Type: text/markdown
+
+# pyproject-fmt
+
+[![PyPI](https://img.shields.io/pypi/v/pyproject-fmt?style=flat-square)](https://pypi.org/project/pyproject-fmt)
+[![PyPI - Implementation](https://img.shields.io/pypi/implementation/pyproject-fmt?style=flat-square)](https://pypi.org/project/pyproject-fmt)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyproject-fmt?style=flat-square)](https://pypi.org/project/pyproject-fmt)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/pyproject-fmt?style=flat-square)](https://pypistats.org/packages/pyproject-fmt)
+[![PyPI - License](https://img.shields.io/pypi/l/pyproject-fmt?style=flat-square)](https://opensource.org/licenses/MIT)
+[![check](https://github.com/tox-dev/pyproject-fmt/actions/workflows/check.yml/badge.svg)](https://github.com/tox-dev/pyproject-fmt/actions/workflows/check.yml)
+
+Apply a consistent format to `pyproject.toml` files.
+[Read the full documentation here](https://pyproject-fmt.readthedocs.io/en/latest/).
