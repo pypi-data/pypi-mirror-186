@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: roleplaycog
+Version: 0.7.1
+Summary: Roleplay cog for py-cord
+Home-page: https://github.com/mariohero24/roleplaycog
+Author: Guard Boi
+Author-email: guard@cowbot.xyz
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENCE
+
+# Roleplay Cog
+This package is a cog edition of [my roleplay bot repository](https://github.com/mariohero24/Roleplay-Bot)
+## Installation
+```cs
+pip install roleplaycog
+```
+## Setup examples
+If you want normal slash commands:
+```py
+discord.ext.commands.Bot.load_extension(".roleplay", package="roleplaycog")
+```
+Elif you want all the commands to be in a slash command group:
+```py
+discord.ext.commands.Bot.load_extension(".roleplaygrouped", package="roleplaycog")
+```
+Elif you want all the commands to be bridge commands:
+```py
+discord.ext.bridge.Bot.load_extension(".roleplaybridged", package="roleplaycog")
+```
