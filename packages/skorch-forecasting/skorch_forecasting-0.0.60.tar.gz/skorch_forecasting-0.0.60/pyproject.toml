@@ -1,0 +1,30 @@
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "numpy>=1.22.0",
+    "pandas>=1.4.0",
+    "scikit-learn>=1.0.0",
+    "skorch>=0.10.0",
+    "torch>=1.5.0",
+    "pytorch-forecasting>=0.9.0",
+]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "skorch_forecasting"
+version = "0.0.60"
+authors = [
+  { name="ramonamez", email="rameviz@icloud.com" },
+]
+description = 'Sklearn interface to state-of-the-art forecasting with neural networks.'
+readme = "README.rst"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ramonAV98/skorch_forecasting"
