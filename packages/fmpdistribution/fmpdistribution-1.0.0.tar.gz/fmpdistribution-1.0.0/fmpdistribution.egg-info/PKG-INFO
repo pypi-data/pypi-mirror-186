@@ -1,0 +1,139 @@
+Metadata-Version: 2.1
+Name: fmpdistribution
+Version: 1.0.0
+Summary: A Python package for calculating pdf, cdf, and sf for Poisson, Binomial,Normal, Multinomial and Exponential distributions.
+Home-page: https://github.com/fmkundi/kundidocs
+Author: Fazal Masud Kundi
+Author-email: fmkundi@gmail.com
+Keywords: python,statistics,probability,probability distribution,poisson,binomial,normal,multinomial,exponential
+Classifier: Intended Audience :: Education
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+##  fmpdistribution - Package for computing probabilities for discrete and continuous random variables.
+**fmpdistribution** package provides different functions to calculate probability and common statistics for **Poisson**, **Binomial**, **Normal**, **Multinomial**, and **Exponential** distributions. The package contains five classes, one for each probability distribution. 
+<font color="blue">***Class Poisson***</font>
+<font color="green">**Method Summary**</font>
+| **Methods** |**Description**   |
+| ------------ | ------------ |
+|  **pdf(x,mu)** |Probability Density Function   |
+|  **cdf(x,mu,steps=False)** |Cummulative Distribution Function   |
+| **sf(x,mu)**  |Survival Function (1-cdf) |
+|  **stats(mu)** | Mean, Median, Mode ,Variance, Skewness, Kurtosis   |
+<font color="green">**Parameters**:</font>
+**x**: value of the poisson random variable. 
+**mu**: average number of occurrences in specific interval.
+**steps**: shows all probabilities from 0 to x when it is True.
+
+
+<font color="blue">***Class Binomial***</font>
+<font color="green">**Method Summary**</font>
+| **Methods**  |**Description**   |
+| ------------ | ------------ |
+| **pdf(x,n,p)**  |Probability Density Function   |
+| **cdf(x,n,p,steps=False)**  | Cummulative Distribution Function  |
+| **sf(x,n,p)**  | Survival Function (1-cdf)  |
+| **stats(n,p)**  |Mean, Median, Mode ,Variance, Skewness, Kurtosis    |
+<font color="green">**Parameters**:</font>
+**x**: value of the binomial random variable.
+**n**: number of trials.
+**p**: probability of success.
+**steps**: shows all probabilities from 0 to x when it is True.
+
+<font color="blue">***Class Normal***</font>
+<font color="green">**Method Summary**</font>
+| **Methods**  |**Description**   |
+| ------------ | ------------ |
+| **pdf(x,mu=0,sd=1)**  |Probability Density Function    |
+| **cdf(x,mu=0,sd=1)**  | Cummulative Distribution Function  |
+| **sf(x,mu=0,sd=1)**   | Survival Function (1-cdf)  |
+| **stats(mu=0,sd=1)**  | Mean, Median, Mode ,Variance, Skewness, Kurtosis   |
+<font color="green">**Parameters**:</font>
+**x**: value of the normal random variable.
+**mu**: mean of the normal distribution.
+**sd**: standard deviation of the normal distribution.
+
+<font color="blue">***Class Exponential***</font>
+<font color="green">**Method Summary**</font>
+| **Methods**  |**Description**   |
+| ------------ | ------------ |
+| **pdf(x,mu)**  |Probability density function   |
+| **cdf(x,mu)**  | Probability distribution function  |
+| **sf(x,mu)**  | Survival function (1-cdf)  |
+| **stats(x,mu)**  |Mean, Median, Mode ,Variance, Skewness, Kurtosis   |
+<font color="green">**Parameters**:</font>
+**x**: value of random variable follows exponential distribution.
+**mu**: average number of occurrences.
+
+<font color="blue">***Class Multinomial***</font>
+<font color="green">**Method Summary**</font>
+| **Methods**  |**Description**   |
+| ------------ | ------------ |
+| **pdf(n,outcomes,prob)**  |Probability density function   |
+|**stats(n,outcomes,prob)**   | Mean, Variance  |
+| **cov(n,outcomes,prob)**  | Covariance  |
+<font color="green">**Parameters**:</font>
+**n**: total number of events.
+**outcomes**: number of occurrences of each event.
+**prob**: probability of each event.
+#### Dependencies:
+- No external package is required
+
+#### Installation:
+In oder to compute probabilities, we must install **fmpdistribution** . Use the package installer (**PIP**) or package management system (**conda**) to install **fmpdistribution**.
+
+     pip install fmpdistribution
+     python -m pip install fmpdistribution
+     conda install fmpdistribution 
+#### How to use:
+    import the probability distribution calss from fmpdistribution
+	call the required function
+    provide input 
+    execute the code
+
+####Example-1:
+A person receives on average 3 emails per hour. What the probability that he will receive
+(a) 4 emails in the next hour
+(b) Less than or equal to 4
+(c) Greater than 4
+#### Solution:
+        from fmpdistribution.Poisson import Poisson
+        pp = Poisson()
+        mu = 3
+        print(pp.pdf(4,mu))    # P(X=4)
+        0.168031
+         print(pp.cdf(4,mu))   # P(X<=4)
+        0.815263
+        print(pp.sf(4,mu))      # P(X>4)
+        or print(1-pp.cdf(4,mu))
+        0.184736
+        #To get common statistics:
+        print(pp.stats(mu))
+        {'mean': 3, 'median': 3.326667, 'mode': 3, 'variance': 3, 'skewnes': 0.577350, 'kurtosis': 0.333333} 
+####Example-2:
+In a  computer science class 40% students belong to Asia, 50% to Europe and 10% to USA. If we select a random sample of 10 students, what is the probability that 3 candidates from Asia, 5 from Europe and 2  from USA?
+
+**Solution**:
+
+     from fmpdistribution.Multinomial import Multinomial
+     import numpy as np`
+     mn = Multinomial()
+     n = 10
+     x = [3,5,2]
+     p = [0.40,0.50,0.10]
+     print(mn.pdf(n,x,p)) # probability density function
+     print(np.array(mn.cov(n,p)))  # covariance
+		
+    0.050400
+    [[ 2.4 -2.  -0.4]
+     [-2.   2.5 -0.5]
+     [-0.4 -0.5  0.9]]
+
+#### Version History
+1.0.0 (Initial release)
+
+#### License
+This project is licensed under the **MIT** License - see the LICENSE.txt file for details
