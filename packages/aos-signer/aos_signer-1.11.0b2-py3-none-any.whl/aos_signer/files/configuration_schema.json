@@ -1,0 +1,287 @@
+{
+    "definitions": {
+        "alerting_rule": {
+            "type": "object",
+            "properties": {
+                "minTime": {
+                    "title": "Period in format ISO 8601 duration.",
+                    "type": "string",
+                    "format": "duration"
+                },
+                "minThreshold": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1000000000
+                },
+                "maxThreshold": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1000000000
+                }
+            }
+        }
+    },
+    "type": "object",
+    "properties": {
+        "additionalProperties": false,
+        "state": {
+            "type": "object",
+            "properties": {
+                "filename": {
+                    "type": "string",
+                    "title": "State filename. Default: state.dat,.",
+                    "description": "State filename. Default: state.dat.",
+                    "maxLength": 5000
+                },
+                "required": {
+                    "type": "boolean",
+                    "title": "Is the state used in the service? Default: false",
+                    "description": "Is the state used in the service? Default: false"
+                }
+            },
+            "title": "State configuration",
+            "description": "State configuration"
+        },
+        "layers": {
+            "type": ["array", "null"],
+            "minItems": 0,
+            "items": {
+                "type": "string",
+                "maxLength": 255
+            },
+            "title": "List of layers.",
+            "description": "List of layers. Each layer identified by strict alias. For example, python-3.6.8, rust-x.y.z."
+        },
+        "env": {
+            "type": ["array", "null"],
+            "minItems": 0,
+            "items": {
+                "type": "string"
+            },
+            "title": "Environment variables for the service",
+            "description": "Environment variables for the service. Will be applied for running instance of the service in a container."
+        },
+        "cmd": {
+            "type": "string",
+            "title": "Path to Sign certificate",
+            "description": "Path to the service provider certificate file, used for sign process.",
+            "maxLength": 10000
+        },
+        "runParameters": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "properties": {
+                "startInterval": {
+                    "title": "Indicates maximum time (ISO 8601 duration) required by service to start in seconds.",
+                    "type": "string",
+                    "format": "duration"
+                },
+                "startBurst": {
+                    "title": "Indicates number of attempt to start.",
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1000000000
+                },
+                "restartInterval": {
+                    "title": "Indicates in which time (ISO 8601 duration) the service will be restarted after exit in seconds.",
+                    "type": "string",
+                    "format": "duration"
+                }
+            }
+        },
+        "instances": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "properties": {
+                "minInstances": {
+                    "title": "Indicates minimal number of service's instances that should be run on Unit.",
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000
+                },
+                "priority": {
+                    "title": "Priority of service instance (0-1000000000, 0 is the lowest priority), default value is 0",
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1000000000
+                },
+                "labels": {
+                    "type": ["array", "null"],
+                    "minItems": 0,
+                    "items": {
+                        "type": ["string"]
+                    },
+                    "title": "Labels where service instance should be run"
+                }
+            }
+        },
+        "runner": {
+            "type": "string",
+            "title": "Runner for Aos Containers",
+            "description": "Runner (runc, crun, runx, xrun) that should be used by Aos Core for running service instance. Default: crun.",
+            "maxLength": 10000
+        },
+        "offlineTTL": {
+            "type": "string",
+            "title": "Offline TTL",
+            "description": "Service TTL (ISO 8601 duration). In case of the unit is offline more than TTL time - containers should be deleted.",
+            "format": "duration"
+        },
+        "workingDir": {
+            "type": "string",
+            "title": "Working dir for the service",
+            "description": "Working dir for the service. If not specified, the home user dir will be used.",
+            "maxLength": 10000
+        },
+        "quotas": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "properties": {
+                "cpu": {
+                    "type": "integer",
+                    "title": "CPU quota.",
+                    "description": "CPU quota. Available range 1-100",
+                    "minimum": 1,
+                    "maximum": 100
+                },
+                "mem": {
+                    "type": "string",
+                    "title": "Memory quota.",
+                    "description": "Available memory for service.",
+                    "pattern": "^\\d*(\\.?\\d*) ?(k|K|kb|KB|m|M|mb|MB|g|G|gb|GB)?$"
+                },
+                "state": {
+                    "type": "string",
+                    "title": "State size quota.",
+                    "description": "State size quota.",
+                    "pattern": "^\\d*(\\.?\\d*) ?(k|K|kb|KB|m|M|mb|MB|g|G|gb|GB)?$"
+                },
+                "upload_speed": {
+                    "type": "string",
+                    "title": "Upload speed quota.",
+                    "description": "Upload speed quota.",
+                    "pattern": "^\\d*(\\.?\\d*) ?(k|K|kb|KB|m|M|mb|MB|g|G|gb|GB)?$"
+                },
+                "download_speed": {
+                    "type": "string",
+                    "title": "Download speed quota.",
+                    "description": "Download speed quota.",
+                    "pattern": "^\\d*(\\.?\\d*) ?(k|K|kb|KB|m|M|mb|MB|g|G|gb|GB)?$"
+                },
+                "upload": {
+                    "type": "string",
+                    "title": "Upload size quota",
+                    "description": "Upload size quota.",
+                    "pattern": "^\\d*(\\.?\\d*) ?(k|K|kb|KB|m|M|mb|MB|g|G|gb|GB)?$"
+                },
+                "download": {
+                    "type": "string",
+                    "title": "Download quota.",
+                    "description": "Download quota.",
+                    "pattern": "^\\d*(\\.?\\d*) ?(k|K|kb|KB|m|M|mb|MB|g|G|gb|GB)?$"
+                },
+                "temp": {
+                    "type": "string",
+                    "title": "Temp size quota.",
+                    "description": "CPU quota.",
+                    "pattern": "^\\d*(\\.?\\d*) ?(k|K|kb|KB|m|M|mb|MB|g|G|gb|GB)?$"
+                },
+                "storage": {
+                    "type": "string",
+                    "title": "Storage size.",
+                    "description": "Storage size.",
+                    "pattern": "^\\d*(\\.?\\d*) ?(k|K|kb|KB|m|M|mb|MB|g|G|gb|GB)?$"
+                }
+            }
+        },
+        "alerts": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "properties": {
+                "ram": {"$ref": "#/definitions/alerting_rule"},
+                "cpu": {"$ref": "#/definitions/alerting_rule"},
+                "mem": {"$ref": "#/definitions/alerting_rule"},
+                "state": {"$ref": "#/definitions/alerting_rule"},
+                "upload_speed": {"$ref": "#/definitions/alerting_rule"},
+                "download_speed": {"$ref": "#/definitions/alerting_rule"},
+                "upload": {"$ref": "#/definitions/alerting_rule"},
+                "download": {"$ref": "#/definitions/alerting_rule"},
+                "storage": {"$ref": "#/definitions/alerting_rule"},
+                "temp": {"$ref": "#/definitions/alerting_rule"}
+            },
+            "title": "Alerting rules",
+            "description": "Define alerting rules."
+        },
+        "exposedPorts": {
+            "type": ["array", "null"],
+            "minItems": 0,
+            "items": {
+                "type": ["number", "string"]
+            },
+            "title": "Port list to expose.",
+            "description": "List of exposed ports. Single port, port range, with or without protocol"
+        },
+        "allowedConnections": {
+            "type": ["array", "null"],
+            "minItems": 0,
+            "items": {
+                "type": "string"
+            },
+            "title": "List of exposed ports.",
+            "description": "List of exposed ports in format ext_port_no:int_port_no."
+        },
+        "devices": {
+            "type": ["array", "null"],
+            "title": "List of mounted into a container host devices",
+            "description": "List of mounted into a container host devices. Device aliases are audio, camera.",
+            "items": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "mode"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Device name.",
+                        "description": "Device name.",
+                        "maxLength": 500
+                    },
+                    "mode": {
+                        "type": "string",
+                        "title": "Mount type"
+                    }
+                }
+            }
+        },
+        "resources": {
+            "type": ["array", "null"],
+            "title": "List of available resources",
+            "description": "List of available resources."
+        },
+        "permissions": {
+            "type": ["object", "null"],
+            "description": "List of permissions",
+                "patternProperties": {
+                    "^.*$": {
+                        "anyOf": [
+                            {
+                                "description": "Attribute name",
+                                "patternProperties": {
+                                    "^.*$": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "enum": ["r", "w", "rw"]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+            "additionalProperties": false
+        }
+    }
+}
