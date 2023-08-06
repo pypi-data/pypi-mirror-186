@@ -1,0 +1,77 @@
+[tool.poetry]
+name = "rgmining-fraud-eagle"
+version = "0.10.0"
+description = "An implementation of Fraud Eagle algorithm"
+license = "GPL-3.0-only"
+authors = ["Junpei Kawamoto <kawamoto.junpei@gmail.com>"]
+readme = "README.rst"
+homepage = "https://rgmining.github.io/frad-eagle/"
+repository = "https://github.com/rgmining/frad-eagle"
+documentation = "https://rgmining.github.io/frad-eagle/"
+keywords = ["review", "graph", "mining", "algorithm", "icwsm", "fraud-eagle"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Natural Language :: English",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Scientific/Engineering :: Information Analysis"
+]
+packages = [
+    { include = "fraud_eagle" },
+]
+include = ["COPYING"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+numpy = "^1.24.1"
+networkx = "^3.0"
+
+[tool.poetry.group.dev.dependencies]
+bump2version = "^1.0.1"
+pytest = "^7.2.0"
+pytest-cov = "^4.0.0"
+mypy = "^0.991"
+tox = "^4.2.8"
+isort = "^5.11.4"
+black = "^22.12.0"
+flake8 = "^6.0.0"
+pre-commit = "^2.21.0"
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^5.3.0"
+sphinx-rtd-theme = "^1.1.1"
+sphinx-autobuild = "^2021.3.14"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+files = "fraud_eagle/*.py,tests/**/*.py"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "networkx"
+ignore_missing_imports = true
+
+[tool.black]
+target-version = ['py39']
+line-length = 120
+
+[tool.isort]
+profile = "black"
+line_length = 120
+src_paths = ["fraud_eagle", "tests"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=fraud_eagle --cov-branch --cov-report=term-missing --cov-report=xml"
