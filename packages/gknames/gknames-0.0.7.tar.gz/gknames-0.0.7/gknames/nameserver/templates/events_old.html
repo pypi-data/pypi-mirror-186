@@ -1,0 +1,26 @@
+{% extends "base_bootstrap.html" %}
+{% block title %}Events{% endblock %}
+{% block content %}
+
+<section id="table_layout">
+<article id="followup_table">
+<header id="followup_list">
+<hgroup>
+  {% if form.errors %}
+    <p class="error">ERROR</p>
+  {% endif %}
+
+  <form action="{% url "eventList" %}" method="post" id="form">{% csrf_token %}
+
+  <table class="forms">
+      {{ form.as_table }}
+  </table>
+  <input type="submit" value="Add Event" />
+  </form>
+</hgroup>
+</header>
+
+</article>
+</section>
+</div>
+{% endblock %}
