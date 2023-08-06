@@ -1,0 +1,126 @@
+// Operator terminals.
+UND: "undef"
+NEG: "not"
+ADD: "+"
+SUB: "-"
+DIV: "/"
+MOD: "\\"
+MUL: "*"
+NEQ: "!="
+EQQ: "="
+LES: "<"
+GRT: ">"
+LEQ: "<="
+GEQ: ">="
+
+// Operators.
+OP: ADD
+  | SUB
+  | DIV
+  | MOD
+  | MUL
+  | EQQ
+  | NEQ
+  | LES
+  | GRT
+  | LEQ
+  | GEQ
+
+FRAC: REAL "/" REAL
+PROB: FRAC | REAL
+
+// Constants.
+CONST: /[a-z]\w*/
+// Variables.
+VAR: /[A-Z]\w*/
+
+// URL.
+URL: "\"" /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/ "\""
+// Local path.
+LPATH: "\"" /https?(?:\/?[\w\d\.]+|(?:\\ ))+/ "\""
+// Path.
+PATH: URL | LPATH
+
+EXPAND: "+"
+LEARN:  "?"
+
+// Set.
+set: "{" (ID | CONST) ("," (ID | CONST))+ "}"
+
+// Data special rule.
+data: CONST "(" CONST ")" ":-" "data" "(" PATH ")" "."
+
+// Atom.
+_atom: CONST
+// Interval.
+interval: (ID | CONST) ".." (ID | CONST)
+// Predicate.
+_ground: (_atom | grpred)
+_nground: (_atom | pred)
+grpred: CONST "(" (_ground | ID | interval) ("," (_ground | ID | interval))* ")"
+pred: CONST "(" (_nground | ID | interval | VAR) ("," (_nground | ID | interval | VAR))* ")"
+// Literal.
+lit: NEG* _nground
+grlit: NEG* _ground
+
+// Fact.
+fact: _ground "."
+// Probabilistic fact.
+pfact: PROB "::" _ground "."
+lpfact: PROB? "?" "::" _ground "."
+// Credal fact.
+cfact: "[" PROB "," PROB "]" "::" _ground "."
+_fact: fact | pfact | lpfact | cfact
+
+// Head of a rule.
+head: _nground (("," | ";") _nground)*
+ohead: _nground
+// Body of a rule.
+body: (lit | bop) ("," (lit | bop))*
+// Rule.
+rule: head ":-" body "."
+// Probabilistic rule.
+prule: PROB (EXPAND? LEARN? | LEARN? EXPAND?) "::" ohead ":-" body "."
+_rule: prule | rule
+
+// Annotated disjunction head.
+ad_head{arg}: PROB "::" arg (";" PROB "::" arg)+
+// Learnable annotated disjunction head.
+lad_head{arg}: PROB? "?" "::" arg (";" PROB? "?" "::" arg)+
+// Annotated disjunctions.
+ad: (ad_head{_ground} | lad_head{_ground}) "."
+adr: (ad_head{_nground} | lad_head{_nground}) ":-" body "."
+_ad: ad | adr
+
+// Neural rule.
+nrule: "?" "::" CONST "(" VAR ")" "as" PATH ":-" lit ("," lit)* "."
+// Neural annotated disjunction.
+nad: "?" "::" CONST "(" VAR "," set ")" "as" PATH ":-" lit ("," lit)* "."
+_neural: nrule | nad
+
+// Constraint.
+constraint: ":-" body "."
+
+// Binary operation.
+bop: ((ID | VAR | bop) OP (ID | VAR | bop)) | (VAR EQQ interval)
+
+// Query.
+qelement: (NEG | UND)? (CONST | grpred)
+interp: qelement ("," qelement)*
+query: "#query(" interp ("|" interp)? ")" "."?
+
+// Constant definition.
+constdef: "#const" CONST "=" ID "."
+
+plp: (constdef | _fact | _rule | _ad | _neural | constraint | query)*
+
+COMMENT: "%" /[^\n]*/ NEWLINE
+
+%import common.WORD -> NAME
+%import common.INT -> ID
+%import common.NUMBER -> REAL
+%import common.NEWLINE -> NEWLINE
+%import common.WS
+
+%ignore WS
+%ignore COMMENT
