@@ -1,0 +1,31 @@
+[tool.black]
+line-length = 88
+target-version = [
+  'py37',
+  'py38',
+  'py39',
+  'py310',
+]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+disallow_any_unimported = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+strict_equality = true
+warn_unused_ignores = true
+warn_unreachable = true
+
+[tool.pylic]
+safe_licenses = [
+  "Apache Software License",
+  "MIT License",
+  "Mozilla Public License 2.0 (MPL 2.0)",
+  "BSD License",
+  "Historical Permission Notice and Disclaimer (HPND)",
+]
