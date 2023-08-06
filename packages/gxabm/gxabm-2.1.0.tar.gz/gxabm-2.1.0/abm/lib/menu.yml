@@ -1,0 +1,323 @@
+- name: 
+    - benchmark
+    - bench
+  help: 'manage benchmarks'
+  menu:
+    - name: ['run']
+      handler: benchmark.run_cli
+      help: run one of the workflow configurations.  If specified the prefix will be prepended to the new history name.
+      params: PATH [history_name_prefix]
+    - name: ['translate', 'tr']
+      handler: benchmark.translate
+      help: translate workflow and dataset ID values into names
+      params: PATH
+    - name: ['validate']
+      handler: benchmark.validate
+      help: validate that workflow and dataset names can be translated into IDs
+      params: PATH
+- name:
+    - workflow
+    - wf
+  help: manage Galaxy workflows
+  menu:
+    - name: ['upload', 'up']
+      handler: workflow.upload
+      params: PATH
+      help: 'upload a workflow file to the server'
+    - name: ['import', 'imp']
+      handler: workflow.import_from_config
+      params: NAME
+      help: 'import a workflow defined in ~/.abm/workflows.yml'
+    - name: ['download', 'dl']
+      handler: workflow.download
+      help: 'download a workflow'
+      params: ID PATH
+    - name: ['list', 'ls']
+      handler: workflow.list
+      help: 'list workflows available on the serer'
+    - name: [show]
+      handler: workflow.show
+      help: display details about the workflow
+      params: ID
+    - name: [find]
+      handler: workflow.find
+      help: find a workflow by name
+      params: NAME
+    - name: ['delete', 'del', 'rm']
+      handler: workflow.delete
+      help: 'delete a workflow from the server'
+      params: ID
+    - name: ['pub', 'publish']
+      handler: workflow.publish
+      help: publish a workflow
+      params: ID
+    - name: ['ren', 'rename']
+      handler: workflow.rename
+      params: "ID 'new workflow name'"
+      help: "rename a workflow on the Galaxy server"
+    - name: ['test']
+      handler: workflow.test
+      help: run some test code
+- name:
+    - dataset
+    - ds
+  help: manage datasets
+  menu:
+    - name: ['upload', 'up']
+      handler: dataset.upload
+      params: PATH [-id HISTORY_ID | -c "History name"]
+      help: upload a dataset to the server from the specified URL
+    - name: ['download', 'dl']
+      handler: dataset.download
+      params: ID PATH
+      help: download a dataset from the server
+    - name: ['import', 'imp']
+      handler: dataset.import_from_config
+      params: KEY [--hs|--hist|--history HISTORY_ID | -c|--create "History name"]
+      help: imports a dataset to the server from a URL specified in the datasets.yml config file.
+    - name: ['list', 'ls']
+      handler: dataset.list
+      help: lists all the datasets on the server
+    - name: ['find']
+      handler: dataset.find
+      help: search for datasets by name
+      params: NAME
+    - name: ['show']
+      handler: dataset.show
+      params: ID
+      help: show detailed information on a dataset
+    - name: [cleanup, clean, clear]
+      handler: dataset.clean
+      params: "[STATE [STATE...]]"
+      help: deletes and purges all datasets that are not 'ok'
+    - name: [rename, ren]
+      handler: dataset.rename
+      help: rename a dataset
+      params: HISTORY_ID DATASET_ID NAME
+- name:
+    - history
+    - hist
+    - hs
+  help: manage histories
+  menu:
+    - name: ['list', 'ls']
+      handler: history.list
+      help: list histories on the server.
+      params: "[-a|--all]"
+    - name: ['import', 'imp', 'im']
+      params: "[CLOUD HISTORY_ID JEHA_ID | URL | [dna|rna]] [-n|--no-wait]"
+      handler: history.himport
+      help: import a history from another Galaxy server
+    - name: [create, new]
+      params: NAME
+      handler: history.create
+      help: create a new history and return its ID
+    - name: ['export', 'exp', 'ex']
+      handler: history.export
+      params: "ID [-n|--no-wait]"
+      help: prepares a history for export to another Galaxy server
+    - name: [find]
+      handler: history.find
+      help: find a history by name
+      params: NAME
+    - name: [tag]
+      handler: history.tag
+      help: add or replace history tags
+      params: ID [-r|--repace] tag1 [tag2...]
+    - name: [show]
+      handler: history.show
+      params: "ID [-c|--contents]"
+      help: show detailed information about a history
+    - name: [publish, pub]
+      handler: history.publish
+      help: publish the given history
+      params: ID
+    - name: [rename, ren]
+      handler: history.rename
+      help: rename a history
+      params: "ID 'new history name'"
+    - name: [cleanup, clean, clear]
+      help: remove empty histories
+      handler: history.clean
+    - name: [delete, del, rm]
+      params: ID
+      help: delete a single history
+      handler: history.delete
+    - name: [ test ]
+      handler: history.test
+      help: hook used for testing and development
+    - name: [ purge ]
+      params: STR
+      help: delete all histories that contain STR in the name. Use * to purge all histories.
+      handler: history.purge
+- name: [ jobs, job ]
+  help: manage jobs on the server
+  menu:
+    - name: [ list, ls ]
+      help: list all jobs, or jobs in a particular state
+      handler: job.list
+      params: "[-s|--state ok|running|error|waiting]"
+    - name: [ show ]
+      help: show detailed information about a job
+      handler: job.show
+      params: ID
+    - name: [problems, problem, prob]
+      help: list common problems that may have caused a job to fail
+      handler: job.problems
+      params: ID
+    - name: [cancel, kill]
+      help: kills a job
+      handler: job.cancel
+      params: ID
+    - name: [ metrics, stats ]
+      help: display runtime metrics for the job
+      handler: job.metrics
+      params: ID
+- name: [users, user]
+  help: manage users on the Galaxy instance
+  menu:
+    - name: [list, ls]
+      help: list all users on the Galaxy instance
+      handler: users.list
+    - name: [api_key, apikey, key]
+      help: obtain the API key for the specified user
+      handler: users.api_key
+      params: "[NAME|EMAIL]"
+    - name: [create, new]
+      help: create a new user on the Galaxy instance
+      handler: users.create
+      params: NAME EMAIL PASSWORD
+    - name: [ show ]
+      help: show details about the given user
+      handler: users.show
+      params: "[NAME|EMAIL]"
+    - name: [ usage ]
+      help: display the disk usage for the user
+      handler: users.usage
+      params: "[NAME|EMAIL]"
+- name: [experiment, exp, ex]
+  help: execute benchmarking runs on various clouds
+  standalone: true
+  menu:
+    - name: [run]
+      help: run all benchmarks in an experiment
+      handler: experiment.run
+      params: PATH
+    - name: [summarize, summary]
+      help: summarize metrics to a CSV or TSV file.
+      handler: experiment.summarize
+      params: "[-c, --csv, -t, --tsv]"
+    - name: [test]
+      help: playground code
+      handler: experiment.test
+      params: [VARIES]
+- name: [helm]
+  help: execute a helm command
+  menu:
+    - name: [update, upgrade, up]
+      help: update the container mapper rules for memory and cpu limits
+      handler: helm.update_cli
+      params: RULES
+    - name: [rollback]
+      handler: helm.rollback
+      help: rollback the latest deployment
+      params: "[deployment] [-n NAMESPACE]"
+    - name: [wait]
+      handler: helm.wait
+      help: wait for the deployment to come online
+    - name: [list, ls]
+      help: list some things...
+      handler: helm.list
+- name: [kubectl, kube, k]
+  help: execute a kubectl command
+  menu:
+    - name: [pods, pod]
+      help: display the pods. If no namespace is provided galaxy is assumed
+      handler: kubectl.pods
+      params: NAMESPACE
+    - name: [url]
+      help: derive the URL to access this Galaxy instance
+      handler: kubectl.url
+- name: [config, conf, cfg]
+  help: manage configuration profiles
+  standalone: true
+  menu:
+    - name: [list, ls]
+      help: list configured servers
+      handler: config.list
+    - name: [show, sh]
+      help: disply URL, API key, and kube config for a specific cloud.
+      handler: config.show
+      params: CLOUD
+    - name: [create, new]
+      help: create a new cloud configuration.
+      handler: config.create
+      params: "CLOUD KUBECONFIG"
+    - name: [remove, rm, del]
+      help: remove a cloud configuration entry from the profile.yml
+      handler: config.remove
+      params: CLOUD
+    - name: [key]
+      help: set the Galaxy API key for the provided cloud instance
+      handler: config.key
+      params: CLOUD API_KEY
+    - name: [url]
+      help: set the URL for the Galaxy server.
+      params: CLOUD URL
+      handler: config.url
+    - name: [workflows, workflow, wf]
+      help: manage configuration to import workflows.
+      handler: config.workflows
+      params: "[list|add|delete] ARGS"
+    - name: [datasets, dataset, ds]
+      handler: config.datasets
+      help: manage configuration to import datasets.
+      params: "[list|add|delete] ARGS"
+    - name: [histories, history, hist, hs]
+      handler: config.histories
+      help: manage configuration to import histories
+      params: "[list|add|delete] ARGS"
+- name: [cloudlaunch, cl]
+  help: manage cluster deployments on AWS and GCP
+  standalone: true
+  menu:
+    - name: [list, ls]
+      handler: cloudlaunch.list
+      help: list deployments on all cloud providers
+    - name: [create, launch, new]
+      handler: cloudlaunch.create
+      help: create a new deployment on the specified provider
+      params: "[aws|gcp] NAME [-|--type vmType] [-k|--keypair keyName] [-c|--config config-app]"
+    - name: [delete, rm]
+      help: delete a deployment
+      handler: cloudlaunch.delete
+      params: "ID"
+- name: [library, lib]
+  help: manage data libraries on the server
+  menu:
+    - name: [list, ls]
+      help: list all libraries on the server
+      handler: library.list
+    - name: [show]
+      help: show detailed information about a library
+      handler: library.show
+      params: ID
+    - name: [create, new]
+      help: create a new library
+      handler: library.create
+      params: NAME
+    - name: [upload, up]
+      help: upload a dataset to a libary
+      handler: library.upload
+      params: LIBRARY FOLDER DATASET_ID
+- name: [folder]
+  help: manage folders in data libraries
+  menu:
+    - name: [list, ls]
+      handler: folder.list
+      help: list the folders in a data library
+      params: LIBRARY_ID
+    - name: [create, new]
+      handler: folder.create
+      params: LIBRARY_ID NAME
+      help: creates a new folder in a data library
