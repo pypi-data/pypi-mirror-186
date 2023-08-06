@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "sim-calendar"
+version = "0.1.1"
+description = ""
+authors = ["Gabe Maayan <gabemgem@gmail.com>"]
+readme = "README.md"
+packages = [{include = "sim_calendar"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+datetime = "^4.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
