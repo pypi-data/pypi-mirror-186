@@ -1,0 +1,14 @@
+[console_scripts]
+corporal = corporal.commands:main
+
+[corporal.commands]
+install = corporal.commands:Install
+
+[paste.app_factory]
+main = corporal.web.app:main
+
+[rattail.config.extensions]
+corporal = corporal.config:CorporalConfig
+
+[rattail.emails]
+corporal = corporal.emails
