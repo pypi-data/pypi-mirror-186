@@ -1,0 +1,178 @@
+#!/usr/bin/env python3
+# This file is placed in the Public Domain.
+# pylint: disable=C0103,C0115,C0116,C0413,W0212,C0301,W0613,E0611,E0401,R1710
+
+
+"The Python3 bot Namespace"
+
+
+import os, sys ; sys.path.insert(0, os.getcwd())
+
+
+import atexit
+import importlib
+import importlib.util
+import inspect
+import os
+import readline
+import rlcompleter
+import sys
+import time
+import termios
+import traceback
+
+
+from bot.handler import Command, Handler
+from bot.message import Event
+from bot.objects import Wd, last, printable
+from bot.runtime import Cfg, Completer, boot, command, wait
+from bot.scanner import scancmd, scanpkg
+from bot.threads import launch
+
+
+from bot import irc, rss
+
+
+import bot.command
+
+
+scancmd(irc)
+scancmd(rss)
+
+
+Cfg.banner = __doc__
+Cfg.mods = "irc,rss"
+Cfg.name = "bot"
+Cfg.version = "180"
+
+
+Wd.workdir = os.path.expanduser("~/.%s" % Cfg.name)
+
+
+date = time.ctime(time.time()).replace("  ", " ")
+
+
+class CLI(Handler):
+
+    @staticmethod
+    def announce(txt):
+        pass
+
+    @staticmethod
+    def raw(txt):
+        print(txt)
+        sys.stdout.flush()
+
+
+class Console(CLI):
+
+    @staticmethod
+    def handle(event):
+        Command.handle(event)
+        event.wait()
+
+    def poll(self):
+        event = Event()
+        event.txt = input("> ")
+        event.orig = repr(self)
+        return event
+
+
+def daemon():
+    pid = os.fork()
+    if pid != 0:
+        os._exit(0)
+    os.setsid()
+    os.umask(0)
+    sis = open("/dev/null", 'r')
+    os.dup2(sis.fileno(), sys.stdin.fileno())
+    if not Cfg.verbose:
+        sos = open("/dev/null", 'a+')
+        ses = open("/dev/null", 'a+')
+        os.dup2(sos.fileno(), sys.stdout.fileno())
+        os.dup2(ses.fileno(), sys.stderr.fileno())
+
+
+def help():
+    print("bot [-c|-d|-h] [%s]\n\n-h show help \n-c start console\n-d daemonize" % "|".join(Command.cmd))
+
+
+def importer(mname, path=None):
+    if path is None:
+        spec = importlib.util.find_spec(mname)
+    else:
+        spec = importlib.util.spec_from_file_location(mname, path)
+    if spec:
+        mods = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mods)
+        return mods
+    return None
+
+def initer(mname, path=None):
+    mods = importer(mname, path)
+    mods.init()
+
+
+def scanner(mname, path=None):
+    mods = importer(mname, path)
+    scancmd(mods)
+
+
+def setcompleter(optionlist):
+    completer = Completer(optionlist)
+    readline.set_completer(completer.complete)
+    readline.parse_and_bind("tab: complete")
+
+
+def wrap(func):
+    fds = sys.stdin.fileno()
+    gotterm = True
+    try:
+        old = termios.tcgetattr(fds)
+    except termios.error:
+        gotterm = False
+    try:
+        func()
+    except (EOFError, KeyboardInterrupt):
+        print("")
+    finally:
+        if gotterm:
+            termios.tcsetattr(fds, termios.TCSADRAIN, old)
+        for evt in Command.errors:
+            ex = evt.__exc__
+            traceback.print_exception(type(ex), ex, ex.__traceback__)
+        readline.set_completer(None)
+
+
+def main():
+    boot(" ".join(sys.argv[1:]))
+    if "h" in Cfg.prs.opts:
+        return help()
+    scanpkg(bot.command, scanner)
+    if Cfg.prs.txt:
+        cli = CLI()
+        return command(cli, Cfg.prs.otxt)
+    last(Cfg)
+    if Cfg.console:
+        print("%s started at %s %s" % (
+                                       Cfg.name.upper(),
+                                       date,
+                                       printable(
+                                                 Cfg,
+                                                 skip="banner,name,prs",
+                                                 plain=True)
+                                                )
+                                      )
+        setcompleter(Command.cmd)
+        cli = Console()
+        launch(cli.start)
+        Cfg.wait = True
+    if Cfg.daemon:
+        daemon()
+        Cfg.wait = True
+    if Cfg.wait:
+        scanpkg(bot, initer, Cfg.mods)
+        wait()
+
+
+wrap(main)
