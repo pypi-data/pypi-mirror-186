@@ -1,0 +1,102 @@
+Metadata-Version: 2.1
+Name: cmrsim
+Version: 0.25
+Summary: UNKNOWN
+Home-page: https://gitlab.ethz.ch/jweine/cmrsim
+Author: Jonathan Weine, Charles McGrath
+License: UNKNOWN
+Project-URL: Documentation, https://people.ee.ethz.ch/~jweine/cmrsim/latest/index.html
+Project-URL: Source, https://gitlab.ethz.ch/jweine/cmrsim
+Project-URL: Institute, https://cmr.ethz.ch/
+Platform: UNKNOWN
+Requires-Python: >=3.6
+License-File: LICENSE
+Requires-Dist: tensorflow (>=2.11)
+Requires-Dist: pyvista (>=0.37)
+Requires-Dist: numpy (>=1.19)
+Requires-Dist: pint (>=0.18)
+Requires-Dist: Deprecated (>=1.2.13)
+Requires-Dist: cmrseq (>=0.17)
+
+.. image:: https://people.ee.ethz.ch/~jweine/cmrsim/latest/_images/Logo_cmrsim_moving_light.svg
+   :align: right
+   :scale: 150 %
+
+Welcome to CMRsim!
+==================================
+
+CMRsim is a MRI - simulation framework that features bloch-simulations as well as analytic signal
+evaluations for **moving objects** with an easy to use API written in pure python.
+The computationally demanding calculations are implemented in `TensorFlow2`_ and therefore are
+seamlessly executable on CPU and GPU environments, while also making efficient use of computational
+resources!
+
+.. _TensorFlow2: https://www.tensorflow.org/
+
+What makes CMRsim special?
+
+- CMRsim features bloch-simulations as well as simulations using analytical signal equations and even allows to combine elements of both.
+- Convenient support for **moving** particles!
+- Modularity that makes to designing comparative simulation experiments convenient.
+- Architecture and implementation that allows to easily include your own simulation modules.
+- Reproducibility by using versioned and documented open-source software.
+- Easily scalable to detailed digital phantoms
+
+
+Installation
+==============
+
+Pip
+^^^^
+CMRsim can be installed using the python package manager :code:`pip`. The package can be found
+in the `registry`_  of the repository hosted on the ETH-Gitlab instance as well as on the python
+package index (PyPI).
+
+.. _registry: https://gitlab.ethz.ch/jweine/cmrsim/-/packages
+
+**Versioning:**
+Stable release versions are denoted with the ususal :code:`major.minor` notation. Additionally,
+development versions are constantly updated on solved issued and can be installed using the
+:code:`major.minor.devX` notation
+
+Release versions are published on PyPI, which allows installing cmrsim with:
+
+.. code-block::
+
+    pip install cmrsim
+
+Development versions are only available using the extra url:
+
+.. code-block::
+
+    pip install cmrsim --extra-index-url https://gitlab.ethz.ch/api/v4/projects/23798/packages/pypi/simple
+
+Docker
+^^^^^^^^
+For each major release a set of docker images are compiled and published in the
+`container registry`_ associated with repository. Within the docker images, all requirements
+are installed for simulation deployment.
+
+.. _container registry: https://gitlab.ethz.ch/jweine/cmrsim/container_registry
+
+Furthermore, there are three image-tags available. To use the pull the docker image
+use (e.g. for jupyter tag):
+
+.. code-block::
+
+    docker pull registry.ethz.ch/jweine/cmrsim/jupyter:latest
+
+CPU
+""""
+Based on the Tensorflow:...-cpu:latest docker image. Containing all cmrsim dependencies and cmrsim
+
+GPU
+""""
+Based on the Tensorflow:...-gpu:latest docker image. Containing all cmrsim dependencies and cmrsim
+
+Jupyter
+""""""""
+Based on the gpu:latest tag, but also includes an installation of jupyter-lab for interactive
+simulation / rendering.
+
+
