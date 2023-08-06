@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "ink-wizard"
+version = "0.1.4"
+description = "Ink Wizard is a CLI tool used to scaffold Flipper, PSP-22, PSP-34, PSP-37 smart contracts. CLI will ask user on what kind of functionality user needs. It will scaffold smart contracts based on user options."
+authors = ["Aviraj Khare <thisisavirajkhare@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{include = "ink_wizard"}]
+
+[tool.poetry.scripts]
+ink-wizard = "ink_wizard.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Jinja2 = "^3.1.2"
+typer = {extras = ["all"], version = "^0.7.0"}
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
