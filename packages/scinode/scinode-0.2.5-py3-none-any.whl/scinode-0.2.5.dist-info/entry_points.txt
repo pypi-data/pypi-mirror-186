@@ -1,0 +1,16 @@
+[console_scripts]
+scinode = scinode.cli.main:cli
+
+[scinode_node]
+built_in = scinode.nodes.built_in:node_list
+control = scinode.nodes.control:node_list
+node_from_database = scinode.nodes.node_from_database:node_list
+numpy_node = scinode.nodes.numpy_node:node_list
+python_builtin = scinode.nodes.python_builtin:node_list
+test = scinode.nodes.test:node_list
+
+[scinode_property]
+built_in = scinode.properties.built_in:property_list
+
+[scinode_socket]
+built_in = scinode.sockets.built_in:socket_list
