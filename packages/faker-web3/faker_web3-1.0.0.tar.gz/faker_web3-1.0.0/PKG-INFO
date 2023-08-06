@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: faker-web3
+Version: 1.0.0
+Summary: Web3-related fake data provider for Python Faker
+Author: Rares Stanciu
+Author-email: rcstanciu@protonmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: faker (>=16.4.0,<17.0.0)
+Requires-Dist: web3 (>=5.31.3,<6.0.0)
+Description-Content-Type: text/markdown
+
+# faker_web3
+
+Web3-related fake data provider for Python Faker
+
+## Installation
+
+```
+pip install faker_web3
+```
+
+## Usage:
+
+```python
+from faker import Faker
+
+from faker_web3 import Web3Provider
+
+fake = Faker()
+fake.add_provider(Web3Provider)
+```
+
+### Private keys
+
+```python
+fake.web3_private_key()
+# 0x1db498f960c133fd83351160687c91b6e41340959c9f03a810e8078f062562d1
+```
+

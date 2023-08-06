@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "faker_web3"
+version = "1.0.0"
+description = "Web3-related fake data provider for Python Faker"
+authors = ["Rares Stanciu <rcstanciu@protonmail.com>"]
+readme = "README.md"
+packages = [{include = "faker_web3"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+faker = "^16.4.0"
+web3 = "^5.31.3"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^2.21.0"
+scriv = {extras = ["toml"], version = "^1.0.0"}
+pytest = "^7.2.1"
+pytest-cov = "^4.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
