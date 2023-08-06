@@ -1,0 +1,96 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "torrentfileQt"
+description = "GUI based tool for creating Bittorrent files."
+requires-python = ">=3.6"
+keywords = ["GUI", "Bittorrent", "metafile", "torrentfile"]
+authors = [{name = "alexpdev", email = "alexpdev@pm.me"}]
+license = {file = "LICENSE"}
+version = "0.3.8"
+classifiers=[
+    "Development Status :: 4 - Beta",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: Apache Software License",
+]
+dependencies = ["torrentfile", "PySide6"]
+dynamic = ["readme"]
+
+[project.scripts]
+torrentfileqt = "torrentfileQt.__main__:main"
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"]}
+
+[tool.setuptools]
+packages = ["torrentfileQt"]
+include-package-data = true
+
+[tool.bandit]
+skips = ["B101"]
+
+[tool.black]
+line-length = 79
+
+[tool.autopep8]
+max_line_length = 80
+ignore = "E266"
+in-place = true
+recursive = true
+aggressive = 3
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+    "torrentfileQt",
+]
+console_output_style = "progress"
+addopts = "--maxfail=1"
+
+[tool.pylint.messages_control]
+disable= [
+    'redefined-outer-name',
+    'unspecified-encoding',
+    'protected-access',
+    'attribute-defined-outside-init',
+    'consider-using-with',
+    'use-a-generator',
+    'not-callable',
+    'useless-super-delegation',
+    'invalid-name',
+    'no-name-in-module',
+    'redefined-builtin',
+    'subprocess-run-check',
+    'no-member',
+    'consider-using-f-string',
+    'too-few-public-methods',
+    'too-many-lines'
+]
+
+[tool.pylint.format]
+max-line-length=80
+max-module-lines=1000
+single-line-if-stmt='yes'
+
+[tool.pylint.basic]
+good-names=[
+    'l','r','g','b','w','i','j','k','v','n','x',
+    'y','l','z','ex','ok','fd','d','Run','_'
+]
+
+[tool.pylint.design]
+max-args=15
+max-attributes=35
+max-branches=28
+max-locals=20
+max-parents=7
+max-public-methods=30
+max-returns=6
+max-statements=120
