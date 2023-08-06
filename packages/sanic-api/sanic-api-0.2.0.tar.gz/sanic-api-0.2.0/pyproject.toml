@@ -1,0 +1,60 @@
+[project]
+name = "sanic-api"
+version = "0.2.0"
+description = "让您的sanic服务程序更好的支持API文档、参数校验、日志打印、响应规范等"
+authors = [
+    { name = "昊色居士", email = "xhrtxh@gmail.com" },
+]
+dependencies = [
+    "sanic>=22.9.1",
+    "pydantic>=1.10.2",
+    "sanic-ext>=22.9.1",
+    "loguru>=0.6.0",
+    "pygments>=2.13.0",
+    "types-PyYAML>=6.0.12.2",
+    "ujson>=5.7.0",
+]
+requires-python = ">=3.8"
+readme = "README.MD"
+
+[project.license]
+text = "MIT"
+
+[project.optional-dependencies]
+
+[build-system]
+requires = [
+    "pdm-pep517>=1.0.0",
+]
+build-backend = "pdm.pep517.api"
+
+[tool.mypy]
+python_version = "3.8"
+ignore_missing_imports = true
+
+[tool.pdm]
+source = [
+    { name = "pypi", url = "https://pypi.tuna.tsinghua.edu.cn/simple", verify_ssl = true },
+]
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "black>=22.10.0",
+    "isort>=5.10.1",
+    "autoflake>=2.0.0",
+    "mypy>=0.991",
+]
+
+[tool.pdm.scripts]
+autoflake = "autoflake --in-place --recursive sanic_api"
+isort = "isort sanic_api"
+black = "black sanic_api"
+mypy = "mypy sanic_api"
+
+[tool.pdm.scripts.check]
+composite = [
+    "autoflake",
+    "isort",
+    "black",
+    "mypy",
+]
