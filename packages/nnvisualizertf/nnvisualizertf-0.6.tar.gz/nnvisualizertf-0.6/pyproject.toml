@@ -1,0 +1,27 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "nnvisualizertf"
+authors = [{name = "Anton Krause"}]
+readme = "README.md"
+dynamic = ["version", "description"]
+
+classifiers =[
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Development Status :: 3 - Alpha",
+    "Topic :: Documentation"
+]
+
+dependencies = [
+    "matplotlib",
+    "numpy",
+    "tensorflow"
+]
+
+[project.urls]
+homepage = "https://github.com/akdd11/nn_visualizer"
+changelog = "https://github.com/akdd11/nn_visualizer/blob/main/README.md"
