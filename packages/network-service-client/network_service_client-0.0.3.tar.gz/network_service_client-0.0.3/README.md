@@ -1,0 +1,38 @@
+# network-service-client
+
+network-service-client is a Python http client for dealing with communication with the wealize network service.
+
+## Installation
+
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install network-service-client.
+
+```bash
+pip install network-service-client
+```
+
+## Usage
+
+```python
+from network_service_client.client import (
+    AClient as ANetworkClient,
+    Client as NetworkClient,
+    Network as NetworkDTO,
+    NetworksNames,
+)
+
+# returns 'network'
+network_data: NetworkDTO = NetworkClient(
+            service_host=settings.NETWORK_SERVICE_HOST
+).get_network_by_name(NetworksNames.AlastriaDefaultName)
+```
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
