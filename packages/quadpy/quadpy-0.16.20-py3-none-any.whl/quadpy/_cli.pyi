@@ -1,0 +1,3 @@
+from ._optimize import optimize as optimize
+
+def main() -> None: ...

@@ -1,0 +1,9 @@
+from ..helpers import article as article, rd as rd, untangle as untangle
+from ._helpers import TnScheme as TnScheme
+from _typeshed import Incomplete
+
+source: Incomplete
+
+def hammer_stroud_1a(n: int): ...
+def hammer_stroud_1b(n: int): ...
+def hammer_stroud_2(n: int): ...

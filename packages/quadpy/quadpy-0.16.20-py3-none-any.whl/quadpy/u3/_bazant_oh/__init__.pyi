@@ -1,0 +1,9 @@
+from .._helpers import register as register
+from _typeshed import Incomplete
+
+source: Incomplete
+this_dir: Incomplete
+
+def bazant_oh_09(): ...
+def bazant_oh_11(): ...
+def bazant_oh_13(): ...

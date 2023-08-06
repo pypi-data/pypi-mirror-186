@@ -1,0 +1,9 @@
+from .._helpers import C2Scheme as C2Scheme, register as register
+from _typeshed import Incomplete
+
+source: Incomplete
+this_dir: Incomplete
+
+def schmid_2(): ...
+def schmid_4(): ...
+def schmid_6(): ...
