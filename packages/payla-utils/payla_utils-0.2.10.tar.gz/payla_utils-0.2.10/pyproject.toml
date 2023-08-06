@@ -1,0 +1,80 @@
+[tool.poetry]
+name = "payla-utils"
+version = "0.2.10"
+description = "payla_utils python package"
+authors = [
+    "Payla Services <tools@payla.de>",
+]
+readme = "README-public-pypi.md"
+keywords = [
+    "payla_utils",
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+packages = [{include = "payla_utils"}]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">= 3.9, < 4"
+Django = ">= 4.0"
+structlog = "^22.3.0"
+django-ipware = "==4.*"
+django-admin-interface = "==0.24.1"
+python-json-logger = "==2.*"
+structlog-sentry = "==2.*"
+sentry-sdk = ">=1.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.12.0"
+isort = "^5.10.1"
+pytest = "^7.2.0"
+pytest-django = "^4.5.2"
+pytest-cov = "^4.0.0"
+pre-commit = "2.*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+branch = true
+parallel = true
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "pragma: no cover",
+  "def __str__",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+omit = [
+  "*/tests/*",
+]
+
+[tool.black]
+line-length = 120
+include = '\.pyi?$'
+skip-string-normalization = true
+exclude = '''
+/(
+  \.venv
+  | migrations
+  | \.cache
+  | \.pre-commit-cache
+)/
+'''
+
+[tool.isort]
+profile = "black"
+py_version=310
+multi_line_output = 3
+line_length = 120
+default_section = "THIRDPARTY"
+skip = ["migrations", ".venv", ".pre-commit-cache"]
