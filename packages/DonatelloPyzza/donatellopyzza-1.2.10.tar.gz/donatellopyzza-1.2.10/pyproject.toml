@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "DonatelloPyzza"
+version = "1.2.10"
+authors = [
+  { name="Mickaël Bettinelli", email="mickael.bettinelli@univ-smb.fr" },
+]
+description = "A simple grid environment to learn Python"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/MilowB/Donatello"
+"Bug Tracker" = "https://github.com/MilowB/Donatello/pulls"
+
+[tool.hatch.build]
+include = [
+  "donatellopyzza/*"
+]
