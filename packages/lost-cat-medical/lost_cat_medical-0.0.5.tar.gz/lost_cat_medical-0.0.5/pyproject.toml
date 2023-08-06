@@ -1,0 +1,34 @@
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lost_cat_medical"
+version = "0.0.5"
+authors = [
+  { name="Dreffed aka David Gloyn-Cox", email="dreffed@gmail.com" },
+  { name="Thoughtswin Systems Inc", email="david.gloyn-cox@thoughtswinsystems.com" },
+]
+description = "Lost Cat (medical) is a package for medical related uris"
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "lost_cat>=0.1.0",
+    "numpy",
+    "pillow",
+    "pydicom",
+    "pynetdicom",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/thoughtswinsystems/lost_cat_medical"
+"Bug Tracker" = "https://github.com/thoughtswinsystems/lost_cat_medical/issues"
