@@ -1,0 +1,25 @@
+[run]
+omit =
+    */__main__.py
+
+[report]
+exclude_lines =
+    pragma:\s*no\s*cover
+    ignored?\s+(in|while)\s+test(ing|s)?
+    @abstract
+    @abc.abtractmethod
+    (abc.ABC):
+    def\s*__repr__
+    def\s*__str__
+    raise NotImplementedError
+    if\s+__name__\s*==\s*"__main__"\s*:
+    if\s+__name__\s*==\s*'__main__'\s*:
+    \s+pass\s+
+    logging.info
+    logging.warning
+    logging.debug
+    logging.error
+    logger.info
+    logger.debug
+    logger.warning
+    logger.error
