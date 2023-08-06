@@ -1,0 +1,84 @@
+name: MTAP Continuous Integration
+
+on:
+  pull_request:
+    branches: main
+  schedule:
+    - cron: 0 8 * * *
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 4
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        java-version: ['11', 'x']
+        python-version: ['3.7', 'x']
+        exclude:
+          - java-version: '11'
+            python-version: 'x'
+          - java-version: 'x'
+            python-version: '3.7'
+    steps:
+      - uses: actions/checkout@v3
+
+        # Setup
+      - name: Set up JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # Java Build and Tests
+      - name: Build with Gradle
+        working-directory: java
+        run: ./gradlew clean build shadowJar
+        
+      # Install Go gateway
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '>=1.17.0'
+      - name: Install mtap-gateway
+        working-directory: go
+        run: go install mtap-gateway/mtap-gateway.go
+        
+      # Install and Start Consul for Discovery Testing
+      - name: Set up Consul
+        run: |
+          if [ $RUNNER_OS == "macOS" ]; then
+            brew install consul
+          elif [ $RUNNER_OS == "Linux" ]; then
+            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+            sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+            sudo apt-get update
+            sudo apt-get install consul
+          else
+            echo "OS must be 'Linux' or 'macOS' not $RUNNER_OS"
+            exit 1
+          fi
+      - name: Start Consul
+        run: consul agent -dev &
+      # Python pip install
+      - name: Install Python package with dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools
+          pip install .[test,consul]
+      - name: Lint with flake8
+        run: |
+          pip install flake8
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 python --count --select=E9,F63,F7,F82 --show-source --statistics \
+                 --exclude python/mtap/api # Generated protos
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 python --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics \
+                 --exclude python/mtap/api # Generated protos
+      - name: Test with pytest
+        run: |
+          pip install pytest
+          MTAP_JAR=$(echo java/build/libs/*-all.jar) pytest python/tests --integration --consul --gateway
