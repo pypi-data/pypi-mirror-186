@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: bmrcli
+Version: 1.1.4
+Summary: Command-line tool for BMR HC64 heating controller
+Home-page: http://github.com/dankeder/bmrcli
+Author: Dan Keder
+Author-email: dan.keder@protonmail.com
+Keywords: bmr hc64 heating home-automation
+Classifier: Environment :: Console
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: cachetools (==4.1.0)
+Requires-Dist: certifi (==2020.6.20)
+Requires-Dist: chardet (==3.0.4)
+Requires-Dist: idna (==2.9)
+Requires-Dist: pybmr (==0.7.1)
+Requires-Dist: requests (==2.24.0)
+Requires-Dist: requests-toolbelt (==0.9.1)
+Requires-Dist: ruamel.yaml (==0.17.17)
+Requires-Dist: urllib3 (==1.25.9)
+
+# bmrcli
+
+Command-line utility for managing BMR HC64 heating controller configuration.
+
+Features:
+
+- save controller configuration into a YAML file
+- load controller configuration from a YAML file
+
+Product page: https://www.bmr.cz/produkty/regulace-topeni/rnet
+
+## Install
+
+```
+pip install bmrcli
+```
+
+## Usage
+
+To get the current config from the heating controller:
+
+```
+bmrcli http://username@password:192.168.1.32 dump > bmr-config.yaml
+```
+
+To load configuration into the heating controller:
+
+```
+bmrcli http://username@password:192.168.1.32 load < bmr-config.yaml
+```
+
+# License
+
+MIT
