@@ -1,0 +1,30 @@
+import uuid
+import logging
+
+from bigflow.configuration import Config
+
+
+workflow_config = Config(
+    name='dev',
+    properties={
+        'gcp_project_id': {{ project_id | repr}},
+        'staging_location': {{ (project_name + "/beam_runner/staging") | repr }},
+        'temp_location': {{ (project_name + "/beam_runner/temp") | repr }},
+        'region': 'europe-west1',
+        'machine_type': 'n1-standard-1',
+    },
+).resolve()
+
+
+def dataflow_pipeline_options():
+    return dict(
+        project=workflow_config['gcp_project_id'],
+        staging_location=f"gs://{workflow_config['staging_location']}",
+        temp_location=f"gs://{workflow_config['temp_location']}",
+        region=workflow_config['region'],
+        machine_type=workflow_config['machine_type'],
+        max_num_workers=2,
+        autoscaling_algorithm='THROUGHPUT_BASED',
+        runner='DataflowRunner',
+        #service_account_email='your-service-account',
+    )
