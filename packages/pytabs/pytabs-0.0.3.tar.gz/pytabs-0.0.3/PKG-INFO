@@ -1,0 +1,84 @@
+Metadata-Version: 2.1
+Name: pytabs
+Version: 0.0.3
+Summary: A python wrapper for the CSi ETABS .NET API
+Project-URL: Homepage, https://github.com/mitchell-tesch/pytabs
+Project-URL: Bug Tracker, https://github.com/mitchell-tesch/pytabs/issues
+Author: Mitchell Tesch
+Author-email: mitchell.z.tesch@gmail.com
+License-File: LICENSE
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.8
+Requires-Dist: pythonnet
+Provides-Extra: examples
+Requires-Dist: pandas; extra == 'examples'
+Requires-Dist: xlwings; extra == 'examples'
+Description-Content-Type: text/markdown
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/mitchell-tesch/pytabs">
+    <img src="images/logo.png" alt="pytabs logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">pyTABS</h3>
+
+  <p align="center">
+    A python wrapper for CSi ETABS .NET API
+    <br />
+    <a href="https://mitchell-tesch.github.io/pytabs/pytabs.html"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/mitchell-tesch/pytabs/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/mitchell-tesch/pytabs/issues">Request Feature</a>
+  </p>
+</div>
+
+
+## Description
+A Python wrapper for CSi ETABS .NET API - a simple yet robust Python interface to the ETABS .NET API. Not affiliated with Computer and Structures Inc.
+
+
+## Installation
+*pyTABS* can be installed through the Python package manager:
+```
+$ pip install pytabs
+```
+
+
+## Requirements
+ - Python 3.8+
+ - pythonnet
+ - pdoc
+
+
+## Usage
+🗒️Documentation can be found at https://mitchell-tesch.github.io/pytabs/pytabs.html
+
+_For examples, please refer to the [examples](./examples/)._
+
+
+## Licence
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
+
+
+## Contibutors
+Contributors welcome.
+
+IntelliSense of the ETABSv1 namespace (ETABSv1.dll) can be achieved via the included stub file. This stub file has been generated using [IronPython Stubs](https://github.com/gtalarico/ironpython-stubs) by [gtalarico](https://github.com/gtalarico).
+
+To make use of this stub file in VS Code add the following to your settings.json:
+```json
+    "python.autoComplete.extraPaths": ["<path_to_stub_directory>"],
+    "python.analysis.extraPaths": ["<path_to_stub_directory>"]
+```
