@@ -1,0 +1,113 @@
+{
+    "namespace": "suzieq",
+    "name": "topology",
+    "type": "derivedRecord",
+    "depends": [
+        "address",
+        "arpnd",
+        "bgp",
+        "device",
+        "evpnVni",
+        "interfaces",
+        "lldp",
+        "macs",
+        "ospf",
+        "routes"
+    ],
+    "fields": [
+        {
+            "name": "sqvers",
+            "type": "string",
+            "partition": 0,
+            "default": "1.0",
+            "suppress": true,
+            "description": "Schema version, not selectable"
+        },
+        {
+            "name": "namespace",
+            "type": "string",
+            "display": 1,
+            "description": "Namespace associated with this record",
+            "partition": 1
+        },
+        {
+            "name": "hostname",
+            "type": "string",
+            "display": 2,
+            "description": "Hostname associated with this record",
+            "partition": 2
+        },
+        {
+            "name": "peerHostname",
+            "type": "string",
+            "display": 4,
+            "description": "Name of the other side of the connection"
+        },
+        {
+            "name": "ifname",
+            "type": "string",
+            "display": 3,
+            "description": "Interface that the host is connected on, discovered through lldp"
+        },
+        {
+            "name": "vrf",
+            "type": "string",
+            "display": 6,
+            "description": "VRF that the connection is in"
+        },
+        {
+            "name": "asn",
+            "type": "long",
+            "display": 7,
+            "description": "BGP ASN for BGP peering"
+        },
+        {
+            "name": "peerAsn",
+            "type": "long",
+            "display": 8,
+            "description": "BGP peerASN in BGP peering"
+        },
+        {
+            "name": "area",
+            "type": "string",
+            "display": 9,
+            "description": "OSPF area in OSPF peering"
+        },
+        {
+            "name": "arpnd",
+            "type": "bool",
+            "display": 10,
+            "description": "Is the peer connected via ARP"
+        },
+        {
+            "name": "arpndBidir",
+            "type": "bool",
+            "display": 11,
+            "description": "Is the ARP peering bidirecttonal"
+        },
+        {
+            "name": "bgp",
+            "type": "bool",
+            "display": 12,
+            "description": "Is the peer connected via BGP"
+        },
+        {
+            "name": "lldp",
+            "type": "bool",
+            "display": 13,
+            "description": "Is the peer connected via LLDP"
+        },
+        {
+            "name": "ospf",
+            "type": "bool",
+            "display": 14,
+            "description": "Is the perr connected via OSPF"
+        },
+        {
+            "name": "polled",
+            "type": "bool",
+            "display": 15,
+            "description": "is this peerHostname polled by Suzieq"
+        }
+    ]
+}

@@ -1,0 +1,128 @@
+{
+    "namespace": "suzieq",
+    "name": "topmem",
+    "type": "record",
+    "fields": [
+        {
+            "name": "sqvers",
+            "type": "string",
+            "partition": 0,
+            "default": "2.0",
+            "suppress": true,
+            "description": "Schema version, not selectable"
+        },
+        {
+            "name": "percentCPU",
+            "type": "float",
+            "display": 4
+        },
+        {
+            "name": "user",
+            "type": "string"
+        },
+        {
+            "name": "fiveMinLoadAvg",
+            "type": "float"
+        },
+        {
+            "name": "percentMem",
+            "type": "float",
+            "display": 6
+        },
+        {
+            "name": "sharedMem",
+            "type": "long"
+        },
+        {
+            "name": "pid",
+            "type": "long",
+            "key": 3,
+            "display": 3
+        },
+        {
+            "name": "residentMem",
+            "type": "long",
+            "display": 7
+        },
+        {
+            "name": "fifteenMinLoadAvg",
+            "type": "float"
+        },
+        {
+            "name": "freeMem",
+            "type": "long"
+        },
+        {
+            "name": "runningTime",
+            "type": "string"
+        },
+        {
+            "name": "totalMem",
+            "type": "long"
+        },
+        {
+            "name": "cacheMem",
+            "type": "long"
+        },
+        {
+            "name": "nice",
+            "type": "long"
+        },
+        {
+            "name": "minLoadAvg",
+            "type": "float",
+            "display": 5
+        },
+        {
+            "name": "virtualMem",
+            "type": "long"
+        },
+        {
+            "name": "usedMem",
+            "type": "long"
+        },
+        {
+            "name": "state",
+            "type": "string"
+        },
+        {
+            "name": "priority",
+            "type": "long"
+        },
+        {
+            "name": "procName",
+            "type": "string",
+            "key": 2,
+            "display": 2
+        },
+        {
+            "name": "deviceSession",
+            "type": "timestamp",
+            "suppress": true,
+            "description": "Device boot session id"
+        },
+        {
+            "name": "hostname",
+            "type": "string",
+            "key": 1,
+            "display": 1,
+            "partition": 2
+        },
+        {
+            "name": "namespace",
+            "type": "string",
+            "key": 0,
+            "display": 0,
+            "partition": 1
+        },
+        {
+            "name": "timestamp",
+            "type": "timestamp"
+        },
+        {
+            "name": "active",
+            "type": "boolean"
+        }
+    ],
+    "recordType": "counters"
+}

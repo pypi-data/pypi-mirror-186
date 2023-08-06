@@ -1,0 +1,35 @@
+Value totalMem (\d+)
+Value freeMem (\d+)
+Value availMem (\d+)
+Value totalSwap (\d+)
+Value freeSwap (\d+)
+Value zebraHeap (\d+)
+Value zebraUsedBlocks (\d+)
+Value ospfdHeap (\d+)
+Value ospfdUsedBlocks (\d+)
+Value bgpdHeap (\d+)
+Value bgpdUsedBlocks (\d+)
+
+Start
+  ^MemTotal:\s+${totalMem}\s+kB.*$$
+  ^MemFree:\s+${freeMem}\s+kB.*$$
+  ^MemAvailable:\s+${availMem}\s+kB.*$$
+  ^SwapTotal:\s+${totalSwap}\s+kB.*$$
+  ^SwapFree:\s+${freeSwap}\s+kB.*$$
+  ^\s*Memory statistics for zebra:.*$$ -> Zebra
+
+Zebra
+  ^\s*Total heap allocated:\s+${zebraHeap} KiB.*$$
+  ^\s*Used ordinary blocks:\s*${zebraUsedBlocks} KiB.*$$
+  ^\s*Memory statistics for ospfd:.*$$ -> OSPF
+  ^\s*Memory statistics for bgpd:.*$$ -> BGP
+
+OSPF
+  ^\s*Total heap allocated:\s+${ospfdHeap} KiB.*$$
+  ^\s*Used ordinary blocks:\s*${ospfdUsedBlocks} KiB.*$$
+  ^\s*Memory statistics for bgpd:.*$$ -> BGP
+
+BGP
+  ^\s*Total heap allocated:\s+${bgpdHeap} KiB.*$$
+  ^\s*Used ordinary blocks:\s*${bgpdUsedBlocks} KiB.*$$
+  ^\s*Memory statistics for watchfrr:.*$$ -> EOF

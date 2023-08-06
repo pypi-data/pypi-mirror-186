@@ -1,0 +1,30 @@
+Value Filldown minLoadAvg (\S+)
+Value Filldown fiveMinLoadAvg (\S+)
+Value Filldown fifteenMinLoadAvg (\S+)
+Value Filldown totalMem (\d+)
+Value Filldown freeMem (\d+)
+Value Filldown usedMem (\d+)
+Value Filldown cacheMem (\d+)
+Value pid (\d+)
+Value user (\S+)
+Value priority (\d+)
+Value nice (\d+)
+Value virtualMem (\d+|\d+.\d+g)
+Value residentMem (\d+|\d+.\d+g)
+Value sharedMem (\d+|\d+.\d+g)
+Value state (\S)
+Value percentCPU (\d+.\d+)
+Value percentMem (\d+.\d+)
+Value runningTime (\d+:\d+.?\d*)
+Value procName (.*)
+
+Start
+  ^top.*\s+load average: ${minLoadAvg}, ${fiveMinLoadAvg}, ${fifteenMinLoadAvg}.*$$
+  ^Tasks.*$$
+  ^%Cpu.*$$
+  ^KiB Mem\s*:\s+${totalMem} total,\s+${freeMem} free,\s+${usedMem} used,\s+${cacheMem} buff.*\s*$$
+  ^KiB Swap:.*$$
+  ^\s*$$
+  ^\s+PID USER.*$$ -> Record
+  ^\s*${pid}\s+${user}\s+${priority}\s+${nice}\s+${virtualMem}\s+${residentMem}\s+${sharedMem}\s+${state}\s+${percentCPU}\s+${percentMem}\s+${runningTime}\s+${procName}\s*$$ -> Record
+  ^$$EOF 

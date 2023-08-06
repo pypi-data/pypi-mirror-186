@@ -1,0 +1,13 @@
+Value vendor (\S+)
+Value version (\d+.\d+.\d+)
+Value model (\S+)
+Value os (\S+ \S+)
+Value sysUptime (\d+.\d+)
+Value architecture (\S+)
+
+Start
+  ^${sysUptime}.*$$
+  ^\s*Chassis:\s+${model}\s*$$
+  ^\s*Operating System:\s+${os}\s*$$
+  ^\s*CPE OS Name:\s*cpe.*:${version}\s*$$
+  ^\s*Architecture:\s+${architecture}\s*$$

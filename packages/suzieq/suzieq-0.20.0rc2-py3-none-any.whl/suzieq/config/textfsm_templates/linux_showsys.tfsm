@@ -1,0 +1,11 @@
+Value vendor (\S+)
+Value model (\S+)
+Value os (.*)
+Value bootupTimestamp (\d+.\d+)
+Value architecture (\S+)
+
+Start
+  ^${bootupTimestamp}.*$$
+  ^\s*Chassis:\s+${model}\s*$$
+  ^\s*Operating System:\s+${os}\s*$$
+  ^\s*Architecture:\s+${architecture}\s*$$

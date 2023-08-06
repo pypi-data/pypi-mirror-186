@@ -1,0 +1,34 @@
+service: time
+show-fields:
+  - ntpSync
+  - ntpServer
+  - offset
+apply:
+  cumulus:
+    copy: linux
+
+  iosxr:
+    version: all
+    command: show ntp status
+    textfsm: textfsm_templates/iosxr_show_ntp.tfsm
+
+  linux:
+    version: all
+    command: timedatectl
+    textfsm: textfsm_templates/timedatectl.tfsm
+
+  sonic:
+    copy: linux
+
+  eos:
+    version: all
+    command: show clock
+    format: text
+    textfsm: textfsm_templates/eos_showclock.tfsm
+
+  nxos:
+    version: all
+    command: show clock
+    format: text
+    textfsm: textfsm_templates/nxos_show_clock.tfsm
+    

@@ -1,0 +1,302 @@
+
+service: bgp
+ignore-fields:
+  - lastDownTime
+  - estdTime
+keys:
+  - vrf
+  - peer
+  - afi
+  - safi
+show-fields:
+  - vrf
+  - peer
+  - peerHostname
+  - state
+  - asn
+  - peerAsn
+  - pfxRx
+  - estdTime
+  - numChanges
+
+apply:
+  eos:
+    version: all
+    command: show ip bgp neighbors vrf all
+    format: text
+    textfsm: textfsm_templates/eos_show_bgp_nbr.tfsm
+
+  cumulus:
+    version: all
+    command: net show bgp vrf all neighbor json
+    normalize: '*:vrf/*:peer/[
+        "neighborCapabilities/multiprotocolExtensions/*:_sqstore/received: afisRcvOnly",
+        "neighborCapabilities/multiprotocolExtensions/*:_sqstore/advertised: afisAdvOnly",
+        "addressFamilyInfo: _afiInfo",
+        "remoteAs: peerAsn",
+        "localAs: asn",
+        "lastResetDueTo: reason?|",
+        "lastNotificationReason: notificnReason?|",
+        "lastResetTimerMsecs: lastDownTime?|0",
+        "messageStats/updatesSent: updatesTx",
+        "messageStats/updatesRecv: updatesRx",
+        "remoteRouterId: peerRouterId",
+        "localRouterId: routerId",
+        "bgpState: state?Established|NotEstd",
+        "bgpTimerUpEstablishedEpoch: estdTime*1000",
+        "connectionsEstablished: numChanges",
+        "connectionsDropped: numChanges+numChanges",
+        "bgpTimerHoldTimeMsecs: holdTime/1000",
+        "bgpTimerKeepAliveIntervalMsecs: keepaliveTime/1000",
+        "minBtwnAdvertisementRunsTimerMsecs: mrai/1000",
+        "peerBfdInfo/status: bfdStatus?|disabled",
+        "neighborCapabilities/extendedNexthop": extnhEnabled",
+        "neighborCapabilities/hostName/rcvHostName: peerHostname?|",
+        "messageStats/updatesSent: updatesTx",
+        "messageStats/updatesRecv: updatesRx",
+        "hostLocal: updateSource?|",
+        "hostForeign: peerIP?|"]'
+
+  iosxr:
+    version: all
+    command:
+      - command: show bgp vrf default neighbors
+        textfsm: textfsm_templates/iosxr_show_bgp_neigh.tfsm
+      - command: show bgp vrf all neighbors
+        textfsm: textfsm_templates/iosxr_show_bgp_neigh.tfsm
+      - command: show bgp vrf default summary
+        textfsm: textfsm_templates/iosxr_show_bgp_summ.tfsm
+        _entryType: summary
+      - command: show bgp vrf all summary
+        textfsm: textfsm_templates/iosxr_show_bgp_summ.tfsm
+        _entryType: summary
+
+  iosxe:
+    version: all
+    command:
+      - command: show bgp all neighbors
+        textfsm: textfsm_templates/iosxe_show_bgp_neigh.tfsm
+
+      - command: show bgp all summary
+        textfsm: textfsm_templates/iosxe_show_bgp_summ.tfsm
+        _entryType: summary
+
+  ios:
+    copy: iosxe
+
+  linux:
+      version: all
+      command: sudo vtysh -c "show bgp vrf all neighbors json"
+      normalize: '*:vrf/*:peer/[
+        "neighborCapabilities/multiprotocolExtensions/*:_sqstore/received: afisRcvOnly",
+        "neighborCapabilities/multiprotocolExtensions/*:_sqstore/advertised: afisAdvOnly",
+        "addressFamilyInfo: _afiInfo",
+        "remoteAs: peerAsn",
+        "localAs: asn",
+        "lastResetDueTo: reason?|",
+        "lastNotificationReason: notificnReason?|",
+        "lastResetTimerMsecs: lastDownTime?|0",
+        "messageStats/updatesSent: updatesTx",
+        "messageStats/updatesRecv: updatesRx",
+        "remoteRouterId: peerRouterId",
+        "localRouterId: routerId",
+        "bgpState: state?Established|NotEstd",
+        "bgpTimerUpEstablishedEpoch: estdTime*1000",
+        "connectionsEstablished: numChanges",
+        "connectionsDropped: numChanges+numChanges",
+        "bgpTimerHoldTimeMsecs: holdTime/1000",
+        "bgpTimerKeepAliveIntervalMsecs: keepaliveTime/1000",
+        "minBtwnAdvertisementRunsTimerMsecs: mrai/1000",
+        "peerBfdInfo/status: bfdStatus?|disabled",
+        "neighborCapabilities/extendedNexthop": extnhEnabled",
+        "neighborCapabilities/hostName/rcvHostName: peerHostname?|",
+        "messageStats/updatesSent: updatesTx",
+        "messageStats/updatesRecv: updatesRx",
+        "hostLocal: updateSource?|",
+        "hostForeign: peerIP?|"]'
+  sonic:
+    copy: linux
+
+  nxos:
+    - version: < 9.3(0)
+      command:
+        - command: show bgp all neighbors vrf all
+          textfsm: textfsm_templates/nxos_show_bgp_nbr.tfsm
+
+        - command: show bgp all summary vrf all
+          textfsm: textfsm_templates/nxos_show_bgp_summ.tfsm
+          _entryType: summary
+
+    - version: all
+      command:
+        - command: show bgp all neighbors vrf all | json native
+          normalize: 'TABLE_neighbor/ROW_neighbor/*?/[
+          "TABLE_peraf/ROW_peraf/[*]?/TABLE_persaf/ROW_persaf/[*]/pfxtreataswithdrawn: pfxWithdrawn?|0",
+          "neighbor: peer",
+          "neighbor: origPeer",
+          "ipv4prefixneighbor: _dynPeer",
+          "remoteas: peerAsn?|0",
+          "remote-id: peerRouterId",
+          "vrf: vrf?|default",
+          "sourceif: ifname?|",
+          "ttllimit: hopsMax",
+          "connectedif: ifname?|ifname",
+          "passiveonly: passive?|False",
+          "state: state?Established|NotEstd",
+          "holdtime: holdTime?|0",
+          "keepalivetime: keepaliveTime?|0",
+          "connsestablished: numChanges?|0",
+          "connsdropped: numChanges+numChanges",
+          "elapsedtime: estdTime?|",
+          "resetreason: reason",
+          "bfd: bfdStatus?|disabled",
+          "peerresetreason: "notificnReason?|",
+          "TABLE_af/ROW_af/[*]?/TABLE_saf/ROW_saf/[*]/af-name: afiSafi?|[]",
+          "TABLE_af/ROW_af/[*]?/TABLE_saf/ROW_saf/[*]/af-recvd: afRcvd?|[]",
+          "TABLE_af/ROW_af/[*]?/TABLE_saf/ROW_saf/[*]/af-advertised: afAdvertised?|[]",
+          "capextendednhadvertised: extnhAdvertised",
+          "capextendednhrecvd: extnhReceived",
+          "updatessent: updatesTx?|0",
+          "updatesrecvd: updatesRx?|0",
+          "TABLE_peer/ROW_peer/[*]?/peer: _dynamicPeers",
+          "activepeers: _activePeers",
+          "maxconcurrentpeers: _maxconcurrentpeers",
+          "TABLE_peraf/ROW_peraf/[*]?/TABLE_persaf/ROW_persaf/[*]/per-af-name: afiPrefix?|",
+          "TABLE_peraf/ROW_peraf/[*]?/TABLE_persaf/ROW_persaf/[*]/pfxrecvd: pfxRcvd?|0",
+          "TABLE_peraf/ROW_peraf/[*]?/TABLE_persaf/ROW_persaf/[*]/pfxsent: pfxSent?|0",
+          "TABLE_peraf/ROW_peraf/[*]?/TABLE_persaf/ROW_persaf/[*]/sendextcommunity: extendComm?|",
+          "TABLE_peraf/ROW_peraf/[*]?/TABLE_persaf/ROW_persaf/[*]/sendextcommunity: sendComm?|",
+          "TABLE_peraf/ROW_peraf/[0]?/TABLE_persaf/ROW_persaf/[*]/rrconfigured: rrclient?|[],
+          "TABLE_peraf/ROW_peraf/[0]?/TABLE_persaf/ROW_persaf/[*]/firstconvgtime: _firstconvgtime",
+          "TABLE_peraf/ROW_peraf/[*]?/TABLE_persaf/ROW_persaf/[*]/defaultoriginate: defaultOrig",
+          "TABLE_peraf/ROW_peraf/[*]?/TABLE_persaf/ROW_persaf/[*]/insoftreconfigallowed: softReconfig",
+          "TABLE_peraf/ROW_peraf/[*]?/TABLE_persaf/ROW_persaf/[*]/TABLE_inpolicy/ROW_inpolicy/[*]/inpolicyname: ingressRmap",        
+          "TABLE_peraf/ROW_peraf/[*]?/TABLE_persaf/ROW_persaf/[*]/TABLE_outpolicy/ROW_outpolicy/[*]/outpolicyname: egressRmap?|",        
+          "localaddr: updateSource?|",
+          "remoteaddr: peerIP?|",
+          "entry-type: _entryType?|neighbors",
+          ]'
+
+        - command: show bgp all summary vrf all | json native
+          normalize: 'TABLE_vrf/ROW_vrf/*?/[
+          "vrf-name-out: vrf",
+          "vrf-name-out: peer",
+          "vrf-local-as: asn",
+          "vrf-router-id: routerId",
+          "entry-type: _entryType?|summary"
+          ]'
+
+        
+
+  junos-qfx:
+    version: all
+    command:
+      - command: show bgp summary | display json | no-more
+        normalize: 'bgp-information/bgp-peer/*/[
+        "peer-address/[0]/data: peer",
+        "elapsed-time/[0]/attributes: estdTime?|",
+        "bgp-rib/[*]/name/[0]/data: vrf?|default",
+        "entry_type: _entryType?|summary",
+        ]'
+
+      - command: "show bgp neighbor | display json"
+        normalize: 'bgp-information/[0]/bgp-peer/*/[
+        "route-reflector-client/[0]/data: rrclient",
+        "peer-address/[0]/data: peerIP",
+        "peer-address/[0]/data: peer",
+        "peer-as/[0]/data: peerAsn?|0",
+        "local-address/[0]/data: updateSource",
+        "local-as/[0]/data: asn",
+        "peer-state/[0]/data: state?Established|NotEstd",
+        "last-error/[0]/data: reason",
+        "bgp-option-information/[0]/export-policy/[0]/data: v4EgressRmap",
+        "bgp-option-information/[0]/import-policy/[0]/data: v4IngressRmap",
+        "bgp-option-information/[0]/holdtime/[0]/data: holdTime?|0",
+        "bgp-option-information/[0]/address-families/[0]/data: afiSafiAdvList?|",
+        "bgp-bfd/[0]/bfd-operational-state/[0]/data: bfdStatus?|",
+        "bgp-bfd/[0]/bfd-configuration-state/[0]/data: _bfdAdmin?|",
+        "nlri-type-session/[0]/data: afiSafiEnabledList?|",
+        "nlri-type-peer/[0]/data: afiSafiRcvList?|",
+        "bgp-error/[0]/name/[0]/data: notificnReason?|",
+        "flap-count/[0]/data: numChanges?|0",
+        "peer-id/[0]/data: peerRouterId",
+        "local-id/[0]/data: routerId",
+        "keepalive-interval/[0]/data: keepaliveTime?|0",
+        "bgp-bfd/[0]/bfd-operational-state/[0]/data: bfdStatus?|disabled",
+        "local-interface-name/[0]/data: ifname?|",
+        "bgp-rib/[*]/advertised-prefix-count/[0]/data: _pfxTxList",
+        "bgp-rib/[*]/received-prefix-count/[0]/data: _pfxRxList?|",
+        "bgp-rib/[*]/suppressed-prefix-count/[0]/data: _pfxSuppressList?|",
+        "bgp-rib/[*]/active-prefix-count/[0]/data: _pfxBestRxList",
+        "bgp-rib/[*]/name/[0]/data: _pfxType",
+        "bgp-traffic/[0]/input-updates/[0]/data: updatesRx?|0",
+        "output-updates/[0]/data: updatesTx?|0",
+        "bgp-output-queue/[*]/table-name/[0]/data: _tableNameList",
+        "bgp-output-queue/[*]/rib-adv-nlri/[0]/data: _tableAfiList",
+        "entry_type: _entryType?|neighbors",
+        ]'
+
+  junos-ex:
+    copy: junos-qfx
+
+  junos-mx:
+    copy: junos-qfx
+
+  junos-es:
+    copy: junos-qfx
+
+  junos-qfx10k:
+    copy: junos-qfx
+
+  junos-evo:
+    copy: junos-qfx
+
+  panos:
+    version: all
+    merge: False
+    command:
+      - command: <show><routing><protocol><bgp><summary/></bgp></protocol></routing></show>
+        normalize: 'response/result/entry/[
+          "router-id: routerId",
+          "local-as: asn",
+        ]'
+
+      - command: <show><routing><protocol><bgp><peer-group/></bgp></protocol></routing></show>
+        normalize: 'response/result/entry/[
+          "@peer-group: _peerGroup",
+          "soft-reset-support: softReconfig",
+          ]'
+
+      - command: <show><routing><bfd><summary/></bfd></routing></show>
+        normalize: 'response/result/entry/[
+          "neighbor-ip-address: _bgp_neighbor",
+          "state-local: _bfd_status",
+        ]'
+
+      - command: <show><routing><protocol><bgp><peer/></bgp></protocol></routing></show>
+        normalize: 'response/result/entry/*/[
+          "@vr: vrf",
+          "@peer: peer",
+          "peer-group: _peerGroup",
+          "peer-address: peerIP",
+          "peer-router-id: peerRouterId",
+          "remote-as: peerAsn",
+          "status: state",
+          "status-duration: estdTime",
+          "multi-hop-ttl: hopsMax",
+          "keepalive: keepaliveTime",
+          "holdtime: holdTime",
+          "reflector-client: rrclient",
+          "local-address: updateSource",
+          "msg-update-in: updatesRx",
+          "msg-update-out: updatesTx",
+          "prefix-counter/entry/@afi-safi: _afi_safi",
+          "netxhop-self: nhSelf",
+          "netxhop-third-party: nhUnchanged",
+          "status-flap-counts: numChanges",
+          "prefix-limit: pfxMaxRx",
+          "prefix-counter/entry/incoming-total: pfxRx",
+          "prefix-counter/entry/incoming-rejected: pfxSuppressRx",
+          "prefix-counter/entry/outgoing-total: pfxTx",
+          "last-error: reason?|",
+        ]'

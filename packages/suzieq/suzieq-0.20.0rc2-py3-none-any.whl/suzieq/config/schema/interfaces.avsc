@@ -1,0 +1,197 @@
+{
+    "namespace": "suzieq",
+    "name": "interfaces",
+    "type": "record",
+    "fields": [
+        {
+            "name": "sqvers",
+            "type": "string",
+            "partition": 0,
+            "default": "4.0",
+            "suppress": true,
+            "description": "Schema version, not selectable"
+        },
+        {
+            "name": "ifindex",
+            "type": "long",
+            "description": "ifIndex of interface"
+        },
+        {
+            "name": "reason",
+            "type": "string",
+            "description": "Reason for interface being down"
+        },
+        {
+            "name": "routeDistinguisher",
+            "type": "string",
+            "description": "Route distinguisher of interface, if VRF"
+        },
+        {
+            "name": "macaddr",
+            "type": "string",
+            "description": "MAC address of interface, not burned in"
+        },
+        {
+            "name": "interfaceMac",
+            "type": "string",
+            "description": "MAC address of interface, burned in"
+        },
+        {
+            "name": "type",
+            "type": "string",
+            "display": 5,
+            "description": "Interface type, such as loopback, bond, etc"
+        },
+        {
+            "name": "description",
+            "type": "string",
+            "description": "Operator assigned interface description, if any"
+        },
+        {
+            "name": "numChanges",
+            "type": "long",
+            "description": "Number of interface state changes"
+        },
+        {
+            "name": "speed",
+            "type": "long",
+            "description": "Interface speed in Mbps"
+        },
+        {
+            "name": "vlan",
+            "type": "int",
+            "display": 7,
+            "description": "VLAN ID of interface, if any"
+        },
+        {
+            "name": "innerVlan",
+            "type": "int",
+            "description": "inner VLAN ID if Q-in-Q interface"
+        },
+        {
+            "name": "vlanName",
+            "type": "string",
+            "description": "VLAN name if assigned"
+        },
+        {
+            "name": "vlanList",
+            "type": {
+                    "type": "array",
+                    "items": {
+                        "type": "int",
+                        "name": "vlan"
+                    }
+                },
+            "description": "List of active, unpruned VLANs on a trunk port",
+            "depends": "namespace hostname ifname portmode"
+        },
+        {
+            "name": "ipAddressList",
+            "type": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "name": "ipAddress"
+                }
+            },
+            "display": 9,
+            "description": "IPv4 addresses on this interface"
+        },
+        {
+            "name": "srcVtepIp",
+            "type": "string",
+            "description": "Some NOS provide the Src VTEP IP associated with interface"
+        },
+        {
+            "name": "state",
+            "type": "string",
+            "display": 3,
+            "description": "Operational state of interface"
+        },
+        {
+            "name": "adminState",
+            "type": "string",
+            "display": 4
+        },
+        {
+            "name": "master",
+            "type": "string",
+            "display": 8,
+            "description": "Container for this interface such as port channel, VRF, etc"
+        },
+        {
+            "name": "ifname",
+            "type": "string",
+            "key": 2,
+            "display": 2
+        },
+        {
+            "name": "statusChangeTimestamp",
+            "type": "double"
+        },
+        {
+            "name": "vni",
+            "type": "int",
+            "description": "Virtual Network ID, if provided"
+        },
+        {
+            "name": "ip6AddressList",
+            "type": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "name": "ip6Address"
+                }
+            },
+            "display": 10,
+            "description": "IPv6 addresses on this interface"
+        },
+        {
+            "name": "lacpBypass",
+            "type": "boolean"
+        },
+        {
+            "name": "mtu",
+            "type": "long",
+            "display": 6
+        },
+        {
+            "name": "portmode",
+            "type": "string",
+            "description": "switchport mode: access, trunk or routed",
+            "depends": "namespace hostname ifname adminState type ipAddressList ip6AddressList"
+        },
+        {
+            "name": "deviceSession",
+            "type": "timestamp",
+            "suppress": true,
+            "description": "Device boot session id"
+        },
+        {
+            "name": "hostname",
+            "type": "string",
+            "key": 1,
+            "display": 1,
+            "partition": 2,
+            "description": "Hostname associated with this record"
+        },
+        {
+            "name": "namespace",
+            "type": "string",
+            "key": 0,
+            "display": 0,
+            "partition": 1,
+            "description": "Namespace associated with this record"
+        },
+        {
+            "name": "timestamp",
+            "type": "timestamp",
+            "display": 11
+        },
+        {
+            "name": "active",
+            "type": "boolean",
+            "description": "If this entry is active or deleted"
+        }
+    ]
+}

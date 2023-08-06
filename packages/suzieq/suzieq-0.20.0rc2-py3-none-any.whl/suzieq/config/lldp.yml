@@ -1,0 +1,153 @@
+service: lldp
+keys:
+  - ifname
+show-fields:
+  - ifname
+  - peerHostname
+  - peerIfname
+  - description
+  - mgmtIP
+apply:
+  cumulus:
+    version: all
+    command: net show lldp json
+    normalize: 'lldp/[0]/interface/*/[
+    "name: ifname",
+    "chassis/[0]/name/[0]/value: peerHostname?|",
+    "chassis/[0]/descr/[0]/value: description?|",
+    "chassis/[0]/mgmt-ip/[0]/value: mgmtIP?|",
+    "port/[0]/id/[0]/type: subtype",
+    "port/[0]/id/[0]/value: peerMacaddr?|",
+    "port/[0]/id/[0]/value: peerIfname?|",
+    ]'
+
+  eos:
+    version: all
+    command: show lldp neighbors detail
+    normalize: 'lldpNeighbors/*:ifname/[
+    "lldpNeighborInfo/[0]/systemName: peerHostname?|",
+    "lldpNeighborInfo/[0]/neighborInterfaceInfo/interfaceId: peerIfname?|",
+    "lldpNeighborInfo/[0]/neighborInterfaceInfo/interfaceIdType: subtype?|",
+    "lldpNeighborInfo/[0]/systemDescription: description?|",
+    "lldpNeighborInfo/[0]/managementAddresses/[0]/address: mgmtIP?|",
+    ]'
+
+  iosxr:
+    version: all
+    command: show lldp neighbors detail
+    textfsm: textfsm_templates/iosxr_show_lldp_neigh.tfsm
+
+  iosxe:
+    version: all
+    command:
+      - command: show cdp neighbors
+        textfsm: textfsm_templates/iosxe_show_lldp_neigh.tfsm
+
+      - command: show lldp neighbors
+        textfsm: textfsm_templates/iosxe_show_lldp_neigh.tfsm
+
+  ios:
+    copy: iosxe
+
+  linux:
+    version: all
+    command: if systemctl status lldpd > /dev/null 2>&1; then sudo lldpctl; fi
+    textfsm: textfsm_templates/lldpd.tfsm
+
+  sonic:
+    version: all
+    command: lldpctl
+    textfsm: textfsm_templates/lldpd.tfsm
+
+  junos-qfx:
+    - version: < 19.1
+      command: show lldp neighbors | display json | no-more
+      normalize: 'lldp-neighbors-information/[0]/lldp-neighbor-information/*/[
+      "lldp-local-port-id/[0]/data: ifname?|",
+      "lldp-local-interface/[0]/data: ifname?|ifname",
+      "lldp-remote-system-name/[0]/data: peerHostname",
+      "lldp-remote-port-id/[0]/data: peerIfname?|",
+      "lldp-remote-port-id-subtype/[0]/data: subtype?|",
+      "lldp-remote-port-description/[0]/data: description?|",
+      "lldp-remote-management-address/[0]/data: mgmtIP?|",
+      "lldp-system-description/[0]/lldp-remote-system-description/[0]/data: description?|description",
+      ]'
+
+    - version: all
+      command: show lldp neighbors detail | display json | no-more
+      normalize: 'lldp-neighbors-information/[0]/lldp-neighbor-information/*/[
+      "lldp-local-port-id/[0]/data: ifname?|",
+      "lldp-local-interface/[0]/data: ifname?|ifname",
+      "lldp-remote-system-name/[0]/data: peerHostname",
+      "lldp-remote-port-id/[0]/data: peerIfname?|",
+      "lldp-remote-port-id-subtype/[0]/data: subtype?|",
+      "lldp-remote-port-description/[0]/data: description?|",
+      "lldp-remote-management-address/[0]/data: mgmtIP?|",
+      "lldp-system-description/[0]/lldp-remote-system-description/[0]/data: description?|description",
+      ]'
+
+  junos-ex:
+    copy: junos-qfx
+
+  junos-mx:
+    version: all
+    command: show lldp neighbors | display json | no-more
+    normalize: 'lldp-neighbors-information/[0]/lldp-neighbor-information/*/[
+    "lldp-local-port-id/[0]/data: ifname?|",
+    "lldp-remote-system-name/[0]/data: peerHostname",
+    "lldp-remote-port-id/[0]/data: peerIfname?|",
+    "lldp-remote-port-id-subtype/[0]/data: subtype?|",
+    "lldp-remote-management-address/[0]/data: mgmtIP?|",
+    "lldp-system-description/[0]/lldp-remote-system-description/[0]/data: description?|description",
+  ]'
+
+  junos-es:
+    copy: junos-mx
+
+  junos-qfx10k:
+    copy: junos-qfx
+
+  junos-evo:
+    copy: junos-mx
+
+  nxos:
+    - version: < 9.3(0)
+      command: show lldp neighbors
+      merge: False
+      textfsm: textfsm_templates/nxos_show_lldp.tfsm
+          
+    - version: all
+      command:
+        - command: show cdp neighbors | json native
+          normalize: 'TABLE_cdp_neighbor_brief_info/ROW_cdp_neighbor_brief_info/*?/[
+          "interface: ifname?|",
+          "intf_id: ifname?|ifname",
+          "device_id: peerHostname?|",
+          "platform_id: description?|",
+          "port_id: peerIfname",
+          "protocol: protocol?|cdp",
+          ]'
+
+        - command: show lldp neighbors | json native
+          normalize: 'TABLE_nbor/ROW_nbor/*?/[
+          "chassis_id: peerHostname?|",
+          "chassis_type: _chassisType",
+          "l_port_id: ifname?|",
+          "port_type: subtype?|",
+          "port_id: peerIfname?|",
+          "mgmt_addr: mgmtIP?|"
+          ]'
+
+  panos:
+    version: all
+    command:
+      - command: <show><lldp><neighbors>all</neighbors></lldp></show>
+        normalize: 'response/result/entry/*/[
+      "@name: ifname",
+      "neighbors/entry/system-name: peerHostname?|",
+      "neighbors/entry/port-type: subtype?|",
+      "neighbors/entry/port-id: peerIfname?|",
+      "neighbors/entry/system-description: description?|",
+      "neighbors/entry/chassis-type: _chassisType?|",
+      "neighbors/entry/management-address/entry/[0]/@name: mgmtIP?|"
+      ]'

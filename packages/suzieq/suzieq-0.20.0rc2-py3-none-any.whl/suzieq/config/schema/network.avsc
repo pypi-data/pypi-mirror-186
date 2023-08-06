@@ -1,0 +1,72 @@
+{
+    "namespace": "suzieq",
+    "name": "network",
+    "type": "derivedRecord",
+    "depends": [
+        "interfaces",
+        "macs",
+        "bgp"
+    ],
+    "fields": [
+        {
+            "name": "bondMembers",
+            "type": "string",
+            "display": 7,
+            "description": "Member ports of a bond interface"
+        },
+        {
+            "name": "hostname",
+            "type": "string",
+            "display": 1,
+            "description": "Hostname associated with this record"
+        },
+        {
+            "name": "ifname",
+            "type": "string",
+            "display": 6,
+            "description": "Interface name"
+        },
+        {
+            "name": "ipAddress",
+            "type": "string",
+            "display":3,
+            "description": "Interface IP address"
+        },
+        {
+            "name": "l2miss",
+            "type": "boolean",
+            "display": 9,
+            "description": "MAC address not found for address"
+        },
+        {
+            "name": "macaddr",
+            "type": "string",
+            "display": 5,
+            "description": "Interface mac address"
+        },
+        {
+            "name": "namespace",
+            "type": "string",
+            "display": 0,
+            "description": "Namespace associated with this record"
+        },
+        {
+            "name": "type",
+            "type": "string",
+            "display": 8,
+            "description": "How is this address connected to network"
+        },
+        {
+            "name": "vlan",
+            "type": "float",
+            "display": 4,
+            "description": "Interface vlan"
+        },
+        {
+            "name": "vrf",
+            "type": "string",
+            "display": 2,
+            "description": "VRF associated with session"
+        }
+    ]
+}

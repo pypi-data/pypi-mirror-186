@@ -1,0 +1,104 @@
+service: macs
+keys:
+  # We deliberately don't have VLAN as a key field. We add an artificial
+  # key field in the schema and during data cleanup to handle EVPN HER
+  # entries among other cases where the VLAN doesn't disambiguate MAC addr.
+  - macaddr
+
+show-fields:
+  - vlan
+  - macaddr
+  - oif
+  - remoteVtepIp
+  - bd
+  - flags
+
+apply:
+  cumulus:
+    version: all
+    command: /sbin/bridge fdb show
+    textfsm: textfsm_templates/linux_fdb.tfsm
+
+  linux:
+    copy: cumulus
+
+  sonic:
+    copy: cumulus
+
+  iosxe:
+    version: all
+    command: show mac address-table
+    textfsm: textfsm_templates/iosxe_show_mac.tfsm
+
+  ios:
+    copy: iosxe
+
+  junos-qfx:
+    version: all
+    command: show ethernet-switching table detail | display json | no-more
+    normalize: 'l2ng-l2ald-rtb-macdb/[0]/l2ng-l2ald-mac-entry-vlan/*/[
+    "l2ng-l2-mac-address/[0]/data: macaddr",
+    "l2ng-l2-vlan-id/[0]/data: vlan?|0",
+    "l2ng-l2-mac-logical-interface/[0]/data: oif",
+    "l2ng-l2-active-source/[0]/data: remoteVtepIp?|",
+    "l2ng-l2-mac-entry-flags/[0]/data: flags"
+    ]'
+
+
+  junos-ex:
+    copy: junos-qfx
+
+  junos-mx:
+    version: all
+    command: show bridge mac-table | display json | no-more
+    normalize: 'l2ald-rtb-macdb/[0]/l2ald-mac-entry/*/[
+    "l2-mac-bridging-domain/[0]/data: bd?|",
+    "l2-bridge-vlan/[0]/data: vlan",
+    "l2-mac-entry/[*]/l2-mac-address/[0]/data: macaddr",
+    "l2-mac-entry/[*]/l2-mac-logical-interface/[0]/data: oif",
+    ]'
+
+  junos-es:
+    copy: junos-qfx
+
+  junos-qfx10k:
+    copy: junos-qfx
+
+  junos-evo:
+    copy: junos-qfx
+
+  nxos:
+    - version: < 9.3(0)
+      command: show mac address-table
+      textfsm: textfsm_templates/nxos_show_mac.tfsm
+
+    - version: all
+      command: show mac address-table | json native
+      normalize: 'TABLE_mac_address/ROW_mac_address/*?/[
+      "disp_mac_addr: macaddr",
+      "disp_port: oif?|",
+      "disp_vlan: vlan?|0",
+      "disp_is_secure: isSecure?|",
+      "disp_type: flags",
+      "disp_is_static: _isStatic?|disabled",
+      ]'
+
+  eos:
+    command:
+      - command: show mac-address-table unicast
+        normalize: 'unicastTable/tableEntries/*/[
+        "macAddress: macaddr",
+        "vlanId: vlan?|0",
+        "entryType: flags",
+        "interface: oif",
+        ]'
+
+      - command: show vxlan address-table
+        normalize: 'addresses/*/[
+        "macAddress: macaddr",
+        "addrtype: flags",
+        "interface: oif",
+        "vtep: remoteVtepIp?|",
+        "vlanId: vlan",
+        "flags: flags?|remote",
+        ]'
