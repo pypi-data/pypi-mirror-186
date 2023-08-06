@@ -1,0 +1,306 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Script to update the OpenAPI client library used by the udm-rest-client
+library.
+"""
+
+import asyncio
+import functools
+import hashlib
+import inspect
+import os
+import subprocess  # nosec
+import sys
+from pathlib import Path
+from tempfile import NamedTemporaryFile, TemporaryDirectory
+
+import click
+import docker
+import requests
+from requests.auth import HTTPBasicAuth
+from urllib3.exceptions import InsecureRequestWarning
+
+try:
+    from pip import main as pip_main
+except ImportError:
+    from pip._internal import main as pip_main
+if not inspect.isfunction(pip_main):
+    pip_main = pip_main.main
+
+
+DOCKER_IMAGE = "openapitools/openapi-generator-cli:v5.0.0"
+JAR_URL = "https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0/openapi-generator-cli-5.0.0.jar"
+JAR_SHA1_URL = f"{JAR_URL}.sha1"
+TARGET_PYTHON_PACKAGE_NAME = "openapi_client_udm"
+TARGET_SCHEMA_FILENAME = "udm_openapi.json"
+OPENAPI_CLIENT_UDM_PACKAGE_VERSION = "1.0.1"  # see Bug #55129
+OPENAPI_GENERATE_COMMAND_COMMON = (
+    f"generate -g python-legacy --library asyncio --package-name {TARGET_PYTHON_PACKAGE_NAME} "
+    f"--additional-properties=packageVersion={OPENAPI_CLIENT_UDM_PACKAGE_VERSION}"
+)
+DOCKER_RUN_COMMAND = (
+    f"{OPENAPI_GENERATE_COMMAND_COMMON} -i /local/{TARGET_SCHEMA_FILENAME} -o /local/python"
+)
+JAVA_COMPILE_CMD = (
+    f"java -jar {{jar}} {OPENAPI_GENERATE_COMMAND_COMMON} -i {{schema}} -o {{target_dir}}/python"
+)
+OPENAPI_SCHEMA_URL = "https://{host}/univention/udm/openapi.json"
+
+
+class OpenAPILibGenerationError(Exception):
+    pass
+
+
+def coro(f):
+    """asyncio for click (https://github.com/pallets/click/issues/85)"""
+
+    if sys.version_info.major == 3 and sys.version_info.minor < 7:  # pragma: no cover
+        # Python 3.5 and 3.6 compatible code
+        f = asyncio.coroutine(f)
+
+        def wrapper(*args, **kwargs):
+            loop = asyncio.get_event_loop()
+            return loop.run_until_complete(f(*args, **kwargs))
+
+        return functools.update_wrapper(wrapper, f)
+    else:
+        # Python 3.7+ compatible code
+        @functools.wraps(f)
+        def wrapper(*args, **kwargs):
+            return asyncio.run(f(*args, **kwargs))
+
+        return wrapper
+
+
+def print_error_and_exit(msg: str, exit_code: int = 1) -> None:
+    click.secho(msg, fg="red")
+    sys.exit(exit_code)
+
+
+def run_openapi_generator_docker_container(target_dir: str, quiet: bool, keep_image: bool) -> None:
+    docker_client = docker.from_env()
+    try:
+        version = docker_client.version()
+        click.echo(
+            "Docker daemon: {v[Version]} ({v[ApiVersion]}) {v[Os]} {v[Arch]} {v[KernelVersion]}".format(
+                v=version
+            )
+        )
+    except requests.ConnectionError as exc:
+        print_error_and_exit(f"Connecting to the Docker daemon: {exc!s}")
+    click.echo(f"Downloading/updating Docker image {DOCKER_IMAGE!r} (~136 MiB)...")
+    docker_client.images.pull(DOCKER_IMAGE)
+    click.echo("Starting Docker container and generating Python code...")
+    try:
+        # would have liked to append '--verbose' to DOCKER_RUN_COMMAND, but then the JVM will:
+        # java.lang.OutOfMemoryError: Java heap space
+        docker_log = docker_client.containers.run(
+            image=DOCKER_IMAGE,
+            command=DOCKER_RUN_COMMAND,
+            auto_remove=True,
+            user=os.getuid(),
+            volumes={target_dir: {"bind": "/local", "mode": "rw"}},
+        )
+    except docker.errors.ContainerError as exc:
+        msg = f"Error in container: {exc!s}"
+        if exc.stderr:
+            msg = f"{msg}\n{exc.stderr!s}"
+        print_error_and_exit(msg)
+    if not quiet:
+        click.echo(docker_log)
+    if keep_image:
+        click.echo(f"Keeping Docker image {DOCKER_IMAGE}.")
+    else:
+        click.echo(f"Removing Docker image {DOCKER_IMAGE}...")
+        docker_client.images.remove(DOCKER_IMAGE)
+
+
+def download_file(url: str, path: Path) -> None:
+    try:
+        with requests.get(url, stream=True) as resp, path.open("wb") as fp:
+            if resp.status_code != 200:
+                print_error_and_exit(f"Error downloading {url!r}: [{resp.status_code}] {resp.reason}")
+            for chunk in resp.iter_content(chunk_size=8192):
+                if chunk:
+                    fp.write(chunk)
+            f_size = fp.tell()
+    except requests.RequestException as exc:
+        print_error_and_exit(str(exc))
+
+    if f_size > 10240:
+        f_size_s = f"{f_size / 1024:.1f} KiB"
+    else:
+        f_size_s = f"{f_size} bytes"
+    click.echo(f"Downloaded {url.rsplit('/', 1)[-1]}: {f_size_s}.")
+
+
+def verify_checksum(path: Path, sha1_expected: str) -> None:
+    sha1_found = hashlib.sha1()  # nosec
+    with path.open("rb") as fp:
+        while True:
+            data = fp.read(65536)  # 64 kb chunks
+            if not data:
+                break
+            sha1_found.update(data)
+    if sha1_found.hexdigest() == sha1_expected:
+        click.echo(f"SHA1 checksum of {path.name!r} OK.")
+    else:
+        print_error_and_exit(
+            f"SHA1 checksum of {path.name!r} did not match.\n"
+            f"Expected: {sha1_expected}\n"
+            f"Found: {sha1_found.hexdigest()}"
+        )
+
+
+def download_jar(target_path: Path) -> None:
+    click.echo("Downloading OpenAPI generator JAR (~25 MiB)...")
+    with NamedTemporaryFile() as sha1_file:
+        for url, path in ((JAR_URL, target_path), (JAR_SHA1_URL, Path(sha1_file.name))):
+            download_file(url, path)
+        click.echo("Checking SHA1 sum of JAR file...")
+        sha1_file.seek(0)
+        sha1_expected = sha1_file.read().decode("ascii")
+    verify_checksum(target_path, sha1_expected)
+
+
+def run_openapi_generator_local_java(target_dir: str, quiet: bool, jar_path: Path = None) -> None:
+    if not jar_path:
+        jar_path = Path(target_dir, "openapi-generator.jar")
+        download_jar(jar_path)
+    cmd = JAVA_COMPILE_CMD.format(
+        jar=str(jar_path),
+        schema=str(Path(target_dir, TARGET_SCHEMA_FILENAME)),
+        target_dir=target_dir,
+    ).split()
+    click.echo("Starting to generate Python code...")
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)  # nosec
+    stdout, stderr = process.communicate()
+    if process.returncode:
+        print_error_and_exit(stdout.decode())
+    elif not quiet:
+        click.echo(stdout.decode())
+
+
+def get_openapi_schema(host: str, user: str, password: str, secure: bool) -> str:
+    url = OPENAPI_SCHEMA_URL.format(host=host)
+
+    click.echo(f"Downloading OpenAPI schema from {url!r}...")
+
+    request_kwargs = {}
+    if not secure:
+        request_kwargs["verify"] = False
+        requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+    if user and password:
+        request_kwargs["auth"] = HTTPBasicAuth(user, password)
+
+    try:
+        resp = requests.get(url, **request_kwargs)
+    except requests.ConnectionError as exc:
+        print_error_and_exit(str(exc))
+    if resp.status_code == 401:
+        print_error_and_exit(
+            f"The request was not authorized (401). Please provide user credentials to download the OpenAPI schema from {url!r}."
+        )
+    if resp.status_code != 200:
+        print_error_and_exit(
+            f"Error downloading OpenAPI schema from {url!r}: [{resp.status_code}] {resp.reason}"
+        )
+    txt = resp.text
+    click.echo(f"Downloaded {len(txt)/1024:.1f} KiB.")
+    return txt
+
+
+@click.command(
+    help="Update the OpenAPI client library used by the udm-rest-client "
+    "library, using the OpenAPI schema from UCS server 'HOST' (FQDN or IP"
+    " address)."
+)
+@click.argument("host")
+@click.option(
+    "--generator",
+    type=click.Choice(["docker", "java"], case_sensitive=False),
+    required=True,
+    help="Download and use an OpenAPI Generator either as a Docker container "
+    "or as a JAR file. Requires either a running Docker daemon or a local"
+    " Java (>=8) installation.",
+)
+@click.option(
+    "--jar",
+    type=click.Path(exists=True, readable=True),
+    help="OpenAPI Generator JAR file to use with '--generator java'. If not"
+    "given, the JAR file will be downloaded automatically.",
+)
+@click.option(
+    "--keep-image/--dont-keep-image",
+    default=False,
+    help="Whether to keep the OpenAPI Generator Docker image (when '--generator" " docker' is used).",
+)
+@click.option(
+    "--secure/--insecure",
+    default=True,
+    help="Whether to ignore an SSL verification error.",
+)
+@click.option(
+    "--quiet/--verbose",
+    default=True,
+    help="Whether to print the output of the OpenAPI Generator to the screen.",
+)
+@click.option(
+    "--system/--user",
+    default=True,
+    help="Whether to install into a system or the users home directory",
+)
+@click.option("--username", help="The username to authenticate against the UDM REST API.")
+@click.option("--password", help="The password to authenticate against the UDM REST API.")
+@coro
+async def update_openapi_client(
+    host: str,
+    generator: str,
+    jar: str,
+    keep_image: bool,
+    secure: bool,
+    quiet: bool,
+    system: bool,
+    username: str,
+    password: str,
+) -> None:
+    if not host:
+        print_error_and_exit("Address (FQDN or IP address) of UCS host required.")
+    if jar and generator != "java":
+        print_error_and_exit("The --jar option can only be used together with '--generator java'.")
+    if jar:
+        jar = Path(jar)
+    txt = get_openapi_schema(host, username, password, secure)
+    with TemporaryDirectory() as temp_dir, open(
+        Path(temp_dir, TARGET_SCHEMA_FILENAME), "w"
+    ) as temp_file_fp:
+        temp_file_fp.write(txt)
+        temp_file_fp.flush()
+
+        click.echo(
+            f"Generating OpenAPI client library {TARGET_PYTHON_PACKAGE_NAME!r}"
+            f" using {generator!r} mechanism..."
+        )
+        if generator == "docker":
+            run_openapi_generator_docker_container(temp_dir, quiet, keep_image)
+        else:
+            run_openapi_generator_local_java(temp_dir, quiet, jar)
+        click.echo("Installing package via pip...")
+        if system:
+            pip_main(["install", "--compile", "--upgrade", str(Path(temp_dir, "python/"))])
+        else:
+            pip_main(
+                [
+                    "install",
+                    "--user",
+                    "--compile",
+                    "--upgrade",
+                    str(Path(temp_dir, "python/")),
+                ]
+            )
+
+
+if __name__ == "__main__":
+    update_openapi_client()
