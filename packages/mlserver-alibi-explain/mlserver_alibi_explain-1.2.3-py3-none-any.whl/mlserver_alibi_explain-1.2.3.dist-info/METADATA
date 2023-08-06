@@ -1,0 +1,28 @@
+Metadata-Version: 2.1
+Name: mlserver-alibi-explain
+Version: 1.2.3
+Summary: Alibi-Explain runtime for MLServer
+Home-page: https://github.com/SeldonIO/MLServer.git
+Author: Seldon Technologies Ltd.
+Author-email: hello@seldon.io
+License: Apache 2.0
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+Requires-Dist: mlserver
+Requires-Dist: alibi[shap,tensorflow]
+Requires-Dist: orjson
+Requires-Dist: numpy (<=1.22)
+
+# Alibi-Explain runtime for MLServer
+
+This package provides a MLServer runtime compatible with Alibi-Explain.
+
+## Usage
+
+You can install the runtime, alongside `mlserver`, as:
+
+```bash
+pip install mlserver mlserver-alibi-explain
+```
+
+
