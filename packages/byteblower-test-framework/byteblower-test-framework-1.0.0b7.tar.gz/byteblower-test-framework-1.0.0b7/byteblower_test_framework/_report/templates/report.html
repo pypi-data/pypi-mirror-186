@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        html,
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "helvetica"
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #F7941C
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #00AEEF
+        }
+
+        h3 {
+            font-size: 16px;
+            color: #00AEEF
+        }
+
+        h4 {
+            font-size: 14px;
+            color: #F7941C
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 1200px
+        }
+
+        th {
+            color: #F7941C;
+            font-weight: normal;
+            text-align: center;
+        }
+
+        td,
+        th {
+            padding: 10px;
+            border-top: 1px dotted #00AEEF;
+            border-left: 1px solid #F7941C;
+            border-bottom: 1px dotted #00AEEF;
+            border-right: 1px solid #F7941C;
+            text-indent: 0px;
+            vertical-align:
+                middle;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+
+<body>
+    <h1>{{title}}</h1>
+    <h2>Summary result</h2>
+    {{passorfail}}
+    <h3>Test environment</h3>
+    <dl>
+      <dt>API Version</dt>
+      <dd>{{ api_version }}</dd>
+    </dl>
+    <h3>Ports</h3>
+    {{ ports }}
+    <h2>Correlated test results</h2>
+    {{ correlated }}
+    <h2>Individual test results</h2>
+    {% for flow in flows %}
+    {{ flow }}
+    {% endfor %}
+</body>
+
+</html>
