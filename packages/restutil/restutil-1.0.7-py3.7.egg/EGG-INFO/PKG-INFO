@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: restutil
+Version: 1.0.7
+Summary: Rest Util Tools
+Home-page: https://github.com/adions025/restutil
+Author: Adonis Gonzalez Godoy
+Author-email: adions025@gmail.com
+License: UNKNOWN
+Download-URL: https://github.com/adions025/restutil
+Keywords: Restful,Rest,Util,Tools
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Rest tool
+> > A curated list of awesome things related to microservices and computer vision.
+
+This module contains interesting features for endpoint creation. It also includes some decorators.
+
+## Details
+
+- Decorest [Decorator that allows implementing a general try_log function in the entire function, but it is necessary to use the ResData data model.]
+
+## Installation
+
+Use the package manager pip to install restutil.
+
+```bash
+pip install restutil
+```
+
+## Usage
+
+```python
+from restutil.decorators import Decorest
+
+# create deco object
+deco = Decorest()
+
+# wrap foo function
+@deco.try_log
+def foo():
+    return None
+```
+
+## Author
+
+- Adonis Gonzalez Godoy - [LinkedIn](https://www.linkedin.com/in/adonis-gonzalez) -  [E-mail](adions025@gmail.com)
+
