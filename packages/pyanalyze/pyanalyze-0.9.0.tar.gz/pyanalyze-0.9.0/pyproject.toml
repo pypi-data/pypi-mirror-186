@@ -1,0 +1,39 @@
+[tool.black]
+target_version = ['py36']
+include = '\.pyi?$'
+skip-magic-trailing-comma = true
+preview = true
+
+# README
+# The first section is for directories
+# The second section is for specific files
+
+exclude = '''
+/(
+    \.git
+  | \.ipython
+  | \.ipython64
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+)/
+'''
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pyanalyze]
+paths = ["pyanalyze"]
+import_paths = ["."]
+enforce_no_unused = true
+
+possibly_undefined_name = true
+use_fstrings = true
+missing_return_annotation = true
+missing_parameter_annotation = true
+unused_variable = true
+value_always_true = true
+suggested_parameter_type = true
+suggested_return_type = true
+incompatible_override = true
