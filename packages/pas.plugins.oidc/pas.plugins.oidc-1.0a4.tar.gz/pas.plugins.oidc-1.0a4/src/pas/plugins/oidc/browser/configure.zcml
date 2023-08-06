@@ -1,0 +1,31 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="pas.plugins.oidc">
+
+  <browser:page
+      for="..plugins.IOIDCPlugin"
+      name="login"
+      class=".view.LoginView"
+      layer="pas.plugins.oidc.interfaces.IPasPluginsOidcLayer"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="..plugins.IOIDCPlugin"
+      name="logout"
+      class=".view.LogoutView"
+      layer="pas.plugins.oidc.interfaces.IPasPluginsOidcLayer"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="..plugins.IOIDCPlugin"
+      name="callback"
+      class=".view.CallbackView"
+      layer="pas.plugins.oidc.interfaces.IPasPluginsOidcLayer"
+      permission="zope2.View"
+      />
+
+</configure>
