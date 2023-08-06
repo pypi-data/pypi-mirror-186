@@ -1,0 +1,42 @@
+# pDMN
+
+## Welcome to the pDMN solver's code repository.
+
+pDMN stands for Probabilistic Decision and Model Notation.
+It is an extension to the [DMN](https://www.omg.org/spec/DMN/About-DMN/) standard, which aims to add probabilistic reasoning while maintaining DMN's goal of being readable and user-friendly.
+
+## Installation and usage
+
+In short for Linux: after cloning this repo, install the Python dependencies.
+
+```
+git clone https://gitlab.com/EAVISE/cdmn/pdmn
+cd pdmn
+pip3 install -r requirements.txt
+```
+
+After this, you can run the solver. Example usage is as follows:
+
+```
+python3 -O solver.py Name_Of_XLSX.xlsx -n "Name_Of_Sheet" -o output_name.lp
+```
+
+
+## How to reference
+
+If you wish to refer to pDMN or you use it in other works, please reference us as follows:
+
+```
+Vandevelde, S., Verreet, V., De Raedt, L., & Vennekens, J. (2021). A Table-Based Representation for Probabilistic Logic: Preliminary Results. arXiv preprint arXiv:2110.01909.
+```
+
+or 
+
+```
+@article{pDMN,
+  title={A Table-Based Representation for Probabilistic Logic: Preliminary Results},
+  author={Vandevelde, Simon and Verreet, Victor and De Raedt, Luc and Vennekens, Joost},
+  journal={arXiv preprint arXiv:2110.01909},
+  year={2021}
+}
+```
