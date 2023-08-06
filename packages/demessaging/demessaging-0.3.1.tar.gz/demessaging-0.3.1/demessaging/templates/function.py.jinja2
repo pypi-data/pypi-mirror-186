@@ -1,0 +1,23 @@
+
+{%- if config.field_params %}
+@configure("""
+{{ config.json(indent=4, include=set(["field_params"])) }}
+""")
+{% endif -%}
+def {{ config.name }}{{ config.signature }}:
+    """
+    {% filter indent(4) -%}
+    {{ config.doc }}
+    {%- endfilter %}
+    """
+    request = {
+        "func_name": "{{ config.name }}",
+        {%- for param in config.signature.parameters %}
+        "{{ param }}": {{ param }}{% if not loop.last %},{% endif %}
+        {%- endfor %}
+    }
+
+    model = BackendModule.parse_obj(request)
+    response = model.compute()
+
+    return response.__root__  # type: ignore

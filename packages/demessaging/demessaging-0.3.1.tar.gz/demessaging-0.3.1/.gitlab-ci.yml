@@ -1,0 +1,47 @@
+image: python:3.8-alpine
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  DE_BACKEND_HOST: "pulsar"
+  DE_BACKEND_PORT: "8080"
+
+cache:
+  paths:
+    - .cache/pip
+
+before_script:
+  - |
+    apk add --update --no-cache \
+    graphviz ttf-freefont \
+    git
+  - python -V  # Print out python version for debugging
+  - sleep 5
+
+test:
+  services:
+  - name: apachepulsar/pulsar-standalone:2.7.4
+    alias: pulsar
+  script:
+    - pip install tox
+    - tox
+
+test-docs:
+  script:
+  - pip install . -r docs/requirements.txt
+  - sphinx-build -b linkcheck docs docs/_build/linkcheck
+  - sphinx-build -b html docs public
+  artifacts:
+    paths:
+    - public
+
+pages:
+  stage: deploy
+  script:
+  - pip install . -r docs/requirements.txt
+  - sphinx-build -b html docs public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
+  - 41-documentation-for-dasf-as-a-whole

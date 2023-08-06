@@ -1,0 +1,56 @@
+"""
+{{ config.doc }}
+"""
+from typing import Callable, Union
+NoneType = type(None)
+
+from demessaging.config import ModuleConfig
+from demessaging import configure, main, BackendModule as _BackendModule
+
+{% for mod, alias in config.registry.imports.items() %}
+{% if alias %}
+import {{ mod }} as {{ alias }}
+{% else %}
+import {{ mod }}
+{% endif %}
+{% endfor %}
+
+{{ config.imports }}
+
+__all__ = [
+    {%- for model in config.models %}
+    "{{ model.backend_config.name }}"{% if not loop.last %},{% endif %}
+    {%- endfor %}
+]
+
+{% for source in config.registry.objects %}
+{{ source }}
+{% endfor %}
+
+{% for model in config.models %}
+
+{{ model.backend_config.render() }}
+{% endfor %}
+
+backend_config = ModuleConfig.parse_raw("""
+{
+    "messaging_config": {{ config.messaging_config.json(indent=8, exclude=dict(header=True)) }}
+}
+""")
+
+_creator: Callable
+if __name__ == "__main__":
+    _creator = main
+else:
+    _creator = _BackendModule.create_model
+
+BackendModule = _creator(
+    __name__,
+    config=backend_config,
+    class_name="BackendModule",
+    members=[
+        {%- for model in config.models %}
+        {{ model.backend_config.name }}{% if not loop.last %},{% endif %}
+        {%- endfor %}
+    ]
+)
