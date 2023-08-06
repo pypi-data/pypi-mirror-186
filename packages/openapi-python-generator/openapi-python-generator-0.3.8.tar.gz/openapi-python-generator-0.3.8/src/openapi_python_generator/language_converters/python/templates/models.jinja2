@@ -1,0 +1,22 @@
+from typing import *
+from pydantic import BaseModel
+{%  for property in properties %}
+{% if property.type.import_types is not none %}
+{% for import_type in property.type.import_types %}
+{{ import_type }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+class {{ schema_name }}(BaseModel):
+    """
+    {{ schema.title }} model
+    {% if schema.description != None %}
+    {{ schema.description }}
+    {% endif %}
+
+    """
+    {% for property in properties %}
+
+    {{ property.name }} : {{ property.type.converted_type }} {% if not property.required %} = {{ property.default }} {% endif %}
+    {% endfor %}
