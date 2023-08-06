@@ -1,0 +1,42 @@
+name: Publish to PyPI
+
+on:
+  release:
+    types:
+      - "published"
+
+jobs:
+  build:
+    name: "Release"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Fetch doppler secrets
+        uses: dopplerhq/secrets-fetch-action@v1.1.0
+        id: doppler
+        with:
+          doppler-token: ${{ secrets.DOPPLER_TOKEN }}
+
+      - name: Set version
+        run: echo "__version__ = \""${GITHUB_REF#"refs/tags/v"}"\"" > ./chalk/_version.py
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
+      - name: Install Twine
+        run: pip install wheel twine
+
+      - name: Build release
+        run: python setup.py sdist bdist_wheel
+
+      - name: Upload
+        run: twine upload dist/* --verbose --non-interactive
+        env:
+          TWINE_USERNAME: ${{ steps.doppler.outputs.TWINE_USERNAME }}
+          TWINE_PASSWORD: ${{ steps.doppler.outputs.TWINE_PASSWORD }}
