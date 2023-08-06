@@ -1,0 +1,16 @@
+-e .
+
+# Packaging.
+twine
+wheel
+
+# Tooling and tests.
+autoflake
+black==22.12.*
+flake8==5.*; python_version<'3.8.1'
+flake8==6.*; python_version>='3.8.1'
+isort==5.*
+mypy==0.991
+pytest==7.*
+pytest-cov
+trio==0.*
