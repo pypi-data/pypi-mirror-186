@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "microformats"
+version = "0.1.0"
+description = "tools for Microformats production, consumption and analysis"
+keywords = ["IndieWeb", "Microformats"]
+authors = ["Angelo Gladding <angelo@ragt.ag>"]
+license = "0BSD"
+packages = [{include="mf.py"}]
+
+[tool.poetry.scripts]
+mf = "mf:main"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+requests = ">=2.27.1"
+lxml = ">=4.9.1"
+mf2py = ">=1.1.2"
+mf2util = ">=0.5.1"
+easyuri = ">=0.0.12"
+txtint = ">=0.0.68"
+
+[tool.poetry.group.dev.dependencies]
+gmpg = {path="../gmpg", develop=true}
+easyuri = {path="../easyuri", develop=true}
+
+# [[tool.poetry.source]]
+# name = "main"
+# url = "https://ragt.ag/code/pypi"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
