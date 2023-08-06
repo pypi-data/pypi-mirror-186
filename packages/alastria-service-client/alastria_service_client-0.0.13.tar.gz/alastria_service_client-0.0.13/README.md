@@ -1,0 +1,42 @@
+# alastria-service-client
+
+alastria-service-client is a Python http client for dealing with communication with the wealize alastria service.
+
+## Installation
+
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install alastria-service-client.
+
+```bash
+pip install alastria-service-client
+```
+
+## Usage
+
+```python
+from alastria_service_client.client import AClient, Client
+from django.core.exceptions import PermissionDenied
+from alastria_service_client.validators import (
+    NetworkValidator,
+    OnlyNetworkValidator,
+    Address,
+)
+
+# returns 'identity_keys'
+alastria_service_client: AClient = Client(
+            service_host=settings.ALASTRIA_SERVICE_HOST
+)
+return alastria_service_client.identity_keys(
+            address=Address(address), body=OnlyNetworkValidator(network=network_body)
+).response
+```
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
