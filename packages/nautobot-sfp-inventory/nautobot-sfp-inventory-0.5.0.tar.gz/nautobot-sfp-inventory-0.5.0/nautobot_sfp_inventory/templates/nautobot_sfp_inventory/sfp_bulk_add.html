@@ -1,0 +1,25 @@
+{% extends 'generic/object_edit.html' %}
+{% load static %}
+{% load form_helpers %}
+
+{% block title %}Add Bulk SFPs{% endblock %}
+
+{% block tabs %}
+    {% include 'nautobot_sfp_inventory/inc/sfp_add_header.html' with active_tab='bulk_add' %}
+{% endblock %}
+
+{% block form %}
+    <div class="panel panel-default">
+        <div class="panel-heading"><strong>SFP</strong></div>
+        <div class="panel-body">
+            {% render_field form.pattern %}
+            {% render_field model_form.type %}
+            {% render_field model_form.assigned %}
+            {% render_field model_form.assigned_device %}
+            {% render_field model_form.supplier %}
+            {% render_field model_form.procurement_ident %}
+            {% render_field model_form.end_of_manufacturer_support %}
+            {% render_field model_form.comments %}
+        </div>
+    </div>
+{% endblock %}

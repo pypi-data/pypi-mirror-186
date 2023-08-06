@@ -1,0 +1,10 @@
+{% extends 'generic/object_edit.html' %}
+{% load static %}
+{% load form_helpers %}
+
+{% block title %}Add SFPs{% endblock %}
+
+{% block tabs %}
+    {% include 'nautobot_sfp_inventory/inc/sfp_add_header.html' with active_tab='add' %}
+{% endblock %}
+

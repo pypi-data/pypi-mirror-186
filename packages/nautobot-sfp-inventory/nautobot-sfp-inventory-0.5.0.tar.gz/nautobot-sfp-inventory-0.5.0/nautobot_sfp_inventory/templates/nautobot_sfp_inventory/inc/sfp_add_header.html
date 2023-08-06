@@ -1,0 +1,10 @@
+{% load helpers %}
+
+<ul class="nav nav-tabs" style="margin-bottom: 20px">
+    <li role="presentation"{% if active_tab == 'add' %} class="active"{% endif %}>
+        <a href="{% url 'plugins:nautobot_sfp_inventory:sfp_add' %}{% querystring request %}">New SFP</a>
+    </li>
+    <li role="presentation"{% if active_tab == 'bulk_add' %} class="active"{% endif %}>
+        <a href="{% url 'plugins:nautobot_sfp_inventory:sfp_bulk_add' %}{% querystring request %}">Add Bulk</a>
+    </li>
+</ul>

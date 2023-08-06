@@ -1,0 +1,118 @@
+{% extends 'generic/object_detail.html' %}
+{% load buttons %}
+{% load helpers %}
+
+{% block buttons %}
+        {% if perms.dcim.add_sfptype %}
+            {% clone_button object %}
+        {% endif %}
+        {% if perms.dcim.change_sfptype %}
+            {% edit_button object key="pk" %}
+        {% endif %}
+        {% if perms.dcim.delete_sfptype %}
+            {% delete_button object key="pk" %}
+        {% endif %}
+{% endblock buttons %}
+
+{% block content_left_page %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>SFP</strong>
+            </div>
+            <table class="table table-hover panel-body attr-table">
+                <tr>
+                    <td>Type</td>
+                    <td>
+                        {% if object.type %}
+                            <a href="{% url "plugins:nautobot_sfp_inventory:sfptype" pk=object.type.pk %}">
+                                {{ object.type|placeholder }}
+                            </a>
+                        {% else %}
+                            &mdash;
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Serial Number</td>
+                    <td>{{ object.serial_number|placeholder }}</td>
+                </tr>
+                <tr>
+                    <td>DC Tag</td>
+                    <td>{{ object.dc_tag|placeholder }}</td>
+                </tr>
+                <tr>
+                    <td>Asset Tag</td>
+                    <td>{{ object.asset_tag|placeholder }}</td>
+                </tr>
+                <tr>
+                    <td>Supplier</td>
+                    <td>
+                        {% if object.supplier %}
+                            <a href="{% url "dcim:manufacturer" slug=object.supplier.slug %}">
+                                {{ object.supplier|placeholder }}
+                            </a>
+                        {% else %}
+                            &mdash;
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Procurement Identifier</td>
+                    <td>{{ object.procurement_ident|placeholder }}</td>
+                </tr>
+                <tr>
+                    <td>End of Manufacturer Support</td>
+                    <td>{{ object.end_of_manufacturer_support|placeholder }}</td>
+                </tr>
+                <tr>
+                    <td>Assigned</td>
+                    <td>
+                            {% if object.assigned %}
+                                <span class="text-success"><i class="mdi mdi-check-bold"></i></span>
+                            {% else %}
+                                <span class="text-danger"><i class="mdi mdi-close"></i></span>
+                            {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Assigned Device</td>
+                    <td>
+                        {% if object.assigned_device %}
+                            <a href="{% url "dcim:device" pk=object.assigned_device.pk %}">
+                                {{ object.assigned_device|placeholder }}
+                            </a>
+                        {% else %}
+                            &mdash;
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tenant</td>
+                    <td>
+                        {% if object.tenant %}
+                            <a href="{% url "tenancy:tenant" slug=object.tenant.slug %}">
+                                {{ object.tenant|placeholder }}
+                            </a>
+                        {% else %}
+                            &mdash;
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+{% endblock content_left_page %}
+
+{% block content_right_page %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>Comments</strong>
+            </div>
+            <div class="panel-body rendered-markdown">
+                {% if object.comments %}
+                    {{ object.comments|render_markdown }}
+                {% else %}
+                    <span class="text-muted">None</span>
+                {% endif %}
+            </div>
+        </div>
+{% endblock content_right_page %}
