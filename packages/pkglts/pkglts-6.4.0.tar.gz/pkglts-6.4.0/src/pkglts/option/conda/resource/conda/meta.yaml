@@ -1,0 +1,49 @@
+# {# pkglts, conda.package
+package:
+  name: {{ base.pkg_full_name }}
+  version: "{{ version.major }}.{{ version.minor }}.{{ version.post }}"
+# #}
+
+# {# pkglts, conda.src
+source:
+  path:
+    ../
+# #}
+
+# {# pkglts, conda.req_build
+requirements:
+  build:
+    - python >={{ pysetup.py_min_ver }}
+    - setuptools
+{%- if 'test' is available -%}
+{%- if test.suite_name == 'pytest' %}
+    - pytest-runner
+{%- for dep in reqs.requirements('test') -%}
+  {%- if dep.is_conda(strict=False) %}
+    - {{ dep.fmt_conda_requirement() }}
+  {%- endif %}
+{%- endfor %}
+{%- endif -%}
+{%- endif -%}
+# #}
+
+# {# pkglts, conda.req_run
+  run:
+    - python >={{ pysetup.py_min_ver }}
+{%- for dep in reqs.requirements('install') -%}
+  {%- if dep.is_conda(strict=False) %}
+    - {{ dep.fmt_conda_requirement() }}
+  {%- endif %}
+{%- endfor %}
+# #}
+
+build:
+  noarch: python
+  script: pip install .
+
+# {# pkglts, conda.about
+about:
+  summary: "{{ doc.description }}"
+  license: "{{ license.name | replace('private', 'PROPRIETARY') }}"
+  license_file: LICENSE
+# #}
