@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/sinnwerkstatt/runrestic/main/runrestic/config/schema.json",
+  "title": "Runrestic Config",
+  "description": "Schema for runrestic configuration files, written in TOML",
+  "type": "object",
+  "required": [
+    "repositories",
+    "environment",
+    "backup",
+    "prune"
+  ],
+  "properties": {
+    "name": {"type": "string"},
+
+    "repositories": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+
+    "execution": {
+      "type": "object",
+      "properties": {
+        "retry_count": {"type": "integer"},
+        "retry_backoff": {"type": "string"},
+        "parallel": {
+          "type": "boolean",
+          "default": false
+        },
+        "exit_on_error": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+
+    "environment": {
+      "type": "object",
+      "properties": {
+        "RESTIC_PASSWORD": {"type": "string"},
+        "RESTIC_PASSWORD_FILE": {"type": "string"}
+      },
+      "additionalProperties": { "type": "string" },
+      "oneOf": [
+        {"required": ["RESTIC_PASSWORD"]},
+        {"required": ["RESTIC_PASSWORD_FILE"]}
+      ]
+    },
+
+    "backup": {
+      "type": "object",
+      "oneOf": [
+        {"required": ["sources"]},
+        {"required": ["files_from"]}
+      ],
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "files_from ": {"type": "array", "items": {"type": "string"}},
+        "exclude_patterns": {"type": "array", "items": {"type": "string"}},
+        "exclude_files": {"type": "array", "items": {"type": "string"}},
+        "exclude_if_present": {"type": "array", "items": {"type": "string"}},
+        "pre_hooks": {"type": "array", "items": {"type": "string"}},
+        "post_hooks": {"type": "array", "items": {"type": "string"}},
+        "continue_on_pre_hooks_error": {"type": "boolean", "default": false}
+      }
+    },
+
+    "prune": {
+      "type": "object",
+      "anyOf": [
+        {"required": ["keep-last"]},
+        {"required": ["keep-hourly"]},
+        {"required": ["keep-daily"]},
+        {"required": ["keep-weekly"]},
+        {"required": ["keep-monthly"]},
+        {"required": ["keep-yearly"]},
+        {"required": ["keep-within"]},
+        {"required": ["keep-tag"]}
+      ],
+      "properties": {
+        "keep-last": {"type": "integer"},
+        "keep-hourly": {"type": "integer"},
+        "keep-daily": {"type": "integer"},
+        "keep-weekly": {"type": "integer"},
+        "keep-monthly": {"type": "integer"},
+        "keep-yearly": {"type": "integer"},
+        "keep-within": {"type": "string"},
+        "keep-tag": {"type": "integer"},
+        "group-by": {"type": "string"}
+      }
+    },
+
+    "check": {
+      "type": "object",
+      "properties": {
+        "checks": {
+          "type": "array",
+          "items": {"type": "string"},
+          "default": ["check-unused", "read-data"]
+        }
+      }
+    },
+
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "prometheus": {
+          "type": "object",
+          "required": ["path"],
+          "properties": {
+            "path": {"type": "string"},
+            "pw-replacement": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}
