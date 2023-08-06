@@ -1,0 +1,24 @@
+name: napari-aphid
+display_name: Aphid
+contributions:
+  commands:
+    - id: napari-aphid.process_segmentation
+      python_name: napari_aphid._widget:process_function_segmentation
+      title: Segmentation
+    - id: napari-aphid.save_modification_task
+      python_name: napari_aphid._widget:save_modification
+      title: Save annotation
+    - id: napari-aphid.process_function_classification
+      python_name: napari_aphid._widget:process_function_classification
+      title: Classification
+
+
+
+  widgets:
+    - command: napari-aphid.process_segmentation
+      display_name: Segmentation
+    - command: napari-aphid.save_modification_task
+      display_name: Save annotation
+    - command: napari-aphid.process_function_classification
+      display_name: Classification
+
