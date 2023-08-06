@@ -1,0 +1,176 @@
+Metadata-Version: 2.1
+Name: py-wechat-tools
+Version: 0.0.5
+Summary: 微信小程序/公众号服务端接口集成SDK（非所有接口，持续更新中）
+Home-page: https://gitee.com/mjinnn/py-wechat-tools.git
+Author: mjinnn
+Author-email: 932288652@qq.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests (>=2.20.1)
+Requires-Dist: cacheout (>=0.13.1)
+Requires-Dist: pycrypto (>=2.6.1)
+
+## py_wechat_tools简介
+
+集微信公众号小程序服务端接口功能库
+打造一个更简洁，更好用的微信公众号小程序SDK
+
+
+# 更新说明
+查看： [更新说明](./docs/UPDATE.md)
+
+
+## 快速使用
+
+首先实例化
+
+    from py_wechat_tools import MPTools
+
+    wx = MPTools(
+        appid="appid",
+        secret="secret",
+    )
+
+以登录授权接口为例，一行代码搞定登录接口
+
+    # js_code为小程序调用wx.login()获取的code
+    user_data = wx.code2session(js_code="0936ry000b8c4O1S5f300RnDwB06ry0x")
+
+获取手机号码的简单用法
+
+    # 注意：此code是手机号码授权获取的code，不是wx.loginx()获取的code
+    user_data = wx.get_phone_number(code)
+
+用过微信获取手机号码这个接口的同学一定知道，微信接口里，我们需要获取access_token，然后才能调用get_phone_number接口，
+然而这里直接省略了access_token，是因为MPTools类内部实现了自动获取access_token，以及access_token缓存机制，
+当access_token不存在或过期时，会自动从微信接口中更新access_token，并且缓存起来。当然，您也可以通过
+passive_access_token=False 配置来关闭该功能。
+
+* 提示：如果关掉自动更新access_token功能，您就必须自己维护access_token的有效状态，可通过 [get_access_token()](#获取accesstoken) 方法获取，通过
+[set_access_token()](#传入accesstoken) 方法设置access_token
+
+* 小心access_token打架：如果是多环境或者多服务的情况下，不推荐托管access_token，因为两个以上的环境同时使用会导致access_token冲突。举个例子，比如dev环境获取了access_token。test环境发现自己没有access_token（两个环境数据隔离的情况下），会重新获取，test这么一取不要紧，可是得罪了dev。因为重新access_token获取会导致旧的access_token失效。dev也不甘示弱，发现他自己的access_token过期了，立马就获取新的access_token，这么一来二去不就打起来了吗。
+
+* 解决acceess_token冲突方案：做一个集中获取access_token的途径，比如其中一个环境/服务专门管理access_token，其他环境/服务从它那里获取。
+
+需要注意的是，这里使用的是cacheout缓存，cacheout缓存是缓存在内存中的，就是说重启之后缓存失效。
+MPTools也提供了修改缓存方式的方法，用法请移步：[修改缓存方式](#1修改缓存方式)
+
+
+## MPTools初始化参数解释
+
+    wx = MPTools(
+        # 填写小程序或公众号appid以及secret
+        appid="appid",
+        secret="secret",
+
+        # debug模式，默认False，为True时日志输出为debug级别，也可在日志的配置项中配置
+        debug=False,
+
+        # access_token失效(缓存过期)后是否自动更新，开启后，如果遇到42001(调用接口凭证已过期)就会重新调get_access_token接口获取
+        # 如果关闭该功能，必须要从实例化传入access_token或者使用wx.set_access_token(access_token)方法设置，获取access_token方法请往下看
+        passive_access_token=True,
+
+        # 设置access_token，如果传入access_token，MPTools将会使用该access_token，
+        # 注意：如果passive_access_token=True，并且传入的access_token过期，将会造成每次都重新获取access_token
+        access_token=None
+    )
+
+
+## 内部方法
+
+### 传入AccessToken
+
+通过该方法给MPTools传入一个access_token
+
+passive_access_token=False时，使用小程序接口前必须先设置access_token
+
+    wx.set_access_token(access_token)
+
+
+### 简单修改缓存方式
+
+通过该方法传入一个缓存的实例化对象/方法，简单的修改MPTools默认缓存方式
+该方式修改的缓存方法必须包含.get()获取缓存和.set()设置缓存方法。
+    
+    # 如，修改为Django的缓存
+    from django.core.cache import cache
+    wx.set_cache_obj(cache)
+
+
+
+
+## MPTools高级用法
+
+通过重写MPTools定制更多功能
+
+### 1.修改缓存方式
+如果你不想使用cacheout缓存方式，可以修改其他缓存方式，如Django的缓存，继承MPTools类，重写get_cache()方法即可，但需要注意的是，
+设置缓存和获取缓存时默认使用的是cache.set()和cache.get()方法，如果你使用的缓存没有这两个方法，
+就必须要重写get_access_token_cache()方法了，具体请看[重写缓存方法](#2重写缓存方法)。
+
+如：改为Django的缓存方法
+
+    from py_wechat_tools import MPTools
+    from django.core.cache import cache
+    
+    class MyWxTools(MPTools):
+        def get_cache(self):
+            return cache  # 必须返回缓存对象的实例，能调用cache.get()方法
+
+
+### 2.重写缓存方法
+更深度定制缓存方法，重写这个方法可以自定义缓存，最后返回一个获取到的access_token即可
+如果重写get_access_token_cache()方法，就没必要重写get_cache()方法了
+
+依然用Ddjango缓存为例，
+
+    from py_wechat_tools import MPTools
+    from django.core.cache import cache
+
+    class MyWxTools(MPTools):
+
+        def get_access_token_cache(self):
+            """ 实现获取access_token --> 缓存access_token过程 """ 
+
+            access_token = cache.get("access_token")
+            if not access_token:
+                access_token = self.get_access_token()
+                cache.set("access_token", access_token, 2 * 60 * 60)
+
+            # 必须返回 access_token
+            return access_token
+
+
+
+
+### 3.重写日志输出方法
+
+日志使用的是logging，日志功能仅实现了基础功能。
+
+    from py_wechat_tools import MPTools
+    from py_wechat_tools.libs.tools import LogsConf
+
+    class MyWxTools(MPTools):
+
+        def get_logs_conf(self):
+            return LogsConf(
+                name="project_log",  # 日志输出的名称
+                level=DEBUG,  # 日志级别，默认LogsConf.DEBUG级别，可设置LogsConf.INFO等级别
+                file_path=None,  # 日志输出到文件的路径(绝对路径/相对路径,相对项目)，为None不输出日志，
+                # 日志输出的格式， 可参考logging的格式
+                formatter="'%(asctime)s - %(name)s..%(filename)s.%(lineno)d - %(levelname)s: %(message)s'",
+                stream_handler=True  # 是否输出到终端，默认True， file_path和stream_handler必须选一个以上
+            )
+
+
+## 小程序接口
+请移步 [小程序接口](docs/README-MP.md) 查看
+
+## 公众号接口
+请移步 [公众号接口](docs/README-MP.md) 查看
+
