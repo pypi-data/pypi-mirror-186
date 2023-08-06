@@ -1,0 +1,3 @@
+from numpy.typing import ArrayLike as ArrayLike
+
+def sharp(whitepoint_source: ArrayLike, whitepoint_target: ArrayLike): ...

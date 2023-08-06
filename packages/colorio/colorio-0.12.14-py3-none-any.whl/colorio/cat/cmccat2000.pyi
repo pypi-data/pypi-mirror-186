@@ -1,0 +1,3 @@
+from numpy.typing import ArrayLike as ArrayLike
+
+def cmccat2000(whitepoint_source: ArrayLike, whitepoint_target: ArrayLike, F: float, L_A1: float, L_A2: float, exact_inversion: bool = ...): ...
