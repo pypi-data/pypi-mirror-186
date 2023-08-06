@@ -1,0 +1,75 @@
+Metadata-Version: 2.1
+Name: pygalaxy
+Version: 0.3.9
+Summary: common package
+Home-page: https://github.com/patrickxu1986/pygalaxy
+Author: patrickxu
+Author-email: xcpxcp198608@163.com
+Project-URL: Bug Tracker, https://github.com/patrickxu1986/pygalaxy/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pycryptodome (>=3.15.0)
+Requires-Dist: pymysql (>=1.0.2)
+Requires-Dist: PyJWT (>=2.6.0)
+Requires-Dist: requests (>=2.28.1)
+Requires-Dist: numpy (>=1.23.4)
+Requires-Dist: beautifulsoup4 (>=4.11.1)
+
+# PyGalaxy
+
+This is a simple common package. 
+
+Github: https://github.com/patrickxu1986/pygalaxy
+
+#### Dependence
+
+```python
+pip3 install -r requirements.txt
+```
+
+#### Use
+
+-  logger
+
+```python
+from pygalaxy import logger
+
+logger.debug('log message') 
+logger.info('log message') 
+```
+
+-  time
+
+```python
+from pygalaxy import time_master
+
+time_master.get_current_date_str()
+time_master.get_current_unix_time()
+```
+
+-  ConsistentHash
+
+```python
+from pygalaxy.consistent_hash import Node, ConsistentHash
+
+node = Node(node_name='192.1.1.4')
+consistent_hash = ConsistentHash()
+consistent_hash.add_node(node)
+n = consistent_hash.get_node('test content')
+
+```
+
+-  AES encrypt&decrypt
+
+```python
+from pygalaxy.aes_master import AesMaster
+
+encrypt = AesMaster.encrypt('test content', key='this is a key')
+print(encrypt)
+decrypt = AesMaster.decrypt(encrypt, key='this is a key')
+print(decrypt)
+```
