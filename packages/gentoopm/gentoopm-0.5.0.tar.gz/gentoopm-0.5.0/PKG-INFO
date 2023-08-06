@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: gentoopm
+Version: 0.5.0
+Summary: Python wrapper for APIs of Gentoo package managers
+Author-email: Michał Górny <mgorny@gentoo.org>
+Requires-Python: >=3.9
+Description-Content-Type: text/x-rst
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Topic :: System :: Installation/Setup
+Requires-Dist: pkgcore ; extra == "pkgcore"
+Requires-Dist: portage ; extra == "portage"
+Requires-Dist: pkgcore ; extra == "test"
+Requires-Dist: portage ; extra == "test"
+Requires-Dist: pytest ; extra == "test"
+Project-URL: Homepage, https://github.com/mgorny/gentoopm/
+Provides-Extra: pkgcore
+Provides-Extra: portage
+Provides-Extra: test
+
+========
+gentoopm
+========
+
+GentooPM is a wrapper for API of Gentoo package managers (Portage_,
+PkgCore_ and historically Paludis_).  It has served two purposes:
+
+1. Making it possible to easily write apps that can utilize any
+   of the available PMs.
+
+2. Replacing the awful API provided by package managers (especially
+   Portage) with something more Pythonic, easier to use and more
+   readable.
+
+The project provides a ``gentoopmq`` tool providing basic lookups
+into the PM data.  Most importantly, it provides an IPython-friendly
+``gentoopmq shell`` command that can be used to play with the API.
+
+The project maintenance is slowly resuming but the code needs major
+cleanup.
+
+
+.. _Portage: https://wiki.gentoo.org/wiki/Project:Portage
+.. _PkgCore: https://github.com/pkgcore/pkgcore
+.. _Paludis: https://paludis.exherbo.org/
+
