@@ -1,0 +1,46 @@
+{% load static %}
+
+<div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+  <a href="{% url 'zenblog:home' %}" class="logo d-flex align-items-center">
+    <!-- Uncomment the line below if you also wish to use an image logo -->
+    <!-- <img src="{% static 'zenblog/img/logo.png' %}" alt=""> -->
+    <h1>{{ blog_name }}</h1>
+  </a>
+
+  <nav id="navbar" class="navbar">
+    <ul>
+      {% if 'about' in menu %}
+      <li><a href="{% url 'zenblog:about' %}">About</a></li>
+      {% endif %}
+      <li><a href="{% url 'zenblog:home' %}">Blog</a></li>
+      <li><a href="{% url 'zenblog:post_detail' latest_one.slug %}">Single Post</a></li>
+      <li class="dropdown"><a href="#"><span>Categories</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+        <ul>
+          {% for category_int, name in category %}
+          <li><a href="{% url 'zenblog:category' category_int %}">{{ name }}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% if 'contact' in menu %}
+      <li><a href="{% url 'zenblog:contact' %}">Contact</a></li>
+      {% endif %}
+    </ul>
+  </nav><!-- .navbar -->
+
+  <div class="position-relative">
+    <a href="{{ clinic_link }}" target="_blank" class="mx-2" onclick="home_gtag_report_conversion('{{ clinic_link }}')"><span class="bi-house-fill"></span></a>
+
+    <a href="#" class="mx-2 js-search-open"><span class="bi-search"></span></a>
+    <i class="bi bi-list mobile-nav-toggle"></i>
+
+    <!-- ======= Search Form ======= -->
+    <div class="search-form-wrap js-search-form-wrap">
+      <form action="{% url 'zenblog:search_result' %}" class="search-form" method="get">
+        <span class="icon bi-search"></span>
+        {{ form.q }}
+        <button class="btn js-search-close"><span class="bi-x"></span></button>
+      </form>
+    </div><!-- End Search Form -->
+
+  </div>
+</div>
