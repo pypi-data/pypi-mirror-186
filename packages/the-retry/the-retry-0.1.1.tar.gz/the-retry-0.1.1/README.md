@@ -1,0 +1,90 @@
+# the-retry
+
+Retry decorator for both synchronous and asynchronous functions.
+
+## Features
+
+- No external dependencies.
+- Supports asyncio. Works with both synchronous and asynchronous functions.
+- Exponential backoff with jitter.
+- Able to call custom function or await custom coroutine on exception occurs.
+
+## Installation
+
+```bash
+pip install the-retry
+```
+
+## Decorator parameters
+
+Arguments:
+
+- `expected_exception`:
+    exception or tuple of exceptions (default BaseException).
+
+Keyword arguments:
+
+- `attempts`:
+    how much times the function will be retried, value -1 is infinite (default 2).
+- `backoff`:
+    time interval between the `attemps` (default 0).
+- `exponential_backoff`:
+    `current_backoff = backoff * 2 ** retries` (default False).
+- `ignore_exceptions`:
+    only log error but not raise exception if `attempts` exceeds (default False).
+- `jitter`:
+    maximum value of deviation from the `current_backoff` (default 0).
+- `maximum_backoff`:
+    `current_backoff = min(current_backoff, maximum_backoff)` (default 0).
+- `on_exception`:
+    function that called or await on error occurs (default None).
+    Be aware if a decorating function is synchronous `on_exception` function must be
+    synchronous too and accordingly for asynchronous function `on_exception` must be
+    asynchronous.
+
+## Examples
+
+### Immediately retry once without delay on any exception occurs
+
+```python3
+from the_retry import retry
+
+@retry()
+def some_function():
+    print("some function")
+```
+
+### Immediately retry once without delay on ValueError occurs with calling side effect function
+
+```python3
+from the_retry import retry
+
+def side_effect():
+    print("side effect")
+
+@retry(expected_exception=ValueError, on_exception=side_effect)
+def some_function():
+    print("some function")
+
+```
+
+### Retry async function with 10 attempts with exponential backoff on ValueError or AttributeError occurs with calling side effect coroutine
+
+```python3
+from the_retry import retry
+
+async def async_side_effect():
+    print("async side effect")
+
+@retry(
+    expected_exception=(ValueError, AttributeError)
+    attempts=10,
+    backoff=1,
+    exponential_backoff=True,
+    jitter=1,
+    maximum_backoff=60,
+    on_exception=async_side_effect,
+)
+async def async_some_function():
+    print("some function")
+```
