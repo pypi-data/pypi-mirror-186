@@ -1,0 +1,47 @@
+[build-system]
+requires = [
+  "setuptools>=62.0.0",
+  "appdirs",
+  "wheel>=0.31.0",
+  "boto3>=1.20.15",
+  "tensorflow-cpu",
+  "click>=8.0.1",
+  "questionary>=1.10.0",
+  "torch",
+  "torchvision",
+]
+
+[tool.black]
+line-length = 80
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+warn_return_any = true
+warn_unused_configs = true
+check_untyped_defs = true
+warn_unreachable = true
+#follow imports skip is required by mypy daemon
+follow_imports = "skip"
+#disallow_untyped_calls = true
+
+[tool.pylint]
+  [tool.pylint.master]
+  # Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
+  # number of processors available to use.
+  jobs = 0
+  # run 'pip install pylint-sqlalchemy pylint-celery'
+  load-plugins="pylint_sqlalchemy, pylint_celery"
+  extension-pkg-allow-list=["pydantic"]
+
+
+  [tool.pylint.messages_control]
+  disable=[
+    "missing-function-docstring",
+    "missing-class-docstring",
+    "missing-module-docstring",
+  ]
+
+  [tool.pylint.format]
+  max-line-length=80
