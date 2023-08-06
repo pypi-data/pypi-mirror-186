@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: darbiadev-onsite
+Version: 1.0.0
+Summary: Access OnSite data through FileMaker's JDBC integration
+Author-email: Bradley Reynolds <bradley.reynolds@darbia.dev>
+License: MIT
+Project-URL: repository, https://github.com/darbiadev/darbiadev-onsite/
+Project-URL: documentation, https://docs.darbia.dev/darbiadev-onsite/
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: JayDeBeApi
+Provides-Extra: dev
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: isort ; extra == 'dev'
+Requires-Dist: pylint ; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: furo ; extra == 'docs'
+Requires-Dist: sphinx-autoapi ; extra == 'docs'
+Requires-Dist: toml ; extra == 'docs'
+Provides-Extra: tests
+Requires-Dist: pytest ; extra == 'tests'
+
+# darbiadev-onsite
+
+Access OnSite data through FileMaker's JDBC integration
