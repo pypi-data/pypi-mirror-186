@@ -1,0 +1,73 @@
+Metadata-Version: 2.1
+Name: jobbergate-api
+Version: 3.4.1
+Summary: Jobbergate API
+Home-page: https://github.com/omnivector-solutions/jobbergate
+License: MIT
+Author: Omnivector Solutions
+Author-email: info@omnivector.solutions
+Requires-Python: >=3.8,<4.0
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Framework :: FastAPI
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering
+Requires-Dist: Jinja2 (>=3.0.3,<4.0.0)
+Requires-Dist: PyYAML (>=6.0,<7.0)
+Requires-Dist: alembic (>=1.7.5,<2.0.0)
+Requires-Dist: armasec (>=0.11.0,<0.12.0)
+Requires-Dist: asyncpg (>=0.22.0,<0.23.0)
+Requires-Dist: bidict (>=0.22.0,<0.23.0)
+Requires-Dist: boto3 (>=1.17.51,<2.0.0)
+Requires-Dist: databases[postgresql] (>=0.5.5,<0.6.0)
+Requires-Dist: email_validator (>=1.1.0,<2.0.0)
+Requires-Dist: fastapi (>=0.68.0,<0.69.0)
+Requires-Dist: file-storehouse (==0.5.0)
+Requires-Dist: loguru (>=0.6.0,<0.7.0)
+Requires-Dist: passlib (>=1.7.2,<2.0.0)
+Requires-Dist: py-buzz (>=3.2.1,<4.0.0)
+Requires-Dist: python-dotenv (>=0.20.0,<0.21.0)
+Requires-Dist: python-multipart (>=0.0.5,<0.0.6)
+Requires-Dist: sendgrid (>=6.9.7,<7.0.0)
+Requires-Dist: sentry-sdk (>=1.5.0,<2.0.0)
+Requires-Dist: toml (>=0.10.2,<0.11.0)
+Requires-Dist: typer (>=0.4.0,<0.5.0)
+Requires-Dist: uvicorn (>=0.15.0,<0.16.0)
+Requires-Dist: yarl (>=1.7.2,<2.0.0)
+Project-URL: Bug Tracker, https://github.com/omnivector-solutions/jobbergate/issues
+Project-URL: Changelog, https://github.com/omnivector-solutions/jobbergate/blob/main/jobbergate-api/CHANGELOG.rst
+Project-URL: Repository, https://github.com/omnivector-solutions/jobbergate
+Description-Content-Type: text/x-rst
+
+================
+ Jobbergate API
+================
+
+
+The Jobbergate API provides a RESTful interface over the Jobbergate data and is used
+by both the ``jobbergate-agent`` and the ``jobbergate-cli`` to view and manage the
+Jobbergate resources.
+
+Jobbergate API is a Python project implemented with
+`FastAPI <https://fastapi.tiangolo.com/>`_. Its dependencies and environment are
+managed by `Poetry <https://python-poetry.org/>`_.
+
+It integrates with an OIDC server to provide identity and auth for its endpoints.
+
+See also:
+
+* `jobbergate-cli <https://github.com/omnivector-solutions/jobbergate/jobbergate-cli>`_
+
+License
+-------
+* `MIT <LICENSE>`_
+
+
+Copyright
+---------
+* Copyright (c) 2020 OmniVector Solutions <info@omnivector.solutions>
+
