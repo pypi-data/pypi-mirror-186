@@ -1,0 +1,153 @@
+Metadata-Version: 2.1
+Name: aspose-cells-python
+Version: 23.1.0
+Summary: Aspose.Cells for Python via .Net is a scalable and feature-rich API to process Excel spreadsheets using Python. Developers can format worksheets, rows, columns or cells, create manipulate chart and pivot tables, render worksheets, charts and specific data ranges to PDF or images, add calculate Excel’s builtin and custom formulas - all without any dependency on Microsoft Office or Excel application.
+Home-page: https://products.aspose.com/cells/
+Author: aspose-cells
+License: https://company.aspose.com/legal/eula
+Keywords: Excel,XLS,XLSX,XLSB,CSV,PDF,JPG,PNG,HTML,ODS,Numbers,XLSM,OOXML,Spreadsheet,Markdown,XPS,DOCX,PPTX,MHTML,JSON,SVG,TIFF
+Platform: macos_x86_64
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Manufacturing
+Classifier: Intended Audience :: Science/Research
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS
+Classifier: License :: Free To Use But Restricted
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.6,<3.11
+Description-Content-Type: text/x-rst
+
+Product description 
+==================================
+
+
+`Product Page <https://products.aspose.com/cells/python-net>`_ | `Docs <https://docs.aspose.com/cells/python-net/>`_ | `API Reference <https://reference.aspose.com/cells/python-net/>`_ | `Demos <https://products.aspose.app/cells/family/>`_ | `Blog <https://blog.aspose.com/category/cells/>`_ | `Code Samples <https://github.com/aspose-cells/Aspose.Cells-for-Python-via-.NET>`_ | `Free Support <https://forum.aspose.com/c/cells>`_ | `Temporary License <https://purchase.aspose.com/temporary-license>`_ | `EULA <https://company.aspose.com/legal/eula>`_
+
+Try our `free online apps <https://products.aspose.app/cells/family>`_ demonstrating some of the most popular Aspose.Cells functionality.
+
+Aspose.Cells for Python via .Net is a scalable and feature-rich API to process Excel spreadsheets using Python. API offers Excel file creation, manipulation, conversion and rendering. Developers can format worksheets, rows, columns or cells to the most granular level, create manipulate chart and pivot tables, render worksheets, charts and specific data ranges to PDF or images, add calculate Excel’s builtin and custom formulas and much more - all without any dependency on Microsoft Office or Excel application.
+
+
+
+Aspsoe.Cells API Features
+-------------------------
+
+Aspose.Cells offers a wide arrange of features for creating, reading, manipulating and saving Excel® files:
+
+* Spreadsheet generation & manipulation via API.
+* High-quality file format conversion & rendering.
+* Print Microsoft Excel® files to physical or virtual printers.
+* Combine, modify, protect, or parse Excel® sheets.
+* Apply worksheet formatting.
+* Configure and apply page setup for the worksheets.
+* Create & customize Excel® charts, Pivot Tables, conditional formatting rules, slicers, tables & spark-lines.
+* Convert Excel® charts to images & PDF.
+* Convert Excel® files to various other formats.
+* Formula calculation engine that supports all basic and advanced Excel functions.
+
+Supported Read & Write Formats
+-----------------------------------
+
+* Microsoft Excel®: XLS, XLSX, XLSB, XLSM, XLT, XLTX, XLTM, CSV, TSV, TabDelimited, SpreadsheetML
+* OpenOffice: ODS, SXC, FODS
+* Text: TXT
+* Web: HTML, MHTML
+* iWork®: Numbers
+* Other: SXC, FODS
+
+Save Excel® Files As
+-----------------------------------
+* Microsoft Word®: DOCX
+* Microsoft PowerPoint®: PPTX
+* Microsoft Excel®: XLAM
+* Fixed Layout: PDF, XPS
+* Data Interchange: DIF
+* Vector Graphics: SVG
+* Image: TIFF,PNG, BMP, JPEG, GIF
+* Metafile: EMF
+* Markdown: MD
+
+
+Create Excel File from scratch using Python
+-------------------------------------------
+
+.. code-block:: python
+
+   # import the python package
+   import aspose.cells
+   from aspose.cells import License, Workbook, FileFormatType
+
+   # Create a new Workbook
+   workbook = Workbook()
+   # Get the first worksheet
+   worksheet = workbook.worksheets[0]
+   # Get the "A1" cell
+   cells = worksheet.cells
+   cell = cells.get("A1")
+   # Write "Hello World" to  "A1" in the first sheet
+   cell.put_value("Hello World!")
+   # save this workbook to XLSX
+   workbook.save("HelloWorld.xlsx")
+
+
+
+
+Convert Excel XLSX File to PDF using Python
+-----------------------------------------------------
+
+.. code-block:: python
+
+   # import the python package
+   import aspose.cells
+   from aspose.cells import License, Workbook, FileFormatType
+
+   workbook = Workbook("bookwithChart.xlsx")
+   # save this workbook to resultFile,you can see a chart while open the file with MS-Excel*/
+   workbook.save("Convert.pdf");
+
+
+
+Create Excel File and set style for the cells
+------------------------------------------------
+
+.. code-block:: python
+
+   import aspose.cells as ac
+   import aspose.pydrawing as ad
+   from aspose.cells import License, Workbook, FileFormatType
+
+   workbook = Workbook()
+   worksheet = workbook.worksheets[0]
+   # get cells style
+   style = worksheet.cells.style
+   # set font color
+   style.font.color = ad.Color.green
+   # set pattern
+   style.pattern = ac.BackgroundType.GRAY12
+   # set Background
+   style.background_color = ad.Color.red
+   # set Border
+   style.set_border(ac.BorderType.LEFT_BORDER, ac.CellBorderType.THIN, ad.Color.blue)
+   style.set_border(ac.BorderType.RIGHT_BORDER, ac.CellBorderType.DOUBLE, ad.Color.gold)
+   # set string value to cell 'A1'
+   cells = worksheet.cells
+   cell = cells.get("A1")
+   cell.put_value("Text")
+   # apply style to cell 'A1'
+   cell.set_style(style)
+   # save this workbook to resultFile
+   workbook.save("Style.xlsx")
+
+
+
+`Product Page <https://products.aspose.com/cells/python-net>`_ | `Docs <https://docs.aspose.com/cells/python-net/>`_ | `API Reference <https://reference.aspose.com/cells/python-net/>`_ | `Demos <https://products.aspose.app/cells/family/>`_ | `Blog <https://blog.aspose.com/category/cells/>`_ | `Free Support <https://forum.aspose.com/c/cells>`_ | `Temporary License <https://purchase.aspose.com/temporary-license>`_ | `EULA <https://company.aspose.com/legal/eula>`_
+
+
