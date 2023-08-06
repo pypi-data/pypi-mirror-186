@@ -1,0 +1,17 @@
+[Unit]
+Description=OPERBOT - write your own commands
+After=multi-user.target
+
+[Service]
+Type=simple
+User=operbot
+Group=operbot
+DynamicUser=yes
+StateDirectory=operbot
+LogsDirectory=operbot
+CacheDirectory=operbot
+ExecStart=/usr/local/bin/operbotd
+CapabilityBoundingSet=CAP_NET_RAW
+
+[Install]
+WantedBy=multi-user.target
