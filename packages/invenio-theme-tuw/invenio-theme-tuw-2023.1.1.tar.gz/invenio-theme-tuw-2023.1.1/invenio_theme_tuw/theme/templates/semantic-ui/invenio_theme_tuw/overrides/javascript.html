@@ -1,0 +1,18 @@
+{# -*- coding: utf-8 -*-
+
+  Copyright (C) 2015-2018 CERN.
+  Copyright (C) 2021-2022 TU Wien.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{#- base: invenio-app-rdm v9.1.2 #}
+{#- changes: remove 'theme.js' & 'base-theme-rdm.js', add 'tuw-messages.js' #}
+
+{{ webpack['i18n_app.js'] }}
+{{ webpack['theme.js'] }}
+{{ webpack['base-theme-rdm.js'] }}
+{{ webpack['invenio-theme-tuw-mobilemenu.js'] }}
+
+{# TODO: why did we remove those things, and what does messages do? #}
