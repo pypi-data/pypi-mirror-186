@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "web-proxy"
+version = "0.1.0"
+description = "Use web proxy website to proxy http clients such as urllib or requests"
+authors = ["zyg <jawide@qq.com>"]
+readme = "README.md"
+packages = [{include = "web_proxy"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
