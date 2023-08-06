@@ -1,0 +1,70 @@
+Metadata-Version: 2.1
+Name: fabrique-nodes-core
+Version: 0.1.9
+Summary: Fabrique nodes SDK
+Home-page: http://www.fabrique.ai
+Author: Sergey Kuzmin
+Author-email: sergey.kuzmin@fabrique.ai
+License: MIT
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: MIT License
+Requires-Dist: datamodel-code-generator[http] (==0.13.1)
+Requires-Dist: pydantic
+
+fabrique-nodes-core
+===================
+
+fabrique nodes sdk
+
+Install this lib
+----------------
+
+``pip3 install fabrique-nodes-core``
+
+UI ports generator
+==================
+
+.. code:: python
+
+   class UIPortGroupParams:
+       id_: str = '' # port_group_id
+       show_ports: bool = True # show port panels
+       can_add: bool = False # can add new port to group
+       can_delete: bool = False # can add delete port from group
+       can_move: bool = False # can move port inside group
+       can_hide: bool = False # can hide port
+       can_set_type: bool = True # can set porttype to port
+       has_code: bool = False # has editable code field
+       has_special: bool = False # has special binary switch
+       has_required: bool = False # has required binary switch
+       copy_name_from_code: bool = True # copy port name from code field when code edting
+       group_title: str | None = None # visual title for port group
+       special_title: str | None = None # title|tooltip for special
+       code_title: str | None = None # title|tooltip for code
+       copy_from_group: str | None = None # port group name
+       portgenerator_callback_name: str | None = None
+       valid_types: List[str] = []
+
+UI config forms generator
+=========================
+
+typical config
+
+.. code:: python
+
+   from pydantic import BaseModel, Field, constr
+   from typing import Literal
+
+   urls_type = constr(regex=r'[A-Za-z0-9]+://[A-Za-z0-9%-_]+(/[A-Za-z0-9%-_])*(#|\\?)[A-Za-z0-9%-_&=]*')
+       
+   class Config(BaseModel):
+        port: int = Field(80, title='DB Port', description='ClickHouse Port', ge=0, le=65535)
+        url: urls_type = Field('', title='url', description='ClickHouse URL')
+        agg: Literal['MAX', 'MIN', 'SUM'] = Field('SUM', title='Aggregator', description='Aggregator method')
+
+Then ``Config().schema()`` could be validated
+`here <https://uniforms.tools/playground/#?N4IgDgTgpgzlAuIBcICCATd0YwAQAoApAZQHkA5YgYwAsoBbAQwEoQAacCAezBmVEYBXeFxiMAblGQAzRgBs4HISLGSAIlDmMAnsgCMABgMd0ASzEAjOVHQz5ikFoubk8CIKgcwWqlBpc5dCgIOwVPEGhGdFIAOzldJFkwjhhaBkZkEHx8ZlwAXgA-XGAAHRjcXCouGJh4XEYAK3F83BioAHdcVCb8YHq5OQBRCG4IGCRcNw82XEE4DVlBOXhxyfdPXABrKG12rgh0VYBtEpBBGNNpffoYU4BdXABfZgBuMoqqmrrUuiYWsuAAHJ4KZ4NZARNAQBharSUwAc0BbHewO0YCgENwgK4FgaUCo8CRKMgPGCINgmKBYH2hImQJBYIxkLUACFcAAFGlE8oVQFBVIQUxgEHVTHQuSmKibAASXDmUA5XORPKxQUWy0xAA5jO9efRTBd6IJ6JidSrAUwAB6mI0miYANgArI6AMyO5UVLHwNFMrEG-BQeHBQGPD1YwQQOSU4Gg8GQiNRsOq2BUQXC0yiyFQiVS2Xy3AAVQASgAZbmevlQdW0rHl3lgRjwAMQGJio6oAC0AC1GB2AF4GDsATjuAGokAB6Cft7u9gfDgCkHYA-mP8NPOz3-4Oh0vV8wAFT4ADEAB8ShfLxeAPzMGdb-e7lcAMjydwPda9PrFtUFMURoa6oCjDwoidIxoyYqoKB0Dwo2-yfpWApCiKraQtB8KwfBEC4PQCD-OgiFqkIGqQsQBYALKIVAMTGpiRyAhRqAABpIliFEAJLkGxgLkVRdxJqi6I_m4BoAY8uqPG8MS6tI5wEhm5SplAjZQAAavIpjoNh-A_OkuSlCqlTVLUuDiJp2kiDheT1E0AB0VT0GApjWLpaRMK8ZS6hU0DwBG5T4PQXBBHIuSFMU3meuZEqWfsgXBZonkyUZFSXAQ0VadhdnBKMeDPs-ZkWVlOX7DAdnWP-8A0AZkWergvn-cUuBBPAjAuasGWxRA2UjKVTzSXVFQSUZUmSV5PKfKZelMBpMXYS0ymqbNmVWW5vwsNJuoNS2rQdLgJAUNQ60soK6BBmt6QzNNjDLV1SXPDk7AgDA_jtBxcQGlAwyjKEDiMDA2gxFQsTEIIFj6ogiT2OE_2A8DMS3apv1QKGIBVQwUgoBYXBcCsbiMGALogI8QA>`__
+
+-  ``Field`` for defaults, titles, descriptions and constraints
+-  ``Literal`` string enums supported
+-  ``ge`` and ``le`` for numbers (>= and <=)
