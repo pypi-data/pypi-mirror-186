@@ -1,0 +1,1 @@
+from .gitwildmatch import GitWildMatchPattern

@@ -1,0 +1,9 @@
+import collections
+
+class FreezableDefaultDict(collections.defaultdict):
+    def __missing__(self, key): ...
+    def freeze(self): ...
+
+class Pair(collections.namedtuple("Pair", "name value")):
+    @classmethod
+    def parse(cls, text): ...
