@@ -1,0 +1,29 @@
+{
+  "actions": {
+    "DescribeAvailableCvmInstanceTypes": [
+      {
+        "document": "",
+        "input": "https://batch.tencentcloudapi.com/?Action=DescribeAvailableCvmInstanceTypes\r\n&Filters.0.Name=zone\r\n&Filters.0.Values.0=ap-guangzhou-3\r\n&Filters.1.Name=instance-family\r\n&Filters.1.Values.0=GN2\r\n&<Common request parameters>",
+        "output": "{\n    \"Response\": {\n        \"InstanceTypeConfigSet\": [\n            {\n                \"Mem\": 56,\n                \"Cpu\": 28,\n                \"InstanceType\": \"GN2.7XLARGE56\",\n                \"Zone\": \"ap-guangzhou-3\",\n                \"InstanceFamily\": \"GN2\"\n            },\n            {\n                \"Mem\": 112,\n                \"Cpu\": 56,\n                \"InstanceType\": \"GN2.14XLARGE112\",\n                \"Zone\": \"ap-guangzhou-3\",\n                \"InstanceFamily\": \"GN2\"\n            }\n        ],\n        \"RequestId\": \"59f5b671-c492-4536-bbed-e5fbf78619dd\"\n    }\n}",
+        "title": "Querying GN2 instances in Guangzhou Zone 3"
+      }
+    ],
+    "DescribeCvmZoneInstanceConfigInfos": [
+      {
+        "document": "",
+        "input": "https://batch.tencentcloudapi.com/?Action=DescribeCvmZoneInstanceConfigInfos\r\n&Filters.0.Name=zone\r\n&Filters.0.Values.0=ap-chongqing-1\r\n&Filters.1.Name=instance-charge-type\r\n&Filters.1.Values.0=POSTPAID_BY_HOUR\r\n&<Common request parameters>",
+        "output": "{\n    \"Response\": {\n        \"InstanceTypeQuotaSet\": [\n            {\n                \"Status\": \"SELL\",\n                \"Zone\": \"ap-chongqing-1\",\n                \"NetworkCard\": 0,\n                \"Price\": {\n                    \"UnitPrice\": 0.18,\n                    \"ChargeUnit\": \"HOUR\"\n                },\n                \"InstanceFamily\": \"S3\",\n                \"Externals\": {},\n                \"Cpu\": 1,\n                \"TypeName\": \"Standard S3\",\n                \"InstanceChargeType\": \"POSTPAID_BY_HOUR\",\n                \"Memory\": 1,\n                \"LocalDiskTypeList\": [],\n                \"InstanceType\": \"S3.SMALL1\"\n            },\n            {\n                \"Status\": \"SELL\",\n                \"Zone\": \"ap-chongqing-1\",\n                \"NetworkCard\": 0,\n                \"Price\": {\n                    \"UnitPrice\": 0.26,\n                    \"ChargeUnit\": \"HOUR\"\n                },\n                \"InstanceFamily\": \"S3\",\n                \"Externals\": {},\n                \"Cpu\": 1,\n                \"TypeName\": \"Standard S3\",\n                \"InstanceChargeType\": \"POSTPAID_BY_HOUR\",\n                \"Memory\": 2,\n                \"LocalDiskTypeList\": [],\n                \"InstanceType\": \"S3.SMALL2\"\n            }\n        ],\n        \"RequestId\": \"2fba5b9c-e4ee-47ad-a776-dabb79ff2c35\"\n    }\n}",
+        "title": "Querying the configuration information of pay-as-you-go models in Chongqing Zone 1"
+      }
+    ],
+    "DescribeInstanceCategories": [
+      {
+        "document": "This example shows you how to query CVM instance families and types.",
+        "input": "https://batch.tencentcloudapi.com/?Action=DescribeInstanceCategories\r\n&<Common request parameters>",
+        "output": "{\n    \"Response\": {\n        \"InstanceCategorySet\": [\n            {\n                \"InstanceFamilySet\": [\n                    \"C3\",\n                    \"CN3\"\n                ],\n                \"InstanceCategory\": \"COMPUTE_3\"\n            },\n            {\n                \"InstanceFamilySet\": [\n                    \"C2\"\n                ],\n                \"InstanceCategory\": \"COMPUTE_2\"\n            },\n            {\n                \"InstanceFamilySet\": [\n                    \"S2\",\n                    \"S2ne\",\n                    \"I2\",\n                    \"D1\",\n                    \"M2\"\n                ],\n                \"InstanceCategory\": \"GENERAL_2\"\n            },\n            {\n                \"InstanceFamilySet\": [\n                    \"S3\",\n                    \"SN3ne\",\n                    \"S4\",\n                    \"I3\",\n                    \"M3\",\n                    \"M4\"\n                ],\n                \"InstanceCategory\": \"GENERAL_3\"\n            }\n        ],\n        \"RequestId\": \"166a2a24-888f-4fd5-82ef-f41e4754d994\"\n    }\n}",
+        "title": "Querying instance types"
+      }
+    ]
+  },
+  "version": "1.0"
+}
