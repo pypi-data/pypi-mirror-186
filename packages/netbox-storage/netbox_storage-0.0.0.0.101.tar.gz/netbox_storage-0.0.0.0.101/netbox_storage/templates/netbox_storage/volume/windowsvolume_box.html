@@ -1,0 +1,199 @@
+<div class="card">
+    <h5 class="card-header">Windows Volumes</h5>
+    <div class="card-body">
+        {% if volumes %}
+        <table class="table table-hover">
+            <tr>
+                <td>Drive Name</td>
+                <td>Filesystem</td>
+                <td>Total Size</td>
+                <td>Drive Identifier</td>
+                <td>Drive Size / Allocated</td>
+                <td>Drive Cluster</td>
+                <td>Drive Description</td>
+                <td>Manage Drives</td>
+                <td>Manage Volume</td>
+            </tr>
+            {% for volume in volumes %}
+            <tr>
+                <td>{{ volume.drive_name|linkify|placeholder }}</td>
+                <td>{{ volume.fs|linkify|placeholder }}</td>
+                <td>XXX GB</td>
+                <td>
+                    {% for drive in volume.drives.all %}
+                    {{ drive.identifier|linkify|placeholder }}<br/><br/>
+                    {% empty %}
+                    <span class="text-muted">No Disk</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for drive in volume.drives.all %}
+                    {{ drive.size }} GB / {% badge "100%" bg_color="green" %}<br/><br/>
+                    {% empty %}
+                    <span class="text-muted">No Disk</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for drive in volume.drives.all %}
+                    {{ drive.cluster }}<br/><br/>
+                    {% empty %}
+                    <span class="text-muted">No Disk</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for drive in volume.drives.all %}
+                    {{ drive.description|placeholder }}<br/><br/>
+                    {% empty %}
+                    <span class="text-muted">No Disk</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for drive in volume.drives.all %}
+                    <a href="{% url 'plugins:netbox_storage:drive_changelog' pk=drive.pk %}"
+                       class="btn btn-sm btn-outline-secondary"
+                       title="Change Log">
+                        <i class="mdi mdi-history"></i>
+                    </a>
+                    <a href="{% url 'plugins:netbox_storage:drive_edit' pk=drive.pk %}?return_url={{ drive.get_absolute_url }}"
+                       class="btn btn-warning btn-sm" title="Edit Drive">
+                        <i class="mdi mdi-pencil"></i>
+                    </a>
+                    <a href="{% url 'plugins:netbox_storage:drive_delete' pk=drive.pk %}?return_url={{ drive.get_absolute_url }}"
+                       class="btn btn-danger btn-sm">
+                        <i class="mdi mdi-trash-can-outline" title="Delete Drive"></i>
+                    </a>
+                    <br/><br/>
+                    {% empty %}
+                    <span class="text-muted">No Disk</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{% url 'plugins:netbox_storage:windowsvolume_changelog' pk=volume.pk %}"
+                       class="btn btn-sm btn-outline-secondary"
+                       title="Change Log">
+                        <i class="mdi mdi-history"></i>
+                    </a>
+                    <a href="{% url 'plugins:netbox_storage:windowsvolume_edit' pk=volume.pk %}?return_url={{ volume.get_absolute_url }}"
+                       class="btn btn-warning btn-sm" title="Edit Volume">
+                        <i class="mdi mdi-pencil"></i>
+                    </a>
+                    <a href="{% url 'plugins:netbox_storage:windowsvolume_delete' pk=volume.pk %}?return_url={{ volume.get_absolute_url }}"
+                       class="btn btn-danger btn-sm">
+                        <i class="mdi mdi-trash-can-outline" title="Delete Volume"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% if unmapped_drives %}
+            {% for drive in unmapped_drives %}
+            <tr>
+                <td><span class="text-muted">No Volume Mapped</span></td>
+                <td><span class="text-muted">No Volume Mapped</span></td>
+                <td><span class="text-muted">No Volume Mapped</span></td>
+                <td>{{ drive.identifier|linkify|placeholder }}</td>
+                <td>{{ drive.size }} GB / {% badge "0%" bg_color="red" %}</td>
+                <td>{{ drive.cluster|linkify }}</td>
+                <td>{{ drive.description|placeholder}}</td>
+                <td>
+                    <a href="{% url 'plugins:netbox_storage:drive_changelog' pk=drive.pk %}"
+                       class="btn btn-sm btn-outline-secondary"
+                       title="Change Log">
+                        <i class="mdi mdi-history"></i>
+                    </a>
+                    <a href="{% url 'plugins:netbox_storage:drive_edit' pk=drive.pk %}?return_url={{ drive.get_absolute_url }}"
+                       class="btn btn-warning btn-sm" title="Edit Drive">
+                        <i class="mdi mdi-pencil"></i>
+                    </a>
+                    <a href="{% url 'plugins:netbox_storage:drive_delete' pk=drive.pk %}?return_url={{ drive.get_absolute_url }}"
+                       class="btn btn-danger btn-sm">
+                        <i class="mdi mdi-trash-can-outline" title="Delete Drive"></i>
+                    </a>
+                    <br/><br/>
+                </td>
+                <td><span class="text-muted">No Volume Mapped</span></td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            {% if display_volume %}
+            {% for volume in display_volume %}
+            <tr>
+                <td>{{ volume.drive_name|linkify|placeholder }}</td>
+                <td>{{ volume.fs|linkify|placeholder }}</td>
+                <td>XXX GB</td>
+                <td>
+                    {% for drive in volume.drives.all %}
+                    {{ drive.identifier|linkify|placeholder }}<br/><br/>
+                    {% empty %}
+                    <span class="text-muted">No Disk</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for drive in volume.drives.all %}
+                    {{ drive.size }} GB / {% badge "100%" bg_color="green" %}<br/><br/>
+                    {% empty %}
+                    <span class="text-muted">No Disk</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for drive in volume.drives.all %}
+                    {{ drive.cluster }}<br/><br/>
+                    {% empty %}
+                    <span class="text-muted">No Disk</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for drive in volume.drives.all %}
+                    {{ drive.description|placeholder }}<br/><br/>
+                    {% empty %}
+                    <span class="text-muted">No Disk</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for drive in volume.drives.all %}
+                    <a href="{% url 'plugins:netbox_storage:drive_changelog' pk=drive.pk %}"
+                       class="btn btn-sm btn-outline-secondary"
+                       title="Change Log">
+                        <i class="mdi mdi-history"></i>
+                    </a>
+                    <a href="{% url 'plugins:netbox_storage:drive_edit' pk=drive.pk %}?return_url={{ drive.get_absolute_url }}"
+                       class="btn btn-warning btn-sm" title="Edit Drive">
+                        <i class="mdi mdi-pencil"></i>
+                    </a>
+                    <a href="{% url 'plugins:netbox_storage:drive_delete' pk=drive.pk %}?return_url={{ drive.get_absolute_url }}"
+                       class="btn btn-danger btn-sm">
+                        <i class="mdi mdi-trash-can-outline" title="Delete Drive"></i>
+                    </a>
+                    <br/><br/>
+                    {% empty %}
+                    <span class="text-muted">No Disk</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{% url 'plugins:netbox_storage:windowsvolume_changelog' pk=volume.pk %}"
+                       class="btn btn-sm btn-outline-secondary"
+                       title="Change Log">
+                        <i class="mdi mdi-history"></i>
+                    </a>
+                    <a href="{% url 'plugins:netbox_storage:windowsvolume_edit' pk=volume.pk %}?return_url={{ volume.get_absolute_url }}"
+                       class="btn btn-warning btn-sm" title="Edit Volume">
+                        <i class="mdi mdi-pencil"></i>
+                    </a>
+                    <a href="{% url 'plugins:netbox_storage:windowsvolume_delete' pk=volume.pk %}?return_url={{ volume.get_absolute_url }}"
+                       class="btn btn-danger btn-sm">
+                        <i class="mdi mdi-trash-can-outline" title="Delete Volume"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+        {% else %}
+        <div class="text-muted">None</div>
+        {% endif %}
+    </div>
+    <div class="card-footer text-end noprint">
+        <a href="{% url 'plugins:netbox_storage:windowsvolume_add' %}" class="btn btn-sm btn-primary">
+            <span class="mdi mdi-plus-thick" aria-hidden="true"></span> Add Volume
+        </a>
+    </div>
+</div>
