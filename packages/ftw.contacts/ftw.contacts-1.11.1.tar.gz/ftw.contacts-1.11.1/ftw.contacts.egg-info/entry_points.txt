@@ -1,0 +1,8 @@
+
+      # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
+
+      [plone.recipe.zope2instance.ctl]
+      sync_contacts = ftw.contacts.sync.command:do_sync_profiles
+      

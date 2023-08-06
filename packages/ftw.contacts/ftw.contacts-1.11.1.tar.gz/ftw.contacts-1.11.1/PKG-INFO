@@ -1,0 +1,543 @@
+Metadata-Version: 2.1
+Name: ftw.contacts
+Version: 1.11.1
+Summary: Provides a contact-contenttype
+Home-page: https://github.com/4teamwork/ftw.contacts
+Author: 4teamwork AG
+Author-email: mailto:info@4teamwork.ch
+Maintainer: Mathias Leimgruber
+License: GPL2
+Description: Introduction
+        ============
+        
+        This package provides a contact contenttype.
+        
+        .. contents:: Table of Contents
+        
+        
+        Installation
+        ------------
+        
+        Add the package as dependency to your setup.py:
+        
+        .. code:: python
+        
+          setup(...
+                install_requires=[
+                  'ftw.contacts',
+                ])
+        
+        or to your buildout configuration:
+        
+        .. code:: ini
+        
+          [instance]
+          eggs += ftw.contacts
+        
+        and rerun buildout.
+        
+        For Plone 4.x add `eggs += ftw.contacts ['plone4']` option.
+        
+        Install the Generic Setup profile.
+        
+        
+        Functionality Overview
+        ----------------------
+        
+        - Contact directory with ajax search functionality
+        - Contact content type
+        - KML-Representation of Contact
+        - vCard-Representation of Contact
+        - `ftw.zipexport`_ integration if you install the [zipexport] extra
+        - `ftw.simplelayout`_ integration if you install the [simplelayout] extra
+        - Synchronization of contacts with an LDAP service.
+        
+        How it looks
+        ------------
+        
+        The ``ftw.contacts`` package provides an intuitive contact directory...
+        
+        .. image:: https://raw.github.com/4teamwork/ftw.contacts/master/docs/images/contactdirectory.png
+        
+        ... with a detailed contact-view.
+        
+        .. image:: https://raw.github.com/4teamwork/ftw.contacts/master/docs/images/contact.png
+        
+        How it works
+        ------------
+        
+        Contactfolder
+        ~~~~~~~~~~~~~
+        
+        This is a dexterity contenttype and acts as a container for contacts to be listed.
+        
+        After installing the ``ftw.contacts`` package you can add a ``Contactfolder`` to your Plone site.
+        
+        The ``Contactfolder`` provides an intuitive overview of all available contacts.
+        By default, the first 20 contacts will be shown and you can load more contacts by clicking on the
+        ``Load more`` button at the end of the list.
+        
+        The alphabetical filter allows the user to quickly find a contact. Furthermore contacts can be found by using the search field.
+        
+        All the requests are asynchronous and work with a large number of contacts.
+        
+        Contact
+        ~~~~~~~
+        
+        This is a dexterity contenttype which can be added inside a ``Contactfolder``.
+        
+        A ``Contact`` lists all available attributes on the contact.
+        
+        You have also the possibility to show the contacts location on a map.
+        
+        In addition you can download the KML-representation or the vCard-representation of the contact.
+        
+        ftw.simplelayout integration
+        ----------------------------
+        
+        This is an addon for `ftw.simplelayout`_. Please make sure you
+        already installed ``ftw.simplelayout`` on your plone site before installing this addon.
+        
+        Add the simplelayout extra to your egg:
+        
+        .. code:: ini
+        
+          [instance]
+          eggs += ftw.contacts [simplelayout]
+        
+        Run buildout and install the ``ftw.contacts.simplelayout:default`` profile
+        
+        You'll get a new contenttype ``MemberBlock`` which is available in a contentpage.
+        
+        If you don't know `ftw.simplelayout`_, please read https://github.com/4teamwork/ftw.simplelayout
+        
+        MemberBlock
+        ~~~~~~~~~~~
+        
+        The memberblock connects the a Contact with a simplelayout page.
+        You just have to define the Contact attributes once and you can reuse them through
+        the memberblock.
+        
+        
+        ftw.geo integration
+        -------------------
+        
+        Add the geo extra to your egg:
+        
+        .. code:: ini
+        
+          [instance]
+          eggs += ftw.contacts [geo]
+        
+        Run buildout and install the ``ftw.contacts.geo:default`` profile
+        
+        After installing the geo-extra, you'll see a map layer on each contact-type
+        if you entered a valid address.
+        
+        If you don't know `ftw.geo`_, please read https://github.com/4teamwork/ftw.geo
+        
+        Contact synchronization through LDAP
+        ------------------------------------
+        
+        The synchronization is executed through the ``sync_contacts`` entry point. The configuration
+        for the sync is as follows:
+        
+        - The Plone site on which to execute the sync: Parameter ``-p`` - only required when there are multiple sites.
+        - The path to the contacts folder: Configured in the registry under ``IContactsSettings.contacts_path``
+        - The mapping of the LDAP attributes to the contact fields and which field to use as ID: Register a ``ILDAPAttributeMapper`` utility. Default: ``DefaultLDAPAttributeMapper``
+        
+        - The LDAP plugin id inside of ``acl_users``: Configured in the registry under ``IContactsSettings.ldap_plugin_id``
+        - The base DN for the contacts. Parameter ``-b`` - defaults to the base DN configured in the plugin
+        - The filter LDAP query to only get contacts. Parameter ``-f`` - defaults to ``(objectClass=*)``
+        
+        Synchronize contacts from multiple ldap sources
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        
+        To synchronize multiple sources (multiple plugins in ``acl_users``) a config file is required.
+        Pass the path to the file through the ``-c`` parameter.
+        
+        The only required attribute per source is the ``ldap_plugin_id`. ``base_dn`` will default to the base DN of the plugin and ``filter`` will default to ``(objectClass=*)``.
+        
+        To avoid id collisions a ``userid_prefix`` can be specified. The prefix will then be applied to all contacts of this source.
+        When an existing site wants to add a second source but already has synchronized contacts, then you should only
+        specify a prefix for the new source.  With this method the id's of the existing source do not change and contacts
+        that have already been synchronized can still be identified.
+        This is important, because the customer may have already added additional information (e.g. images) to the contacts.
+        If the ids change the sync will not recognize them and would then delete them!
+        
+        Scope can be set to: ``SCOPE_BASE``, ``SCOPE_ONELEVEL``, ``SCOPE_SUBTREE`` or ``SCOPE_SUBORDINATE``.
+        
+        .. code:: json
+        
+            [
+                {
+                    "ldap_plugin_id": "intern",
+                    "base_dn": "ou=Employees,ou=Users,dc=4teamwork,dc=ch",
+                    "filter": "(objectClass=*)"
+                },
+                {
+                    "ldap_plugin_id": "extern",
+                    "userid_prefix": "extern-",
+                    "base_dn": "ou=Customers,ou=Users,dc=4teamwork,dc=ch",
+                    "filter": "(objectClass=*)",
+                    "scope": "SCOPE_ONELEVEL"
+                }
+            ]
+        
+        Compatibility
+        -------------
+        
+        Plone 4.3 and 5.1
+        
+        .. image:: https://jenkins.4teamwork.ch/job/ftw.contacts-master-test-plone-4.3.x.cfg/badge/icon
+           :target: https://jenkins.4teamwork.ch/job/ftw.contacts-master-test-plone-4.3.x.cfg
+        
+        
+        Links
+        -----
+        
+        - Github: https://github.com/4teamwork/ftw.contacts
+        - Issues: https://github.com/4teamwork/ftw.contacts/issues
+        - Pypi: http://pypi.python.org/pypi/ftw.contacts
+        - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.contacts
+        
+        
+        Copyright
+        ---------
+        
+        This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
+        
+        ``ftw.contacts`` is licensed under GNU General Public License, version 2.
+        
+        .. _ftw.zipexport: https://github.com/4teamwork/ftw.zipexport
+        .. _ftw.simplelayout: https://github.com/4teamwork/ftw.simplelayout
+        .. _ftw.geo: https://github.com/4teamwork/ftw.geo
+        
+        Changelog
+        =========
+        
+        
+        1.11.1 (2023-01-18)
+        -------------------
+        
+        - Fix get_membership render issue on contact detail view if deleted memberblock does not get garbage collected. [mathias.leimgruber]
+        
+        
+        1.11.0 (2021-07-29)
+        -------------------
+        
+        - Implelment option to configure the encoding of the vcard. [mathias.leimgruber]
+        
+        - Change the default encoding to Windows-1252 in order to support Outlook by default. [mathias.leimgruber]
+        
+        
+        1.10.5 (2020-11-25)
+        -------------------
+        
+        - Fix harming upgrade step from release 1.10.3, which removed all behaviors. [mathias.leimgruber]
+        
+        
+        WARNING: Do not upgrade to release 1.10.3, it most likely will break the MemberBlock.
+        
+        
+        1.10.4 (2020-11-20)
+        -------------------
+        
+        - Always return False for getIcon on contacts. [mathias.leimgruber]
+        
+        
+        1.10.3 (2020-10-02)
+        -------------------
+        
+        - Remove obsolete behaviour in Plone 5 [Nachtalb]
+        - Fix broken contentpage containing a memberblock [Nachtalb]
+        
+        
+        1.10.2 (2020-08-04)
+        -------------------
+        
+        - Fix contenttree dependency in metadata.xml, since it has been removed with version 1.4.0. [mathias.leimgruber]
+        - Remove obsolete behaviors from Plone 5 profile [Nachtalb]
+        
+        
+        1.10.1 (2020-02-21)
+        -------------------
+        
+        - Strip ldap synced values [Nachtalb]
+        
+        
+        1.10.0 (2020-02-20)
+        -------------------
+        
+        - Support ldap scope attribute for contact sync [Nachtalb]
+        
+        
+        1.9.6 (2020-02-14)
+        ------------------
+        
+        - Fix i18n build. [djowett-ftw]
+        - Fix object_rename error by not trying to set Title field when renaming a Contact. [djowett-ftw]
+        - Brush up English in README and clarify supported versions of Plone (4.3 and 5.1). [djowett-ftw]
+        
+        1.9.5 (2020-01-31)
+        ------------------
+        
+        - Fix removal of spamProtect usage. [mathias.leimgruber]
+        
+        
+        1.9.4 (2020-01-31)
+        ------------------
+        
+        - Remove usage of spamProtect script, since it's no longer available in plone 5. [mathias.leimgruber]
+        
+        
+        1.9.3 (2020-01-09)
+        ------------------
+        
+        - Add ftw.contacts portal_types translations to plone domain. [tinagerber]
+        
+        
+        1.9.2 (2019-12-14)
+        ------------------
+        
+        - Provide precompiled bundle. [tinagerber]
+        
+        
+        1.9.1 (2019-11-29)
+        ------------------
+        
+        - Use unittest instead of unittest2. [jone]
+        
+        
+        1.9.0 (2019-06-12)
+        ------------------
+        
+        - Add plone 5.1 support [busykoala]
+        
+        
+        1.8.0 (2019-04-01)
+        ------------------
+        
+        - Setup security in the in the sync script. [mbaechtold]
+        
+        - Fire different event in the sync script. [mbaechtold]
+        
+        
+        1.7.2 (2019-03-13)
+        ------------------
+        
+        - Fix a bug where the "show more" button was hidden erroneously. [mbaechtold]
+        
+        
+        1.7.1 (2019-01-22)
+        ------------------
+        
+        - Fix synchronisation of images. [mbaechtold]
+        
+        
+        1.7.0 (2019-01-21)
+        ------------------
+        
+        - Support additional DX behaviors during synchronisation. [mbaechtold]
+        
+        
+        1.6.1 (2018-01-31)
+        ------------------
+        
+        - Fix contact sync for umlaut id's and group objects. [lknoepfel]
+        
+        
+        1.6.0 (2018-01-31)
+        ------------------
+        
+        - Expand contact synchronization to handle multiple ldap sources. [lknoepfel]
+        
+        - Move configuration of addable types of Plone Site to the simplelayout profile. [raphael-s]
+        
+        
+        1.5.3 (2017-10-12)
+        ------------------
+        
+        - Add comma between address and city in contact template. [raphael-s]
+        
+        
+        1.5.2 (2017-09-29)
+        ------------------
+        
+        - Fix contacts summary view. [Kevin Bieri]
+        
+        
+        1.5.1 (2017-08-04)
+        ------------------
+        
+        - Add label to email field in memberblock for consistency reasons. [Kevin Bieri]
+        
+        - Make memberblock more robust. [mbaechtold]
+        
+        - Improve contact detail view. [mbaechtold]
+        
+        
+        1.5.0 (2017-05-15)
+        ------------------
+        
+        - Add contactfolder setting for hiding contact images in listing view. [raphael-s]
+        
+        
+        1.4.8 (2017-04-13)
+        ------------------
+        
+        - Fix row distribution for n rows. [Kevin Bieri]
+        
+        - Use link for contact title in the card. [Kevin Bieri]
+        
+        
+        1.4.7 (2017-04-07)
+        ------------------
+        
+        - Fix javascript calculated row distribution.
+          [Kevin Bieri]
+        
+        
+        1.4.6 (2017-03-07)
+        ------------------
+        
+        - Make MemberBlock addable on plone site per default [raphael-s]
+        
+        
+        1.4.5 (2017-02-28)
+        ------------------
+        
+        - Use primary color for loadmore button.
+          [Kevin Bieri]
+        
+        
+        1.4.4 (2017-02-01)
+        ------------------
+        
+        - Sort the memberships alphabetically by the title of their container (on the
+          contact detail view). Replaces 1.4.3.
+          [mbaechtold]
+        
+        
+        1.4.3 (2017-01-26)
+        ------------------
+        
+        - Sort the memberships alphabetically (on the contact detail view).
+          [mbaechtold]
+        
+        
+        1.4.2 (2016-12-19)
+        ------------------
+        
+        - Render less line breaks in the member block template if there is no content to
+          follow the line break (in order to reduce space before the following block).
+          [mbaechtold]
+        
+        
+        1.4.1 (2016-11-10)
+        ------------------
+        
+        - Fix permission check in utls.py (get_backreferences). It's "View" not "zope2.View".
+          [mathias.leimgruber]
+        
+        
+        
+        1.4.0 (2016-09-13)
+        ------------------
+        
+        - The membership links on the contact detail view now point to the
+          container containing the memberblock and not to the memberblock
+          itself. [mbaechtold]
+        
+        - Add option to hide the map on the contact detail view. [mbaechtold]
+        
+        - Add option to hide the memberships on the contact detail view. [mbaechtold]
+        
+        - Add ftw.referencewidget and use it instead of formwidget.contenttree.
+          [tschanzt]
+        
+        - Inplace migrators for migrating from egov.contactdirectory. [jone]
+        
+        - Display the function of the contact of a member block if the option
+          "Acquire address" is checked on the member block.
+          [mbaechtold]
+        
+        - Install a newer version of "collective.geo.openlayers". This makes the
+          "ftw.openlayerhotfix" obsolete.
+          [mbaechtold]
+        
+        
+        1.3.0 (2016-08-10)
+        ------------------
+        
+        - Remove metadata.xml-dependencie to ftw.simplelayout for the simplelayout extra.
+          The extra is an addon of ftw.simplelayout and should not install it.
+          [elioschmutz]
+        
+        - Added ldap-to-contact sync.
+          [lknoepfel]
+        
+        
+        1.2.0 (2016-03-30)
+        ------------------
+        
+        - Redesign ftw.contacts.
+          [Kevin Bieri]
+        
+        1.1.0 (2016-03-30)
+        ------------------
+        
+        - Remove unused geo configurations due to a changed map implementation
+          [elioschmutz]
+        
+        - Fix geolocation lookup for georeferenced contacts.
+          The map will no longer be rendered through the viewlet. It is implemented
+          directly into the contact.pt for better control.
+          [elioschmutz]
+        
+        - Add missing behavior for geo referenced contact.
+          [elioschmutz]
+        
+        - Fix broken profilehook name for ftw.geo integraton.
+          [elioschmutz]
+        
+        - Disable rendering map widget through the viewlet.
+          The map will be rendered directly in the contact.pt now.
+          [elioschmutz]
+        
+        - Change ``reload`` view name to more specific name ``reload_contacts``.
+          [elioschmutz]
+        
+        - Trigger event if contacts are reloaded.
+          [elioschmutz]
+        
+        - Adjust contact_summary template to display the title in the details
+          only if it is different than the organization name.
+          This happens if you fill only an organization name without a first and last
+          name.
+          [elioschmutz]
+        
+        - Fix css styles for plonetheme.onegovbear
+          [elioschmutz]
+        
+        
+        1.0.0 (2015-12-04)
+        ------------------
+        
+        - Nothing changed yet
+        
+Keywords: ftw plone contacts
+Platform: UNKNOWN
+Classifier: Framework :: Plone
+Classifier: Framework :: Plone :: 4.3
+Classifier: Framework :: Plone :: 5.1
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Provides-Extra: tests
+Provides-Extra: zip_export
+Provides-Extra: simplelayout
+Provides-Extra: ldap
+Provides-Extra: plone4
+Provides-Extra: geo
