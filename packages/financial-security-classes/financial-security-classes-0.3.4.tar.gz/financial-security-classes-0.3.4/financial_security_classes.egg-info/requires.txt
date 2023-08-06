@@ -1,0 +1,58 @@
+pandas
+pydantic
+tzdata
+
+[:python_version < "3.9"]
+pytz
+
+[all]
+black==22.10.0
+docutils>=0.18.1
+identify>=1.4.20
+myst-parser
+piccolo-theme
+pre-commit
+pypandoc>=1.6.3
+pytest
+pytest-cov
+pytest-flake8
+setuptools
+sphinx-autobuild
+sphinx>=3
+sphinx_book_theme
+twine
+wheel
+
+[all:python_version < "3.6"]
+watchdog<1.0.0
+
+[all:python_version >= "3.6"]
+readthedocs-sphinx-search
+
+[dev]
+black==22.10.0
+identify>=1.4.20
+pre-commit
+setuptools
+twine
+wheel
+
+[docs]
+docutils>=0.18.1
+myst-parser
+piccolo-theme
+pypandoc>=1.6.3
+sphinx>=3
+sphinx-autobuild
+sphinx_book_theme
+
+[docs:python_version < "3.6"]
+watchdog<1.0.0
+
+[docs:python_version >= "3.6"]
+readthedocs-sphinx-search
+
+[test]
+pytest
+pytest-cov
+pytest-flake8
