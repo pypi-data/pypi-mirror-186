@@ -1,0 +1,205 @@
+Metadata-Version: 2.1
+Name: cat_win
+Version: 1.0.28
+Summary: Simple OS Independent 'cat' Command-line Tool made in Python.
+Keywords: python,cli
+Author-email: "Silas A. Kraume" <silas.kraume1552@gmail.com>
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Environment :: Console
+Classifier: Operating System :: OS Independent
+Requires-Dist: pyperclip3>=0.4.1
+Requires-Dist: colorama>=0.4.5
+Requires-Dist: requests>=2.26.0
+Project-URL: Download, https://github.com/SilenZcience/cat_win/tarball/master
+Project-URL: Github, https://github.com/SilenZcience/cat_win
+Project-URL: Tracker, https://github.com/SilenZcience/cat_win/issues
+
+<div id="top"></div>
+
+<p>
+   <a href="https://pypi.org/project/cat-win/" alt="Downloads">
+      <img src="https://static.pepy.tech/personalized-badge/cat-win?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads" align="right">
+   </a>
+   <a href="https://pypi.org/project/cat-win/" alt="Visitors">
+      <img src="https://visitor-badge.laobi.icu/badge?page_id=SilenZcience.cat_win" align="right">
+   </a>
+</p>
+
+[![OS-Windows]][OS-Windows]
+[![OS-Linux]][OS-Linux]
+[![OS-MacOS]][OS-MacOS]
+
+<br/>
+<div align="center">
+<h2 align="center">cat_win</h2>
+   <p align="center">
+      Simple Command-line Tool made in Python
+      <br/>
+      <a href="https://github.com/SilenZcience/cat_win/blob/main/cat_win/cat.py">
+         <strong>Explore the code »</strong>
+      </a>
+      <br/>
+      <br/>
+      <a href="https://github.com/SilenZcience/cat_win/issues">Report Bug</a>
+      ·
+      <a href="https://github.com/SilenZcience/cat_win/issues">Request Feature</a>
+   </p>
+</div>
+
+
+<details>
+   <summary>Table of Contents</summary>
+   <ol>
+      <li>
+         <a href="#about-the-project">About The Project</a>
+         <ul>
+            <li><a href="#made-with">Made With</a></li>
+         </ul>
+      </li>
+      <li>
+         <a href="#getting-started">Getting Started</a>
+         <ul>
+            <li><a href="#prerequisites">Prerequisites</a></li>
+            <li><a href="#installation">Installation</a></li>
+         </ul>
+      </li>
+      <li><a href="#usage">Usage</a>
+         <ul>
+         <li><a href="#examples">Examples</a></li>
+         </ul>
+      </li>
+      <li><a href="#license">License</a></li>
+      <li><a href="#contact">Contact</a></li>
+   </ol>
+</details>
+
+## About The Project
+
+This project copies the fundamental framework of the cat command-line tool from linux and translates its features to an OS Independent file.
+
+Additionally it includes the feature to strip and reverse the content of any given file, make use of the standard-input, which enables cat piping into each other, generating the checksum of any file, and even convert decimal, hexadecimal and binary numbers within any text.
+
+### Made With
+[![Python][MadeWith-Python]](https://www.python.org/)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Getting Started
+
+### Prerequisites
+
+No Prerequisites are neccessary; The stand-alone executable `cat.exe` is sufficient.
+
+> ⚠️ **You should never trust any executable file!**
+
+### Installation
+
+1. Clone the repository and move into the root\bin directory with:
+```console
+git clone git@github.com:SilenZcience/cat_win.git
+cd cat_win\bin
+```
+2. Add the directory to your system-environment `PATH`-variables.
+
+or simply install the python package ([PyPI-cat_win](https://pypi.org/project/cat-win/)):
+```console
+pip install cat-win
+```
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Usage
+
+```console
+cat [FILE]... [OPTION]...
+
+cat --help
+```
+
+⚠️ *on linux or macOS systems you might need to define an alias or use:*
+```console
+python3 -m cat_win [FILE]... [OPTION]...
+
+python3 -m cat_win --help
+```
+
+<table>
+   <!-- <tr><th> </th><th> </th></tr> -->
+   <tr><td>
+
+| Argument               | Description                                       |
+|------------------------|---------------------------------------------------|
+| -n, --number           | number all output lines                           |
+| -x, --linelength       | display the length of each line                   |
+| -e, --ends             | display $ at the end of each line                 |
+| -t, --tabs             | display TAB characters as ^I                      |
+| -s, --squeeze          | suppress repeated output lines                    |
+| -r, --reverse          | reverse output                                    |
+| -c, --count            | show sum of lines                                 |
+| -b, --blank            | hide empty lines                                  |
+| -f, --files            | list applied files                                |
+| -i, --interactive      | use stdin                                         |
+| -o, --oneline          | take only the first stdin-line                    |
+| -p, --peek             | only print the first and last lines               |
+| -l, --clip             | copy output to clipboard                          |
+| -m, --checksum         | show the checksums of all files                   |
+| -a, --attributes       | show meta-information about the files             |
+
+   </td>
+   <td>
+
+| Argument               | Description                                       |
+|------------------------|---------------------------------------------------|
+| -dec, --dec            | convert decimal numbers to hexadecimal and binary |
+| -hex, --hex            | convert hexadecimal numbers to decimal and binary |
+| -bin, --bin            | convert binary numbers to decimal and hexadecimal |
+|                        |                                                   |
+| -col, --nocolor        | disable colored output                            |
+| --config, --config     | change color configuration                        |
+|                        |                                                   |
+| enc=X                  | set file enconding to X                           |
+| find=X                 | find substring X in the given files               |
+| match=X                | find pattern X in the given files                 |
+| trunc=X:Y              | truncate file to lines X and Y (python-like)      |
+|                        |                                                   |
+| [a,b]                  | replace a with b in every line                    |
+| [a:b]                  | python-like string manipulation syntax            |
+|                        |                                                   |
+| -h, --help             | show help message and exit                        |
+| -v, --version          | output version information                        |
+| -d, --debug            | show debug information                            |
+
+   </td>
+   </tr>
+</table>
+
+### Examples
+
+![Example1](https://raw.githubusercontent.com/SilenZcience/cat_win/main/img/example1.png "example1")
+
+![Example2](https://raw.githubusercontent.com/SilenZcience/cat_win/main/img/example2.png "example2")
+
+![Example3](https://raw.githubusercontent.com/SilenZcience/cat_win/main/img/example3.png "example3")
+
+![Example4](https://raw.githubusercontent.com/SilenZcience/cat_win/main/img/example4.png "example4")
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/SilenZcience/cat_win/blob/main/LICENSE) file for details
+
+## Contact
+
+> **SilenZcience** <br/>
+[![GitHub-SilenZcience][GitHub-SilenZcience]](https://github.com/SilenZcience)
+
+[OS-Windows]: https://svgshare.com/i/ZhY.svg
+[OS-Linux]: https://svgshare.com/i/Zhy.svg
+[OS-MacOS]: https://svgshare.com/i/ZjP.svg
+
+[MadeWith-Python]: https://img.shields.io/badge/Made%20with-Python-brightgreen
+
+[GitHub-SilenZcience]: https://img.shields.io/badge/GitHub-SilenZcience-orange
