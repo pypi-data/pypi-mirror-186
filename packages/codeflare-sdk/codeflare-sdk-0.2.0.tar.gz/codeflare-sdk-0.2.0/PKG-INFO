@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: codeflare-sdk
+Version: 0.2.0
+Summary: Python SDK for codeflare client
+Home-page: https://github.com/project-codeflare/codeflare-sdk
+License: Apache-2.0
+Keywords: codeflare,python,sdk,client,batch,scale
+Author: Atin Sood
+Author-email: asood@us.ibm.com
+Requires-Python: >=3.6,<4.0
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: openshift-client (==1.0.18)
+Requires-Dist: ray (==2.1.0)
+Requires-Dist: rich (>=12.5,<13.0)
+Project-URL: Repository, https://github.com/project-codeflare/codeflare-sdk
+Description-Content-Type: text/markdown
+
+# Codeflare-SDK
+
+An intuitive, easy-to-use python interface for batch resource requesting, access, job submission, and observation. Simplifying the developer's life while enabling access to high-performance compute resources, either in the cloud or on-prem.
+
+Tutorial and basics walkthrough coming soon!
+
+Full documentation can be found [here](https://project-codeflare.github.io/codeflare-sdk/)
+
+## Installation
+
+Can be installed via `pip`: `pip install codeflare-sdk`
+
+## Development
+
+For testing, make sure to have installed:
+ - `pytest`, `pytest-mock` (can both be installed with `pip`)
+ - The remaining dependencies located in `requirements.txt`
+ - To run the unit tests, run `pytest -v tests/unit_test.py`)
+ - Any new test functions/scripts can be added into the `tests` folder
+
+NOTE: Functional tests coming soon, will live in `tests/func_test.py`
+
+For formatting:
+ - Currently using black v22.3.0 for format checking
+ - To install, run `pip install black==22.3.0`
+ - To check file formatting, in top-level dir run `black --check .`
+   - To auto-reformat all files, remove the `--check` flag
+   - To reformat an individual file, run `black <filename>`
+
+To build the python package:
+ - If poetry is not installed: `pip install poetry`
+ - `poetry build`
+
