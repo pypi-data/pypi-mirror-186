@@ -1,0 +1,30 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    >
+
+  <!-- summary -->
+  <adapter factory=".summary.DefaultJSONSummarySerializer" />
+  <adapter factory=".summary.IncaricoDefaultJSONSummarySerializer" />
+  <adapter factory=".summary.PersonaDefaultJSONSummarySerializer" />
+  <adapter factory=".summary.PuntoDiContattoDefaultJSONSummarySerializer" />
+  <adapter factory=".summary.EventDefaultJSONSummarySerializer" />
+
+  <adapter factory=".dxcontent.SerializeFolderToJson" />
+  <adapter factory=".dxcontent.SerializeToJson" />
+  <adapter factory=".dxfields.SourceTextSerializer" />
+  <adapter factory=".dxfields.TempiEScadenzeValueSerializer" />
+  <adapter factory=".modulo.SerializeModuloToJsonSummary" />
+  <adapter factory=".persona.PersonaSerializer" />
+  <adapter factory=".related_news_serializer.ServizioSerializer" />
+  <adapter factory=".relationfield.RelationListFieldSerializer" />
+  <adapter factory=".servizio.SerializeServizioToJsonSummary" />
+  <adapter factory=".unita_organizzativa.UOSerializer" />
+  <adapter factory=".unita_organizzativa.UOJSONSummarySerializer" />
+  <adapter factory=".venue.SerializeVenueToJsonSummary" />
+  <adapter factory=".venue.VenueSerializer" />
+  <adapter factory=".bando.BandoSerializer" />
+  <adapter factory=".documento.DocumentoSerializer" />
+  <adapter factory=".cartella_modulistica.CartellaModulisticaSerializer" />
+  <adapter factory=".punto_di_contatto.PuntoDiContattoSerializer" />
+</configure>
