@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "makegen"
+version = "0.1.1"
+description = "Pythonic Implementation of Makefile Generator"
+authors = ["Goutham Krishna K V <gauthamkrishna9991@live.com>"]
+readme = "README.md"
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.group.dev.dependencies]
+black = {version = "^23.1a1", allow-prereleases = true}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[project.urls]
+"Homepage" = "https://github.com/gouthamkrishnakv/makegen"
+"Bug Tracker" = "https://github.com/gouthamkrishnakv/makegen/issues"
