@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ciclope"
+description = "Computed Tomography to Finite Elements"
+authors = [
+    { name="Gianluca Iori", email="gianthk.iori@gmail.com" },
+    { name="Martino Pani", email="martino.pani@port.ac.uk" },
+]
+keywords = [
+    "computed tomography",
+    "finite elements",
+    "image processing",
+    "engineering",
+    "simulation",
+    "biomechanics",
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Utilities",
+]
+requires-python = ">=3.7"
+dynamic = ["version"]
+dependencies = [
+    "numpy",
+    "meshio==5.0.0",
+    "pygalmesh==0.10.6",
+    "PyMCubes",
+    "scipy",
+    "scikit-image",
+    "pypng",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+all = [
+    "matplotlib",
+    "itkwidgets",
+    "itk",
+    "vtk",
+    "ccx2paraview",
+]
+
+[project.urls]
+Home = "https://github.com/gianthk/ciclope"
+
+[project.scripts]
+ciclope = "ciclope:pipeline.main"
+
+[tool.setuptools.dynamic]
+version = {attr = "ciclope.__version__"}
