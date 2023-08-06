@@ -1,0 +1,27 @@
+[build-system]
+requires = ["pandas", "setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edi-parser2-stups"
+version = "1.0.1"
+authors = [
+    {name = "Justin Stuparitz", email = "justinstuparitz@gmail.com"},
+]
+description = "EDI Parsar"
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = ["835", "parser", "edi"]
+license = {text = "BSD-3-Clause"}
+classifiers = [
+        "Programming Language :: Python :: 3.9",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+
+#setuptools is the build system
+#https://realpython.com/pypi-publish-python-package/
