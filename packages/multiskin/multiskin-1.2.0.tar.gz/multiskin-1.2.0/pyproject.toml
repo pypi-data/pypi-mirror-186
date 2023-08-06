@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "multiskin"
+version = "1.2.0"
+authors = [{ name = "Josh Elgar", email = "joshelgar@gmail.com" }]
+description = "A small package for Multiskin"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3.9",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pillow",
+    "typing",
+    "dataclasses",
+    "diffusers[torch]",
+    "huggingface-hub",
+]
+
+[project.urls]
+"Homepage" = "https://multi.skin"
+"Bug Tracker" = "https://multi.skin"
