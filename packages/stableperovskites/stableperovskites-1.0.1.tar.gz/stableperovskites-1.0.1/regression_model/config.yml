@@ -1,0 +1,477 @@
+# Package Overview
+package_name: regression_model
+
+# Variables
+target: ENERGY_ABOVE_HULL
+
+pipeline_name: regression_model
+pipeline_save_file: regression_model_output_v
+
+dft_calc_train: dft_calc_train.csv
+dft_calc_test: dft_calc_test.csv
+elemental_prop: elemental_properties.csv
+shan_rad: shannon_radius.csv
+test_split: test_set.csv
+
+features:
+  - NUM_ELEMS
+  - A2_IONIC_RADIUS
+  - A2_MOD_OF_ELASTICITY
+  - A2_BP
+  - A3_BCC_FERMI
+  - NUM_B_SITE_1
+  - B_WT_AVG_IONIC_RADIUS
+  - B_ALL_MIN_IONIC_RADIUS
+  - A_RANGE_IONIC_RADIUS
+  - B_RANGE_IONIC_RADIUS
+  - A_WT_AVG_BP
+  - B_WT_AVG_BP
+  - A_RANGE_BP
+  - B_WT_AVG_MP
+  - A_RANGE_MP
+  - A_WT_AVG_DENSITY
+  - B_WT_AVG_DENSITY
+  - A_RANGE_DENSITY
+  - A_WT_AVG_AT_WT
+  - B_WT_AVG_AT_WT
+  - B_WT_AVG_BCC_EFF_LAT_CNT
+  - B_WT_AVG_BCC_ENERGY
+  - A_WT_AVG_BCC_ENERGY_DIFF
+  - B_WT_AVG_BCC_ENERGY_DIFF
+  - A_RANGE_BCC_ENERGY_DIFF
+  - B_RANGE_BCC_ENERGY_DIFF
+  - A_WT_AVG_BCC_FERMI
+  - B_WT_AVG_BCC_FERMI
+  - B_WT_AVG_BCC_MAG_MOM
+  - B_WT_AVG_BCC_VOLUME_DIFF
+  - B_WT_AVG_GS_EFF_LAT_CNT
+  - B_WT_AVG_GS_ENERGY
+  - B_WT_AVG_HH_IP
+  - A_WT_AVG_HH_IR
+  - B_WT_AVG_HH_IR
+  - B_WT_AVG_COV_RAD
+  - A_WT_AVG_ION_ERGY
+  - B_WT_AVG_ION_ERGY
+  - B_WT_AVG_ATOM_RAD
+  - B_WT_AVG_ELECT_AFF
+  - A_WT_AVG_MEN_NUM
+  - B_WT_AVG_MEN_NUM
+  - B_WT_AVG_N_WS_THIRD
+  - B_WT_AVG_2_ION_POT
+  - A_WT_AVG_3_ION_POT
+  - B_WT_AVG_3_ION_POT
+  - A_RANGE_3_ION_POT
+  - B_WT_AVG_CTE
+  - A_RANGE_CTE
+  - A_WT_AVG_SP_HEAT_CAP
+  - B_WT_AVG_SP_HEAT_CAP
+  - A_WT_AVG_THERMAL_COND
+  - B_WT_AVG_THERMAL_COND
+  - A_WT_AVG_CONDUCTIVITY
+  - B_WT_AVG_CONDUCTIVITY
+  - B_WT_AVG_HEAT_OF_FUSION
+  - B_ALL_MAX_HEAT_OF_FUSION
+  - B_RANGE_HEAT_OF_FUSION
+  - A_WT_AVG_HEAT_OF_VAP
+  - B_WT_AVG_HEAT_OF_VAP
+  - B_WT_AVG_ELECTRONEGATIVITY
+  - B_ALL_MAX_ELECTRONEGATIVITY
+  - B_WT_AVG_IS_FCC
+  - B_WT_AVG_STABLE_OXIDATION_STATE
+  - A_WT_AVG_NF_VALENCE
+  - A_WT_AVG_SHAN_A_RADII
+  - A_RANGE_SHAN_A_RADII
+  - B_WT_AVG_SHAN_B_RADII
+  - AVG_MAJ_IONIC_RADIUS
+  - DIFF_MAJ_IONIC_RADIUS
+  - DIFF_MAJ_MP
+  - AVG_MAJ_DENSITY
+  - AVG_MAJ_BCC_ENERGY
+  - AVG_MAJ_BCC_FERMI
+  - AVG_MAJ_BCC_VOLUME_DIFF
+  - AVG_MAJ_ION_ERGY
+  - DIFF_MAJ_ION_ERGY
+  - AVG_MAJ_N_WS_THIRD
+  - AVG_MAJ_3_ION_POT
+  - DIFF_MAJ_3_ION_POT
+  - DIFF_MAJ_THERMAL_COND
+  - AVG_MAJ_CONDUCTIVITY
+  - AVG_MAJ_HEAT_OF_VAP
+  - AVG_MAJ_ELECTRONEGATIVITY
+
+remove_comma: ION_ERGY
+
+col_names_no_symbol:
+  - IONIC_RADIUS
+  - MOD_OF_ELASTICITY
+  - BP
+  - MP
+  - DENSITY
+  - AT_WT
+  - BCC_EFF_LAT_CNT
+  - BCC_ENERGY
+  - BCC_ENERGY_DIFF
+  - BCC_FERMI
+  - BCC_MAG_MOM
+  - BCC_VOLUME_PA
+  - BCC_VOLUME_DIFF
+  - GS_BANDGAP
+  - GS_EFF_LAT_CNT
+  - GS_ENERGY
+  - GS_MAG_MOM
+  - GS_VOLUME_PA
+  - HH_IP
+  - HH_IR
+  - ICSD_VOLUME
+  - COV_RAD
+  - ION_ERGY
+  - ATOM_RAD
+  - ELECT_AFF
+  - AT_RAD
+  - AT_VOL
+  - MEN_NUM
+  - N_WS_THIRD
+  - 1_ION_POT
+  - 2_ION_POT
+  - 3_ION_POT
+  - CTE
+  - SP_HEAT_CAP
+  - THERMAL_COND
+  - CONDUCTIVITY
+  - HEAT_OF_FUSION
+  - HEAT_OF_VAP
+  - ELECTRONEGATIVITY
+  - AT_NUM
+  - PERIOD
+  - GRP
+  - VALENCE
+  - IS_HEXAGONAL
+  - IS_BCC
+  - IS_CUBIC
+  - IS_FCC
+  - IS_ORTHO
+  - IS_RHOMBO
+  - IS_MONO
+  - IS_TETRA
+  - IS_ALKALI
+  - IS_ALKALI_EARTH
+  - IS_BORON
+  - IS_CARBON
+  - IS_CHALCOGEN
+  - IS_HALOGEN
+  - IS_HYDROGEN
+  - IS_NOBLE_GAS
+  - IS_PINICTIDE
+  - IS_RARE_EARCH
+  - IS_TRANS_METAL
+  - S_ORBITAL
+  - P_ORBITAL
+  - D_ORBITAL
+  - F-ORBITAL
+  - STABLE_OXIDATION_STATE
+  - IS_D_BLOCK
+  - IS_F_BLOCK
+  - IS_METAL
+  - IS_METALLOID
+  - IS_NONMETAL
+  - ND_UNFILLED
+  - ND_VALENCE
+  - NF_UNFILLED
+  - NF_VALENCE
+  - NP_UNFILLED
+  - NP_VALENCE
+  - NS_UNFILLED
+  - NS_VALENCE
+  - N_UNFILLED
+
+a_shan_rad_cols:
+  - A_SITE
+  - A_RADII
+
+b_shan_rad_cols:
+  - B_SITE
+  - B_RADII
+
+site_names:
+  - A_SITE_1
+  - A_SITE_2
+  - A_SITE_3
+  - B_SITE_1
+  - B_SITE_2
+  - B_SITE_3
+
+prefixes:
+  - A1
+  - A2
+  - A3
+  - B1
+  - B2
+  - B3
+
+elemental_property_cols:
+  - IONIC_RADIUS
+  - MOD_OF_ELASTICITY
+  - BP
+  - MP
+  - DENSITY
+  - AT_WT
+  - BCC_EFF_LAT_CNT
+  - BCC_ENERGY
+  - BCC_ENERGY_DIFF
+  - BCC_FERMI
+  - BCC_MAG_MOM
+  - BCC_VOLUME_PA
+  - BCC_VOLUME_DIFF
+  - GS_BANDGAP
+  - GS_EFF_LAT_CNT
+  - GS_ENERGY
+  - GS_MAG_MOM
+  - GS_VOLUME_PA
+  - HH_IP
+  - HH_IR
+  - ICSD_VOLUME
+  - COV_RAD
+  - ION_ERGY
+  - ATOM_RAD
+  - ELECT_AFF
+  - AT_RAD
+  - AT_VOL
+  - MEN_NUM
+  - N_WS_THIRD
+  - 1_ION_POT
+  - 2_ION_POT
+  - 3_ION_POT
+  - CTE
+  - SP_HEAT_CAP
+  - THERMAL_COND
+  - CONDUCTIVITY
+  - HEAT_OF_FUSION
+  - HEAT_OF_VAP
+  - ELECTRONEGATIVITY
+  - AT_NUM
+  - PERIOD
+  - GRP
+  - VALENCE
+  - IS_HEXAGONAL
+  - IS_BCC
+  - IS_CUBIC
+  - IS_FCC
+  - IS_ORTHO
+  - IS_RHOMBO
+  - IS_MONO
+  - IS_TETRA
+  - IS_ALKALI
+  - IS_ALKALI_EARTH
+  - IS_BORON
+  - IS_CARBON
+  - IS_CHALCOGEN
+  - IS_HALOGEN
+  - IS_HYDROGEN
+  - IS_NOBLE_GAS
+  - IS_PINICTIDE
+  - IS_RARE_EARCH
+  - IS_TRANS_METAL
+  - S_ORBITAL
+  - P_ORBITAL
+  - D_ORBITAL
+  - F-ORBITAL
+  - STABLE_OXIDATION_STATE
+  - IS_D_BLOCK
+  - IS_F_BLOCK
+  - IS_METAL
+  - IS_METALLOID
+  - IS_NONMETAL
+  - ND_UNFILLED
+  - ND_VALENCE
+  - NF_UNFILLED
+  - NF_VALENCE
+  - NP_UNFILLED
+  - NP_VALENCE
+  - NS_UNFILLED
+  - NS_VALENCE
+  - N_UNFILLED
+  - SHAN_A_RADII
+  - SHAN_B_RADII
+
+max_cols:
+  - A_MAX
+  - B_MAX
+
+test_size: 0.33
+random_state: 42
+
+a_site_elements:
+  - Ba
+  - Ca
+  - Cd
+  - Ce
+  - Cs
+  - K
+  - La
+  - Na
+  - Nd
+  - Pb
+  - Ra
+  - Rb
+  - Sm
+  - Sr
+  - Th
+  - Tl
+  - U
+  - Y
+  - Pr
+  - Zn
+  - Dy
+  - Gd
+  - Ho
+  - Bi
+  - Sn
+  - Mg
+  - Er
+
+b_site_elements:
+  - Al
+  - Co
+  - Cr
+  - Cu
+  - Fe
+  - Ga
+  - Ge
+  - Hf
+  - Ir
+  - Mg
+  - Mn
+  - Mo
+  - Nb
+  - Ni
+  - Os
+  - Pd
+  - Pt
+  - Re
+  - Rh
+  - Ru
+  - Sc
+  - Si
+  - Sn
+  - Ta
+  - Tc
+  - Ti
+  - V
+  - W
+  - Y
+  - Zn
+  - Zr
+  - Nd
+
+no_nulls_allowed:
+  - A_SITE_1
+  - B_SITE_1
+  - COMPOSITION
+  - NUM_ELEMS
+
+input_features:
+  - COMPOSITION
+  - A_SITE_1
+  - A_SITE_2
+  - A_SITE_3
+  - B_SITE_1
+  - B_SITE_2
+  - B_SITE_3
+  - NUM_ELEMS
+
+a_site_cols:
+  - A_SITE_1
+  - A_SITE_2
+  - A_SITE_3
+
+b_site_cols:
+  - B_SITE_1
+  - B_SITE_2
+  - B_SITE_3
+
+composition: COMPOSITION
+
+dft_calc_test_validation: dft_calc_test_validation.csv
+no_nulls_in_required_loc: 0
+a_site_not_present_loc: 1
+b_site_not_present_loc: 2
+non_stoichiometric_loc: 3
+
+replace_blank_col: A_SITE_3
+replace_blank_loc: 0
+
+num_site_test_col: NUM_A_SITE_1
+num_site_test_loc: 0
+
+populate_elem_col: A1_DENSITY
+populate_elem_loc: 0
+
+a_shannon_radius_col: A2_SHAN_A_RADII
+a_shannon_radius_loc: 2
+
+b_shannon_radius_col: B1_SHAN_B_RADII
+b_shannon_radius_loc: 2
+
+comp_avgd_cols:
+  - A_WT_AVG_BP
+  - A_ALL_MAX_BP
+  - A_ALL_MIN_BP
+  - B_WT_AVG_BP
+  - B_ALL_MAX_BP
+  - B_ALL_MIN_BP
+  - A_RANGE_BP
+  - B_RANGE_BP
+comp_avgd_loc: 3
+comp_avgd_expected_vals:
+  - 2672.0
+  - 3785.0
+  - 1040.0
+  - 3005.0
+  - 3005.0
+  - 3005.0
+  - 2745.0
+  - 0.0
+
+relevant_properties:
+  - IONIC_RADIUS
+  - MOD_OF_ELASTICITY
+  - BP
+  - BCC_FERMI
+  - MP
+  - DENSITY
+  - AT_WT
+  - BCC_EFF_LAT_CNT
+  - BCC_ENERGY
+  - BCC_ENERGY_DIFF
+  - BCC_MAG_MOM
+  - BCC_VOLUME_DIFF
+  - GS_EFF_LAT_CNT
+  - GS_ENERGY
+  - HH_IP
+  - HH_IR
+  - COV_RAD
+  - ION_ERGY
+  - ATOM_RAD
+  - ELECT_AFF
+  - MEN_NUM
+  - N_WS_THIRD
+  - 2_ION_POT
+  - 3_ION_POT
+  - CTE
+  - SP_HEAT_CAP
+  - THERMAL_COND
+  - CONDUCTIVITY
+  - HEAT_OF_FUSION
+  - HEAT_OF_VAP
+  - ELECTRONEGATIVITY
+  - IS_FCC
+  - STABLE_OXIDATION_STATE
+  - NF_VALENCE
+  - SHAN_A_RADII
+  - SHAN_B_RADII
+
+avg_maj_col: AVG_MAJ_N_UNFILLED
+diff_maj_col: DIFF_MAJ_IONIC_RADIUS
+
+avg_maj_loc: 4
+diff_maj_loc: 4

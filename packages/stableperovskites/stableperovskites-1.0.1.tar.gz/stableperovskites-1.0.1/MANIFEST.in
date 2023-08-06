@@ -1,0 +1,24 @@
+include *.txt
+include *.md
+include *.pkl
+recursive-include ./regression_model/*
+
+include regression_model/datasets/dft_calc_test_validation.csv
+
+include regression_model/datasets/dft_calc_train.csv
+include regression_model/datasets/elemental_properties.csv
+include regression_model/datasets/shannon_radius.csv
+include regression_model/datasets/dft_calc_test_validation.csv
+include regression_model/datasets/dft_calc_test.csv
+
+include regression_model/trained_models/*.pkl
+include regression_model/VERSION
+include regression_model/config.yml
+
+include ./requirements/requirements.txt
+include ./requirements/test_requirements.txt
+exclude *.log
+exclude *.cfg
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
