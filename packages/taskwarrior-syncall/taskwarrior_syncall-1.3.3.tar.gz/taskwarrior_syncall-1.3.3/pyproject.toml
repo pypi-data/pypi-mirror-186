@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "taskwarrior_syncall"
+version = "1.3.3"
+description = "Taskwarrior <-> * bi-directional synchronization tool - this is now deprecated, use syncall instead"
+license = "MIT"
+authors = ["Nikos Koukis <nickkouk@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/bergercookie/taskwarrior_syncall"
+repository = "https://github.com/bergercookie/taskwarrior_syncall"
+include = ["taskwarrior_syncall/py.typed", "completions/*"]
+classifiers = [
+  "Framework :: Pytest",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3 :: Only",
+  "Intended Audience :: End Users/Desktop",
+  "Natural Language :: English",
+  "License :: OSI Approved :: MIT License",
+  "Environment :: Console",
+  "Operating System :: Unix",
+  "Topic :: Utilities",
+]
+keywords = [
+  "asana",
+  "calendar",
+  "gkeep",
+  "google calendar",
+  "google keep",
+  "google",
+  "notion",
+  "productivity",
+  "synchronization",
+  "task management",
+  "taskwarrior",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+syncall = {version = "^1.4.0", extras = ["google,notion,gkeep,asana,tw"]}
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+# vim: tw=80
