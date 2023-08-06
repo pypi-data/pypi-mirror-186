@@ -1,0 +1,296 @@
+Metadata-Version: 2.1
+Name: bridgeobjects
+Version: 0.1.18
+Summary: A collection of modules that allows the user to access objects used in bridge games,
+Home-page: https://psionman@bitbucket.org/psionman/bridgeobjects.git
+Download-URL: https://pypi.org/project/bridgeobjects/
+Author: jeff watkins
+Author-email: support@bidforgame.com
+License: MIT
+Keywords: bridge, duplicate bridge, contract bridge, hand, board, suit, auction, contract, card
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+# bridgeobjects
+A collection of modules that allows the user to utilise objects used in bridge games, for example, a board or a contract.
+
+The classes form a natural hierarchy:
+
+ event
+    └── board
+        ├── auction
+        │   └── call
+        │       └── denomination
+        ├── contract
+        ├── hand
+        │   └── card
+        │       └── suit
+        └── trick
+
+(However, some classes are natural subsidiaries not represented in this classification, for example, there are four cards in a trick.)
+
+
+The objects can be created using a simple, self explanatory, human readable set of definitions
+by using Portable Bridge Notation (PBN) (http://www.tistis.nl/pbn/) or
+Richard’s Bridge Notation (RBN) (http://www.rpbridge.net/7a12.htm).
+
+## Installation
+```bash
+pip install bridgeobjects
+```
+
+
+# History
+
+Version 0.1.18 - 19 Jan 2023
+
+1. Add VULNERABILITY to constants
+
+---------
+
+Version 0.1.17 - 31 Dec 2022
+
+    contract.py
+        fix scoring bug ans refactor
+        add json functionality
+
+    trick.py
+        add json functionality
+
+    auction.py
+        add json functionality
+
+    _parse_pbn_string.py
+        support for seat_calls (not implemented)
+---------
+
+Version 0.1.16 - 24 Nov 2022
+
+    change output format of create_pbn_board
+    fix trick winner in _parse pbn_string
+    allow "" in contract name
+
+---------
+
+Version 0.1.15 - 23 Oct 2022
+
+Repair tab option in file_operations
+
+---------
+
+
+Version 0.1.13 - 29 Sept 2022
+
+Make player dealer(not declarer in pbn auction
+
+---------
+
+Version 0.1.14 - 29 Sept 2022
+
+Repair tab option in file_operations
+
+
+Version 0.1.13 - 29 Sept 2022
+
+Make player dealer(not declarer in pbn auction
+
+---------
+
+Version 0.1.12 - 5 Feb 2022
+
+Various changes around cardplay esp. scoring and results
+
+---------
+
+Version 0.1.11 - 15 Nov 2021
+
+contract.py : add scoring
+constants.py : scoring constants
+
+---------
+
+Version 0.1.10 - 8 Nov 2021
+
+board.py : add declarers_tricks
+file_operations.py: Results type check
+
+---------
+
+Version 0.1.9 - 8 Nov 2021
+
+board.py not updated
+
+---------
+
+Version 0.1.8 - 8 Nov 2021
+
+auction.play: add seat_calls
+
+board.py: add declarers_tricks and optimum_result_table
+
+constants.py: add DENOMINATION_NAMES, remove CARD_RANKS and consolidate into CARD_VALUES
+
+contract.py: add level and target_tricks
+
+file_operations: add Result and OptimumResultTable in pbn
+
+---------
+
+Version 0.1.7 - 25 Oct 2021
+
+Add CARD_RANKS to Constants
+
+
+---------
+
+Version 0.1.6 - 15 Oct 2021
+
+Add CARD_VALUES to Constants
+Correct bug when a board is created without event
+
+---------
+
+Version 0.1.5 - 7 Oct 2021
+
+list to List in hand.py sort_card_list
+---------
+
+Version 0.1.4 - 2 Oct 2021
+
+Check suit exists in list before removal in hands.py._get_shortest_suit
+---------
+
+Version 0.1.3 - 29 Sept 2021
+
+Changes to contract, file_operations, hand and trick for cardplay
+---------
+
+Version 0.1.2 - 23 Aug 2021
+
+Test Contract modifier and tidy up high_card_left in sort_card
+---------
+
+Version 0.1.1 - 23 Aug 2021
+
+Expose Denomination
+---------
+
+Version 0.1.0 - 23 Aug 2021
+
+Implement typing
+---------
+
+Version 0.0.20 - 04 Aug 2021
+
+Improve event and board in file_operations
+---------
+
+Version 0.0.19 - 17 July 2021
+
+Update 'super'
+---------
+
+Version 0.0.18 - 03 July 2021
+
+Add leader property to Contract and improve _auction_analysis
+---------
+
+Version 0.0.17 - 02 July 2021
+
+Add auction keyword to Contract
+---------
+
+Version 0.0.16 - 30 June 2021
+
+Add level to contract and improve _auction_analysis
+---------
+
+Version 0.0.15 - 03 June 2021
+
+Expose version in bridgeobjects.VERSION
+---------
+
+Version 0.0.14 - 03 June 2021
+
+Update Trick and Card for cardplay
+---------
+
+Version 0.0.13 - 21 May 2021
+
+Add is_honour setter to Card and improve Card eq, ne etc.
+
+---------
+
+Version 0.0.12 - 13 May 2021
+
+Various changes to Board, Hand, Constants, and Trick for card play
+
+---------
+
+Version 0.0.11 - 05 May 2021
+
+Various changes to Board, Hand, Constants, and Trick for card play
+
+---------
+
+Version 0.0.10 - 17 January 2021
+
+Use Denomination in Hand suit_points
+
+---------
+
+Version 0.0.9 - 16 January 2021
+Make repeated null events take UUID value
+
+---------
+Version 0.0.8 - 18 November 2020
+
+Initialise event in parse_pbn and improve regex in test
+
+---------
+Version 0.0.7 - 18 November 2020
+
+Problem in parse_pbn
+
+---------
+
+Version 0.0.6 - 18 November 2020
+
+Changed return type of Board.build_fourth_hand
+
+---------
+Version 0.0.5 - 29 October 2020
+
+Added is_honour to Card
+
+Hand cards by suit can take string or Suit parameter
+
+---------
+
+Version 0.0.4 - 24 October 2020
+
+Bugs in file objects
+
+---------
+
+Version 0.0.3 - 16 October 2020
+
+Expose parse_lin
+
+---------
+
+Version 0.0.2 - 16 October 2020
+
+Expose parse_lin
+
+---------
+Version 0.0.1 - October 2020
+
+Expose parse_pbn
+
+------
+Version 0.0.0 - August 2020
+
+Created and uploaded
+
+---
