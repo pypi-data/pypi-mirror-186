@@ -1,0 +1,63 @@
+Live Debugger
+=============
+
+Overview
+********
+
+Live Debugger is a library for CPython that allows to collect stacktrace data from running
+processes in production environments without stopping the world. The library provides
+safe building blocks and concepts for developers to collect stack snapshot from
+processes. It is designed to be minimal and extensible. It also makes no assumptions
+on what the process plans to do with the collected data, focusing only on providing immutable
+safe data.
+
+The debugger implementation uses CPython debugging functions available in the standard
+library to intercept function call and collect stack frames data. Stackframes are transformed
+into immutable data structures so no harm can be done to the running process.
+
+The main benefits of using this library are:
+
+* Free (as in freedom)
+* Depends only on CPython standard libraries
+* Easy to extend
+* Easy to use
+* Small codebase
+
+
+Installation
+************
+
+This library is available in `PyPI <https://pypi.org/>`_ so you can install it as a normal Python package:
+
+.. code-block:: bash
+
+   pip install live-debugger
+
+
+Usage
+*****
+
+.. code-block:: python
+   
+   >>> from live_debugger import api
+   >>> cookie = api.add_point("flask_example/app.py", 33, print)
+   >>> api.clear_point(cookie)
+
+
+Next
+****
+
+* Async support
+* Anonymization
+
+
+Credits
+*******
+
+* Yunier Rojas García
+* ChatGPT -- for helping me writing this README
+
+
+License
+*******
+AGPL v3

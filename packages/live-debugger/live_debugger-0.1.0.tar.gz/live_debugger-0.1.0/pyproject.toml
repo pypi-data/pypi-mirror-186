@@ -1,0 +1,71 @@
+[tool.poetry]
+name = "live-debugger"
+version = "0.1.0"
+description = "A simple library for CPython that allows you to collect stacktrace data from running processes in production environments without stopping the execution of the process."
+license = "AGPL-3.0"
+authors = [
+    "Yunier Rojas García <yunier.rojas@gmail.com>"
+]
+maintainers = [
+    "Yunier Rojas García <yunier.rojas@gmail.com>",
+]
+readme = "README.rst"
+repository = "https://gitlab.com/yunier.rojas/python-live-debugger"
+documentation = "https://python-live-debugger.readthedocs.io/en/latest/"
+keywords = ["python", "live", "debugger"]
+classifiers = [
+    'Programming Language :: Python :: Implementation :: CPython',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Development Status :: 3 - Alpha',
+    'Intended Audience :: Developers',
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+pytest-cov = "^4.0.0"
+black = "^22.10.0"
+isort = "^5.10.1"
+flake8 = "^5.0.4"
+mypy = "^0.990"
+bandit = "^1.7.4"
+cpplint = "^1.6.1"
+better-exceptions = "^0.3.3"
+safety = "^2.3.1"
+python-semantic-release = "^7.32.2"
+myst-parser = {version="^0.18.1", extras=["linkify"]}
+cython = "^0.29.32"
+pytest-benchmark = "^4.0.0"
+docstr-coverage = "^2.2.0"
+
+[build-system]
+requires = ["setuptools", "Cython", "poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+## TOOLS
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+markers = [
+    "data_benchmark: benchmarking data tests used to improve performance",
+    "debugger_benchmark: benchmarking debugger tests used to improve performance",
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.semantic_release]
+hvcs = "gitlab"
+branch = "main"
+version_toml = "pyproject.toml:tool.poetry.version"
+build_command = "poetry build"
