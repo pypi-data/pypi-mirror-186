@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "topdrawersoccer-sdk"
+version = "0.1.1"
+authors = [
+  { name="Omar Crosby", email="omar.crosby@gmail.com" },
+]
+description = "A python module for scraping TopDrawerSoccer."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License (GPL)",
+    "Operating System :: OS Independent",
+]
+keywords = [
+    "soccer",
+    "scraping",
+    "topdrawersoccer"
+]
+
+dependencies = [
+    "azure-cosmos == 4.3.0",
+    "azure-core == 1.25.1",
+    "beautifulsoup4 == 4.11.1",
+    "flask == 2.2.2",
+    "flask-bcrypt == 1.0.1",
+    "marshmallow == 3.18.0",
+    "python-dotenv == 0.21.0",
+    "requests == 2.28.1",
+    "soccer-sdk-utils >= 0.1.14"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ocrosby/topdrawersoccer-sdk"
+"Bug Tracker" = "https://github.com/ocrosby/topdrawersoccer-sdk/issues"
+
+[tool.setuptools]
+packages = [
+    "topdrawersoccer_sdk",
+    "topdrawersoccer_sdk.page"
+]
+
+[tool.semantic_release]
+version_source = "commit"
+version_variable = [
+    "topdrawersoccer_sdk/__init__.py:__version__"
+]
+version_toml = [
+    "pyproject.toml:project.version"
+]
+major_on_zero = true
+branch = "main"
+upload_to_pypi = true
+upload_to_release = true
+commit_subject = "chore: release {version} [skip ci] ***NO_CI***"
+build_command = "python3 -m pip install --upgrade build && python3 -m build"

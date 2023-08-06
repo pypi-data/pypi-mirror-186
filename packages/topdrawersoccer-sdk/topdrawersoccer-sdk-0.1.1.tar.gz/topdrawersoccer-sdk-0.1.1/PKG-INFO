@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: topdrawersoccer-sdk
+Version: 0.1.1
+Summary: A python module for scraping TopDrawerSoccer.
+Author-email: Omar Crosby <omar.crosby@gmail.com>
+Project-URL: Homepage, https://github.com/ocrosby/topdrawersoccer-sdk
+Project-URL: Bug Tracker, https://github.com/ocrosby/topdrawersoccer-sdk/issues
+Keywords: soccer,scraping,topdrawersoccer
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
+# TopDrawerSoccer SDK
+
+This package contains modules and packages providing access to TopDrawerSoccer data.
+
+
+# Setup
+- Create your virtual environment of choice
+- Install Poetry globally
+
+Install dependencies
+
+```bash
+$ pip install -e .
+```
+
+
+Update dependencies
+
+```bash
+$ invoke update
+```
+
+
+Clean up transient files
+
+```bash
+$ invoke clean
+```
+
+Analyze syntax
+
+```bash
+$ invoke lint
+```
+
+Run tests
+
+```bash
+$ invoke test
+```
+
+Generate Coverage Report
+
+```bash
+$ invoke cover
+```
+
+Build the project
+
+```bash
+$ invoke build
+```
