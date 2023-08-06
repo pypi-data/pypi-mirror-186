@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "caronte-api-infra"
+version = "0.1.0"
+description = "Infraestructure package to integrate services"
+authors = ["Giovani Liskoski Zanini <giovanilzanini@hotmail.com>"]
+license = "GNU"
+readme = "README.md"
+packages = [{ include = "caronte_infra" }]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pydantic = "^1.10.4"
+motor = "^3.1.1"
+caronte-api-common = "^0.2.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+pylint = "^2.15.10"
+black = "^22.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
