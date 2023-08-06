@@ -1,0 +1,68 @@
+version: '3.4'
+
+services:
+  nginx:
+    image: nginx:1.22
+    restart: on-failure
+    volumes:
+      - ./volumes/nginx/ssl:/etc/nginx/ssl
+      # acme.sh 的证书验证路径
+      - ./volumes/nginx/well-known:/var/www/.well-known:ro
+      # nginx 日志
+      - ./var/log/nginx:/var/log/nginx
+      # nginx 相关配置
+      - ./servers/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./servers/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./servers/nginx/lib:/etc/nginx/lib:ro
+      # 项目文件映射
+      - ./release/html:/var/www/html:ro
+    labels:
+      # acme.sh 部署证书要用的标签
+      - sh.acme.autoload.domain=drops
+    ports:
+      - 80:80
+      - 443:443
+      # depends_on:
+      # nginx 依赖的服务写在这。这些服务启动后 nginx 开始启动。
+      # - http_server
+
+  # acme.sh:
+  #   image: neilpang/acme.sh:latest
+  #   command: daemon
+  #   volumes:
+  #     - ./volumes/acme.sh/acmeout:/acme.sh
+  #     - ./volumes/nginx/well-known:/var/www/.well-known
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - ./servers/acme.sh/redeploy-ssl:/usr/bin/redeploy-ssl:ro
+  #   environment:
+  #     - DEPLOY_DOCKER_CONTAINER_LABEL=sh.acme.autoload.domain=drops
+  #     - DEPLOY_DOCKER_CONTAINER_KEY_FILE=/etc/nginx/ssl/drops/key.pem
+  #     - DEPLOY_DOCKER_CONTAINER_CERT_FILE="/etc/nginx/ssl/drops/cert.pem"
+  #     - DEPLOY_DOCKER_CONTAINER_CA_FILE="/etc/nginx/ssl/drops/ca.pem"
+  #     - DEPLOY_DOCKER_CONTAINER_FULLCHAIN_FILE="/etc/nginx/ssl/drops/full.pem"
+  #     - DEPLOY_DOCKER_CONTAINER_RELOAD_CMD="nginx -g 'daemon on; master_process on;' -s reload" # service nginx force-reload 不会报错
+  #   depends_on:
+  #     - nginx
+
+  # 基于 drops 的远程备份和计划任务
+  # drops:
+  #   # alpine 的 crond fork 进程会自动切换到root，更改容器用户会导致 fork 失败。
+  #   image: szerr/drops:latest
+  #   volumes:
+  #     # 如果需要定时任务登录其他服务器，比方说rsync异地备份的时候；配一个 key 和 known_hosts 在这里。
+  #     - ./secrets/home_ssh:/root/.ssh
+  #     # 不同时间间隔执行的脚本。
+  #     - ./servers/drops/periodic:/etc/periodic:ro
+  #     - ./servers/drops/periodic_example:/etc/periodic_example:ro
+  #     # 设置和主机相同的时区。注意映射文件只有重启容器后才会生效。
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - /etc/timezone:/etc/timezone:ro
+  #     # 需要的可执行文件映射。
+  #     - ./servers/drops/bin:/usr/local/bin:ro
+  #     # 配合 drops 目录里，有关定时增量备份的示例配置。
+  #     - /srv/smbc/backup:/srv/backup
+  #     - ./servers/drops/drops:/srv/drops
+
+  #     # 自定义得需要备份的目录
+  #     - /srv/git:/srv/git:ro
+  #   restart: always
