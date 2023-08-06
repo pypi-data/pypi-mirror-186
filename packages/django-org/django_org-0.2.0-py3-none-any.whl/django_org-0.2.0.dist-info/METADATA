@@ -1,0 +1,63 @@
+Metadata-Version: 2.1
+Name: django-org
+Version: 0.2.0
+Summary: Base classes for enterprise modeling
+Home-page: https://github.com/pikhovkin/django-org
+Author: Sergei Pikhovkin
+Author-email: s@pikhovkin.ru
+License: MIT
+Keywords: django,enterprise,organization,regime,shift,work mode,work regime,work shift
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django :: 3.1
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Framework :: Django :: 4.1
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.9.*, <4.2.*
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Django (<4.2,>=3.1)
+Provides-Extra: all
+Requires-Dist: Django (<4.2,>=3.1) ; extra == 'all'
+Requires-Dist: django-easy-select2 ; extra == 'all'
+Provides-Extra: select2
+Requires-Dist: django-easy-select2 ; extra == 'select2'
+
+# django-org
+
+[![GitHub Actions](https://github.com/pikhovkin/django-org/workflows/build/badge.svg)](https://github.com/pikhovkin/django-org/actions)
+[![PyPI](https://img.shields.io/pypi/v/django-org.svg)](https://pypi.org/project/django-org/)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-org.svg)
+[![framework - Django](https://img.shields.io/badge/framework-Django-0C3C26.svg)](https://www.djangoproject.com/)
+![PyPI - Django Version](https://img.shields.io/pypi/djversions/django-org.svg)
+[![PyPI - License](https://img.shields.io/pypi/l/django-org)](./LICENSE)
+
+Base classes for enterprise modeling
+
+### Installation
+
+```bash
+$ pip install django-org
+```
+
+Install with `django-easy-select2`
+```bash
+$ pip install django-org[select2]
+```
+
+### Usage
+
+```python
+
+```
+
+### License
+
+MIT
