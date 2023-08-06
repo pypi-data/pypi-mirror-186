@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build]
+exclude = [
+    "implementations/",
+]
+
+[tool.hatch.build.force-include]
+"bowtie/schemas/io-schema.json" = "bowtie/schemas/io-schema.json"
+"bowtie/templates/" = "bowtie/templates/"
+
+[project]
+name = "bowtie-json-schema"
+description = "A meta-validator for the JSON Schema specification."
+requires-python = ">=3.8"
+readme = "README.rst"
+license = {text = "MIT"}
+keywords = [
+    "validation",
+    "data validation",
+    "jsonschema",
+    "json",
+    "json schema",
+]
+authors = [
+  {email = "Julian+bowtie@GrayVines.com"},
+  {name = "Julian Berman"},
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: Implementation :: CPython",
+]
+dynamic = ["version"]
+
+dependencies = [
+  "aiodocker",
+  "attrs",
+  "click",
+  "github3.py",
+  "jinja2",
+  "jsonschema",
+  "rich",
+  "structlog",
+]
+
+[project.scripts]
+bowtie = "bowtie._cli:main"
+
+[project.urls]
+Homepage = "https://github.com/bowtie-json-schema/bowtie"
+Issues = "https://github.com/bowtie-json-schema/bowtie/issues/"
+Source = "https://github.com/bowtie-json-schema/bowtie"
+
+[tool.isort]
+from_first = true
+include_trailing_comma = true
+multi_line_output = 3
+
+[tool.doc8]
+ignore = [
+    "D000",  # see PyCQA/doc8#125
+    "D001",  # one sentence per line, so max length doesn't make sense
+]
