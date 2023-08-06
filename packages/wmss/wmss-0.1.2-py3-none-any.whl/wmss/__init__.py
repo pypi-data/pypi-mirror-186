@@ -1,0 +1,1 @@
+from wmss._version import __version__
