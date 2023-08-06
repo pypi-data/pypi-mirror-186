@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: py-cppstd
+Version: 0.3.1
+Summary: Use C++ std::iostream style output
+Home-page: https://github.com/Chinese-Cyq20100313/py_cppstd
+Author: Cyan_Changes
+Author-email: 1491326171@qq.com
+Maintainer: Cyan_Changes
+Maintainer-email: 1491326171@qq.com
+License: Apache 2.0
+Platform: all
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires: objprint
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+## Python C++ std iostream
+Using C++ std lib iostream in py  
+
+[![OSCS Status](https://www.oscs1024.com/platform/badge/Chinese-Cyq20100313/py_cppstd.svg?size=small)](https://www.oscs1024.com/project/Chinese-Cyq20100313/py_cppstd?ref=badge_small)
+
+### Installtion
+    pip install py_cppstd
+
+### Import
+    from py_cppstd import _std  
+
+### Example
+
+    std.include('iostream')
+    std.cout << 114514 << std.endl # output 114514 <newline>
+    num: int  
+    std.cin >> num # read a int
