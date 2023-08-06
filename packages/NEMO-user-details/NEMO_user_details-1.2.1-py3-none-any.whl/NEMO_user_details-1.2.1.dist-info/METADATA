@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: NEMO-user-details
+Version: 1.2.1
+Summary: Install user details plugin for NEMO
+Home-page: https://gitlab.com/nemo-community/prometheus-computing/nemo-user-details
+Author: Prometheus Computing LLC
+Author-email: nemo@prometheuscomputing.com
+License: MIT
+Keywords: NEMO
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: NEMO (>=4.3.0)
+Requires-Dist: django (<4.0,>=3.2)
+Requires-Dist: requests
+Requires-Dist: djangorestframework
+
+# NEMO User Details
+
+This plugin for NEMO adds more fields to users.
+
+The following fields can be enabled in this plugin:
+* phone number
+* emergency contact
+* groups (from django authentication groups)
+* gender
+* race
+* ethnicity
+
+# Installation
+
+`pip install NEMO-user-details`
+
+`django-admin migrate NEMO_user_details`
+
+# Add NEMO User Details
+
+in `settings.py` add to `INSTALLED_APPS`:
+
+```python
+INSTALLED_APPS = [
+    '...',
+    'NEMO_user_details',
+    '...'
+]
+```
+
+# Usage
+Go to `Detailed administration` to add choices for each field if needed (groups, gender, ethnicity, race).
+
+Then go to `Customization -> User details` and select which fields you want to enable and require.
+
+Then simply navigate to the `User` page in the `Administration` menu and the new fields will be available.
