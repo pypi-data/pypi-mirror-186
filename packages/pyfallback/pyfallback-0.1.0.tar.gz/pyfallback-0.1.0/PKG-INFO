@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: pyfallback
+Version: 0.1.0
+Summary: Provides fallback for operations in python
+Home-page: https://github.com/weilueluo/pyfallback
+License: Apache-2.0
+Keywords: fallback,pyfallback
+Author: Weilue Luo
+Author-email: luoweilue@gmail.com
+Requires-Python: >=3.7
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Project-URL: Repository, https://github.com/weilueluo/pyfallback
+Description-Content-Type: text/markdown
+
+# pyfallback
+
+## Install
+> pip install fallback
+
+## Usage
+
+```python
+from pyfallback import Fallback
+
+json = {
+    'attr-1': 'value-1',
+}
+json = Fallback(json, fallback="default")
+
+# fallback
+json["attr-1"].get()  # "value1"
+json["attr-2"].get()  # "default"
+
+# chaining
+json["attr-1"].split('-')[0].get()  # "value"
+
+# see tests/test_fallback.py for more example 
+```
+
+## Contributing
+Just submit a pull request :D <br />
+Note: this project uses poetry and pyenv
+
