@@ -1,0 +1,226 @@
+Metadata-Version: 2.1
+Name: bashckup
+Version: 0.0.2
+Summary: Defines your backup strategy based on bash commands
+Project-URL: Homepage, https://github.com/remi-angenieux/bashckup
+Project-URL: Bug Tracker, https://github.com/remi-angenieux/bashckup/issues
+Author: Rémi Angénieux
+License: MIT License
+        
+        Copyright (c) 2023 Rémi ANGENIEUX
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: System :: Archiving :: Backup
+Requires-Python: >=3.7
+Requires-Dist: importlib-metadata; python_version < '3.8'
+Requires-Dist: jsonschema
+Requires-Dist: pyyaml
+Provides-Extra: tests
+Requires-Dist: assertpy; extra == 'tests'
+Requires-Dist: freezegun; extra == 'tests'
+Requires-Dist: pytest; extra == 'tests'
+Description-Content-Type: text/markdown
+
+# Bashbackup [![Test](https://github.com/remi-angenieux/bashckup/actions/workflows/test.yml/badge.svg)](https://github.com/remi-angenieux/bashckup/actions/workflows/test.yml) ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/remi-angenieux/bashckup) [![PyPI version](https://badge.fury.io/py/bashckup.svg)](https://badge.fury.io/py/bashckup)
+
+It is a python application that allows you to easily describe the backup steps you want. It is possible to describe the
+steps in YAML or in CLI. The tool also allows to manage the restoration based on the backup steps.
+
+# Installation
+
+```bash
+pip install bashckup
+```
+
+# Examples
+
+## With YAML file
+
+```bash
+bashckup backup file --config-file /home/bashckup/config.yml
+```
+
+Config file:
+<details>
+    <summary>Show up</summary>
+
+```yaml
+---
+- name: Backup MariaDB database
+  id: backup-maria-db2
+  reader:
+    module: mariaDBDatabase
+    args:
+      database-name: "myDatabase"
+  transformers:
+    - gzip
+    - crypt:
+        args:
+          password-file: password-safe.txt
+  writer:
+    module: outputFile
+    args:
+      path: ./
+      file-name: output.sql.gz
+- name: Backup website folder
+  id: backup-website
+  reader:
+    module: files
+    args:
+      path: testfolder/
+      incremental-metadata-file-prefix: tar-snap
+      level-0-frequency: 'weekly'
+  transformers:
+    - gzip:
+        args:
+          level: 9
+  writer:
+    module: outputFile
+    args:
+      path: ./
+      file-name: backup.tar.gz
+  post-backup:
+    - rsync:
+        args:
+          ip-addr: 10.8.0.1
+          dest-module: test
+          dest-folder: bck
+          user: user
+    - cleanFolder:
+        args:
+          retention: 31
+
+```
+
+</details>
+
+## With CLI inputs
+
+```bash
+bashckup backup cli --reader-module mariaDBDatabase --reader-args database-name='myDatabase' --transformer-module gzip --transformer-args nop --transformer-module crypt --transformer-args password-file=password-safe.txt  --writer-module outputFile --writer-args path='.' file-name='output.sql.gz'
+```
+
+# Table of content
+
+TODO
+
+# Modules
+
+| Reader          | Transformer | Writer     | Post backup |
+|-----------------|-------------|------------|-------------|
+| files           | gzip        | outputFile | cleanFolder |
+| mariaDBDatabase | crypt       | -          | rsync       |
+
+## Readers
+
+### File reader
+
+Use `tar` bash command and allows to save files from file systems
+
+#### Configuration
+
+| Parameter name                   | Description                                                                      | Required | Default value |
+|----------------------------------|----------------------------------------------------------------------------------|----------|---------------|
+| path                             | Folder path for the backup. It will create a sub-folder with the backup id       | True     | -             |
+| incremental-metadata-file-prefix | Name of metadata-file used to store difference between backups                   | False    | -             |
+| level-0-frequency                | When a full backup have to be done ? You have to choose in ['weekly', 'monthly'] | False    | weekly        |
+
+### MariaDB database
+
+⚠️**You have to be root to use it, no authentication method is available yet** ⚠️
+
+Use `mysqldump` bash command and allows to generate a backup based on SQL instructions.
+
+#### Configuration
+
+| Parameter name | Description              | Required | Default value |
+|----------------|--------------------------|----------|---------------|
+| database-name  | Name of mariadb database | True     | -             |
+
+## Transformers
+
+### Gzip
+
+Use `gzip` bash command and allows to compress.
+
+#### Configuration
+
+| Parameter name | Description                                                                                                                                                                                                                                                                                              | Required | Default value |
+|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|---------------|
+| level          | Regulate the speed of compression using the specified digit #, where 1 indicates the fastest compression method (less compression) and 9 indicates the slowest compression method (best compression). The default compression level is 6 (that is, biased towards high compression at expense of speed). | False    | 6             |
+
+### Crypt
+
+Use `openssl` bash command and allows to do symmetric encryption.
+
+#### Configuration
+
+| Parameter name | Description                                 | Required | Default value |
+|----------------|---------------------------------------------|----------|---------------|
+| password-file  | Path to the file that contains the password | False    | -             |
+
+## Writer
+
+### Output file
+
+Use `cat` bash command and allows to save backup on fil systems.
+
+#### Configuration
+
+| Parameter name | Description                  | Required | Default value |
+|----------------|------------------------------|----------|---------------|
+| path           | Path to the output folder    | True     | -             |
+| file-name      | File name of the backup file | True     | -             |
+
+## Post backup
+
+### Clean folder
+
+Remove outdated backups
+
+#### Configuration
+
+| Parameter name | Description                | Required | Default value |
+|----------------|----------------------------|----------|---------------|
+| retention      | Retention duration in days | True     | -             |
+
+### Rsync
+
+⚠️**You have to use `password-file` if `user` needs a password to login, otherwise backup will be stuck waiting password
+from stdin** ⚠️
+
+Use `rsync` bash command and allows to push backups's folder to a remote location.
+
+`password-file` must point to a file that must be owned by the user running "bashckup", and it must be accessible only
+by him (chmod 600)
+
+#### Configuration
+
+| Parameter name | Description                                 | Required | Default value |
+|----------------|---------------------------------------------|----------|---------------|
+| ip-addr        | IP address of remote host                   | True     | -             |
+| dest-module    | Destination rsyncd module                   | False    | -             |
+| dest-folder    | Destination folder                          | True     | -             |
+| user           | Username to use to log in                   | True     | -             |
+| password-file  | Path to the file that contains the password | False    | -             |
