@@ -1,0 +1,90 @@
+Metadata-Version: 2.1
+Name: Topsis-Harinderjit-102017151
+Version: 1.0.4
+Summary: topsis package for MCDM problems
+Author: Harinderjit Singh
+Author-email: harinderjit91218@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: pandas
+
+# Topsis-Harinderjit-102017151
+
+_for: **Assignment-1 (UCS654)**_
+_submitted by: **Harinderjit Singh**_
+_Roll no: **102017151**_
+_Group: **3CSE7**_
+
+
+<!-- This is a Python library for dealing with Multiple Criteria Decision Making(MCDM) problems by using technique for Order of Preference by Similarity to Ideal Solution(TOPSIS). -->
+This is a Python library for solving Multiple Criteria Decision Making(MCDM) problems by using Topsis.
+
+## Installation
+
+<!-- Use the package manager [pip](https://pip.pypa.io/en/stable/) to install topsis-3283. -->
+<!-- Write the following command in your command line. -->
+Install the package using : 
+```bash
+pip install Topsis-Harinderjit-102017151==1.0.4
+```
+
+## Usage
+
+Enter csv filename followed by _.csv_ extension, then enter the _weights_ vector with vector values separated by commas, then enter the _impacts_ vector with comma separated signs _(+,-)_, followed by filename where result will be stored.
+```bash
+topsis sample.csv "1,1,1,1" "+,-,+,+" output.csv
+```
+or vectors can be entered without " "
+```bash
+topsis sample.csv 1,1,1,1 +,-,+,+ output.csv
+```
+But the second representation does not provide for inadvertent spaces between vector values. So, if the input string contains spaces, make sure to enclose it between double quotes _(" ")_.
+
+## Example
+
+Consider this sample.csv file  
+
+First column of file is removed by model before processing so follow the following format.  
+
+All other columns of file should not contain any categorical values.
+
+| Model  | P1 | P2 | P3 | P4 | P5 |
+| :----: |:--:|:--:|:--:|:--:|:--:|
+| M1 |0.85|0.72|4.6|41.5|11.92|
+| M2 |0.66|0.44|6.6|49.4|14.28|
+| M3 |0.9 |0.81|6.7|66.5|18.73|
+| M4 |0.8 |0.64|6.9|69.7|19.51|
+| M5 |0.84|0.71|4.7|36.5|10.69|
+| M6 |0.91|0.83|3.6|42.3|11.91|
+| M7 |0.65|0.42|6.9|38.1|11.52|
+| M8 |0.71|0.5 |3.5|60.9|16.4 |
+
+weights vector = [ 1,2,1,2,1 ]
+
+impacts vector = [ +,-,+,+,- ]
+
+### input:
+
+```python
+topsis sample.csv "1,2,1,2,1" "+,-,+,+,-" output.csv
+```
+
+### output:
+
+output.csv file will contain following data :
+
+| Model | P1 | P2 | P3 | P4 | P5 | Topsis score | Rank |
+| :---: |:--:|:--:|:--:|:--:|:--:| :----------: | :--: |
+| M1 |0.85|0.72|4.6|41.5|11.92| 0.3267076760116426 | 6 |
+| M2 |0.66|0.44|6.6|49.4|14.28| 0.6230956090525585 | 2 |
+| M3 |0.9 |0.81|6.7|66.5|18.73| 0.5006083702087599 | 5 |
+| M4 |0.8 |0.64|6.9|69.7|19.51| 0.6275096427934269 | 1 |
+| M5 |0.84|0.71|4.7|36.5|10.69| 0.3249142875298663 | 7 |
+| M6 |0.91|0.83|3.6|42.3|11.91| 0.2715902624653612 | 8 |
+| M7 |0.65|0.42|6.9|38.1|11.52| 0.5439263412940541 | 4 |
+| M8 |0.71|0.5 |3.5|60.9|16.4 | 0.6166791918077927 | 3 |
