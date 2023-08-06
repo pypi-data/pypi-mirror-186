@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "packageLister"
+authors = [{name="Matt Manes"}]
+description = "Determine what 3rd-party packages a project imports."
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+	"pathCrawler",
+	"printBuddies"
+]
+readme = "README.md"
+keywords = [
+	"package",
+	"import",
+	"module"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/matt-manes/packageLister"
+"Documentation" = "https://github.com/matt-manes/packageLister/docs"
+"Source code" = "https://github.com/matt-manes/packageLister/src/packageLister"
+
+[project.scripts]
+packageLister = "packageLister.packageLister_cli:main"
