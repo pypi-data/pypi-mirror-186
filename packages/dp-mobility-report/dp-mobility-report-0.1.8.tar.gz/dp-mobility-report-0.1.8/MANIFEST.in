@@ -1,0 +1,26 @@
+include AUTHORS.rst
+include CONTRIBUTING.rst
+include HISTORY.rst
+include LICENSE
+include README.rst
+
+include *.py
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+
+recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif
+
+# Requirements
+include requirements*.txt
+
+# Templates and static resources
+recursive-include dp_mobility_report/report/html/html_templates *.html *.js *.css
+
+# Exclude development, docs, testing and example code
+recursive-exclude examples *
+recursive-exclude tests *
+exclude .pre-commit-config.yaml
+include tox.ini
+include Makefile
+
+include *.yaml

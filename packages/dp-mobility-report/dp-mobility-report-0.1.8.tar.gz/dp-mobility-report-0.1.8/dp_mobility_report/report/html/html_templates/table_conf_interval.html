@@ -1,0 +1,27 @@
+<table class="table align-right">
+    <tbody>
+        <tr>
+            {% if rows[0]['rank'] %}
+                <th class ="table-header"></th>
+            {% endif %}
+            <th class ="table-header"></th>
+            <th class ="table-header">estimate</th>
+            <th class ="table-header">95%-confidence interval: +/- </th>
+        </tr>
+        {% for row in rows %}
+        <tr>
+            {% if row['rank'] %}
+                <th class="table-rowheader">{{ row['rank'] }}</th>
+            {% endif %}
+            <th class = "table-rowheader">{{ row['name'] }}</th>
+            <td class="estimate">{{ row['estimate'] }}</td>
+            <td>{{ row['margin_of_error'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if caption %}
+    <div class="caption text-center text-muted">
+        {{ caption }}
+    </div>
+{% endif %}

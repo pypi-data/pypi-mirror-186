@@ -1,0 +1,22 @@
+
+{% if config_table %}
+<h2>Configuration</h2>
+{{config_table}}
+{% endif %}
+<p class="warning">
+    {% if privacy_info %}
+    {{privacy_info}}
+    {% endif %}
+
+    {% if tessellation_info %}
+    {{tessellation_info}}
+    {% endif %}
+
+    {% if timestamp_info %}
+    {{timestamp_info}}
+    {% endif %}
+
+    {% if od_info %}
+    {{od_info}}
+    {% endif %}
+</p>
