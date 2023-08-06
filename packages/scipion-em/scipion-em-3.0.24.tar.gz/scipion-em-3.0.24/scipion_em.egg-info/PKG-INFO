@@ -1,0 +1,62 @@
+Metadata-Version: 1.1
+Name: scipion-em
+Version: 3.0.24
+Summary: This modules contains classes related with EM
+Home-page: https://github.com/scipion-em/scipion-em
+Author: J.M. De la Rosa Trevin, Roberto Marabini, Grigory Sharov, Josue Gomez Blanco, Pablo Conesa, Yunior Fonseca Reyna
+Author-email: delarosatrevin@scilifelab.se, roberto@cnb.csic.es, gsharov@mrc-lmb.cam.ac.uk, josue.gomez-blanco@mcgill.ca, pconesa@cnb.csic.es, fonsecareyna@cnb.csic.es
+License: UNKNOWN
+Description: .. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg
+          :width: 200
+          :alt: Contributor Covenant
+          :target: https://www.contributor-covenant.org/version/2/0/code_of_conduct/
+        
+        
+        pwem
+        ====
+        
+        **pwem** is a Python module of Scipion framework for image processing in Electron Microscopy
+        
+        The entire collection is licensed under the terms of the GNU Public License,
+        version 3 (GPLv3).
+        
+        Development
+        -----------
+        
+        To install **pwem** for development purposes, one can do:
+        
+        .. code-block:: bash
+        
+            # Create a clean virtual environment
+            conda create -n scipion python=3.8
+            conda activate
+            git clone https://github.com/scipion-em/scipion-em.git
+            cd scipion-em
+            pip install -e .
+        
+        Running tests
+        -------------
+        
+        .. code-block:: bash
+        
+            conda activate scipion
+            cd scipion-em
+            export SCIPION_DOMAIN="pwem"
+            python -m unittest discover
+        
+        API documentation
+        -----------------
+        
+        https://scipion-em.github.io/docs/release-3.0.0/api/pwem/pwem.html
+        
+Keywords: scipion cryoem imageprocessing scipion-3.0
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Scientific/Engineering
