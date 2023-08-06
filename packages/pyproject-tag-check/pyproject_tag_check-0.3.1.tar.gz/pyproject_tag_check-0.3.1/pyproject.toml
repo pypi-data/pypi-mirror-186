@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "pyproject-tag-check"
+version = "0.3.1"
+description = "Verify version in pyproject.toml is not already used"
+authors = ["rafsaf <rafal.safin12@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "pyproject_tag_check" }]
+
+[tool.poetry.dependencies]
+python = ">=3.7,<4"
+requests = "^2.28.2"
+toml = "^0.10.2"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.10.0"
+isort = "^5.10.1"
+pre-commit = "^2.20.0"
+
+[tool.poetry.scripts]
+pyproject-tag-check = "pyproject_tag_check.__init__:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
