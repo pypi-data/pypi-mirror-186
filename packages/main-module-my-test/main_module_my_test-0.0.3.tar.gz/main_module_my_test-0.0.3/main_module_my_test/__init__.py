@@ -1,0 +1,2 @@
+from main_module_my_test.test_inside import test
+from main_module_my_test.test_inside_2 import test2
