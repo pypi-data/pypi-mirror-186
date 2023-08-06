@@ -1,0 +1,67 @@
+{
+  "general_fields": [
+    {
+      "field_name": "name",
+      "field_explanation": "auto-complete",
+      "field_example": "str",
+      "obligatory": true
+    },
+    {
+      "field_name": "author",
+      "field_explanation": "auto-complete",
+      "field_example": "https://gitlab.com/dzesikahoinkis, https://gitlab.com/marpiech",
+      "obligatory": true
+    },
+    {
+      "field_name": "copyright",
+      "field_explanation": "hard",
+      "field_example": "Copyright 2019-2020 Intelliseq",
+      "obligatory": true
+    },
+    {
+      "field_name": "tag",
+      "field_explanation": "Information about the category of a given workflow",
+      "field_example": "Clinical",
+      "obligatory": true
+    },
+    {
+      "field_name": "description",
+      "field_explanation": "Technical description",
+      "field_example": "This workflow is for vcf-annotation.",
+      "obligatory": true
+    },
+    {
+      "field_name": "longDescription",
+      "field_explanation": "Technical long description",
+      "field_example": "This workflow is for vcf-annotation.",
+      "obligatory": false
+    },
+    {
+      "field_name": "changes",
+      "field_explanation": "Use json object to describe changes in particular version. Use version as a key and description of changes as a value",
+      "field_example": { "2.0.0": "Create update", "1.0.0": "First version"},
+      "obligatory": true
+    },
+    {
+      "field_name": "beta",
+      "field_explanation": "Mark workflow as beta.",
+      "field_example": false,
+      "obligatory": false
+    },
+    {
+      "field_name": "groupInputs",
+      "field_explanation": "Use json object to describe groups of inputs. Leave it empty if there are no groups. See more:...",
+      "field_example": {},
+      "obligatory": false
+    },
+    {
+      "field_name": "groupOutputs",
+      "field_explanation": "Use json object to describe groups of outputs. Leave it empty if there are no groups. See more:...",
+      "field_example": {},
+      "obligatory": false
+    }
+  ],
+  "variant_specific_fields": [
+   
+  ]
+}
