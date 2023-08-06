@@ -1,0 +1,109 @@
+[tool.poetry]
+name = "distribution_algebra"
+version = "0.1.12"
+description = "A python package that implements an easy-to-use interface for random variables, statistical distributions, and their algebra."
+readme="README.md"
+license = "GPL-3.0-or-later"
+authors = ["Vaibhav Karve <vkarve@protonmail.com>"]
+keywords = ["statistics", "typed", "python3", "distribution", "random", "algebra"]
+homepage = "https://vaibhavkarve.github.io/distribution-algebra/"
+repository = "https://github.com/vaibhavkarve/distribution-algebra"
+documentation = "https://vaibhavkarve.github.io/distribution-algebra/"
+classifiers=[
+  'Development Status :: 4 - Beta',
+  'Intended Audience :: Science/Research',
+  'Natural Language :: English',
+  'Operating System :: OS Independent',
+  'Programming Language :: Python :: 3.10',
+  'Topic :: Scientific/Engineering :: Mathematics',
+  'Typing :: Typed'
+]
+packages = [
+    { include = "distribution_algebra" },
+    { include = "tests" }
+]
+
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+wheel = ">=0.38.1"
+numpy = "^1.24.0"
+matplotlib = "^3.6.2"
+scipy = "^1.9.3"
+pydantic = "^1.10.4"
+loguru = "^0.6.0"
+multipledispatch = "^0.6.0"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^0.991"
+pytest = "^7.2.0"
+hypothesis = "^6.61.0"
+isort = "^5.11.4"
+nptyping = {extras = ["complete"], version = "^2.4.1"}
+safety = "^2.3.5"
+py2puml = "^0.6.0"
+pytest-cov = "^4.0.0"
+mkdocs = "^1.4.2"
+mkdocs-material = "^9.0.0"
+mkdocs-git-revision-date-localized-plugin = "^1.1.0"
+mkdocstrings = {version = ">=0.18", extras = ["python"]}
+pyright = ">=1.1.289"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+python_version = "3.10"
+explicit_package_bases = true
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+exclude = []
+disable_error_code = ["valid-type", "abstract", "type-abstract"]
+files = ["distribution_algebra", "tests"]
+warn_unused_ignores = false
+plugins = ["pydantic.mypy"]
+follow_imports = "silent"
+warn_redundant_casts = true
+disallow_any_generics = true
+check_untyped_defs = true
+no_implicit_reexport = true
+disallow_untyped_defs = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
+
+[[tool.mypy.overrides]]
+module = [
+    "numpy",
+    "scipy",
+    "matplotlib.*",
+]
+ignore_missing_imports = true
+
+
+[tool.pyright]
+include = [
+  "./distribution_algebra/*.py",
+  "./tests/*.py"
+]
+pythonVersion = "3.10"
+stubPath = "./typings"
+reportMissingTypeStubs = true
+reportMissingImports = true
+typeCheckingMode = "strict"
+venvPath = ".venv"
+reportUnknownMemberType = false
+executionEnvironments = [
+  { root = "." }
+]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "error"
+]
