@@ -1,0 +1,118 @@
+[build-system]
+requires = [
+    "setuptools>=45",
+    "setuptools_scm[toml]>=6.2",
+    "wheel",
+    "oldest-supported-numpy",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "toolbox_utils"
+dynamic = ["readme", "version"]
+description = "Python toolbox for common utilities"
+dependencies = [
+    "dateparser",
+    "tabulate",
+    "numpy",
+    "scipy",
+    "pandas",
+    "pint-pandas",
+    "pint",
+    "pydantic",
+    "typing-extensions",
+    "odfpy>=1.4.1",
+    "xlrd>=2.0.1",
+    "openpyxl>=3.0.7",
+    "pyxlsb>=1.0.8",
+    "tables>=3.6.1",
+    "matplotlib>=3.3.2",
+    ]
+license = {text = "BSD-3-Clause"}
+authors = [
+    {name = "Tim Cera", email = "tim@cerazone.net"}
+    ]
+classifiers = [
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Science/Research",
+        "Intended Audience :: End Users/Desktop",
+        "Intended Audience :: Developers",
+        "Environment :: Console",
+        "License :: OSI Approved :: BSD License",
+        "Natural Language :: English",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Topic :: Scientific/Engineering :: Information Analysis",
+        "Topic :: Scientific/Engineering",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        ]
+keywords = ["time-series",
+            "cli-app",
+            "aggregate",
+            "fill",
+            "filter",
+            ]
+
+[project.optional-dependencies]
+dev = ["black",
+        "cleanpy",
+        "twine",
+        "pytest",
+        "coverage[toml]",
+        "flake8",
+        "pytest-cov",
+        "pytest-mpl",
+        "pre-commit",
+        "black-nbconvert",
+        "blacken-docs",
+        "velin",
+        "isort",
+        "pyroma",
+        "pyupgrade",
+        "commitizen",
+        ]
+
+[project.urls]
+documentation = "https://timcera.bitbucket.io/toolbox_utils/docs/index.html#toolbox_utils-documentation"
+github = "https://github.com/timcera/toolbox_utils"
+bitbucket = "https://bitbucket.org/timcera/toolbox_utils/src/main/"
+
+[tool]
+
+[tool.check-manifest]
+ignore = ["docs/_function_autosummary/*",
+          ".coverage",
+          ".deepsource.toml",
+          ".ipynb_checkpoints/*"]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "1.0.4"
+tag_format = "v$version"
+version_files = ["VERSION"]
+update_changelog_on_bump = true
+
+[tool.coverage.run]
+relative_files = true
+
+[tool.isort]
+profile = "black"
+
+[tool.setuptools]
+license-files = ["LICENSE.txt"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+readme = {file = "README.rst"}
+version = {file = "VERSION"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["examples*", "tools*", "docs*", "toolbox_utils.tests*"]
+
+[tool.setuptools_scm]
