@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "mathtextnlufunc"
+version = "0.1.1"
+description = "Mathtext NLU Functions"
+authors = ["Cetin CAKIR <cetincakirtr@gmail.com>"]
+license = "AGPL-3.0"
+readme = "README.md"
+packages = [{include = "mathtextnlufunc"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+transformers = "^4.25.1"
+torch = "^1.13.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
