@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "SAPL-Base"
+version = "0.2.7"
+description = "Base library to create SAPL Integrations for Python Frameworks"
+readme = "README.md"
+authors = [{ name = "Dominic Heutelbeck", email = "dominic@heutelbeck.com" }]
+license = { file = "LICENSE" }
+
+dependencies = [
+    "backoff",
+    "aiohttp",
+    "requests",
+    "pytest",
+    "asgiref",
+    "sseclient-py"
+]
+
+[project.urls]
+"Homepage" ="https://sapl.io/"
+"Documentation" = "https://sapl.io/documentation"
+"Source" = "https://github.com/heutelbeck/sapl-python/tree/master/sapl_base"
+
+[project.optional-dependencies]
+tests = [
+    "pytest-asyncio"
+]
+
+
+[tools.setuptools]
+packages = ["sapl_base"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode='strict'
+log_cli=true
+
+
+
