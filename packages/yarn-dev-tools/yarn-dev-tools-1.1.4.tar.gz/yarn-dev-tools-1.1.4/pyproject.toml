@@ -1,0 +1,84 @@
+[tool.black]
+line-length = 120
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.poetry]
+name = "yarn-dev-tools"
+version = "1.1.4"
+description = ""
+authors = ["Szilard Nemeth <szilard.nemeth88@gmail.com>"]
+keywords = ["YARN", "development", "dev environment"]
+readme = "README.md"
+homepage = "https://github.com/szilard-nemeth/yarn-dev-tools"
+repository = "https://github.com/szilard-nemeth/yarn-dev-tools"
+packages = [{include = "yarndevtools"}]
+include = [
+"LICENSE"
+]
+
+# TODO Verify if this is required
+[tool.setuptools.package-data]
+yarndevtools = ["cdsw/unit-test-result-aggregator/*.txt", "cdsw/scripts/*.sh"]
+
+
+[tool.poetry.dependencies]
+python = "^3.8.12"
+python-common-lib = "1.0.6"
+google-api-wrapper2 = "1.0.5"
+gitpython = "*"
+humanize = "*"
+bs4 = "*"
+jira = "*"
+dataclasses-json = "*"
+dacite = "*"
+pymongo = "*"
+marshmallow = "*"
+
+
+[tool.poetry.group.dev.dependencies]
+requests = "*"
+flake8 = "6.0.0"
+pytest = "*"
+pytest-html = "*"
+pytest-cov = "*"
+mongomock = "*"
+pre-commit = "*"
+coolname = "*"
+httpretty = "*"
+black = "*"
+autopep8 = "*"
+
+[tool.poetry.group.localdev.dependencies]
+python-common-lib = { path = "../python-commons/", develop = false }
+google-api-wrapper2 = { path = "../google-api-wrapper", develop = false }
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+
+
+
+
+
+
+
+
+
+[tool.poetry.scripts]
+exec-yarndevtools = "yarndevtools.yarn_dev_tools:run"
