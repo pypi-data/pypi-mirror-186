@@ -1,0 +1,30 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="cpskin.citizen">
+
+  <utility
+    component=".vocabularies.CitizensVocabulary"
+    name="cpskin.citizen.citizens"
+    provides="zope.schema.interfaces.IVocabularyFactory"
+    />
+
+  <utility
+    component=".vocabularies.CitizensPortalTypesVocabulary"
+    name="cpskin.citizen.portal_types"
+    provides="zope.schema.interfaces.IVocabularyFactory"
+    />
+
+  <utility
+    component=".vocabularies.CitizensAllowedCreationTypesVocabulary"
+    name="cpskin.citizen.allowed_creation_portal_types"
+    provides="zope.schema.interfaces.IVocabularyFactory"
+    />
+
+  <utility
+    component=".vocabularies.CitizensActionsVocabulary"
+    name="cpskin.citizen.actions"
+    provides="zope.schema.interfaces.IVocabularyFactory"
+    />
+
+</configure>

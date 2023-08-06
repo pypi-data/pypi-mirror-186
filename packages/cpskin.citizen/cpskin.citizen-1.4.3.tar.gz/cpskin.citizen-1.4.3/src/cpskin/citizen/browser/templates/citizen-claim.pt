@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  metal:use-macro="context/main_template/macros/master"
+  i18n:domain="cpskin.citizen" lang="en">
+
+<body>
+  <tal:block metal:fill-slot="body">
+
+  <h1 class="documentFirstHeading" i18n:translate="">
+    Claim modifications of "<span i18n:name="object_title" tal:content="context/Title" />"
+  </h1>
+  <p i18n:translate="">
+    Claiming this document will ask to administrators to give you the possibility to propose modifications.
+  </p><br />
+
+  <tal:block replace="structure view/contents"></tal:block>
+  </tal:block>
+
+</body>
+</html>

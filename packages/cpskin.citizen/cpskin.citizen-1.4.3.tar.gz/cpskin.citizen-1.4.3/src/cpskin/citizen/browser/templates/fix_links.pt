@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="cpskin.citizen" lang="en">
+<body>
+  <div metal:fill-slot="main">
+    <h1 i18n:translate="">Fix plone.app.iterate links for citizen contents</h1>
+    <fieldset tal:define="result view/migrate">
+      <legend i18n:translate="">Migration result</legend>
+        <div>
+          <ul tal:condition="result">
+            <tal:block repeat="obj result">
+            <li tal:content="obj"></li>
+            </tal:block>
+          </ul>
+          <span tal:condition="not: result" i18n:translate="">There was no object with broken link</span>
+        </div>
+    </fieldset>
+  </div>
+</body>
+</html>

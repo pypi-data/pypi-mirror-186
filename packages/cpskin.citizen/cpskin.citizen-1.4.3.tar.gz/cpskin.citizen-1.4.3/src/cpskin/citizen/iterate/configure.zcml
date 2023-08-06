@@ -1,0 +1,75 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="cpskin.citizen">
+
+  <browser:page
+    for="*"
+    layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+    name="iterate_control"
+    class=".control.DefaultControl"
+    permission="zope2.View"
+    allowed_attributes="checkin_allowed checkout_allowed cancel_allowed return_allowed"
+    />
+
+  <browser:page
+    for="cpskin.citizen.behavior.ICitizenAccess"
+    layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+    name="iterate_control"
+    class=".control.Control"
+    permission="zope2.View"
+    allowed_attributes="checkin_allowed checkout_allowed cancel_allowed return_allowed"
+    />
+
+  <browser:page
+    for="plone.app.stagingbehavior.interfaces.IStagingSupport"
+    layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+    name="content-checkout"
+    class=".checkout.CheckoutView"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="plone.app.stagingbehavior.interfaces.IStagingSupport"
+    layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+    name="content-checkin"
+    class=".checkin.CheckinView"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="plone.app.stagingbehavior.interfaces.IStagingSupport"
+    layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+    name="iterate_diff"
+    class=".diff.DiffView"
+    permission="zope2.View"
+    template="diff.pt"
+    />
+
+  <browser:page
+    for="plone.app.stagingbehavior.interfaces.IStagingSupport"
+    layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+    name="cleanup_iterate"
+    class=".cleanup.CleanupView"
+    permission="cmf.ManagePortal"
+    />
+
+  <adapter
+    for="cpskin.citizen.behavior.ICitizenAccess"
+    provides="plone.app.iterate.interfaces.IObjectCopier"
+    factory=".copier.ContentCopierAdapter"
+    />
+
+  <adapter
+    for="cpskin.citizen.behavior.ICitizenAccess"
+    provides="plone.app.iterate.interfaces.IWCContainerLocator"
+    factory=".adapter.DraftFolderLocator"
+    />
+
+  <adapter
+    for="cpskin.citizen.behavior.ICitizenAccess"
+    provides="plone.app.iterate.interfaces.IObjectArchiver"
+    factory=".archiver.ContentArchiverAdapter"
+    />
+
+</configure>

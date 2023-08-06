@@ -1,0 +1,132 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="cpskin.citizen">
+
+  <i18n:registerTranslations directory="locales" />
+
+  <include package="Products.CMFCore" />
+  <include package="plone.app.dexterity" />
+  <include package="plone.autoform" />
+  <include package="plone.app.iterate" />
+  <include package="plone.app.portlets" />
+  <include package="plone.app.stagingbehavior" />
+  <include package="collective.z3cform.select2" />
+  <include package="imio.dashboard" />
+
+  <include file="permissions.zcml" />
+  <include file="vocabularies.zcml" />
+  <include file="monkey.zcml" />
+  <include file="upgrades.zcml" />
+
+  <include package=".browser" />
+  <include package=".dashboard" />
+  <include package=".iterate" />
+
+  <genericsetup:registerProfile
+    name="default"
+    title="cpskin.citizen"
+    directory="profiles/default"
+    description="Installs the cpskin.citizen add-on."
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+  <genericsetup:importStep
+    name="cpskin.citizen:default-postInstall"
+    title="cpskin.citizen post_install import step"
+    description="Post install import step from cpskin.citizen"
+    handler=".setuphandlers.post_install">
+  </genericsetup:importStep>
+
+  <plone:behavior
+    title="Citizen Access"
+    description="Give access to citizen users to specific contents"
+    provides=".behavior.ICitizenAccess"
+    factory=".behavior.CitizenAccess"
+    for="plone.dexterity.interfaces.IDexterityContent"
+    marker=".behavior.ICitizenAccess"
+    />
+
+  <adapter
+    for=".behavior.ICitizenAccess"
+    provides="borg.localrole.interfaces.ILocalRoleProvider"
+    factory=".localrole.LocalRoleAdapter"
+    />
+
+  <adapter
+    name="citizens"
+    factory=".indexers.citizens_indexer"
+    />
+
+  <adapter
+    name="validation_required"
+    factory=".indexers.validation_required_indexer"
+    />
+
+  <adapter
+    name="citizen_claim"
+    factory=".indexers.citizen_claim_indexer"
+    />
+
+  <adapter
+    name="is_draft"
+    factory=".indexers.is_draft"
+    />
+
+  <adapter
+    name="has_claim"
+    factory=".indexers.has_claim"
+    />
+
+  <adapter
+    name="is_geolocated"
+    factory=".indexers.is_geolocated"
+    />
+
+  <adapter
+    name="is_citizen_content"
+    factory=".indexers.is_citizen_content"
+    />
+
+  <adapter
+    name="citizen_action"
+    factory=".indexers.citizen_action"
+    />
+
+  <adapter
+    for="zope.interface.Interface
+         zope.interface.Interface"
+    provides=".interfaces.ICitizenCreationFolder"
+    factory=".adapter.CitizenCreationFolderAdapter"
+    />
+
+  <adapter
+    for="zope.interface.Interface"
+    provides=".interfaces.ICitizenDraftFolder"
+    name="default"
+    factory=".adapter.CitizenDraftFolderAdapter"
+    />
+
+  <adapter
+    for="zope.interface.Interface"
+    provides=".interfaces.ICitizenDraftFolder"
+    name="organization"
+    factory=".adapter.CitizenDraftOrganizationAdapter"
+    />
+
+  <adapter
+    provides=".user.IEnhancedUserDataSchema"
+    for="*"
+    factory=".user.EnhancedUserDataPanelAdapter"
+    />
+
+  <subscriber
+    for=".behavior.ICitizenAccess
+         zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+    handler=".subscriber.citizen_content_removed"
+    />
+
+</configure>

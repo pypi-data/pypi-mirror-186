@@ -1,0 +1,142 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:faceted="http://namespaces.zope.org/faceted"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="cpskin.citizen">
+
+  <include file="columns.zcml" />
+
+  <!-- faceted query -->
+  <configure package="eea.facetednavigation.browser">
+
+    <browser:page
+      for="cpskin.citizen.dashboard.interfaces.ICitizenDashboard"
+      name="faceted_query"
+      class="cpskin.citizen.dashboard.query.DashboardQueryHandler"
+      template="template/query.pt"
+      layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+      permission="zope2.View"
+      />
+
+  </configure>
+
+  <!-- table -->
+  <faceted:view
+    name="citizen-faceted-dashboard"
+    for=".interfaces.ICitizenDashboard"
+    template="templates/faceted-table-items.pt"
+    title="Citizen dashboard faceted table items"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="citizen-content-table-view"
+    class=".view.UserContentTableView"
+    for="plone.dexterity.interfaces.IDexterityContainer"
+    layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="citizen-claims-table-view"
+    class=".view.UserClaimTableView"
+    for="plone.dexterity.interfaces.IDexterityContainer"
+    layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+    permission="zope2.View"
+    />
+
+
+  <browser:page
+    name="citizen-map-table-view"
+    class=".view.UserMapTableView"
+    for="plone.dexterity.interfaces.IDexterityContainer"
+    layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="admin-content-table-view"
+    class=".view.AdminContentTableView"
+    for="plone.dexterity.interfaces.IDexterityContainer"
+    layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+    permission="cpskin.AdminCitizenContent"
+    />
+
+  <configure package="imio.actionspanel.browser">
+
+    <browser:page
+      name="actions_panel"
+      class="cpskin.citizen.dashboard.actions.ActionsView"
+      for="cpskin.citizen.behavior.ICitizenAccess"
+      layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+      template="actions_panel.pt"
+      permission="zope2.View"
+      />
+
+  </configure>
+
+  <!-- utilities -->
+  <utility
+    provides=".interfaces.ICitizenDashboardQuery"
+    factory=".utility.DefaultQueryFilters"
+    name="default"
+    />
+
+  <utility
+    provides=".interfaces.ICitizenDashboardQuery"
+    factory=".utility.CitizenContentQueryFilters"
+    name="citizen-propose-content"
+    />
+
+  <utility
+    provides=".interfaces.ICitizenDashboardQuery"
+    factory=".utility.CitizenContentQueryFilters"
+    name="citizen-content"
+    />
+
+  <utility
+    provides=".interfaces.ICitizenDashboardQuery"
+    factory=".utility.CitizenClaimQueryFilters"
+    name="citizen-claims"
+    />
+
+  <utility
+    provides=".interfaces.ICitizenDashboardQuery"
+    factory=".utility.CitizenMapQueryFilters"
+    name="citizen-map"
+    />
+
+  <utility
+    provides=".interfaces.ICitizenDashboardQuery"
+    factory=".utility.AdminContentQueryFilters"
+    name="admin-content"
+    />
+
+  <!-- adapter -->
+
+  <adapter
+    for=".interfaces.ICitizenDashboard"
+    provides="borg.localrole.interfaces.ILocalRoleProvider"
+    factory=".localrole.DashboardLocalRoleAdapter"
+    />
+
+  <adapter
+    for=".interfaces.ICitizenDashboard"
+    provides="collective.geo.leaflet.interfaces.IGeoMap"
+    factory=".geomap.GeoMap"
+    />
+
+  <!-- portlet -->
+  <plone:portlet
+    name="cpskin.citizen.portlets.DashboardPortlet"
+    interface=".portlet.IDashboardPortlet"
+    assignment=".portlet.DashboardPortletAssignment"
+    view_permission="zope2.View"
+    edit_permission="cmf.ManagePortal"
+    renderer=".portlet.DashboardPortletRenderer"
+    addview=".portlet.DashboardPortletAddForm"
+    />
+
+</configure>

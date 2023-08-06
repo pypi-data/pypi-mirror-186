@@ -1,0 +1,42 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+           xmlns:i18n="http://namespaces.zope.org/i18n"
+           i18n_domain="cpskin.citizen">
+
+  <!-- Upgrade steps -->
+  <genericsetup:upgradeStep
+      title="Disable role inheritance on citizen draft folder"
+      source="1000"
+      destination="1001"
+      handler=".upgradehandlers.upgrade_citizen_draft_folder"
+      profile="cpskin.citizen:default"
+      />
+
+  <genericsetup:upgradeStep
+    title="Published states parameter / new indexes"
+    description="Add published states config parameter and the default value,
+                 is_citizen_content index and citizen_action index"
+    source="1001"
+    destination="1002"
+    handler=".upgradehandlers.upgrade_to_1002"
+    profile="cpskin.citizen:default"
+    />
+
+  <genericsetup:upgradeStep
+    title="Upgrade citizen admin dashboards"
+    description="Remove claims dashboard and add a new filter for citizen content dashboard"
+    source="1002"
+    destination="1003"
+    handler=".upgradehandlers.upgrade_to_1003"
+    profile="cpskin.citizen:default"
+    />
+
+  <genericsetup:upgradeStep
+    title="Add manager email config parameter"
+    source="1003"
+    destination="1004"
+    handler=".upgradehandlers.upgrade_to_1004"
+    profile="cpskin.citizen:default"
+    />
+
+</configure>

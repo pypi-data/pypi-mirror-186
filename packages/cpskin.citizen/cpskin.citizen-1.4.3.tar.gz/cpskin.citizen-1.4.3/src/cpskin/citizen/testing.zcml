@@ -1,0 +1,26 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+  i18n_domain="cpskin.citizen">
+
+  <include file="configure.zcml" />
+  <include package="plone.app.contenttypes" />
+  <include package="collective.contact.core" />
+
+  <genericsetup:registerProfile
+    name="testing"
+    title="cpskin.citizen tests"
+    directory="profiles/testing"
+    description="Steps to ease tests of cpskin.citizen"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+  <adapter
+    for="zope.interface.Interface
+         zope.interface.Interface"
+    provides=".interfaces.ICitizenCreationFolder"
+    factory=".testing.TestCreationFolderAdapter"
+    name="Document"
+    />
+
+</configure>

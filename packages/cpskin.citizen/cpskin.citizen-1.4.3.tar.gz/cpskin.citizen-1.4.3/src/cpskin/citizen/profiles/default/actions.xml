@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+  <object name="object_buttons" meta_type="CMF Action Category">
+
+    <object name="iterate_checkout_return" meta_type="CMF Action" i18n:domain="cpskin.citizen">
+      <property name="title" i18n:translate="">Return check-out</property>
+      <property name="description" i18n:translate=""></property>
+      <property name="url_expr">string:${object_url}/@@citizen-return-checkout</property>
+      <property name="icon_expr">string:${portal_url}/++resource++cancel-checkout.png</property>
+      <property name="available_expr">python:path('object/@@citizen_control').is_citizen_content() and path('object/@@iterate_control').return_allowed()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+
+  </object>
+
+
+  <object name="user" meta_type="CMF Action Category">
+
+    <object name="citizen_dashboard" meta_type="CMF Action" i18n:domain="cpskin.citizen">
+      <property name="title" i18n:translate="">Citizen dashboard</property>
+      <property name="description" i18n:translate=""></property>
+      <property name="url_expr">string:${globals_view/navigationRootUrl}/citizen-dashboard/</property>
+      <property name="icon_expr"></property>
+      <property name="available_expr">python:path('context/@@citizen_control').is_citizen()</property>
+      <property name="permissions">
+       <element value="View"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+
+    <object name="admin_citizen_content_dashboard" meta_type="CMF Action" i18n:domain="cpskin.citizen">
+      <property name="title" i18n:translate="">Admin citizen content dashboard</property>
+      <property name="description" i18n:translate=""></property>
+      <property name="url_expr">string:${globals_view/navigationRootUrl}/citizen-dashboard/admin-content</property>
+      <property name="icon_expr"></property>
+      <property name="available_expr">python:path('context/@@citizen_control').is_admin()</property>
+      <property name="permissions">
+       <element value="View"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+
+    <object name="admin_citizen_claim_dashboard" meta_type="CMF Action" i18n:domain="cpskin.citizen" remove="True">
+    </object>
+
+  </object>
+</object>
+

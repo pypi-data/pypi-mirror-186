@@ -1,0 +1,22 @@
+<dl class="portlet dashboard-portlet portletNavigationTree"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    i18n:domain="cpskin.citizen"
+    tal:condition="view/can_view">
+
+  <dt class="portletHeader" i18n:translate="">
+    Personal dashboards
+  </dt>
+  <dd class="portletItem">
+    <ul class="navTree navTreeLevel0">
+      <li class="navTreeItem visualNoMarker navTreeFolderish"
+          tal:repeat="item view/items">
+        <a href="#"
+           class=""
+           tal:attributes="href item/absolute_url;
+                           class python: view.css_class(item)"
+           tal:content="item/Title"></a>
+      </li>
+    </ul>
+  </dd>
+
+</dl>

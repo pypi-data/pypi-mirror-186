@@ -1,0 +1,13 @@
+<td class="noPadding" i18n:domain="cpskin.citizen">
+  <a tal:attributes="href view/draft_url"
+     target="_parent"
+     tal:condition="view/has_draft">
+    <img src="" tal:attributes="src string:${view/portal_url}/document_icon.png" title="Draft" i18n:attributes="title" />
+  </a>
+  <a tal:attributes="href string:${context/absolute_url}/@@edit-citizen"
+     tal:define="dummy view/saveHasActions;"
+     target="_parent"
+     tal:condition="view/can_edit">
+    <img src="" tal:attributes="src string:${view/portal_url}/edit.png" title="Edit" i18n:attributes="title" />
+  </a>
+</td>

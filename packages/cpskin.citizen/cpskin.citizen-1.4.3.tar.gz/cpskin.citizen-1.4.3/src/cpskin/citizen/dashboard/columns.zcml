@@ -1,0 +1,95 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:faceted="http://namespaces.zope.org/faceted"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="cpskin.citizen">
+
+  <!-- global -->
+  <adapter
+    for="zope.interface.Interface
+         zope.publisher.interfaces.browser.IBrowserRequest
+         .interfaces.IFacetedDashboardTable
+         z3c.table.interfaces.IColumn"
+    factory=".columns.DashboardColumnHeader"
+    provides="z3c.table.interfaces.IColumnHeader"
+    />
+
+  <!-- citizen content -->
+  <adapter
+    name="citizen-title-column"
+    for="zope.interface.Interface
+         zope.interface.Interface
+         .interfaces.IFacetedDashboardCitizenContentTable"
+    factory=".columns.CitizenDraftColumn"
+    provides="z3c.table.interfaces.IColumn"
+    />
+
+  <adapter
+    name="citizen-state-column"
+    for="zope.interface.Interface
+         zope.interface.Interface
+         .interfaces.IFacetedDashboardCitizenContentTable"
+    factory=".columns.CitizenStateColumn"
+    provides="z3c.table.interfaces.IColumn"
+    />
+
+  <adapter
+    name="citizen-online-version"
+    for="zope.interface.Interface
+         cpskin.citizen.interfaces.ICpskinCitizenLayer
+         .interfaces.IFacetedDashboardCitizenContentTable"
+    factory=".columns.OnlineColumn"
+    provides="z3c.table.interfaces.IColumn"
+    />
+
+  <!-- citizen claims -->
+  <adapter
+    name="citizen-title-column"
+    for="zope.interface.Interface
+         zope.interface.Interface
+         .interfaces.IFacetedDashboardCitizenClaimTable"
+    factory=".columns.CitizenTitleColumn"
+    provides="z3c.table.interfaces.IColumn"
+    />
+
+  <!-- admin content -->
+  <adapter
+    name="citizen-title-column"
+    for="zope.interface.Interface
+         zope.interface.Interface
+         .interfaces.IFacetedDashboardAdminContentTable"
+    factory=".columns.CitizenTitleColumn"
+    provides="z3c.table.interfaces.IColumn"
+    />
+
+  <adapter
+    name="citizen-users-column"
+    for="zope.interface.Interface
+         zope.interface.Interface
+         .interfaces.IFacetedDashboardAdminContentTable"
+    factory=".columns.CitizenUsersColumn"
+    provides="z3c.table.interfaces.IColumn"
+    />
+
+  <adapter
+    name="citizen-actions"
+    for="zope.interface.Interface
+         cpskin.citizen.interfaces.ICpskinCitizenLayer
+         .interfaces.IFacetedDashboardAdminContentTable"
+    factory=".columns.ActionsColumn"
+    provides="z3c.table.interfaces.IColumn"
+    />
+
+  <!-- admin claims -->
+  <adapter
+    name="citizen-title-column"
+    for="zope.interface.Interface
+         zope.interface.Interface
+         .interfaces.IFacetedDashboardAdminClaimTable"
+    factory=".columns.CitizenTitleColumn"
+    provides="z3c.table.interfaces.IColumn"
+    />
+
+
+</configure>

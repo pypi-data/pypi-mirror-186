@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	    xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+	    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="cpskin.citizen" lang="en">
+
+  <tal:if condition="view/can_view">
+  <dl class="portalMessage warning" tal:condition="view/comment">
+    <dt i18n:translate="">Comment</dt>
+    <dd tal:content="view/comment"></dd>
+  </dl>
+  <div class="citizen">
+    <h3 i18n:translate="">Citizen Administration</h3>
+    <div tal:condition="view/awaiting_claims">
+      <div class="title" i18n:translate="">Awaiting claims</div>
+      <tal:for repeat="claim view/awaiting_claims">
+      <form action="" tal:attributes="action string: ${view/context/absolute_url}/@@claim-citizen-approval" method="post">
+      <ul>
+        <li>
+          <span tal:replace="claim/username"></span> -
+          <span tal:replace="claim/email"></span>
+          <input type="hidden"
+                 name="userid"
+                 value=""
+                 tal:attributes="value claim/user_id" />
+          <input type="submit"
+                 name="form.button.Confirm"
+                 value="Confirm"
+                 i18n:attributes="value" />
+          <input type="submit"
+                 name="form.button.Refuse"
+                 value="Refuse"
+                 i18n:attributes="value" />
+          <p class="reason" tal:condition="claim/reason" tal:content="claim/reason"></p>
+        </li>
+      </ul>
+      </form>
+      </tal:for>
+    </div>
+  </div>
+  </tal:if>
+</html>

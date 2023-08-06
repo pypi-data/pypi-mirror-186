@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	    xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+	    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="cpskin.citizen" lang="en">
+
+  <tal:if condition="view/can_view">
+  <dl class="portalMessage warning" tal:condition="view/comment">
+    <dt i18n:translate="">Comment</dt>
+    <dd tal:content="view/comment"></dd>
+  </dl>
+  <tal:if condition="view/can_claim">
+  <dl class="portalMessage info" tal:condition="view/have_claimed">
+    <dt i18n:translate="">Info</dt>
+    <dd i18n:translate="">Claim awaiting for approval</dd>
+  </dl>
+  </tal:if>
+  <dl class="portalMessage info" tal:condition="view/validation_required">
+    <dt i18n:translate="">Info</dt>
+    <dd i18n:translate="">Awaiting for validation</dd>
+  </dl>
+  <div class="citizen"
+            tal:condition="view/show_fieldset">
+    <h3 i18n:translate="">Citizen Edition</h3>
+    <tal:if condition="view/can_edit">
+    <a href="" tal:attributes="href string:${view/context/absolute_url}/@@edit-citizen" i18n:translate="">Edit this content</a>
+    </tal:if>
+    <tal:if condition="view/can_cancel">
+    <a href="" tal:attributes="href string:${view/context/absolute_url}/@@cancel-citizen" i18n:translate="">Cancel changes</a>
+    </tal:if>
+    <tal:if condition="view/can_ask_validation">
+    <a href="" tal:attributes="href string:${view/context/absolute_url}/@@validation-required-citizen" i18n:translate="">Ask for validation</a>
+    </tal:if>
+
+    <tal:if condition="view/can_claim">
+    <tal:if condition="not: view/have_claimed">
+    <a href="" tal:attributes="href string:${view/context/absolute_url}/@@claim-citizen" i18n:translate="">Claim this content</a>
+    </tal:if>
+    </tal:if>
+  </div>
+  </tal:if>
+
+</html>

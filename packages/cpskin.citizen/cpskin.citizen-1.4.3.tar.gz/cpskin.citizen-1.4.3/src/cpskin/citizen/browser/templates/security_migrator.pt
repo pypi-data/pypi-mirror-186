@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="cpskin.citizen" lang="en">
+<body>
+  <div metal:fill-slot="main">
+    <h1 i18n:translate="">Security migration results</h1>
+    <fieldset tal:define="result view/migrate">
+      <legend i18n:translate="">Migration result</legend>
+      <tal:block repeat="obj result">
+        <div>
+          <h3 tal:content="obj"></h3>
+          <ul>
+            <tal:block repeat="message python:result[obj]">
+            <li tal:attributes="class python:message[0]" tal:content="python:message[1]"></li>
+            </tal:block>
+          </ul>
+        </div>
+      </tal:block>
+    </fieldset>
+  </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<rolemap>
+  <roles>
+    <role name="Citizen Editor"/>
+  </roles>
+  <permissions>
+    <permission name="Modify citizen content"
+                acquire="False">
+        <role name="Manager"/>
+        <role name="Citizen Editor"/>
+    </permission>
+
+    <permission name="Admin citizen content"
+                acquire="False">
+        <role name="Manager"/>
+        <role name="Site Administrator"/>
+        <role name="Reviewer"/>
+        <role name="Editor"/>
+    </permission>
+  </permissions>
+</rolemap>

@@ -1,0 +1,33 @@
+<html metal:use-macro="here/@@standard_macros/page" i18n:domain="cpskin.citizen">
+<div id="content" metal:fill-slot="body">
+  <form action="#"
+        method="post"
+        tal:attributes="action string:${context/absolute_url}/@@validation-required-citizen">
+
+    <h1 class="documentFirstHeading" i18n:translate="">
+      Ask for validation on <span i18n:name="object_title" tal:content="context/Title" />.
+    </h1>
+
+    <p i18n:translate="">
+      Ask validation for this document will ask to administrators to publish your modifications.
+    </p>
+
+    <div class="formControls">
+      <input class="destructive"
+             type="submit"
+             name="form.button.Confirm"
+             value="Confirm"
+             i18n:attributes="value"
+             />
+
+      <input class="standalone"
+             type="submit"
+             name="form.button.Cancel"
+             value="Cancel"
+             i18n:attributes="value"
+             />
+    </div>
+
+  </form>
+</div>
+</html>

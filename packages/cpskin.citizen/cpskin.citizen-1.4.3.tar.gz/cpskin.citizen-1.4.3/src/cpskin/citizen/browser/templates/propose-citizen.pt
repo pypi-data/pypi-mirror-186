@@ -1,0 +1,11 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="cpskin.citizen" lang="en">
+<div class="infos" i18n:translate="">
+Before creating a new content, please check that he does not exist in
+<span i18n:name="links"><tal:block repeat="link view/links"><a
+  href="" alt="" tal:attributes="href link/href; alt link/title" tal:content="link/title"></a><tal:if condition="not: repeat/link/end">, </tal:if></tal:block></span>.
+You can ask for content management to apply your changes.
+</div>
+<tal:block replace="structure view/contents"></tal:block>
+</html>

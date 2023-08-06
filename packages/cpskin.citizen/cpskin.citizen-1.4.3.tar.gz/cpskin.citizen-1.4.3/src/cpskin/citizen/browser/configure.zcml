@@ -1,0 +1,155 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="cpskin.citizen">
+
+  <!-- views -->
+  <browser:page
+    name="cpskin-citizen-settings"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class=".settings.SettingsView"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    name="edit-citizen"
+    for="cpskin.citizen.behavior.ICitizenAccess"
+    class=".edit.EditCitizenView"
+    permission="cpskin.ModifyCitizenContent"
+    />
+
+  <browser:page
+    name="cancel-citizen"
+    for="cpskin.citizen.behavior.ICitizenAccess"
+    class=".cancel.CancelCitizenView"
+    template="templates/citizen-cancel.pt"
+    permission="cpskin.ModifyCitizenContent"
+    />
+
+  <browser:page
+    name="propose-citizen"
+    for="*"
+    class=".propose.ProposeCitizenView"
+    template="templates/propose-citizen.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="claim-citizen"
+    for="cpskin.citizen.behavior.ICitizenAccess"
+    class=".claim.ClaimCitizenView"
+    template="templates/citizen-claim.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="claim-citizen-approval"
+    for="cpskin.citizen.behavior.ICitizenAccess"
+    class=".claim.ClaimCitizenApprovalView"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="citizen-return-checkout"
+    for="cpskin.citizen.behavior.ICitizenAccess"
+    class=".iterate.ReturnView"
+    template="templates/citizen-return-checkout.pt"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+    name="validation-required-citizen"
+    for="cpskin.citizen.behavior.ICitizenAccess"
+    class=".validation.ValidationRequiredCitizenView"
+    template="templates/citizen-validation-required.pt"
+    permission="zope2.View"
+    />
+
+  <!-- override of plone.app.iterate view -->
+
+  <configure package="plone.app.iterate.browser">
+    <browser:page
+      for="..interfaces.IIterateAware"
+      name="content-checkin"
+      class="cpskin.citizen.browser.iterate.CheckinView"
+      template="checkin.pt"
+      layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+      permission="cmf.ModifyPortalContent"
+      />
+  </configure>
+
+  <!-- control view -->
+
+  <browser:page
+    for="*"
+    name="citizen_control"
+    class=".control.CitizenControl"
+    permission="zope2.View"
+    allowed_attributes="is_citizen is_admin is_citizen_content"
+    />
+
+  <!-- tools view -->
+
+  <browser:page
+    for="*"
+    layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+    name="citizen-security-migrator"
+    class=".tools.CitizenSecurityMigrateView"
+    permission="cmf.ManagePortal"
+    template="templates/security_migrator.pt"
+    />
+
+  <browser:page
+    for="*"
+    layer="cpskin.citizen.interfaces.ICpskinCitizenLayer"
+    name="citizen-fix-links"
+    class=".tools.CitizenFixBrokenLinks"
+    permission="cmf.ManagePortal"
+    template="templates/fix_links.pt"
+    />
+
+  <!-- viewlets -->
+  <browser:viewlet
+    name="citizen-edition-viewlet"
+    for="cpskin.citizen.behavior.ICitizenAccess"
+    manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+    class=".viewlets.CitizenEditionViewlet"
+    template="templates/citizen-edition-viewlet.pt"
+    permission="zope2.View"
+    />
+
+  <browser:viewlet
+    name="citizen-admin-viewlet"
+    for="cpskin.citizen.behavior.ICitizenAccess"
+    manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+    class=".viewlets.CitizenAdminViewlet"
+    template="templates/citizen-admin-viewlet.pt"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:viewlet
+    name="citizen-propose-viewlet"
+    for="cpskin.citizen.interfaces.ICitizenProposeContentFolder"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+    class=".viewlets.CitizenProposeContentViewlet"
+    template="templates/citizen-propose-viewlet.pt"
+    permission="zope2.View"
+    />
+
+  <!-- events -->
+
+  <subscriber
+    for="Products.PlonePAS.events.UserLoggedInEvent"
+    handler=".citizen_first_login.create_lat_lon"
+    />
+
+  <!-- resources -->
+
+  <browser:resource
+    file="resources/citizen.css"
+    name="cpskin.citizen.css"
+    />
+
+
+</configure>
