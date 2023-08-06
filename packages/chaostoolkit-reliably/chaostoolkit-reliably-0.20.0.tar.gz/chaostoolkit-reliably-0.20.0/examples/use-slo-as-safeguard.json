@@ -1,0 +1,55 @@
+{
+    "version": "0.1.0",
+    "title": "Use SLO as safeguard of the experiment. Terminating it as soon as the error budgets are consumed.",
+    "description": "n/a",
+    "controls": [
+        {
+            "name": "safeguard",
+            "provider": {
+                "type": "python",
+                "module": "chaosaddons.controls.safeguards",
+                "arguments": {
+                    "probes": [
+                        {
+                            "name": "we-do-not-have-enough-error-budget-left-to-carry-on",
+                            "type": "probe",
+                            "frequency": 5,
+                            "provider": {
+                                "type": "python",
+                                "module": "chaosreliably.slo.probes",
+                                "func": "get_last_N_slos",
+                                "arguments": {
+                                    "quantity": 3
+                                }
+                            },
+                            "tolerance": {
+                                "type": "probe",
+                                "name": "validate-last-3-slo-statuses",
+                                "provider": {
+                                    "type": "python",
+                                    "module": "chaosreliably.slo.tolerances",
+                                    "func": "last_N_slo_were_met_for_all_services",
+                                    "arguments": {}
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "method": [
+        {
+            "name": "fake-doing-something-useful",
+            "type": "action",
+            "provider": {
+                "type": "python",
+                "module": "chaosaddons.utils.idle",
+                "func": "idle_for",
+                "arguments": {
+                    "duration": 30
+                }
+            }
+        }
+    ]
+}

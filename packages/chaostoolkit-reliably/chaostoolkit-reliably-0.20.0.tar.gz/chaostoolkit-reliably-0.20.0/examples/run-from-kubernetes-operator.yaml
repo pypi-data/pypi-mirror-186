@@ -1,0 +1,27 @@
+---
+apiVersion: chaostoolkit.org/v1
+kind: ChaosToolkitExperiment
+metadata:
+  name: my-chaos-exp
+  namespace: chaostoolkit-crd
+spec:
+  namespace: chaostoolkit-run
+  pod:
+    template:
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: chaostoolkit
+        labels:
+          app: chaostoolkit
+      spec:
+        restartPolicy: Never
+        serviceAccountName: chaostoolkit
+        containers:
+        - name: chaostoolkit
+          image: chaostoolkit/ctk-reliably:latest
+          command:
+          - /usr/local/bin/chaos
+          args:
+          - run
+          - "https://raw.githubusercontent.com/chaostoolkit-incubator/chaostoolkit-reliably/master/examples/use-slo-as-steady-state.json"
