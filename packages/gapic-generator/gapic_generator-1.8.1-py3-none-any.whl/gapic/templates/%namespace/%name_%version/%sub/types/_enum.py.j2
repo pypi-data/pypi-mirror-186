@@ -1,0 +1,16 @@
+class {{ enum.name }}({{ p }}.Enum):
+    r"""{{ enum.meta.doc|rst(indent=4) }}
+
+    Values:
+    {% for enum_value in enum.values %}
+        {{ enum_value.name }} ({{ enum_value.number }}):
+            {{ enum_value.meta.doc|rst(width=72, indent=12, nl=False) }}
+    {% endfor %}
+    """
+    {% if enum.enum_pb.HasField("options") %}
+    _pb_options = {{ enum.options_dict }}
+    {% endif %}
+    {% for enum_value in enum.values %}
+    {{ enum_value.name }} = {{ enum_value.number }}
+    {% endfor %}
+{{ '\n\n' }}
