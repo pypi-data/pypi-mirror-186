@@ -1,0 +1,18 @@
+# Python badges configuration
+config:
+    badges:
+      - alt: "Supported python versions"
+        img: https://img.shields.io/badge/python-${pythonMinVersion}%20--%20${pythonMaxVersion}-blue
+        url: https://www.python.org/
+      - alt: PyPI
+        img: https://img.shields.io/pypi/v/${pythonPackage}
+        url: https://pypi.org/project/${pythonPackage}/
+      - alt: "Code style: black"
+        img: https://img.shields.io/badge/code%20style-black-000000.svg
+        url: https://github.com/psf/black
+      - alt: "Flake8 analysis result"
+        img: https://img.shields.io/badge/flake8-0-green
+        url: https://flake8.pycqa.org/
+      - alt: "Code coverage"
+        img: https://img.shields.io/codecov/c/github/${githubUser}/${githubRepo}
+        url: https://app.codecov.io/gh/${githubUser}/${githubRepo}

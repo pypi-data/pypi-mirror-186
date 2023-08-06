@@ -1,0 +1,37 @@
+config:
+
+    # Needs black and isort
+    venvPkgDeps:
+        - black
+        - isort
+
+    # Max line length
+    pythonLineLength: 160
+
+    # Stamp file for format tools execution
+    pythonFormatStamp: ${outputDir}/.format
+
+    # Add setup file for isort config
+    pythonSetupCfgFiles:
+        - ${BASEDIR}/templates/isort.cfg
+
+tasks:
+    # Code format tools execution
+    py.format:
+        description: Format python code
+        emoji: ":snake:.:lipstick:"
+        deps:
+            - out
+            - py.setup
+        appendToDeps: setup
+        if: ${pythonSrcFiles}   # Only if python source files are found
+        output:
+            - ${pythonFormatStamp}
+        input:
+            - ${pythonSrcFiles}
+            - ${pythonSetupCfg}
+        builder: nmk_python.format.FormatBuilder
+        params:
+            src_files: ${pythonSrcFiles}
+            src_folders: ${pythonSrcFolders}
+            line_length: ${pythonLineLength}

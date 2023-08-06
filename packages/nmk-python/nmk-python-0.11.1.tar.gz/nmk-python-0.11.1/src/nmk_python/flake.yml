@@ -1,0 +1,52 @@
+config:
+
+    # Needs flake8 and plugins
+    venvPkgDeps:
+        - flake8
+        - pep8-naming
+        - flake8-builtins
+        - flake8-blind-except
+        - flake8-comprehensions
+        - flake8-string-format
+        - flake8-pep3101
+        - flake8-bugbear
+
+    # Add setup file for flake8 config
+    pythonSetupCfgFiles:
+        - ${BASEDIR}/templates/flake.cfg
+
+    # Also contribute to setup items for extendable flake8 exclusion paths list
+    pythonSetupItems:
+        flake8:
+            exclude:
+                - __pycache__
+
+    # Stamp file for flake8 execution
+    pythonFlakeStamp: ${outputDir}/.flake
+
+    # Ignored rules
+    pythonIgnoredRules:
+        - E203 # space before ":"; sometimes formatting with black introduces this kind of space in slice expressions
+        - E501 # line length; we're working with lines wider than the recommended 79 length
+        - B902 # allow blind Exception catch; typically usefull for fallback behaviors
+        - W503 # line break before operator; incompatible with black formatting
+
+tasks:
+
+    # Python source code analysis with flake8
+    py.analyze:
+        description: Analyze python code
+        emoji: ":snake:.:eye: "
+        deps:
+            - py.setup
+            - py.format
+        appendToDeps: setup
+        if: ${pythonSrcFiles}   # Only if python source files are found
+        output:
+            - ${pythonFlakeStamp}
+        input:
+            - ${pythonSetupCfg}
+            - ${pythonSrcFiles}
+        builder: nmk_python.flake.FlakeBuilder
+        params:
+            src_folders: ${pythonSrcFolders}
