@@ -1,0 +1,57 @@
+name: build
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  build_wheels:
+    name: build wheel
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        python-version: [ '3.x' ]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: 'pyproject.toml'
+      - run: pip install wheel
+      - run: pip wheel . -w dist --no-deps
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: ./dist/*.whl
+  build_sdist:
+    name: package source
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+          cache-dependency-path: pyproject.toml
+      - run: pip install build
+      - run: python -m build --sdist .
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: ./dist/*.tar.gz
+  upload_pypi:
+    name: publish to PyPI
+    needs: [ build_wheels, build_sdist ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: dist
+      - uses: pypa/gh-action-pypi-publish@v1.5.2
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_TOKEN }}

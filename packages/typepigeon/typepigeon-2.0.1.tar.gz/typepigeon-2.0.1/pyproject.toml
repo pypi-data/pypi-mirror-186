@@ -1,0 +1,44 @@
+[project]
+name = 'typepigeon'
+description = 'Python type converter'
+authors = [{ name = 'Zach Burnett', email = 'zachary.r.burnett@gmail.com' }]
+readme = 'README.md'
+requires-python = '>=3.7'
+license = { file = 'LICENSE' }
+dependencies = ['python-dateutil']
+dynamic = ['version']
+
+[project.optional-dependencies]
+spatial = ['pyproj', 'shapely']
+test = ['pytest', 'pytest-cov', 'pytest-xdist']
+docs = ['dunamai', 'm2r2', 'sphinx', 'sphinx-rtd-theme', 'tomli; python_version <"3.11"', ]
+
+[project.urls]
+repository = 'https://github.com/zacharyburnett/TypePigeon.git'
+documentation = 'https://typepigeon.readthedocs.io'
+
+[build-system]
+requires = [
+    'setuptools >=61',
+    'setuptools_scm[toml] >=3.4',
+    'wheel',
+]
+build-backend = 'setuptools.build_meta'
+
+[tool.setuptools_scm]
+
+[tool.pytest.ini_options]
+markers = ['spatial']
+norecursedirs = [
+    'build',
+    '.eggs',
+    'venv',
+    '.tox',
+]
+
+[tool.ruff]
+line-length = 127
+extend-ignore = [
+    'E501', # Line too long
+    'E722', # Do not use bare `except`
+]
