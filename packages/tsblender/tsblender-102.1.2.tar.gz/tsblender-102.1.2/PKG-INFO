@@ -1,0 +1,95 @@
+Metadata-Version: 2.1
+Name: tsblender
+Version: 102.1.2
+Summary: Drop-in replacement for TSPROC that is a utility for inverse modeling with PEST.
+Author-email: Tim Cera <tim@cerazone.net>
+License: BSD-3-Clause
+Project-URL: documentation, https://timcera.bitbucket.io/tsblender/docs/index.html#tsblender-documentation
+Project-URL: github, https://github.com/timcera/tsblender
+Project-URL: bitbucket, https://bitbucket.org/timcera/tsblender/src/main/
+Keywords: time-series,parameter-estimation,tsproc,cli-app,baseflow,hydrology,python
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Intended Audience :: Developers
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Description-Content-Type: text/x-rst
+Provides-Extra: dev
+License-File: LICENSE.txt
+
+.. image:: https://github.com/timcera/tsblender/actions/workflows/python-package.yml/badge.svg
+    :alt: Tests
+    :target: https://github.com/timcera/tsblender/actions/workflows/python-package.yml
+    :height: 20
+
+.. image:: https://img.shields.io/coveralls/github/timcera/tsblender
+    :alt: Test Coverage
+    :target: https://coveralls.io/r/timcera/tsblender?branch=master
+    :height: 20
+
+.. image:: https://img.shields.io/pypi/v/tsblender.svg
+    :alt: Latest release
+    :target: https://pypi.python.org/pypi/tsblender/
+    :height: 20
+
+.. image:: https://img.shields.io/pypi/l/tsblender.svg
+    :alt: BSD-3 clause license
+    :target: https://pypi.python.org/pypi/tsblender/
+    :height: 20
+
+.. image:: https://img.shields.io/pypi/dd/tsblender.svg
+    :alt: tsblender downloads
+    :target: https://pypi.python.org/pypi/tsblender/
+    :height: 20
+
+.. image:: https://img.shields.io/pypi/pyversions/tsblender
+    :alt: PyPI - Python Version
+    :target: https://pypi.org/project/tsblender/
+    :height: 20
+
+tsblender - Quick Guide
+=======================
+The tsblender is a pure python re-write of TSPROC (Time Series PROCessor) from
+the USGS and John Doherty.  When finished it will be a superset of TSPROC
+functionality and a more robust and flexible tool for time series analysis.
+
+This is not complete and is still under development.
+
+Requirements
+------------
+* python 3.8 or higher
+
+Installation
+------------
+Should be as easy as running ``pip install tsblender`` or ``conda install -c
+conda-forge -c timcera tsblender`` at any command line.
+
+Usage - Command Line
+--------------------
+Just run 'tsblender --help' to get a list of subcommands::
+
+
+    usage: tsblender [-h]
+                     {run, about) ...
+
+    positional arguments:
+      {run, about}
+
+    about
+        Display version number and system information.
+    run
+        Run a tsblender script file.
+
+    optional arguments:
+        -h, --help            show this help message and exit
