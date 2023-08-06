@@ -1,0 +1,29 @@
+zookeeper-servers:
+  - host: {zookeeper_host}
+    port: {zookeeper_port}
+    chroot: {zookeeper_chroot}
+
+zookeeper-tls:
+  ca: {zookeeper_ca}
+  cert: {zookeeper_cert}
+  key: {zookeeper_key}
+
+labels:
+  - name: kubernetes-namespace
+    min-ready: 1
+  - name: pod-fedora
+    min-ready: 1
+
+providers:
+  - name: microk8s
+    driver: kubernetes
+    context: microk8s
+    pools:
+      - name: main
+        max-servers: 2
+        labels:
+          - name: kubernetes-namespace
+            type: namespace
+          - name: pod-fedora
+            type: pod
+            image: quay.io/fedora/fedora:37-x86_64

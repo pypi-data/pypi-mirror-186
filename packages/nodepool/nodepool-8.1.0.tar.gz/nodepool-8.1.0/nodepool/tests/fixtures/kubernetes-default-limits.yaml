@@ -1,0 +1,32 @@
+zookeeper-servers:
+  - host: {zookeeper_host}
+    port: {zookeeper_port}
+    chroot: {zookeeper_chroot}
+
+zookeeper-tls:
+  ca: {zookeeper_ca}
+  cert: {zookeeper_cert}
+  key: {zookeeper_key}
+
+labels:
+  - name: pod-default
+  - name: pod-custom-cpu
+  - name: pod-custom-mem
+
+providers:
+  - name: kubespray
+    driver: kubernetes
+    context: admin-cluster.local
+    pools:
+      - name: main
+        default-label-cpu: 2
+        default-label-memory: 1024
+        labels:
+          - name: pod-default
+            type: pod
+          - name: pod-custom-cpu
+            type: pod
+            cpu: 4
+          - name: pod-custom-mem
+            type: pod
+            memory: 2048
