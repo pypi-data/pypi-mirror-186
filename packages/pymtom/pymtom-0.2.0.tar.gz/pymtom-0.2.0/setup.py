@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+from setuptools import setup
+
+packages = \
+['pymtom']
+
+package_data = \
+{'': ['*']}
+
+install_requires = \
+['zeep>=4.2.1,<5.0.0']
+
+setup_kwargs = {
+    'name': 'pymtom',
+    'version': '0.2.0',
+    'description': '',
+    'long_description': '# pymtom\n\nSources on GitHub: [github.com/pyutil/pymtom](https://github.com/pyutil/pymtom).\n\n## About state of this package\n\n**Warning**: This package at first publishing is just alfa version.  \n&nbsp;&nbsp;&nbsp;&nbsp;It could work, it could fail on some detail, it could fail with heavy things unsolved.  \n&nbsp;&nbsp;&nbsp;&nbsp;The reason is that it is big problem to find a correct and free accessible SOAP MTOM service for development.  \n&nbsp;&nbsp;&nbsp;&nbsp;So, give a try and go away, or (of course better) send a Merge Request.\n\n**Warning**: My knowledges about SOAP and MTOM are low.  \n&nbsp;&nbsp;&nbsp;&nbsp;I will be not very helpfull with future development if there will be any.  \n&nbsp;&nbsp;&nbsp;&nbsp;If somebody more oriented in SOAP will create Merge Request it could be nice,  \n&nbsp;&nbsp;&nbsp;&nbsp;otherwise you cannot wait something new here in the future.\n\nHowever I see that we have no MTOM support in Python SOAP servers (Spyne)\nand no MTOM creating support in Python Zeep library.  \nSo maybe this work can be a little usefull? I\'m sorry if not.\n\n## Why this package?\n\nSOAP support in Python is weak.\n\nZeep as client: Has MTOM support for incomming message, lacks support for outgoing message.  \n&nbsp;&nbsp;&nbsp;&nbsp;(see MessagePack object described here: https://docs.python-zeep.org/en/master/attachments.html)\n\nSpyne as server: Has MTOM support for incomming message, lacks support for outgoing message.\n&nbsp;&nbsp;&nbsp;&nbsp;(see spyne/protocol/soap/mime.py)\n\nThis package should create and parse the MTOM message.  \nFor parse we just proxy to Zeep\'s support, no idea if it works correctly.\n\n## How to use this package\n\nFor **mtom_parse** this package uses internally Zeep library.  \nThat means that you can use their support directly.  \nNot sure if their support run well or not.  \nmtom_parse gives just different result structures - the values have fixed type,\n\twhile in Zeep you will receive a plain xml or MultiPack.\n\nFor **mtom_create** we  \n- take a xml message,\n- add files as binary attachments,\n- create a http header include mimetypes for each part,\n- replaces text b"cid:{cid}" in a xml message for each attachment,\n- return\n\t-- the content of message\n\t-- updating dict for wrapping http header\n\nAs an usage example we can take the usage from Zeep.  \nmtom_create is here wrapped into Transport class **MTOMTransport** which will  \n- will take a message prepared for requests call\n- modify it (see mtom_create above),\n- update outer headers using update_headers obtained from mtom_create,\n- call requests for POST\n\n\t\tfiles = ["tmp/black.png", "tmp/white.png"]\n\t\tclient = zeep.Client(\n\t\t\t"https://service.url",\n\t\t\ttransport=MTOMTransport(files=files),\n\t\t)\n\t\tparams = {\n\t\t\t"fileName_1": "dark.png",\n\t\t\t"imageData_1": "cid:{cid}",  # will change to <xop:Include href="cid:1">\n\t\t\t"fileName_2": "light.png",\n\t\t\t"imageData_2": "cid:{cid}",  # will change to <xop:Include href="cid:2">\n\t\tclient.service.upload(**params)\n\nUsage from Django and Zeep:  \nYou can add a logger:  \n\n\t"zeep.transports": {\n\t\t"level": env("LOGLEVEL_SOAP_ZEEP", default="INFO"),  # DEBUG pro logování\n\t\t"handlers": ["console"],\n\t\t"propagate": True,\n\t},\n\nand then you can call  \n\n\tLOGLEVEL_SOAP_ZEEP=DEBUG ./manage.py runserver\n\tLOGLEVEL_SOAP_ZEEP=DEBUG pytest -s -k mtom  # if you have test_mtom() which instantiate zeep.Client and call some its service\n\n## Notes: How this package was created?\n\n\t# BASICS\n\t# outside of venv (which results to the debian system python as version in pyproject.toml) :\n\tpyenv 3.7.16  # lowest supported python version will be: 3.7\n\tpoetry new pymtom\n\tcd pymtom/\n\t# not made, but probably would be good: touch poetry.toml , content:\n\t#\t[virtualenvs]\n\t#\tcreate = true\n\t#\tin-project = true\n\tpoetry shell\n\tpip install --upgrade pip setuptools\n\ttouch README.md  # https://www.markdownguide.org/basic-syntax/\n\ttouch .gitignore\n\t#\t__pycache__/\n\t#\t*.py[cod]\n\t#\t.idea\n\t#\t.vscode/\n\t#\t.history/\n\t#\tdist/\n\ttouch pymtom/create.py\n\ttouch pymtom/parse.py\n\t# add names which you want import easily into pymtom/__init__.py: from .pymtom.create import mtom_create, from .pymtom.parse import mtom_parse\n\tpoetry build\n\t# install for package development from outside, via pip:\n\tpip install -e ../<path>/pymtom/ (revert via: pip uninstall pymtom)\n\n\t# GIT\n\t# empty repo pyutils/pymtom created; don\'t initialized with anything\n\tgit init\n\tgit add .\n\tgit commit -m "initial commit"\n\tgit branch -M main\n\tgit remote add origin git@github-pyutil-account:pyutil/pymtom.git\n\tgit config --local user.name "pyutil"\n\tgit push -u origin main\n\t# so instead of github.com Host directly, we use the github-pyutil-account Host defned in ~/.ssh/config\n\t#   with `HostName github.com` and `IdentityFile ~/.ssh/id_ed25519_...` where corresponding public key (.pub) is uploaded to GitHub \n\n\t# PYPI\n\t# add into pyproject.toml [tool.poetry]: readme = "README.md"\n\t# add token from your account on PyPI web: poetry config pypi-token.pypi pypi-xxxxxxxxxxxxxxxx`\n\t# bump version? in pymtom/__init__.py & pyproject.toml\n\t# commit+push\n\trm -rf dist/\n\tpoetry build  # or together: poetry publish --build\n\t# zkontrolovat dist/\n\t# (pip install pkginfo:) pkginfo dist/pymtom... must have `description` and `description_content_type` (thx readme=..)\n\tpoetry publish\n\t# [pypi.org/project/pymtom/](https://pypi.org/project/pymtom/)',
+    'author': 'Mirek Zvolský',
+    'author_email': 'zvolsky@seznam.cz',
+    'maintainer': None,
+    'maintainer_email': None,
+    'url': None,
+    'packages': packages,
+    'package_data': package_data,
+    'install_requires': install_requires,
+    'python_requires': '>=3.7,<4.0',
+}
+
+
+setup(**setup_kwargs)
