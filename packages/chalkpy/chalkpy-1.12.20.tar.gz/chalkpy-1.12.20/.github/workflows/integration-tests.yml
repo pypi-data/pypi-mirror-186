@@ -1,0 +1,93 @@
+name: Integration Tests
+
+on:
+  pull_request: {}
+
+jobs:
+  fraud-template:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python_version: ["3.10", "3.8"]
+      fail-fast: false
+    steps:
+      - name: Checkout the Chalk Client
+        uses: actions/checkout@v3
+        with:
+          path: "chalk/"
+
+      - name: Install Doppler CLI
+        uses: dopplerhq/cli-action@v1
+
+      - name: Fetch doppler secrets
+        uses: dopplerhq/secrets-fetch-action@v1.1.0
+        id: doppler
+        with:
+          doppler-token: ${{ secrets.DOPPLER_TOKEN }}
+
+      - name: Configure the SSH private key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: |
+            ${{ steps.doppler.outputs.CHALK_GITHUB_DEPLOY_PRIVATE_KEY }}
+            ${{ steps.doppler.outputs.FRAUD_TEMPLATE_GITHUB_DEPLOY_PRIVATE_KEY }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python_version }}
+          cache: "pip"
+
+      - name: Checkout the fraud template
+        uses: actions/checkout@v3
+        with:
+          repository: chalk-ai/fraud-template
+          path: "fraud-template/"
+          ssh-key: ${{ steps.doppler.outputs.FRAUD_TEMPLATE_GITHUB_DEPLOY_PRIVATE_KEY }}
+
+      - name: Install requirements
+        run: |
+          pip install -r ./fraud-template/requirements.txt  # Install the requirements for the fraud template
+          pip uninstall -y chalkpy
+          pip install "./chalk[postgresql]"  # Install the chalk client locally
+
+      - name: Log in to chalk
+        uses: chalk-ai/cli-action@main
+        with:
+          version: nightly
+          client-id: ${{steps.doppler.outputs.CHALK_FT_CLIENT_ID}}
+          client-secret: ${{steps.doppler.outputs.CHALK_FT_CLIENT_SECRET}}
+          api-host: "https://api.staging.chalk.ai"
+          environment: ${{steps.doppler.outputs.CHALK_FT_ENVIRONMENT }}
+
+      - name: Validate the code
+        working-directory: ./fraud-template
+        run: |
+          set -euo pipefail
+
+          # Validate that the code can be imported
+          chalkpy list
+
+          # Validate that the graph is valid
+          chalk lint
+
+      - name: Deploy fraud-template to staging
+        working-directory: ./fraud-template
+        run: |
+          set -euo pipefail
+
+          CHALK_DEPLOYMENT_ID="$(chalk apply --force --await --json --no-promote | jq -r .deployment_id | xargs)"
+          echo "Successfully deployed with deployment ID $CHALK_DEPLOYMENT_ID"
+          echo "CHALK_DEPLOYMENT_ID=$CHALK_DEPLOYMENT_ID" >> $GITHUB_ENV
+
+      - name: Run query (online) against staging
+        working-directory: ./fraud-template
+        run: chalk query --in user.id=1 --out user.id --trace --deployment $CHALK_DEPLOYMENT_ID
+        env:
+          CHALK_DEPLOYMENT_ID: ${{env.CHALK_DEPLOYMENT_ID}}
+
+      - name: Run tests (offline query)
+        working-directory: ./fraud-template
+        run: pytest .
+        env:
+          CHALK_DEPLOYMENT_ID: ${{env.CHALK_DEPLOYMENT_ID}}
