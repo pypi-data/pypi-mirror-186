@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "klogin"
+version = "0.8.4"
+description = ""
+authors = ["Logi Leifsson <logi@genuitysci.com>"]
+readme = "README.md"
+include = [
+	"profiles",
+	"VERSION",
+	"autocomplete.bash",
+	"autocomplete.zsh"
+]
+
+[tool.poetry.scripts]
+klogin = 'klogin:main'
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.12"
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.5.0"
+pyinstaller = "^5.6.1"
+tomli = "^2.0.1"
+invoke = "^1.7.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
