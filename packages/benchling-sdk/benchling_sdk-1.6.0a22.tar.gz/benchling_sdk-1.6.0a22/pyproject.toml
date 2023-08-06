@@ -1,0 +1,104 @@
+[tool.poetry]
+name = "benchling-sdk"
+version = "1.6.0-alpha.22"   # NOTE: This version number is ignored and does not correspond to releases (see README)
+description = "SDK for interacting with the Benchling Platform."
+authors = ["Benchling Support <support@benchling.com>"]
+packages = [{include = "benchling_sdk"}]
+include = [
+    "LICENSE", "benchling_sdk/py.typed", "docs"
+]
+license = "Apache-2.0"
+readme = "README.md"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+markers = [
+    "test_id",
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+backoff = "^1.10.0"
+typing-extensions = ">=3.7.4, <5.0"
+dataclasses-json = "^0.5.2"
+httpx = ">=0.23.0"
+attrs = ">=20.1.0, <23"
+python-dateutil = "^2.8.0"
+PyYAML = "^6.0"
+# See issue: https://github.com/giampaolo/psutil/issues/2165
+psutil = {version = "^5.9.4", python = "^3.11" }
+jwcrypto = "^1.4.2"
+benchling-api-client = "2.0.89"
+# Cryptography extras - see ExtrasPackage.CRYPTOGRAPHY
+cryptography = { version = "^38.0.3", optional = true }
+# Python jose extas - see ExtrasPackage.PYTHON_JOSE
+python-jose = { version = "^3.3.0", extras=["cryptography"], optional = true }
+ordered-set = "^4.1.0"
+
+[tool.poetry.extras]
+cryptography = ["cryptography"]
+python-jose = ["python-jose"]
+
+[tool.poetry.dev-dependencies]
+black = "^22.3.0"
+isort = "^5.10.1"
+pre-commit = "^2.6.0"
+ipython = "^7.16.1"
+mypy = "^0.960"
+flake8 = "^3.8.3"
+taskipy = "^1.6.0"
+Jinja2 = "^3.1.2"
+Markdown = "3.3.4" # Errors in Markdown 3.3.5 related to TypeError: entry_points() got an unexpected keyword argument 'group'
+toml = "^0.10.2"
+packaging = "^20.9"
+coverage = "^5.5"
+flake8-docstrings = "^1.6.0"
+ddt = "1.4.4"
+pytest = "^7.1.2"
+beautifulsoup4 = "4.10.0"
+sphinx = "^4.4.0"
+types-PyYAML = "^6.0.8"
+# Used by integration tests for retrieving API secrets in SSM
+boto3 = "^1.24.67"
+boto3-stubs = {extras = ["ssm"], version = "1.24.67"}
+types-s3transfer = "0.6.0.post4"
+botocore-stubs = "1.28.4"
+# Used by flake8, version pinning is because v5 removes a deprecated call flake is currently using.
+importlib-metadata = "^4.13.0"
+sphinx-multiversion-pre-post-build = "^0.2.4"
+time-machine = "^2.8.2"
+python-jose = "^3.3.0"
+
+[tool.taskipy.tasks]
+unit = "pytest -s tests/unit/"
+integration = "pytest --log-level=INFO --log-cli-level=10 --junitxml=ci-output/xunit-report.xml -s tests/integration/"
+models = "task generate_models && task sort_models && task format_models"
+generate_models = "python3 -m regenerate_models"
+format_models = "black benchling_sdk/models/__init__.py"
+sort_models = "isort benchling_sdk/models/__init__.py"
+regenerate_docs = "python3 -m regenerate_docs"
+check_docs = "python3 -m regenerate_docs --check"
+
+[tool.black]
+line-length=110
+
+[tool.isort]
+combine_as_imports=true
+default_section="THIRDPARTY"
+force_alphabetical_sort_within_sections=true
+force_sort_within_sections=true
+include_trailing_comma=true
+known_first_party=["benchling_sdk"]
+known_third_party=["attr", "backoff", "benchling_api_client", "bs4", "cryptography", "dataclasses_json", "ddt", "httpx", "jinja2", "jose", "pytest", "typing_extensions", "yaml"]
+line_length=110
+multi_line_output=3
+order_by_type=false
+skip = ["tests/packaged/run_smoke_test.py"]
+
+[build-system]
+requires = ["poetry>=1.2"]
+build-backend = "poetry.masonry.api"
