@@ -1,0 +1,72 @@
+[build-system]
+build-backend = "flit_core.buildapi"
+requires = ["flit_core >=3.4,<4"]
+
+[project]
+authors = [{name = "xinetzone", email = "735613050@qq.com"}]
+dynamic = ["version", "description"]
+license = {file = "LICENSE"}
+name = "deta-hub"
+readme = "README.md"
+requires-python = ">=3.10"
+
+dependencies = [
+  "d2py",
+  "attrs",
+  "importlib-metadata>=4.12",
+  "fastapi",
+  "plotly",
+  "jupyter-dash"
+]
+
+maintainers = [
+  {name = "xinetzone", email = "735613050@qq.com"},
+]
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "Framework :: Sphinx",
+  "Framework :: Sphinx :: Theme",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+]
+
+[project.urls]
+Home = "https://github.com/xinetzone/deta-hub"
+
+[project.optional-dependencies]
+doc = [
+  "myst-nb",
+  "xyzstyle",
+  "sphinx-copybutton",
+  "sphinxcontrib-bibtex",
+  "sphinx-thebe",
+  "sphinx-design",
+  "sphinx-automodapi",
+  "sphinx-sitemap",
+  "sphinx-comments",
+]
+
+coverage = [
+  "pytest-cov",
+  "pytest-regressions",
+  "codecov",
+  "deta-hub[test]",
+]
+dev = [
+  "pyyaml",
+  "pre-commit",
+  "note-demo[coverage]",
+]
+test = [
+  "pytest",
+  "deta_hub[doc]",
+]
+
+[project.entry-points]
+"sphinx.html_themes" = {deta-hub = "deta_hub"}
+
+[tool.flit.sdist]
+# include = ["docs/"]
+exclude = ['doc', '.git', '.github']
