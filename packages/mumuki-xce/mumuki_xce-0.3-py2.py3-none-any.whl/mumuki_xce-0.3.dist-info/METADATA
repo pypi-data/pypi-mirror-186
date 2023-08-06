@@ -1,0 +1,152 @@
+Metadata-Version: 2.1
+Name: mumuki-xce
+Version: 0.3
+Summary: Add a short description here!
+Home-page: https://github.com/mumuki/mumuki-xce-py/
+Author: Franco Leonardo Bulgarelli
+Author-email: franco@mumuki.org
+License: MIT
+Project-URL: Documentation, https://mumuki.org/
+Project-URL: Source, https://github.com/mumuki/mumuki-xce-py/
+Project-URL: Tracker, https://github.com/mumuki/mumuki-xce-py/issues
+Platform: any
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Requires-Python: >=3.7
+Description-Content-Type: text/x-rst; charset=UTF-8
+License-File: LICENSE.txt
+License-File: AUTHORS.rst
+Requires-Dist: requests (<3,>=2.27)
+Requires-Dist: bs4
+Requires-Dist: ipython (<9,>=7.0)
+Requires-Dist: beautifulsoup4 (<5,>=4.11)
+Requires-Dist: importlib-metadata ; python_version < "3.8"
+Provides-Extra: testing
+Requires-Dist: setuptools ; extra == 'testing'
+Requires-Dist: pytest ; extra == 'testing'
+Requires-Dist: pytest-cov ; extra == 'testing'
+
+=============
+mumuki-xce
+=============
+
+Solve `Mumuki <https://mumuki.io>`_ exercises using your favorite code editor
+
+Description
+-----------
+
+This package allows you to load, solve and submit assignments in two different ways:
+
+* Using an standard editor - like vim or Visual Studio Code - and the standard Python interpreter
+* Using Colab
+
+Standard Editor Usage
+---------------------
+
+Environment setup
+=================
+
+You will need to use ``python`` and ``pip`` in order to solve exercises.
+Please ensure you have those commands locally installed in your
+computer. Then install ``mumuki-xce``:
+
+.. code:: shell
+
+   pip install mumuki-xce --quiet
+
+Now you are ready to solve exercises!
+
+Solving an exercise
+===================
+
+Just create a new python file with ``py`` extension, and paste the
+following code in it:
+
+.. code:: python
+
+   from mumuki import Mumuki
+   mumuki = Mumuki("#...token...#", "#...locale...#")
+   mumuki.visit("#...organization...#", "#...exercise_id...#")
+
+   # ...place your solution here...
+
+   mumuki.test()
+
+If you want to submit your solution, just run on your terminal
+
+.. code:: bash
+
+   python your_file.py
+
+If you just want to load it into a node interpreter and test and play
+with your code, run:
+
+.. code:: bash
+
+   python -i your_file.py
+
+
+Colab Usage
+-----------------
+
+Environment setup
+=================
+
+In order to solve exercises you will need to visit and log in to [`Colab`](https://colab.research.google.com/).
+
+
+Solving an exercise
+===================
+
+
+First create a cell with the following code:
+
+.. code:: python
+
+  !pip install mumuki-xce --quiet
+
+  from mumuki import IMumuki
+  mumuki = IMumuki("#...token...#", "#...locale...#")
+  mumuki.visit("#...organization...#", "#...exercise_id...#")
+
+Then create another cell, whose first line must be `%%solution`. Then write your solution above it:
+
+.. code:: python
+
+  %%solution
+
+  # ...your solution goes here
+
+Now please edit and run your cells as needed. Feel free also to create aditional cells. When you are ready, add another cell will the following code:
+
+.. code:: python
+
+  mumuki.test()
+
+If you modify your code, don't forget to run your cells again.
+
+Development
+============
+
+In order to build this project, clone it and then run:
+
+```bash
+# load venv
+$ source .venv/bin/activate
+# configure project and run pytest
+$ tox
+```
+
+If you want to test the latest version of this project in your Colab or Jupyter environment, install `xce` within a cell like this:
+
+```
+!pip install git+https://github.com/mumuki/mumuki-xce-py.git@master
+```
+
+In order to deploy the latest version, tag this project and then:
+
+```bash
+$ tox -e build
+$ tox -e publish
+$ tox -e publish -- --repository pypi
+```
