@@ -1,0 +1,34 @@
+name: pyremo-docs
+
+channels:
+  - conda-forge
+  - nodefaults
+
+dependencies:
+  - python
+  - dask
+  - xarray
+  - netCDF4
+  - cf_xarray
+  - docutils==0.16
+  - nbconvert
+  - numpydoc
+  - pillow
+  - pip
+  - nbsphinx
+  - nbsphinx-link
+  - ipython
+  - py-cordex
+  - cftime
+  - python-cdo
+  - sphinx #==4.2.0
+  - sphinx_rtd_theme==1.0.0
+#  - sphinx-book-theme
+  - jinja2==3.0.0
+#
+#
+  - pip:
+#    - intake_geopandas>=0.2.4
+#    - msgpack
+#    - git+https://github.com/euro-cordex/py-cordex.git # always use master for now
+    - sphinxcontrib-mockautodoc

@@ -1,0 +1,31 @@
+name: pyremo-tests
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - cartopy
+  - matplotlib-base
+  - numpy
+  - pooch
+  - regionmask
+  - setuptools
+  - xarray
+  - dask
+  - cf_xarray
+  - xesmf
+  - numba
+  - netCDF4
+# for testing
+  - pytest
+  - pytest-cov
+  - pytest-env
+  - fsspec
+  - requests
+  - setuptools<60.0 # see https://numpy.org/doc/stable/reference/distutils_status_migration.html
+  - aiohttp
+  - cmor
+  - cdo
+  - python-cdo
+  - py-cordex>=0.4
+#  - pip:
+#    - git+https://github.com/euro-cordex/py-cordex.git # always use master for now
