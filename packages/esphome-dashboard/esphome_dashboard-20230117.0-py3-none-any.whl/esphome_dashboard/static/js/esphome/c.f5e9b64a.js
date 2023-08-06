@@ -1,0 +1,1 @@
+import{b as s,c as a}from"./index-5f0ec3b8.js";const i="wifi_ssid",n="wifi_password",c=async()=>{const a=await s();return a.includes(i)&&a.includes(n)},o=async(s,c)=>a({[i]:s,[n]:c},"Your Wi-Fi SSID and password");export{i as S,n as a,c,o as s};
