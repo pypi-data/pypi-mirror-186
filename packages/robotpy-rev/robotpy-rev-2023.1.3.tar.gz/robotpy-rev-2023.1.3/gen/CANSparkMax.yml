@@ -1,0 +1,105 @@
+---
+
+classes:
+  CANSparkMax:
+    typealias:
+    - rev::CANSparkMaxLowLevel::MotorType
+    enums:
+      IdleMode:
+      InputMode:
+        ignore: true
+      SoftLimitDirection:
+      FaultID:
+    methods:
+      CANSparkMax:
+      Set:
+      SetVoltage:
+      Get:
+      SetInverted:
+      GetInverted:
+      Disable:
+      StopMotor:
+      GetEncoder:
+        overloads:
+          SparkMaxRelativeEncoder::Type, int:
+            keepalive:
+            - [0, 1]
+          CANEncoder::EncoderType, int:
+            ignore: true
+      GetAlternateEncoder:
+        overloads:
+          int:
+            keepalive:
+            - [0, 1]
+          SparkMaxAlternateEncoder::Type, int:
+            keepalive:
+            - [0, 1]
+          CANEncoder::AlternateEncoderType, int:
+            ignore: true
+      GetAnalog:
+        overloads:
+          SparkMaxAnalogSensor::Mode:
+            keepalive:
+            - [0, 1]
+          CANAnalog::AnalogMode:
+            ignore: true
+      GetPIDController:
+      GetForwardLimitSwitch:
+        overloads:
+          SparkMaxLimitSwitch::Type:
+            keepalive:
+            - [0, 1]
+          CANDigitalInput::LimitSwitchPolarity:
+            ignore: true
+      GetReverseLimitSwitch:
+        overloads:
+          SparkMaxLimitSwitch::Type:
+            keepalive:
+            - [0, 1]
+          CANDigitalInput::LimitSwitchPolarity:
+            ignore: true
+      SetSmartCurrentLimit:
+        overloads:
+          unsigned int:
+          unsigned int, unsigned int, unsigned int:
+      SetSecondaryCurrentLimit:
+      SetIdleMode:
+      GetIdleMode:
+      EnableVoltageCompensation:
+      DisableVoltageCompensation:
+      GetVoltageCompensationNominalVoltage:
+      SetOpenLoopRampRate:
+      SetClosedLoopRampRate:
+      GetOpenLoopRampRate:
+      GetClosedLoopRampRate:
+      Follow:
+        overloads:
+          rev::CANSparkMax&, bool:
+          CANSparkMax::ExternalFollower, int, bool:
+      IsFollower:
+      GetFaults:
+      GetStickyFaults:
+      GetFault:
+      GetStickyFault:
+      GetBusVoltage:
+      GetAppliedOutput:
+      GetOutputCurrent:
+      GetMotorTemperature:
+      ClearFaults:
+      BurnFlash:
+      SetCANTimeout:
+      EnableSoftLimit:
+      IsSoftLimitEnabled:
+      SetSoftLimit:
+      GetSoftLimit:
+      GetLastError:
+  CANSparkMax::ExternalFollower:
+    attributes:
+      arbId:
+      configId:
+
+inline_code: |
+  cls_CANSparkMax
+    .def("__repr__", [](const CANSparkMax &self) {
+      return py::str("<CANSparkMax {}>").format(self.GetDeviceId());
+    });
