@@ -1,0 +1,717 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ms3.expand_dcml &#8212; ms3 1.0.2+ge926d22.dirty documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+
+    
+    
+     
+        <script src="../../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script src="../../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script src="../../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">ms3 1.0.2+ge926d22.dirty documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ms3.expand_dcml</a></li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ms3.expand_dcml</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot; This is the same code as in the corpora repo as copied on September 24, 2020</span>
+<span class="sd">and then adapted.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">abs2rel_key</span><span class="p">,</span> <span class="n">changes2list</span><span class="p">,</span> <span class="n">DCML_REGEX</span><span class="p">,</span> <span class="n">rel2abs_key</span><span class="p">,</span> <span class="n">resolve_relative_keys</span><span class="p">,</span> \
+    <span class="n">series_is_minor</span><span class="p">,</span> <span class="n">split_alternatives</span><span class="p">,</span> <span class="n">transform</span>
+<span class="kn">from</span> <span class="nn">.transformations</span> <span class="kn">import</span> <span class="n">compute_chord_tones</span><span class="p">,</span> <span class="n">labels2global_tonic</span><span class="p">,</span> <span class="n">transpose_chord_tones_by_localkey</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">function_logger</span>
+
+
+<span class="c1">################################################################################</span>
+<span class="c1"># Constants</span>
+<span class="c1">################################################################################</span>
+
+
+
+<div class="viewcode-block" id="SliceMaker"><a class="viewcode-back" href="../../reference.html#ms3.expand_dcml.SliceMaker">[docs]</a><span class="k">class</span> <span class="nc">SliceMaker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; This class serves for storing slice notation such as ``:3`` as a variable or</span>
+<span class="sd">    passing it as function argument.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        SM = SliceMaker()</span>
+<span class="sd">        some_function( slice_this, SM[3:8] )</span>
+
+<span class="sd">        select_all = SM[:]</span>
+<span class="sd">        df.loc[select_all]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">item</span></div>
+<span class="n">SM</span> <span class="o">=</span> <span class="n">SliceMaker</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="expand_labels"><a class="viewcode-back" href="../../reference.html#ms3.expand_dcml.expand_labels">[docs]</a><span class="nd">@function_logger</span>
+<span class="k">def</span> <span class="nf">expand_labels</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rename</span><span class="o">=</span><span class="p">{},</span> <span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">propagate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">volta_structure</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                  <span class="n">relative_to_global</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">chord_tones</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">absolute</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">all_in_c</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">skip_checks</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split harmony labels complying with the DCML syntax into columns holding their various features</span>
+<span class="sd">    and allows for additional computations and transformations.</span>
+
+<span class="sd">    Uses: :py:func:`compute_chord_tones`, :py:func:`features2type`, :py:func:`~.utils.labels2global_tonic`, :py:func:`propagate_keys`,</span>
+<span class="sd">    :py:func:`propagate_pedal`, :py:func:`replace_special`, :py:func:`~.utils.roman_numeral2fifths`, :py:func:`~.utils.split_alternatives`, :py:func:`split_labels`,</span>
+<span class="sd">    :py:func:`~.utils.transform`, :py:func:`transpose`</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : :obj:`pandas.DataFrame`</span>
+<span class="sd">        Dataframe where one column contains DCML chord labels.</span>
+<span class="sd">    column : :obj:`str`</span>
+<span class="sd">        Name of the column that holds the harmony labels.</span>
+<span class="sd">    regex : :obj:`re.Pattern`</span>
+<span class="sd">        Compiled regular expression used to split the labels. It needs to have named groups.</span>
+<span class="sd">        The group names are used as column names unless replaced by ``cols``.</span>
+<span class="sd">    rename : :obj:`dict`, optional</span>
+<span class="sd">        Dictionary to map the regex&#39;s group names to deviating column names of your choice.</span>
+<span class="sd">    dropna : :obj:`bool`, optional</span>
+<span class="sd">        Pass True if you want to drop rows where ``column`` is NaN/&lt;NA&gt;</span>
+<span class="sd">    propagate: :obj:`bool`, optional</span>
+<span class="sd">        By default, information about global and local keys and about pedal points is spread throughout</span>
+<span class="sd">        the DataFrame. Pass False if you only want to split the labels into their features. This ignores</span>
+<span class="sd">        all following parameters because their expansions depend on information about keys.</span>
+<span class="sd">    volta_structure: :obj:`dict`, optional</span>
+<span class="sd">        {first_mc -&gt; {volta_number -&gt; [mc1, mc2...]} } dictionary as you can get it from</span>
+<span class="sd">        ``Score.mscx.volta_structure``. This allows for correct propagation into second and other voltas.</span>
+<span class="sd">    relative_to_global : :obj:`bool`, optional</span>
+<span class="sd">        Pass True if you want all labels expressed with respect to the global key.</span>
+<span class="sd">        This levels and eliminates the features `localkey` and `relativeroot`.</span>
+<span class="sd">    chord_tones : :obj:`bool`, optional</span>
+<span class="sd">        Pass True if you want to add four columns that contain information about each label&#39;s</span>
+<span class="sd">        chord, added, root, and bass tones. The pitches are expressed as intervals</span>
+<span class="sd">        relative to the respective chord&#39;s local key or, if ``relative_to_global=True``,</span>
+<span class="sd">        to the globalkey. The intervals are represented as integers that represent</span>
+<span class="sd">        stacks of fifths over the tonic, such that 0 = tonic, 1 = dominant, -1 = subdominant,</span>
+<span class="sd">        2 = supertonic etc.</span>
+<span class="sd">    absolute : :obj:`bool`, optional</span>
+<span class="sd">        Pass True if you want to transpose the relative `chord_tones` to the global</span>
+<span class="sd">        key, which makes them absolute so they can be expressed as actual note names.</span>
+<span class="sd">        This implies prior conversion of the chord_tones (but not of the labels) to</span>
+<span class="sd">        the global tonic.</span>
+<span class="sd">    all_in_c : :obj:`bool`, optional</span>
+<span class="sd">        Pass True to transpose `chord_tones` to C major/minor. This performs the same</span>
+<span class="sd">        transposition of chord tones as `relative_to_global` but without transposing</span>
+<span class="sd">        the labels, too. This option clashes with `absolute=True`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :obj:`pandas.DataFrame`</span>
+<span class="sd">        Original DataFrame plus additional columns with split features.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">sum</span><span class="p">((</span><span class="n">absolute</span><span class="p">,</span> <span class="n">all_in_c</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Chord tones can be either &#39;absolute&#39; or &#39;all_in_c&#39;, not both.&quot;</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">nlevels</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;df has a MultiIndex of </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">nlevels</span><span class="si">}</span><span class="s2"> levels, implying that it has information </span>
+<span class="s2">from several pieces. Apply expand_labels() to one piece at a time.&quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">regex</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">DCML_REGEX</span>
+
+    <span class="c1">### If the index is not unique, it has to be temporarily replaced</span>
+    <span class="n">tmp_index</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">is_unique</span>
+    <span class="k">if</span> <span class="n">tmp_index</span><span class="p">:</span>
+        <span class="n">ix</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;numeral&#39;</span><span class="p">,</span> <span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="s1">&#39;figbass&#39;</span><span class="p">,</span> <span class="s1">&#39;localkey&#39;</span><span class="p">,</span> <span class="s1">&#39;globalkey&#39;</span><span class="p">,</span> <span class="s1">&#39;phraseend&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">rename</span><span class="p">:</span>
+            <span class="n">rename</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">col</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">skip_checks</span><span class="p">:</span>
+        <span class="c1">### Check for too many immediate repetitions</span>
+        <span class="n">not_nan</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+        <span class="n">immediate_repetitions</span> <span class="o">=</span> <span class="n">not_nan</span> <span class="o">==</span> <span class="n">not_nan</span><span class="o">.</span><span class="n">shift</span><span class="p">()</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">immediate_repetitions</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">not_nan</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;DataFrame has many direct repetitions of labels.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Immediate repetition of labels:</span><span class="se">\n</span><span class="si">{</span><span class="n">not_nan</span><span class="p">[</span><span class="n">immediate_repetitions</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+    <span class="c1">### Do the actual expansion</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">split_alternatives</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">split_labels</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">label_column</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="n">regex</span><span class="p">,</span> <span class="n">rename</span><span class="o">=</span><span class="n">rename</span><span class="p">,</span> <span class="n">dropna</span><span class="o">=</span><span class="n">dropna</span><span class="p">,</span> <span class="n">skip_checks</span><span class="o">=</span><span class="n">skip_checks</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;chord_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">features2type</span><span class="p">,</span> <span class="p">[</span><span class="n">rename</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;numeral&#39;</span><span class="p">,</span> <span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="s1">&#39;figbass&#39;</span><span class="p">]],</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">replace_special</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="n">regex</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="n">rename</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+
+
+    <span class="n">key_cols</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">rename</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;localkey&#39;</span><span class="p">,</span> <span class="s1">&#39;globalkey&#39;</span><span class="p">]}</span>
+    <span class="k">if</span> <span class="n">propagate</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">propagate_keys</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">volta_structure</span><span class="o">=</span><span class="n">volta_structure</span><span class="p">,</span> <span class="n">add_bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">key_cols</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;propagate_keys() failed with</span><span class="se">\n</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;message_id&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="p">)})</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">propagate_pedal</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="n">rename</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;propagate_pedal() failed with</span><span class="se">\n</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;message_id&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="p">)})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">chord_tones</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Chord tones cannot be calculated without propagating keys.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">relative_to_global</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Cannot transpose labels without propagating keys.&quot;</span><span class="p">)</span>
+    <span class="n">not_a_chord</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">chord</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">chord_tones</span><span class="p">:</span>
+        <span class="n">key_cols_gapless</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">|</span> <span class="n">not_a_chord</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">key_cols</span><span class="o">.</span><span class="n">values</span><span class="p">()}</span>
+        <span class="k">if</span> <span class="n">propagate</span> <span class="ow">or</span> <span class="nb">all</span><span class="p">(</span><span class="n">key_cols_gapless</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">ct</span> <span class="o">=</span> <span class="n">compute_chord_tones</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="n">rename</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">values_into_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">ct</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">relative_to_global</span> <span class="ow">or</span> <span class="n">absolute</span> <span class="ow">or</span> <span class="n">all_in_c</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">transpose_chord_tones_by_localkey</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">by_global</span><span class="o">=</span><span class="n">absolute</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">relative_to_global</span><span class="p">:</span>
+            <span class="n">labels2global_tonic</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="n">rename</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tmp_index</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">ix</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="extract_features_from_labels"><a class="viewcode-back" href="../../reference.html#ms3.expand_dcml.extract_features_from_labels">[docs]</a><span class="nd">@function_logger</span>
+<span class="k">def</span> <span class="nf">extract_features_from_labels</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Applies .str.extract(regex) on the Series and returns a DataFrame with all named capturing groups.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">regex</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">DCML_REGEX</span>
+    <span class="k">if</span> <span class="n">regex</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">!=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="vm">__class__</span><span class="p">:</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">)</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">regex</span><span class="o">.</span><span class="n">groupindex</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">extracted</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">extracted</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="split_labels"><a class="viewcode-back" href="../../reference.html#ms3.expand_dcml.split_labels">[docs]</a><span class="nd">@function_logger</span>
+<span class="k">def</span> <span class="nf">split_labels</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">label_column</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rename</span><span class="o">=</span><span class="p">{},</span> <span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">skip_checks</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Split harmony labels complying with the DCML syntax into columns holding their various features.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : :obj:`pandas.DataFrame`</span>
+<span class="sd">        Dataframe where one column contains DCML chord labels.</span>
+<span class="sd">    label_column : :obj:`str`</span>
+<span class="sd">        Name of the column that holds the harmony labels.</span>
+<span class="sd">    regex : :obj:`re.Pattern`</span>
+<span class="sd">        Compiled regular expression used to split the labels. It needs to have named groups.</span>
+<span class="sd">        The group names are used as column names unless replaced by `cols`.</span>
+<span class="sd">    rename : :obj:`dict`</span>
+<span class="sd">        Dictionary to map the regex&#39;s group names to deviating column names.</span>
+<span class="sd">    dropna : :obj:`bool`, optional</span>
+<span class="sd">        Pass True if you want to drop rows where ``column`` is NaN/&lt;NA&gt;</span>
+<span class="sd">    inplace : :obj:`bool`, optional</span>
+<span class="sd">        Pass True if you want to mutate ``df``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">regex</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">DCML_REGEX</span>
+    <span class="k">if</span> <span class="n">regex</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">!=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="vm">__class__</span><span class="p">:</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">label_column</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">dropna</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removing NaN values from label column </span><span class="si">{</span><span class="n">label_column</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">label_column</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label_column</span><span class="si">}</span><span class="s2"> contains NaN values.&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Applying RegEx to column </span><span class="si">{</span><span class="n">label_column</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+    <span class="n">spl</span> <span class="o">=</span> <span class="n">extract_features_from_labels</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">label_column</span><span class="p">],</span> <span class="n">regex</span><span class="o">=</span><span class="n">regex</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rename</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">spl</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">rename</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">values_into_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">spl</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">skip_checks</span><span class="p">:</span>
+        <span class="n">syntax_errors</span> <span class="o">=</span> <span class="n">spl</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">df</span><span class="p">[</span><span class="n">label_column</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">syntax_errors</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The following labels do not match the regEx:</span><span class="se">\n</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">syntax_errors</span><span class="p">,</span> <span class="p">:</span><span class="n">label_column</span><span class="p">]</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span></div>
+
+
+<span class="k">def</span> <span class="nf">values_into_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">new_values</span><span class="p">):</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">new_values</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">update_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">features</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="n">new_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">features</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">update_columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">update_columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">update_columns</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">new_values</span><span class="p">[</span><span class="n">update_columns</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">new_values</span><span class="p">[</span><span class="n">new_columns</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">update_columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">all_other_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">features</span><span class="p">]</span>
+            <span class="n">column_order</span> <span class="o">=</span> <span class="n">all_other_columns</span> <span class="o">+</span> <span class="n">features</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column_order</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<div class="viewcode-block" id="features2type"><a class="viewcode-back" href="../../reference.html#ms3.expand_dcml.features2type">[docs]</a><span class="nd">@function_logger</span>
+<span class="k">def</span> <span class="nf">features2type</span><span class="p">(</span><span class="n">numeral</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">figbass</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Turns a combination of the three chord features into a chord type.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    &#39;M&#39;:    Major triad</span>
+<span class="sd">    &#39;m&#39;:    Minor triad</span>
+<span class="sd">    &#39;o&#39;:    Diminished triad</span>
+<span class="sd">    &#39;+&#39;:    Augmented triad</span>
+<span class="sd">    &#39;mm7&#39;:  Minor seventh chord</span>
+<span class="sd">    &#39;Mm7&#39;:  Dominant seventh chord</span>
+<span class="sd">    &#39;MM7&#39;:  Major seventh chord</span>
+<span class="sd">    &#39;mM7&#39;:  Minor major seventh chord</span>
+<span class="sd">    &#39;o7&#39;:   Diminished seventh chord</span>
+<span class="sd">    &#39;%7&#39;:   Half-diminished seventh chord</span>
+<span class="sd">    &#39;+7&#39;:   Augmented (minor) seventh chord</span>
+<span class="sd">    &#39;+M7&#39;:  Augmented major seventh chord</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">numeral</span><span class="p">)</span> <span class="ow">or</span> <span class="n">numeral</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Fr&#39;</span><span class="p">,</span> <span class="s1">&#39;Ger&#39;</span><span class="p">,</span> <span class="s1">&#39;It&#39;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">numeral</span>
+    <span class="n">form</span><span class="p">,</span> <span class="n">figbass</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">else</span> <span class="n">val</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="p">(</span><span class="n">form</span><span class="p">,</span> <span class="n">figbass</span><span class="p">))</span>
+    <span class="c1"># triads</span>
+    <span class="k">if</span> <span class="n">figbass</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="s1">&#39;64&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">form</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="n">form</span>
+        <span class="k">if</span> <span class="n">form</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;+M&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">figbass</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">form</span><span class="si">}</span><span class="s2"> is a seventh chord and cannot have figbass &#39;</span><span class="si">{</span><span class="n">figbass</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="c1"># else: go down, interpret as seventh chord</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;m&#39;</span> <span class="k">if</span> <span class="n">numeral</span><span class="o">.</span><span class="n">islower</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;M&#39;</span>
+    <span class="c1"># seventh chords</span>
+    <span class="k">if</span> <span class="n">form</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;+M&#39;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">form</span><span class="si">}</span><span class="s2">7&quot;</span>
+    <span class="n">triad</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span> <span class="k">if</span> <span class="n">numeral</span><span class="o">.</span><span class="n">islower</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;M&#39;</span>
+    <span class="n">seventh</span> <span class="o">=</span> <span class="s1">&#39;M&#39;</span> <span class="k">if</span> <span class="n">form</span> <span class="o">==</span> <span class="s1">&#39;M&#39;</span> <span class="k">else</span> <span class="s1">&#39;m&#39;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">triad</span><span class="si">}{</span><span class="n">seventh</span><span class="si">}</span><span class="s2">7&quot;</span></div>
+
+
+<div class="viewcode-block" id="replace_special"><a class="viewcode-back" href="../../reference.html#ms3.expand_dcml.replace_special">[docs]</a><span class="nd">@function_logger</span>
+<span class="k">def</span> <span class="nf">replace_special</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">regex</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="p">{},</span> <span class="n">special_map</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    | Move special symbols in the `numeral` column to a separate column and replace them by the explicit chords they stand for.</span>
+<span class="sd">    | In particular, this function replaces the symbols `It`, `Ger`, and `Fr`.</span>
+
+<span class="sd">    Uses: :py:func:`merge_changes`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : :obj:`pandas.DataFrame`</span>
+<span class="sd">        Dataframe containing DCML chord labels that have been split by split_labels().</span>
+<span class="sd">    regex : :obj:`re.Pattern`</span>
+<span class="sd">        Compiled regular expression used to split the labels replacing the special symbols.It needs to have named groups.</span>
+<span class="sd">        The group names are used as column names unless replaced by `cols`.</span>
+<span class="sd">    merge : :obj:`bool`, optional</span>
+<span class="sd">        False: By default, existing values, except `figbass`, are overwritten.</span>
+<span class="sd">        True: Merge existing with new values (for `changes` and `relativeroot`).</span>
+<span class="sd">    cols : :obj:`dict`, optional</span>
+<span class="sd">        The special symbols appear in the column `numeral` and are moved to the column `special`.</span>
+<span class="sd">        In case the column names for ``[&#39;numeral&#39;,&#39;form&#39;, &#39;figbass&#39;, &#39;changes&#39;, &#39;relativeroot&#39;, &#39;special&#39;]`` deviate, pass a dict, such as</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            {&#39;numeral&#39;:         &#39;numeral_col_name&#39;,</span>
+<span class="sd">             &#39;form&#39;:            &#39;form_col_name</span>
+<span class="sd">             &#39;figbass&#39;:         &#39;figbass_col_name&#39;,</span>
+<span class="sd">             &#39;changes&#39;:         &#39;changes_col_name&#39;,</span>
+<span class="sd">             &#39;relativeroot&#39;:    &#39;relativeroot_col_name&#39;,</span>
+<span class="sd">             &#39;special&#39;:         &#39;special_col_name&#39;}</span>
+
+<span class="sd">    special_map : :obj:`dict`, optional</span>
+<span class="sd">        In case you want to add or alter special symbols to be replaced, pass a replacement map, e.g.</span>
+<span class="sd">        {&#39;N&#39;: &#39;bII6&#39;}. The column &#39;figbass&#39; is only altered if it&#39;s None to allow for inversions of special chords.</span>
+<span class="sd">    inplace : :obj:`bool`, optional</span>
+<span class="sd">        Pass True if you want to mutate ``df``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1">### If the index is not unique, it has to be temporarily replaced</span>
+    <span class="n">tmp_index</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">is_unique</span>
+    <span class="k">if</span> <span class="n">tmp_index</span><span class="p">:</span>
+        <span class="n">ix</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">special2label</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;It&#39;</span><span class="p">:</span> <span class="s1">&#39;viio6(b3)/V&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Ger&#39;</span><span class="p">:</span> <span class="s1">&#39;viio65(b3)/V&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Fr&#39;</span><span class="p">:</span> <span class="s1">&#39;V43(b5)/V&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">special2label</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">special_map</span><span class="p">)</span>
+
+    <span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;numeral&#39;</span><span class="p">,</span> <span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="s1">&#39;figbass&#39;</span><span class="p">,</span> <span class="s1">&#39;changes&#39;</span><span class="p">,</span> <span class="s1">&#39;relativeroot&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">features</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;special&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+            <span class="n">cols</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">col</span>
+    <span class="n">feature_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">cols</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">cols</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span>
+        <span class="n">missing</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;These columns are missing from the DataFrame: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">. Either use split_labels() first or give correct `cols` parameter.&quot;</span>
+    <span class="n">select_all_special</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="s1">&#39;numeral&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">special2label</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span><span class="o">.</span><span class="n">index</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Moving special symbols from </span><span class="si">{</span><span class="n">cols</span><span class="p">[</span><span class="s1">&#39;numeral&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">cols</span><span class="p">[</span><span class="s1">&#39;special&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">cols</span><span class="p">[</span><span class="s1">&#39;special&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="s1">&#39;numeral&#39;</span><span class="p">]),</span> <span class="n">cols</span><span class="p">[</span><span class="s1">&#39;special&#39;</span><span class="p">],</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">select_all_special</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="s1">&#39;special&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">select_all_special</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="s1">&#39;numeral&#39;</span><span class="p">]]</span>
+
+    <span class="k">def</span> <span class="nf">repl_spec</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">special</span><span class="p">,</span> <span class="n">instead</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if the selected parts are empty and replace ``special`` by ``instead``.&quot;&quot;&quot;</span>
+        <span class="n">new_vals</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">instead</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_vals</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">instead</span><span class="si">}</span><span class="s2"> is not a valid label which could replace </span><span class="si">{</span><span class="n">special</span><span class="si">}</span><span class="s2">. Skipped.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">frame</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_vals</span> <span class="o">=</span> <span class="n">new_vals</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">new_vals</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">replace_this</span> <span class="o">=</span> <span class="n">SM</span><span class="p">[:]</span>  <span class="c1"># by default, replace entire column</span>
+                <span class="k">if</span> <span class="n">f</span> <span class="o">==</span> <span class="s1">&#39;figbass&#39;</span><span class="p">:</span>                  <span class="c1"># only empty figbass is replaced, with the exception of `Ger6` and `Fr6`</span>
+                    <span class="k">if</span> <span class="n">special</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Fr&#39;</span><span class="p">,</span> <span class="s1">&#39;Ger&#39;</span><span class="p">]:</span>    <span class="c1"># For these symbols, a wrong `figbass` == 6 is accepted and replaced</span>
+                        <span class="n">replace_this</span> <span class="o">=</span> <span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="s1">&#39;figbass&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="s1">&#39;6&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">frame</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="s1">&#39;figbass&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">replace_this</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="s1">&#39;figbass&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+                <span class="k">elif</span> <span class="n">f</span> <span class="o">!=</span> <span class="s1">&#39;numeral&#39;</span><span class="p">:</span>  <span class="c1"># numerals always replaced completely</span>
+                    <span class="n">not_empty</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="n">f</span><span class="p">]]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">not_empty</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                        <span class="k">if</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;changes&#39;</span><span class="p">,</span> <span class="s1">&#39;relativeroot&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">merge</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">f</span> <span class="o">==</span> <span class="s1">&#39;changes&#39;</span><span class="p">:</span>
+                                <span class="n">frame</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">not_empty</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="n">f</span><span class="p">]]</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">not_empty</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="n">f</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">merge_changes</span><span class="p">,</span>
+                                                                                                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">new_vals</span><span class="p">[</span><span class="n">f</span><span class="p">],))</span>
+                            <span class="k">elif</span> <span class="n">f</span> <span class="o">==</span> <span class="s1">&#39;relativeroot&#39;</span><span class="p">:</span>
+                                <span class="n">frame</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">not_empty</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="n">f</span><span class="p">]]</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">not_empty</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="n">f</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+                                    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">new_vals</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s2">&quot;While replacing </span><span class="si">{</span><span class="n">special</span><span class="si">}</span><span class="s2">, the existing &#39;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">&#39;-values have been merged with &#39;</span><span class="si">{</span><span class="n">new_vals</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;, resulting in :</span><span class="se">\n</span><span class="si">{</span><span class="n">frame</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">not_empty</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="n">f</span><span class="p">]]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="n">replace_this</span> <span class="o">=</span> <span class="o">~</span><span class="n">not_empty</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s2">&quot;While replacing </span><span class="si">{</span><span class="n">special</span><span class="si">}</span><span class="s2">, the following existing &#39;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">&#39;-values have been overwritten with </span><span class="si">{</span><span class="n">new_vals</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{</span><span class="n">frame</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">not_empty</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="n">f</span><span class="p">]]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">frame</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">replace_this</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="n">f</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_vals</span><span class="p">[</span><span class="n">f</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">frame</span>
+
+    <span class="k">for</span> <span class="n">special</span><span class="p">,</span> <span class="n">instead</span> <span class="ow">in</span> <span class="n">special2label</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">select_special</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="s1">&#39;special&#39;</span><span class="p">]]</span> <span class="o">==</span> <span class="n">special</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">select_special</span><span class="p">,</span> <span class="n">feature_cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">repl_spec</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">select_special</span><span class="p">,</span> <span class="n">feature_cols</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">instead</span><span class="o">=</span><span class="n">instead</span><span class="p">,</span> <span class="n">special</span><span class="o">=</span><span class="n">special</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="s1">&#39;special&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="s1">&#39;special&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tmp_index</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">ix</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="merge_changes"><a class="viewcode-back" href="../../reference.html#ms3.expand_dcml.merge_changes">[docs]</a><span class="k">def</span> <span class="nf">merge_changes</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Merge two `changes` into one, e.g. `b3` and `+#7` to `+#7b3`.</span>
+
+<span class="sd">    Uses: :py:func:`changes2list`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">all_changes</span> <span class="o">=</span> <span class="p">[</span><span class="n">changes2list</span><span class="p">(</span><span class="n">changes</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">changes</span> <span class="ow">in</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)]</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">all_changes</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">res</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="propagate_keys"><a class="viewcode-back" href="../../reference.html#ms3.expand_dcml.propagate_keys">[docs]</a><span class="nd">@function_logger</span>
+<span class="k">def</span> <span class="nf">propagate_keys</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">volta_structure</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">globalkey</span><span class="o">=</span><span class="s1">&#39;globalkey&#39;</span><span class="p">,</span> <span class="n">localkey</span><span class="o">=</span><span class="s1">&#39;localkey&#39;</span><span class="p">,</span> <span class="n">add_bool</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    | Propagate information about global keys and local keys throughout the dataframe.</span>
+<span class="sd">    | Pass split harmonies for one piece at a time. For concatenated pieces, use apply().</span>
+
+<span class="sd">    Uses: :py:func:`series_is_minor`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : :obj:`pandas.DataFrame`</span>
+<span class="sd">        Dataframe containing DCML chord labels that have been split by split_labels().</span>
+<span class="sd">    volta_structure: :obj:`dict`, optional</span>
+<span class="sd">        {first_mc -&gt; {volta_number -&gt; [mc1, mc2...]} } dictionary as you can get it from</span>
+<span class="sd">        ``Score.mscx.volta_structure``. This allows for correct propagation into</span>
+<span class="sd">        second and other voltas.</span>
+<span class="sd">    globalkey, localkey : :obj:`str`, optional</span>
+<span class="sd">        In case you renamed the columns, pass column names.</span>
+<span class="sd">    add_bool : :obj:`bool`, optional</span>
+<span class="sd">        Pass True if you want to add two boolean columns which are true if the respective key is</span>
+<span class="sd">        a minor key.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">nunique</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">globalkey</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">nunique</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;No global key specified.&quot;</span>
+    <span class="k">if</span> <span class="n">nunique</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Several global keys not accepted at the moment.&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Extending global key to all harmonies&#39;</span><span class="p">)</span>
+    <span class="n">global_key</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">globalkey</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">global_key</span><span class="p">):</span>
+        <span class="n">global_key</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">globalkey</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Global key is not specified in the first label. Using &#39;</span><span class="si">{</span><span class="n">global_key</span><span class="si">}</span><span class="s2">&#39; from index </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">globalkey</span><span class="p">]</span> <span class="o">==</span> <span class="n">global_key</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">globalkey</span><span class="p">]</span> <span class="o">=</span> <span class="n">global_key</span>
+    <span class="n">global_minor</span> <span class="o">=</span> <span class="n">series_is_minor</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">globalkey</span><span class="p">])</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Extending local keys to all harmonies&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">localkey</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">one</span> <span class="o">=</span> <span class="s1">&#39;i&#39;</span> <span class="k">if</span> <span class="n">global_minor</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;I&#39;</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">localkey</span><span class="p">)]</span> <span class="o">=</span> <span class="n">one</span>
+
+    <span class="k">if</span> <span class="n">volta_structure</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">volta_structure</span> <span class="o">!=</span> <span class="p">{}:</span>
+        <span class="k">if</span> <span class="s1">&#39;mc&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">volta_mcs</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">volta_dict</span> <span class="ow">in</span> <span class="n">volta_structure</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">volta_no</span><span class="p">,</span> <span class="n">mcs</span> <span class="ow">in</span> <span class="n">volta_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">volta_mcs</span><span class="p">[</span><span class="n">volta_no</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">mcs</span><span class="p">)</span>
+            <span class="n">volta_exclusion</span> <span class="o">=</span> <span class="p">{</span><span class="n">volta_no</span><span class="p">:</span> <span class="p">[</span><span class="n">mc</span> <span class="k">for</span> <span class="n">vn</span><span class="p">,</span> <span class="n">mcs</span> <span class="ow">in</span> <span class="n">volta_mcs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">for</span> <span class="n">mc</span> <span class="ow">in</span> <span class="n">mcs</span> <span class="k">if</span> <span class="n">vn</span> <span class="o">!=</span> <span class="n">volta_no</span><span class="p">]</span> <span class="k">for</span>
+                               <span class="n">volta_no</span> <span class="ow">in</span> <span class="n">volta_mcs</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+            <span class="k">for</span> <span class="n">volta_no</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">volta_exclusion</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                <span class="n">selector</span> <span class="o">=</span> <span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">mc</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">volta_exclusion</span><span class="p">[</span><span class="n">volta_no</span><span class="p">])</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">selector</span><span class="p">,</span> <span class="n">localkey</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">selector</span><span class="p">,</span> <span class="n">localkey</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;ffill&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Dataframe needs to have a &#39;mc&#39; column. Ignoring volta_structure.&quot;</span><span class="p">)</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">localkey</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;ffill&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">localkey</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;ffill&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">add_bool</span><span class="p">:</span>
+        <span class="n">gm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">globalkey</span><span class="si">}</span><span class="s2">_is_minor&quot;</span>
+        <span class="n">lm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">localkey</span><span class="si">}</span><span class="s2">_is_minor&quot;</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">gm</span><span class="p">]</span> <span class="o">=</span> <span class="n">global_minor</span>
+        <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">localkey</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">lk</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">resolve_relative_keys</span><span class="p">,</span> <span class="p">[</span><span class="n">localkey</span><span class="p">,</span> <span class="n">gm</span><span class="p">],</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lk</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">localkey</span><span class="p">]</span>
+        <span class="n">local_minor</span> <span class="o">=</span> <span class="n">series_is_minor</span><span class="p">(</span><span class="n">lk</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">lm</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_minor</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="propagate_pedal"><a class="viewcode-back" href="../../reference.html#ms3.expand_dcml.propagate_pedal">[docs]</a><span class="nd">@function_logger</span>
+<span class="k">def</span> <span class="nf">propagate_pedal</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop_pedalend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Propagate the pedal note for all chords within square brackets.</span>
+<span class="sd">    By default, the note is expressed in relation to each label&#39;s localkey.</span>
+
+<span class="sd">    Uses: :py:func:`rel2abs_key`, :py:func:`abs2rel_key`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : :obj:`pandas.DataFrame`</span>
+<span class="sd">        Dataframe containing DCML chord labels that have been split by split_labels()</span>
+<span class="sd">        and where the keys have been propagated using propagate_keys().</span>
+<span class="sd">    relative : :obj:`bool`, optional</span>
+<span class="sd">        Pass False if you want the pedal note to stay the same even if the localkey changes.</span>
+<span class="sd">    drop_pedalend : :obj:`bool`, optional</span>
+<span class="sd">        Pass False if you don&#39;t want the column with the ending brackets to be dropped.</span>
+<span class="sd">    cols : :obj:`dict`, optional</span>
+<span class="sd">        In case the column names for ``[&#39;pedal&#39;,&#39;pedalend&#39;, &#39;globalkey&#39;, &#39;localkey&#39;]`` deviate, pass a dict, such as</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            {&#39;pedal&#39;:       &#39;pedal_col_name&#39;,</span>
+<span class="sd">             &#39;pedalend&#39;:    &#39;pedalend_col_name&#39;,</span>
+<span class="sd">             &#39;globalkey&#39;:   &#39;globalkey_col_name&#39;,</span>
+<span class="sd">             &#39;localkey&#39;:    &#39;localkey_col_name&#39;}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1">### If the index is not unique, it has to be temporarily replaced</span>
+    <span class="n">tmp_index</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">is_unique</span>
+    <span class="k">if</span> <span class="n">tmp_index</span><span class="p">:</span>
+        <span class="n">ix</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pedal&#39;</span><span class="p">,</span> <span class="s1">&#39;pedalend&#39;</span><span class="p">,</span> <span class="s1">&#39;globalkey&#39;</span><span class="p">,</span> <span class="s1">&#39;localkey&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+            <span class="n">cols</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">col</span>
+    <span class="n">pedal</span><span class="p">,</span> <span class="n">pedalend</span> <span class="o">=</span> <span class="n">cols</span><span class="p">[</span><span class="s1">&#39;pedal&#39;</span><span class="p">],</span> <span class="n">cols</span><span class="p">[</span><span class="s1">&#39;pedalend&#39;</span><span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Extending pedal notes to concerned harmonies&#39;</span><span class="p">)</span>
+    <span class="n">beginnings</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">pedal</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">(),</span> <span class="p">[</span><span class="s1">&#39;mc&#39;</span><span class="p">,</span> <span class="n">pedal</span><span class="p">]]</span>
+    <span class="n">endings</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">pedalend</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">(),</span> <span class="p">[</span><span class="s1">&#39;mc&#39;</span><span class="p">,</span> <span class="n">pedalend</span><span class="p">]]</span>
+    <span class="n">n_b</span><span class="p">,</span> <span class="n">n_e</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">beginnings</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">endings</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_comparison</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">beginnings</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">endings</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s1">&#39;mc&#39;</span><span class="p">:</span> <span class="s1">&#39;Int64&#39;</span><span class="p">})</span>
+
+    <span class="k">assert</span> <span class="n">n_b</span> <span class="o">==</span> <span class="n">n_e</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n_b</span><span class="si">}</span><span class="s2"> organ points started, </span><span class="si">{</span><span class="n">n_e</span><span class="si">}</span><span class="s2"> ended:</span><span class="se">\n</span><span class="si">{</span><span class="n">make_comparison</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="n">relative</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span>
+            <span class="s1">&#39;localkey&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="s2">&quot;Local keys must first be propagated using propagate_keys(), no NaNs allowed.&quot;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">fro</span><span class="p">,</span> <span class="n">ped</span><span class="p">),</span> <span class="n">to</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">beginnings</span><span class="p">[</span><span class="n">pedal</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">endings</span><span class="p">[</span><span class="n">pedalend</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">section</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fro</span><span class="p">:</span><span class="n">to</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Slicing of the DataFrame did not work from </span><span class="si">{</span><span class="n">fro</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">to</span><span class="si">}</span><span class="s2">. Index looks like this:</span><span class="se">\n</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">localkeys</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">section</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="s1">&#39;localkey&#39;</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="n">localkeys</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">first_localkey</span> <span class="o">=</span> <span class="n">localkeys</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">globalkeys</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">section</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="s1">&#39;globalkey&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">globalkeys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Several globalkeys appearing within the same organ point.&quot;</span>
+            <span class="n">global_minor</span> <span class="o">=</span> <span class="n">globalkeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">islower</span><span class="p">()</span>
+            <span class="c1"># if the localkey changes during the pedal point, the reference changes and the Roman numeral indicating</span>
+            <span class="c1"># the pedal note needs to be adapted</span>
+            <span class="n">key2pedal</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">key</span><span class="p">:</span> <span class="n">ped</span> <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">first_localkey</span> <span class="k">else</span> <span class="n">abs2rel_key</span><span class="p">(</span><span class="n">rel2abs_key</span><span class="p">(</span><span class="n">ped</span><span class="p">,</span> <span class="n">first_localkey</span><span class="p">,</span> <span class="n">global_minor</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">),</span> <span class="n">key</span><span class="p">,</span>
+                                                                   <span class="n">global_minor</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">localkeys</span><span class="o">.</span><span class="n">unique</span><span class="p">()}</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Pedal note </span><span class="si">{</span><span class="n">ped</span><span class="si">}</span><span class="s2"> has been transposed relative to other local keys within a global </span><span class="si">{</span><span class="s1">&#39;minor&#39;</span> <span class="k">if</span> <span class="n">global_minor</span> <span class="k">else</span> <span class="s1">&#39;major&#39;</span><span class="si">}</span><span class="s2"> context: </span><span class="si">{</span><span class="n">key2pedal</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">pedals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">key2pedal</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">localkeys</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">section</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pedals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">ped</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">section</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">section</span><span class="p">,</span> <span class="n">pedal</span><span class="p">]</span> <span class="o">=</span> <span class="n">pedals</span>
+
+    <span class="k">if</span> <span class="n">drop_pedalend</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">pedalend</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tmp_index</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">ix</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<span class="c1">########################################################################################################################</span>
+<span class="c1">#                                           MOMENTARILY NOT IN USE:</span>
+<span class="c1">########################################################################################################################</span>
+
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div class="sphinx-toc sphinxglobaltoc">
+<h3><a href="../../index.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../manual.html">Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Developers' Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../../index.html">ms3 1.0.2+ge926d22.dirty documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ms3.expand_dcml</a></li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, johentsch.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>
