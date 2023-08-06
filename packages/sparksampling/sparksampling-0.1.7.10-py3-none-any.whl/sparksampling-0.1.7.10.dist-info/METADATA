@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: sparksampling
+Version: 0.1.7.10
+Summary: pyspark-sampling
+Home-page: https://github.com/Wh1isper/pyspark-sampling
+Author: wh1isper
+Author-email: 9573586@qq.com
+Keywords: sparksampling
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.5
+License-File: LICENSE
+Requires-Dist: grpcio (>=1.35.0)
+Requires-Dist: protobuf (<4)
+Requires-Dist: pyspark
+Requires-Dist: findspark
+Requires-Dist: traitlets
+Requires-Dist: pandas (>=1.2)
+Requires-Dist: requests
+Requires-Dist: kubernetes
+Requires-Dist: boto3
+Requires-Dist: grpcio-tools
+Requires-Dist: graphlib-backport
+
+========================================
+sparksampling
+========================================
+``sparksampling`` is a PySpark-based sampling and data quality assessment GRPC service that supports containerized deployments and Spark on K8S
+
+
+Feature
+========================================
+
+- Common sampling methods: Random, Stratified, Simple
+- Relationship Sampling based on DAG and Topological sorting
+- Cloud Native and Spark on K8S support
+
+
+========================================
+QUICK START
+========================================
+
+Installation
+========================================
+
+The trial only requires direct installation using pypi
+
+``pip install sparksampling``
+
+run as
+
+``sparksampling``
+
+The service will start and listen on port 8530
+
+Docker
+========================================
+
+``docker run -p 8530:8530 wh1isper/pysparksampling:latest``
+
+========================================
+MORE
+========================================
+
+For more, see our github page: https://github.com/Wh1isper/pyspark-sampling/
