@@ -1,0 +1,86 @@
+# For guidelines on how to write pyproject.toml files, see:
+#
+# - https://peps.python.org/pep-0621/
+# - https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html.
+
+[project]
+name = "corpy"
+readme = "README.rst"
+description = "Tools for processing language data."
+keywords = ["corpus", "linguistics", "NLP"]
+authors = [
+    {name = "David Lukes", email = "dafydd.lukes@gmail.com"},
+]
+license = {text = "GPL-3.0-or-later"}
+dynamic = ["version"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Education",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+  "Natural Language :: Czech",
+  "Natural Language :: English",
+  "Natural Language :: Slovak",
+  "Operating System :: MacOS",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: Education",
+  "Topic :: Text Processing :: Linguistic",
+  "Typing :: Typed"
+]
+
+# NOTE: When bumping the minimum Python, don't forget to bump it at the
+# beginning of the README and in .readthedocs.yml as well, and update
+# classifiers above!
+requires-python = ">=3.10"
+dependencies = [
+  # regex is versioned using calver plus it sticks to the API of stdlib's re
+  # module, so whichever latest version is fine
+  "regex",
+  "lxml>=4.6.1",
+  "wordcloud>=1.8.1",
+  "ufal.morphodita>=1.10",
+  "ufal.udpipe>=1.2",
+  "numpy>=1.16",
+  "click>=7.0",
+]
+
+[project.urls]
+Documentation = "https://corpy.rtfd.io"
+Issues = "https://github.com/dlukes/corpy/issues"
+Source = "https://github.com/dlukes/corpy"
+
+[project.scripts]
+xc = "corpy.scripts.xc:main"
+zip-verticals = "corpy.scripts.zip_verticals:main"
+
+[project.optional-dependencies]
+dev = [
+  "ipython",
+  "ipdb",
+  "pytest",
+  "build",
+  "furo",
+  "twine",
+  "sphinx>=4.1.2",
+]
+
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools_scm]
+write_to = "src/corpy/_version.py"
+
+[tool.pytest.ini_options]
+addopts = '--doctest-modules --doctest-glob="*.rst" --doctest-continue-on-failure'
+filterwarnings = ['ignore:::^corpy\.?']
