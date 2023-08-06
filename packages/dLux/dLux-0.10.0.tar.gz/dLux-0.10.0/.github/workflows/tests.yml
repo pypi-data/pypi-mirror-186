@@ -1,0 +1,55 @@
+name: automated tests
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@main
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+
+      - name: install environment
+        run: |
+          python -m pip install --upgrade pip
+          pip install --quiet pytest
+          pip install --quiet -r requirements.txt
+          pip install --quiet .
+
+      # ===== Tests =====
+      - name: core tests
+        run: pytest --quiet tests/test_core.py
+
+      - name: spectrum tests
+        run: pytest --quiet tests/test_spectrums.py
+
+      - name: source tests
+        run: pytest --quiet tests/test_sources.py
+
+      - name: wavefront tests
+        run: pytest --quiet tests/test_wavefronts.py
+
+      - name: propagator tests
+        run: pytest --quiet tests/test_propagators.py
+
+      - name: optics tests
+        run: pytest --quiet tests/test_optics.py
+
+      - name: detector tests
+        run: pytest --quiet tests/test_detectors.py
+
+      - name: spectra tests
+        run: pytest --quiet tests/test_spectrums.py
+
+      - name: aperture tests
+        run: pytest --quiet tests/test_apertures.py
+
