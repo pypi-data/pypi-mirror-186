@@ -1,0 +1,64 @@
+Metadata-Version: 2.1
+Name: sdssdb
+Version: 0.6.1
+Summary: SDSS product for database management
+Home-page: https://github.com/sdss/sdssdb
+Author: José Sánchez-Gallego
+Author-email: gallegoj@uw.edu
+License: BSD 3-Clause License
+Project-URL: Repository, https://github.com/sdss/sdssdb
+Project-URL: Documentation, https://sdssdb.readthedocs.org
+Description: sdssdb
+        ======
+        
+        |python| |docs| |travis|
+        
+        `SDSS <https://sdss.org>`__ product for database management.
+        
+        **sdssdb is in active development. Although the code is stable and can be used for production, the implementation of existing features may be changed without previous notice. This will change when we reach version 1.0.0.**
+        
+        Useful links
+        ------------
+        
+        - GitHub: https://github.com/sdss/sdssdb
+        - Documentation: https://sdssdb.readthedocs.org
+        - Issues: https://github.com/sdss/sdssdb/issues
+        
+        How to use
+        ----------
+        ::
+        
+            >>> from sdssdb.peewee.sdss5db import catalogdb
+            >>> targets = catalogdb.GaiaDR2Source.select().where(catalogdb.GaiaDR2Source.phot_g_mean_mag < 15)
+        
+        
+        .. |python| image:: https://img.shields.io/badge/python-3.6%2B-green.svg
+            :alt: Requires Python 3.6+
+            :scale: 100%
+        
+        .. |docs| image:: https://readthedocs.org/projects/sdssdb/badge/?version=latest
+            :alt: Documentation Status
+            :scale: 100%
+            :target: https://sdssdb.readthedocs.io/en/latest/?badge=latest
+        
+        .. |travis| image:: https://travis-ci.org/sdss/sdssdb.svg?branch=main
+            :target: https://travis-ci.org/sdss/sdssdb
+        
+        .. |Python application| image:: https://github.com/sdss/sdssdb/workflows/Python%20application/badge.svg
+        
+Keywords: astronomy,software,database
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Documentation :: Sphinx
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.6
+Description-Content-Type: text/x-rst
+Provides-Extra: all
+Provides-Extra: dev
+Provides-Extra: docs
