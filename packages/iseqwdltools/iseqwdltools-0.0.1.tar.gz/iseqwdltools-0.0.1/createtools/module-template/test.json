@@ -1,0 +1,24 @@
+{
+    "wdl":"wdltaskpath",
+    "threads": 1,
+    "tests": [
+        {
+            "name":"Primary test",
+            "bcoCheck": true,
+            "stdoutCheck": true,
+            "inputs": {
+                "some_input": "${ROOTDIR}/src/test/resources/data..."
+            },
+            "conditions": [
+
+              {
+                  "file":"OUTPUT-FILE-TO-ADD",
+                  "name":"File OUTPUT-FILE-TO-ADD exists",
+                  "error_message":"File OUTPUT-FILE-TO-ADD does not exist",
+                  "command":"test -f $file"
+              }
+            ]
+        }
+
+    ]
+}

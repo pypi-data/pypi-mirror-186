@@ -1,0 +1,93 @@
+Metadata-Version: 2.1
+Name: iseqwdltools
+Version: 0.0.1
+Summary: Meta data for intelliseq
+Home-page: https://gitlab.com/intelliseq/iseqmetatools
+Author: motfalo
+Author-email: olaf.tomaszewski@intelliseq.pl
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: Free for non-commercial use
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Iseq WDL
+
+A bunch of scripts to operate on iseq WDL files
+
+More info here: https://workflows-dev-documentation.readthedocs.io/en/latest/WDL.html
+
+# Install
+
+Optional steps (create virtual environment):
+```
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Obligatory steps:
+```
+python3 -m pip install --upgrade pip
+pip install iseqwdltools
+```
+
+# Creating task/module/pipeline from scratch
+
+You can create tasks/modules/pipelines from scratch by following steps below.
+In square brackets non obligatory parameters:
+
+1) Create task:
+
+```
+create-task --name task_name [--version X.Y.Z] [--quiet]
+```
+
+2) Create module:
+
+```
+create-module --name task_name [--version X.Y.Z] [--quiet]
+```
+
+3) Create pipeline:
+
+```
+create-task --name task_name [--version X.Y.Z] [--quiet]
+```
+
+More info here:
+https://workflows-dev-documentation.readthedocs.io/en/latest/WDL.html#creating-wdl
+
+
+# Tagging WDL file
+
+While using vscode as IDE you need to turn off terminal authentication in Settings (press ‘Ctrl + ,’ and search for git.terminalAuthentication).
+
+Script usage on example:
+
+```
+WDL="src/main/wdl/pipelines/germline/germline.wdl"
+tag_wdl -w $WDL
+```
+
+If you wish to tag a workflow without the proper meta.json file you can add the -i flag. For example:
+
+```
+tag_wdl -w $WDL -i
+```
+
+
+Where:
+    WDL is the path to tagged .wdl file. In the same directory should be meta.json
+
+For example: `/path/to/wdl/file/file.wdl` and `/path/to/wdl/file/meta.json`. This is really important to name these files as mentioned. Script looks for them named like that in chosen directory. Tag version is taken from .wdl file. Script looks for the first line containing String and version keywords with one of the following words: `pipeline/module/task`.
+
+
+Wdl-tagger:
+    1. Compares version in wdl and meta.json file (without -i flag)
+    2. Gets to the workflows repository
+    3. Fetches the workflows repository
+    4. Creates a new tag based on workflow name (finds pipeline/module/task name in wdl file) and workflow version
+    5. Checks if the new tag is not occupied and compares it with latest version in repository (to check if it’s latest)
+    6. Compares wdl from latest tag version with wdl from dev and checks if it’s content is the same
+    7. Pushes new tag to the repository
