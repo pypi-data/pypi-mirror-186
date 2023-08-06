@@ -1,0 +1,140 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "salesforce-functions"
+description = "Python support for Salesforce Functions"
+keywords = ["functions", "salesforce"]
+readme = "README.md"
+license = "BSD-3-Clause"
+dynamic = ["version"]
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+# httptools and uvloop are optional uvicorn dependencies that improve performance.
+dependencies = [
+    "aiohttp>=3.8.3,<4",
+    "httptools>=0.5.0,<0.6",
+    "orjson>=3.8.5,<4",
+    "python-dateutil>=2.8.2,<3; python_version < '3.11'",
+    "starlette>=0.23.1,<0.24",
+    "structlog>=22.3.0,<23",
+    "tomli>=2.0.1,<3; python_version < '3.11'",
+    "uvicorn>=0.20.0,<0.21",
+    "uvloop>=0.17.0,<0.18; sys_platform != 'win32' and sys_platform != 'cygwin'",
+]
+
+[project.optional-dependencies]
+development = [
+    "black==22.12.0",
+    "coverage-conditional-plugin==0.8.0",
+    "flake8==6.0.0",
+    "isort[colors]==5.11.4",
+    # httpx is required for starlette's `TestClient`.
+    "httpx==0.23.3",
+    "mypy==0.991",
+    "pylint==2.15.10",
+    "pytest==7.2.1",
+    "pytest-asyncio==0.20.3",
+    "pytest-cov==4.0.0",
+]
+
+[project.scripts]
+sf-functions-python = "salesforce_functions._internal.cli:main"
+
+[project.urls]
+Changelog = "https://github.com/heroku/sf-functions-python/blob/main/CHANGELOG.md"
+Source = "https://github.com/heroku/sf-functions-python"
+
+[tool.hatch.build]
+packages = ["salesforce_functions"]
+
+[tool.hatch.envs.default]
+features = [
+    "development",
+]
+
+[tool.hatch.version]
+path = "salesforce_functions/__version__.py"
+
+[tool.black]
+target-version = ['py310', 'py311']
+extend-exclude = "(tests/fixtures/invalid_syntax_error/main.py)"
+
+[tool.coverage.coverage_conditional_plugin.rules]
+# We're using the `no-cover-` rule name prefixes since the default pragma syntax isn't intuitive:
+# https://github.com/wemake-services/coverage-conditional-plugin/issues/188
+no-cover-python-gte-311 = "sys_version_info >= (3, 11)"
+no-cover-python-lt-311 = "sys_version_info < (3, 11)"
+
+[tool.coverage.run]
+branch = true
+plugins = ["coverage_conditional_plugin"]
+source = ["salesforce_functions"]
+
+[tool.mypy]
+exclude = ["^tests/fixtures/invalid_syntax_error/main.py$"]
+packages = ["salesforce_functions", "tests"]
+pretty = true
+strict = true
+
+[tool.isort]
+profile = "black"
+
+[tool.pylint.main]
+ignore-paths = ["^tests/fixtures/invalid_syntax_error/main.py$"]
+
+[tool.pylint.basic]
+# Variable names that should always be accepted, regardless of the `invalid-name` rule's regex.
+good-names = ["_", "e", "id"]
+include-naming-hint = true
+
+[tool.pylint.format]
+max-line-length = 120
+
+[tool.pylint."messages control"]
+disable = [
+    "fixme",
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "missing-module-docstring",
+    # `no-member` has false positives with orjson
+    "no-member",
+    "redefined-outer-name",
+    "too-many-instance-attributes",
+]
+enable = [
+    "useless-suppression",
+]
+
+[tool.pylint.reports]
+output-format = "colorized"
+
+[tool.pyright]
+exclude = ["tests/fixtures/invalid_syntax_error/main.py"]
+include = ["salesforce_functions", "tests"]
+pythonPlatform = "All"
+typeCheckingMode = "strict"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--cov",
+    "--cov-report=term-missing",
+    "--import-mode=importlib",
+    "--no-cov-on-fail",
+    "--strict-markers",
+    "-m not requires_wiremock",
+]
+asyncio_mode = "auto"
+filterwarnings = [
+    "error",
+]
+markers = [
+    "requires_wiremock: marks tests that require a running wiremock process (deselect with '-m \"not requires_wiremock\"')",
+]
+testpaths = ["tests"]
+xfail_strict = true
