@@ -1,0 +1,19 @@
+#
+# This is an auto-generated file.  DO NOT EDIT!
+#
+
+from ansys.fluent.core.solver.flobject import *
+
+from ansys.fluent.core.solver.flobject import _ChildNamedObjectAccessorMixin
+
+from ansys.fluent.core.solver.flobject import _CreatableNamedObjectMixin
+
+from ansys.fluent.core.solver.flobject import _NonCreatableNamedObjectMixin
+
+class isat_error_tolerance(Real):
+    """
+    Specify the ISAT error tolerance.
+    """
+
+    fluent_name = "isat-error-tolerance"
+
