@@ -1,0 +1,64 @@
+config:
+    # Needs git CLI tool
+    loadMeSysDeps:
+        git:
+            apt: git
+            url: https://git-scm.com/downloads
+
+    # The git version itself
+    gitVersion:
+        __resolver__: nmk_base.git.GitVersionResolver
+
+    # Git version stamp file
+    gitVersionStamp: ${outputDir}/.gitversion
+
+    # Git ignored files
+    gitIgnoredFiles:
+        - ${PROJECTDIR_NMK}/
+
+    # Generated .gitignore
+    gitIgnore: ${PROJECTDIR}/.gitignore
+
+    # Generated .gitignore stamp file
+    gitIgnoreStamp: ${outputDir}/.gitignore
+
+    # Template for .gitignore fragment
+    gitIgnoreTemplate: ${BASEDIR}/templates/gitignore
+
+tasks:
+    # To refresh git version stamp file
+    git.version:
+        description: Refresh git version
+        emoji: ":regional_indicator_symbol_letter_g: .:label: "
+        output: ${gitVersionStamp}
+        params:
+            version: ${gitVersion}
+        silent: true
+        builder: nmk_base.git.GitVersionRefresh
+        deps:
+            - out
+        appendToDeps: setup
+
+    # Deep clean (remove all git ignored stuff)
+    git.clean:
+        description: Deep clean project
+        emoji: ":regional_indicator_symbol_letter_g: .:broom:"
+        builder: nmk_base.git.GitClean
+
+    # Update git ignored files
+    git.ignore:
+        description: Refresh git ignored files
+        emoji: ":regional_indicator_symbol_letter_g: .:sleeping_face:"
+        input:
+            - ${gitIgnore}  # .gitignore is also an input as it may be updated manually
+            - ${gitIgnoreTemplate}
+        output:
+            - ${gitIgnore}
+            - ${gitIgnoreStamp}
+        deps:
+            - out
+        appendToDeps: setup
+        builder: nmk_base.git.GitIgnore
+        params:
+            ignored_files: ${gitIgnoredFiles}
+            template: ${gitIgnoreTemplate}

@@ -1,0 +1,27 @@
+config:
+    # Main source directory
+    sourceDir: ${PROJECTDIR}/src
+    
+    # Output build directory
+    outputDir: ${PROJECTDIR}/out
+
+    # Contribute to ignored files
+    gitIgnoredFiles:
+        - ${outputDir}
+
+tasks:
+    # Clean task
+    clean:
+        description: Clean build output
+        emoji: broom
+        builder: nmk_base.output.CleanBuilder
+        params:
+            path: ${outputDir}
+
+    # Create output folder
+    out:
+        description: Create output folder
+        emoji: file_folder
+        silent: true
+        builder: nmk_base.output.OutputMkdir
+        output: ${outputDir}
