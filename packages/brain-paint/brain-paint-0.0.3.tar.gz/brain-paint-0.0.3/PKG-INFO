@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: brain-paint
+Version: 0.0.3
+Summary: Script for visualizing ICA/ROI brain parcellation
+Author: Sergey Plis
+Author-email: Pavel Popov <paavali.popov@gmail.com>
+Project-URL: Homepage, https://github.com/neuroneural/brain-paint
+Project-URL: Bug Tracker, https://github.com/neuroneural/brain-paint/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# brain-paint
+Script for visualizing ICA/ROI brain parcellation
+
+# Requirements
+```
+pip install brain-paint
+```
+
+# Examples
+```
+brain-paint --nifti nifti.nii --anat anat.nii
+```
+
+# Options for `brain-paint`
+
+- `--nifti`
+    - path to the 4D nifti to convert to images
+    - required
+- `--anat`
+    - path to the anatomical image to use as underlay
+    - required
+
+- `--dir`
+    - name for the directory where to save results
+    - **brain-paint** creates a directory `brain-paint-results`, where `dir` directory will be saved
+    - can be nested (e.g., `final/most_final`)
+    - default - current UTC time
+- `--sign`
+    - choices: `pos, neg, both`
+    - used for filtering only positive, only negative, or both components
+    - default - `both`
+- `--thr`
+    - threshold value for component significance
+    - default - `2.0`
+- `--dpi`
+    - dpi for png output
+    - default - `300`
