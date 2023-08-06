@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: netbox-unacceptable-events
+Version: 0.1.0
+Summary: Netbox plugin. Assign devices and virtual machines and application systems to information security unacceptable events
+Download-URL: https://pypi.org/project/netbox-unacceptable-events/
+Author: Oleg Senchenko
+Author-email: senchenkoob@mail.ru
+Maintainer: Oleg Senchenko
+Maintainer-email: senchenkoob@mail.ru
+License: MIT
+Keywords: netbox,netbox-plugin
+Classifier: Programming Language :: Python :: 3.8
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# netbox-plugin-unacceptable-events
+
+
+```bash
+pip3 install netbox-plugin-unacceptable-events
+```
+
+
+
+Добавить в файле netbox/netbox/configuration.py
+
+```
+PLUGINS = [
+    'ptuevents'
+]
+```
+
+В командной строке
+```
+./manage.py migrate
+```
+
+Перезапустить сервер netbox.
