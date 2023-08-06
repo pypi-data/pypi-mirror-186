@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a98da183-21bc-4380-a0c7-34dcf9042225" name="Changes" comment="Test github Actions&#10;&#10;&#10;- Switch from unittest to pytest&#10;- Switch from setuptools (not compatible with pytest) to hatchling">
+      <change afterPath="$PROJECT_DIR$/.github/run-test.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/database.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/confs/mariadb-gz-clean.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/confs/mariadb.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actuators/post_backup.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/actuators/post_backup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_scenarios.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_scenarios.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Jwl0lJUrdzI6vqqKB4Px3PyOQf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "last_opened_file_path": "/home/remi/PycharmProjects/bashckup/tests/confs",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests/confs" />
+      <recent name="$PROJECT_DIR$/tests" />
+      <recent name="$PROJECT_DIR$/src/actuators" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/tests/testFolder" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests" />
+      <recent name="$PROJECT_DIR$/src/bashckup" />
+      <recent name="$PROJECT_DIR$/src/actuators" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python tests.pytest for test_scenarios.test_mariadb">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="bashckup" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-image" temporary="true">
+      <deployment type="docker-image">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="bashckup-test" type="docker-deploy" factoryName="docker-image" temporary="true" server-name="Docker">
+      <deployment type="docker-image">
+        <settings>
+          <option name="imageTag" value="sha256:b256e74a44cd4ff00eb80f2342362429231902a7dd0709b5d99f277210262792" />
+          <option name="command" value="locale -a" />
+          <option name="containerName" value="bashckup-test" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="workflows/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="imageTag" value="debian" />
+          <option name="buildOnly" value="true" />
+          <option name="containerName" value="" />
+          <option name="sourceFilePath" value=".github/workflows/Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest for test_scenarios.test_mariadb" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="bashckup" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_scenarios.test_mariadb&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in tests" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="bashckup" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Docker.bashckup-test" />
+      <item itemvalue="Docker.workflows/Dockerfile" />
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python tests.pytest for test_scenarios.test_mariadb" />
+      <item itemvalue="Python tests.pytest in tests" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.pytest for test_scenarios.test_mariadb" />
+        <item itemvalue="Python tests.pytest in tests" />
+        <item itemvalue="Docker.workflows/Dockerfile" />
+        <item itemvalue="Docker.bashckup-test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a98da183-21bc-4380-a0c7-34dcf9042225" name="Changes" comment="" />
+      <created>1672996805519</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1672996805519</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Init">
+      <created>1673012672204</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1673012672204</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Some fixes and&#10;&#10;&#10;- Tar : Fix incremental file name generation&#10;- Remove useless files&#10;- Add bash scripts for pypi&#10;- Add tests scenario&#10;- Close all fd">
+      <created>1673170429381</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1673170429381</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Some fixes and&#10;&#10;&#10;- Add verbose mode (only for readers and post-backup)&#10;- Add quiet mode&#10;- If a backups fails, the other backups will be executed&#10;- Displays the time it took to run all backups&#10;- Now FileWriter.path is directly use, no sub folder are now created&#10;- Add module's parameters in README">
+      <created>1673385013341</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1673385013341</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Test github Actions&#10;&#10;&#10;- Switch from unittest to pytest&#10;- Switch from setuptools (not compatible with pytest) to hatchling">
+      <created>1673600596943</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1673600596943</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Test github Actions&#10;&#10;&#10;- Switch from unittest to pytest&#10;- Switch from setuptools (not compatible with pytest) to hatchling">
+      <created>1673614362117</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1673614362117</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Init" />
+    <MESSAGE value="Some fixes and&#10;&#10;&#10;- Tar : Fix incremental file name generation&#10;- Remove useless files&#10;- Add bash scripts for pypi&#10;- Add tests scenario&#10;- Close all fd" />
+    <MESSAGE value="Some fixes and&#10;&#10;&#10;- Add verbose mode (only for readers and post-backup)&#10;- Add quiet mode&#10;- If a backups fails, the other backups will be executed&#10;- Displays the time it took to run all backups&#10;- Now FileWriter.path is directly use, no sub folder are now created&#10;- Add module's parameters in README" />
+    <MESSAGE value="Test github Actions&#10;&#10;&#10;- Switch from unittest to pytest&#10;- Switch from setuptools (not compatible with pytest) to hatchling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test github Actions&#10;&#10;&#10;- Switch from unittest to pytest&#10;- Switch from setuptools (not compatible with pytest) to hatchling" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/test_read_file.py</url>
+          <line>54</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/test_scenarios.py</url>
+          <line>122</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/bashckup/bashckup.py</url>
+          <line>336</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/test_scenarios.py</url>
+          <line>96</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

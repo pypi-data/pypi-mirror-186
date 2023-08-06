@@ -1,0 +1,24 @@
+name: Tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  tests:
+    name: Run tests on Debian
+    runs-on: ubuntu-latest
+    container:
+      image: 'remiangenieux/test-bashckup:debian'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install app
+        run: |
+          pip install .[tests]
+      - name: Run Tests
+        run: |
+          service mariadb start
+          service rsync start
+          pytest
