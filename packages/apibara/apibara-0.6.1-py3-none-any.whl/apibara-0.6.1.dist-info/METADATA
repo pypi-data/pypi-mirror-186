@@ -1,0 +1,86 @@
+Metadata-Version: 2.1
+Name: apibara
+Version: 0.6.1
+Summary: Apibara cliend SDK. Stream and transform on-chain data with Python.
+Home-page: https://www.apibara.com
+License: Apache-2.0
+Keywords: ethereum,web3,starknet
+Author: Francesco Ceccon
+Author-email: francesco@apibara.com
+Requires-Python: >=3.8,<3.11
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Provides-Extra: indexer
+Requires-Dist: grpcio (>=1.50,<2.0)
+Requires-Dist: protobuf (>=4.20,<5)
+Requires-Dist: pymongo (>=4.3.3,<5.0.0) ; extra == "indexer"
+Project-URL: Repository, https://github.com/apibara/python-sdk
+Description-Content-Type: text/x-rst
+
+Apibara Python SDK
+==================
+
+.. warning::
+    This SDK is alpha software. The API will change drastically until the beta.
+
+    `Open an issue on GitHub <https://github.com/apibara/python-sdk>`_ to report bugs or provide feedback.
+
+
+Build web3-powered applications in Python. 
+
+Development
+-----------
+
+Install all dependencies with:
+
+.. code::
+
+    poetry install
+
+Run tests with:
+
+.. code::
+
+    poetry run pytest tests
+
+Format code with:
+
+.. code::
+
+    poetry run black src examples test
+    poetry run isort src examples test
+
+To update the protobuf definitions:
+
+.. code::
+
+    protoc -I=protos/starknet/ \
+        --python_out=src/apibara/starknet/proto/ \
+        --pyi_out=src/apibara/starknet/proto protos/starknet/*
+
+
+License
+-------
+
+   Copyright 2022 GNC Labs Limited
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
