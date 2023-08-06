@@ -1,0 +1,55 @@
+Metadata-Version: 2.1
+Name: django-canvas-field
+Version: 1.0.0
+Summary: SignCanvasField
+Author-email: "Mr.LLT" <384605850@qq.com>
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: LICENSE-APACHE
+License-File: LICENSE-MIT
+Requires-Dist: django (>=3.2.4)
+
+# Django Canvas Field
+
+> 这是一个 Python 模块，为 Django 提供手写签名字段，以及手写签名的网页控件，感谢 jSignatrue 项目为本模块提供支持。
+
+1. 安装并注册模块
+
+   ```python
+   # pip install django-canvas-field
+   # File: settings.py
+   INSTALLED_APPS = [
+   	"canvas",
+   ]
+   ```
+
+2. 在模型中使用
+
+   ```python
+   from canvas.fields import SignCanvasField
+   
+   class Simple(Model):
+       name = CharField(max_length=20, unique=True)
+       sign = SignCanvasField(null=True, blank=True)
+   ```
+
+3. 使用签名控件
+
+   ```python
+   from django import forms
+   from canvas.widgets import SignCanvasWidget
+   
+   from .models import Simple
+   
+   class SimpleForm(forms.ModelForm):
+       class Meta:
+           model = Simple
+           widgets = {
+               'sign': SignCanvasWidget()
+           }
+   ```
+
+`SignCanvasWidget` 是 `django.forms.widgets.Textarea` 的子类，使用自定义的模板 `sign_canvas.html`。`SignCanvasField` 是 `django.db.models.TextField` 的子类，表单字段指向 `SignCanvasWidget`。
