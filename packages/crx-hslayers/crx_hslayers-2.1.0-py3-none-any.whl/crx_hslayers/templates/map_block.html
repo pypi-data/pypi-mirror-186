@@ -1,0 +1,132 @@
+{% load wagtailcore_tags wagtailimages_tags coderedcms_tags %}
+
+<link rel="stylesheet" href="/static/node_modules/hslayers-ng-app/styles.css" media="print" onload="this.media='all'">
+<style>
+  hslayers-app {
+    display: block;
+    height: 100vh;
+  }
+</style>
+<script>
+
+  {% for block in page.body %}
+        {% if block.block_type == 'map_block' %}
+        function hslayersNgConfig{{ block.id|cut:"-" }} (ol, appId) {
+          {% if self.settings.projection %}
+            const projection = {{ self.settings.projection }};
+          {% else %}
+            const projection = 'EPSG:3857';
+          {% endif %}
+    
+          return {
+            assetsPath: '/static/node_modules/hslayers-ng-app/assets/',
+            enabledLanguages: "en,cs,sk,lv",
+            language: 'en',
+            proxyPrefix: window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
+              ? `${window.location.protocol}//${window.location.hostname}:8085/`
+              : '/proxy/',
+            zoomWithModifierKeyOnly: '{{ self.zoom_with_ctrl }}' == 'True',
+            popUpDisplay: 'click',
+    
+            {% if self.composition_url %}
+            defaultComposition: "{{ self.composition_url }}",
+
+            {% endif %}
+    
+            default_layers: [
+              new ol.layer.Tile({
+                  source: new ol.source.OSM(),
+                  title: 'OpenStreetMap',
+                  base: true,
+                  visible: true,
+                  removable: false,
+                }),
+    
+              {% for layer in self.settings.layers reversed %}
+                {% include_block layer %}
+              {% endfor %}
+            ],
+            // domFeatureLinks: [{{ self.dynamic_links }}],
+    
+            status_manager_url: '/share/',
+    
+            {% if self.settings.hsl_tools %}
+            {% autoescape off %}
+            {{ self.settings.hsl_tools }}
+            {% endautoescape %}
+            ,
+            {% else %}
+              panelsEnabled: {
+                composition_browser: true,
+                toolbar: false,
+                mobile_settings: false,
+                draw: false,
+                datasource_selector: true,
+                layermanager: true,
+                legend: true,
+                info: true,
+                print: false,
+                routing: false,
+                saveMap: false,
+                language: true,
+                permalink: false,
+                feature_crossfilter: false,
+                feature_table: false,
+                compositionLoadingProgress: true,
+                tracking: false,
+                mapSwipe: true,
+              },
+              componentsEnabled: {
+                guiOverlay: true,
+                sidebar: true,
+                toolbar: false,
+                drawToolbar: false,
+                searchToolbar: false,
+                measureToolbar: false,
+                geolocationButton: true,
+                defaultViewButton: true,
+                mapControls: true,
+                basemapGallery: true,
+                mapSwipe: false
+              },
+              sidebarClosed: true,
+            {% endif %}
+    
+            open_lm_after_comp_loaded: false,
+    
+            {% if not self.composition_url or self.map_center %}
+              default_view: new ol.View({
+                projection: projection,
+                {% if self.map_center %}
+                  center: ol.proj.transform([{{ self.map_center }}], 'EPSG:4326', projection), //Latitude longitude    to Spherical Mercator
+                {% else %}
+                  center: ol.proj.transform([14, 50], 'EPSG:4326', projection), //Latitude longitude    to Spherical Mercator
+                {% endif %}
+    
+                {% if self.map_zoom %}
+                zoom: {{ self.map_zoom }},
+                {% else %}
+                zoom: 5,
+                {% endif %}
+              }),
+            {% endif %}
+    
+            {% if self.settings.datasources %}
+            datasources: [
+              {% autoescape off %}
+              {{ self.settings.datasources }}
+              {% endautoescape %}
+            ]
+            {% endif %}
+          }
+        }        
+        {% endif %}
+    {% endfor %}
+
+</script>
+
+<hslayers-app id="{{ self.id }}" style="{{ self.settings.map_style }}"></hslayers-app>
+<script src="/static/node_modules/hslayers-ng-app/runtime.js" type="module"></script>
+<script src="/static/node_modules/hslayers-ng-app/polyfills.js" type="module"></script>
+<script src="/static/node_modules/hslayers-ng-app/vendor.js" type="module"></script>
+<script src="/static/node_modules/hslayers-ng-app/main.js" type="module"></script>
