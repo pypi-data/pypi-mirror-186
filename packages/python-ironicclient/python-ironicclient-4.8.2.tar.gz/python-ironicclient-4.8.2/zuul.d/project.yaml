@@ -1,0 +1,18 @@
+- project:
+    templates:
+      - check-requirements
+      - openstack-cover-jobs
+      - openstack-lower-constraints-master-branch-jobs
+      - openstack-python3-xena-jobs
+      - openstackclient-plugin-jobs
+      - publish-openstack-docs-pti
+      - release-notes-jobs-python3
+    check:
+      jobs:
+        - ironicclient-functional
+        - ironicclient-tempest
+    gate:
+      queue: ironic
+      jobs:
+        - ironicclient-functional
+        - ironicclient-tempest
