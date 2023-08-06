@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: kooplearn
+Version: 0.1.3
+Summary: A python package implementing ML algorithms to learn the Koopman operator
+Project-URL: Documentation, https://github.com/unknown/kooplearn#readme
+Project-URL: Issues, https://github.com/unknown/kooplearn/issues
+Project-URL: Source, https://github.com/unknown/kooplearn
+Author-email: Pietro Novelli <pietro.novelli@iit.it>
+License-Expression: MIT
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.7
+Requires-Dist: numpy
+Requires-Dist: scikit-learn
+Requires-Dist: scipy
+Provides-Extra: gpu-support
+Requires-Dist: pykeops; extra == 'gpu-support'
+Requires-Dist: torch; extra == 'gpu-support'
+Description-Content-Type: text/markdown
+
+# Kooplearn
+The Koopman operator 
