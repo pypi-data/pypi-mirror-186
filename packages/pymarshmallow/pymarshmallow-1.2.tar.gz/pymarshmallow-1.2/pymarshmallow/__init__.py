@@ -1,0 +1,1 @@
+from pymarshmallow.cli import cli
