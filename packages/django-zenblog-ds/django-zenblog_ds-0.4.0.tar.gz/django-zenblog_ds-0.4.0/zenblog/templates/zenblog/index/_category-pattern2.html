@@ -1,0 +1,75 @@
+{% load static %}
+{% load zenblog_tags %}
+
+<div class="row g-5">
+  <div class="col-lg-4">
+    {% if top3.0 %}
+    <div class="post-entry-1 lg">
+      <a href="{% url 'zenblog:post_detail' top3.0.slug  %}">
+        <img src="{{ top3.0.thumbnail.url }}" alt="" class="img-fluid">
+      </a>
+      <div class="post-meta"><span class="date">{{ top3.0 | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ top3.0.updated_on | date:"M jS 'y"}}</span></div>
+      <h2><a href="{% url 'zenblog:post_detail' top3.0.slug %}">{{ top3.0.title }}</a></h2>
+      {% autoescape on %}
+      <p class="mb-4 d-block">{{ top3.0.content |remove_html_tags | truncatechars:200 }}</p>
+      {% endautoescape %}
+      <div class="d-flex align-items-center author">
+        <div class="photo"><img src="{{ top3.0.author.profile.image.url }}" alt="" class="img-fluid"></div>
+        <div class="name">
+          <h3 class="m-0 p-0">{{ top3.0.author.last_name}} {{ top3.0.author.first_name }}</h3>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if top3.1 %}
+    <div class="post-entry-1 border-bottom">
+      <div class="post-meta"><span class="date">{{ top3.1 | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ top3.1.updated_on | date:"M jS 'y"}}</span></div>
+      <h2 class="mb-2"><a href="{% url 'zenblog:post_detail' top3.1.slug  %}">{{ top3.1.title }}</a></h2>
+      <span class="author mb-3 d-block">{{ top3.1.author.last_name}} {{ top3.1.author.first_name }}</span>
+    </div>
+    {% endif %}
+
+    {% if top3.2 %}
+    <div class="post-entry-1">
+      <div class="post-meta"><span class="date">{{ top3.2 | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ top3.2.updated_on | date:"M jS 'y"}}</span></div>
+      <h2 class="mb-2"><a href="{% url 'zenblog:post_detail' top3.2.slug  %}">{{ top3.2.title }}</a></h2>
+      <span class="author mb-3 d-block">{{ top3.2.author.last_name}} {{ top3.2.author.first_name }}</span>
+    </div>
+    {% endif %}
+  </div>
+
+
+  <div class="col-lg-8">
+    <div class="row g-5">
+      <div class="col-lg-4 border-start custom-border">
+        {% for item in the_others1 %}
+        <div class="post-entry-1">
+          <a href="{% url 'zenblog:post_detail' item.slug %}"><img src="{{ item.thumbnail.url }}" alt="" class="img-fluid"></a>
+          <div class="post-meta"><span class="date">{{ item | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ item.updated_on | date:"M jS 'y"}}</span></div>
+          <h2><a href="{% url 'zenblog:post_detail' item.slug %}">{{ item.title }}</a></h2>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="col-lg-4 border-start custom-border">
+        {% for item in the_others2 %}
+        <div class="post-entry-1">
+          <a href="{% url 'zenblog:post_detail' item.slug %}"><img src="{{ item.thumbnail.url }}" alt="" class="img-fluid"></a>
+          <div class="post-meta"><span class="date">{{ item | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ item.updated_on | date:"M jS 'y"}}</span></div>
+          <h2><a href="{% url 'zenblog:post_detail' item.slug %}">{{ item.title }}</a></h2>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="col-lg-4">
+        {% for item in the_others3 %}
+        <div class="post-entry-1 border-bottom">
+          <div class="post-meta"><span class="date">{{ item | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ item.updated_on | date:"M jS 'y"}}</span></div>
+          <h2 class="mb-2"><a href="{% url 'zenblog:post_detail' item.slug %}">{{ item.title }}</a></h2>
+          <span class="author mb-3 d-block">{{ item.author.last_name}} {{ item.author.first_name }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</div> <!-- End .row -->

@@ -1,0 +1,25 @@
+{% extends "zenblog/_base.html" %}
+{% load static %}
+{% load zenblog_tags %}
+
+{% block content %}
+
+    <section class="single-post-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9 post-content" data-aos="fade-up">
+            <!-- ======= Single Post Content ======= -->
+            <div class="single-post">
+              <div class="post-meta"><span class="date">{{ object | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ object.updated_on | date:"M jS 'y"}}</span></div>
+              <h1 class="mb-5">{{ object.title }}</h1>
+              {{ object.content | safe }}
+            </div><!-- End Single Post Content -->
+          </div>
+          <div class="col-md-3">
+            {% show_sidebar %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}

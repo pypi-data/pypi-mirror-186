@@ -1,0 +1,73 @@
+{% load static %}
+{% load zenblog_tags %}
+
+<div class="row">
+  <div class="col-md-9 order-md-2">
+    {% if top4.0 %}
+    <div class="d-lg-flex post-entry-2">
+      <a href="{% url 'zenblog:post_detail' top4.0.slug  %}" class="me-4 thumbnail d-inline-block mb-4 mb-lg-0">
+        <img src="{{ top4.0.thumbnail.url }}" alt="" class="img-fluid">
+      </a>
+      <div>
+        <div class="post-meta"><span class="date">{{ top4.0 | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ top4.0.updated_on | date:"M jS 'y"}}</span></div>
+        <h3><a href="{% url 'zenblog:post_detail' top4.0.slug  %}">{{ top4.0.title }}</a></h3>
+        {% autoescape on %}
+        <p>{{ top4.0.content |remove_html_tags | truncatechars:200 }}</p>
+        {% endautoescape %}
+        <div class="d-flex align-items-center author">
+          <div class="photo"><img src="{{ top4.0.author.profile.image.url }}" alt="" class="img-fluid"></div>
+          <div class="name">
+            <h3 class="m-0 p-0">{{ top4.0.author.last_name}} {{ top4.0.author.first_name }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+      <div class="col-lg-4">
+        {% if top4.1 %}
+        <div class="post-entry-1 border-bottom">
+          <a href="{% url 'zenblog:post_detail' top4.1.slug  %}"><img src="{{ top4.1.thumbnail.url }}" alt="" class="img-fluid"></a>
+          <div class="post-meta"><span class="date">{{ top4.1 | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ top4.1.updated_on | date:"M jS 'y"}}</span></div>
+          <h2 class="mb-2"><a href="{% url 'zenblog:post_detail' top4.1.slug  %}">{{ top4.1.title }}</a></h2>
+          <span class="author mb-3 d-block">{{ top4.1.author.last_name}} {{ top4.1.author.first_name }}</span>
+          {% autoescape on %}
+          <p class="mb-4 d-block">{{ top4.1.content |remove_html_tags | truncatechars:200 }}</p>
+          {% endautoescape %}
+        </div>
+        {% endif %}
+
+        {% if top4.2 %}
+        <div class="post-entry-1">
+          <div class="post-meta"><span class="date">{{ top4.2 | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ top4.2.updated_on | date:"M jS 'y"}}</span></div>
+          <h2 class="mb-2"><a href="{% url 'zenblog:post_detail' top4.2.slug  %}">{{ top4.2.title }}</a></h2>
+          <span class="author mb-3 d-block">{{ top4.2.author.last_name}} {{ top4.2.author.first_name }}</span>
+        </div>
+        {% endif %}
+      </div>
+      <div class="col-lg-8">
+        {% if top4.3 %}
+        <div class="post-entry-1">
+          <a href="{% url 'zenblog:post_detail' top4.3.slug  %}"><img src="{{ top4.3.thumbnail.url }}" alt="" class="img-fluid"></a>
+          <div class="post-meta"><span class="date">{{ top4.3 | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ top4.3.updated_on | date:"M jS 'y"}}</span></div>
+          <h2 class="mb-2"><a href="{% url 'zenblog:post_detail' top4.3.slug  %}">{{ top4.3.title }}</a></h2>
+          <span class="author mb-3 d-block">{{ top4.3.author.last_name}} {{ top4.3.author.first_name }}</span>
+          {% autoescape on %}
+          <p class="mb-4 d-block">{{ top4.3.content |remove_html_tags | truncatechars:100 }}</p>
+          {% endautoescape %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    {% for item in the_others %}
+    <div class="post-entry-1 border-bottom">
+      <div class="post-meta"><span class="date">{{ item | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ item.updated_on | date:"M jS 'y"}}</span></div>
+      <h2 class="mb-2"><a href="{% url 'zenblog:post_detail' item.slug %}">{{ item.title }}</a></h2>
+      <span class="author mb-3 d-block">{{ item.author.last_name}} {{ item.author.first_name }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
