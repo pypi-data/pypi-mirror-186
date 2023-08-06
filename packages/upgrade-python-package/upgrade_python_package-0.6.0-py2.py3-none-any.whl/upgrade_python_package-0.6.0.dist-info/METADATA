@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: upgrade-python-package
+Version: 0.6.0
+Summary: A script for upgrading python packages
+Home-page: https://github.com/openlawlibrary/upgrade-python-package
+Author: Open Law Library
+Author-email: info@openlawlib.org
+Keywords: upgrade python package
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Operating System :: OS Independent
+License-File: LICENSE
+Requires-Dist: requests (==2.*)
+Provides-Extra: dev
+Requires-Dist: wheel ; extra == 'dev'
+Provides-Extra: test
+Requires-Dist: flake8 ; extra == 'test'
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: mock ; extra == 'test'
+
+# upgrade-python-package
+Small script for updating a python package and its dependencies and running setup cmds
