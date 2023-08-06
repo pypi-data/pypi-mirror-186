@@ -1,0 +1,81 @@
+# Introduction 
+
+Miniapp provides a concise (and opinionated) way to build enterprise-grade 
+web application back-ends or microservices.  Designed with Kubernetes in mind but works quite well without it.
+
+* An API is defined in Python.
+  * Each category is a class.
+  * The main API gathers all categories into one class.
+* Decorators define which methods are exposed through REST and what 
+permissions are required.
+* Persistence is normalized to look like a simplified NoSQL database.
+* A default implementation of user login and permissions is provided.
+* Base classes are provided for the usual CRUD methods.
+* Helpers are provided to make it all go.
+
+Ideally, you just write a couple classes to fill in what is unique about 
+the service or application.
+
+The provided user authentication includes two modes:
+  * built-in authentication, where user records are stored in the database
+  * Shibboleth: all authentication is managed externally and the 
+application is informed through HTTP headers
+
+The database interface looks like a simplified version of MongoDB.  It 
+can:
+  * be simulated in memory using provided classes
+  * be implemented on local disk for small, simple cases
+  * point to a MongoDB instance
+  * be easily adapted to point to a number of other databases
+
+# Getting Started
+
+This [walkthrough](walkthrough.md) demonstrates basic use.
+
+And several examples are available:
+* [toaster](examples/toaster) - toast slices of bread in background tasks
+* [threadly](examples/threadly) - demonstrates background threads and a message queue
+* [crud1](examples/crud1) - some basic CRUD features, including permissions & visibility
+* [loginner](examples/loginner) - user management features
+
+# Features
+
+* Building an API to perform all the functions of an application or service.
+  * Base class for API (ApiBase) - tracks current user, manages permissions
+  * Base class for API categories (ApiCategoryBase) - build your API one category at a time
+  * Base class for CRUD (ApiCategoryBaseCRUD) - quickly build data-based endpoints (create, read, update, delete)
+  * Pre-built API categories, including user management (api.cat_*)
+* User management: built-in/standalone, and Shibboleth for SSO
+  * Roles and permissions (tiered roles, each has a set of allowed permissions) (see entry_point())
+  * Build-in login, password reset, user management, etc. (generate_user_category())
+  * Lots of SSO/Shibboleth options (ConfigBase.get_sso_config())
+* Endpoints are defined by adding a decorator to plain Python class methods (api.base.endpoint)
+  * define the method, the URL, the sequence, required permissions, etc.
+  * parameters from REST calls are converted based on type hints
+  * post data and responses support streaming
+* API has built-in standardized/simplified database connectivity
+  * in-memory implementation by default (InMemoryDb())
+  * disk and external options available, no code changes required, configuration only (see ConfigBase.db_uri)
+* The usual HTTP/REST stuff
+  * Rewrites & redirects (see entry_point())
+  * Static content (see entry_point())
+  * Multi-threaded or multi-process (see entry_point())
+  * CSRF (ConfigBase.enable_csrf)
+  * XSS prevention (ApiCategoryBaseCRUD._detect_xss())
+  * Automatically generates Swagger (ApiCommonModule.get_api())
+* Useful parts for applications
+  * Help system (generate_help_category())
+  * Usage analytics (generate_user_activity_api_category())
+  * Background job/thread support (JobManager, TaskRunner)
+  * Simple message queue built in (MessageQueue)
+  * Email support (ConfigBase.get_emailer())
+  * Scheduling tools (Schedule)
+* Configuration class (ConfigBase)
+  * extend it to add your own configuration values
+  * reads values from environment variables or the command line
+* Other
+  * Application wrapper simplifies the usual boilerplate (entry_point())
+  * Logging - assumes Kubernetes and writes logs to stdout (override in ApiBase.log())
+  * Client connector - for talking to REST services of this flavor (build_api())
+  * API test page is built in (see entry_point())
+  * Enable hot reload with an environment variable (HOT_RELOAD, see entry_point())
