@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: SigMF
+Version: 1.1.0
+Summary: Signal Metadata Format Specification
+Home-page: https://github.com/gnuradio/SigMF
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+License-File: LICENSE.md
+Requires-Dist: numpy
+Requires-Dist: jsonschema
+Provides-Extra: gui
+Requires-Dist: pysimplegui (==4.0.0) ; extra == 'gui'
+
+
+The Signal Metadata Format (SigMF) specifies a way to describe
+sets of recorded digital signal samples with metadata written in JSON.
+SigMF can be used to describe general information about a collection
+of samples, the characteristics of the system that generated the
+samples, and features of the signal itself.
