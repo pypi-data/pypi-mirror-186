@@ -1,0 +1,119 @@
+[build-system]
+requires = [
+    "setuptools>=45",
+    "setuptools_scm[toml]>=6.2",
+    "wheel",
+    "oldest-supported-numpy",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tsgettoolbox"
+dynamic = ["readme", "version"]
+description = "Will get time series from different sources on the internet"
+requires-python = ">=3.8"
+dependencies = [
+    "async_retriever",
+    "cftime",
+    "cltoolbox",
+    "dapclient",
+    "geojson",
+    "haversine",
+    "httpretty",
+    "isodate",
+    "lxml",
+    "mechanize",
+    "pydantic",
+    "pydaymet",
+    "requests",
+    "siphon",
+    "suds-community",
+    "toolbox_utils >= 1.0.0, < 2.0.0",
+    "zeep",
+    ]
+license = {text = "BSD-3-Clause"}
+authors = [
+    {name = "Tim Cera", email = "tim@cerazone.net"},
+    ]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Developers",
+    "Environment :: Console",
+    "License :: OSI Approved :: BSD License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    ]
+keywords = [
+    "time-series",
+    "uri",
+    "url",
+    "web_services",
+    "rest",
+    ]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "cleanpy",
+    "twine",
+    "pytest",
+    "coverage",
+    "flake8",
+    "pytest-cov",
+    "pytest-mpl",
+    "pre-commit",
+    "black-nbconvert",
+    "blacken-docs",
+    "velin",
+    "isort",
+    "pyroma",
+    "pyupgrade",
+    "commitizen",
+    ]
+
+[project.scripts]
+tsgettoolbox = "tsgettoolbox.tsgettoolbox:main"
+
+[project.urls]
+ocumentation = "https://timcera.bitbucket.io/tsgettoolbox/docs/index.html#tsgettoolbox-documentation"
+github = "https://github.com/timcera/tsgettoolbox"
+bitbucket = "https://bitbucket.org/timcera/tsgettoolbox/src/main/"
+
+[tool.check-manifest]
+ignore = ["docs/_function_autosummary/*",
+          ".coverage",
+          ".deepsource.toml",
+          ".ipynb_checkpoints/*"]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "25.1.2"
+tag_format = "v$version"
+version_files = ["VERSION"]
+update_changelog_on_bump = true
+
+[tool.isort]
+profile = 'black'
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+readme = {file = "README.rst"}
+version = {file = "VERSION"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["examples*", "tools*", "docs*", "tsgettoolbox.tests*"]
+
+[tool.setuptools_scm]
