@@ -1,0 +1,14 @@
+# Name: Disconnected
+PREFIX rdf:<${rdf}>
+PREFIX cim:<${cim}>
+select ?mrid where
+{
+  {
+    ?mrid rdf:type cim:Disconnector;
+          cim:Switch.open True .
+  } union {
+    ?mrid rdf:type cim:Terminal;
+          cim:Terminal.connected|cim:ACDCTerminal.connected False .
+
+  }
+}
