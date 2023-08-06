@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "credzer"
+version = "0.1.0"
+description = "One to rule them all"
+authors = ["shoxxdj <remi.martin-de-abia@advens.fr>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+tinydb = "^4.7.0"
+
+[tool.poetry.scripts]
+credzer = "credzer.credzer:main"
+
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
