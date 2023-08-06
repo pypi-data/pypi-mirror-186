@@ -1,0 +1,51 @@
+### Matplotlib style for general UI blue plots.
+
+# Use Rubik font in 10pt
+font.serif : Rubik
+font.family : sans-serif
+font.size : 10
+figure.titlesize : 10
+
+# Set color cycle:
+axes.prop_cycle : cycler('color', ['0B2948', '04497C', 'F86302', 'FF8200', 'FFB451'])
+
+# Set x axis
+xtick.direction : out
+xtick.major.size : 3
+xtick.major.width : 0.5
+xtick.minor.size : 1.5
+xtick.minor.width : 0.5
+xtick.minor.visible : True
+xtick.top : False
+
+# Set y axis
+ytick.direction : out
+ytick.major.size : 3
+ytick.major.width : 0.5
+ytick.minor.size : 1.5
+ytick.minor.width : 0.5
+ytick.minor.visible : True
+ytick.right : False
+
+# Set line widths
+axes.linewidth : 0.5
+grid.linewidth : 0.5
+lines.linewidth : 1.0
+
+# Set font size of the plot elements to less than the title fontsize
+axes.titlesize : 8
+axes.labelsize : 8
+xtick.labelsize : 8 
+ytick.labelsize : 8 
+legend.fontsize : 8
+
+# Set default figure size
+figure.figsize : 7, 5
+
+# Remove legend frame
+legend.frameon : False
+
+# Always save as 'tight'
+savefig.bbox : tight
+savefig.pad_inches : 0.1
+savefig.dpi : 300
