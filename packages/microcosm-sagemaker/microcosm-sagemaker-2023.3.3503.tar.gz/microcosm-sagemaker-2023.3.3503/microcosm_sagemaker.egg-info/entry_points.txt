@@ -1,0 +1,22 @@
+[console_scripts]
+evaluate = microcosm_sagemaker.commands.evaluate:main
+runserver = microcosm_sagemaker.commands.runserver:main
+train = microcosm_sagemaker.commands.train:main
+
+[microcosm.factories]
+active_bundle = microcosm_sagemaker.factories:configure_active_bundle
+active_evaluation = microcosm_sagemaker.factories:configure_active_evaluation
+bundle_and_dependencies_config_extractor = microcosm_sagemaker.bundle_traversal:BundleAndDependenciesConfigExtractor
+bundle_and_dependencies_loader = microcosm_sagemaker.bundle_traversal:BundleAndDependenciesLoader
+bundle_and_dependencies_trainer = microcosm_sagemaker.bundle_traversal:BundleAndDependenciesTrainer
+experiment_metrics = microcosm_sagemaker.metrics.experiment_metrics:ExperimentMetrics
+load_active_bundle_and_dependencies = microcosm_sagemaker.factories:load_active_bundle_and_dependencies
+random = microcosm_sagemaker.random:Random
+sagemaker = microcosm_sagemaker.factories:configure_sagemaker
+single_threaded_bundle_orchestrator = microcosm_sagemaker.bundle_orchestrator:SingleThreadedBundleOrchestrator
+test_evaluation = microcosm_sagemaker.factories:configure_test_evaluation
+training_initializers = microcosm_sagemaker.training_initializer_registry:TrainingInitializerRegistry
+wandb = microcosm_sagemaker.metrics.wandb.store:WeightsAndBiases
+
+[pytest11]
+pytest_sagemaker = microcosm_sagemaker.testing.pytest_sagemaker
