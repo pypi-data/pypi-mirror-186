@@ -1,0 +1,9 @@
+version: '3.6'
+services:
+    {{ opts.full_name }}:
+        image: {{ aux.project.slug }}-pytest-{{ opts.version_slug }}
+        volumes:
+            - {{ aux.docker.source_dir }}:/home/container/workdir:rw
+        working_dir: /home/container/workdir
+        command: [pytest{% if "test_dir" in opts %}, {{opts.test_dir}}{% endif %}, --cov, '{{ aux.project.name }}', '--cov-fail-under={{ opts.coverage }}']
+    # required Testing Coverage Parsing Regex: Total coverage:.+?(\d+\.\d+\%)$

@@ -1,0 +1,3 @@
+{% macro include_docker_build_(aux, opts, set_args) %}{% include "docker-build.jinja2" %}{% endmacro %}
+{% macro include_docker_build(aux, opts, set_args=False) %}{{ include_docker_build_(aux, opts, set_args) | indent(8)}}{% endmacro %}
+{% macro include_platform(aux) %}{% include "platform.jinja2" | indent(8) %}{% endmacro %}

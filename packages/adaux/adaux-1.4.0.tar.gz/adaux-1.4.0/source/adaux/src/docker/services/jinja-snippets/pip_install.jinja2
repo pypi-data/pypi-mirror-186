@@ -1,0 +1,15 @@
+{% if opts.pip_req -%}
+
+{% for cred in opts.get("pip_cred_vars",[]) -%}
+ARG {{ cred }}
+{% endfor -%}
+RUN pip install \
+    {% for pkg in opts.pip_req -%}
+        "{{ pkg }}" \
+    {% endfor -%}
+    {% for url in opts.get("pip_extra_url",[]) -%}
+    --extra-index-url {{ url }} \
+    {% endfor -%}
+    --no-cache
+
+{% endif -%}

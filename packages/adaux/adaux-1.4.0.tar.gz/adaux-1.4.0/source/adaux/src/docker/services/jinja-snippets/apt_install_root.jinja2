@@ -1,0 +1,4 @@
+{% if opts.apt_req -%}
+USER root:root
+{% endif -%}
+{% include 'apt_install.jinja2' -%}

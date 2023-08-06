@@ -1,0 +1,14 @@
+version: '3.6'
+{% import "macros.jinja2" as x %}
+services:
+    {{ opts.full_name }}:
+        {{ x.include_docker_build(aux, opts) }}
+        {{ x.include_platform(aux) }}
+        image: {{ opts.full_name }}
+        volumes:
+            - {{ aux.docker.project_dir }}/deploy:/home/container/workdir:rw
+        working_dir: /home/container/workdir
+        environment:
+        - CI_JOB_TOKEN=$CI_JOB_TOKEN
+        - ANSIBLE_VAULT_PASS=$ANSIBLE_VAULT_PASS
+        - ANSIBLE_TARGET=deploy.yml -i inventory/${CI_COMMIT_BRANCH}.cfg

@@ -1,0 +1,11 @@
+version: '3.6'
+services:
+    {{ opts.full_name }}:
+        image: python:{{ aux.project.minimal_version }}-slim-bullseye
+        volumes:
+            - {{ aux.docker.project_dir }}:/home/container/workdir:rw
+        working_dir: /home/container/workdir
+        command: [
+            /bin/sh, -c,
+            "pip install twine; /bin/sh ./devops/scripts/sdist; TWINE_PASSWORD=${PYPI_PASSWORD:-} TWINE_USERNAME=${PYPI_USERNAME:-} python -m twine upload dist/*"
+        ]

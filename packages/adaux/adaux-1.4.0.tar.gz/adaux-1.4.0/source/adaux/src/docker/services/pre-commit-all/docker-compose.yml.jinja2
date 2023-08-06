@@ -1,0 +1,8 @@
+version: '3.6'
+services:
+    {{ opts.full_name }}:
+        image: {{ aux.project.slug }}-pre-commit-{{ opts.version_slug }}
+        volumes:
+            - {{ aux.docker.project_dir }}:/home/container/workdir:rw
+        working_dir: /home/container/workdir
+        command: [pre-commit, run, --config=devops/pre-commit/config.yaml, --all]
