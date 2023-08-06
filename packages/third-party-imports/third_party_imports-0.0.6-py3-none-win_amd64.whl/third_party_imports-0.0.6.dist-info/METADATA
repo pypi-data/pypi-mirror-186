@@ -1,0 +1,110 @@
+Metadata-Version: 2.1
+Name: third-party-imports
+Version: 0.0.6
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+License-File: LICENSE
+Summary: Find all third-party packages imported into your python project.
+Keywords: import,finder
+Home-Page: https://github.com/saadmk11/python-third-party-imports
+Author: Maksudul Haque <saad.mk112@gmail.com>
+Author-email: Maksudul Haque <saad.mk112@gmail.com>
+Maintainer-email: Maksudul Haque <saad.mk112@gmail.com>
+License: MIT
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+Project-URL: repository, https://github.com/saadmk11/python-third-party-imports
+
+# python-third-party-imports
+
+This is a **Python** **CLI** tool built with **Rust** that finds all third-party packages imported into your Python project.
+
+# Install
+
+You can install this package via pip.
+
+```console
+pip install third-party-imports
+```
+
+# Usage
+
+### Run:
+
+```console
+third-party-imports path/to/project/dir
+```
+
+### Help:
+
+```console
+third-party-imports --help
+
+Find all third-party packages imported into your python project.
+
+Usage: third-party-imports <PROJECT_ROOT>
+
+Arguments:
+  <PROJECT_ROOT>  Path to the project's root directory
+
+Options:
+  -h, --help     Print help
+  -V, --version  Print version
+```
+
+# Example
+
+```console
+third-party-imports examples/
+```
+
+**Output:**
+
+```console
+Found '4' third-party package imports in '5' files. (Took 920.50µs)
+
+celery
+django
+pandas
+requests
+```
+
+# Development
+
+### Run using Cargo
+
+```console
+cargo +nightly run -- path/to/project/dir
+```
+
+### Code Format
+
+```console
+cargo +nightly fmt
+```
+
+### Run Tests
+
+```console
+cargo +nightly test
+```
+
+### Install Package in current `virtualenv`
+
+```console
+maturin develop
+```
+
+# License
+
+The code in this project is released under the [MIT License](LICENSE).
+
