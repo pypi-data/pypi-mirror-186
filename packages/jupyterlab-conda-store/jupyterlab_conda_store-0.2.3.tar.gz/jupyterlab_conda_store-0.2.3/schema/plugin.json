@@ -1,0 +1,55 @@
+{
+  "jupyter.lab.setting-icon": "conda-store:conda-store-icon",
+  "jupyter.lab.setting-icon-label": "conda-store",
+  "jupyter.lab.shortcuts": [],
+  "title": "jupyterlab-conda-store",
+  "description": "jupyterlab-conda-store settings.",
+  "type": "object",
+  "properties": {
+    "apiUrl": {
+      "type": "string",
+      "title": "conda-store server url",
+      "description": "the url (including port, if any) for your conda-store server. The conda-store server needs to already be running for the jupyterlab extension to work",
+      "default": "http://localhost:5000/conda-store/"
+    },
+    "authMethod": {
+      "type": "string",
+      "title": "conda-store auth method",
+      "enum": ["cookie", "token"],
+      "description": "authentication method used for requests to your conda-store server",
+      "default": "cookie"
+    },
+    "loginUrl": {
+      "type": "string",
+      "title": "conda-store login url",
+      "description": "if using cookie-based authentication, the path to the login page. See the conda-store auth method option",
+      "default": "http://localhost:5000/conda-store/login?next="
+    },
+    "authToken": {
+      "type": "string",
+      "title": "conda-store auth token",
+      "description": "if using token-based authentication, the value of said token. See the conda-store auth method option",
+      "default": ""
+    },
+    "styleType": {
+      "type": "string",
+      "title": "conda-store app theme style",
+      "enum": ["grayscale", "green-accent"],
+      "description": "set the style theme of the app using the provided options.",
+      "default": "green-accent"
+    },
+    "showLoginIcon": {
+      "type": "boolean",
+      "title": "conda-store show icon login",
+      "description": "show or hide the login icon, which is located at the top",
+      "default": true
+    },
+    "addMainMenuItem": {
+      "type": "boolean",
+      "title": "conda-store menu item",
+      "description": "add the conda-store item to the main menu.",
+      "default": true
+    }
+  },
+  "additionalProperties": false
+}
