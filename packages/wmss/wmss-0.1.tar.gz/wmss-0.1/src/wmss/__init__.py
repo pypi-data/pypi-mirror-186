@@ -1,0 +1,1 @@
+from climex._version import __version__

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wmss"
+version = "0.1"
+authors = [{name="Angel Marques Mateu", email="amarques@cgf.upv.es"}]
+
+dependencies = [
+  "easygui", 
+  "OWSLib", 
+  "pyproj", 
+  "pyshp"]
+
+description = "WMSS Library"
+readme = "README.md"
+license = {file="LICENSE"}
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3.8",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[tool.setuptools]
+include-package-data = true
