@@ -1,0 +1,68 @@
+exclude: '^src/validate_pyproject/_vendor'
+
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+  - id: trailing-whitespace
+  - id: check-added-large-files
+  - id: check-ast
+  - id: check-json
+  - id: check-merge-conflict
+  - id: check-xml
+  - id: check-yaml
+  - id: check-toml
+  - id: check-symlinks
+  - id: debug-statements
+  - id: end-of-file-fixer
+  - id: requirements-txt-fixer
+  - id: mixed-line-ending
+    args: ['--fix=auto']  # replace 'auto' with 'lf' to enforce Linux/Mac line endings or 'crlf' for Windows
+
+- repo: https://github.com/PyCQA/autoflake
+  rev: v2.0.0
+  hooks:
+  - id: autoflake
+    args: [
+      --in-place,
+      --remove-all-unused-imports,
+      --remove-unused-variables,
+    ]
+
+- repo: https://github.com/codespell-project/codespell
+  rev: v2.2.2
+  hooks:
+  - id: codespell
+
+- repo: https://github.com/pycqa/isort
+  rev: 5.11.4
+  hooks:
+  - id: isort
+
+- repo: https://github.com/psf/black
+  rev: 22.12.0
+  hooks:
+  - id: black
+    language_version: python3
+
+- repo: https://github.com/asottile/blacken-docs
+  rev: 1.13.0
+  hooks:
+  - id: blacken-docs
+    additional_dependencies: [black==22.*]
+
+- repo: https://github.com/PyCQA/flake8
+  rev: 6.0.0
+  hooks:
+  - id: flake8
+    additional_dependencies: [flake8-bugbear]
+
+- repo: local  # self-test for `validate-pyproject` hook
+  hooks:
+  - id: validate-pyproject
+    name: Validate pyproject.toml
+    language: python
+    files: ^tests/examples/.*pyproject\.toml$
+    entry: validate-pyproject
+    additional_dependencies:
+      - validate-pyproject[all]>=0.8
