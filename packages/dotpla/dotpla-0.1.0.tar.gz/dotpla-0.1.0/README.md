@@ -1,0 +1,34 @@
+# dotpla: Django One Time Password Link Authentication
+
+This app adds a new Authentication method to Django, which allows you to generate links with a one-time password so you can allow users to log in directly, without having to define a password. It is **not** an implementation of two-factor authentication (2FA).
+
+## Status
+
+**Warning:** this project is currently in development, and only supports Wagtail, for now. It is likely to change as/if I have time, but I am developing it primarily for my own uses, so it may not always be the highest priority.
+
+## Rationale and Use Cases
+
+This app can be used to share data with selected users from the deep web, without requiring them to register or login. You can create the user account for them, generate a one-time password, and send them a link that will log them in automatically. This allows you to protect data from unauthorized access, but also makes it easy for end-users to access it.
+
+Some potential use cases:
+
+- Share a tailored version of your CV or cover letter with potential employers.
+- Write a tailored sales pitch for potential customers.
+- Share files with select users.
+
+## Installation
+
+### Pre-requirements
+
+- Django 3.2 or greater.
+- Python 3.8 or greater.
+- The [Django Messages Framework](https://docs.djangoproject.com/en/dev/ref/contrib/messages/) must be enabled for your project if you want passwords to be displayed in the admin interface.
+- *Optional:* [Wagtail CMS](https://wagtail.org/). Tested with Wagtail 4.0.
+
+## Usage
+
+TODO.
+
+## Caveats
+
+- The `authenticate_with_otp` method has potential race conditions allowing users to log in more times than they should. As I only use this with trusted users, it's insignificant enough for me to ignore.

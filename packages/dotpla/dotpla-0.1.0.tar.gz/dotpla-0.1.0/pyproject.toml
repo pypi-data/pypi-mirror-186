@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "dotpla"
+version = "0.1.0"
+description = "Django One Time Password Link Authentication"
+authors = ["The Epic <theepic.dev.83@gmail.com>"]
+readme = "README.md"
+keywords = [
+  "django",
+  "authentication",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Web Environment",
+  "Framework :: Django",
+  "Framework :: Wagtail",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved",
+  "License :: OSI Approved :: BSD License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Topic :: Internet",
+]
+
+exclude = [
+  "dotpla/tests/",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = ">=3.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+wagtail = ">=4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
