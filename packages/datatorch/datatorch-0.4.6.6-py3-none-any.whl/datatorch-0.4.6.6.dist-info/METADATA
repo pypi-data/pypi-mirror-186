@@ -1,0 +1,69 @@
+Metadata-Version: 2.1
+Name: datatorch
+Version: 0.4.6.6
+Summary: A CLI and library for interacting with DataTorch.
+Home-page: https://github.com/datatorch/python
+Author: DataTorch
+Author-email: support@datatorch.io
+License: MIT license
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Framework :: Pytest
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: Click (==8.0.0)
+Requires-Dist: numpy
+Requires-Dist: gql (==3.4.0)
+Requires-Dist: websockets (==10.4)
+Requires-Dist: websocket-client
+Requires-Dist: requests
+Requires-Dist: typing-extensions (>=4.1.0)
+Requires-Dist: psutil (~=5.9.3)
+Requires-Dist: aiodocker (~=0.19.0)
+Requires-Dist: Jinja2 (~=2.0)
+Requires-Dist: PyYAML (~=5.0)
+Requires-Dist: aiostream (~=0.4.0)
+Requires-Dist: markupsafe (==2.0.1)
+Requires-Dist: requests-toolbelt (==0.10.1)
+Provides-Extra: agent
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/datatorch/documentation/master/docs/.vuepress/public/python.png" width="180" />
+</p>
+
+<h1 align="center">
+  DataTorch Python
+</h1>
+<h4 align="center">DataTorch CLI and Python API libary for programmatic access.</h4>
+
+<p align="center">
+  <img alt="Package Version" src="https://img.shields.io/pypi/v/datatorch">
+  <img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/datatorch">
+  <img alt="Build Status" src="https://img.shields.io/github/workflow/status/datatorch/python/Package">
+</p>
+
+```bash
+pip install datatorch
+```
+
+## Development
+
+```bash
+python3 -m pip install --editable .
+pip3 install -r requirements.txt
+```
+
+### VSCode Configuration
+
+#### Formatter
+
+Open your VSCode settings, by going `Code -> Preferences -> Settings`. Search
+for "python formatting provider" and select "black" from the dropdown menu.
