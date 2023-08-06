@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: FoxitPDFSDKPython3
+Version: 8.4.2
+Summary: Foxit PDF SDK For Python3
+Home-page: https://www.developers.foxit.com
+Author: Foxit Software Inc.
+Author-email: support@foxitsoftware.com
+License: Other/Proprietary License (Commercial)
+Keywords: PDF SDK,PDF Library,PDF render,PDF view,PDF print,PDF Edit,PDF convert
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.6, <4
+Description-Content-Type: text/plain
+License-File: legal.txt
+
+Foxit PDF SDK v8.4.2
+==================================================================
+This is a maintenance release
+
+____New Features/Changes____
+* Updated Mac ARM C++ Library to support the macOS version 11.
+* Updated the Simple_Demo/pdfprint for Windows .NetCore to improve the printing quality.
+
+____Bug Fixes____
+* The ColorSpace::ConvertColor() does not throw an exception when the unsupported parameter is set.
+* Fixed the OCR engine initializing error with the simple demo in Windows 7.
+* The PDFDoc.LoadW() for a PDFDoc created with an invalid path returns an unexpected error string.
+* The page bitmap renders with faint horizontal lines in a specific PDF document.
+* Fixed the infinite loop problem of the function GetSnappedPointAtPos().
+* Importing FDF files with particular annotations causes exceptions.
+* The TabOrderMgr::GetNextAnnot(Annot) can not get the next annotation object.
+* The charCode of certain true type font doesn't show correctly.
+
+
+
