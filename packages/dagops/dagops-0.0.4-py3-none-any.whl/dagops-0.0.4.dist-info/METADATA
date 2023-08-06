@@ -1,0 +1,24 @@
+Metadata-Version: 2.1
+Name: dagops
+Version: 0.0.4
+Summary: dag/task runner backed by sqlite
+Home-page: https://gitea.tandav.me/tandav/dagops
+Author: Alexander Rodionov
+Author-email: tandav@tandav.me
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Requires-Dist: uvicorn
+Requires-Dist: fastapi
+Requires-Dist: aiofiles
+Requires-Dist: Jinja2
+Requires-Dist: humanize
+Requires-Dist: python-dotenv
+Requires-Dist: SQLAlchemy (>=2.0.0b4)
+Provides-Extra: dev
+Requires-Dist: bumpver ; extra == 'dev'
+Requires-Dist: pre-commit ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+
+# dagops
+dag/task runner backed by sqlite
