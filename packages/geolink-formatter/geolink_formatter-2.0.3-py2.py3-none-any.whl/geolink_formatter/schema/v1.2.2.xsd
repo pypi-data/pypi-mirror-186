@@ -1,0 +1,157 @@
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'
+           xmlns:vc='http://www.w3.org/2007/XMLSchema-versioning'
+           vc:minVersion='1.1'>
+    <xs:element name="geolinks">
+        <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                <xs:element name="document" type="geolink_document"></xs:element>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="prepublinks">
+        <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                <xs:element name="document">
+                    <xs:alternative test="@doctype = 'prepublication'" type="prepublink_prepublication_document"/>
+                    <xs:alternative type="prepublink_other_document"/>
+                </xs:element>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="document_base">
+        <xs:sequence>
+            <xs:element name="file" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:attribute name="category">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="main" />
+                                <xs:enumeration value="additional" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="description" type="xs:string" />
+                    <xs:attribute name="href" type="xs:string" />
+                    <xs:attribute name="title" type="xs:string" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" />
+        <xs:attribute name="federal_level">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="A livello intercantonale" />
+                    <xs:enumeration value="Bezirk" />
+                    <xs:enumeration value="Bund" />
+                    <xs:enumeration value="Canton" />
+                    <xs:enumeration value="Cantone" />
+                    <xs:enumeration value="Chantun" />
+                    <xs:enumeration value="Commune" />
+                    <xs:enumeration value="Comune" />
+                    <xs:enumeration value="Confédération" />
+                    <xs:enumeration value="Confederazione" />
+                    <xs:enumeration value="Confederaziun" />
+                    <xs:enumeration value="Fürstentum" />
+                    <xs:enumeration value="Gemeinde" />
+                    <xs:enumeration value="Intercantonal" />
+                    <xs:enumeration value="Interchantunal" />
+                    <xs:enumeration value="Interkantonal" />
+                    <xs:enumeration value="Kanton" />
+                    <xs:enumeration value="Vischnanca" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="language">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="de" />
+                    <xs:enumeration value="fr" />
+                    <xs:enumeration value="it" />
+                    <xs:enumeration value="rm" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="authority" type="xs:string" />
+        <xs:attribute name="authority_url" type="xs:string" />
+        <xs:attribute name="cycle" type="xs:string" />
+        <xs:attribute name="title" type="xs:string" />
+        <xs:attribute name="number" type="xs:string" />
+        <xs:attribute name="abbreviation" type="xs:string" />
+        <xs:attribute name="instance" type="xs:string" />
+        <xs:attribute name="type" type="xs:string" />
+        <xs:attribute name="subtype" type="xs:string" />
+        <xs:attribute name="approval_date" type="xs:string" />
+        <xs:attribute name="publication_date" type="xs:string" />
+        <xs:attribute name="index" type="xs:integer" />
+    </xs:complexType>
+    <xs:complexType name="prepublink_prepublication_document">
+        <xs:complexContent>
+            <xs:extension base="document_base">
+                <xs:attribute name="status" type="xs:string" />
+                <xs:attribute name="status_start_date" type="xs:string" />
+                <xs:attribute name="status_end_date" type="xs:string" />
+                <xs:attribute name="doctype">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="prepublication" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="prepublink_other_document">
+        <xs:complexContent>
+            <xs:extension base="document_base">
+                <xs:attribute name="municipality" type="xs:string" />
+                <xs:attribute name="category">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="main" />
+                            <xs:enumeration value="related" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="decree_date" type="xs:string" />
+                <xs:attribute name="enactment_date" type="xs:string" />
+                <xs:attribute name="abrogation_date" type="xs:string" />
+                <xs:attribute name="doctype">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="edict" />
+                            <xs:enumeration value="decree" />
+                            <xs:enumeration value="notice" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="geolink_document">
+        <xs:complexContent>
+            <xs:extension base="document_base">
+                <xs:attribute name="category">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="main" />
+                            <xs:enumeration value="related" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="municipality" type="xs:string" />
+                <xs:attribute name="decree_date" type="xs:string" />
+                <xs:attribute name="enactment_date" type="xs:string" />
+                <xs:attribute name="abrogation_date" type="xs:string" />
+                <xs:attribute name="doctype">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="edict" />
+                            <xs:enumeration value="decree" />
+                            <xs:enumeration value="notice" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>
