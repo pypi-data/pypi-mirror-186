@@ -1,0 +1,139 @@
+Metadata-Version: 2.1
+Name: hygia
+Version: 0.1.7
+Summary: A short description of the package.
+Home-page: https://github.com/PDA-FGA/Playground
+License: MIT
+Keywords: packaging,poetry
+Author: PDA-FGA
+Author-email: rocha.carla@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: altair (==4.2.0)
+Requires-Dist: attrs (==22.2.0)
+Requires-Dist: bpemb (==0.3.4)
+Requires-Dist: certifi (==2022.12.7)
+Requires-Dist: charset-normalizer (==3.0.1)
+Requires-Dist: contourpy (==1.0.6)
+Requires-Dist: coverage (==7.0.2)
+Requires-Dist: cycler (==0.11.0)
+Requires-Dist: entrypoints (==0.4)
+Requires-Dist: exceptiongroup (==1.1.0)
+Requires-Dist: fonttools (==4.38.0)
+Requires-Dist: gensim (==3.8.3)
+Requires-Dist: idna (==3.4)
+Requires-Dist: importlib-resources (==5.10.2)
+Requires-Dist: iniconfig (==1.1.1)
+Requires-Dist: jinja2 (==3.1.2)
+Requires-Dist: joblib (==1.2.0)
+Requires-Dist: jsonschema (==4.17.3)
+Requires-Dist: kiwisolver (==1.4.4)
+Requires-Dist: markupsafe (==2.1.1)
+Requires-Dist: matplotlib (==3.6.2)
+Requires-Dist: numpy (==1.24.1)
+Requires-Dist: packaging (==23.0)
+Requires-Dist: pandas (==1.5.2)
+Requires-Dist: pillow (==9.4.0)
+Requires-Dist: pkgutil-resolve-name (==1.3.10)
+Requires-Dist: pluggy (==1.0.0)
+Requires-Dist: pyparsing (==3.0.9)
+Requires-Dist: pyrsistent (==0.19.3)
+Requires-Dist: pytest (==7.2.0)
+Requires-Dist: pytest-cov (==4.0.0)
+Requires-Dist: python-dateutil (==2.8.2)
+Requires-Dist: pytz (==2022.7)
+Requires-Dist: pyyaml (==6.0)
+Requires-Dist: requests (==2.28.2)
+Requires-Dist: scikit-learn (==1.2.0)
+Requires-Dist: scipy (==1.9.3)
+Requires-Dist: sentencepiece (==0.1.97)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: smart-open (==6.3.0)
+Requires-Dist: threadpoolctl (==3.1.0)
+Requires-Dist: tomli (==2.0.1)
+Requires-Dist: toolz (==0.12.0)
+Requires-Dist: tqdm (==4.64.1)
+Requires-Dist: urllib3 (==1.26.14)
+Requires-Dist: whatlies (==0.7.0)
+Requires-Dist: wheel (==0.38.4)
+Requires-Dist: zipp (==3.11.0)
+Project-URL: Repository, https://github.com/PDA-FGA/Playground
+Description-Content-Type: text/markdown
+
+<p align="center">
+    <img src="./assets/img/horizontal_logo.PNG" alt="hygia-logo" style="width:500px;"/>
+</p>
+
+# A powerful Python ML playground toolkit
+
+[![PyPI Latest Release](https://img.shields.io/pypi/v/hygia.svg)](https://pypi.org/project/hygia/)
+[![License](https://img.shields.io/pypi/l/hygia.svg)](https://github.com/hygia-org/hygia/blob/main/LICENSE)
+[![Coverage](https://codecov.io/github/hygia-org/hygia/coverage.svg?branch=main)](https://codecov.io/gh/hygia-org/hygia)
+
+<!-- [![Package Status](https://img.shields.io/pypi/status/hygia.svg)](https://pypi.org/project/hygia/) -->
+
+## What is it?
+
+Hygia is a Python package that provides fast, flexible, and expressive data pipeline configuration through a YAML file to make working with Machine Learning data easy and intuitive. It consists of helping developers and users to register, organize, compare and share all their ML model metadata in a single place, facilitating the generation of requirements in the ETL (Extract, Transform and Load) process. Thus, the migration can be scaled, automated, and accelerated for similar contexts.
+
+## Main Features
+
+- Configure data pipeline through a YAML file
+- Execute through command line or python import
+- Pack the solution into a Python's Package Manager
+- Visualize results in customized dashboards
+- Test on different databases
+
+## Where to get it
+
+The source code is currently hosted on GitHub at: `https://github.com/hygia-org`
+
+## Installation from sources
+
+```
+python -m venv env
+source env/bin/activate
+pip install -r requirements.txt
+```
+
+### Boilerplate
+
+```
+examples/hygia_boilerplate.ipynb
+```
+
+### Testing
+
+```
+pytest --cov
+```
+
+### Documentation
+
+We used sphinx to write the documentation
+
+To run locally, you need to install sphinx:
+
+```
+pip install sphinx
+```
+
+Then install the theme used:
+
+```
+pip install pydata-sphinx-theme
+```
+
+And Run the project
+
+```
+sphinx-build -b html source ./
+```
+
+And open the index.html
+
