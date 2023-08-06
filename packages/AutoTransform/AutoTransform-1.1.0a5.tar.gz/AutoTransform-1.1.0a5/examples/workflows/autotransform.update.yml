@@ -1,0 +1,48 @@
+name: Update AutoTransform
+
+on:
+  workflow_dispatch:
+    inputs:
+      change:
+        description: "A JSON encoded Change to update"
+        required: true
+        type: string
+      target_repo_name:
+        description: "The name of the repo to checkout"
+        type: string
+        required: false
+      target_repo_ref:
+        description: "The ref of the repo to checkout"
+        type: string
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  update-autotransform:
+    runs-on: ubuntu-latest
+    name: Update AutoTransform
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.AUTO_TRANSFORM_BOT_GITHUB_TOKEN }}
+        repository: ${{ github.event.inputs.target_repo_name}}
+        ref: ${{ github.event.inputs.target_repo_ref}}
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Update pip
+      run: pip install --upgrade pip
+    - name: Install AutoTransform
+      run: pip install AutoTransform
+    - name: Install requirements
+      run: pip install -r <CONFIG DIR>/requirements.txt
+    - name: Update AutoTransform
+      run: autotransform update --environment --verbose AUTO_TRANSFORM_CHANGE
+      env:
+        AUTO_TRANSFORM_CONFIG: environment
+        AUTO_TRANSFORM_GITHUB_TOKEN: ${{ secrets.AUTO_TRANSFORM_BOT_GITHUB_TOKEN }}
+        AUTO_TRANSFORM_CHANGE: ${{ github.event.inputs.change }}
+        AUTO_TRANSFORM_COMPONENT_DIRECTORY: <CUSTOM COMPONENTS>
