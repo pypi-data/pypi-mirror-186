@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "ipfy-asset-management-pdf-to-table"
+version = "0.2.6"
+description = "Python package to exctract table from pdf"
+authors = ["Yannick Flores <yannick.flores1992@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^1.5.2"
+numpy = "^1.24.1"
+pytest = "^7.2.0"
+pypiserver = "^1.5.1"
+typing = "3.5"
+pylint = "^2.15.10"
+# sdist = "^0.0.0"
+# wheel = "^0.38.4"
+
+[tool.poetry.dev-dependencies]
+coverage = {extras = ["toml"], version = "6.5.*"}
+black = {version = "22.10.*", allow-prereleases = true}
+pytest = "7.2.*"
+pytest-html = "3.1.*"
+pytest-cov = "2.12.*"
+py = "1.11.*"
+pylint = "2.15.*"
+python-decouple = "3.6"
+mkdocs = "1.4.*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

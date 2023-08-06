@@ -1,0 +1,26 @@
+Metadata-Version: 2.1
+Name: ipfy-asset-management-pdf-to-table
+Version: 0.2.6
+Summary: Python package to exctract table from pdf
+Author: Yannick Flores
+Author-email: yannick.flores1992@gmail.com
+Requires-Python: >=3.9,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: numpy (>=1.24.1,<2.0.0)
+Requires-Dist: pandas (>=1.5.2,<2.0.0)
+Requires-Dist: pylint (>=2.15.10,<3.0.0)
+Requires-Dist: pypiserver (>=1.5.1,<2.0.0)
+Requires-Dist: pytest (>=7.2.0,<8.0.0)
+Requires-Dist: typing (==3.5)
+Description-Content-Type: text/markdown
+
+# ipfy-asset-management-pdf-to-table
+
+Python package to extract table from AWS textract output. AWS textract services when uses manually output a zip file.
+All the table within the pdf will be named in the zip as follow: table-1.csv, table-2.csv, etc.
+This package work under the condition that all the table within the zip shared the same structure.
+
+
