@@ -1,0 +1,355 @@
+#!/usr/bin/env python
+"""
+An example of a BufferControl in a full screen layout that offers auto
+completion.
+Important is to make sure that there is a `CompletionsMenu` in the layout,
+otherwise the completions won't be visible.
+"""
+from prompt_toolkit.application import Application
+from prompt_toolkit.buffer import Buffer
+from prompt_toolkit.completion import WordCompleter
+from prompt_toolkit.key_binding import KeyBindings
+from prompt_toolkit.document import Document
+from prompt_toolkit.widgets import SearchToolbar, TextArea
+from prompt_toolkit.layout.containers import (
+    Float,
+    FloatContainer,
+    HSplit,
+    Window,
+)
+from prompt_toolkit.layout.controls import BufferControl, FormattedTextControl
+from prompt_toolkit.layout.layout import Layout
+from prompt_toolkit.styles import Style
+from prompt_toolkit.layout.menus import CompletionsMenu
+
+from polypacket.protocol import *
+from polypacket.polyservice import *
+
+import sys
+import os
+import argparse
+import time
+
+args = None
+parser = None
+PROTOCOL = ''
+SERVICE = ''
+
+compFields = [] 
+compVals = []
+
+
+
+connect_completer = WordCompleter(['serial:','udp:','tcp:'],ignore_case=True)
+
+sim_completer = ''
+
+packet_completer = ''
+
+
+outputField = TextArea(style='class:output-win',multiline=True)
+outputField.text = "Ctrl-C to quit"
+
+
+# Style.
+style = Style([
+    ('output-win', 'bg:#000000 #00ff00'),
+    ('input-win', 'bg:#000000 #ffffff'),
+    ('line',        '#004400'),
+    ('status', 'bg:#004400 #ffffff')
+])
+
+def onInputChange(buff):
+    global outputField
+    global PROTOCOL
+    global compFields
+    global compVals
+    global packet_completer
+
+    input = buff.text.split(';')[-1] #only worry about lastest command
+    if len(input.strip()) > 0:
+        if input[-1:] == " ":
+            word = input.split()[0].strip()
+            lastWord = input.split()[-1].strip()
+
+            if word.lower() == 'connect':
+                buff.completer = connect_completer
+            
+            elif word.lower() == 'loadsim':
+                buff.completer = sim_completer
+
+            elif lastWord.replace(':','') in PROTOCOL.fieldIdx:
+                lastWord = lastWord.replace(':','')
+                id = PROTOCOL.fieldIdx[lastWord]
+                field = PROTOCOL.fields[id]
+                compVals = []
+                for val in field.vals:
+                    compVals.append(val.name)
+                buff.completer = WordCompleter(compVals,ignore_case=True )
+            
+            elif '|' in lastWord:
+                pass
+
+            elif lastWord in PROTOCOL.packetIdx:
+                id = PROTOCOL.packetIdx[word]
+                packet = PROTOCOL.descFromId(id);
+                compFields = []
+                for field in packet.fields:
+                    compFields.append(field.name +":")
+
+                buff.completer = WordCompleter(compFields,ignore_case=True )
+
+        elif input[-1] == ';':
+                buff.completer = packet_completer
+
+        elif input[-1] == ",":
+            buff.completer = WordCompleter(compFields,ignore_case=True )
+    else: 
+        buff.completer = packet_completer
+# The layout
+inputBuffer = Buffer( complete_while_typing=False, multiline=False, on_text_changed=onInputChange)
+#inputBuffer.text = 'SendCmd src: 45, dst: 32, cmd: 4'
+
+#outputWin = Window(BufferControl(buffer=outputField,focusable=False), height=20, style='class:output-win')
+inputWin = Window(BufferControl(buffer=inputBuffer), height=4, style='class:input-win')
+body = FloatContainer(
+    content=HSplit([
+        #outputWin,
+        outputField,
+        Window(height=1, char='-', style='class:line'),
+        inputWin,
+    ]),
+    floats=[
+        Float(xcursor=True,
+              ycursor=True,
+              content=CompletionsMenu(max_height=16, scroll_offset=1))
+    ]
+)
+
+
+# Key bindings
+kb = KeyBindings()
+
+
+@kb.add('c-c')
+def _(event):
+    printToConsole(" Quit application. ")
+    SERVICE.close()
+    event.app.exit()
+
+# @kb.add('enter')
+# def _(event):
+#     global packet_completer
+#     new_text =outputField.text + "\n"+ inputBuffer.text
+#     outputField.text = new_text
+#     inputBuffer.text = '>>> '
+#     inputBuffer.completer = packet_completer
+#     testService(SERVICE)
+
+def accept(buff):
+    global packet_completer
+    #new_text =outputField.text + "\n"+ inputBuffer.text
+    #outputField.text = new_text
+    commands = inputBuffer.text.split(';')
+    for cmd in commands:
+        parseCommand(cmd)
+        time.sleep(0.05)
+    #inputBuffer.text = '>>> '
+    inputBuffer.completer = packet_completer
+
+
+#buff.on_text_changed = onInputChange;
+inputBuffer.accept_handler = accept
+
+
+# The `Application`
+application = Application(
+    layout=Layout(body, focused_element=inputBuffer),
+    key_bindings=kb,
+    style=style,
+    mouse_support=True,
+    full_screen=True)
+
+# Initialize the argument parser
+def init_args():
+    global parser
+    parser = argparse.ArgumentParser("Tool to generate code and documentation for PolyPacket protocol")
+    parser.add_argument('-i', '--input', type=str, help='input file to parse', default="")
+    parser.add_argument('-c', '--command', nargs='+', help='Commands to execute on start, seperate with ;', default="")
+    parser.add_argument('-s', '--sim', type=str, help='Specify a sim profile to use its behavior, or "none" to not use any', default="default")
+    parser.add_argument('-b', '--bytes', action='store_true', help='shows packet bytes', default=False)
+    parser.add_argument('-m', '--meta', action='store_true', help='shows packet meta data', default=False)
+    
+
+
+def saveBufferToFile(fileName):
+    file = open(fileName, "w")
+    file.write(outputField.text)
+    file.close()
+    printToConsole(" Log saved as: " + fileName)
+
+def printToConsole( text):
+    global outputField
+    new_text =outputField.text + "\n"
+    new_text+=  text
+
+    # Add text to output buffer.
+    outputField.buffer.document = Document(
+        text=new_text, cursor_position=len(new_text))
+
+    #outputField.text = new_text
+
+def parseCommand(text):
+
+    global PROTOCOL
+    text = text.strip()
+    words = text.split()
+
+    if len(words) == 0:
+        printToConsole("")
+        return
+
+    if words[0].lower() == 'connect':
+        SERVICE.connect(words[1])
+        return 0
+
+    if words[0].lower() == 'savelog':
+        saveBufferToFile(words[1])
+        return 0
+
+    if words[0].lower() == 'ack':
+        SERVICE.toggleAck()
+        return 0
+
+    if words[0].lower() == 'silence':
+        SERVICE.toggleSilence(words[1])
+        return 0
+    
+    if words[0].lower() == 'loadsim':
+        if words[1] in PROTOCOL.sims:
+            load_sim(SERVICE, PROTOCOL.sims[words[1]])
+        else:
+            printToConsole(" Sim Profile '"+ words[1]+ "' not found..")
+        return 0
+
+    packetType = words[0].strip()
+
+    newPacket = SERVICE.newPacket(packetType)
+
+    if len(words) > 1:
+        Pattern = re.compile(r',(?!(?:[^[]*\[[^]]*\])*[^[\]]*\])\s*') #splits by commas, ignoring commas in brackets
+        fields = Pattern.split(text[len(packetType):])
+        #printToConsole(str(fields))
+
+        for field in fields:
+            if field != None:
+                subFields = field.split(':')
+                fname = subFields[0].strip()
+                val = subFields[1].strip()
+                newPacket.setField(fname, val)
+
+    SERVICE.interfaces[0].sendPacket(newPacket)
+
+def load_sim(service, sim):
+    
+    service.handlers.clear() #clear current handlers
+
+    printToConsole(" Sim Profile '" + sim.name+ "' Loaded ")
+
+    for key, value in sim.handlers.items():
+        fx = "def "+ key +"_handler(service,req, resp):\n\t" + value.replace('\n','\n\t')+"\n"
+        exec(fx)
+        exec("service.handlers[\""+key+"\"] = "+key+ "_handler")
+ 
+    if sim.init != "":
+        fx = sim.init
+        exec(fx)
+
+
+def run():
+    global parser
+    global args
+    global inputBuffer
+    global PROTOCOL
+    global SERVICE
+    global packet_completer
+    global sim_completer
+
+    init_args()
+    args= parser.parse_args()
+
+    # The layout.
+    #search_field = SearchToolbar()  # For reverse search.
+    inputFile = args.input
+
+    simProfile = args.sim
+
+    if inputFile == "":
+        print("No input file specified, use poly-make -t to create a template/example file")
+        sys.exit()
+
+    if os.path.isfile(inputFile):
+        fileCrc, fileHash = crc(inputFile)
+
+        PROTOCOL = buildProtocol(inputFile)
+
+        SERVICE = PolyService(PROTOCOL)
+        SERVICE.print = printToConsole
+
+        PROTOCOL.hash = fileHash
+        PROTOCOL.crc = fileCrc
+
+
+        if args.meta:
+            SERVICE.showMeta = True
+
+        if args.bytes:
+            SERVICE.showBytes = True
+    else :
+        print("Unable to read input file: " + inputFile)
+        return
+
+
+    packetNames = []
+    simNames = []
+    for packet in PROTOCOL.packets:
+        packetNames.append(packet.name)
+
+    packetNames.append('connect')
+    packetNames.append('silence')
+    packetNames.append('saveLog')
+    packetNames.append('loadsim')
+
+    for key, value in PROTOCOL.sims.items():
+        simNames.append(key)
+
+    packet_completer = WordCompleter(packetNames,ignore_case=True)
+    sim_completer = WordCompleter(simNames, ignore_case=True)
+    inputBuffer.completer = packet_completer
+
+    outputField.text = "" #"Ctrl-C to quit"
+    outputField.text += "______     _      ______          _        _   \n"
+    outputField.text += "| ___ \   | |     | ___ \        | |      | |  \n"
+    outputField.text += "| |_/ /__ | |_   _| |_/ /_ _  ___| | _____| |_ \n"
+    outputField.text += "|  __/ _ \| | | | |  __/ _` |/ __| |/ / _ \ __|\n"
+    outputField.text += "| | | (_) | | |_| | | | (_| | (__|   <  __/ |_ \n"
+    outputField.text += "\_|  \___/|_|\__, \_|  \__,_|\___|_|\_\___|\__|    ["+ PROTOCOL.name+ " protocol]\n"
+    outputField.text += "              __/ |                            \n"
+    outputField.text += "             |___/                             \n"
+
+
+    if not args.command == '':
+        commands = ' '.join(args.command)
+        commands = commands.split(';')
+        for com in commands:
+            parseCommand(com)
+
+    if simProfile in PROTOCOL.sims:
+        load_sim(SERVICE, PROTOCOL.sims[simProfile])
+
+
+
+    application.run()
+
+if __name__ == '__main__':
+    run()
