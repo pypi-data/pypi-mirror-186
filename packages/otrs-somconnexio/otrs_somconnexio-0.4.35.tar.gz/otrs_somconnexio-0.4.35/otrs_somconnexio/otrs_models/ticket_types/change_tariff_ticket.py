@@ -1,0 +1,62 @@
+from pyotrs.lib import DynamicField
+
+from .base_customer_ticket import BaseCustomerTicket
+
+from otrs_somconnexio.otrs_models.configurations.changes.change_tariff import (
+    ChangeTariffTicketConfiguration,
+    ChangeTariffExceptionalTicketConfiguration
+
+)
+
+
+class ChangeTariffTicket(BaseCustomerTicket):
+    def __init__(self, username, customer_code, fields_dict, override_ticket_ids=[], fallback_path="/tmp/tickets/"):
+        super(ChangeTariffTicket, self).__init__(
+            username,
+            customer_code,
+            fields_dict,
+            override_ticket_ids,
+            fallback_path)
+        self.configuration = ChangeTariffTicketConfiguration()
+
+    def get_search_args(self):
+        return {
+            "dynamic_fields": [
+                DynamicField("ProcessManagementProcessID", self.configuration.process_id),
+                DynamicField("ProcessManagementActivityID", self.configuration.activity_id),
+            ],
+            "Queues": [self.configuration.queue],
+            "States": [self.configuration.state],
+        }
+
+    def _get_subject(self):
+        return "Sol·licitud Canvi de tarifa oficina virtual"
+
+    def _get_queue(self):
+        return self.configuration.queue
+
+    def _get_dynamic_fields(self):
+        return {
+            "renovaCanviTarifa": self._transform_boolean_df(
+                self.override_ticket_ids),
+            "liniaMobil": self.fields["phone_number"],
+            "productMobil": self.fields["new_product_code"],
+            "tarifaAntiga": self.fields["current_product_code"],
+            "dataExecucioCanviTarifa": self.fields["effective_date"],
+            "OdooContractRefRelacionat": self.fields["fiber_linked"],
+            "correuElectronic": self.fields["subscription_email"],
+            "idioma": self.fields["language"],
+            "enviarNotificacio": self._transform_boolean_df(
+                self.fields["send_notification"]),
+        }
+
+
+class ChangeTariffExceptionalTicket(ChangeTariffTicket):
+    def __init__(self, service_data, customer_data,
+                 otrs_configuration=None):
+        super().__init__(service_data, customer_data,
+                         otrs_configuration)
+        self.configuration = ChangeTariffExceptionalTicketConfiguration()
+
+    def _get_subject(self):
+        return "Sol·licitud Canvi de tarifa excepcional"
