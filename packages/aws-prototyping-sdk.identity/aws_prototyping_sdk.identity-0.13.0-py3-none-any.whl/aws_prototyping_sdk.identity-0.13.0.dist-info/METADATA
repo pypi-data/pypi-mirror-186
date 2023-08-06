@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: aws-prototyping-sdk.identity
+Version: 0.13.0
+Summary: @aws-prototyping-sdk/identity
+Home-page: https://github.com/aws/aws-prototyping-sdk
+Author: AWS APJ COPE<apj-cope@amazon.com>
+License: Apache-2.0
+Project-URL: Source, https://github.com/aws/aws-prototyping-sdk
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: JavaScript
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Typing :: Typed
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved
+Requires-Python: ~=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aws-cdk-lib (<3.0.0,>=2.53.0)
+Requires-Dist: aws-cdk.aws-cognito-identitypool-alpha (==2.53.0.a0)
+Requires-Dist: aws-prototyping-sdk.pdk-nag (<1.0.0)
+Requires-Dist: cdk-nag (<3.0.0,>=2.21.4)
+Requires-Dist: constructs (<11.0.0,>=10.1.162)
+Requires-Dist: jsii (<2.0.0,>=1.71.0)
+Requires-Dist: projen (<0.66.0,>=0.65.26)
+Requires-Dist: publication (>=0.0.3)
+Requires-Dist: typeguard (~=2.13.3)
+
+This module by default deploys a configurable Identity Provider with a default Cognito User Pool. These resources can be used by your website to restrict access to only authenticated users if needed. All settings are configurable and the creation of these AuthN resources can be disabled if needed or configured to use custom AuthN providers i.e. Facebook, Google, etc.
+
+Below is a conceptual view of the default architecture this module creates:
+
+```
+Cognito User Pool --------------------> Identity Pool
+     |_ User Pool Client                     |_ Unauthenticated IAM Role
+                                             |_ Authenticated IAM Role
+```
+
+
