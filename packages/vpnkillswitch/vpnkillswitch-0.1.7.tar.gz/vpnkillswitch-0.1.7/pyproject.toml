@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=65.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vpnkillswitch"
+version = "0.1.7"
+authors = [
+  { name="Good Boy", email="pythonic@rexbytes.com" },
+]
+description = "A vpnkillswitch helper from rexbytes.com"
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+]
+
+
+[project.urls]
+"Homepage" = "https://github.com/RexBytes/vpnkillswitch"
+"Bug Tracker" = "https://github.com/RexBytes/vpnkillswitch/issues"
+"Download URL" ="https://github.com/RexBytes/vpnkillswitch/archive/refs/tags/v0.1.7.tar.gz"
+
+[project.scripts]
+vpnkillswitch = "vpnkillswitch:vpnkillswitch.vpnkillswitch"
+
