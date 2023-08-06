@@ -1,0 +1,6 @@
+class EnstoolsCompressionError(Exception):
+    ...
+
+
+class InvalidCompressionSpecification(EnstoolsCompressionError):
+    ...
