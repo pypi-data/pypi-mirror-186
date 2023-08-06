@@ -1,0 +1,1247 @@
+#!python
+# -*- coding: utf-8 -*-
+#
+#  Copyright 2022 Machine Learning and Language Processing (MLLP) research group
+#                 Universitat Politècnica de València (UPV)
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+
+import sys
+import os
+import json
+from configparser import ConfigParser, RawConfigParser, NoOptionError
+import argparse
+import traceback
+
+from tlp_client import TLPSpeechClient, TLPTextClient, TLPWebClient
+
+
+def error(msg):
+    sys.stderr.write("[EE] %s\n" % msg)
+    sys.exit(1)
+
+def log(msg):
+    sys.stderr.write("[LL] %s\n" % msg)
+
+def print_sample_config():
+    config = RawConfigParser()
+    config.add_section('general')
+    config.set('general', 'web_service_url', '')
+    config.set('general', 'player_url', '')
+    config.set('general', 'translation_editor_url', '')
+    config.set('general', 'web_translation_editor_url', '')
+    config.add_section('http_auth')
+    config.set('http_auth', 'enabled', 'no')
+    config.set('http_auth', 'username', '')
+    config.set('http_auth', 'password', '')
+    config.add_section('api_client_auth')
+    config.set('api_client_auth', 'enabled', 'yes')
+    config.set('api_client_auth', 'username', '')
+    config.set('api_client_auth', 'secret_key', '')
+    config.set('api_client_auth', 'request_key_expire_lifetime', '')
+    config.add_section('player_user_info')
+    config.set('player_user_info', 'user_id', '')
+    config.set('player_user_info', 'user_full_name', '')
+    config.set('player_user_info', 'user_confidence', '')
+    config.write(sys.stdout)
+
+def parse_config(cfg_fp): 
+    config = ConfigParser(allow_no_value=True)
+    with open(cfg_fp) as cfg_fd:
+        config.read_file(cfg_fd)
+
+    CFG = {}
+
+    csection = "general"
+
+    copt = "web_service_url"
+    try:
+        CFG['WSURL'] = config.get(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    if CFG['WSURL'].strip() == "": 
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+    copt = "player_url"
+    try:
+        CFG['PLURL'] = config.get(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    if CFG['PLURL'].strip() == "": 
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+    copt = "translation_editor_url"
+    try:
+        CFG['TEURL'] = config.get(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    if CFG['TEURL'].strip() == "": 
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+    csection = "http_auth"
+
+    copt = "enabled"
+    try: 
+        CFG['HTE'] = config.getboolean(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    except ValueError:
+        error("On config file (%s):\n\t[%s] %s ---> must be 'yes' or 'no'." % (cfg_fp, csection, copt))
+
+    if CFG['HTE']:
+        copt = "username"
+        try:
+            CFG['HUSR'] = config.get(csection, copt)
+        except NoOptionError:
+            error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+        if CFG['HUSR'].strip() == "":
+            error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+        copt = "password"
+        try:
+            CFG['HPWD'] = config.get(csection, copt)
+        except NoOptionError:
+            error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+        if CFG['HPWD'].strip() == "":
+            error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    else:
+        CFG['HUSR'] = None
+        CFG['HPWD'] = None
+
+    csection = "api_client_auth"
+
+    copt = "username"
+    try:
+        CFG['ACAU'] = config.get(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    if CFG['ACAU'].strip() == "":
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+    copt = "secret_key"
+    try:
+        CFG['ACAF'] = config.get(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    if CFG['ACAF'].strip() == "":
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+    copt = 'request_key_expire_lifetime'
+    try:
+        CFG['TSL'] = config.getint(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    except ValueError:
+        error("On config file (%s):\n\t[%s] %s ---> must be a integer (seconds)." % (cfg_fp, csection, copt))
+
+    return CFG
+
+
+CFG_FILE = "%s/config.ini" % os.getcwd()
+CFG_FILENAME = "config.ini" 
+
+if __name__ == "__main__":
+       
+    help_str = """
+****** TLP API client tool *******
+
+This script makes use of the TLP Python3 Client Library (tlp-client) and features almost
+all of TLP Web Service's interfaces, accessible using commands and sub-commands
+that are named as the paths of the corresponding interfaces.
+
+More precisely, commands correspond to the sub-APIs featured by the Web
+Service, while sub-commands are the paths defined by the interfaces implemented
+by each sub-API.
+
+For instance, to call the /speech/ingest/new interface, you just have to call
+this script setting the corresponding (and trivial) sequence of commands and
+sub-commands:
+
+  tlp-api-cli speech ingest new (...)
+
+Every command and sub-command have specific arguments and options. You can
+check them easily adding the -h (--help) option after the command or
+sub-command.  
+
+We recommend to check the complete API specifications in the TLP documentation
+available on-line at https://ttp.mllp.upv.es/doc.
+
+
+"""
+
+    epilog_str = """
+
+****** Examples of use *******
+
+  - To upload a new English video file (with ID "1234") and request English and
+    Spanish subtitles [/speech/ingest/new API call]:
+
+    tlp-api-cli speech ingest new -l "en" -t "My first video" -M "/path/to/my/video.mp4" -p en -p es "1234"
+
+  - To check the status of an uploaded video, using an upload ID returned by
+    the /speech/ingest/new interface (i.e. "up-1234") [/speech/status API
+    call]:
+
+    tlp-api-cli speech status "up-1234"
+
+  - To get the subtitle languages available for the video ID "1234"
+    [/speech/langs API call]:
+
+    tlp-api-cli speech langs "1234"
+
+  - To get English subtitles in SRT format for the video ID "1234" [/speech/get
+    API call]:
+
+    tlp-api-cli speech get -f "srt" "1234" "en" 
+
+
+Every command and sub-command have specific arguments and options. You can
+check them easily adding the -h (--help) option after the command or
+sub-command. For instance:
+
+  tlp-api-cli speech -h
+  tlp-api-cli speech ingest -h
+  tlp-api-cli speech ingest new -h
+ 
+The transLectures-UPV Platform (TLP) is developed at the Universitat
+Politècnica de València (UPV) by the MLLP research group. Do not hesitate to
+contact us at mllp-contact@upv.es. You will find further information at
+https://ttp.mllp.upv.es/doc.
+
+
+"""
+    
+    parser = argparse.ArgumentParser(description=help_str, epilog=epilog_str, formatter_class=argparse.RawDescriptionHelpFormatter)
+
+    class WriteConfigAction(argparse.Action):
+        def __init__(self,option_strings,dest,nargs=0,**kwargs):
+            super(WriteConfigAction, self).__init__(option_strings,dest,0, **kwargs)
+        def __call__(self,parser,namespace,values,option_string=None):
+            print_sample_config()
+            sys.exit(0)
+
+    parser.add_argument("-d", "--debug", action="store_true", default=False, help="Print debug information")
+    parser.add_argument("-g", "--use-get-query", action="store_true", default=False, help="Use GET HTTP queries instead of POST when possible")
+    parser.add_argument("-D", "--use-data-param", action="store_true", default=False, help="Use a single base64-encoded JSON 'data' GET parameter instead of multiple GET parameters")
+    parser.add_argument("-c", "--config-file", default=CFG_FILE, help="Config file. Default: %s" % CFG_FILENAME, metavar="<file>")
+    parser.add_argument("-C", "--print-sample-config-file", action=WriteConfigAction, help="Print sample config file and exit")
+    parser.add_argument("-I", "--api-client-auth", dest="user", help="API client user name and authentication token, in the following format: USERNAME:AUTH_TOKEN. Default: from config file.", metavar="<user_tuple>")
+    parser.add_argument("-k", "--use-request-key", action="store_true", default=False, help="Use request-key as auth_token instead of secret_key.")
+    parser.add_argument("-K", "--request-key-lifetime", type=int, help="Set request key lifetime in minutes. Default: from config file.")
+    parser.add_argument("-B", "--su",  help="su (substitute user) option: specify username. Only for admin users.", metavar="<username>")
+    parser.add_argument("-f", "--store-output-file", help="Store the Web Service response in a file.", metavar="<dest>")
+
+
+    subapiparsers = parser.add_subparsers(title="Available Commands (Web Service's sub-APIs)", description='The Web Service implements three sub-APIs for the three main classes of objects than can be processed by TLP. \nThese sub-APIs are implemented in this script and accessible by their respective commands.')
+
+    parser_speech = subapiparsers.add_parser('speech', help='/speech API: is aimed to deal with video and audio files.')
+    parser_speech.set_defaults(api='speech')
+
+    parser_text = subapiparsers.add_parser('text', help='/text API: is intended to deal with text documents and contents.')
+    parser_text.set_defaults(api='text')
+
+    parser_web = subapiparsers.add_parser('web', help='/web API: is intended to specifically deal with text contents extracted from html documents from the client (web browser) side.')
+    parser_web.set_defaults(api='web')
+
+    d_api_parsers = {"speech":parser_speech, "text":parser_text, "web":parser_web}
+
+    #####----- Speech ------#####
+
+    subparsers = parser_speech.add_subparsers(title='/speech sub-commands', description='Use a sub-command to call the corresponding Web Service interface')
+ 
+    # SYSTEMS
+    parser_systems = subparsers.add_parser('systems', help='Get a list of all available ASR/MT/TTS Systems that can be applied to transcribe/translate/synthesize a media file.')
+    parser_systems.set_defaults(interface='systems')
+
+    # UPLOADSLIST
+    parser_uploadslist = subparsers.add_parser('uploadslist', help='Get a list of all user\'s uploads.')
+    parser_uploadslist.add_argument("-o", "--object_id", help="Get list of uploads involving the given Object ID.")
+    parser_uploadslist.set_defaults(interface='uploadslist')
+
+    # LIST
+    parser_list = subparsers.add_parser('list', help='Get a list of all existing audios and videos in the TLP Database.')
+    parser_list.set_defaults(interface='list')
+
+    # LIST_FULLINFO
+    parser_list_fullinfo = subparsers.add_parser('list_fullinfo', help='Get a list of all existing audios and videos in the TLP Database, plus their metadata, captions available, and media file locations.')
+    parser_list_fullinfo.set_defaults(interface='list_fullinfo')
+    parser_list_fullinfo.add_argument('-l', "--limit", type=int, default=10, help='Limit query results.')
+    parser_list_fullinfo.add_argument('-p', "--page", type=int, default=1, help='Page number.')
+    parser_list_fullinfo.add_argument('-i', "--external-id", default=None, help='Filter results by external_id.')
+    parser_list_fullinfo.add_argument('-t', "--title", default=None, help='Filter results by title.')
+    parser_list_fullinfo.add_argument('-f', "--date-from", default=None, help='Return objects ingested after the provided date (included). Must be in "yyyy-mm-dd" or "dd-mm-yyyy" format.')
+    parser_list_fullinfo.add_argument('-T', "--date-to", default=None, help='Return objects ingested before the provided date (included). Must be in "yyyy-mm-dd" or "dd-mm-yyyy" format.')
+    parser_list_fullinfo.add_argument('-s', "--sort", default=None, help='Sorting criterion. Allowed values: title, title:asc, title:desc, external_id, external_id:asc, external_id:desc, date, date:asc, date:desc.')
+
+    # INGEST
+    parser_ingest = subparsers.add_parser('ingest', help='Upload media (audio/video) files and many other attachments along with other metadata bundled into a Media Package File (MPF) to the TLP Server.')
+    parser_ingest.set_defaults(interface='ingest')
+    parser_ingest.add_argument("-d", "--debug-mode", action="store_true", default=False, help="Use this upload for debugging purposes.")
+
+    ingest_subparsers = parser_ingest.add_subparsers(title='/speech/ingest sub-commands', description='Select ingest operation')
+ 
+    # INGEST/NEW
+    ingest_new = ingest_subparsers.add_parser('new', help='New media operation')
+    ingest_new.set_defaults(subinterface='new')
+
+    ingest_new.add_argument("object_id", help="Media ID")
+    ingest_new.add_argument("-n", "--no-ingest", dest="f_ingest", action="store_false", default=True, help="Create media package only, do not ingest")
+    ingest_new.add_argument("-X", "--test-mode", action="store_true", default=False, help="Use Ingest Service test mode")
+    ingest_new.add_argument('-c', "--callback-url", dest="callback_url", help='Add callback URL to receive notifications on upload status changes', metavar="<URL>")
+    ingest_new.add_argument('-C', "--callback-params", dest="callback_params", type=json.loads, help='Predefined parameters to be sent to the POST callback function, as key-value mappings in JSON format. Example: \'{ "auth_token":"jd4nv8" }\'', metavar="<JSON>")
+
+    pgmeta = ingest_new.add_argument_group('Metadata options')
+    pgmeta.add_argument("-l", "--language", help="Media Language (ISO 639-1 code)", metavar="<language>")
+    pgmeta.add_argument("-t", "--title", help="Title of the media", metavar="<title>")
+    pgmeta.add_argument("-S", "--speaker-info", action="append", help="Speaker Info, in the following format: 'SPEAKER_ID:[FULL_NAME]:[GENDER]:[EMAIL]', where GENDER={M,F}. Example: 'id1234:Pepita Greus::pgreus@mymail.com'", metavar="<speaker_tuple>")
+    pgmeta.add_argument("-m", "--mail", dest="email", help="List of e-mails separated by commas", metavar="<email>")
+    pgmeta.add_argument("-k", "--keywords", help="Media keywords", metavar="<keywords>")
+    pgmeta.add_argument("-i", "--topic", help="Topic of the media", metavar="<topic>")
+
+    pgmedia = ingest_new.add_argument_group('Media file options')
+    pgmedia.add_argument("-M", "--media-file", dest="media_file", help="Main media file",  metavar="<file/URL>")
+    pgmedia.add_argument("-u", "--use-media-as-slides-file", dest="is_media_slides", action="store_true", default=False, help="Use main media file as slides file")
+    pgmedia.add_argument("-A", "--extra-media-file", dest="addit_media", action="append", help="Additional media files (main media file encoded in other formats)",  metavar="<file/URL>")
+    pgmedia.add_argument("-s", "--slides-file", dest="slides_file", help="Slides file", metavar="<file>")
+    pgmedia.add_argument("-r", "--docs-file", dest="docs_files", action="append", help="Document file", metavar="<file>")
+    pgmedia.add_argument("-e", "--non-timed-transcript-file", dest="transcript_file", help="Non-timed transcript text file", metavar="<file>")
+    pgmedia.add_argument("-b", "--subtitle-file", dest="captions", action="append", help="Subtitle files, in the following format: 'LANG:FILE:[HUMAN]', where HUMAN={0,1 (def)}. Example: 'es:sub_es.srt:'", metavar="<sub_tuple>")
+    pgmedia.add_argument("-K", "--audiotrack-file", dest="audiotracks", action="append", help="Audiotrack files, in the following format: 'LANG:FILE:[HUMAN]', where HUMAN={0,1 (def)}. Example: 'es:es.tts.mp3:0'", metavar="<track_tuple>")
+    pgmedia.add_argument("-a", "--thumbnail-file", dest="thumb_file", help="Video thumbnail file", metavar="<file>")
+
+    pgwf = ingest_new.add_argument_group('Worflow options')
+    pgwf.add_argument('-p', "--requested-languages-subs", dest="req_langs_subs", action="append", help="Request subtitle languages, in the following format: 'LANG[:SYS_ID]'. Example: '-p es -p en:17'", metavar="<lang>")
+    pgwf.add_argument('-P', "--requested-languages-tts", dest="req_langs_tts", action="append", help="Request TTS languages, in the following format: 'LANG[:SYS_ID]'. Example: '-P en:23'", metavar="<lang>")
+    pgwf.add_argument('-L', "--requested-languages-json", dest="req_langs", type=json.loads, help='"requested_langs" JSON string. Ignores -p and -P options. Example: \'{ "es":{"sub":{}}, "en":{"sub":{"sid":3}} }\'', metavar="<JSON>")
+    pgwf.add_argument("-T", "--disable-generate-opt", dest="tLop", action="store_false", default=True, help="Disables automatic transcription and translation of the ingested media.")
+    pgwf.add_argument("-f", "--enable-force-opt", dest="tL_force", action="store_true", default=False, help="Overwrite any pre-existing human-supervised subtitles.")
+  
+    # INGEST/UPDATE
+    ingest_update = ingest_subparsers.add_parser('update', help='Update media operation')
+    ingest_update.set_defaults(subinterface='update')
+
+    ingest_update.add_argument("object_id", help="Media ID")
+    ingest_update.add_argument("-n", "--no-ingest", dest="f_ingest", action="store_false", default=True, help="Create media package only, do not ingest")
+    ingest_update.add_argument("-X", "--test-mode", action="store_true", default=False, help="Use Ingest Service test mode")
+    ingest_update.add_argument('-c', "--callback-url", dest="callback_url", help='Add callback URL to receive notifications on upload status changes', metavar="<URL>")
+    ingest_update.add_argument('-C', "--callback-params", dest="callback_params", type=json.loads, help='Predefined parameters to be sent to the POST callback function, as key-value mappings in JSON format. Example: \'{ "auth_token":"jd4nv8" }\'', metavar="<JSON>")
+
+    pgmeta = ingest_update.add_argument_group('Metadata options')
+    pgmeta.add_argument("-l", "--language", help="Media Language (ISO 639-1 code)", metavar="<language>")
+    pgmeta.add_argument("-t", "--title", help="Title of the media", metavar="<title>")
+    pgmeta.add_argument("-S", "--speaker-info", action="append", help="Speaker Info, in the following format: 'SPEAKER_ID:[FULL_NAME]:[GENDER]:[EMAIL]', where GENDER={M,F}. Example: 'id1234:Pepita Greus::pgreus@mymail.com'", metavar="<speaker_tuple>")
+    pgmeta.add_argument("-m", "--mail", dest="email", help="List of e-mails separated by commas", metavar="<email>")
+    pgmeta.add_argument("-k", "--keywords", help="Media keywords", metavar="<keywords>")
+    pgmeta.add_argument("-i", "--topic", help="Topic of the media", metavar="<topic>")
+
+    pgmedia = ingest_update.add_argument_group('Media file options')
+    pgmedia.add_argument("-M", "--media-file", dest="media_file", help="Main media file",  metavar="<file/URL>")
+    pgmedia.add_argument("-u", "--use-media-as-slides-file", dest="is_media_slides", action="store_true", default=False, help="Use main media file as slides file")
+    pgmedia.add_argument("-A", "--extra-media-file", dest="addit_media", action="append", help="Additional media files (main media file encoded in other formats)",  metavar="<file/URL>")
+    pgmedia.add_argument("-s", "--slides-file", dest="slides_file", help="Slides file", metavar="<file>")
+    pgmedia.add_argument("-r", "--docs-file", dest="docs_files", action="append", help="Document file", metavar="<file>")
+    pgmedia.add_argument("-e", "--non-timed-transcript-file", dest="transcript_file", help="Non-timed transcript text file", metavar="<file>")
+    pgmedia.add_argument("-b", "--subtitle-file", dest="captions", action="append", help="Subtitle files, in the following format: 'LANG:FILE:[HUMAN]', where HUMAN={0,1 (def)}. Example: 'es:sub_es.srt:'", metavar="<sub_tuple>")
+    pgmedia.add_argument("-K", "--audiotrack-file", dest="audiotracks", action="append", help="Audiotrack files, in the following format: 'LANG:FILE:[HUMAN]', where HUMAN={0,1 (def)}. Example: 'es:es.tts.mp3:0'", metavar="<track_tuple>")
+    pgmedia.add_argument("-a", "--thumbnail-file", dest="thumb_file", help="Video thumbnail file", metavar="<file>")
+
+    pgwf = ingest_update.add_argument_group('Worflow options')
+    pgwf.add_argument('-p', "--requested-languages-subs", dest="req_langs_subs", action="append", help="Request subtitle languages, in the following format: 'LANG[:SYS_ID]'. Example: '-p es -p en:17'", metavar="<lang>")
+    pgwf.add_argument('-P', "--requested-languages-tts", dest="req_langs_tts", action="append", help="Request TTS languages, in the following format: 'LANG[:SYS_ID]'. Example: '-P en:23'", metavar="<lang>")
+    pgwf.add_argument('-L', "--requested-languages-json", dest="req_langs", type=json.loads, help='"requested_langs" JSON string. Ignores -p and -P options. Example: \'{ "es":{"sub":{}}, "en":{"sub":{"sid":3}} }\'', metavar="<JSON>")
+    pgwf.add_argument("-R", "--re-generate-opt", dest="tL_regen", choices=["tx", "tl", "tts"], action="append", help="Set 'tL-regenerate' option: request re-generation of automatic subtitles and/or TTS tracks. Example: '-R tx -R tl' requests regeneration of transcription and translations", metavar="{tx,tl,tts}")
+    pgwf.add_argument("-T", "--disable-generate-opt", dest="tLop", action="store_false", default=True, help="Disables automatic transcription and translation of the ingested media.")
+    pgwf.add_argument("-f", "--enable-force-opt", dest="tL_force", action="store_true", default=False, help="Overwrite any pre-existing human-supervised subtitles.")
+   
+    # INGEST/DELETE
+    ingest_delete = ingest_subparsers.add_parser('delete', help='Delete media operation')
+    ingest_delete.set_defaults(subinterface='delete')
+
+    ingest_delete.add_argument("object_id", help="Media ID")
+    ingest_delete.add_argument("-x", "--delete-mode", dest="del_mode", choices=["soft", "hard"], help="Delete mode")
+   
+    # INGEST/CANCEL
+    ingest_cancel = ingest_subparsers.add_parser('cancel', help='Cancel upload operation')
+    ingest_cancel.set_defaults(subinterface='cancel')
+
+    ingest_cancel.add_argument("upload_id", help="Upload ID")
+
+    # STATUS
+    parser_status = subparsers.add_parser('status', help='Check the current status of an upload.')
+    parser_status.add_argument("upload_id", help="Upload ID")
+    parser_status.set_defaults(interface='status')
+
+    # LANGS
+    parser_langs = subparsers.add_parser('langs', help='Get a list of subtitle and audiotrack languages available for a given media ID. ')
+    parser_langs.add_argument("object_id", help="Media ID")
+    parser_langs.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_langs.set_defaults(interface='langs')
+
+    # METADATA
+    parser_metadata = subparsers.add_parser('metadata', help='Get metadata and media file locations for a given media ID. ')
+    parser_metadata.add_argument("object_id", help="Media ID")
+    parser_metadata.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_metadata.set_defaults(interface='metadata')
+
+    # GET
+    parser_subs = subparsers.add_parser('get', help='Download subtitles for a given media ID and language.')
+    parser_subs.add_argument("object_id", help="Media ID.")
+    parser_subs.add_argument("language", help="Language ISO 639-1 code (i.e. en, es, ca, ...).")
+    parser_subs.add_argument("-f", "--format", help="Subtitles format.", choices=["dfxp", "ttml", "srt", "vtt", "text", "json", "ibmjson", "stl", "docx"], default="dfxp")
+    parser_subs.add_argument("-D", "--select-data-policy", help="sel_data_policy parameter.", choices=[0,1,2], default=None, type=int)
+    parser_subs.add_argument("-S", "--segment-filtering-policy", help="seg_filt_policy parameter.", choices=[-1,0,1], default=None, type=int)
+    parser_subs.add_argument("-s", "--session-id", help="Apply to the original subtitle file all confirmed subtitle modifications upon the given session ID.", type=int, default=None)
+    parser_subs.add_argument("-r", "--pending-revs", help="Apply to the current subtitle file those revisions that are still pending to be reviewed", action="store_true", default=False)
+    parser_subs.add_argument("-H", "--hash-id", help="Media Hash ID.")
+    parser_subs.set_defaults(interface='get')
+
+    # GETMOD
+    parser_getmod = subparsers.add_parser('getmod', help='Get subtitle modifications in JSON format of a given session ID.')
+    parser_getmod.add_argument("object_id", help="Media ID.")
+    parser_getmod.add_argument("session_id", help="Session ID.")
+    parser_getmod.add_argument("-H", "--hash-id", help="Media Hash ID.")
+    parser_getmod.set_defaults(interface='getmod')
+ 
+    # AUDIOTRACK
+    parser_audiotrack = subparsers.add_parser('audiotrack', help='Download audiotrack file for a given media ID and language.')
+    parser_audiotrack.add_argument("object_id", help="Media ID")
+    parser_audiotrack.add_argument("language", help="Language ISO 639-1 code (i.e. en, es, ca, ...)")
+    parser_audiotrack.add_argument("audiotrack_id", help="Audiotrack ID", type=int)
+    parser_audiotrack.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_audiotrack.set_defaults(interface='audiotrack')
+
+    # ACTIVE_SESSIONS
+    parser_active_sessions = subparsers.add_parser('active_sessions', help='Returns a list of active edit sessions involving a given media ID.')
+    parser_active_sessions.add_argument("object_id", help="Media ID")
+    parser_active_sessions.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_active_sessions.set_defaults(interface='active_sessions')
+
+    # START_SESSION
+    parser_start_session = subparsers.add_parser('start_session', help='Starts an edition session to send and commit modifications of a subtitles file.')
+    parser_start_session.add_argument("object_id", help="Media Id")
+    parser_start_session.add_argument("author_id", help="Author Id")
+    parser_start_session.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_start_session.add_argument("-n", "--author-name", help="Author full name")
+    parser_start_session.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_start_session.set_defaults(interface='start_session')
+
+    # SESSION_STATUS
+    parser_session_status = subparsers.add_parser('session_status', help='Returns the current status of the given session ID.')
+    parser_session_status.add_argument("object_id", help="Media Id")
+    parser_session_status.add_argument("session_id", type=int, help="Session Id")
+    parser_session_status.add_argument("author_id", help="Author Id")
+    parser_session_status.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_session_status.add_argument("-a", "--alive", action="store_true", default=False, help="Alive message.")
+    parser_session_status.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_session_status.set_defaults(interface='session_status')
+
+    # MOD
+    parser_mod = subparsers.add_parser('mod', help='Send and commit subtitle corrections under an edit session.')
+    parser_mod.add_argument("-D", "--data", help="Directly provide input base64-encoded JSON data string")
+    parser_mod.add_argument("-s", "--session-id", type=int, help="Session Id")
+    parser_mod.add_argument("-i", "--media-id", help="Media Id")
+    parser_mod.add_argument("-l", "--language", help="Subtitle language")
+    parser_mod.add_argument("-a", "--author-id", help="Author Id")
+    parser_mod.add_argument("-c", "--author-conf", type=int, help="Author Confidence level (0-100)")
+    parser_mod.add_argument("-n", "--author-name", help="Author full name")
+    parser_mod.add_argument("-t", "--txt-json", action="append", help='Segment modification. Must be a JSON dictionary: {"sI":<int>, "b":<float>, "e":<float>, "t":<str>}', type=json.loads)
+    parser_mod.add_argument("-r", "--del-segm-id", action="append", type=int, help="Segment IDs to delete.")
+    parser_mod.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_mod.set_defaults(interface='mod')
+
+    # END_SESSION
+    parser_end_session = subparsers.add_parser('end_session', help='Ends an open edition session.')
+    parser_end_session.add_argument("object_id", help="Media Id")
+    parser_end_session.add_argument("session_id", type=int, help="Session Id")
+    parser_end_session.add_argument("author_id", help="Author Id")
+    parser_end_session.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_end_session.add_argument("-n", "--author-name", help="Author full name")
+    parser_end_session.add_argument("-f", "--force", action="store_true", default=False, help="Force end session when user and/or author_id are not the owners.")
+    parser_end_session.add_argument("-r", "--do-not-regenerate", dest="regenerate", action="store_false", default=True, help="Request regeneration of subtitles and/or synthesized audiotracks immediately after closing the session.")
+    parser_end_session.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_end_session.set_defaults(interface='end_session')
+
+    # LOCK
+    parser_lock_subs = subparsers.add_parser('lock', help='Allow/disallow regular users to send subtitles modifications for an specific Media ID.')
+    parser_lock_subs.add_argument("object_id", help="Media Id")
+    parser_lock_subs.add_argument("author_id", help="Author Id")
+    parser_lock_subs.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_lock_subs.add_argument("-u", "--unlock", dest="lock", action="store_false", default=True, help="Unlock subtitles.")
+    parser_lock_subs.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_lock_subs.set_defaults(interface='lock')
+
+    # EDIT_HISTORY
+    parser_edit_history = subparsers.add_parser('edit_history', help='Allow/disallow regular users to send subtitles modifications for an specific Media ID.')
+    parser_edit_history.add_argument("object_id", help="Media Id")
+    parser_edit_history.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_edit_history.set_defaults(interface='edit_history')
+
+    # REVISIONS
+    parser_revisions = subparsers.add_parser('revisions', help='Returns a list of all edit sessions for all API user’s media files that are pending to be revised.')
+    parser_revisions.set_defaults(interface='revisions')
+  
+    # MARK_REVISED
+    parser_mark_revised = subparsers.add_parser('mark_revised', help='Mark/unmark an edition session as revised.')
+    parser_mark_revised.add_argument("object_id", help="Media Id")
+    parser_mark_revised.add_argument("session_id", type=int, help="Session Id")
+    parser_mark_revised.add_argument("author_id", help="Author Id")
+    parser_mark_revised.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_mark_revised.add_argument("-n", "--author-name", help="Author full name")
+    parser_mark_revised.add_argument("-r", "--revision-session-id", type=int, help="Session ID under which the given Author ID revised the changes made in the Session ID.")
+    parser_mark_revised.add_argument("-f", "--unmark", action="store_true", default=False, help="Do the inverse process: delete revised mark.")
+    parser_mark_revised.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_mark_revised.set_defaults(interface='mark_revised')
+ 
+    # ACCEPT
+    parser_accept = subparsers.add_parser('accept', help='Accept modifications of one or more pending edit sessions without having to revise them.')
+    parser_accept.add_argument("session_id_list", help="Comma-separated list of Session IDs whose edits are meant to be accepted by the given Author ID.")
+    parser_accept.add_argument("author_id", help="Author Id")
+    parser_accept.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_accept.add_argument("-n", "--author-name", help="Author full name")
+    parser_accept.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_accept.set_defaults(interface='accept')
+
+    # REJECT
+    parser_reject = subparsers.add_parser('reject', help='Reject modifications of one or more pending edit sessions without having to revise them.')
+    parser_reject.add_argument("session_id_list", help="Comma-separated list of Session IDs whose edits are meant to be rejected by the given Author ID.")
+    parser_reject.add_argument("author_id", help="Author Id")
+    parser_reject.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_reject.add_argument("-n", "--author-name", help="Author full name")
+    parser_reject.add_argument("-H", "--hash-id", help="Media Hash ID")
+    parser_reject.set_defaults(interface='reject')
+
+
+    #####----- Text ------#####
+
+    subparsers = parser_text.add_subparsers(title='/text sub-commands', description='Use a subcommand to call the corresponding Web Service interface')
+ 
+    # SYSTEMS
+    parser_systems = subparsers.add_parser('systems', help='Get a list of all available MT Systems that can be applied to translate a document file.')
+    parser_systems.set_defaults(interface='systems')
+
+    # UPLOADSLIST
+    parser_uploadslist = subparsers.add_parser('uploadslist', help='Get a list of all user\'s uploads.')
+    parser_uploadslist.add_argument("-o", "--object_id", help="Get list of uploads involving the given Object ID.")
+    parser_uploadslist.set_defaults(interface='uploadslist')
+
+    # LIST
+    parser_list = subparsers.add_parser('list', help='Get a list of all existing documents in the TLP Database.')
+    parser_list.set_defaults(interface='list')
+
+    # INGEST
+    parser_ingest = subparsers.add_parser('ingest', help='Upload document files bundled into a Document Package File (MPF) to the TLP Server.')
+    parser_ingest.set_defaults(interface='ingest')
+    parser_ingest.add_argument("-d", "--debug-mode", action="store_true", default=False, help="Use this upload for debugging purposes.")
+
+    ingest_subparsers = parser_ingest.add_subparsers(title='/text/ingest sub-commands', description='Select ingest operation')
+ 
+    # INGEST/NEW
+    ingest_new = ingest_subparsers.add_parser('new', help='New document operation')
+    ingest_new.set_defaults(subinterface='new')
+
+    ingest_new.add_argument("language", help="Document Language (ISO 639-1 code)")
+    ingest_new.add_argument('-d', "--document-file", dest="document_files", action="append", default=[], help="Add document file.'")
+    ingest_new.add_argument('-i', "--document-id", dest="document_ids", action="append", default=[], help="Add document ID'")
+    ingest_new.add_argument('-t', "--document-title", dest="document_titles", action="append", default=[], help="Add document title'")
+    ingest_new.add_argument("-n", "--no-ingest", dest="f_ingest", action="store_false", default=True, help="Create document package only, do not ingest")
+    ingest_new.add_argument("-X", "--test-mode", action="store_true", default=False, help="Use Ingest Service test mode")
+    ingest_new.add_argument("-m", "--mail", dest="email", help="List of e-mails separated by commas", metavar="<email>")
+
+    pgwf = ingest_new.add_argument_group('Worflow options')
+    pgwf.add_argument('-p', "--requested-translation-langs", dest="req_langs", action="append", help="Request translation languages, in the following format: 'LANG[:SYS_ID]'. Example: '-p es -p en:17'", metavar="<lang>")
+    pgwf.add_argument('-L', "--requested-languages-json", dest="req_langs_json", type=json.loads, help='"requested_langs" JSON string. Ignores -p and -P options. Example: \'{ "es":{"sub":{}}, "en":{"sub":{"sid":3}} }\'', metavar="<JSON>")
+    pgwf.add_argument("-T", "--disable-generate-opt", dest="tLop", action="store_false", default=True, help="Disables automatic translation of the ingested documents.")
+  
+    # INGEST/UPDATE
+    ingest_update = ingest_subparsers.add_parser('update', help='Update document operation')
+    ingest_update.set_defaults(subinterface='update')
+
+    ingest_update.add_argument("language", help="Document Language (ISO 639-1 code)")
+    ingest_update.add_argument('-d', "--document-file", dest="document_files", action="append", default=[], help="Add document file.'")
+    ingest_update.add_argument('-i', "--document-id", dest="document_ids", action="append", default=[], help="Add document ID'")
+    ingest_update.add_argument('-t', "--document-title", dest="document_titles", action="append", default=[], help="Add document title'")
+    ingest_update.add_argument("-n", "--no-ingest", dest="f_ingest", action="store_false", default=True, help="Create document package only, do not ingest")
+    ingest_update.add_argument("-X", "--test-mode", action="store_true", default=False, help="Use Ingest Service test mode")
+    ingest_update.add_argument("-m", "--mail", dest="email", help="List of e-mails separated by commas", metavar="<email>")
+
+    pgwf = ingest_update.add_argument_group('Worflow options')
+    pgwf.add_argument('-p', "--requested-translation-langs", dest="req_langs", action="append", help="Request translation languages, in the following format: 'LANG[:SYS_ID]'. Example: '-p es -p en:17'", metavar="<lang>")
+    pgwf.add_argument('-L', "--requested-languages-json", dest="req_langs_json", type=json.loads, help='"requested_langs" JSON string. Ignores -p and -P options. Example: \'{ "es":{"sub":{}}, "en":{"sub":{"sid":3}} }\'', metavar="<JSON>")
+    pgwf.add_argument("-R", "--re-generate-opt", dest="tL_regen", default=False, action="store_true", help="Request re-generation of automatic translations")
+    pgwf.add_argument("-T", "--disable-generate-opt", dest="tLop", action="store_false", default=True, help="Disables automatic translation of the ingested documents.")
+    pgwf.add_argument("-f", "--enable-force-opt", dest="tL_force", action="store_true", default=False, help="Overwrite any pre-existing human-supervised translations.")
+   
+    # INGEST/DELETE
+    ingest_delete = ingest_subparsers.add_parser('delete', help='Delete document operation')
+    ingest_delete.set_defaults(subinterface='delete')
+
+    ingest_delete.add_argument("object_id", help="Document ID")
+    ingest_delete.add_argument("-x", "--delete-mode", dest="del_mode", choices=["soft", "hard"], help="Delete mode")
+   
+    # INGEST/CANCEL
+    ingest_cancel = ingest_subparsers.add_parser('cancel', help='Cancel upload operation')
+    ingest_cancel.set_defaults(subinterface='cancel')
+
+    ingest_cancel.add_argument("upload_id", help="Upload ID")
+
+    # STATUS
+    parser_status = subparsers.add_parser('status', help='Check the current status of an upload.')
+    parser_status.add_argument("upload_id", help="Upload ID")
+    parser_status.set_defaults(interface='status')
+
+    # LANGS
+    parser_langs = subparsers.add_parser('langs', help='Get a list of translation languages available for a given document ID. ')
+    parser_langs.add_argument("object_id", help="Document ID")
+    parser_langs.add_argument("-H", "--hash-id", help="Document Hash ID")
+    parser_langs.set_defaults(interface='langs')
+
+    # METADATA
+    parser_metadata = subparsers.add_parser('metadata', help='Get metadata for a given document ID. ')
+    parser_metadata.add_argument("object_id", help="Document ID")
+    parser_metadata.add_argument("-H", "--hash-id", help="Document Hash ID")
+    parser_metadata.set_defaults(interface='metadata')
+
+    # GET
+    parser_subs = subparsers.add_parser('get', help='Download translations for a given document ID and language.')
+    parser_subs.add_argument("object_id", help="Document ID.")
+    parser_subs.add_argument("language", help="Language ISO 639-1 code (i.e. en, es, ca, ...).")
+    parser_subs.add_argument("-f", "--format", help="Document format.", choices=["original", "html", "dtlx", "txt"], default="original")
+    parser_subs.add_argument("-D", "--select-data-policy", help="sel_data_policy parameter.", choices=[0,1,2], default=None, type=int)
+    parser_subs.add_argument("-s", "--session-id", help="Apply modifications made under the provided edit session ID.", type=int, default=None)
+    parser_subs.add_argument("-H", "--hash-id", help="Document Hash ID.")
+    parser_subs.set_defaults(interface='get')
+ 
+    # START_SESSION
+    parser_start_session = subparsers.add_parser('start_session', help='Starts an edition session to send and commit modifications of a translation file.')
+    parser_start_session.add_argument("object_id", help="Document Id")
+    parser_start_session.add_argument("author_id", help="Author Id")
+    parser_start_session.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_start_session.add_argument("-n", "--author-name", help="Author full name")
+    parser_start_session.add_argument("-H", "--hash-id", help="Document Hash ID")
+    parser_start_session.set_defaults(interface='start_session')
+
+    # SESSION_STATUS
+    parser_session_status = subparsers.add_parser('session_status', help='Returns the current status of the given session ID.')
+    parser_session_status.add_argument("object_id", help="Document Id")
+    parser_session_status.add_argument("session_id", type=int, help="Session Id")
+    parser_session_status.add_argument("author_id", help="Author Id")
+    parser_session_status.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_session_status.add_argument("-a", "--alive", action="store_true", default=False, help="Alive message.")
+    parser_session_status.add_argument("-H", "--hash-id", help="Document Hash ID")
+    parser_session_status.set_defaults(interface='session_status')
+
+    # MOD
+    parser_mod = subparsers.add_parser('mod', help='Send and commit translation corrections under an edit session.')
+    parser_mod.add_argument("-D", "--data", help="Directly provide input base64-encoded JSON data string")
+    parser_mod.add_argument("-s", "--session-id", type=int, help="Session Id")
+    parser_mod.add_argument("-i", "--object-id", help="Document Id")
+    parser_mod.add_argument("-l", "--language", help="Subtitle language")
+    parser_mod.add_argument("-a", "--author-id", help="Author Id")
+    parser_mod.add_argument("-c", "--author-conf", type=int, help="Author Confidence level (0-100)")
+    parser_mod.add_argument("-n", "--author-name", help="Author full name")
+    parser_mod.add_argument("-t", "--txt-json", action="append", help='Sentence modification. Must be a JSON dictionary: {"sI":<int>, "t":<str>}', type=json.loads)
+    parser_mod.add_argument("-H", "--hash-id", help="Document Hash ID")
+    parser_mod.set_defaults(interface='mod')
+
+    # END_SESSION
+    parser_end_session = subparsers.add_parser('end_session', help='Ends an open edition session.')
+    parser_end_session.add_argument("object_id", help="Document Id")
+    parser_end_session.add_argument("session_id", type=int, help="Session Id")
+    parser_end_session.add_argument("author_id", help="Author Id")
+    parser_end_session.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_end_session.add_argument("-n", "--author-name", help="Author full name")
+    parser_end_session.add_argument("-f", "--force", action="store_true", default=False, help="Force end session when user and/or author_id are not the owners.")
+    parser_end_session.add_argument("-r", "--do-not-regenerate", dest="regenerate", action="store_false", default=True, help="Request regeneration of subtitles and/or synthesized audiotracks immediately after closing the session.")
+    parser_end_session.add_argument("-H", "--hash-id", help="Document Hash ID")
+    parser_end_session.set_defaults(interface='end_session')
+
+    # LOCK
+    parser_lock_subs = subparsers.add_parser('lock', help='Allow/disallow regular users to send subtitles modifications for an specific Document ID.')
+    parser_lock_subs.add_argument("object_id", help="Document Id")
+    parser_lock_subs.add_argument("author_id", help="Author Id")
+    parser_lock_subs.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_lock_subs.add_argument("-u", "--unlock", dest="lock", action="store_false", default=True, help="Unlock subtitles.")
+    parser_lock_subs.add_argument("-H", "--hash-id", help="Document Hash ID")
+    parser_lock_subs.set_defaults(interface='lock')
+
+    # EDIT_HISTORY
+    parser_edit_history = subparsers.add_parser('edit_history', help='Allow/disallow regular users to send translation modifications for an specific Document ID.')
+    parser_edit_history.add_argument("object_id", help="Document Id")
+    parser_edit_history.add_argument("-H", "--hash-id", help="Document Hash ID")
+    parser_edit_history.set_defaults(interface='edit_history')
+
+    # REVISIONS
+    parser_revisions = subparsers.add_parser('revisions', help='Returns a list of all edit sessions for all API user’s document files that are pending to be revised.')
+    parser_revisions.set_defaults(interface='revisions')
+  
+    # MARK_REVISED
+    parser_mark_revised = subparsers.add_parser('mark_revised', help='Mark/unmark an edition session as revised.')
+    parser_mark_revised.add_argument("object_id", help="Document Id")
+    parser_mark_revised.add_argument("session_id", type=int, help="Session Id")
+    parser_mark_revised.add_argument("author_id", help="Author Id")
+    parser_mark_revised.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_mark_revised.add_argument("-n", "--author-name", help="Author full name")
+    parser_mark_revised.add_argument("-r", "--revision-session-id", type=int, help="Session ID under which the given Author ID revised the changes made in the Session ID.")
+    parser_mark_revised.add_argument("-f", "--unmark", action="store_true", default=False, help="Do the inverse process: delete revised mark.")
+    parser_mark_revised.add_argument("-H", "--hash-id", help="Document Hash ID")
+    parser_mark_revised.set_defaults(interface='mark_revised')
+ 
+    # ACCEPT
+    parser_accept = subparsers.add_parser('accept', help='Accept modifications of one or more pending edit sessions without having to revise them.')
+    parser_accept.add_argument("session_id_list", help="Comma-separated list of Session IDs whose edits are meant to be accepted by the given Author ID.")
+    parser_accept.add_argument("author_id", help="Author Id")
+    parser_accept.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_accept.add_argument("-n", "--author-name", help="Author full name")
+    parser_accept.add_argument("-H", "--hash-id", help="Document Hash ID")
+    parser_accept.set_defaults(interface='accept')
+
+    # REJECT
+    parser_reject = subparsers.add_parser('reject', help='Reject modifications of one or more pending edit sessions without having to revise them.')
+    parser_reject.add_argument("session_id_list", help="Comma-separated list of Session IDs whose edits are meant to be rejected by the given Author ID.")
+    parser_reject.add_argument("author_id", help="Author Id")
+    parser_reject.add_argument("author_conf", type=int, help="Author Confidence level (0-100)")
+    parser_reject.add_argument("-n", "--author-name", help="Author full name")
+    parser_reject.add_argument("-H", "--hash-id", help="Document Hash ID")
+    parser_reject.set_defaults(interface='reject')
+
+
+    #####----- Web ------#####
+
+    subparsers = parser_web.add_subparsers(title='/web sub-commands', description='Use a sub-command to call the corresponding Web Service interface')
+ 
+    # SYSTEMS
+    parser_systems = subparsers.add_parser('systems', help='Get a list of all available MT Systems that can be applied to translate web pages.')
+    parser_systems.set_defaults(interface='systems')
+
+    # MANAGE
+    parser_manage = subparsers.add_parser('manage', help='Manage user web sites.')
+    parser_manage.set_defaults(interface='manage')
+
+    manage_subparsers = parser_manage.add_subparsers(title='/web/manage sub-commands', description='Select manage operation')
+ 
+    # MANAGE/LIST
+    manage_list = manage_subparsers.add_parser('list', help='List user websites')
+    manage_list.set_defaults(subinterface='list')
+
+    # MANAGE/ADD
+    manage_add = manage_subparsers.add_parser('add', help='Add new website')
+    manage_add.set_defaults(subinterface='add')
+
+    manage_add.add_argument("name", help="Website name")
+    manage_add.add_argument("language", help="Website source language (ISO 639-1 code)")
+    manage_add.add_argument("url_pattern", help="Website's URL pattern")
+    manage_add.add_argument('-r', "--requested-translation-langs", dest="req_langs", action="append", help="Request translation languages, in the following format: 'LANG[:SYS_ID]'. Example: '-p es -p en:17'", metavar="<lang>")
+    manage_add.add_argument('-R', "--requested-languages-json", dest="req_langs_json", type=json.loads, help='"requested_langs" JSON string. Ignores -p and -P options. Example: \'{ "es":{"sub":{}}, "en":{"sub":{"sid":3}} }\'', metavar="<JSON>")
+
+    # MANAGE/EDIT
+    manage_edit = manage_subparsers.add_parser('edit', help='Edit an existing website')
+    manage_edit.set_defaults(subinterface='edit')
+
+    manage_edit.add_argument("key", help="Website key")
+    manage_edit.add_argument("-e", "--enabled-opt", type=int, choices=[0,1], default=None, help="Enable/Disable website translation.")
+    manage_edit.add_argument("-l", "--language", help="Website source language (ISO 639-1 code)")
+    manage_edit.add_argument("-u", "--url_pattern", help="Website's URL pattern")
+    manage_edit.add_argument('-r', "--requested-translation-langs", dest="req_langs", action="append", help="Request translation languages, in the following format: 'LANG[:SYS_ID]'. Example: '-p es -p en:17'", metavar="<lang>")
+    manage_edit.add_argument('-R', "--requested-languages-json", dest="req_langs_json", type=json.loads, help='"requested_languages" JSON string. Ignores -r option. Example: \'{ "es":{}, "en":{"sid":3} }\'', metavar="<JSON>")
+  
+    # MANAGE/DELETE
+    manage_delete = manage_subparsers.add_parser('delete', help='Delete an existing website')
+    manage_delete.set_defaults(subinterface='delete')
+
+    manage_delete.add_argument("key", help="Website key")
+    manage_delete.add_argument("-p", "--purge",  action="store_true", default=False, help="Purge mode")
+
+    # EDITOR
+    parser_editor = subparsers.add_parser('editor', help='Interfaces called by the TLP Web translation editor.')
+    parser_editor.set_defaults(interface='editor')
+
+    editor_subparsers = parser_editor.add_subparsers(title='/web/editor sub-commands', description='Select editor operation')
+ 
+    # EDITOR/LANGS
+    editor_langs = editor_subparsers.add_parser('langs', help='Returns a list of translation languages available for a specific website.')
+    editor_langs.set_defaults(subinterface='langs')
+
+    editor_langs.add_argument("key", help="Website key")
+
+    # EDITOR/GET
+    editor_get = editor_subparsers.add_parser('get', help='Returns all existing source texts or translations of a specific website.')
+    editor_get.set_defaults(subinterface='get')
+
+    editor_get.add_argument("key", help="Website key")
+    editor_get.add_argument("language", help="Language code (ISO 639-1 code)")
+
+    # EDITOR/MOD
+    editor_mod = editor_subparsers.add_parser('mod', help='Updates text translations of a specific website and language.')
+    editor_mod.set_defaults(subinterface='mod')
+
+    editor_mod.add_argument("key", help="Website key")
+    editor_mod.add_argument("language", help="Language code (ISO 639-1 code)")
+    editor_mod.add_argument("text", help='Translation editions. Must be a JSON dictionary of text hashes and text contents, i.e.: \'{"af129cd836a":"My updated text"}\'', type=json.loads)
+
+    args = parser.parse_args()
+  
+    if not(os.path.isfile(args.config_file)):
+        sys.stderr.write("'config.ini' file not found in your working directory (%s)\nPlease use -c (--config-file) option to provide it manually.\n\n" % CFG_FILE)
+        sys.stderr.write("Note: you can generate a sample config file using the --print-sample-config-file option.\n")
+        sys.exit(1)
+   
+    CFG = parse_config(args.config_file)
+
+    try:
+        api = args.api
+    except AttributeError:
+        parser.print_usage()
+        sys.exit(1)
+    try:
+        action = args.interface
+    except AttributeError:
+        d_api_parsers[api].print_usage()
+        sys.exit(1)
+ 
+    # WS Authentication   
+    user_name = CFG['ACAU']
+    auth_token = CFG['ACAF']
+    if args.user != None:
+      try:
+        user_name = args.user.split(':')[0]
+        auth_token = args.user.split(':')[1]
+      except:
+        sys.stderr.write("[EE] Bad format for -I (--user) option.\n")
+        sys.exit(1)
+  
+    use_req_key = False  
+    expire = CFG['TSL']
+    if hasattr(args, "use_request_key"):
+      use_req_key = args.use_request_key
+      if args.request_key_lifetime != None:
+        expire = args.request_key_lifetime
+
+    wsurl = CFG['WSURL']
+    plurl = CFG['PLURL']
+    teurl = CFG['TEURL']
+ 
+    if api == "speech":
+      tlpcli = TLPSpeechClient(wsurl, plurl, user_name, auth_token)
+    elif api == "text":
+      tlpcli = TLPTextClient(wsurl, teurl, user_name, auth_token)
+    elif api == "web":
+      tlpcli = TLPWebClient(wsurl, user_name, auth_token)
+
+    tlpcli.debug = args.debug
+    tlpcli.use_get_method = args.use_get_query
+    tlpcli.use_data_parameter = args.use_data_param
+    if CFG['HTE']:
+      tlpcli.http_auth_enabled = True
+      tlpcli.http_user = CFG['HUSR']
+      tlpcli.http_pass = CFG['HPWD']
+
+    if api == "web":
+  
+      if action == "editor": # Only web
+        subaction = args.subinterface
+        if subaction == "langs":
+          tlpcli.api_editor_langs(args.key, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+        elif subaction == "get":
+          tlpcli.api_editor_get(args.key, args.language, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+        elif subaction == "mod":
+          tlpcli.api_editor_mod(args.key, args.language, args.text, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+  
+      elif action == "manage": # Only web
+        subaction = args.subinterface
+        if subaction in ("add", "edit"):
+          req_langs = None
+          if args.req_langs_json != None:
+            req_langs = args.req_langs_json
+          elif args.req_langs != None:
+            req_langs = {}
+            for l in args.req_langs:
+              try:
+                res = l.split(':')
+                lang = res[0].strip()
+                sysid = None
+                opt = {}
+                if len(res) == 2:
+                  sysid = int(res[1].strip())
+                  opt = {"sid":sysid}
+                req_langs[lang] = opt
+              except:
+                traceback.print_exc()
+                sys.stderr.write("[EE] Invalid -r option format.\n")
+                sys.exit(1)
+        if subaction == "list":
+          tlpcli.api_manage_list(su=args.su)
+        elif subaction == "add":
+          if req_langs == None:
+            sys.stderr.write("[EE] You must provide at least one translation language (use -r or -R options).\n")
+            sys.exit(1)
+          tlpcli.api_manage_add(args.name, args.language, args.url_pattern, req_langs, su=args.su)
+        elif subaction == "edit":
+          enabled = None
+          if args.enabled_opt != None:
+            enabled = bool(args.enabled_opt)
+          tlpcli.api_manage_edit(args.key, enabled=enabled, url_pattern=args.url_pattern, requested_langs=req_langs, su=args.su)
+        elif subaction == "delete":
+          tlpcli.api_manage_delete(args.key, purge=args.purge, su=args.su)
+  
+    else:
+  
+      if action == "systems":
+        tlpcli.api_systems(su=args.su)
+  
+      elif action == "uploadslist":
+        tlpcli.api_uploadslist(args.object_id, su=args.su)
+  
+      elif action == "status":
+        tlpcli.api_status(args.upload_id, su=args.su)
+  
+      elif action == "list":
+        tlpcli.api_list(su=args.su)
+  
+      elif action == "list_fullinfo":
+        tlpcli.api_list_fullinfo(limit=args.limit, page=args.page, external_id=args.external_id, title=args.title, 
+                                 date_from=args.date_from, date_to=args.date_to, sort=args.sort, su=args.su)
+  
+      elif action == "metadata":
+        tlpcli.api_metadata(args.object_id, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+  
+      elif action == "langs":
+        tlpcli.api_langs(args.object_id, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+  
+      elif action == "get":
+        if api == "speech":
+          tlpcli.api_get(args.object_id, args.language, form=args.format, seldata=args.select_data_policy, segfilt=args.segment_filtering_policy, session_id=args.session_id, pending_revs=args.pending_revs, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+        elif api == "text":
+          if args.format == "original": form = TLPTextClient.TRANS_FORMAT_ORIGINAL
+          elif args.format == "html": form = TLPTextClient.TRANS_FORMAT_HTML
+          elif args.format == "dtlx": form = TLPTextClient.TRANS_FORMAT_DTLX
+          elif args.format == "txt": form = TLPTextClient.TRANS_FORMAT_TEXT
+          tlpcli.api_get(args.object_id, args.language, form=form, seldata=args.select_data_policy, session_id=args.session_id, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+        
+      elif action == "audiotrack":
+        if api == "speech":
+          tlpcli.api_audiotrack(args.object_id, args.language, args.audiotrack_id, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+ 
+      elif action == "active_sessions":
+        if api == "speech":
+           tlpcli.api_active_sessions(args.object_id, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+        else:
+           error("Not implemented")
+
+      elif action == "start_session":
+        tlpcli.api_start_session(args.object_id, args.author_id, args.author_conf, author_name=args.author_name, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+  
+      elif action == "session_status":
+        tlpcli.api_session_status(args.object_id, args.author_id, args.author_conf, session_id=args.session_id, alive=args.alive, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+  
+      elif action == "getmod":
+          tlpcli.api_getmod(args.object_id, args.session_id, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+
+      elif action == "mod":
+        if api == "speech":
+            if args.data != None:
+                with open(args.data, 'r') as fd:
+                    json_data = fd.read()
+                tlpcli.api_mod(None, None, None, None, None, None, data=json_data)
+            else:
+                if args.object_id == None or args.language == None or args.author_id == None or args.author_conf == None or args.session_id == None:
+                    parser_mod.error("You must provide --media-id, --language, --session-id and --author-id and --author-conf options")
+                if args.txt_json == None and args.del_segm_id == None:
+                    parser_mod.error("You must provide at least a --txt-json or --del-segm-id option.")
+                tlpcli.api_mod(args.object_id, args.language, args.author_id, args.author_conf, args.txt_json, args.del_segm_id, session_id=args.session_id, author_name=args.author_name, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+        elif api == "text":
+            if args.data != None:
+                tlpcli.api_mod(None, None, None, None, None, None, data=args.data)
+            else:
+                if args.object_id == None or args.language == None or args.author_id == None or args.author_conf == None or args.session_id == None:
+                    parser_mod.error("You must provide --document-id, --language, --session-id and --author-id and --author-conf options")
+                if args.txt_json == None:
+                    parser_mod.error("You must provide the --txt-json option.")
+                tlpcli.api_mod(args.object_id, args.language, args.author_id, args.author_conf, args.txt_json, session_id=args.session_id, author_name=args.author_name, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+      
+      elif action == "end_session":
+        tlpcli.api_end_session(args.object_id, args.author_id, args.author_conf, author_name=args.author_name, session_id=args.session_id, force=args.force, regenerate=args.regenerate, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+  
+      elif action == "lock":
+        tlpcli.api_lock(args.object_id, args.lock, args.author_id, args.author_conf, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+  
+      elif action == "edit_history":
+        tlpcli.api_edit_history(args.object_id, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+  
+      elif action == "revisions":
+        tlpcli.api_revisions(su=args.su)
+  
+      elif action == "mark_revised":
+        tlpcli.api_mark_revised(args.object_id, args.session_id, args.author_id, args.author_conf, author_name=args.author_name, revision_session_id=args.revision_session_id, unmark=args.unmark, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+  
+      elif action == "accept":
+        try:
+          mylist = [ int(x) for x in args.session_id_list.split(",") ]
+        except:
+          sys.stderr.write("[EE] Bad 'session_id_list' format.\n")
+          sys.exit(1)
+        tlpcli.api_accept(mylist, args.author_id, args.author_conf, author_name=args.author_name, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+  
+      elif action == "reject":
+        try:
+          mylist = [ int(x) for x in args.session_id_list.split(",") ]
+        except:
+          sys.stderr.write("[EE] Bad 'session_id_list' format.\n")
+          sys.exit(1)
+        tlpcli.api_reject(mylist, args.author_id, args.author_conf, author_name=args.author_name, vhash=args.hash_id, su=args.su, use_req_key=use_req_key, req_key_lifetime=expire)
+  
+      elif action == "ingest":
+    
+        try:
+            subaction = args.subinterface
+        except AttributeError:
+            parser_ingest.print_usage()
+            sys.exit(1)
+
+        if api == "speech":
+      
+            if subaction in ['new', 'update']:
+       
+              if subaction == 'new' and (args.media_file == None or args.title == None or args.language == None):
+                  sys.stderr.write("[EE] At least a media file (-M), title (-t) and language (-l) must be provided.\n")
+                  sys.exit(1)
+      
+              tlpcli.manifest_init(args.object_id)
+              tlpcli.manifest_set_metadata(language=args.language, title=args.title, topic=args.topic, keywords=args.keywords)
+              if subaction == 'update':
+                  tlpcli.manifest_set_options(generate=args.tLop, regenerate=args.tL_regen, force=args.tL_force, test_mode=args.test_mode, email=args.email)
+              else: # new
+                  tlpcli.manifest_set_options(generate=args.tLop, force=args.tL_force, test_mode=args.test_mode, email=args.email)
+      
+              if args.callback_url != None:
+                  tlpcli.manifest_add_callback_function(args.callback_url, args.callback_params)
+
+              if args.media_file != None:
+                  slides_opt = args.is_media_slides
+                  tlpcli.manifest_set_main_media_file(args.media_file, slides=slides_opt)
+      
+              if args.speaker_info != None:
+      
+                for s in args.speaker_info:
+                  try:
+                    sd = s.split(':')
+                    spkID = sd[0]
+                    name = sd[1]
+                    gender = sd[2] if sd[2] != "" else None
+                    email = sd[3] if sd[3] != "" else None
+                  except:
+                    sys.stderr.write("[EE] Bad format for -S (--speaker-info) option.\n")
+                    sys.exit(1)
+                  tlpcli.manifest_add_speaker(spkID, name, email=email, gender=gender)
+      
+              if args.thumb_file != None:
+                tlpcli.manifest_add_attachment(args.thumb_file, TLPSpeechClient.FTYPE_CODE_THUMBNAIL)
+      
+              if args.slides_file != None:
+                tlpcli.manifest_add_attachment(args.slides_file, TLPSpeechClient.FTYPE_CODE_SLIDES)
+      
+              if args.docs_files != None:
+                for d in args.docs_files:
+                  tlpcli.manifest_add_attachment(d, TLPSpeechClient.FTYPE_CODE_DOCUMENT)
+      
+              if args.transcript_file != None:
+                tlpcli.manifest_add_attachment(args.transcript_file, TLPSpeechClient.FTYPE_CODE_NONTIMED_TRANSCRIPT)
+      
+              if args.captions != None: 
+                for c in args.captions:
+                  try:
+                    clang = c.split(":")[0].strip()
+                    cfile = c.split(":")[1].strip()
+                    human = c.split(":")[2].strip()
+                    if human == '': 
+                        human = None
+                    else:
+                        try:
+                            human = int(human)
+                        except:
+                            sys.stderr.write("[EE] Invalid -b option format.\n")
+                            sys.exit(1)
+                        if human == 0: human = False
+                        elif human == 1: human = True
+                        else:
+                            sys.stderr.write("[EE] Invalid -b option format.\n")
+                            sys.exit(1)
+                    tlpcli.manifest_add_attachment(cfile, TLPSpeechClient.FTYPE_CODE_SUBS, language=clang, human=human)
+                  except:
+                    sys.stderr.write("[EE] Invalid -b option format.\n")
+                    sys.exit(1)
+      
+              if args.audiotracks != None: 
+                for a in args.audiotracks:
+                  try:
+                    alang = a.split(":")[0].strip()
+                    afile = a.split(":")[1].strip()
+                    human = a.split(":")[2].strip()
+                    if human == '': human = None
+                    else:
+                        try:
+                            human = int(human)
+                        except:
+                            sys.stderr.write("[EE] Invalid -K option format.\n")
+                            sys.exit(1)
+                        if human == 0: human = False
+                        elif human == 1: human = True
+                        else:
+                            sys.stderr.write("[EE] Invalid -K option format.\n")
+                            sys.exit(1)
+                    audiotracks.append((alang, afile, human))
+                    tlpcli.manifest_add_attachment(afile, TLPSpeechClient.FTYPE_CODE_AUDIOTRACK, language=alang, human=ahuman)
+                  except:
+                    sys.stderr.write("[EE] Invalid -K option format.\n")
+                    sys.exit(1)
+      
+              if args.req_langs != None:
+                tlpcli.manifest['requested_langs'] = args.req_langs
+              else:
+                if args.req_langs_subs != None:
+                  for l in args.req_langs_subs:
+                    try:
+                      res = l.split(':')
+                      lang = res[0].strip()
+                      sysid = None
+                      if len(res) == 2:
+                        sysid = int(res[1].strip())
+                      tlpcli.manifest_add_subtitles_request(lang, system_id=sysid)
+                    except:
+                      traceback.print_exc()
+                      sys.stderr.write("[EE] Invalid -p option format.\n")
+                      sys.exit(1)
+        
+                if args.req_langs_tts != None:
+                  for l in args.req_langs_tts:
+                    try:
+                      res = l.split(':')
+                      lang = res[0].strip()
+                      sysid = None
+                      if len(res) == 2:
+                        sysid = int(res[1].strip())
+                      tlpcli.manifest_add_audiotrack_request(lang, system_id=sysid)
+                    except:
+                      traceback.print_exc()
+                      sys.stderr.write("[EE] Invalid -P option format.\n")
+                      sys.exit(1)
+       
+              if not(args.f_ingest):
+        
+                  if tlpcli.requires_package:
+                      print(tlpcli.create_media_package())
+                  if args.debug: 
+                      sys.stderr.write("%s\n" % tlpcli.get_printable_manifest())
+                  
+              else:
+        
+                if subaction == 'new':
+                  tlpcli.api_ingest_new(debug_mode=args.debug_mode, su=args.su)
+                if subaction == 'update':
+                  tlpcli.api_ingest_update(debug_mode=args.debug_mode, su=args.su)
+            
+            elif subaction == 'delete':
+        
+                tlpcli.api_ingest_delete(args.object_id, mode=args.del_mode, debug_mode=args.debug_mode, su=args.su)
+      
+            elif subaction == 'cancel':
+      
+                tlpcli.api_ingest_cancel(args.upload_id, debug_mode=args.debug_mode, su=args.su)
+  
+        elif api == "text":  
+      
+            if subaction in ['new', 'update']:
+       
+      
+              tlpcli.manifest_init(args.language)
+              if subaction == 'update':
+                  tlpcli.manifest_set_options(generate=args.tLop, regenerate=args.tL_regen, force=args.tL_force, test_mode=args.test_mode, email=args.email)
+              else: # new
+                  tlpcli.manifest_set_options(generate=args.tLop, test_mode=args.test_mode, email=args.email)
+    
+              if len(args.document_ids) == 0:
+                sys.stderr.write("[EE] You must provide at least a document ID (-i option).\n")
+                sys.exit(1)
+              if len(args.document_files) == 0 and subaction == 'new':
+                sys.stderr.write("[EE] You must provide a document file (-d option) for each document ID (-i option).\n")
+                sys.exit(1)
+              if len(args.document_titles) == 0 and subaction == 'new':
+                sys.stderr.write("[EE] You must provide a document title (-t option) for each document ID (-i option).\n")
+                sys.exit(1)
+              if len(args.document_ids) != len(args.document_files) and len(args.document_files) > 0:
+                sys.stderr.write("[EE] You must provide the same number of Document IDs (-i option) and Document files (-d option).\n")
+                sys.exit(1)
+              if len(args.document_ids) != len(args.document_titles) and len(args.document_titles) > 0:
+                sys.stderr.write("[EE] You must provide the same number of Document IDs (-i option) and Document titles (-t option).\n")
+                sys.exit(1)
+  
+              for i in range(len(args.document_ids)):
+                extid = args.document_ids[i]
+                try:
+                  title = args.document_titles[i]
+                except IndexError:
+                  title = None
+                try:
+                  uri = args.document_files[i]
+                except IndexError:
+                  uri = None
+                tlpcli.manifest_add_document(extid, uri=uri, title=title)
+   
+              if args.req_langs_json != None:
+                tlpcli.manifest['requested_langs'] = args.req_langs_json
+              else:
+                if args.req_langs != None:
+                  for l in args.req_langs:
+                    try:
+                      res = l.split(':')
+                      lang = res[0].strip()
+                      sysid = None
+                      if len(res) == 2:
+                        sysid = int(res[1].strip())
+                    except:
+                      traceback.print_exc()
+                      sys.stderr.write("[EE] Invalid -p option format.\n")
+                      sys.exit(1)
+                    tlpcli.manifest_add_translation_request(lang, system_id=sysid)
+       
+              if not(args.f_ingest):
+        
+                  if tlpcli.requires_package:
+                      print(tlpcli.create_media_package())
+                  if args.debug: 
+                      sys.stderr.write("%s\n" % tlpcli.get_printable_manifest())
+                  
+              else:
+        
+                if subaction == 'new':
+                  tlpcli.api_ingest_new(debug_mode=args.debug_mode, su=args.su)
+                if subaction == 'update':
+                  tlpcli.api_ingest_update(debug_mode=args.debug_mode, su=args.su)
+            
+            elif subaction == 'delete':
+        
+                tlpcli.api_ingest_delete(args.object_id, mode=args.del_mode, debug_mode=args.debug_mode, su=args.su)
+      
+            elif subaction == 'cancel':
+      
+                tlpcli.api_ingest_cancel(args.upload_id, debug_mode=args.debug_mode, su=args.su)
+  
+
+    if args.debug and tlpcli.debug_info != None:
+      sys.stderr.write("%s\n" % tlpcli.debug_info)
+
+    if args.store_output_file != None:
+        tlpcli.save_response_data(args.store_output_file)
+    elif tlpcli.ret_data != None:
+        sys.stdout.write("%s\n" % tlpcli.get_printable_response_data())
+  
