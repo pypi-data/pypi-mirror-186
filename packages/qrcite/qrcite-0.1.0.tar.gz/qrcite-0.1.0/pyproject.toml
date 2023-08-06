@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qrcite"
+version = "0.1.0"
+authors = [
+    { name = "Meph" },
+    { name = "Erik E. Lorenz", email = "erik@tuvero.de" }
+]
+description = "Small python tool to generate qr codes with doi links out of .bib files. "
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "bibtexparser",
+    "qrcode",
+    "Pillow",
+    "fonts",
+    "font-fredoka-one",
+]
+
+[project.scripts]
+qrcite = "qrcite:__main__"
