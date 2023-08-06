@@ -1,0 +1,13 @@
+from emzed_ext_{{cookiecutter.pkg_name}} import compute
+from emzed_ext_{{cookiecutter.pkg_name}}.example_module import \
+    path_to_data_file
+
+
+def test_compute():
+    assert compute() == 42
+
+
+def test_read_data_file():
+    with open(path_to_data_file("readme.txt")) as fh:
+        txt = fh.read()
+    assert txt != ""
