@@ -1,0 +1,60 @@
+Metadata-Version: 2.1
+Name: zepben.evolve
+Version: 0.35.0b9
+Summary: Python SDK for interacting with the Evolve platform
+Home-page: https://github.com/zepben/evolve-sdk-python
+Author: Kurt Greaves
+Author-email: kurt.greaves@zepben.com
+License: MPL 2.0
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests (<2.27.0,>=2.26.0)
+Requires-Dist: zepben.protobuf (==0.23.0b5)
+Requires-Dist: zepben.auth (==0.10.0b2)
+Requires-Dist: dataclassy (==0.6.2)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: mock (==4.0.3)
+Provides-Extra: test
+Requires-Dist: pytest (==7.1.2) ; extra == 'test'
+Requires-Dist: pytest-cov (==2.10.1) ; extra == 'test'
+Requires-Dist: pytest-asyncio (==0.19.0) ; extra == 'test'
+Requires-Dist: pytest-timeout (==1.4.2) ; extra == 'test'
+Requires-Dist: hypothesis (==6.56.3) ; extra == 'test'
+Requires-Dist: grpcio-testing (==1.46.3) ; extra == 'test'
+Requires-Dist: pylint (==2.14.5) ; extra == 'test'
+
+![Build Status](https://img.shields.io/github/workflow/status/zepben/evolve-sdk-python/Deploy%20snapshot%20to%20Pypi)
+[![codecov](https://codecov.io/gh/zepben/evolve-sdk-python/branch/main/graph/badge.svg?token=B0WNRMMR77)](https://codecov.io/gh/zepben/evolve-sdk-python)
+
+# Zepben Evolve Python SDK #
+The Python Evolve SDK contains everything necessary to communicate with a [Zepben EWB Server](https://github.com/zepben/energy-workbench-server). See the complete [Evolve Python SDK Documentation](https://zepben.github.io/evolve/docs/python-sdk/) for more details.
+
+Note this project is still a work in progress and unstable, and breaking changes may occur prior to 1.0.0. 
+
+# Requirements #
+
+- Python 3.7 or later
+
+# Installation #
+
+```
+pip install zepben.evolve
+```
+
+# Building #
+
+```
+python setup.py bdist_wheel
+```
+    
+# Usage #
+
+See [Evolve Python SDK Documentation](https://zepben.github.io/evolve/docs/python-sdk/).
