@@ -1,0 +1,151 @@
+Metadata-Version: 2.1
+Name: ChessToTheDeath
+Version: 0.0.8
+Summary: A simple chess variant where pieces have damage and health values.
+Keywords: python,chess,pygame
+Author-email: "Silas A. Kraume" <silas.kraume1552@gmail.com>
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Dist: numpy>=1.22.0
+Requires-Dist: pygame>=2.0.0
+Requires-Dist: requests>=2.26.0
+Project-URL: Download, https://github.com/SilenZcience/ChessToTheDeath/tarball/master
+Project-URL: Github, https://github.com/SilenZcience/ChessToTheDeath
+Project-URL: Tracker, https://github.com/SilenZcience/ChessToTheDeath/issues
+
+<div id="top"></div>
+
+<p>
+   <a href="https://pypi.org/project/ChessToTheDeath/" alt="Downloads">
+      <img src="https://static.pepy.tech/personalized-badge/chesstothedeath?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads" align="right">
+   </a>
+   <a href="https://pypi.org/project/ChessToTheDeath/" alt="Visitors">
+      <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FSilenZcience%2FChessToTheDeath&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitors&edge_flat=false" align="right">
+   </a>
+</p>
+
+[![OS-Windows]][OS-Windows]
+[![OS-Linux]][OS-Linux]
+[![OS-MacOS]][OS-MacOS]
+
+<br/>
+<div align="center">
+<h2 align="center">ChessToTheDeath</h2>
+   <p align="center">
+      A simple chess variant where pieces have damage and health values.
+      <br/>
+      <a href="https://github.com/SilenZcience/ChessToTheDeath/blob/main/chess_to_the_death/util/gui.py">
+         <strong>Explore the code »</strong>
+      </a>
+      <br/>
+      <br/>
+      <a href="https://github.com/SilenZcience/ChessToTheDeath/issues">Report Bug</a>
+      ·
+      <a href="https://github.com/SilenZcience/ChessToTheDeath/issues">Request Feature</a>
+   </p>
+</div>
+
+
+<details>
+   <summary>Table of Contents</summary>
+   <ol>
+      <li>
+         <a href="#about-the-project">About The Project</a>
+         <ul>
+            <li><a href="#made-with">Made With</a></li>
+         </ul>
+      </li>
+      <li>
+         <a href="#getting-started">Getting Started</a>
+         <ul>
+            <li><a href="#installation">Installation</a></li>
+         </ul>
+      </li>
+      <li><a href="#usage">Usage</a>
+         <ul>
+         <li><a href="#examples">Examples</a></li>
+         </ul>
+      </li>
+      <li><a href="#license">License</a></li>
+      <li><a href="#contact">Contact</a></li>
+   </ol>
+</details>
+
+## About The Project
+
+This project simply contains a custom chess variant in which every chess piece has it's own
+health and damage values. Therefor simply taking an enemy piece is not an option. Instead
+you have to fight it multiple times. The game ends when one of the Kings has no healthpoints
+left.
+
+### Made With
+[![Python][MadeWith-Python]](https://www.python.org/)
+[![Numpy][MadeWith-Numpy]](https://numpy.org/)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Getting Started
+
+### Installation
+
+Choose one of the options below:
+```console
+pip install ChessToTheDeath
+```
+```console
+pip install git+https://github.com/SilenZcience/ChessToTheDeath.git
+```
+```console
+git clone git@github.com:SilenZcience/ChessToTheDeath.git
+cd ./ChessToTheDeath
+```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Usage
+
+```console
+python -m chess_to_the_death [-h] [-v] ...
+```
+
+| Argument               | Description                                          |
+|------------------------|------------------------------------------------------|
+| -h, --help             | show help message and exit                           |
+| -v, --version          | show program's version number and exit               |
+| -fps FPS, --fps FPS    | set max fps (a lower value will improve performance) |
+| -nohighlight           | disable cell-highlighting on mouse hover             |
+| -noflip                | disable board flipping                               |
+| -random                | randomize the health and damage values of all pieces.|
+| -default               | play the default chess variant.                      |
+| -crazy                 | play the crazyhouse chess variant.                   |
+
+### Examples
+
+![Example1](https://raw.githubusercontent.com/SilenZcience/ChessToTheDeath/main/img/example1.png "example1")
+
+![Example2](https://raw.githubusercontent.com/SilenZcience/ChessToTheDeath/main/img/example2.png "example2")
+
+![Example3](https://raw.githubusercontent.com/SilenZcience/ChessToTheDeath/main/img/example3.png "example3")
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/SilenZcience/ChessToTheDeath/blob/main/LICENSE) file for details
+
+## Contact
+
+> **SilenZcience** <br/>
+[![GitHub-SilenZcience][GitHub-SilenZcience]](https://github.com/SilenZcience)
+
+[OS-Windows]: https://svgshare.com/i/ZhY.svg
+[OS-Linux]: https://svgshare.com/i/Zhy.svg
+[OS-MacOS]: https://svgshare.com/i/ZjP.svg
+
+[MadeWith-Python]: https://img.shields.io/badge/Made%20with-Python-brightgreen
+[MadeWith-Numpy]: https://img.shields.io/badge/Made%20with-Numpy-brightgreen
+
+[GitHub-SilenZcience]: https://img.shields.io/badge/GitHub-SilenZcience-orange
