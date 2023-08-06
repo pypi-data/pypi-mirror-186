@@ -1,0 +1,108 @@
+[build-system]
+requires = [
+    "setuptools>=45",
+    "setuptools_scm[toml]>=6.2",
+    "wheel",
+    "oldest-supported-numpy",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tappy"
+dynamic = ["version", "readme"]
+description = "Command line script and Python library perform tidally-based analysis of water level data."
+requires-python = ">=3.7.1"
+dependencies = [
+    "tstoolbox > 103.7.8",
+    "astronomia",
+    "cltoolbox",
+    "numpy",
+    ]
+license = {text = "BSD-3-Clause"}
+authors = [
+    {name = "Tim Cera", email = "tim@cerazone.net"}
+    ]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Developers",
+    "Environment :: Console",
+    "License :: OSI Approved :: BSD License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    ]
+keywords = ["tidal-analysis",
+            "cli-app",
+            "tide-analysis",
+            "tide-prediction",
+            "tide-filter",
+            "python",
+            ]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "cleanpy",
+    "twine",
+    "pytest",
+    "coverage",
+    "flake8",
+    "pytest-cov",
+    "pytest-mpl",
+    "pre-commit",
+    "black-nbconvert",
+    "blacken-docs",
+    "velin",
+    "isort",
+    "pyupgrade",
+    "commitizen",
+    ]
+
+[project.scripts]
+tappy = "tappy.tappy:main"
+
+[project.urls]
+documentation = "https://timcera.bitbucket.io/tappy/docs/index.html#tappy-documentation"
+github = "https://github.com/timcera/tappy"
+bitbucket = "https://bitbucket.org/timcera/tappy/src/main/"
+
+[tool]
+
+[tool.check-manifest]
+ignore = ["docs/_function_autosummary/*",
+          ".coverage",
+          ".deepsource.toml",
+          ".ipynb_checkpoints/*"]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.10.3"
+tag_format = "$version"
+version_files = ["VERSION"]
+update_changelog_on_bump = true
+
+[tool.isort]
+profile = "black"
+
+[tool.setuptools]
+license-files = ["LICENSE.txt"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+readme = {file = "README.rst"}
+version = {file = "VERSION"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["examples*", "tools*", "docs*", "tstoolbox.tests*"]
+
+[tool.setuptools_scm]
