@@ -1,0 +1,58 @@
+Metadata-Version: 2.1
+Name: kanji2arabic
+Version: 1.1.2
+Summary: Convert Kanji numerals to Arabic numerals.
+Home-page: https://github.com/interman-corp/kanji2arabic
+License: MIT
+Keywords: Japanese,kanji,int2kanji,kanji2int,convert
+Author: hgs-interman
+Author-email: system@interman.co.jp
+Maintainer: hgs-interman
+Maintainer-email: system@interman.co.jp
+Requires-Python: >=3.6,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Project-URL: Repository, https://github.com/interman-corp/kanji2arabic
+Description-Content-Type: text/markdown
+
+# kanji2arabic_number
+
+Convert Kanji numerals to Arabic numerals.
+
+powerd by [Interman co., ltd](https://interman.jp/)
+
+[GitHub](https://github.com/interman-corp/kanji2arabic)
+
+## Demo
+
+```python
+from kanji2arabic import Kanji2Arabic
+
+print(Kanji2Arabic.kanji2arabic("一二三"))
+  # "123"
+
+print(Kanji2Arabic.kanji2arabic("百二十三"))
+  # "123"
+
+print(Kanji2Arabic.kanji2arabic("二〇二〇"))
+  # "2020"
+
+print(Kanji2Arabic.arabic2kanji("1230456"))
+  # "一二三〇四五六"
+
+```
+
+## Requirements
+
+kanjize 1.3.0
+
