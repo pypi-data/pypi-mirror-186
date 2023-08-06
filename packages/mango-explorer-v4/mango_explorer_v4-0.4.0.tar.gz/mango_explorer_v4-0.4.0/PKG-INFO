@@ -1,0 +1,160 @@
+Metadata-Version: 2.1
+Name: mango-explorer-v4
+Version: 0.4.0
+Summary: 
+Author: waterquarks
+Author-email: waterquarks@gmail.com
+Requires-Python: >=3.9,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: anchorpy (==0.14.0)
+Requires-Dist: anchorpy-core (==0.1.2)
+Requires-Dist: anyio (==3.6.2)
+Requires-Dist: apischema (==0.16.6)
+Requires-Dist: appnope (==0.1.3)
+Requires-Dist: asttokens (==2.2.1)
+Requires-Dist: attrs (==22.1.0)
+Requires-Dist: autoflake (==2.0.0)
+Requires-Dist: backcall (==0.2.0)
+Requires-Dist: base58 (==2.1.1)
+Requires-Dist: based58 (==0.1.1)
+Requires-Dist: black (==22.12.0)
+Requires-Dist: borsh-construct (==0.1.0)
+Requires-Dist: cachetools (==4.2.4)
+Requires-Dist: certifi (==2022.12.7)
+Requires-Dist: cffi (==1.15.1)
+Requires-Dist: charset-normalizer (==2.1.1)
+Requires-Dist: click (==8.1.3)
+Requires-Dist: construct (==2.10.68)
+Requires-Dist: construct-typing (==0.5.3)
+Requires-Dist: decorator (==5.1.1)
+Requires-Dist: exceptiongroup (==1.0.4)
+Requires-Dist: executing (==1.2.0)
+Requires-Dist: genpy (==2022.1)
+Requires-Dist: h11 (==0.14.0)
+Requires-Dist: httpcore (==0.16.3)
+Requires-Dist: httpx (==0.23.1)
+Requires-Dist: idna (==3.4)
+Requires-Dist: iniconfig (==1.1.1)
+Requires-Dist: ipython (==8.7.0)
+Requires-Dist: jedi (==0.18.2)
+Requires-Dist: jsonalias (==0.1.1)
+Requires-Dist: jsonrpcclient (==4.0.2)
+Requires-Dist: jsonrpcserver (==5.0.9)
+Requires-Dist: jsonschema (==4.17.3)
+Requires-Dist: mangopyserum (>=0.6.0a0,<0.7.0)
+Requires-Dist: matplotlib-inline (==0.1.6)
+Requires-Dist: more-itertools (==8.14.0)
+Requires-Dist: mypy-extensions (==0.4.3)
+Requires-Dist: numpy (==1.24.0)
+Requires-Dist: oslash (==0.6.3)
+Requires-Dist: packaging (==22.0)
+Requires-Dist: parso (==0.8.3)
+Requires-Dist: pathspec (==0.10.3)
+Requires-Dist: pexpect (==4.8.0)
+Requires-Dist: pickleshare (==0.7.5)
+Requires-Dist: platformdirs (==2.6.0)
+Requires-Dist: pluggy (==1.0.0)
+Requires-Dist: prompt-toolkit (==3.0.36)
+Requires-Dist: psutil (==5.9.4)
+Requires-Dist: ptyprocess (==0.7.0)
+Requires-Dist: pure-eval (==0.2.2)
+Requires-Dist: py (==1.11.0)
+Requires-Dist: pycparser (==2.21)
+Requires-Dist: pyflakes (==3.0.1)
+Requires-Dist: pygments (==2.13.0)
+Requires-Dist: pyheck (==0.1.5)
+Requires-Dist: pynacl (==1.5.0)
+Requires-Dist: pyrsistent (==0.19.2)
+Requires-Dist: pytest (==7.2.0)
+Requires-Dist: pytest-asyncio (==0.20.3)
+Requires-Dist: pytest-xprocess (==0.18.1)
+Requires-Dist: pytools (==2022.1.13)
+Requires-Dist: requests (==2.28.1)
+Requires-Dist: rfc3986 (==1.5.0)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: sniffio (==1.3.0)
+Requires-Dist: solana (==0.28.1)
+Requires-Dist: solders (==0.10.0)
+Requires-Dist: stack-data (==0.6.2)
+Requires-Dist: sumtypes (==0.1a6)
+Requires-Dist: tomli (==2.0.1)
+Requires-Dist: toolz (==0.11.2)
+Requires-Dist: traitlets (==5.8.0)
+Requires-Dist: typer (==0.7.0)
+Requires-Dist: types-cachetools (==4.2.10)
+Requires-Dist: typing-extensions (==4.4.0)
+Requires-Dist: urllib3 (==1.26.13)
+Requires-Dist: wcwidth (==0.2.5)
+Requires-Dist: websockets (==10.4)
+Requires-Dist: zstandard (==0.17.0)
+Description-Content-Type: text/markdown
+
+# mango-explorer-v4
+
+Python client library for interacting with Mango Markets v4.
+
+## 📦 Installation
+
+![PyPI](https://img.shields.io/pypi/v/mango-explorer-v4)
+
+`mango-explorer-v4` is available as a [Python package on PyPI](https://pypi.org/project/mango-explorer-v4) and can be installed as:
+
+```
+pip install mango-explorer-v4
+```
+
+## Example usage
+
+This example assumes that you have a wallet already set up: visit https://v4alpha.mango.markets to create a Mango account and fund it so that you can place orders. You can find the full sources [here](./examples).
+
+```python
+import asyncio
+from mango_explorer_v4 import MangoClient
+
+async def main():
+    mango_client = await MangoClient.connect(
+        secret_key='YOUR_SECRET_KEY', # Output from Phantom's "Export Private Key"
+        mango_account_pk='YOUR_MANGO_ACCOUNT_PK'
+    )
+
+    print(await mango_client.symbols())
+    # [
+    #   {
+    #       'name': 'SOL/USDC',
+    #       'baseCurrency': 'SOL',
+    #       'quoteCurrency': 'USDC',
+    #       'makerFees': -5e-05,
+    #       'takerFees': 0.0001
+    #   }
+    #   ...
+    # ]
+
+    print(await mango_client.place_order('SOL/USDC', 'bid', 10, 0.1, 'limit'))
+    # (Refresh the UI to see the newly opened order)
+
+    print(await mango_client.orderbook_l2('SOL/USDC', 3))
+    # {
+    #   'symbol': 'SOL/USDC',
+    #   'bids': [
+    #       [11.826, 0.899],
+    #       [11.824, 39.436],
+    #       [11.82, 316.421],
+    #    ],
+    #  'asks': [
+    #       [11.839, 0.78],
+    #       [11.84, 44.392],
+    #       [11.841, 1.1],
+    #   ]}
+
+    print(await mango_client.balances())
+    # [
+    #   {'symbol': 'USDC', 'balance': 2.7435726906761744},
+    #   {'symbol': 'SOL', 'balance': 0.1690007074236178},
+    #   ...
+    # ]
+
+asyncio.run(main())
+```
