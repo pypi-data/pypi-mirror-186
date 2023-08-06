@@ -1,0 +1,17 @@
+[Unit]
+Description=BOTD - 24/7 channel daemon
+After=multi-user.target
+
+[Service]
+Type=simple
+User=botd
+Group=botd
+DynamicUser=yes
+StateDirectory=botd
+LogsDirectory=botd
+CacheDirectory=botd
+ExecStart=/usr/local/bin/botd
+CapabilityBoundingSet=CAP_NET_RAW
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+# This file is placed in the Public Domain.
+
+
+"24/7 channel daemon"
+
+
+import inspect
+import os
+import sys
+
+
+from bot.handler import Command, Handler
+from bot.objects import Wd
+from bot.runtime import Cfg, command, parse
+from bot.scanner import scancmd, scanpkg
+
+
+from bot.irc import Config
+
+
+Config.nick = "botd"
+Config.channel = "#botd"
+Config.username = "botd"
+Config.realname = "24/7 channel daemon"
+
+
+from bot import irc, rss
+
+
+import bot.command
+
+
+Cfg.name = "botcmd"
+Wd.workdir = "/var/lib/botd/"
+
+
+class CLI(Handler):
+
+    "command line interface"
+
+    @staticmethod
+    def raw(txt):
+        "echo text to console"
+        print(txt)
+        sys.stdout.flush()
+
+
+def importer(mname, path=None):
+    "import moudule from optional path"
+    if path is None:
+        spec = importlib.util.find_spec(mname)
+    else:
+        spec = importlib.util.spec_from_file_location(mname, path)
+    if spec:
+        mods = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mods)
+        return mods
+    return None
+
+
+def scanner(mname, path=None):
+    "scan module for commands"
+    mods = importer(mname, path)
+    scancmd(mods)
+
+
+def main():
+    "run command"
+    parse(' '.join(sys.argv[1:]))
+    scanpkg(bot.command, scanner)
+    cli = CLI()
+    command(cli, Cfg.prs.otxt)
+    
+
+main()
