@@ -1,0 +1,163 @@
+{
+  "type": "record",
+  "name": "CorpGroupInfo",
+  "namespace": "com.linkedin.pegasus2avro.identity",
+  "doc": "Information about a Corp Group ingested from a third party source",
+  "fields": [
+    {
+      "name": "displayName",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "The name of the group.",
+      "default": null,
+      "Searchable": {
+        "fieldType": "TEXT_PARTIAL"
+      }
+    },
+    {
+      "name": "email",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "email of this group",
+      "default": null
+    },
+    {
+      "name": "admins",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "doc": "owners of this group\nDeprecated! Replaced by Ownership aspect.",
+      "Relationship": {
+        "/*": {
+          "entityTypes": [
+            "corpuser"
+          ],
+          "name": "OwnedBy"
+        }
+      },
+      "deprecated": true
+    },
+    {
+      "name": "members",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "doc": "List of ldap urn in this group.\nDeprecated! Replaced by GroupMembership aspect.",
+      "Relationship": {
+        "/*": {
+          "entityTypes": [
+            "corpuser"
+          ],
+          "name": "IsPartOf"
+        }
+      },
+      "deprecated": true
+    },
+    {
+      "name": "groups",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "doc": "List of groups in this group.\nDeprecated! This field is unused.",
+      "Relationship": {
+        "/*": {
+          "entityTypes": [
+            "corpGroup"
+          ],
+          "name": "IsPartOf"
+        }
+      },
+      "deprecated": true
+    },
+    {
+      "name": "description",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "A description of the group.",
+      "default": null,
+      "Searchable": {
+        "fieldType": "TEXT_PARTIAL"
+      }
+    },
+    {
+      "name": "slack",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Slack channel for the group",
+      "default": null
+    },
+    {
+      "name": "created",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "AuditStamp",
+          "namespace": "com.linkedin.pegasus2avro.common",
+          "doc": "Data captured on a resource/association/sub-resource level giving insight into when that resource/association/sub-resource moved into a particular lifecycle stage, and who acted to move it into that specific lifecycle stage.",
+          "fields": [
+            {
+              "name": "time",
+              "type": "long",
+              "doc": "When did the resource/association/sub-resource move into the specific lifecycle stage represented by this AuditEvent."
+            },
+            {
+              "name": "actor",
+              "type": "string",
+              "doc": "The entity (e.g. a member URN) which will be credited for moving the resource/association/sub-resource into the specific lifecycle stage. It is also the one used to authorize the change.",
+              "java": {
+                "class": "com.linkedin.pegasus2avro.common.urn.Urn"
+              }
+            },
+            {
+              "name": "impersonator",
+              "type": [
+                "null",
+                "string"
+              ],
+              "doc": "The entity (e.g. a service URN) which performs the change on behalf of the Actor and must be authorized to act as the Actor.",
+              "default": null,
+              "java": {
+                "class": "com.linkedin.pegasus2avro.common.urn.Urn"
+              }
+            },
+            {
+              "name": "message",
+              "type": [
+                "null",
+                "string"
+              ],
+              "doc": "Additional context around how DataHub was informed of the particular change. For example: was the change created by an automated process, or manually.",
+              "default": null
+            }
+          ]
+        }
+      ],
+      "doc": "Created Audit stamp",
+      "default": null,
+      "Searchable": {
+        "/time": {
+          "fieldName": "createdTime",
+          "fieldType": "DATETIME"
+        }
+      }
+    }
+  ],
+  "Aspect": {
+    "EntityUrns": [
+      "com.linkedin.pegasus2avro.common.CorpGroupUrn"
+    ],
+    "name": "corpGroupInfo"
+  }
+}
