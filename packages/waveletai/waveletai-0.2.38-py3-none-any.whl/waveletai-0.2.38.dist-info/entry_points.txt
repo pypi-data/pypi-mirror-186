@@ -1,0 +1,8 @@
+[mlflow.artifact_repository]
+waveletai-artifact-repository = waveletai.mlflow_plugs.artifact_repository:WaveletAIArtifactRepository
+
+[mlflow.project_backend]
+waveletai-backend = waveletai.mlflow_plugs.project_backend:WaveletAIBackend
+
+[mlflow.tracking_store]
+waveletai-store = waveletai.mlflow_plugs.tracking_store:WaveletAIStore
