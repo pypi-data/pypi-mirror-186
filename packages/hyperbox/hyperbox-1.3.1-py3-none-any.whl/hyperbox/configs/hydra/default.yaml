@@ -1,0 +1,20 @@
+# output paths for hydra logs
+
+defaults:
+  - override hydra_logging: colorlog
+  - override job_logging: colorlog
+
+run:
+  dir: ${paths.log_dir}/runs/${task_name}/${now:%Y-%m-%d_%H-%M-%S}
+sweep:
+  dir: ${paths.log_dir}/multiruns/${task_name}/${now:%Y-%m-%d_%H-%M-%S}
+  subdir: ${hydra.job.num}
+
+# you can set here environment variables that are universal for all users
+# for system specific variables (like data paths) it's better to use .env file!
+job:
+  env_set:
+    EXAMPLE_VAR: "example_value"
+  name: "exp"
+  chdir: True # the output/working directory will be changed to {hydra.job.name}, you can see below URL for more details
+  # https://hydra.cc/docs/next/tutorials/basic/running_your_app/working_directory/#disable-changing-current-working-dir-to-jobs-output-dir
