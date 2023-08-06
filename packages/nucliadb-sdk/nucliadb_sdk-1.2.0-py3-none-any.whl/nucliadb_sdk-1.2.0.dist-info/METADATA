@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: nucliadb-sdk
+Version: 1.2.0
+Summary: UNKNOWN
+Home-page: https://nucliadb.com
+License: BSD
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Requires-Dist: httpx
+Requires-Dist: nucliadb-models (>=2.0.2)
+
+# NucliaDB SDK
+
+NucliaDB Cloud and NucliaDB OSS sdk
+
+Update and compile the nucliadb image locally before running the tests.
+From nucliadb root dir:
+`make build-nucliadb-local-withbinding`
+
+# nucliadb_sdk
+
+## 1.2.0
+
+- Refactor Knowledgebox to accept only an initialized sdk NucliaDBClient
+
+## 1.1.2
+
+- Add nucliadb_models requirements
+
+## 1.1.1
+
+- Add on client the option to have component based urls
+
+## 1.1.0
+
+- Suport of auto creation of vectorsets, easier interface.
+
+## 1.0.0
+
+- Initial Release
+
+
