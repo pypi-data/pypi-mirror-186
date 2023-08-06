@@ -1,0 +1,50 @@
+# Build and release configuration for the Python version of core SOMA.
+# This lives at the root directory to save us lots of headaches with versioning.
+
+[build-system]
+requires = ["setuptools", "setuptools-scm", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "somacore"
+description = "Python-language API specification and base utilities for implementation of the SOMA system."
+dynamic = ["version"]
+readme = "./python-spec/README.md"
+dependencies = [
+  "anndata",
+  "attrs>=22.1",
+  "numba",
+  "numpy>=1.21",
+  "pandas",
+  "pyarrow",
+  "scipy",
+  "typing-extensions",
+]
+requires-python = "~=3.7"
+urls = { repository = "https://github.com/single-cell-data/SOMA.git" }
+classifiers = ["License :: OSI Approved :: MIT License"]
+
+[project.optional-dependencies]
+dev = ["black", "isort", "setuptools-scm"]
+
+[tool.setuptools]
+packages.find.where = ["python-spec/src"]
+package-data.somacore = ["py.typed"]
+
+[tool.setuptools_scm]
+write_to = "python-spec/src/somacore/_version.py"
+# Keep Python executable package versioning separate from the spec and R impl
+# by requiring `python-` at the start of the tag (e.g. `python-v1.2.3`).
+tag_regex = '^python-(?P<version>[vV]?\d+(?:\.\d+){0,2}[^\+]*)(?:\+.*)?$'
+
+[tool.isort]
+profile = "black"
+line_length = 88
+force_single_line = true
+known_first_party = ["somacore"]
+single_line_exclusions = ["typing", "typing_extensions"]
+
+[[tool.mypy.overrides]]
+# These dependencies do not currently have canonical type stubs.
+module = ["anndata", "numba", "pandas", "pyarrow", "scipy"]
+ignore_missing_imports = true
