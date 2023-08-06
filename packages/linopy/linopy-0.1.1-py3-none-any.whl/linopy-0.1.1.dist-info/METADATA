@@ -1,0 +1,100 @@
+Metadata-Version: 2.1
+Name: linopy
+Version: 0.1.1
+Summary: Linear optimization with N-D labeled arrays in Python
+Home-page: https://github.com/PyPSA/linopy
+Author: Fabian Hofmann
+Author-email: hofmann@fias.uni-frankfurt.de
+License: GPLv3
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Requires-Python: ~=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: bottleneck
+Requires-Dist: toolz
+Requires-Dist: numexpr
+Requires-Dist: xarray (>=2022.9.0)
+Requires-Dist: dask (>=0.18.0)
+Requires-Dist: tqdm
+Requires-Dist: deprecation
+Provides-Extra: dev
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: pytest-cov ; extra == 'dev'
+Requires-Dist: pre-commit ; extra == 'dev'
+Requires-Dist: paramiko ; extra == 'dev'
+Requires-Dist: gurobipy ; extra == 'dev'
+Requires-Dist: cplex ; extra == 'dev'
+Requires-Dist: xpress ; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: ipython ; extra == 'docs'
+Requires-Dist: numpydoc ; extra == 'docs'
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Requires-Dist: nbsphinx ; extra == 'docs'
+Requires-Dist: nbsphinx-link ; extra == 'docs'
+Requires-Dist: gurobipy ; extra == 'docs'
+Requires-Dist: ipykernel ; extra == 'docs'
+Requires-Dist: matplotlib ; extra == 'docs'
+Provides-Extra: solvers
+Requires-Dist: gurobipy ; extra == 'solvers'
+Requires-Dist: cplex ; extra == 'solvers'
+Requires-Dist: xpress ; extra == 'solvers'
+
+# linopy: Linear optimization with N-D labeled variables
+
+[![PyPI](https://img.shields.io/pypi/v/linopy)](https://pypi.org/project/linopy/) [![CI](https://github.com/FabianHofmann/linopy/actions/workflows/CI.yaml/badge.svg)](https://github.com/FabianHofmann/linopy/actions/workflows/CI.yaml) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![doc](https://readthedocs.org/projects/linopy/badge/?version=latest)](https://linopy.readthedocs.io/en/latest/) [![codecov](https://codecov.io/gh/PyPSA/linopy/branch/master/graph/badge.svg?token=TT4EYFCCZX)](https://codecov.io/gh/PyPSA/linopy)
+
+**linopy** is an open-source python package that facilitates **linear or mixed-integer optimisation** with **real world data**. It builds a bridge between data analysis packages like [xarray](https://github.com/pydata/xarray) & [pandas](https://pandas.pydata.org/) and linear problem solvers like [cbc](https://projects.coin-or.org/Cbc), [gurobi](https://www.gurobi.com/) (see the full list below). The project aims to make linear programming in python easy, highly-flexible and performant.
+
+
+## Main features
+
+**linopy** is heavily based on [xarray](https://github.com/pydata/xarray) which allows for many flexible data-handling features:
+
+* Define (arrays of) contnuous or binary variables with **coordinates**, e.g. time, consumers, etc.
+* Apply **arithmetic operations** on the variables like adding, substracting, multiplying with all the  **broadcasting** potentials of xarray
+* Apply **arithmetic operations** on the **linear expressions** (combination of variables)
+* **Group terms** of a linear expression by coordinates
+* Get insight into the **clear and transparent data model**
+* **Modify** and **delete** assigned variables and constraints on the fly
+* Use **lazy operations** for large linear programs  with [dask](https://dask.org/)
+* Choose from **different commercial and non-commercial solvers**
+* Fast **import and export** a linear model using xarray's netcdf IO
+
+
+## Installation
+
+So far **linopy** is available on the PyPI repository
+
+```bash
+pip install linopy
+```
+
+## Supported solvers
+
+**linopy** supports the following solvers
+
+* [Cbc](https://projects.coin-or.org/Cbc)
+* [GLPK](https://www.gnu.org/software/glpk/)
+* [HiGHS](https://www.maths.ed.ac.uk/hall/HiGHS/)
+* [Gurobi](https://www.gurobi.com/)
+* [Xpress](https://www.fico.com/en/products/fico-xpress-solver)
+* [Cplex](https://www.ibm.com/de-de/analytics/cplex-optimizer)
+
+Note that these do have to be installed by the user separately.
+
+
+# License
+
+Copyright 2021 Fabian Hofmann
+
+
+
+This package is published under license GNU Public License GPLv3
