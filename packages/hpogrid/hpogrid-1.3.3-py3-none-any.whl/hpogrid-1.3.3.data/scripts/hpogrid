@@ -1,0 +1,30 @@
+#!python
+
+import click
+
+from hpogrid.clis.configuration import hpo_config, grid_config, model_config, search_space_config, project_config
+from hpogrid.clis.tasks import manage_tasks, run_tasks, submit_tasks, report_grid, report
+from hpogrid.clis.core import generate, idds_log, display_sites
+
+@click.group()
+def cli():
+    """
+    Tool for Hyperparameter Optimization on the Grid
+    """
+    pass
+
+if __name__ == "__main__":
+    cli.add_command(hpo_config)
+    cli.add_command(grid_config)
+    cli.add_command(model_config)
+    cli.add_command(search_space_config)
+    cli.add_command(project_config)
+    cli.add_command(run_tasks)
+    cli.add_command(manage_tasks)
+    cli.add_command(submit_tasks)
+    cli.add_command(report_grid)
+    cli.add_command(report)
+    cli.add_command(generate)
+    cli.add_command(idds_log)
+    cli.add_command(display_sites)
+    cli()
