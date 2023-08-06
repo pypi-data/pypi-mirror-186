@@ -1,0 +1,261 @@
+# 1 "./src/traceableai/filter/libtraceable.h"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 31 "<command-line>"
+# 1 "/usr/include/stdc-predef.h" 1 3 4
+# 32 "<command-line>" 2
+# 1 "./src/traceableai/filter/libtraceable.h"
+
+
+
+# 1 "/usr/include/stdint.h" 1 3 4
+# 20 "/usr/include/stdint.h" 3 4
+# 1 "/usr/include/bits/alltypes.h" 1 3 4
+# 106 "/usr/include/bits/alltypes.h" 3 4
+
+# 106 "/usr/include/bits/alltypes.h" 3 4
+typedef unsigned long uintptr_t;
+# 121 "/usr/include/bits/alltypes.h" 3 4
+typedef long intptr_t;
+# 137 "/usr/include/bits/alltypes.h" 3 4
+typedef signed char int8_t;
+
+
+
+
+typedef signed short int16_t;
+
+
+
+
+typedef signed int int32_t;
+
+
+
+
+typedef signed long int64_t;
+
+
+
+
+typedef signed long intmax_t;
+
+
+
+
+typedef unsigned char uint8_t;
+
+
+
+
+typedef unsigned short uint16_t;
+
+
+
+
+typedef unsigned int uint32_t;
+
+
+
+
+typedef unsigned long uint64_t;
+# 187 "/usr/include/bits/alltypes.h" 3 4
+typedef unsigned long uintmax_t;
+# 21 "/usr/include/stdint.h" 2 3 4
+
+typedef int8_t int_fast8_t;
+typedef int64_t int_fast64_t;
+
+typedef int8_t int_least8_t;
+typedef int16_t int_least16_t;
+typedef int32_t int_least32_t;
+typedef int64_t int_least64_t;
+
+typedef uint8_t uint_fast8_t;
+typedef uint64_t uint_fast64_t;
+
+typedef uint8_t uint_least8_t;
+typedef uint16_t uint_least16_t;
+typedef uint32_t uint_least32_t;
+typedef uint64_t uint_least64_t;
+# 95 "/usr/include/stdint.h" 3 4
+# 1 "/usr/include/bits/stdint.h" 1 3 4
+typedef int32_t int_fast16_t;
+typedef int32_t int_fast32_t;
+typedef uint32_t uint_fast16_t;
+typedef uint32_t uint_fast32_t;
+# 96 "/usr/include/stdint.h" 2 3 4
+# 5 "./src/traceableai/filter/libtraceable.h" 2
+# 14 "./src/traceableai/filter/libtraceable.h"
+
+# 14 "./src/traceableai/filter/libtraceable.h"
+typedef struct {
+  const char* key;
+  const char* value;
+} traceable_attribute;
+
+typedef struct {
+  int count;
+  const traceable_attribute* attribute_array;
+} traceable_attributes;
+
+typedef enum { TRACEABLE_LOG_NONE, TRACEABLE_LOG_STDOUT } TRACEABLE_LOG_MODE;
+
+typedef struct {
+  TRACEABLE_LOG_MODE mode;
+} traceable_log_configuration;
+
+typedef struct {
+  int enabled;
+  const char* opa_server_url;
+  const char* logging_dir;
+  const char* logging_file_prefix;
+  const char* cert_file;
+  int log_to_console;
+  int skip_verify;
+  int min_delay;
+  int max_delay;
+  int debug_log;
+} traceable_opa_config;
+
+typedef struct {
+  int enabled;
+} traceable_modsecurity_config;
+
+typedef struct {
+  int enabled;
+} traceable_rangeblocking_config;
+
+typedef struct {
+  int enabled;
+  const char* remote_endpoint;
+  int poll_period_sec;
+  const char* cert_file;
+  int64_t grpc_max_call_recv_msg_size;
+} traceable_remote_config;
+
+typedef struct {
+  int enabled;
+  traceable_opa_config opa_config;
+  traceable_modsecurity_config modsecurity_config;
+  traceable_rangeblocking_config rb_config;
+  int evaluate_body;
+  int skip_internal_request;
+} traceable_blocking_config;
+
+typedef struct {
+  const char* service_name;
+} traceable_agent_config;
+
+typedef struct {
+  int enabled;
+} traceable_api_discovery_config;
+
+typedef struct {
+  int enabled;
+} traceable_sampling_config;
+
+typedef enum {
+  TRACEABLE_NO_SPAN,
+  TRACEABLE_BARE_SPAN,
+  TRACEABLE_FULL_SPAN
+} TRACEABLE_SPAN_TYPE;
+
+typedef struct {
+  int block;
+  TRACEABLE_SPAN_TYPE span_type;
+  int propagate;
+  traceable_attributes attributes;
+} traceable_process_request_result;
+
+typedef struct {
+  traceable_log_configuration log_config;
+  traceable_remote_config remote_config;
+  traceable_blocking_config blocking_config;
+  traceable_agent_config agent_config;
+  traceable_api_discovery_config api_discovery_config;
+  traceable_sampling_config sampling_config;
+} traceable_libtraceable_config;
+
+typedef enum { TRACEABLE_SUCCESS, TRACEABLE_FAIL } TRACEABLE_RET;
+
+typedef void* traceable_libtraceable;
+
+typedef void* modsecurity_rule_engine;
+
+typedef struct {
+  char* rule_id;
+  char* rule_message;
+  char* match_message;
+  char* match_attribute;
+  int paranoia_level;
+  char* rule_uuid;
+} modsecurity_rule_match;
+
+typedef struct {
+  int count;
+  modsecurity_rule_match* match_arr;
+} modsecurity_rule_matches;
+
+
+
+
+traceable_libtraceable_config init_libtraceable_config();
+TRACEABLE_RET traceable_new_libtraceable(
+    traceable_libtraceable_config libtraceable_config,
+    traceable_libtraceable* out_libtraceable);
+TRACEABLE_RET traceable_start_libtraceable(traceable_libtraceable libtraceable);
+TRACEABLE_RET traceable_delete_libtraceable(
+    traceable_libtraceable libtraceable);
+# 141 "./src/traceableai/filter/libtraceable.h"
+TRACEABLE_RET traceable_process_request_headers(
+    traceable_libtraceable libtraceable, traceable_attributes attributes,
+    traceable_process_request_result* out_process_result);
+
+
+
+
+TRACEABLE_RET traceable_process_request_body(
+    traceable_libtraceable libtraceable, traceable_attributes attributes,
+    traceable_process_request_result* out_process_result);
+
+
+
+TRACEABLE_RET traceable_process_request(
+    traceable_libtraceable libtraceable, traceable_attributes attributes,
+    traceable_process_request_result* out_process_result);
+
+TRACEABLE_RET traceable_delete_process_request_result_data(
+    traceable_process_request_result result);
+
+
+
+
+
+
+TRACEABLE_RET traceable_decode_protobuf(const char* blob, int length, int depth,
+                                        char** out_string);
+
+TRACEABLE_RET traceable_is_content_type_capturable(
+    const char* media_type, const char** supported_content_types,
+    int supported_content_types_size, int* out_should_capture);
+
+TRACEABLE_RET traceable_barespan_attributes(traceable_libtraceable libtraceable,
+                                            traceable_attributes attributes,
+                                            traceable_attributes* out_result);
+
+TRACEABLE_RET traceable_delete_barespan_attributes_result(
+    traceable_attributes result);
+
+TRACEABLE_RET modsecurity_new_rule_engine(
+    const char* rules, modsecurity_rule_engine* out_rule_engine);
+
+TRACEABLE_RET modsecurity_process_attributes(
+    modsecurity_rule_engine rule_engine, traceable_attributes attributes,
+    modsecurity_rule_matches* out_rule_matches);
+
+TRACEABLE_RET modsecurity_cleanup_rule_matches(
+    modsecurity_rule_matches rule_matches);
+
+TRACEABLE_RET modsecurity_cleanup_rule_engine(
+    modsecurity_rule_engine rule_engine);
