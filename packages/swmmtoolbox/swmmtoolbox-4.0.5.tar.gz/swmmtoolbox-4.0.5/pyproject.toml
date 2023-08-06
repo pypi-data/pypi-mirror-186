@@ -1,0 +1,102 @@
+[build-system]
+requires = [
+    "setuptools>=45",
+    "setuptools_scm[toml]>=6.2",
+    "wheel",
+    "oldest-supported-numpy",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swmmtoolbox"
+dynamic = ["readme", "version"]
+description = "Command line script and Python library to read Storm Water Management Model binary output."
+requires-python = ">=3.7.1"
+dependencies = [
+    "toolbox_utils >= 1.0.0, < 2.0.0",
+    "cltoolbox >= 1.0.0",
+    ]
+license = {text = "BSD-3-Clause"}
+authors = [
+    {name = "Tim Cera", email = "tim@cerazone.net"}
+    ]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Developers",
+    "Environment :: Console",
+    "License :: OSI Approved :: BSD License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    ]
+keywords = ["time-series",
+            "cli-app",
+            "swmm",
+            "stormwater",
+            "hydrograph",
+            "model",
+            "simulation",
+            "hydrology",
+            ]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "cleanpy",
+    "twine",
+    "pytest",
+    "coverage",
+    "flake8",
+    "pytest-cov",
+    "pytest-mpl",
+    "pre-commit",
+    "black-nbconvert",
+    "blacken-docs",
+    "velin",
+    "isort",
+    "pyupgrade",
+    "commitizen",
+    ]
+
+[project.scripts]
+swmmtoolbox = "swmmtoolbox.swmmtoolbox:main"
+
+[project.urls]
+documentation = "https://timcera.bitbucket.io/swmmtoolbox/docs/index.html#swmmtoolbox-documentation"
+github = "https://github.com/timcera/swmmtoolbox"
+bitbucket = "https://bitbucket.org/timcera/swmmtoolbox/src/main/"
+
+[tool]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "4.0.5"
+tag_format = "v$version"
+version_files = ["VERSION"]
+update_changelog_on_bump = true
+
+[tool.isort]
+profile = "black"
+
+[tool.setuptools]
+license-files = ["LICENSE.txt"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+readme = {file = "README.rst"}
+version = {file = "VERSION"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["examples*", "tools*", "docs*", "swmmtoolbox.tests*"]
+
+[tool.setuptools_scm]
