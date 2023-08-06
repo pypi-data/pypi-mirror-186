@@ -1,0 +1,149 @@
+[build-system]
+requires = ["maturin>=0.14.0,<0.15"]
+build-backend = "maturin"
+
+[project]
+name = "light-curve"
+dependencies = ["numpy", "scipy"]
+requires-python = ">=3.7"
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Rust",
+    "Topic :: Scientific/Engineering :: Astronomy",
+]
+
+[tool.setuptools]
+# We load these from Cargo.toml
+dynamic = [
+    "authors",
+    "description",
+    "license",
+    "readme",
+    "version",
+]
+
+[tool.maturin]
+# It asks to use Cargo.lock to make the build reproducible
+locked = true
+
+[tool.black]
+line-length = 120
+target-version = ["py37", "py38", "py39", "py310"]
+include = '\.py$'
+exclude = '''
+    /(
+        docs
+      | dist
+      | target
+      | tests/light-curve-test-data
+      | wheelhouse
+      | \.benchmarks
+      | \.idea
+      | \.mypy_cache
+      | \.pytest_cache
+      | \.tox
+      | _build
+    )/
+'''
+
+[tool.isort]
+profile = 'black'
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+# requires pytest-benchmark
+addopts = "-ra --import-mode=append --benchmark-min-time=0.1 --benchmark-max-time=5.0 --benchmark-sort=mean --benchmark-disable"
+testpaths = [
+    "tests/",
+    "README.md", # requires pytest-markdown
+]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py37,py38,py39,py310,py311
+isolated_build = True
+
+[testenv]
+deps =
+    black
+    feets
+    isort
+    numpy
+    pandas
+    pytest
+    pytest-benchmark
+    pytest-markdown
+    pytest-subtests
+    scipy
+commands =
+    pytest README.md tests/ light_curve/
+    black --check .
+    isort --check .
+"""
+
+
+# Test
+# We skip benchmark tests, because it requires feets and its transitive
+# dependencies, which are tricky and slow to compile on marginal platforms.
+# For testing we use only platforms for which scipy binary wheels are available
+[[tool.cibuildwheel.overrides]]
+select = "cp*-manylinux_x86_64 cp*-manylinux_aarch64 cp*-macosx*"
+test-command = "pytest {package}/README.md {package}/light_curve/ {package}/tests/ --ignore {package}/tests/test_w_bench.py"
+test-requires = [
+    "pytest",
+    "pytest-benchmark",
+    "pytest-markdown",
+    "pytest-subtests",
+    "numpy",
+    "scipy",
+]
+
+[tool.cibuildwheel]
+# We use our own images which include Rust, GSL and platform-optimised FFTW
+# Manylinux CPython
+manylinux-aarch64-image = "ghcr.io/light-curve/base-docker-images/manylinux2014_aarch64"
+# not supported
+#manylinux-i686-image = "ghcr.io/light-curve/base-docker-images/manylinux2014_i686"
+manylinux-ppc64le-image = "ghcr.io/light-curve/base-docker-images/manylinux2014_ppc64le"
+# not supported
+# manylinux-s390x-image = "ghcr.io/light-curve/base-docker-images/manylinux2014_s390x"
+manylinux-x86_64-image = "ghcr.io/light-curve/base-docker-images/manylinux2014_x86_64"
+# Manylinux PyPy
+manylinux-pypy_aarch64-image = "ghcr.io/light-curve/base-docker-images/manylinux2014_aarch64"
+# not supported
+#manylinux-pypy_i686-image = "ghcr.io/light-curve/base-docker-images/manylinux2014_i686"
+manylinux-pypy_x86_64-image = "ghcr.io/light-curve/base-docker-images/manylinux2014_x86_64"
+# Musllinux
+musllinux-aarch64-image = "ghcr.io/light-curve/base-docker-images/musllinux_1_1_aarch64"
+# not supported
+#musllinux-i686-image = "ghcr.io/light-curve/base-docker-images/musllinux_1_1_i686"
+# no Rust toolchain, not supported
+# musllinux-ppc64le-image = "ghcr.io/light-curve/base-docker-images/musllinux_1_1_ppc64le"
+# not supported
+# musllinux-s390x-image = "ghcr.io/light-curve/base-docker-images/musllinux_1_1_s390x"
+musllinux-x86_64-image = "ghcr.io/light-curve/base-docker-images/musllinux_1_1_x86_64"
+
+# We'd like to link system FFTW, because is is usually better optimised
+environment = { "PATH" = "$PATH:$HOME/.cargo/bin", "MATURIN_PEP517_ARGS" = "--locked --no-default-features --features fftw-system,gsl" }
+
+[tool.cibuildwheel.macos]
+before-all = [
+    # Install Rust
+    "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y",
+    # Install FFTW and GSL
+    "brew install fftw gsl",
+]
+
+# Build with Intel MKL on Linux x86_64
+[[tool.cibuildwheel.overrides]]
+select = "*linux_x86_64"
+environment = { "PATH" = "$PATH:$HOME/.cargo/bin", "MATURIN_PEP517_ARGS" = "--locked --no-default-features --features fftw-mkl,gsl" }
