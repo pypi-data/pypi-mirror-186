@@ -1,0 +1,97 @@
+<dtml-var manage_page_header>
+
+<dtml-with "_(management_view='LDAP Servers')">
+  <dtml-var manage_tabs>
+</dtml-with>
+
+<main class="container-fluid">
+  <p class="form-help">
+    Define which servers to connect to on this form.
+  </p>
+
+  <form action="manage_deleteServers" method="post">
+    <p><b>LDAP Servers <span class="text-warning">Currently connected to: &dtml-getCurrentServer;</span></b></p>
+    <dtml-if "len(getServers())==0">
+      <div class="alert alert-info">No servers defined</div>
+    <dtml-else>
+      <table class="table table-striped table-hover" style="border-bottom: 1px solid #dee2e6;">
+        <tbody>
+          <dtml-in getServers mapping>
+            <tr>
+              <td class="zmi-object-check text-right"><input type="checkbox" name="position_list:list" value="&dtml-sequence-index;" /></td>
+              <td class="zmi-luf-host">&dtml-host;</td>
+              <td class="zmi-luf-port">&dtml-port;</td>
+              <td class="zmi-luf-protocol"><dtml-var "(protocol == 'ldaps' and 'LDAP over SSL') or (protocol == 'ldapi' and 'LDAP over IPC') or 'LDAP'"></td>
+              <td class="zmi-luf-timeout-conn">Connection Timeout: <dtml-var conn_timeout missing="-1"> seconds</td>
+              <td class="zmi-luf-timeout-op">Operation Timeout: <dtml-var op_timeout missing="-1"> seconds</td>
+            </tr>
+          </dtml-in>
+        </tbody>
+      </table>
+      <div class="zmi-controls">
+        <input class="btn btn-primary" type="submit" value=" Delete " />
+      </div>
+    </dtml-if>
+  </form>
+
+  <form action="manage_addServer" method="post" class="card p-4 my-4 bg-light">
+    <p><i class="fas fa-plus"></i> <b>Add LDAP Server</b></p>
+    <div class="form-group row">
+      <label for="host" class="form-label col-sm-3 col-md-2">Server host</label>
+      <div class="col-sm-9 col-md-10">
+        <input id="host" class="form-control" type="text" name="host" value="my.ldap.server" />
+        <small class="form-help">Server host, IP or socket path</small>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="port" class="form-label col-sm-3 col-md-2">Server port</label>
+      <div class="col-sm-9 col-md-10">
+        <input id="port" class="form-control" type="text" name="port" value="389" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="use_ssl:int" class="form-label col-sm-3 col-md-2">Protocol</label>
+      <div class="col-sm-9 col-md-10">
+        <select name="use_ssl:int" class="form-control" >
+            <option value="0" selected="selected"> LDAP </option>
+            <option value="1"> LDAP over SSL </option>
+            <option value="2"> LDAP over IPC </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="conn_timeout:int" class="form-label col-sm-3 col-md-2">Connection Timeout</label>
+      <div class="col-sm-9 col-md-10">
+        <select name="conn_timeout:int" class="form-control" >
+            <option value="2"> 2 seconds </option>
+            <option value="5" selected="selected"> 5 seconds </option>
+            <option value="10"> 10 seconds </option>
+            <option value="30"> 30 seconds </option>
+            <option value="60"> 60 seconds </option>
+            <option value="-1"> No timeout </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="op_timeout:int" class="form-label col-sm-3 col-md-2">Operation Timeout</label>
+      <div class="col-sm-9 col-md-10">
+        <select name="op_timeout:int" class="form-control" >
+            <option value="5"> 5 seconds </option>
+            <option value="10"> 10 seconds </option>
+            <option value="30"> 30 seconds </option>
+            <option value="60"> 60 seconds </option>
+            <option value="120"> 120 seconds </option>
+            <option value="300"> 300 seconds </option>
+            <option value="-1" selected="selected"> No timeout </option>
+        </select>
+      </div>
+    </div>
+    <div class="zmi-controls">
+      <input class="btn btn-primary" type="submit" name=" Add " value=" Add Server " />
+    </div>
+
+  </form>
+
+</main>
+
+<dtml-var manage_page_footer>
