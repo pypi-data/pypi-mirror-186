@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "deploy-ciscoasa-cert"
+version = "0.1.1"
+description = "Tool to upload and install a certificate on Cisco ASA"
+authors = ["Billy Zoellers <billy.zoellers@mac.com>"]
+readme = "README.md"
+packages = [{include = "deploy_ciscoasa_cert"}]
+
+[tool.poetry.scripts]
+deploy-ciscoasa-cert = "deploy_ciscoasa_cert.main:app"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+loguru = "^0.6.0"
+pyopenssl = "^23.0.0"
+requests = "^2.28.1"
+typer = {extras = ["all"], version = "^0.7.0"}
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.15.10"
+pytest = "^7.2.1"
+black = "^22.12.0"
+bandit = {extras = ["toml"], version = "^1.7.4"}
+
+[tool.black]
+preview = true
+
+[tool.pylint.format]
+max-line-length = "88"
+
+[tool.bandit]
+skips = ["B101",]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
