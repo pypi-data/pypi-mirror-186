@@ -1,0 +1,35 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
+[tool.poetry]
+authors = ["Josiah Kaviani <proofit404@gmail.com>"]
+classifiers = [
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy"
+]
+description = "A set of useful tools to improve DX of visual novel games."
+documentation = "https://proofit404.github.io/visual-novel-toolkit"
+homepage = "https://pypi.org/project/visual-novel-toolkit"
+license = "BSD-2-Clause"
+name = "visual-novel-toolkit"
+packages = [
+  {from = "src", include = "visual_novel_toolkit"}
+]
+readme = "docs/index.md"
+repository = "https://github.com/proofit404/visual-novel-toolkit"
+version = "1.10.0"
+
+[tool.poetry.dependencies]
+beautifulsoup4 = "*"
+httpx = "*"
+python = "3.11.1"
+typer = "*"
+
+[tool.poetry.scripts]
+vntk = "visual_novel_toolkit.cli:cli"
+
+[tool.poetry.urls]
+Changelog = "https://proofit404.github.io/visual-novel-toolkit/changelog"
+Issues = "https://github.com/proofit404/visual-novel-toolkit/issues"
+Twitter = "https://twitter.com/proofit404"
