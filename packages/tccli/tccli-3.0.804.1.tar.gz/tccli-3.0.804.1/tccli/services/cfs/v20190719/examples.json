@@ -1,0 +1,285 @@
+{
+  "actions": {
+    "BindAutoSnapshotPolicy": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: BindAutoSnapshotPolicy\n<公共请求参数>\n\n{\n    \"AutoSnapshotPolicyId\": \"asp-12345\",\n    \"FileSystemIds\": \"cfs-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"AutoSnapshotPolicyId\": \"asp-12345\"\n    }\n}",
+        "title": "绑定文件系统快照策略"
+      }
+    ],
+    "CreateAutoSnapshotPolicy": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: CreateAutoSnapshotPolicy\n<公共请求参数>\n\n{\n    \"DayOfWeek\": \"\\\"1,2\\\"\",\n    \"Hour\": \"\\\"2,3\\\"\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"AutoSnapshotPolicyId\": \"asp-12345\"\n    }\n}",
+        "title": "创建文件系统快照策略"
+      }
+    ],
+    "CreateCfsFileSystem": [
+      {
+        "document": "",
+        "input": "https://cfs.tencentcloudapi.com/?Action=CreateCfsFileSystem\n&NetInterface=basic\n&Zone=ap-beijing-1\n&PGroupId=pgroupbasic\n&FsName=test_fs\n&<公共请求参数>",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"CreationTime\": \"2017-11-23 20:51:34\",\n        \"CreationToken\": \"test_fs\",\n        \"FileSystemId\": \"cfs-ocakq8tt\",\n        \"LifeCycleState\": \"creating\",\n        \"SizeByte\": 0,\n        \"ZoneId\": 800001,\n        \"FsName\": \"test_fs\",\n        \"Encrypted\": false\n    }\n}",
+        "title": "创建文件系统实例"
+      }
+    ],
+    "CreateCfsPGroup": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: CreateCfsPGroup\n<公共请求参数>\n\n{\n    \"DescInfo\": \"test_pgroup_desc\",\n    \"Name\": \"test_pgroup\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"PGroupId\": \"pgroup-12345\",\n        \"Name\": \"test_pgroup\",\n        \"DescInfo\": \"test_pgroup_desc\",\n        \"BindCfsNum\": 0,\n        \"CDate\": \"2019-7-20 10:25:33\"\n    }\n}",
+        "title": "创建权限组"
+      }
+    ],
+    "CreateCfsRule": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: CreateCfsRule\n<公共请求参数>\n\n{\n    \"RWPermission\": \"rw\",\n    \"AuthClientIp\": \"10.1.1.10\",\n    \"PGroupId\": \"pgroup-12345\",\n    \"Priority\": \"9\",\n    \"UserPermission\": \"root_squash\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"RuleId\": \"rule-12345\",\n        \"PGroupId\": \"pgroup-12345\",\n        \"AuthClientIp\": \"10.1.1.10\",\n        \"RWPermission\": \"rw\",\n        \"UserPermission\": \"root_squash\",\n        \"Priority\": 9\n    }\n}",
+        "title": "创建权限组规则"
+      }
+    ],
+    "CreateCfsSnapshot": [
+      {
+        "document": "",
+        "input": "https://cfs.tencentcloudapi.com/?Action=CreateCfsSnapshot\n&FileSystemId=cfs-abcdefgh\n&SnapshotName=test\n&<公共请求参数>",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"SnapshotId\": \"snapcfs-abababb\"\n    }\n}",
+        "title": "创建文件系统快照"
+      }
+    ],
+    "DeleteAutoSnapshotPolicy": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DeleteAutoSnapshotPolicy\n<公共请求参数>\n\n{\n    \"AutoSnapshotPolicyId\": \"asp-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"AutoSnapshotPolicyId\": \"asp-12345\"\n    }\n}",
+        "title": "删除策略"
+      }
+    ],
+    "DeleteCfsFileSystem": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DeleteCfsFileSystem\n<公共请求参数>\n\n{\n    \"FileSystemId\": \"cfs-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"xxxx\"\n    }\n}",
+        "title": "删除文件系统"
+      }
+    ],
+    "DeleteCfsPGroup": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DeleteCfsPGroup\n<公共请求参数>\n\n{\n    \"PGroupId\": \"pgroup-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"PGroupId\": \"pgroup-12345\",\n        \"AppId\": 1250000000\n    }\n}",
+        "title": "删除权限组"
+      }
+    ],
+    "DeleteCfsRule": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DeleteCfsRule\n<公共请求参数>\n\n{\n    \"PGroupId\": \"pgroup-12345\",\n    \"RuleId\": \"rule-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"PGroupId\": \"pgroup-12345\",\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"RuleId\": \"rule-12345\"\n    }\n}",
+        "title": "删除权限组规则"
+      }
+    ],
+    "DeleteCfsSnapshot": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DeleteCfsSnapshot\n<公共请求参数>\n\n{\n    \"SnapshotId\": \"snapcfs-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"SnapshotId\": \"snapcfs-12345\"\n    }\n}",
+        "title": "删除快照"
+      }
+    ],
+    "DeleteMountTarget": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DeleteMountTarget\n<公共请求参数>\n\n{\n    \"FileSystemId\": \"cfs-12345\",\n    \"MountTargetId\": \"mount-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\"\n    }\n}",
+        "title": "删除挂载点"
+      }
+    ],
+    "DeleteUserQuota": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DeleteUserQuota\n<公共请求参数>\n\n{\n    \"FileSystemId\": \"cfs-12345\",\n    \"UserType\": \"Uid\",\n    \"UserId\": \"1000\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\"\n    }\n}",
+        "title": "删除文件系统配额"
+      }
+    ],
+    "DescribeAutoSnapshotPolicies": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeAutoSnapshotPolicies\n<公共请求参数>\n\n{\n    \"AutoSnapshotPolicyId\": \"asp-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"TotalCount\": 1,\n        \"AutoSnapshotPolicies\": [\n            {\n                \"AutoSnapshotPolicyId\": \"asp-12345\",\n                \"PolicyName\": \"未命名\",\n                \"RegionName\": \"ap-guangzhou\",\n                \"CreationTime\": \"2021-08-26 15:19:46\",\n                \"AliveDays\": 1,\n                \"DayOfWeek\": \"1\",\n                \"Hour\": \"1\",\n                \"IsActivated\": 0,\n                \"AppId\": 1255558577,\n                \"FileSystemNums\": 0,\n                \"Status\": \"available\",\n                \"NextActiveTime\": \"2021-11-22 01:00:00\",\n                \"FileSystems\": []\n            }\n        ]\n    }\n}",
+        "title": "查询快照策略"
+      }
+    ],
+    "DescribeAvailableZoneInfo": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeAvailableZoneInfo\n<公共请求参数>\n\n{}",
+        "output": "{\n    \"Response\": {\n        \"RegionZones\": [\n            {\n                \"Region\": \"ap-guangzhou\",\n                \"RegionName\": \"gz\",\n                \"RegionCnName\": \"广州\",\n                \"RegionStatus\": \"AVAILABLE\",\n                \"Zones\": [\n                    {\n                        \"Zone\": \"ap-guangzhou-2\",\n                        \"ZoneId\": 100002,\n                        \"ZoneName\": \"广州二区\",\n                        \"ZoneCnName\": \"广州二区\",\n                        \"Types\": [\n                            {\n                                \"Type\": \"SD\",\n                                \"Prepayment\": true,\n                                \"Protocols\": [\n                                    {\n                                        \"Protocol\": \"NFS\",\n                                        \"SaleStatus\": \"saling\"\n                                    }\n                                ]\n                            }\n                        ]\n                    },\n                    {\n                        \"Zone\": \"ap-guangzhou-3\",\n                        \"ZoneId\": 100003,\n                        \"ZoneName\": \"广州三区\",\n                        \"ZoneCnName\": \"广州三区\",\n                        \"Types\": [\n                            {\n                                \"Type\": \"SD\",\n                                \"Prepayment\": true,\n                                \"Protocols\": [\n                                    {\n                                        \"Protocol\": \"NFS\",\n                                        \"SaleStatus\": \"saling\"\n                                    }\n                                ]\n                            }\n                        ]\n                    },\n                    {\n                        \"Zone\": \"ap-guangzhou-4\",\n                        \"ZoneId\": 100004,\n                        \"ZoneName\": \"广州四区\",\n                        \"ZoneCnName\": \"广州四区\",\n                        \"Types\": [\n                            {\n                                \"Type\": \"SD\",\n                                \"Prepayment\": true,\n                                \"Protocols\": [\n                                    {\n                                        \"Protocol\": \"NFS\",\n                                        \"SaleStatus\": \"saling\"\n                                    }\n                                ]\n                            }\n                        ]\n                    }\n                ]\n            }\n        ],\n        \"RequestId\": \"a7493b9c-8650-409a-a950-8d4afa18b5ec\"\n    }\n}",
+        "title": "查询区域可用情况"
+      }
+    ],
+    "DescribeCfsFileSystemClients": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeCfsFileSystemClients\n<公共请求参数>\n\n{\n    \"FileSystemId\": \"cfs-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"aaaa-bbbb-cccc-dddd\",\n        \"ClientList\": [\n            {\n                \"MountDirectory\": \"/mnt\",\n                \"ZoneName\": \"广州一区\",\n                \"Zone\": \"ap-guangzhou-1\",\n                \"VpcId\": \"vpc-gvem39gr\",\n                \"ClientIp\": \"10.1.1.10\",\n                \"CfsVip\": \"10.1.1.11\"\n            }\n        ]\n    }\n}",
+        "title": "查询文件系统客户端"
+      }
+    ],
+    "DescribeCfsFileSystems": [
+      {
+        "document": "",
+        "input": "https://cfs.tencentcloudapi.com/?Action=DescribeCfsFileSystems\n&FileSystemId=cfs-12345\n&<公共请求参数>",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"TotalCount\": 1,\n        \"FileSystems\": [\n            {\n                \"Protocol\": \"NFS\",\n                \"Zone\": \"ap-guangzhou-3\",\n                \"CreationToken\": \"test_fs\",\n                \"StorageType\": \"SD\",\n                \"Encrypted\": false,\n                \"CreationTime\": \"2019-07-29 18:57:17\",\n                \"StorageResourcePkg\": \"\",\n                \"ZoneId\": 100003,\n                \"SizeByte\": 0,\n                \"FileSystemId\": \"cfs-12345\",\n                \"KmsKeyId\": \"\",\n                \"LifeCycleState\": \"mounting\",\n                \"Capacity\": 1000,\n                \"PGroup\": {\n                    \"PGroupId\": \"pgroupbasic\",\n                    \"Name\": \"默认权限组\"\n                },\n                \"SizeLimit\": 0,\n                \"BandwidthResourcePkg\": \"\",\n                \"FsName\": \"test_fs\",\n                \"AppId\": 12700000,\n                \"BandwidthLimit\": 200\n            }\n        ]\n    }\n}",
+        "title": "查询文件系统"
+      }
+    ],
+    "DescribeCfsPGroups": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeCfsPGroups\n<公共请求参数>\n\n{}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"PGroupList\": [\n            {\n                \"PGroupId\": \"pgroup-12345\",\n                \"Name\": \"test\",\n                \"DescInfo\": \"test\",\n                \"BindCfsNum\": 0,\n                \"CDate\": \"2019-07-05 19:04:18\"\n            },\n            {\n                \"PGroupId\": \"pgroup-67890\",\n                \"Name\": \"test2\",\n                \"DescInfo\": \"test2\",\n                \"BindCfsNum\": 0,\n                \"CDate\": \"2019-07-06 10:57:29\"\n            },\n            {\n                \"PGroupId\": \"pgroup-54321\",\n                \"Name\": \"测试\",\n                \"DescInfo\": \"use for test\",\n                \"BindCfsNum\": 1,\n                \"CDate\": \"2019-07-03 16:06:38\"\n            },\n            {\n                \"PGroupId\": \"pgroupbasic\",\n                \"Name\": \"默认权限组\",\n                \"DescInfo\": \"默认权限组\",\n                \"BindCfsNum\": 5,\n                \"CDate\": \"2019-06-21 17:30:05\"\n            }\n        ]\n    }\n}",
+        "title": "查询权限组列表"
+      }
+    ],
+    "DescribeCfsRules": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeCfsRules\n<公共请求参数>\n\n{\n    \"PGroupId\": \"pgroup-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"RuleList\": [\n            {\n                \"RuleId\": \"rule-12345\",\n                \"AuthClientIp\": \"10.1.1.100\",\n                \"RWPermission\": \"rw\",\n                \"UserPermission\": \"root_squash\",\n                \"Priority\": 7\n            }\n        ]\n    }\n}",
+        "title": "查询权限组规则"
+      }
+    ],
+    "DescribeCfsServiceStatus": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeCfsServiceStatus\n<公共请求参数>\n\n{}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"CfsServiceStatus\": \"none\"\n    }\n}",
+        "title": "查询CFS服务状态"
+      }
+    ],
+    "DescribeCfsSnapshotOverview": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeCfsSnapshotOverview\n<公共请求参数>\n\n{}",
+        "output": "{\n    \"Response\": {\n        \"StatisticsList\": [\n            {\n                \"Region\": \"ap-guangzhou\",\n                \"SnapshotNumber\": 6,\n                \"SnapshotSize\": 33\n            },\n            {\n                \"Region\": \"all\",\n                \"SnapshotNumber\": 10,\n                \"SnapshotSize\": 330\n            }\n        ],\n        \"RequestId\": \"b398b508-6ac6-4a05-9c20-388399bd1965\"\n    }\n}",
+        "title": "查询快照概览"
+      }
+    ],
+    "DescribeCfsSnapshots": [
+      {
+        "document": "",
+        "input": "https://cfs.tencentcloudapi.com/?Action=DescribeCfsSnapshots\n&FileSystemId=cfs-12345\n&<公共请求参数>",
+        "output": "{\n    \"Response\": {\n        \"TotalSize\": 1,\n        \"TotalCount\": 1,\n        \"RequestId\": \"xx\",\n        \"Snapshots\": [\n            {\n                \"Status\": 1,\n                \"SnapshotName\": \"xx\",\n                \"Percent\": 1,\n                \"FileSystemId\": \"xx\",\n                \"Size\": 1,\n                \"AppId\": 1,\n                \"SnapshotId\": \"xx\",\n                \"AliveDay\": 1,\n                \"CreationTime\": \"xx\",\n                \"DeleteTime\": \"xx\",\n                \"FsName\": \"xx\",\n                \"RegionName\": \"xx\"\n            }\n        ]\n    }\n}",
+        "title": "查询快照"
+      }
+    ],
+    "DescribeMountTargets": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeMountTargets\n<公共请求参数>\n\n{\n    \"FileSystemId\": \"cfs-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"NumberOfMountTargets\": 1,\n        \"RequestId\": \"12345-54321-12345\",\n        \"MountTargets\": [\n            {\n                \"MountTargetId\": \"mount-12345\",\n                \"VpcId\": \"vpc-12345\",\n                \"CidrBlock\": \"xx\",\n                \"CcnID\": \"xx\",\n                \"NetworkInterface\": \"vpc\",\n                \"SubnetName\": \"test\",\n                \"FileSystemId\": \"cfs-12345\",\n                \"VpcName\": \"12345\",\n                \"LifeCycleState\": \"available\",\n                \"SubnetId\": \"subnet-12345\",\n                \"IpAddress\": \"10.0.0.10\",\n                \"FSID\": \"12345\"\n            }\n        ]\n    }\n}",
+        "title": "查询文件系统挂载点"
+      }
+    ],
+    "DescribeSnapshotOperationLogs": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeSnapshotOperationLogs\n<公共请求参数>\n\n{\n    \"SnapshotId\": \"snapcfs-12345\",\n    \"EndTime\": \"2021-08-12 20:50:45\",\n    \"StartTime\": \"2021-08-11 20:50:45\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"SnapshotId\": \"snapcfs-12345\",\n        \"SnapshotOperates\": [\n            {\n                \"Action\": \"UpdateCfsSnapshotAttribute\",\n                \"ActionTime\": \"2021-08-13 20:03:28\",\n                \"ActionName\": \"UpdateCfsSnapshotAttribute\",\n                \"Operator\": \"\",\n                \"Result\": 2\n            }\n        ]\n    }\n}",
+        "title": "查询快照操作日志"
+      }
+    ],
+    "DescribeUserQuota": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: DescribeUserQuota\n<公共请求参数>\n\n{\n    \"FileSystemId\": \"cfs-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"UserQuotaInfo\": [\n            {\n                \"UserType\": \"Uid\",\n                \"UserId\": \"1000\",\n                \"CapacityHardLimit\": 10,\n                \"FileHardLimit\": 10000\n            }\n        ],\n        \"TotalCount\": 1,\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\"\n    }\n}",
+        "title": "查询文件系统配额"
+      }
+    ],
+    "SetUserQuota": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: SetUserQuota\n<公共请求参数>\n\n{\n    \"FileSystemId\": \"cfs-12345\",\n    \"UserType\": \"Uid\",\n    \"UserId\": \"1000\",\n    \"CapacityHardLimit\": 10,\n    \"FileHardLimit\": 10000\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\"\n    }\n}",
+        "title": "设置文件系统配额"
+      }
+    ],
+    "SignUpCfsService": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: SignUpCfsService\n<公共请求参数>\n\n{}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"CfsServiceStatus\": \"creating\"\n    }\n}",
+        "title": "开通CFS服务"
+      }
+    ],
+    "UnbindAutoSnapshotPolicy": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: UnbindAutoSnapshotPolicy\n<公共请求参数>\n\n{\n    \"AutoSnapshotPolicyId\": \"asp-12345\",\n    \"FileSystemIds\": \"cfs-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"AutoSnapshotPolicyId\": \"asp-12345\"\n    }\n}",
+        "title": "解绑文件系统"
+      }
+    ],
+    "UpdateAutoSnapshotPolicy": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: UpdateAutoSnapshotPolicy\n<公共请求参数>\n\n{\n    \"AutoSnapshotPolicyId\": \"asp-12345\",\n    \"PolicyName\": \"abc\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"AutoSnapshotPolicyId\": \"asp-12345\"\n    }\n}",
+        "title": "更新文件系统快照策略"
+      }
+    ],
+    "UpdateCfsFileSystemName": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: UpdateCfsFileSystemName\n<公共请求参数>\n\n{\n    \"FileSystemId\": \"cfs-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"CreationToken\": \"test\",\n        \"FsName\": \"test\",\n        \"FileSystemId\": \"cfs-12345\"\n    }\n}",
+        "title": "更新文件系统名"
+      }
+    ],
+    "UpdateCfsFileSystemPGroup": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: UpdateCfsFileSystemPGroup\n<公共请求参数>\n\n{\n    \"FileSystemId\": \"cfs-12345\",\n    \"PGroupId\": \"pgroup-12345\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"PGroupId\": \"pgroup-12345\",\n        \"FileSystemId\": \"cfs-12345\"\n    }\n}",
+        "title": "更新文件系统所属权限组"
+      }
+    ],
+    "UpdateCfsFileSystemSizeLimit": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: UpdateCfsFileSystemSizeLimit\n<公共请求参数>\n\n{\n    \"FileSystemId\": \"cfs-12345\",\n    \"FsLimit\": \"1000\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\"\n    }\n}",
+        "title": "更新文件系统存储容量限制"
+      }
+    ],
+    "UpdateCfsPGroup": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: UpdateCfsPGroup\n<公共请求参数>\n\n{\n    \"PGroupId\": \"pgroup-12345\",\n    \"DescInfo\": \"test\",\n    \"Name\": \"test\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"PGroupId\": \"pgroup-12345\",\n        \"Name\": \"test\",\n        \"DescInfo\": \"test\"\n    }\n}",
+        "title": "更新权限组信息"
+      }
+    ],
+    "UpdateCfsRule": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: UpdateCfsRule\n<公共请求参数>\n\n{\n    \"RWPermission\": \"rw\",\n    \"Priority\": \"7\",\n    \"PGroupId\": \"pgroup-12345\",\n    \"RuleId\": \"rule-12345\",\n    \"AuthClientIp\": \"10.0.0.10\",\n    \"UserPermission\": \"no_root_squash\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"PGroupId\": \"pgroup-12345\",\n        \"RuleId\": \"rule-12345\",\n        \"AuthClientIp\": \"10.0.0.10\",\n        \"RWPermission\": \"rw\",\n        \"UserPermission\": \"no_root_squash\",\n        \"Priority\": 7\n    }\n}",
+        "title": "更新权限组规则"
+      }
+    ],
+    "UpdateCfsSnapshotAttribute": [
+      {
+        "document": "",
+        "input": "POST / HTTP/1.1\nHost: cfs.tencentcloudapi.com\nContent-Type: application/json\nX-TC-Action: UpdateCfsSnapshotAttribute\n<公共请求参数>\n\n{\n    \"SnapshotId\": \"snapcfs-12345\",\n    \"SnapshotName\": \"xx\"\n}",
+        "output": "{\n    \"Response\": {\n        \"RequestId\": \"fjo8aejo-fjei-32eu-2je9-fhue83nd81\",\n        \"SnapshotId\": \"snapcfs-12345\"\n    }\n}",
+        "title": "更新快照内容"
+      }
+    ]
+  },
+  "version": "1.0"
+}
