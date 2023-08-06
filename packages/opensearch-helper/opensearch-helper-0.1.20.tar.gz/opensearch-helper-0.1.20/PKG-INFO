@@ -1,0 +1,133 @@
+Metadata-Version: 2.1
+Name: opensearch-helper
+Version: 0.1.20
+Summary: OpenSearch Helper for Easy I/O
+Home-page: https://github.com/craigtrim/opensearch-helper
+License: None
+Keywords: nlp,nlu,opensearch,elasticsearch,aws,search
+Author: Craig Trim
+Author-email: craigtrim@gmail.com
+Maintainer: Craig Trim
+Maintainer-email: craigtrim@gmail.com
+Requires-Python: >=3.8.5,<4.0.0
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: baseblock
+Requires-Dist: boto3
+Requires-Dist: opensearch-py (>=1.1.0,<2.0.0)
+Requires-Dist: requests
+Requires-Dist: requests_aws4auth
+Project-URL: Bug Tracker, https://github.com/craigtrim/opensearch-helper/issues
+Project-URL: Repository, https://github.com/craigtrim/opensearch-helper
+Description-Content-Type: text/markdown
+
+# Open Search Helper (opensearch-helper)
+A collection of methods for assisting with OpenSearch querying on AWS
+
+## MultiMatch Query Generator
+
+**Method Definition**
+```python
+multimatch_generator(input_text: str, size: int = 5, *args) -> MultiMatchQuery
+```
+
+**Invoke Function**
+
+Pass in one-or-more field names after the query:
+```python
+from opensearch_helper import multimatch_generator
+
+d_query = multimatch_generator("what is the average PH of rainwater?" "question", "context")
+```
+
+**Sample Output**
+```json
+{
+   "size":5,
+   "query":{
+      "multi_match":{
+         "query":"input_text",
+         "fields":[
+            "question"
+         ]
+      }
+   }
+}
+```
+
+## API Query (AWS)
+**Method Definition**
+```python
+query(d_query: MultiMatchQuery, index_name: str) -> OpenSearchResult
+```
+
+**Invoke Function**
+
+The following environment variables must exist and be encrypted via `baseblock::Run-Encrypt`
+1. OPENSEARCH_HOST
+2. OPENSEARCH_REGION
+3. OPENSEARCH_USERNAME
+4. OPENSEARCH_PASSWORD
+
+```python
+from opensearch_helper import query
+
+query(d_query, index_name='myindex')
+```
+
+## Score Top Hit
+This method will retrieve the top hit and both quantitatively and qualitatively score the result.
+
+**Method Definition**
+```python
+score_top_hit(d_hits: dict) -> ScoreResult
+```
+
+**Invoke Function**
+```python
+from opensearch_helper import score_top_hit
+
+score_top_hit(d_hits)
+```
+
+**Sample Output**
+```json
+{
+   "score":14.23432,
+   "type":"HIGH"
+}
+```
+
+## Local OpenSearch
+From the terminal run
+```shell
+docker-compose up
+```
+
+The following environment variables must exist and be encrypted via `baseblock::Run-Encrypt`
+1. OPENSEARCH_HOST
+3. OPENSEARCH_USERNAME
+4. OPENSEARCH_PASSWORD
+
+Unless these have been modified, the default values can be found here
+https://opensearch.org/docs/latest/opensearch/install/docker/
+
+from a python script import
+```python
+from opensearch_helper import OpenSearchDEV
+```
+
+The following functions are available
+```python
+client = OpenSearchDEV()
+
+client.create_index(...)
+client.delete_index(...)
+client.add(...)
+client.query(...)
+```
