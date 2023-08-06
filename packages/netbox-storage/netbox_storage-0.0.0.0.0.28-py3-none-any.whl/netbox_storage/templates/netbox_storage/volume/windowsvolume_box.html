@@ -1,0 +1,34 @@
+<div class="card">
+    <h5 class="card-header">Windows Volumes</h5>
+    <div class="card-body">
+        <table class="table table-hover">
+            {% for drive in drives %}
+            <tr>
+                <td>Drive Name</td>
+                <td>Filesystem</td>
+                <td>{{ drive.description }}</td>
+                <td class="text-end noprint">
+                    <a href="{% url 'netbox_storage:drive_changelog' pk=drive.pk %}" class="btn btn-sm btn-outline-secondary"
+                       title="Change Log">
+                        <i class="mdi mdi-history"></i>
+                    </a>
+                    <a href="{% url 'netbox_storage:drive_edit' pk=service.pk %}?return_url={{ drive.parent.get_absolute_url }}"
+                       class="btn btn-warning btn-sm" title="Edit Service">
+                        <i class="mdi mdi-pencil"></i>
+                    </a>
+                    <a href="{% url 'netbox_storage:drive_delete' pk=drive.pk %}?return_url={{ drive.parent.get_absolute_url }}"
+                       class="btn btn-danger btn-sm">
+                        <i class="mdi mdi-trash-can-outline" title="Delete Service"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="text-muted">None</div>
+    </div>
+    <div class="card-footer text-end noprint">
+        <a href="{% url 'plugins:netbox_storage:drive_add' %}" class="btn btn-sm btn-primary">
+        <span class="mdi mdi-plus-thick" aria-hidden="true"></span> Add Drive
+        </a>
+    </div>
+</div>
