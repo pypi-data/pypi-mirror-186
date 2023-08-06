@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wuddz-pwd-generator"
+version = "1.0.0"
+description = "Simple Script To Generate A Strong Random Password Of Specified Length & Characters"
+readme = "README.md"
+authors = [
+  { name="Wuddz-Devs", email="wuddz_devs@protonmail.com" },
+]
+license = { file = "LICENSE" }
+requires-python = ">=3.7"
+keywords = ["password", "generator"]
+classifiers = [
+		'License :: OSI Approved :: MIT License',
+		'Programming Language :: Python',
+		'Programming Language :: Python :: 3.6',
+		'Programming Language :: Python :: 3.7',
+		'Programming Language :: Python :: 3.8',
+		'Programming Language :: Python :: 3.9',
+		'Programming Language :: Python :: 3.10',
+]
+
+[project.scripts]
+wudz-pwd = "wuddz_pwd_generator.wuddz_pwd:wudz_pwd"
+
+[project.urls]
+"Homepage" = "https://github.com/wuddz-devs/Wuddz-Password-Generator"
