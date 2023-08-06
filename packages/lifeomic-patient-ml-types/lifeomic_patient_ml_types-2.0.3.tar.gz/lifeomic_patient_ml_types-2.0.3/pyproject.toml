@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "lifeomic-patient-ml-types"
+version = "2.0.3"
+description = "Shared types for the patient-ml-service repos."
+authors = ["LifeOmic <development@lifeomic.com>"]
+license = "UNLICENSED"
+
+[tool.poe.tasks]
+format = "black lifeomic_patient_ml_types"
+lint = "pyright lifeomic_patient_ml_types"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.group.dev.dependencies]
+datamodel-code-generator = "^0.14.0"
+black = "^22.12.0"
+poethepoet = "^0.17.1"
+pyright = "^1.1.285"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pyright]
+include = ["src"]
+typeCheckingMode = "basic"
+reportMissingImports = false
