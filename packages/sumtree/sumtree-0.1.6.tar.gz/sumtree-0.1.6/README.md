@@ -1,0 +1,40 @@
+# SumTree
+This module contains a SumTree implementation in Rust with Python wrappers.
+Speedup is around 10x in comparison to an equivalent full Python implementation.
+
+Check the project on github: [https://github.com/yamoling/sumtree](https://github.com/yamoling/sumtree)
+
+## Usage
+### Initialisation
+```python
+from sumtree import SumTree
+st = SumTree(1024)
+st.add(10)
+print(st.total)     # 10
+print(len(st))      # 1
+print(st.capacity)  # 1024
+```
+
+### Sampling data
+```python
+from sumtree import SumTree
+st = SumTree(1024)
+for i in range(1024):
+    st.add(i)
+index, value = st.get(500)
+print(index, value)  # 32, 32.0
+```
+
+
+## Building and testing the package
+```bash
+virtualenv venv
+source venv/bin/activate
+pip install maturin
+maturin develop --release
+```
+
+## Bulding the package for release
+```bash
+maturin build --release
+```
