@@ -1,0 +1,60 @@
+<div id="additional-app">
+  <input type="hidden" ref="packageId" value="{{ pkg_dict.id }}">
+  <h3>{{ _('Contributors') }}</h3>
+  <table class="table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th scope="col">{{ _('Type') }}</th>
+        <th scope="col">{{ _('Name') }}</th>
+        <th scope="col">{{ _('E-mail') }}</th>
+        <th scope="col">{{ _('URL') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="contributor in contributors">
+        <td>
+          [[ contributor.type ]]
+        </td>
+        <td>
+          [[ contributor.name ]]
+        </td>
+        <td>
+          [[ contributor.email ]]
+        </td>
+        <td>
+          [[ contributor.url ]]
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>{{ _('Additional Info') }}</h3>
+  <table class="table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th scope="col">{{ _('Field') }}</th>
+        <th scope="col">{{ _('Value') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row" class="dataset-label" property="rdfs:label">Datapackage JSON</th>
+        <td class="dataset-details" property="rdf:value">
+          <a href="/datapackage-creator/show-datapackage-json/{{ pkg_dict.id }}" target="_blank">
+            /datapackage-creator/show-datapackage-json/{{ pkg_dict.id }}
+          </a>
+        </td>
+      </tr>
+      {% for extra in extras %}
+        {% set key, value = extra %}
+        <tr rel="dc:relation" resource="_:extra{{ i }}">
+          <th scope="row" class="dataset-label" property="rdfs:label">{{ _(key|e) }}</th>
+          <td class="dataset-details" property="rdf:value">{{ value }}</td>
+        </tr>
+      {% endfor %}
+      <tr v-for="additional in additionals">
+        <th scope="row" class="dataset-label" property="rdfs:label">[[ additional.key ]]</th>
+        <td class="dataset-details" property="rdf:value">[[ additional.value ]]</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
