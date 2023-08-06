@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "datafet"
+version = "0.8.5"
+description = "Few libriaries that we need to use in more than one of our project"
+authors = [
+    "Istvan Szukacs <istvan@datadeft.eu>",
+    "Krisztina Balogh <kriszti@datadeft.eu>"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+blake3 = "0.3.3"
+boto3 = "^1.24.46" # ok
+boto3-stubs = "^1.24.63" # ok
+botocore = "^1.27.46" # ok
+cryptography = "^37.0.4" # ok
+ecdsa = "^0.18.0" # ok
+email-validator = "^1.2.1" # ok
+fastapi = "^0.79.0" # ok
+Jinja2 = "^3.1.2" # ok
+mangum = "^0.15.0" # ok
+mypy-boto3-athena = "^1.24.36" # ok
+mypy-boto3-glue = "^1.24.50"  # ok
+mypy-boto3-s3 = "^1.24.36" # ok
+mypy-boto3-secretsmanager = "^1.24.54" # ok
+mypy-boto3-ses = "^1.24.36" # ok
+mypy-boto3-sqs = "^1.24.40" # ok
+mypy-boto3-ssm = "^1.24.69" # ok
+pydantic = "^1.9.1"  # ok
+PyJWT = "^2.4.0" # ok
+python-dateutil = "^2.8.2"  # ok
+pytz = "^2022.1"  # ok
+spookyhash = "^2.1.0"  # ok
+tomli = "^2.0.1"  # ok
+types-python-dateutil = "^2.8.19"  # ok
+types-pytz = "^2022.2.1"  # ok
+
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.971"
+pre-commit = "^2.20.0"
+pytest = "^7.1"
+requests = "^2.28.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
