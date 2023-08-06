@@ -1,0 +1,46 @@
+package:
+  metadata:
+    name: test_package
+    version: 0.0.1
+    author: Andromeda 360, Inc.
+    author_email: irvin.shen@andromeda360.com
+  artifacts:
+    root_location: $directory
+    validation_data:
+    training_data:
+    inference:
+      model_data: # List out any models you want imported
+      function_name: predict
+      script_name: predict.py
+    dependencies: requirements.txt
+  steps:
+    - name: fastapi
+      version: 1.0.0
+    # - type: vulnerability-check
+    #   backend: snyk
+    #   credentials:
+    #   - name: SNYK_TOKEN
+    #     reference: cred_reference_point
+    # - type: validate-model
+    # - type: custom-test
+    #   backend: something_custom
+    - name: docker_desktop_push
+      labels: 
+      image_name: # optional, defaults to metadata name
+      image_tags: # optional
+        - latest
+        - 0.0.1
+
+deployment:
+  metadata:
+    name: final_test
+    version: 1.0.0
+  steps:
+  - name: local_docker_find
+    version: 1.0.0
+    image:
+      name: # optional
+      tag: # optional
+  - name: local_docker_deploy
+    version: 1.0.0
+    port: # optional
