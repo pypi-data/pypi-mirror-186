@@ -1,0 +1,119 @@
+Metadata-Version: 2.1
+Name: exapi
+Version: 0.1.1
+Summary: Async API for exchanges
+Project-URL: GitHub, https://github.com/miviskin/exapi
+Author-email: miviskin <miviskin@gmail.com>
+License-File: LICENSE.txt
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.11
+Requires-Dist: anyio~=3.6.2
+Requires-Dist: httpx~=0.23.1
+Requires-Dist: pydantic~=1.10
+Requires-Dist: python-dotenv~=0.21.0
+Requires-Dist: uvloop~=0.16
+Requires-Dist: websockets~=10.4
+Provides-Extra: dev
+Requires-Dist: build; extra == 'dev'
+Requires-Dist: hatch; extra == 'dev'
+Requires-Dist: pytest; extra == 'dev'
+Requires-Dist: pytest-asyncio; extra == 'dev'
+Requires-Dist: pytest-cov; extra == 'dev'
+Requires-Dist: pytest-httpx; extra == 'dev'
+Requires-Dist: python-dotenv; extra == 'dev'
+Requires-Dist: twine; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# Exapi (Exchange API)
+
+## Install pyenv
+
+[pyenv-installer](https://github.com/pyenv/pyenv-installer)
+
+```shell script
+curl https://pyenv.run | bash
+```
+
+Add to ~/.profile
+```shell script
+if [ -d "$HOME/.pyenv" ] ; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+```
+
+Update
+```shell script
+pyenv update
+```
+
+## Install python 3.11
+
+[pyenv](https://github.com/pyenv/pyenv)
+
+```shell script
+pyenv install 3.11.1
+pyenv global 3.11.1
+```
+
+## Getting Started
+
+### Update pip
+```shell script
+python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade setuptools
+```
+
+### Creating a virtual environment
+
+```shell script
+rm -rf venv
+python3 -m venv venv
+```
+
+### Install the module in development mode
+```shell script
+python3 -m pip install -Ue '.[dev]'
+```
+
+## Build
+
+```shell script
+python3 -m build
+# OR
+hatch build
+```
+
+### Authenticate with the Package Registry
+
+Edit the ```~/.pypirc``` file and add:
+
+```shell
+[pypi]
+  username = __token__
+  password = pypi-TOKEN
+```
+
+### Deploy to pypi
+
+```shell script
+python3 -m twine upload --repository pypi dist/*
+```
+
+
+### Clear ```__pycache__```
+
+```shell script
+py3clean .
+```
+
+## Read:
+- [Github-flavored Markdown](https://guides.github.com/features/mastering-markdown/)
+- [hatchling](https://hatch.pypa.io/latest/config/build/)
+- [GitLab PyPi Repository](https://docs.gitlab.com/ee/user/packages/pypi_repository/)
+- [Packaging Python Projects](https://packaging.python.org/tutorials/packaging-projects/#creating-setup-py)
+- [Virtual environments](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
