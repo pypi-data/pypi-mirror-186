@@ -1,0 +1,66 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "lndb_setup"
+authors = [{name = "Lamin Labs", email = "laminlabs@gmail.com"}]
+readme = "README.md"
+dynamic = ["version", "description"]
+dependencies = [
+    "lnschema_core>=0.24.1",
+    "lnhub_rest>=0.1.0",
+    "lamin_logger",
+    "boto3",
+    "cloudpathlib",
+    "sqlmodel>=0.0.8",
+    "appdirs",
+    "supabase",
+    "python-dotenv",
+    "erdiagram",
+    "alembic",
+    "psycopg2-binary",
+    "pyjwt",
+    "natsort",
+    "pandas",
+    "pytest_alembic==0.9.1",  # let's pin this as we use internals
+    "fsspec",
+    "s3fs",
+    "gcsfs",
+    "python-dateutil",
+]
+
+[project.urls]
+Home = "https://github.com/laminlabs/lndb-setup"
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "nox",
+]
+test = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "bionty>=0.5.6",
+    "lnschema_bionty>=0.6.2",
+    "lnschema_wetlab>=0.11.5",
+    "lnbfx>=0.7.1",
+    "cloudpathlib[gs]",
+    "nbproject_test>=0.4.0",
+]
+
+[project.scripts]
+lndb = "lndb_setup.__main__:main"
+
+[tool.black]
+preview = true
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+]
+
+[tool.coverage.run]
+omit = [
+    "lndb_setup/*",
+]
