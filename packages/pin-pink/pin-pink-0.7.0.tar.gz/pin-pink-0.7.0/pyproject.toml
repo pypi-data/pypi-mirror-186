@@ -1,0 +1,52 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "pin-pink"
+readme = "README.md"
+authors = [
+    {name = "Stéphane Caron", email = "stephane.caron@normalesup.org"},
+]
+maintainers = [
+    {name = "Stéphane Caron", email = "stephane.caron@normalesup.org"},
+]
+dynamic = ['version', 'description']
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: Robot Framework :: Library",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "loop-rate-limiters >=0.1.0",
+    "numpy >=1.20.0",
+    "pin >=2.6.3",
+    "qpsolvers >=2.5.0",
+    "quadprog >=0.1.11",
+]
+keywords = ["inverse", "kinematics", "pinocchio"]
+
+[project.urls]
+Documentation = "https://tasts-robots.org/doc/pink/"
+Source = "https://github.com/tasts-robots/pink"
+Tracker = "https://github.com/tasts-robots/pink/issues"
+Changelog = "https://github.com/tasts-robots/pink/blob/master/CHANGELOG.md"
+
+[tool.black]
+line-length = 79
+
+[tool.flit.module]
+name = "pink"
+
+[tool.isort]
+profile = "black"
+line_length = 79
