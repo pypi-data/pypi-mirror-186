@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "water_cli"
+version = "0.1.15"
+description = ""
+authors = ["david <davidventura27@gmail.com>"]
+readme = 'README.md'
+repository = 'https://github.com/DavidVentura/water'
+
+[tool.poetry.dependencies]
+python = "^3.7"
+typing-extensions = { version = "^4.0.0", python = "<3.10" }
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0.0"
+pytest-cov = "^4.0.0"
+mypy = "<0.990"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
