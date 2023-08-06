@@ -1,0 +1,29 @@
+{
+  "Comment": "Create records",
+  "Changes": [
+    {
+      "Action": "CREATE",
+      "ResourceRecordSet": {
+        "Name": "devops.aws.araalinetworks.com",
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z18D5FSROUN65G",
+          "DNSName": "dualstack.a36e1886328ca43699298d9d6cc88891-3c42730529588532.elb.us-west-2.amazonaws.com",
+          "EvaluateTargetHealth": false
+        }
+      }
+    },
+    {
+      "Action": "CREATE",
+      "ResourceRecordSet": {
+        "Name": "*.devops.aws.araalinetworks.com",
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z18D5FSROUN65G",
+          "DNSName": "dualstack.a36e1886328ca43699298d9d6cc88891-3c42730529588532.elb.us-west-2.amazonaws.com",
+          "EvaluateTargetHealth": false
+        }
+      }
+    }
+  ]
+}
