@@ -1,0 +1,16 @@
+# Build dependencies as advocated by PEP 518.
+#
+#   https://www.python.org/dev/peps/pep-0518/
+#
+# Supersedes use of `setup_requires` in `setup.py`.
+
+[build-system]
+requires = ["setuptools", "wheel"]
+
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--tb=short"
+testpaths = [
+    "test",
+]
