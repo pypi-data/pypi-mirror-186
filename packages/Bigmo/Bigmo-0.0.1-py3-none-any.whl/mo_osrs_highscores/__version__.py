@@ -1,0 +1,7 @@
+__title__ = 'mo_osrs_highscores'
+__description__ = 'Simple Wrapper for the OSRS Highscores'
+__url__ = ''
+__version__ = '1.2.0'
+__author__ = 'BigMo'
+__author_email__ = ''
+__license__ = 'MIT License'
