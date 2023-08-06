@@ -1,0 +1,65 @@
+Metadata-Version: 2.1
+Name: pollination-pmv-comfort-map
+Version: 0.8.12
+Summary: PMV thermal comfort map for Pollination.
+Home-page: https://github.com/pollination/pmv-comfort-map
+Author: ladybug-tools
+Author-email: info@ladybug.tools
+Maintainer: chris, ladybug-tools
+Maintainer-email: chris@ladybug.tools, info@ladybug.tools
+License: PolyForm Shield License 1.0.0, https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt
+Project-URL: icon, https://raw.githubusercontent.com/ladybug-tools/artwork/master/icons_components/honeybee/png/pmvmap.png
+Keywords: honeybee,ladybug-tools,thermal,comfort,pmv
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+Requires-Dist: pollination-ladybug (>=0.2.2)
+Requires-Dist: pollination-ladybug-comfort (>=0.5.2)
+Requires-Dist: pollination-honeybee-radiance (>=0.22.22)
+Requires-Dist: pollination-honeybee-energy (>=0.5.8)
+Requires-Dist: pollination-lbt-honeybee (>=0.1.12)
+Requires-Dist: pollination-alias (>=0.10.9)
+Requires-Dist: pollination-path (>=0.3.2)
+Provides-Extra: viz
+Requires-Dist: pollination-honeybee-display (>=0.1.8) ; extra == 'viz'
+
+# PMV Comfort Map
+
+PMV thermal comfort map recipe for Pollination.
+
+Compute spatially-resolved PMV thermal comfort from a Honeybee model and EPW.
+This recipe also computes operative temperature or (optionally) Standard
+Effective Temperature (SET). Raw results are written into a `results/` folder and
+include CSV matrices of hourly temperatures, thermal conditions and PMV. Processed
+metrics of Thermal Comfort Percent (TCP) can be found in the `metrics/` folder.
+Input conditions to the comfort model are written to an `initial_results/conditions`
+folder.
+
+## Methods
+
+This recipe uses EnergyPlus to obtain surface temperatures and indoor air
+temperatures + humidities. Outdoor air temperatures, relative humidities, and
+air speeds are taken directly from the EPW. All outdoor points are assumed to be
+at one half of the EPW meteorological wind speed (effectively representing wind
+speed at ground/human height).
+
+Longwave radiant temperatures are achieved by computing spherical view factors
+from each sensor to the surfaces of the model using Radiance. These view factors
+are then multiplied by the surface temperatures output by EnergyPlus to yield
+longwave MRT at each sensor. All indoor shades (eg. those representing furniture)
+are assumed to be at the room-average MRT. For outdoor sensors, the EnergyPlus
+outdoor surface temperatures are used and each sensor's sky view is multiplied by
+the EPW sky temperature to account for longwave radiant exchange with the sky.
+All outdoor context shades and the ground are assumed to be at the EPW air
+temperature unless they have been modeled as Honeybee rooms.
+
+A Radiance-based enhanced 2-phase method is used for all shortwave MRT calculations,
+which precisely represents direct sun by tracing a ray from each sensor to the
+solar position. The energy properties of the model geometry are what determine
+the reflectance and transmittance of the Radiance materials in this shortwave
+calculation.
+
+To determine Thermal Comfort Percent (TCP), the occupancy schedules of the energy
+model are used. Any hour of the occupancy schedule that is 0.1 or greater will be
+considered occupied. All hours of the outdoors are considered occupied.
+
+
