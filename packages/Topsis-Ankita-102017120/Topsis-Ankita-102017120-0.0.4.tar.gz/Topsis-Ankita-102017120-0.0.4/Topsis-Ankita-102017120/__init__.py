@@ -1,0 +1,1 @@
+from main import topsis_score as topsis
