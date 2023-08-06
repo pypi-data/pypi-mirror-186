@@ -1,0 +1,90 @@
+name: straight_2baf67df_exten_7d41518e
+settings:
+  changed:
+    component:
+      function: straight
+      settings:
+        cross_section:
+          function: cross_section
+          settings:
+            bbox_layers:
+            - SLAB90
+            bbox_offsets:
+            - 3
+    extension:
+      function: taper_strip_to_ridge
+    port1: o2
+    port2: o1
+  child:
+    changed:
+      cross_section:
+        function: cross_section
+        settings:
+          bbox_layers:
+          - SLAB90
+          bbox_offsets:
+          - 3
+    child: null
+    default:
+      cross_section: strip
+      length: 10.0
+      npoints: 2
+      with_bbox: true
+    full:
+      cross_section:
+        function: cross_section
+        settings:
+          bbox_layers:
+          - SLAB90
+          bbox_offsets:
+          - 3
+      length: 10.0
+      npoints: 2
+      with_bbox: true
+    function_name: straight
+    info:
+      length: 10.0
+      width: 0.5
+    info_version: 2
+    module: gdsfactory.components.straight
+    name: straight_2baf67df
+  default:
+    centered: false
+    component:
+      function: mmi1x2
+    cross_section: null
+    extension: null
+    extension_port_names: null
+    length: 5.0
+    port1: null
+    port2: null
+    port_names: null
+    port_type: optical
+  full:
+    centered: false
+    component:
+      function: straight
+      settings:
+        cross_section:
+          function: cross_section
+          settings:
+            bbox_layers:
+            - SLAB90
+            bbox_offsets:
+            - 3
+    cross_section: null
+    extension:
+      function: taper_strip_to_ridge
+    extension_port_names: null
+    length: 5.0
+    port1: o2
+    port2: o1
+    port_names: null
+    port_type: optical
+  function_name: extend_ports
+  info:
+    length: 10.0
+    width: 0.5
+  info_version: 2
+  module: gdsfactory.components.extension
+  name: straight_2baf67df_exten_7d41518e
