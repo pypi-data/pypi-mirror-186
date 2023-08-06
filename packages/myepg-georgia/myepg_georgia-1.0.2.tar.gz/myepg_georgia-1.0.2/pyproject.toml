@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "myepg-georgia"
+version = "1.0.2"
+description = ""
+authors = ["Giorgi Kotchlamazashvili <georgedot@gmail.com>"]
+readme = "README.md"
+packages = [{include = "myepg_georgia"}]
+
+[tool.poetry.dependencies]
+python = ">3.8"
+requests = "^2.28.1"
+pyjwt = "^2.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
