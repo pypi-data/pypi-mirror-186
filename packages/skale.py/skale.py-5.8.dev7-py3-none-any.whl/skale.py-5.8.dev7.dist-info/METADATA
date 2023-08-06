@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: skale.py
+Version: 5.8.dev7
+Summary: SKALE client tools
+Home-page: https://github.com/skalenetwork/skale.py
+Author: SKALE Labs
+Author-email: support@skalelabs.com
+License: UNKNOWN
+Keywords: skale
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3.7,<4
+Requires-Dist: web3 (==5.31.1)
+Requires-Dist: asyncio (==3.4.3)
+Requires-Dist: pyyaml (==6.0)
+Requires-Dist: sgx.py (==0.8dev7)
+Requires-Dist: redis (==4.3.4)
+Provides-Extra: dev
+Requires-Dist: flake8 (==3.8.3) ; extra == 'dev'
+Requires-Dist: isort (<5.4.3,>=4.2.15) ; extra == 'dev'
+Requires-Dist: importlib-metadata (<5.0) ; extra == 'dev'
+Requires-Dist: bumpversion (==0.6.0) ; extra == 'dev'
+Requires-Dist: click (==7.1.2) ; extra == 'dev'
+Requires-Dist: freezegun (==1.0.0) ; extra == 'dev'
+Requires-Dist: mock (==4.0.2) ; extra == 'dev'
+Requires-Dist: pytest (==5.4.3) ; extra == 'dev'
+Requires-Dist: pytest-cov (==2.8.1) ; extra == 'dev'
+Requires-Dist: Random-Word (==1.0.4) ; extra == 'dev'
+Requires-Dist: twine (==3.1.1) ; extra == 'dev'
+Requires-Dist: when-changed ; extra == 'dev'
+Requires-Dist: ledgerblue (==0.1.31) ; extra == 'dev'
+Provides-Extra: hw-wallet
+Requires-Dist: ledgerblue (==0.1.31) ; extra == 'hw-wallet'
+Provides-Extra: linter
+Requires-Dist: flake8 (==3.8.3) ; extra == 'linter'
+Requires-Dist: isort (<5.4.3,>=4.2.15) ; extra == 'linter'
+Requires-Dist: importlib-metadata (<5.0) ; extra == 'linter'
+
+UNKNOWN
+
+
