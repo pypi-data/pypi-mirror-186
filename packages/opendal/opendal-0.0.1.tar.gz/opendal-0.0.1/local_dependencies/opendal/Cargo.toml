@@ -1,0 +1,175 @@
+[package]
+authors = ["Databend Authors <opensource@datafuselabs.com>"]
+categories = ["filesystem"]
+description = "OpenDAL: Access data freely, painlessly, and efficiently."
+edition = "2021"
+exclude = ["docs/", "testdata/"]
+homepage = "https://opendal.databend.rs/"
+keywords = ["storage", "fs", "s3", "azblob", "gcs"]
+license = "Apache-2.0"
+name = "opendal"
+repository = "https://github.com/datafuselabs/opendal"
+version = "0.25.0"
+# MSRV of OpenDAL. Please update this field while bump.
+rust-version = "1.60"
+
+[package.metadata.docs.rs]
+all-features = true
+
+[features]
+default = ["rustls"]
+
+# Enable unwind safe support so that users can check if the operator is safe # to use after panic.
+unwind-safe = []
+# Enable compress support so that users can decompress while reading.
+compress = ["async-compression"]
+# Enable trust-dns for pure rust dns cache.
+trust-dns = ["reqwest/trust-dns", "dep:trust-dns-resolver"]
+
+# Enable rustls for TLS support
+rustls = ["reqwest/rustls-tls-native-roots", "ureq/tls", "ureq/native-certs"]
+# Enable native-tls for TLS support
+native-tls = ["reqwest/native-tls", "ureq/native-tls"]
+# Enable vendored native-tls for TLS support
+native-tls-vendored = ["reqwest/native-tls-vendored", "ureq/native-tls"]
+
+# Enable all layers.
+layers-all = ["layers-metrics", "layers-tracing"]
+# Enable layers metrics support
+layers-metrics = ["dep:metrics"]
+# Enable layers tracing support.
+layers-tracing = ["dep:tracing"]
+
+# Enable services hdfs support
+services-hdfs = ["dep:hdrs"]
+# Enable services ftp support
+services-ftp = ["dep:suppaftp", "dep:lazy-regex", "dep:bb8", "dep:async-tls"]
+# Enable services ipfs support
+services-ipfs = ["dep:prost"]
+# Enable services memcached support
+services-memcached = ["dep:bb8", "dep:memcache-async"]
+# Enable services moka support
+services-moka = ["dep:moka"]
+# Enable services redis support
+services-redis = ["dep:redis"]
+# Enable services rocksdb support
+services-rocksdb = ["dep:rocksdb"]
+
+[lib]
+bench = false
+
+[[bench]]
+harness = false
+name = "ops"
+
+[[bench]]
+harness = false
+name = "io"
+
+[[bench]]
+harness = false
+name = "path"
+
+[[bench]]
+harness = false
+name = "layers"
+required-features = ["layers-all"]
+
+[[example]]
+name = "hdfs"
+required-features = ["services-hdfs"]
+
+[[example]]
+name = "ipfs"
+required-features = ["services-ipfs"]
+
+[[example]]
+name = "ftp"
+required-features = ["services-ftp"]
+
+[[example]]
+name = "redis"
+required-features = ["services-redis"]
+
+[[example]]
+name = "rocksdb"
+required-features = ["services-rocksdb"]
+
+[[example]]
+name = "tracing_layer"
+required-features = ["layers-all"]
+
+[dependencies]
+anyhow = { version = "1.0.30", features = ["std"] }
+async-compat = "0.2"
+# Temp workaround, should come back to tagged version after https://github.com/Nemo157/async-compression/issues/150 resolved.
+async-compression = { package = "async-compression-issue-150-workaround", version = "0.3.15-issue-150", features = [
+  "futures-io",
+  "all-algorithms",
+], optional = true }
+async-tls = { version = "0.11", optional = true }
+async-trait = "0.1.50"
+backon = "0.2"
+base64 = "0.21"
+bb8 = { version = "0.8", optional = true }
+bincode = { version = "2.0.0-rc.2", features = ["serde"] }
+bytes = "1.2"
+flagset = "0.4"
+futures = { version = "0.3", features = ["alloc"] }
+hdrs = { version = "0.2", optional = true, features = ["async_file"] }
+http = "0.2.5"
+hyper = "0.14"
+lazy-regex = { version = "2.4.1", optional = true }
+log = "0.4"
+md-5 = "0.10"
+memcache-async = { version = "0.6", optional = true }
+metrics = { version = "0.20", optional = true }
+moka = { version = "0.9", optional = true, features = ["future"] }
+once_cell = "1"
+parking_lot = "0.12"
+percent-encoding = "2"
+pin-project = "1"
+prost = { version = "0.11", optional = true }
+quick-xml = { version = "0.27", features = ["serialize", "overlapped-lists"] }
+redis = { version = "0.22", features = [
+  "tokio-comp",
+  "connection-manager",
+], optional = true }
+reqsign = "0.8.1"
+reqwest = { version = "0.11.13", features = [
+  "multipart",
+  "stream",
+], default-features = false }
+rocksdb = { version = "0.19", optional = true }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+suppaftp = { version = "4.5", default-features = false, features = [
+  "async-secure",
+  "async-rustls",
+], optional = true }
+time = { version = "0.3.10", features = ["serde"] }
+tokio = { version = "1.20", features = ["fs"] }
+tracing = { version = "0.1", optional = true }
+trust-dns-resolver = { version = "0.22", optional = true }
+ureq = { version = "2", default-features = false }
+uuid = { version = "1", features = ["serde", "v4"] }
+
+[dev-dependencies]
+cfg-if = "1"
+criterion = { version = "0.4", features = ["async", "async_tokio"] }
+dotenvy = "0.15"
+env_logger = "0.10"
+opentelemetry = { version = "0.17", default-features = false, features = [
+  "trace",
+] }
+opentelemetry-jaeger = "0.16"
+paste = "1"
+pretty_assertions = "1"
+rand = "0.8"
+serde_json = "1"
+sha2 = "0.10"
+size = "0.4"
+tokio = { version = "1.20", features = ["fs", "macros", "rt-multi-thread"] }
+tracing-opentelemetry = "0.17"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+wiremock = "0.5"
