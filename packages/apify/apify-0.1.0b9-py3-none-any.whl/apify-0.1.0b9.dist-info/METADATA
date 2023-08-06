@@ -1,0 +1,123 @@
+Metadata-Version: 2.1
+Name: apify
+Version: 0.1.0b9
+Summary: Apify SDK for Python
+Home-page: https://github.com/apify/apify-sdk-python
+Author: Apify Technologies s.r.o.
+Author-email: support@apify.com
+License: Apache Software License
+Project-URL: Documentation, https://docs.apify.com/apify-sdk-python
+Project-URL: Source, https://github.com/apify/apify-sdk-python
+Project-URL: Issue tracker, https://github.com/apify/apify-sdk-python/issues
+Project-URL: Apify Homepage, https://apify.com
+Keywords: apify,sdk,actor,scraping,automation
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: apify-client (~=0.7.0b30)
+Requires-Dist: httpx (~=0.23.0)
+Requires-Dist: psutil (~=5.9.4)
+Requires-Dist: pydantic (~=1.10.2)
+Requires-Dist: pyee (~=9.0.4)
+Requires-Dist: typing-extensions (~=4.4.0)
+Requires-Dist: websockets (~=10.4)
+Requires-Dist: aiofiles (~=22.1.0)
+Requires-Dist: aioshutil (~=1.2)
+Provides-Extra: dev
+Requires-Dist: autopep8 (~=2.0.0) ; extra == 'dev'
+Requires-Dist: flake8 (~=5.0.4) ; extra == 'dev'
+Requires-Dist: flake8-bugbear (~=22.10.27) ; extra == 'dev'
+Requires-Dist: flake8-commas (~=2.1.0) ; extra == 'dev'
+Requires-Dist: flake8-docstrings (~=1.6.0) ; extra == 'dev'
+Requires-Dist: flake8-isort (~=5.0.3) ; extra == 'dev'
+Requires-Dist: flake8-quotes (~=3.3.1) ; extra == 'dev'
+Requires-Dist: flake8-unused-arguments (~=0.0.12) ; extra == 'dev'
+Requires-Dist: isort (~=5.10.1) ; extra == 'dev'
+Requires-Dist: mypy (~=0.991) ; extra == 'dev'
+Requires-Dist: pep8-naming (~=0.13.2) ; extra == 'dev'
+Requires-Dist: pre-commit (~=2.20.0) ; extra == 'dev'
+Requires-Dist: pytest (~=7.2.0) ; extra == 'dev'
+Requires-Dist: pytest-asyncio (~=0.20.3) ; extra == 'dev'
+Requires-Dist: pytest-randomly (~=3.12.0) ; extra == 'dev'
+Requires-Dist: respx (~=0.20.1) ; extra == 'dev'
+Requires-Dist: sphinx (~=5.3.0) ; extra == 'dev'
+Requires-Dist: sphinx-autodoc-typehints (~=1.19.5) ; extra == 'dev'
+Requires-Dist: sphinx-markdown-builder (==0.5.4) ; extra == 'dev'
+Requires-Dist: types-aiofiles (~=22.1.0.4) ; extra == 'dev'
+Requires-Dist: types-psutil (~=5.9.5.5) ; extra == 'dev'
+Requires-Dist: types-setuptools (~=65.6.0.1) ; extra == 'dev'
+
+# Apify SDK for Python
+
+Apify SDK is the core set of tools and utilities that we've built to help make your interaction with the [Apify Platform](https://apify.com) easier.
+It's still under heavy development, check back in a few weeks if you want to use it!
+
+## Installation
+
+Requires Python 3.8+
+
+You can install the package from its [PyPI listing](https://pypi.org/project/apify).
+To do that, simply run `pip install apify` in your terminal.
+
+## Usage
+
+For usage instructions, check the documentation on [Apify Docs](https://docs.apify.com/apify-sdk-python) or in [`docs/docs.md`](docs/docs.md).
+
+## Development
+
+### Environment
+
+For local development, it is required to have Python 3.8 installed.
+
+It is recommended to set up a virtual environment while developing this package to isolate your development environment,
+however, due to the many varied ways Python can be installed and virtual environments can be set up,
+this is left up to the developers to do themselves.
+
+One recommended way is with the built-in `venv` module:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+To improve on the experience, you can use [pyenv](https://github.com/pyenv/pyenv) to have an environment with a pinned Python version,
+and [direnv](https://github.com/direnv/direnv) to automatically activate/deactivate the environment when you enter/exit the project folder.
+
+### Dependencies
+
+To install this package and its development dependencies, run `make install-dev`
+
+### Formatting
+
+We use `autopep8` and `isort` to automatically format the code to a common format. To run the formatting, just run `make format`.
+
+### Linting and Testing
+
+We use `flake8` for linting, `mypy` for type checking and `pytest` for unit testing. To run these tools, just run `make check-code`.
+
+### Documentation
+
+We use the [Google docstring format](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html) for documenting the code.
+We document every user-facing class or method, and enforce that using the flake8-docstrings library.
+
+The documentation is then rendered from the docstrings in the code using Sphinx and some heavy post-processing and saved as `docs/docs.md`.
+To generate the documentation, just run `make docs`.
+
+### Release process
+
+Publishing new versions to [PyPI](https://pypi.org/project/apify) happens automatically through GitHub Actions.
+
+On each commit to the `master` branch, a new beta release is published, taking the version number from `src/apify/_version.py`
+and automatically incrementing the beta version suffix by 1 from the last beta release published to PyPI.
+
+A stable version is published when a new release is created using GitHub Releases, again taking the version number from `src/apify/_version.py`. The built package assets are automatically uploaded to the GitHub release.
+
+If there is already a stable version with the same version number as in `src/apify/_version.py` published to PyPI, the publish process fails,
+so don't forget to update the version number before releasing a new version.
+The release process also fails when the released version is not described in `CHANGELOG.md`,
+so don't forget to describe the changes in the new version there.
