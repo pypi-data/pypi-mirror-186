@@ -1,0 +1,4 @@
+# This file is placed in the Public Domain.
+
+systemd-run -q -t --property=User=botd --property=Type=exec --no-ask-password --property=DynamicUser=yes --property=StateDirectory=bot botcmd $* ;
+unset INVOCATION_ID

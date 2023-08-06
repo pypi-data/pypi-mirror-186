@@ -1,0 +1,68 @@
+#!python
+# This file is placed in the Public Domain.
+# pylint: disable=C0115,C0116,W0212,W0703,R0801,C0413,W0406
+
+
+"24/7 channel daemon"
+
+
+import importlib
+
+
+from bot.objects import Wd
+from bot.runtime import Cfg, wait
+from bot.scanner import scancmd, scanpkg
+
+
+from bot.irc import Config
+
+
+Config.nick = "botd"
+Config.channel = "#botd"
+Config.username = "botd"
+Config.realname = "24/7 channel daemon"
+
+
+from bot import irc, rss
+
+
+import bot.command
+
+
+Cfg.mod = "irc,rss"
+Cfg.name = "botd"
+Wd.workdir = "/var/lib/botd/"
+
+
+def importer(mname, path=None):
+    "import module from optional path"
+    if path is None:
+        spec = importlib.util.find_spec(mname)
+    else:
+        spec = importlib.util.spec_from_file_location(mname, path)
+    if spec:
+        mods = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mods)
+        return mods
+    return None
+
+def initer(mname, path=None):
+    "run init on module"
+    mods = importer(mname, path)
+    mods.init()
+
+
+def scanner(mname, path=None):
+    "Scan module for commands"
+    mods = importer(mname, path)
+    scancmd(mods)
+
+
+def main():
+    "run the daemon"
+    scanpkg(bot.command, scanner, Cfg.mod)
+    scanpkg(bot, initer, Cfg.mod)
+    wait()
+
+
+main()
