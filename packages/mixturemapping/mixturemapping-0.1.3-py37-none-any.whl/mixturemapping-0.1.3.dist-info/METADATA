@@ -1,0 +1,69 @@
+Metadata-Version: 2.1
+Name: mixturemapping
+Version: 0.1.3
+Summary: UNKNOWN
+Home-page: https://vk.github.io/mixturemapping-doc/
+License: UNKNOWN
+Keywords: tensorflow distributions gaussian mixtures
+Platform: UNKNOWN
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+# MixtureMapping
+
+[![Documentation](https://github.com/VK/dash-express-components/workflows/Publish%20release/badge.svg)](https://vk.github.io/mixturemapping-doc)
+[![PyPI version](https://badge.fury.io/py/mixturemapping.svg)](https://badge.fury.io/py/mixturemapping)
+
+Train Gaussian Mixture Mappings
+
+
+## Provides:
+  1. Layers to build tensorflow models to map Gaussian mixtures
+  2. Tools to compute yield values of Gaussian mixtures in complex binning schemes
+
+## Example
+
+    import mixturemapping as mm  
+    import tensorflow as tf
+
+    inMeans = tf.keras.Input(shape=(mixN, inputMixM), name="Means", dtype=dataType)
+    inStdDevs = tf.keras.Input(shape=(mixN, inputMixM), name="StdDevs", dtype=dataType)
+    inWeight = tf.keras.Input(shape=(mixN), name="Weights", dtype=dataType)
+
+    mapModel = tf.keras.Sequential()
+    mapModel.add( tf.keras.layers.Dense(40, activation="relu", kernel_regularizer=regularizers.l2(0.001)) )
+    mapModel.add( tf.keras.layers.Dense(40, activation="relu", kernel_regularizer=regularizers.l2(0.001)) )
+    mapModel.add( tf.keras.layers.Dense(outputMixM))
+    y = mapModel(inMeans)
+
+    deltaModel = tf.keras.Sequential()
+    deltaModel.add( tf.keras.layers.Dense(40, activation="relu", kernel_regularizer=regularizers.l2(0.001)) )
+    deltaModel.add( tf.keras.layers.Dense(40, activation="relu", kernel_regularizer=regularizers.l2(0.001)) )
+    deltaModel.add( tf.keras.layers.Dense(outputMixM))
+    yDelta = deltaModel(inMeans)
+
+    covALayer = mm.layers.TrainableCovMatrix(outputMixM, name="CovA")
+    covA = covALayer(inMeans)
+
+    mapLayer = mm.layers.GeneralMapping(outputMixM, name="Mapping", dtype=dataType)
+    newDist = mapLayer({'means': inMeans, 'y':y, 'yDelta':yDelta, 'stdDevs': inStdDevs, 'weights': inWeight, 'covA': covA})
+
+    distLayer = mm.layers.Distribution(dtype=dataType, regularize_cov_epsilon=0.95)
+    dist = distLayer(newDist)
+
+### Developement
+```
+$ py -m venv env
+$ .\env\Scripts\activate
+$ pip install -r requirements.txt
+```
+
+
+
