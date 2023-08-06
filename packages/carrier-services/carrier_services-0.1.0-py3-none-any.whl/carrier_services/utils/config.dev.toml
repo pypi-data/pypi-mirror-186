@@ -1,0 +1,52 @@
+# This environment table contains the necessary setup that must be done before running the application
+[environment]
+variables = ["CS_CONFLUENCE_TOKEN", "CS_SMTP_HOST"]
+directory.data = ""   # 'C:\Users\alex.cheng\Documents\carrier_services\data'
+directory.log = ""    # 'C:\Users\alex.cheng\Documents\carrier_services\log'
+
+
+[logging]
+logger = "carrier_services"
+filename = "carrier_services_execution_{}.log"
+level = 20  # 50 = CRITICAL, 40 = ERROR, 30 = WARNING, 20 = INFO, 10 = DEBUG
+format = "%(asctime)s\t%(levelname)s\t%(filename)s\t%(message)s"
+
+
+[email]
+from = "donotreply@kuehne-nagel.com"
+to = "alex.cheng@kuehne-nagel.com"
+cc = ""
+subject = "Carrier Services Automation"
+body = """
+<html>
+  <head>
+  </head>
+  <body>
+    <p style="font-family: Arial, Helvetica, Sans-serif; font-size: 12px;">
+        Dear users,<br>
+        <br>
+        $result_line<br>
+        <br>
+        Log Summary:<br>
+        <br>
+        $log_summary
+        <br>
+        Best Regards,<br>
+        Robot
+    </p>
+  </body>
+</html>
+"""
+
+
+[wiki]
+enable = true
+url = "https://wiki.int.kn"
+
+
+[iaau]
+max_tries = 3
+retry_second = 10
+url = "https://www.interasia.cc/content/o_service/routes.aspx"
+output.page_id = "915935062"    # https://wiki.int.kn/display/~alex.cheng/Service+Loop+Crawler+%7C+Interasia
+output.filename = "iaau_service_master"
