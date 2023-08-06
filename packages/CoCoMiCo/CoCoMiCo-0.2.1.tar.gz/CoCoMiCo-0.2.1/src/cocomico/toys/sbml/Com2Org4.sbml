@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1" level="3" version="1" fbc:required="false">
+  <model id="Com2Org4" substanceUnits="mole" timeUnits="second" extentUnits="mole">
+    <listOfCompartments>
+      <compartment id="c" name="cytosol" size="1" constant="true"/>
+      <compartment id="e" name="extracellular" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species metaid="M_P_c" id="M_P_c" name="P" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="M_K_c" id="M_K_c" name="K" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="M_N_c" id="M_N_c" name="N" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="M_Z_c" id="M_Z_c" name="Z" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="M_A3_c" id="M_A3_c" name="A3" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="M_B3_c" id="M_B3_c" name="B3" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="M_C3_c" id="M_C3_c" name="C3" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="M_D3_c" id="M_D3_c" name="D3" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="M_E3_c" id="M_E3_c" name="E3" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="M_F3_c" id="M_F3_c" name="F3" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="M_X1_c" id="M_X1_c" name="X1" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="M_G3_c" id="M_G3_c" name="G3" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter sboTerm="SBO:0000626" id="cobra_default_lb" value="-1000" constant="true"/>
+      <parameter sboTerm="SBO:0000626" id="cobra_default_ub" value="1000" constant="true"/>
+      <parameter sboTerm="SBO:0000626" id="cobra_0_bound" value="0" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="R_X1_ZB3" name="R_X1_ZB3" reversible="false" fast="false"  fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_X1_c" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_Z_c" stoichiometry="1" constant="false"/>
+          <speciesReference species="M_B3_c" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_B3_K" name="R_B3_K" reversible="true" fast="false"  fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_K_c" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_B3_c" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_C3_K" name="R_C3_K" reversible="false" fast="false"  fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_C3_c" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_K_c" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_C3_N" name="R_C3_N" reversible="false" fast="false"  fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_C3_c" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_N_c" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_N_D3" name="R_N_D3" reversible="true" fast="false"  fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_N_c" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_D3_c" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_D3_E3" name="R_D3_E3" reversible="true" fast="false"  fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_D3_c" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_E3_c" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_E3_F3" name="R_E3_F3" reversible="true" fast="false"  fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_E3_c" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_F3_c" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_G3_F3" name="R_G3_F3" reversible="false" fast="false"  fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_G3_c" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_F3_c" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_G3_A3" name="R_G3_A3" reversible="true" fast="false"  fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_G3_c" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_A3_c" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_A3_P" name="R_A3_P" reversible="true" fast="false"  fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_A3_c" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_P_c" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

@@ -1,0 +1,21 @@
+[paths]
+source =
+   cocomico
+   */site-packages
+
+[run]
+branch = true
+parallel = true
+source =
+    cocomico
+    test
+omit =
+	 setup.py
+	  */__main__.py
+
+[report]
+show_missing = true
+precision = 2
+omit =
+	 *migrations*
+	 setup.py
