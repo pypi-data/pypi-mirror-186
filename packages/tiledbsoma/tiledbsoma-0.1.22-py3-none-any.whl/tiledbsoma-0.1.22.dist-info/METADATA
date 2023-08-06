@@ -1,0 +1,87 @@
+Metadata-Version: 2.1
+Name: tiledbsoma
+Version: 0.1.22
+Summary: Python API for efficient storage and retrieval of single-cell data using TileDB
+Home-page: https://github.com/single-cell-data/TileDB-SOMA/tree/main-old/apis/python
+Author: TileDB, Inc.
+Author-email: help@tiledb.io
+Maintainer: TileDB, Inc.
+Maintainer-email: help@tiledb.io
+License: MIT
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Operating System :: Unix
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: anndata
+Requires-Dist: pandas
+Requires-Dist: pyarrow
+Requires-Dist: scanpy
+Requires-Dist: scipy
+Requires-Dist: tiledb (>=0.19.0)
+Provides-Extra: dev
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: flake8-bugbear ; extra == 'dev'
+Requires-Dist: isort ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: typeguard ; extra == 'dev'
+
+# Overview
+
+This is a POC Python implementation of the proposed [Unified Single-cell Data Model](https://github.com/single-cell-data/SOMA).
+
+This branch conforms to [this version](https://github.com/single-cell-data/TileDB-SOMA/blob/main/spec/specification.md) of the specification -- for the [latest version](https://github.com/single-cell-data/SOMA/blob/spec-revision/brainstorming.md) please see the `main` branch of this repository.
+
+# Installation
+
+## Using pip
+
+This code is hosted at [PyPI](https://pypi.org/project/tiledbsoma/), so you can do
+
+```
+python -m pip install tiledbsoma
+```
+
+To install a specific version:
+
+```
+python -m pip install git+https://github.com/single-cell-data/TileDB-SOMA.git@0.0.6#subdirectory=apis/python
+```
+
+To update to the latest version:
+
+```
+python -m pip install --upgrade tiledbsoma
+```
+
+## From source
+
+* This requires [`tiledb`](https://github.com/TileDB-Inc/TileDB-Py) (see [./setup.cfg](setup.cfg) for version), in addition to other dependencies in [setup.cfg](./setup.cfg).
+* Clone [this repo](https://github.com/single-cell-data/TileDB-SOMA)
+* `cd` into your checkout and then `cd apis/python`
+* `python -m pip install .`
+* Or, if you wish to modify the code and run it, `python setup.py develop`
+* Optionally, if you prefer, you can run that inside `venv`:
+```
+python -m venv venv
+. ./venv/bin/activate
+python -m pip install .
+```
+* In either case:
+
+```
+python -m pytest tests
+```
+
+# Status
+
+Please see [https://github.com/single-cell-data/TileDB-SOMA/issues](https://github.com/single-cell-data/TileDB-SOMA/issues).
