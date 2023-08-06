@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: wgrep
+Version: 0.0.1
+Summary: Parse whois data into program-readable formats (like JSON, XML, TOML, etc.)
+Home-page: UNKNOWN
+Author: callope
+Author-email: callope@proton.me
+License: UNKNOWN
+Description: 
+        # Whois Grep
+        
+        Gather whois information of a website into a file format that
+        can be parsed into pretty much any programming language.
+        
+        ## Usage
+        
+        ```python
+        import wgrep
+        
+        data = wgrep.as_json('www.somewebsite.com') # data = dict
+        ```
+        
+        ## Currently supported output formats
+        
+        - json
+        - csv
+        - toml
+        
+        
+Keywords: python,whois,lookup,api integration,information
+Platform: UNKNOWN
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/markdown
