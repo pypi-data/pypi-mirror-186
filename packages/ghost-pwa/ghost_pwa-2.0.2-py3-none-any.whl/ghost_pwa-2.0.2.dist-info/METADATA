@@ -1,0 +1,67 @@
+Metadata-Version: 2.1
+Name: ghost-pwa
+Version: 2.0.2
+Summary: 
+Author: Patryk Kocielnik
+Author-email: patryk@kocielnik.pl
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: requests (>=2.28.1,<3.0.0)
+Description-Content-Type: text/markdown
+
+# Ghost Theme PWA
+
+This theme enables you to "Install" your site as a Progressive Web App.
+
+Requires either Chrome or Firefox to install the app.
+
+Browsing works better with Chrome. Editing works better with Firefox.
+
+## Theme ZIP
+
+If you just have a ZIP archive, run:
+
+```
+$ make_pwa <archive file>
+```
+
+Example:
+
+```
+$ make_pwa Casper-3.0.7.zip
+```
+
+The output is:
+
+```
+$ ls
+Casper-3.0.7-PWA.zip
+```
+
+## Verifying
+
+Test your PWA here: https://www.seochecker.it/pwa-tester-online
+
+## Use online
+
+To use this online, you can open a notebook in Google Colab and apply the steps
+described above.
+
+Download a ZIP file with your current theme. Next, upload it to Colab. Finally,
+run the script on the ZIP file, and download the result. Voila! You can now
+upload the PWA ZIP file to your Ghost installation.
+
+Usage example in a notebook:
+
+https://colab.research.google.com/drive/1cPrGzrS15Nz_7OhIt8Y8FfOD_wqM0H67
+
+## Development
+
+### Test
+
+`pytest --doctest-modules`
+
