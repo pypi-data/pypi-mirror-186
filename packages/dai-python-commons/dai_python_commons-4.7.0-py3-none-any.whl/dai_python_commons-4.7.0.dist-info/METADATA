@@ -1,0 +1,18 @@
+Metadata-Version: 2.1
+Name: dai-python-commons
+Version: 4.7.0
+Summary: Collection of small python utilities useful for lambda functions or glue jobs. By the Stockholm Public Transport Administration.
+Requires-Python: >=3.7.1,<4.0.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Provides-Extra: data-consolidation
+Provides-Extra: glue
+Requires-Dist: awswrangler (==2.18.0); extra == "glue"
+Requires-Dist: boto3 (>=1.18.31,<2.0.0)
+Requires-Dist: cryptography (==38.0.1); extra == "glue"
+Requires-Dist: loguru (>=0.6.0,<0.7.0)
+Requires-Dist: pyarrow (==3.0.0); extra == "data-consolidation"
+Requires-Dist: s3fs (==0.4.2); extra == "data-consolidation"
