@@ -1,0 +1,3 @@
+from pybtex.database import Entry as Entry
+
+def adapt_doi_urls(d: dict[str, Entry], doi_url_type: str) -> None: ...

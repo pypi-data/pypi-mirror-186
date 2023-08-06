@@ -1,0 +1,3 @@
+from ._helpers import warn as warn
+
+def check_retractions(doi: str) -> Union[dict, None]: ...

@@ -1,0 +1,3 @@
+from pybtex.database import Entry as Entry
+
+def journal_abbrev(d: dict[str, Entry], long_journal_names: bool = ..., custom_abbrev: Union[str, None] = ...) -> None: ...

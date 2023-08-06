@@ -1,0 +1,6 @@
+from .._tools import bibtex_parser as bibtex_parser, dict_to_string as dict_to_string, filter_fields as filter_fields, set_page_range_separator as set_page_range_separator, write as write
+from ..adapt_doi_urls import adapt_doi_urls as adapt_doi_urls
+from .helpers import add_file_parser_arguments as add_file_parser_arguments, add_formatting_parser_arguments as add_formatting_parser_arguments
+
+def run(args) -> None: ...
+def add_args(parser) -> None: ...
