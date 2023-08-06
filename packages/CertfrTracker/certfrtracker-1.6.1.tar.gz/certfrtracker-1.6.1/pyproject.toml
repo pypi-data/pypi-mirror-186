@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+[project]
+name = "CertfrTracker"
+version = "1.6.1"
+authors = [
+  { name="MURARO Arthur", email="arthur.muraro7@gmail.com" },
+]
+description = "This is the 'light' version of CertfrTracker-CLI, it only handles the scrapping of CertFr and the comparison system. You will have to provide the inventory system."
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.0"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://gitlab.com/arthur_muraro/python-certfr/-/tree/pypi-package"
