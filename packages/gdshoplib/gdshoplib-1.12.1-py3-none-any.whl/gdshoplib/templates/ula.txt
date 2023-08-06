@@ -1,0 +1,21 @@
+{% if product.quantity == 0 %}📦 Под заказ 📦
+{% endif %}{{ product.name }}{% if product.price.current_discount and product.quantity > 0 and product.price.current_discount > 4 %}
+Цена указана со скидкой: {{ product.price.current_discount }}% {% endif %}
+
+{% if product.brand %}Бренд: {{product.brand.title}}{% endif %}{% if product.collection %}
+Коллекция: {{product.collection}}{% endif %}{% if product.size %}
+Размер: {{product.size}}{% endif %}{% if product.color %}
+Цвет: {{product.color}}{% endif %}
+
+{% if product.short_description %}{{product.short_description}}{% endif %}
+{% if product.specifications %}{% for material in product.specifications %}
+- {{material}}{% endfor %}{% endif %}{% if product.notes %}{% for note in product.notes %}
+- {{note}}{% endfor %}{% endif %}
+
+Доставка в любой город России
+Местонахождение магазина, Москва
+
+Бесплатная доставка — для подписчиков любого из наших сообществ
+Скидка 10% — При покупке больше 30к
+
+Артикул: {{product.sku}}
