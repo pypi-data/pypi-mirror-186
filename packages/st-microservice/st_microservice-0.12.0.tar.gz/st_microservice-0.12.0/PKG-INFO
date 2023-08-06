@@ -1,0 +1,26 @@
+Metadata-Version: 2.1
+Name: st-microservice
+Version: 0.12.0
+Summary: Tools to build Microservice Backends
+Project-URL: Homepage, https://github.com/rouppart/ST-Microservice
+Author-email: Robert Trad <roberttrad@gmail.com>
+License-File: LICENSE.txt
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: aiodataloader<1
+Requires-Dist: ariadne==0.17.1
+Requires-Dist: gunicorn<21
+Requires-Dist: pyjwt<3,>=2.1
+Requires-Dist: pyparsing<4,>=3.0
+Requires-Dist: sqlalchemy<3,>=2.0b
+Requires-Dist: starlette<1
+Requires-Dist: uvicorn<1
+Requires-Dist: uvloop; sys_platform == 'linux'
+Requires-Dist: websockets<11
+Description-Content-Type: text/markdown
+
+# Tools to build microservice
+
+Backend of the Saad & Trad microservices architecture based on Graphql, Starlette and SQLAlchemy
