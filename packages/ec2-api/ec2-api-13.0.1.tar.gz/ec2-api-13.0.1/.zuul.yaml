@@ -1,0 +1,12 @@
+- project:
+    templates:
+      - check-requirements
+      - openstack-python3-xena-jobs
+      - publish-openstack-docs-pti
+    check:
+      jobs:
+        - ec2api-tempest-plugin-functional
+    gate:
+      queue: ec2-api
+      jobs:
+        - ec2api-tempest-plugin-functional
