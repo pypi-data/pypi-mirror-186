@@ -1,0 +1,60 @@
+{% extends "zenblog/_base.html" %}
+{% load static %}
+{% load zenblog_tags %}
+
+{% block content %}
+<section>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-9" data-aos="fade-up">
+        <h3 class="category-title">Category: {{ category }}</h3>
+
+        {% for item in page_obj %}
+        <div class="d-md-flex post-entry-2 half">
+          <a href="{% url 'zenblog:post_detail' item.slug  %}" class="me-4 thumbnail">
+            <img src="{{ item.thumbnail.url }}" alt="" class="img-fluid">
+          </a>
+          <div>
+            <div class="post-meta"><span class="date">{{ item | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ item.updated_on | date:"M jS 'y"}}</span></div>
+            <h3><a href="{% url 'zenblog:post_detail' item.slug  %}">{{ item.title }}</a></h3>
+            {% autoescape on %}
+            <p>{{ item.content |remove_html_tags | truncatechars:100 }}</p>
+            {% endautoescape %}
+            <div class="d-flex align-items-center author">
+              <div class="photo"><img src="{{ item.author.profile.image.url }}" alt="" class="img-fluid"></div>
+              <div class="name">
+                <h3 class="m-0 p-0">{{ item.author.last_name}} {{ item.author.first_name }}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+        {% if is_paginated %}
+        <!-- Paging -->
+        <div class="text-start py-4">
+          <div class="custom-pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="prev">Previous</a>
+            {% endif %}
+            {% for page_num in page_bundle %}
+              <a href="?page={{ page_num }}"{% if page_num == page_obj.number %} class="active"{% endif %}>{{ page_num }}</a>
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="next">Next</a>
+            {% endif %}
+          </div>
+        </div><!-- End Paging -->
+        {% endif %}
+      </div>
+
+      <div class="col-md-3">
+        {% show_sidebar %}
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock content %}

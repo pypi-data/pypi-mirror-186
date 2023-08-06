@@ -1,0 +1,72 @@
+{% load static %}
+{% load compress %}
+{% load zenblog_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+{% show_seo %}
+
+<!-- Vendor CSS Files -->
+<link href="{% static 'zenblog/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'zenblog/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+<link href="{% static 'zenblog/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+<link href="{% static 'zenblog/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+<link href="{% static 'zenblog/vendor/aos/aos.css' %}" rel="stylesheet">
+
+<!-- Template Main CSS Files -->
+<link href="{% static 'zenblog/scss/variables.css' %}" rel="stylesheet">
+{% compress css %}
+  <link type="text/x-scss" href="{% static 'zenblog/scss/main.scss' %}" rel="stylesheet">
+{% endcompress %}
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    {% show_header %}
+  </header><!-- End Header -->
+
+  <main id="main">
+  {% for component, is_use, _, _ in components %}
+    {% if is_use %}
+      {% if component == 'popup' %}
+        {% load popup_tags %}
+        {% show_popup %}
+      {% elif component == 'analytics' %}
+        {% load analytics_tags %}
+        {% make_analytics %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% block content %}
+  <!-- Content goes here -->
+  {% endblock content %}
+  </main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+  {% show_footer %}
+  </footer>
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'zenblog/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'zenblog/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'zenblog/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'zenblog/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'zenblog/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'zenblog/js/main.js' %}"></script>
+
+</body>
+
+</html>
