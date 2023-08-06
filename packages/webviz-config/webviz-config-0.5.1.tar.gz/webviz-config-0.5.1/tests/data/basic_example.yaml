@@ -1,0 +1,46 @@
+# This file demonstrates the most basic usage of webviz in a FMU setting
+# The configuration files uses YAML (https://en.wikipedia.org/wiki/YAML).
+
+title: Reek Webviz Demonstration
+
+pages:
+
+ - title: Front page
+   content:
+    - BannerImage:
+        image: ./example_banner.png
+        title: My banner image
+    - Webviz created from configuration file.
+    - Some other text, potentially with strange letters like Åre, Smørbukk Sør.
+
+ - title: Markdown example
+   content:
+    - Markdown:
+        markdown_file: ./example-markdown.md
+
+ - title: PDF example
+   content:
+    - EmbedPdf:
+        pdf_file: ./example.pdf
+
+ - title: Syntax highlighting example
+   content:
+    - SyntaxHighlighter:
+        filename: ./basic_example.yaml
+        dark_theme: true
+
+ - title: Plot a table
+   content:
+    - TablePlotter:
+        csv_file: ./example_data.csv
+
+ - title: Plot a table (locked)
+   content:
+    - TablePlotter:
+        csv_file: ./example_data.csv
+        lock: true
+        plot_options:
+          x: Well
+          y: Initial reservoir pressure (bar)
+          size: Average permeability (D)
+          facet_col: Segment

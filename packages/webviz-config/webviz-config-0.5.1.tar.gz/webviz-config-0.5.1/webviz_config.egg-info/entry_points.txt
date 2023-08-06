@@ -1,0 +1,20 @@
+[console_scripts]
+webviz = webviz_config.command_line:main
+
+[pytest11]
+webviz = webviz_config.testing._plugin
+
+[webviz_config_plugins]
+BannerImage = webviz_config.generic_plugins._banner_image:BannerImage
+DataTable = webviz_config.generic_plugins._data_table:DataTable
+EmbedPdf = webviz_config.generic_plugins._embed_pdf:EmbedPdf
+ExampleAssets = webviz_config.generic_plugins._example_assets:ExampleAssets
+ExampleDataDownload = webviz_config.generic_plugins._example_data_download:ExampleDataDownload
+ExamplePlugin = webviz_config.generic_plugins._example_plugin:ExamplePlugin
+ExamplePortable = webviz_config.generic_plugins._example_portable:ExamplePortable
+ExampleTour = webviz_config.generic_plugins._example_tour:ExampleTour
+ExampleWlfPlugin = webviz_config.generic_plugins._example_wlf_plugin:ExampleWlfPlugin
+Markdown = webviz_config.generic_plugins._markdown:Markdown
+PivotTable = webviz_config.generic_plugins._pivot_table:PivotTable
+SyntaxHighlighter = webviz_config.generic_plugins._syntax_highlighter:SyntaxHighlighter
+TablePlotter = webviz_config.generic_plugins._table_plotter:TablePlotter
