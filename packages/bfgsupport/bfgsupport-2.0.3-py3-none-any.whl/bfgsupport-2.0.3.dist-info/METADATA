@@ -1,0 +1,206 @@
+Metadata-Version: 2.1
+Name: bfgsupport
+Version: 2.0.3
+Summary: """A collection of modules that supports dealing and bidding in Bid for Game applications."""
+Home-page: https://psionman@bitbucket.org/psionman/bfgsupport.git
+Download-URL: https://pypi.org/project/bfgsupport/
+Author: jeff watkins
+Author-email: support@bidforgame.com
+License: MIT
+Keywords: Application, User
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: username
+Requires-Dist: nose
+Requires-Dist: pytest
+
+# bfg_support
+A collection of modules that supports dealing and bidding in Bid for Game applications.
+
+## Installation
+```bash
+pip install bfgsupport
+```
+
+
+# Version History
+
+Version 2.0.3 20 Jan 2023
+
+1. Tidy unused modules
+
+------
+
+Version 2.0.2 19 Jan 2023
+
+1. Fix missing imports in __init__.py
+
+------
+
+Version 2.0.1 19 Jan 2023
+
+1. add __init__.py to bidding and dealing
+
+------
+
+Version 2.0.0 19 Jan 2023
+
+1. Major re-organisation of files and move dealing from bfg-rest
+
+------
+
+Version 1.1.23 31 Dec 2022
+
+1. board - move json to objects
+2. hand - remove property from json
+
+------
+Version 1.1.22 24 Nov 2022
+
+1. board make dealer a property and tidy up json functions
+2. overcaller rebid - check for double or redouble before two passes
+
+------
+
+Version 1.1.21 - 20 Oct 2022
+
+Modifications for Bfg-Netlify:
+
+1. In board.py get_contract: added suffices for X and XX
+
+------
+
+Version 1.1.20 - 29 Sept 2022
+
+Modifications for Bfg-Netlify:
+
+1. Add *test_board* to Board and clarify class names
+
+------
+
+Version 1.1.18 - 29 Nov 2021
+
+Add setup.cfg
+
+------
+
+Version 1.1.19 - 5 Jul 2022
+
+Modifications for Bfg-Netlify
+
+
+Version 1.1.18 - 29 Nov 2021
+
+Add setup.cfg
+
+------
+
+Version 1.1.17 - 29 Nov 2021
+
+Add pytest to distribution
+
+------
+
+Version 1.1.16 - 8 Nov 2021
+
+board.py: extend auction functionality and add declarers_tricks
+
+------
+
+Version 1.1.15 - 10 Oct 2021
+
+Handle unplayed cards in board.get_attributes_from_board
+
+------
+
+Version 1.1.14 - 2 Oct 2021
+
+Add 'wait for player' to PLAY_STATUS
+
+------
+
+Version 1.1.13 - 29 Sept 2021
+
+Changes to board for cardplay
+
+------
+
+Version 1.1.12 - 16 Aug 2021
+
+Add play_status and play_master to board
+
+------
+
+Version 1.1.11 - 04 Aug 2021
+
+Improve Auction support in board.py
+
+------
+
+Version 1.1.10 - 31 July 2021
+
+Dealer to pick up Auction from bfgsupport Board
+
+------
+
+Version 1.1.9 - 17 July 2021
+
+Added board status
+
+------
+
+Version 1.1.8 - 11 July 2021
+
+Small bugs in contract
+
+------
+
+Version 1.1.7 - 30 June 2021
+
+Create all hands in parse_pbn_deal
+
+------
+Version 1.1.6 - 17 June 2021
+
+Removed spurious error raise from _get_candidate_partitions
+
+
+------
+Version 1.1.5 - 7 June 2021
+
+Board - Add stage to board json
+
+Version 1.1.4 - 3 June 2021
+
+Board - Various changes to accommodate cardplay
+Common - allow passed out boards in random board
+------
+Version 1.1.3 - 21 May 2021
+
+Board - Check contract for X and XX
+
+------
+Version 1.1.1 - 17 May 2021
+
+Get contract was not getting declarer correctly
+
+------
+Version 1.1.0 - 13 May 2021
+
+Changes to accommodate cardplay - rename BiddingBoard and BiddingHand
+
+------
+Version 1.0.1 - 28 March 2021
+
+Make dealer_engine.select_random_shape_from_list' a public method
+
+------
+Version 1.0.0 - 23 February 2021
+
+First live package
+
+------
+Version 0.0.0 - 22 February 2021
+
+Created and uploaded
+------
