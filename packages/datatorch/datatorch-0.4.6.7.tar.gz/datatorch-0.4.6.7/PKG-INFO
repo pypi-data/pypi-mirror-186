@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: datatorch
+Version: 0.4.6.7
+Summary: A CLI and library for interacting with DataTorch.
+Home-page: https://github.com/datatorch/python
+Author: DataTorch
+Author-email: support@datatorch.io
+License: MIT license
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Framework :: Pytest
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Provides-Extra: agent
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/datatorch/documentation/master/docs/.vuepress/public/python.png" width="180" />
+</p>
+
+<h1 align="center">
+  DataTorch Python
+</h1>
+<h4 align="center">DataTorch CLI and Python API libary for programmatic access.</h4>
+
+<p align="center">
+  <img alt="Package Version" src="https://img.shields.io/pypi/v/datatorch">
+  <img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/datatorch">
+  <img alt="Build Status" src="https://img.shields.io/github/workflow/status/datatorch/python/Package">
+</p>
+
+```bash
+pip install datatorch
+```
+
+## Development
+
+```bash
+python3 -m pip install --editable .
+pip3 install -r requirements.txt
+```
+
+### VSCode Configuration
+
+#### Formatter
+
+Open your VSCode settings, by going `Code -> Preferences -> Settings`. Search
+for "python formatting provider" and select "black" from the dropdown menu.
