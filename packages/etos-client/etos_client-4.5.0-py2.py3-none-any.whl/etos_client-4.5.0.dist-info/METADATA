@@ -1,0 +1,76 @@
+Metadata-Version: 2.1
+Name: etos-client
+Version: 4.5.0
+Summary: Test suite execution client for ETOS.
+Home-page: https://github.com/eiffel-community/etos-suite-starter
+Author: Tobias Persson
+Author-email: tobias.persson@axis.com
+License: Apache License, Version 2.0
+Project-URL: Documentation, https://etos.readthedocs.io/
+Platform: Linux
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Python: >=3.4
+Description-Content-Type: text/x-rst; charset=UTF-8
+Requires-Dist: halo (==0.0.26)
+Requires-Dist: packageurl-python (==0.9.1)
+Requires-Dist: etos-lib (==2.1.0)
+Provides-Extra: testing
+Requires-Dist: pytest ; extra == 'testing'
+Requires-Dist: pytest-cov ; extra == 'testing'
+
+===========
+ETOS Client
+===========
+
+.. image:: https://img.shields.io/badge/Stage-Sandbox-yellow.svg
+  :target: https://github.com/eiffel-community/community/blob/master/PROJECT_LIFECYCLE.md#stage-sandbox
+
+ETOS (Eiffel Test Orchestration System) Client
+
+
+Description
+===========
+
+ETOS Client is the client tool for executing test suites within ETOS.
+
+
+Features
+========
+
+- Easy to get started with.
+- Powerful integration with ETOS.
+- Interacts well with automation server.
+
+
+Installation
+============
+
+Install the project by running:
+
+   pip install etos_client
+
+
+Examples
+========
+
+.. code-block::
+
+   etos_client -i pkg:docker/etos/suite_runner@1.0.0 -s http://mytestsuite.json
+
+
+Contribute
+==========
+
+- Issue Tracker: https://github.com/eiffel-community/etos/issues
+- Source Code: https://github.com/eiffel-community/etos-client
+
+
+Support
+=======
+
+If you are having issues, please let us know.
+There is a mailing list at: etos-maintainers@googlegroups.com or just write an Issue.
+
+
