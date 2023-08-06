@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: flowshape
+Version: 0.1.3
+Summary: Cell shape analysis using the spherical harmonics decomposition
+Project-URL: Preprint, https://www.biorxiv.org/content/10.1101/2022.12.08.519700v1
+Project-URL: Homepage, https://bitbucket.org/pgmsembryogenesis/flowshape/
+Project-URL: Bug Tracker, https://bitbucket.org/pgmsembryogenesis/flowshape/issues
+Author-email: Casper van Bavel <casper.vanbavel@kuleuven.be>
+License-File: LICENSE
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+# FlowShape
+This package provides functionality for the analysis of cell shape using the spherical harmonics decomposition.
+Please refer to the [preprint](https://www.biorxiv.org/content/10.1101/2022.12.08.519700v1) for more information.
+A local branch of [lie_learn](https://github.com/AMLab-Amsterdam/lie_learn) that does not depend on cython is included (spheremesh/lie_learn). 
+
+## Installation
+Currently the package is on pypi, but still requires conda to install libigl. We are working on an easier installation but in the meantime you can follow these steps:
+
+Recommended: create a seperate conda environment and activate it:
+
+`conda create --name flowshape_env`
+
+`conda activate flowshape_env`
+
+Then, install libigl from conda-forge:
+
+`conda install -c conda-forge igl`
+
+Finally, install FlowShape from pip:
+
+`pip install flowshape`
+
+## Demo
+
+For the [demo](./demo/), you will need [JupyterLab](https://jupyter.org/install), as well as [Meshplot](https://skoch9.github.io/meshplot/tutorial/) for plotting.
+
+To install both, run:
+
+`conda install -c conda-forge jupyterlab meshplot`
+
+Then, to open JupyterLab, run:
+
+`jupyter-lab`
+
+Download the demo folder from this repository and open the `demo.ipynb` notebook. 
+
+
+## How to use
+See [demo.ipynb](./demo/) for a basic example. The API consists only of functions operating on NumPy ndarrays and there are no classes. Most functions have docstrings in the source. More documentation to follow.
