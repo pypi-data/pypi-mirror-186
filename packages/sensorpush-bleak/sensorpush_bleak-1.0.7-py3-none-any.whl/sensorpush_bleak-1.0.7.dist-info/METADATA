@@ -1,0 +1,68 @@
+Metadata-Version: 2.1
+Name: sensorpush-bleak
+Version: 1.0.7
+Summary: library to read from Sensorpush HW.t bluetooth sensor
+Author-email: Ed McGrath <edward@edwardmcgrath.com>
+License: Copyright (c) 2021 Edward McGrath and others
+        
+        Permission is hereby granted, free of charge, to any person obtaining
+        a copy of this software and associated documentation files (the
+        "Software"), to deal in the Software without restriction, including
+        without limitation the rights to use, copy, modify, merge, publish,
+        distribute, sublicense, and/or sell copies of the Software, and to
+        permit persons to whom the Software is furnished to do so, subject to
+        the following conditions:
+        
+        The above copyright notice and this permission notice shall be
+        included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+        NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+        LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+        OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+        WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+        
+Keywords: sensorpush,HW.t,temperature,sensor,bluetooth,ble
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: bleak (>=0.19.5)
+Requires-Dist: pytz (>=2022.2.1)
+
+# pysensorpush-bleak
+
+Python library which uses gatttool to read temperature data from a Sensorpush HT.w temperature sensor.
+
+1. Find the mac address of your sensor:<br>
+```
+pi@raspberrypi:~ $ sudo hcitool lescan
+LE Scan ...
+A4:34:F1:7F:CD:D8 SensorPush HT.w CDD8
+```
+
+2. Example usage:
+```
+pi@raspberrypi:~/p/pysensorpush-bleak/src/pysensorpush-bleak $ python
+Python 3.9.2 (default, Mar 12 2021, 04:06:34)
+[GCC 10.2.1 20210110] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import sensorpush as sp
+>>> import asyncio
+>>> from bleak import BleakClient
+>>> async def main():
+...     client = BleakClient("A4:34:F1:7F:CD:D8")
+...     await client.connect()
+...     temp_c = await sp.read_temperature(client)
+...     print("temperature = {}".format(temp_c))
+...     client.disconnect()
+...
+>>> asyncio.run(main())
+temperature = 13.92
+>>>
+```
+![pysensorpush_pic](https://user-images.githubusercontent.com/5443337/143657088-2a6d5793-24d3-4408-9d07-30b3f3f04577.jpg)
