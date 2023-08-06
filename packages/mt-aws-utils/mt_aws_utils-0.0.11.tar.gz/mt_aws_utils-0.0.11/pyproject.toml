@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mt-aws-utils"
+version = "0.0.11"
+
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+
+authors = [{name="Sefton de Pledge", email="seftontycho@hotmail.co.uk"},
+           {name="John de Pledge", email="peaktuition@gmail.com"}]
+
+
+dependencies = ["pymysql", "lz4"]
+
+[project.urls]
+Source = "https://github.com/daddepledge/mt-aws-utils"
+
+[tool.hatch.version]
+path = "mt_aws_utils/__about__.py"
+
+
