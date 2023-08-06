@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: karrio.australiapost
+Version: 2023.1rc0
+Summary: Karrio - Australia Post Shipping Extension
+Home-page: https://github.com/karrioapi/karrio
+Author: karrio
+Author-email: hello@karrio.io
+License: Apache-2.0
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+Requires-Dist: karrio
+Requires-Dist: carrier.australiapost
+
+# karrio.carrier_name
+
+This package is a Australia Post extension of the [karrio](https://pypi.org/project/karrio) multi carrier shipping SDK.
+
+## Requirements
+
+`Python 3.7+`
+
+## Installation
+
+```bash
+pip install karrio.australiapost
+```
+
+## Usage
+
+```python
+import karrio
+from karrio.mappers.australiapost.settings import Settings
+
+
+# Initialize a carrier gateway
+canadapost = karrio.gateway["australiapost"].create(
+    Settings(
+        ...
+    )
+)
+```
+
+Check the [Karrio Mutli-carrier SDK docs](https://docs.karrio.io) for Shipping API requests
