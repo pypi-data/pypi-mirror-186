@@ -1,0 +1,89 @@
+Metadata-Version: 2.1
+Name: focus-package
+Version: 3.0.0
+Summary: FOCUS package including DLS-76 and KRIBER
+Home-page: https://github.com/stefsmeets/focus_package
+Author: Stef Smeets
+Author-email: s.smeets@esciencecenter.nl
+Project-URL: Bug Tracker, https://github.com/stefsmeets/focus_package/issues
+Project-URL: Documentation, https://github.com/stefsmeets/focus_package
+Keywords: focus,zeolites,structure-determination,dls76,kriber,electron-diffraction-data,powder-diffraction-data
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering
+Description-Content-Type: text/markdown
+License-File: LICENCE
+Provides-Extra: build
+Requires-Dist: twine ; extra == 'build'
+Requires-Dist: wheel ; extra == 'build'
+Requires-Dist: build ; extra == 'build'
+
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/focus-package)
+![PyPI](https://img.shields.io/pypi/v/focus-package.svg?style=flat)
+
+
+FOCUS
+=====
+
+FOCUS is a program for structure determination of zeolites. It combines automatic Fourier recycling with a specialized topology search specific to zeolites or zeolite-like materials. This makes it ideal for structure determination from powder or electron diffraction data, because the framework search can make up for the loss of information from peak overlap or dynamical effects. This package also includes KRIBER, DLS76, and several python helper scripts that work together to analyze the results, optimize the framework geometry, and produce CIF files.
+
+Installation
+============
+
+If you are a python user, you can install via pip:
+
+    pip install focus-package
+
+Alternatively, you can download one of the packages from the [releases](https://github.com/stefsmeets/focus_package/releases/latest) page.
+
+
+Programs included
+=================
+
+ - focus
+ - kriber
+ - sginfo
+ - dls76       
+ - kriber      
+ - fo2cif      
+ - fo2hist     
+ - fo2strudat  
+ - strudat2cif 
+ - dlsall      
+ - cdlsall     
+ - multifocal  
+
+Please see the [manual](../master/manuals) for instructions.
+
+Installation from source
+========================
+
+Extra dependencies for installation from source:
+
+Build scripts:
+ - [./focus/focus_build_script.sh](../master/focus/focus_build_script.sh)
+ - [./src/kriber/makefile](../master/src/kriber/makefile)
+ - [./src/dls76/makefile](../master/src/dls76/makefile)
+ 
+Building the package
+====================
+
+To build the packages for the different platforms:
+
+- [`build_pypi_packages.py`](../master/build_pypi_packages.py)
+
+References
+==========
+
+- S. Smeets, L. B. McCusker, C. Baerlocher, E. Mugnaioli, and U. Kolb. [Using FOCUS to solve zeolite structures from three-dimensional electron diffraction data](http://dx.doi.org/10.1107/S0021889813014817). J. Appl. Crystallogr., 46:1017–1023, 2013
+
+- R. W. Grosse-Kunstleve, L. B. McCusker, C. Baerlocher. [Zeolite structure determination from powder diffraction data: applications of the FOCUS method](http://dx.doi.org/10.1107/S0021889899003453). J. Appl. Crystallogr., 32:536-542, 1999
+
+- R. W. Grosse-Kunstleve, L. B. McCusker, C. Baerlocher. [Powder diffraction data and crystal chemical information combined in an automated structure determination procedure for zeolites](http://dx.doi.org/10.1107/S0021889897005013). J. Appl. Crystallogr., 30:985-995, 1997
