@@ -1,0 +1,26 @@
+item = _{ SOI ~ line* ~ EOI } 
+line = _{ ignore_string | string | other }
+
+other = ${ !(string) ~ ANY }
+
+WHITESPACE = { " " | "\t" | NEWLINE }
+
+line_comment  = _{ "//" ~ (!NEWLINE ~ ANY)* }
+block_comment = _{ "/*" ~ (!"*/" ~ ANY)* ~ "*/"}
+COMMENT       = ${ line_comment | block_comment }
+
+string       = ${ inner_string }
+inner_string = _{ 
+  "\"\"\"" ~ (!("\"\"\"") ~ ANY)* ~ "\"\"\""
+  | "\"" ~ (!(NEWLINE | "\"") ~ ANY)* ~ "\""
+}
+
+BLANK = _{ NEWLINE | WHITE_SPACE }
+
+ingore_methods = _{ "NSRegularExpression" | "NSLocalizedString" | "Match" }
+ignore_arguments = _{ ("pattern" | "key") ~ ":"  }
+
+ignore_string = ${
+  ignore_arguments ~ BLANK* ~ inner_string
+  | ingore_methods ~ "(" ~ BLANK* ~ inner_string
+}

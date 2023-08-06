@@ -1,0 +1,27 @@
+item = _{ SOI ~ line* ~ EOI } 
+line = _{ php | other }
+
+other = ${ !(php) ~ ANY }
+
+php       = _{ open_php ~ (!close_php ~ expr)* ~ close_php }
+open_php  = ${ "<?php" }
+close_php = ${ "?>" }
+
+expr = { regexp | string | other }
+
+WHITESPACE = { " " | "\t" | NEWLINE }
+
+line_comment  = _{ ("//" | "#") ~ (!(NEWLINE) ~ ANY)*  }
+block_comment = _{ "/*" ~ (!("*/") ~ ANY)* ~ "*/" }
+COMMENT = ${ line_comment | block_comment }
+
+string = ${ inner_string }
+inner_string = _{
+  ("\"\"\"" ~ (!("\"\"\"") ~ ANY)* ~ "\"\"\"") 
+  | ("\"" ~ (!("\"") ~ ANY)* ~ "\"") 
+}
+
+regexp = ${
+  (("preg_match_all" | "preg_match") ~ "(" ~ " "* ~ inner_string ~ (!")" ~ ANY)* ~ ")")
+}
+
