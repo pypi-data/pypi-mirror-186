@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "seleniumUser"
+authors = [{name="Matt Manes"}]
+description = "Selenium wrapper to streamline usage."
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+	"bs4",
+	"selenium",
+	"noifTimer",
+	"voxScribe",
+	"whosYourAgent"
+]
+keywords = [
+    "selenium",
+    "automation",
+    "webscraping"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/matt-manes/seleniumUser"
+"Documentation" = "https://github.com/matt-manes/seleniumUser/docs"
+"Source code" = "https://github.com/matt-manes/seleniumUser/src/seleniumUser"
