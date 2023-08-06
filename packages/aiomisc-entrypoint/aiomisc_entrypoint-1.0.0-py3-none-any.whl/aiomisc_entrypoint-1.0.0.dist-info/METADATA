@@ -1,0 +1,67 @@
+Metadata-Version: 2.1
+Name: aiomisc-entrypoint
+Version: 1.0.0
+Summary: 
+Home-page: https://github.com/anysoft-kz/aiomisc-entrypoint
+Author: Vladislav Vorobyov
+Author-email: vladislav.vorobyov@gmail.com
+Requires-Python: >=3.9,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Dist: aiomisc (>=16.2.10,<17.0.0)
+Project-URL: Repository, https://github.com/anysoft-kz/aiomisc-entrypoint
+Description-Content-Type: text/markdown
+
+# Aiomisc Entrypoint
+
+Alternative way to run [aiomisc entrypoint](https://aiomisc.readthedocs.io/en/latest/entrypoint.html#entrypoint) with processors
+added behavior to start and stop events of entrypoint and custom query logger.
+
+
+## Basic usage
+```python
+from aiomisc_entrypoint import Entrypoint
+
+ep = Entrypoint()
+ep.clear_environ()
+ep.change_user()
+ep.system_signals_listener()
+ep.register_services_in_context()
+ep.first_start_last_stop()
+
+ep.run_forever()
+```
+
+
+## Extended usage
+
+```python
+from signal import SIGINT, SIGTERM, SIGKILL
+from aiomisc import Service
+from aiomisc_entrypoint import Entrypoint
+
+class TestService(Service):
+    
+    async def start(self):
+        ...
+
+    
+async def main():
+    ...
+
+
+services = (
+    TestService(context_name='svc1'),
+    TestService(context_name='svc2'),
+)
+    
+ep = Entrypoint(*services)
+ep.clear_environ(lambda x: x.startwith('APP_'))
+ep.change_user('user')
+ep.system_signals_listener(SIGINT, SIGTERM, SIGKILL)
+ep.register_services_in_context()
+ep.first_start_last_stop()
+
+ep.run_until_complete(main())
+```
