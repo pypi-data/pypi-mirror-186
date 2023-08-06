@@ -1,0 +1,114 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "django-cast"
+authors = [
+    {name = "Jochen Wersdörfer", email = "jochen-wagtailsrcset@wersdoerfer.de"},
+    {name = "Dominik Geldmacher", email = "oryon@cyberise.de"},
+]
+dynamic = ["version", "description"]
+requires-python = ">=3.9"
+keywords = [
+    "blog",
+    "podcast",
+    "video",
+    "audio"
+]
+classifiers = [
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 4.1",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Topic :: Internet",
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+]
+
+dependencies = [
+    "coreapi",
+    "django",
+    "django-allauth",
+    "django-crispy-forms",
+    "django-contrib-comments",
+    "django-environ",
+    "django-filter",
+    "django-fluent-comments",
+    "django-model-utils",
+    "django-tag-parser",
+    "django-threadedcomments",
+    "feedparser",
+    "markdown",
+    "plotly",
+    "Pygments",
+    "python-akismet",
+    "python-slugify",
+    "wagtail",
+    "wagtail_srcset",
+]
+
+[project.optional-dependencies]
+test = [
+    "factory_boy",
+    "dj-inmemorystorage",
+    "pytest >= 6",
+    "pytest-cov >= 3",
+    "pytest-django",
+    "pytest-randomly",
+]
+doc = [
+    "furo",
+]
+dev = [
+    "black",
+    "flake8",
+    "django-environ",
+    "django_extensions",
+    "isort",
+    "jupyter",
+    "mypy",
+    "nb-black",
+    "rich",
+    "tox",
+    "typer",
+]
+
+[project.urls]
+Documentation = "https://django-cast.readthedocs.io/en/latest/"
+Source = "https://github.com/ephes/django-cast"
+
+[tool.flit.module]
+name = "cast"
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 119
+extend-exclude = '''
+^/threadedcomments
+'''
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+minversion = "6.0"
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore::django.utils.deprecation.RemovedInDjango50Warning",
+    "ignore::DeprecationWarning",
+]
+addopts = [
+    "-ra",
+    "--reuse-db",
+    "--no-migrations",
+    "--randomly-seed=1234",
+]
