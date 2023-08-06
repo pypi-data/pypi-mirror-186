@@ -1,0 +1,1 @@
+from swagger_unittest.swagger_tester.swagger_tester import swagger_test
