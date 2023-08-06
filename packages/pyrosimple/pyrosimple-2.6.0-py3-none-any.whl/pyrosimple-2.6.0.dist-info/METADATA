@@ -1,0 +1,102 @@
+Metadata-Version: 2.1
+Name: pyrosimple
+Version: 2.6.0
+Summary: A stripped-down version of the pyrocore tools for working with rTorrent
+Home-page: https://github.com/kannibalox/pyrosimple
+License: GPL-3.0-or-later
+Author: kannibalox
+Author-email: kannibalox@gmail.com
+Requires-Python: >=3.7.2,<4
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Natural Language :: English
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Communications :: File Sharing
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities
+Provides-Extra: torque
+Requires-Dist: APScheduler (>=3.9.0,<4.0.0) ; extra == "torque"
+Requires-Dist: Jinja2 (>=3.1.0,<4.0.0)
+Requires-Dist: bencode.py (>=4.0.0,<5.0.0)
+Requires-Dist: dynaconf[toml] (>=3.1.0,<4.0.0)
+Requires-Dist: importlib-resources (>=5.4.0,<6.0.0) ; python_version < "3.9"
+Requires-Dist: inotify (>=0.2.10,<0.3.0) ; extra == "torque"
+Requires-Dist: parsimonious (>=0.10.0,<0.11.0)
+Requires-Dist: prometheus-client (>=0.15.0,<0.16.0)
+Requires-Dist: prompt-toolkit (>=3.0.30,<4.0.0)
+Requires-Dist: python-daemon (>=2.3.0,<3.0.0)
+Requires-Dist: requests (>=2.28.1,<3.0.0)
+Requires-Dist: shtab (>=1.5.5,<2.0.0)
+Project-URL: Documentation, https://kannibalox.github.io/pyrosimple/
+Project-URL: Repository, https://github.com/kannibalox/pyrosimple
+Description-Content-Type: text/markdown
+
+# pyrosimple
+
+[![GitHub Workflow Status](http://img.shields.io/github/actions/workflow/status/kannibalox/pyrosimple/pylint.yml?branch=main)](https://github.com/kannibalox/pyrosimple/actions/workflows/pylint.yml)
+[![PyPI](https://img.shields.io/pypi/v/pyrosimple)](https://pypi.org/project/pyrosimple/)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyrosimple)
+
+A overhauled Python 3 fork of the [pyrocore
+tools](https://github.com/pyroscope/pyrocore), for working with the
+[rTorrent client](https://github.com/rakshasa/rtorrent).
+
+## Installation
+
+```bash
+pip install pyrosimple
+# pip install 'pyrosimple[torque]' # Optional dependencies for using pyrotorque
+```
+
+See the [documentation for usage](https://kannibalox.github.io/pyrosimple/).
+If you've used rtcontrol/rtxmlrpc before, you should feel right at home.
+
+## What's the point of this?
+
+The pyrocore tools are great, but being stuck on python 2, along with
+the complicated install procedure made integrating both the tools and
+the code into other processes very painful.
+
+## Differences from pyrocore
+
+The following lists are not exhaustive, and don't cover many of the
+internal improvements and refactoring.
+
+- Only supports python 3 and rTorrent 0.9.6+ (this includes
+  rTorrent-PS and rTorrent-PS-CH)
+  - pypy is supported, but not as well tested
+- Simpler poetry-based build system, with a single package to install
+- Performance improvements (faster templating and only fetching
+  required fields)
+
+### New features
+
+- Multi-instance support for rtcontrol/rtxmlrpc
+- Replaced Tempita with Jinja2
+- Support for JSON-RPC (only implemented by
+  https://github.com/jesec/rtorrent)
+- Actions to move torrent between paths, or torrents between hosts
+
+See https://kannibalox.github.io/pyrosimple/migrate/ for how to
+migrate scripts to the new features.
+
+## Legacy branch
+
+If you just want to use the pyrocore tools on python 3 without all the
+new features, you can use the `release-1.X` branch (1.3 is the latest
+release at time of writing).  These releases will only receive bug
+fixes or changes to maintain compatibility with the original pyrocore
+tools.
+
