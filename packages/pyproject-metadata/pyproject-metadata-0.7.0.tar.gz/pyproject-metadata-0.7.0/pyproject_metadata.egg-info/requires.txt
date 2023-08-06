@@ -1,0 +1,14 @@
+packaging>=22.0
+
+[docs]
+furo>=2020.11.19b18
+sphinx~=3.0
+sphinx-autodoc-typehints>=1.10.0
+Jinja2<3.1
+
+[test]
+pytest>=6.2.4
+pytest-cov>=2
+
+[test:python_version < "3.11"]
+tomli>=1.0.0
