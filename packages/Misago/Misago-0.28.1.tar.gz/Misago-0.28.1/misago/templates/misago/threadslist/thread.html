@@ -1,0 +1,100 @@
+{% load i18n misago_absoluteurl misago_avatars misago_capture %}
+<li id="threads-item-{{ thread.id }}" class="list-group-item threads-list-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+  <div class="threads-list-item-top-row">
+    {% if user.is_authenticated %}
+      <div class="threads-list-item-col-icon">
+        <a title="{% if thread.is_read %}{% trans 'No new posts' %}{% else %}{% trans 'New posts' %}{% endif %}"
+          href="{% if thread.is_read %}{{ thread.get_last_post_url }}{% else %}{{ thread.get_new_post_url }}{% endif %}"
+          class="threads-list-icon{% if not thread.is_read %} threads-list-icon-new{% endif %}">
+          <span class="material-icon">
+            {% if thread.is_read %}chat_bubble_outline{% else %}chat_bubble{% endif %}
+          </span>
+        </a>
+      </div>
+    {% endif %}
+    <div class="threads-list-item-col-title">
+      <a href="{{ thread.get_absolute_url }}" class="threads-list-item-title">
+        {{ thread.title }}
+      </a>
+      <a
+        href="{% if thread.is_read %}{{ thread.get_absolute_url }}{% else %}{{ thread.get_new_post_url }}{% endif %}"
+        class="threads-list-item-title-sm{% if not thread.is_read %} threads-list-item-title-new{% endif %}"
+      >
+        {{ thread.title }}
+      </a>
+    </div>
+  </div>
+  <div class="threads-list-item-bottom-row">
+    {% if thread.is_closed or thread.is_hidden or thread.is_unapproved or thread.weight > 0 or thread.best_answer or thread.has_poll %}
+      <div class="threads-list-item-col-flags">
+        {% include "misago/thread_flags.html" %}
+      </div>
+    {% endif %}
+    {% if thread.category != category %}
+      <div class="threads-list-item-col-category">
+        <span>
+          {% if thread.category.parent and not thread.category.parent.special_role and thread.category.parent != category %}
+            <a
+              href="{{ thread.category.parent.get_absolute_url }}"
+              class="threads-list-item-category threads-list-category-label{% if thread.category.parent.color %} threads-list-category-label-color{% endif %} threads-list-item-parent-category"
+              {% if thread.category.parent.color %}style="--label-color: {{ thread.category.parent.color }}"{% endif %}
+              {% if thread.category.parent.short_name %}title="{{ thread.category.parent.name }}"{% endif %}
+            >
+              {% if thread.category.parent.short_name %}{{ thread.category.parent.short_name }}{% else %}{{ thread.category.parent.name }}{% endif %}
+            </a>
+          {% endif %}
+          <a
+            href="{{ thread.category.get_absolute_url }}"
+            class="threads-list-item-category threads-list-category-label{% if thread.category.color %} threads-list-category-label-color{% endif %}"
+            {% if thread.category.color %}style="--label-color: {{ thread.category.color }}"{% endif %}
+            {% if thread.category.short_name %}title="{{ thread.category.name }}"{% endif %}
+          >
+            {% if thread.category.short_name %}{{ thread.category.short_name }}{% else %}{{ thread.category.name }}{% endif %}
+          </a>
+        </span>
+      </div>
+    {% endif %}
+    <div class="threads-list-item-col-replies">
+      {% include "misago/thread_replies.html" %}
+    </div>
+    <div class="threads-list-item-col-last-poster">
+      {% if thread.last_poster_id %}
+        <a
+          href="{% url 'misago:user' slug=thread.last_poster_slug pk=thread.last_poster_id %}"
+          class="threads-list-item-last-poster"
+          title="{% blocktrans trimmed with last_poster=thread.last_poster.username %}
+          Last post by: {{ last_poster }}
+          {% endblocktrans %}">
+          <img src="{{ thread.last_poster|avatar:32 }}" width="32" height="32" alt="">
+        </a>
+      {% else %}
+        <span class="threads-list-item-last-poster" title="{% blocktrans trimmed with last_poster=thread.last_poster_name %}
+          Last post by: {{ last_poster }}
+          {% endblocktrans %}">
+          <img src="{{ BLANK_AVATAR_URL }}" width="32" height="32" alt="">
+        </span>
+      {% endif %}
+    </div>
+    <div class="threads-list-item-col-last-activity">
+      <a href="{{ thread.get_last_post_url }}" class="threads-list-item-last-activity" title="{% blocktrans trimmed with last_activity=thread.last_post_on|date:'DATETIME_FORMAT' %}
+        Last activity: {{ last_activity }}
+        {% endblocktrans %}">
+        {{ thread.last_post_on|date }}
+      </a>
+    </div>
+    {% if list_type == "subscribed" %}
+      <div class="threads-list-item-col-subscription">
+        <div class="dropdown">
+          <button class="btn btn-default btn-icon" type="button" disabled>
+            <span class="material-icon">
+              star_border
+            </span>
+          </button>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <meta itemprop="position" content="{{ list_page.start|add:forloop.counter }}">
+  <meta itemprop="url" content="{% absoluteurl thread.get_absolute_url %}">
+  <meta itemprop="name" content="{{ thread.title }}">
+</li>
