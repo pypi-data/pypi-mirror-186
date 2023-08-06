@@ -1,0 +1,13 @@
+# This file contains pip package version upper constraints for our direct dependencies
+# due to breaking changes in versions beyond the constraint.
+# This file should be reviewed and updated regularly and our code fixed appropriately so
+# that we can keep up with the latest versions of our dependencies.
+#
+# This file must use the < or <= operators to specify upper version constraints. This
+# file must not contain lower version constraints (e.g. >= or >).
+
+mypy<0.981  # very slow regression in 0.98x/0.99x (https://github.com/python/mypy/issues/13821)
+mypy-protobuf<3.4  # restricted to ensure compatibility with restricted grpcio versions on Darwin
+pandas-stubs<1.4 # TODO: [BIT-1983]
+pytorch-lightning<1.7.0 # Breaking changes from 1.7
+selenium<4.3 # TODO: [BIT-1984]
