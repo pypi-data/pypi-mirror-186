@@ -1,0 +1,39 @@
+[console_scripts]
+eodag = eodag.cli:eodag
+
+[eodag.plugins.api]
+CdsApi = eodag.plugins.apis.cds:CdsApi
+EcmwfApi = eodag.plugins.apis.ecmwf:EcmwfApi
+UsgsApi = eodag.plugins.apis.usgs:UsgsApi
+
+[eodag.plugins.auth]
+AwsAuth = eodag.plugins.authentication.aws_auth:AwsAuth
+GenericAuth = eodag.plugins.authentication.generic:GenericAuth
+HTTPHeaderAuth = eodag.plugins.authentication.header:HTTPHeaderAuth
+HttpQueryStringAuth = eodag.plugins.authentication.qsauth:HttpQueryStringAuth
+KeycloakOIDCPasswordAuth = eodag.plugins.authentication.keycloak:KeycloakOIDCPasswordAuth
+OAuth = eodag.plugins.authentication.oauth:OAuth
+OIDCAuthorizationCodeFlowAuth = eodag.plugins.authentication.openid_connect:OIDCAuthorizationCodeFlowAuth
+TokenAuth = eodag.plugins.authentication.token:TokenAuth
+
+[eodag.plugins.crunch]
+FilterDate = eodag.plugins.crunch.filter_date:FilterDate
+FilterLatestByName = eodag.plugins.crunch.filter_latest_tpl_name:FilterLatestByName
+FilterLatestIntersect = eodag.plugins.crunch.filter_latest_intersect:FilterLatestIntersect
+FilterOverlap = eodag.plugins.crunch.filter_overlap:FilterOverlap
+FilterProperty = eodag.plugins.crunch.filter_property:FilterProperty
+
+[eodag.plugins.download]
+AwsDownload = eodag.plugins.download.aws:AwsDownload
+HTTPDownload = eodag.plugins.download.http:HTTPDownload
+S3RestDownload = eodag.plugins.download.s3rest:S3RestDownload
+
+[eodag.plugins.search]
+AwsSearch = eodag.plugins.search.qssearch:AwsSearch
+BuildPostSearchResult = eodag.plugins.search.build_search_result:BuildPostSearchResult
+CSWSearch = eodag.plugins.search.csw:CSWSearch
+ODataV4Search = eodag.plugins.search.qssearch:ODataV4Search
+PostJsonSearch = eodag.plugins.search.qssearch:PostJsonSearch
+QueryStringSearch = eodag.plugins.search.qssearch:QueryStringSearch
+StacSearch = eodag.plugins.search.qssearch:StacSearch
+StaticStacSearch = eodag.plugins.search.static_stac_search:StaticStacSearch
