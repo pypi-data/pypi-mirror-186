@@ -1,0 +1,67 @@
+Metadata-Version: 2.1
+Name: wmo-sphinx-theme
+Version: 0.1.2
+Summary: Sphinx theme for WMO projects
+Home-page: https://github.com/wmo-im/wmo-sphinx-theme
+Author: Maaike Limper
+Author-email: mlimper@wmo.int
+Maintainer: Maaike Limper
+Maintainer-email: mlimper@wmo.int
+License: Apache Software License
+Keywords: wmo
+Platform: all
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Documentation
+Classifier: Topic :: Software Development :: Documentation
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# The WMO Sphinx Theme
+
+A [Sphinx](https://python-sphinx.org) theme for documenting WMO projects.
+
+## Installation and usage
+
+The theme is available on [PyPI](https://pypi.org/project/wmo-sphinx-theme), and can
+be installed as follows:
+
+```bash
+pip3 install wmo-sphinx-theme
+```
+
+Enavbling the theme from within your project's `conf.py`:
+
+```python
+import wmo_sphinx_theme
+
+html_theme = 'wmo_sphinx_theme'
+html_theme_path = wmo_sphinx_theme.get_html_theme_path()
+
+html_css_files = ['wmo.css']
+```
+
+## Releasing
+
+```bash
+rm -fr build dist *.egg-info
+python3 setup.py sdist bdist_wheel --universal
+twine upload dist/*
+```
+
+### Code Conventions
+
+* [PEP8](https://www.python.org/dev/peps/pep-0008)
+
+### Bugs and Issues
+
+All bugs, enhancements and issues are managed on [GitHub](https://github.com/wmo-im/wmo-sphinx-theme/issues).
+
+## Contact
+
+* [Maaike Limper](https://github.com/maaikelimper)
+
