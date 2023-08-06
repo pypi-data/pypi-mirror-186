@@ -1,0 +1,75 @@
+Metadata-Version: 2.1
+Name: bldr
+Version: 0.0.9
+Summary: Build debian packages in a clean docker environment
+Home-page: https://www.github.com/OneIdentity/bldr
+Author: BLDR Developers
+Author-email: noreply@oneidentity.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: System :: Systems Administration
+Classifier: Topic :: Utilities
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: certifi (==2022.12.7)
+Requires-Dist: charset-normalizer (==2.0.12)
+Requires-Dist: docker (==5.0.3)
+Requires-Dist: dockerpty (==0.4.1)
+Requires-Dist: idna (==3.4)
+Requires-Dist: requests (==2.27.1)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: urllib3 (==1.26.13)
+Requires-Dist: websocket-client (==1.3.1)
+Provides-Extra: dev
+Requires-Dist: attrs (==22.1.0) ; extra == 'dev'
+Requires-Dist: autopep8 (==2.0.0) ; extra == 'dev'
+Requires-Dist: coverage (==6.2) ; extra == 'dev'
+Requires-Dist: flake8 (==5.0.4) ; extra == 'dev'
+Requires-Dist: importlib-metadata (==4.2.0) ; extra == 'dev'
+Requires-Dist: iniconfig (==1.1.1) ; extra == 'dev'
+Requires-Dist: mccabe (==0.7.0) ; extra == 'dev'
+Requires-Dist: mypy (==0.971) ; extra == 'dev'
+Requires-Dist: mypy-extensions (==0.4.3) ; extra == 'dev'
+Requires-Dist: packaging (==21.3) ; extra == 'dev'
+Requires-Dist: pluggy (==1.0.0) ; extra == 'dev'
+Requires-Dist: py (==1.11.0) ; extra == 'dev'
+Requires-Dist: pycodestyle (==2.9.1) ; extra == 'dev'
+Requires-Dist: pyflakes (==2.5.0) ; extra == 'dev'
+Requires-Dist: pyparsing (==3.0.9) ; extra == 'dev'
+Requires-Dist: pytest (==7.0.1) ; extra == 'dev'
+Requires-Dist: pytest-console-scripts (==1.3.1) ; extra == 'dev'
+Requires-Dist: pytest-cov (==2.12.1) ; extra == 'dev'
+Requires-Dist: toml (==0.10.2) ; extra == 'dev'
+Requires-Dist: tomli (==1.2.3) ; extra == 'dev'
+Requires-Dist: typed-ast (==1.5.4) ; extra == 'dev'
+Requires-Dist: types-requests (==2.28.11.5) ; extra == 'dev'
+Requires-Dist: types-setuptools (==65.6.0.2) ; extra == 'dev'
+Requires-Dist: types-urllib3 (==1.26.25.4) ; extra == 'dev'
+Requires-Dist: typing-extensions (==4.1.1) ; extra == 'dev'
+Requires-Dist: zipp (==3.6.0) ; extra == 'dev'
+
+BLDR
+====
+
+Build debian packages in a clean docker environment
+
+Features:
+
+* provide a dockerized dpkg-buildpackage wrapper, as Docker can be used to create a clean build environment for Debian packaging
+* easy-to-use: navigate inside a directory that has a debian subdirectory and run build
+* collect the debian dependencies automatically and puts them in Docker build layer
+* cache the dependency install step and the re-build will be quicker
+* to test the debian package you can enter to the container which contains the build environment
+* the built debian package is stored in a local apt repository
+* build multiple dependent packages, if called multiple times (uses the built packages as build dependencies of the next ones)
+
+
