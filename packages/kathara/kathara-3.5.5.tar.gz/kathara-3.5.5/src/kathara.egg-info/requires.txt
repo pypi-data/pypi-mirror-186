@@ -1,0 +1,23 @@
+binaryornot>=0.4.4
+docker>=6.0.1
+kubernetes>=23.3.0
+requests>=2.22.0
+coloredlogs>=10.0
+terminaltables>=3.1.0
+slug>=2.0
+deepdiff==6.2.2
+pyroute2>=0.5.19
+progressbar2>=1.14.0
+
+[:platform_system == "darwin"]
+appscript>=1.1.0
+
+[:platform_system == "darwin" or platform_system == "linux"]
+libtmux>=0.8.2
+
+[:platform_system == "win32"]
+pypiwin32>=223
+windows-curses>=2.1.0
+
+[pyuv]
+pyuv@ https://api.github.com/repos/saghul/pyuv/tarball/master
