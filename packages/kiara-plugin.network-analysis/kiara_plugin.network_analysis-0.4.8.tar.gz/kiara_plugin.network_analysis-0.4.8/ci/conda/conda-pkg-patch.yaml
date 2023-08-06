@@ -1,0 +1,19 @@
+channels:
+  - conda-forge
+  - dharpa
+
+host_requirements:
+  - pip
+  - python
+  - setuptools<=63
+  - setuptools_scm
+
+test:
+  imports:
+    - kiara_plugin.network_analysis
+  source_files:
+    - tests
+    - examples
+  commands:
+    - kiara module list
+#    - kiara run examples/pipelines/create_network_graph.yaml
