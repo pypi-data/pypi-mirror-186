@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "voxScribe"
+authors = [{name='Matt Manes'}]
+description = "Extract text from .wav and .mp3 files."
+version = "0.1.1"
+requires-python = ">=3.10"
+dependencies = [
+	"requests",
+	"speechRecognition",
+	"pydub",
+	"whosYourAgent"
+]
+readme = "README.md"
+keywords = [
+	"text",
+	"audio",
+	"speech"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/matt-manes/voxScribe"
+"Documentation" = "https://github.com/matt-manes/voxScribe/docs"
+"Source code" = "https://github.com/matt-manes/voxScribe/src/voxScribe"
