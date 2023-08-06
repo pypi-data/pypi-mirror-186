@@ -1,0 +1,79 @@
+Metadata-Version: 2.1
+Name: timewise
+Version: 0.3.0rc6
+Summary: A small package to download infrared data from the WISE satellite
+Home-page: https://github.com/JannisNe/timewise
+License: MIT
+Author: Jannis Necker
+Author-email: jannis.necker@gmail.com
+Requires-Python: >=3.8,<3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: astropy (>=5.1,<6.0)
+Requires-Dist: backoff (>=2.1.2,<3.0.0)
+Requires-Dist: coveralls (>=3.3.1,<4.0.0)
+Requires-Dist: furo (>=2022.6.21,<2023.0.0)
+Requires-Dist: matplotlib (>=3.5.3,<4.0.0)
+Requires-Dist: myst-parser (>=0.18.0,<0.19.0)
+Requires-Dist: numpy (>=1.23.2,<2.0.0)
+Requires-Dist: pandas (>=1.4.3,<2.0.0)
+Requires-Dist: pyvo (>=1.3,<2.0)
+Requires-Dist: requests (>=2.28.1,<3.0.0)
+Requires-Dist: scikit-image (>=0.19.3,<0.20.0)
+Requires-Dist: seaborn (>=0.11.2,<0.13.0)
+Requires-Dist: tqdm (>=4.64.0,<5.0.0)
+Requires-Dist: virtualenv (>=20.16.3,<21.0.0)
+Project-URL: Bug Tracker, https://github.com/JannisNe/timewise/issues
+Project-URL: Documentation, https://timewise.readthedocs.io/en/latest
+Project-URL: Repository, https://github.com/JannisNe/timewise
+Description-Content-Type: text/markdown
+
+[![CI](https://github.com/JannisNe/timewise/actions/workflows/continous_integration.yml/badge.svg)](https://github.com/JannisNe/timewise/actions/workflows/continous_integration.yml)
+[![Coverage Status](https://coveralls.io/repos/github/JannisNe/timewise/badge.svg?branch=main)](https://coveralls.io/github/JannisNe/timewise?branch=main)
+[![PyPI version](https://badge.fury.io/py/timewise.svg)](https://badge.fury.io/py/timewise)
+[![Documentation Status](https://readthedocs.org/projects/timewise/badge/?version=latest)](https://timewise.readthedocs.io/en/latest/?badge=latest)
+[![DOI](https://zenodo.org/badge/449677569.svg)](https://zenodo.org/badge/latestdoi/449677569)
+
+
+
+# `timewise` is great, love it!
+Download infrared lightcurves recorded with the WISE satellite.
+
+## Installation
+
+`timewise` is a python package, installable through `pip`
+```
+pip install timewise
+```
+
+If you would like to contribute just clone the repository. Easy.
+
+
+## Dependencies
+
+All dependencies are listed in `requirements.txt`. If installing with `pip` they will automatically installed.
+Otherwise you can install them with `pip install -r requirements.txt`.
+
+There is one package that does not obey! It's `SciServer`! 
+It's used to access SDSS data and plot cutouts. If you want to use this functionality 
+install [this](https://github.com/sciserver/SciScript-Python) and create an account [here](https://www.sciserver.org).
+As soon as required you will be required to enter your username and password.
+
+
+## Testing
+ You can verify that everything is working (because this package is flawless and works everywhere.) by executing
+ the unittest
+```
+python -m unittest discover tests/
+```
+
+## Cite
+If you you `timewise` please cite [this](https://zenodo.org/badge/latestdoi/449677569).
+
+## Usage
+Detailed documentation can be found [here](https://timewise.readthedocs.io/en/latest/)
+
