@@ -1,0 +1,16 @@
+from _typeshed import Incomplete
+from swimlane.core.cursor import PaginatedCursor as PaginatedCursor
+from swimlane.core.resources.base import APIResource as APIResource
+from swimlane.core.resources.record import Record as Record, record_factory as record_factory
+from swimlane.core.search import ASC as ASC, CONTAINS as CONTAINS, DESC as DESC, EQ as EQ, EXCLUDES as EXCLUDES, GT as GT, GTE as GTE, LT as LT, LTE as LTE, NOT_EQ as NOT_EQ
+
+class Report(APIResource, PaginatedCursor):
+    default_limit: int
+    name: Incomplete
+    keywords: Incomplete
+    def __init__(self, app, raw, **kwargs) -> None: ...
+    def filter(self, field_name, operand, value) -> None: ...
+    def sort(self, field_name, order) -> None: ...
+    def set_columns(self, *field_names) -> None: ...
+
+def report_factory(app, report_name, **kwargs): ...
