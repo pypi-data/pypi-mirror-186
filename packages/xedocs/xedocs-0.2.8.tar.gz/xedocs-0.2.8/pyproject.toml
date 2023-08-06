@@ -1,0 +1,90 @@
+[tool]
+[tool.poetry]
+name = "xedocs"
+version = "0.2.8"
+homepage = "https://github.com/XENONnT/xedocs"
+description = "Top-level package for xedocs."
+authors = ["Yossi Mosbacher <joe.mosbacher@gmail.com>"]
+readme = "README.rst"
+classifiers=[
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Developers',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+]
+packages = [
+    { include = "xedocs" },
+    { include = "tests", format = "sdist" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.11"
+click = "*"
+rich = "*"
+rframe = "^0.2.0"
+pymongo = {version = "*", optional = true}
+appdirs = "^1.4.4"
+tinydb = "^4.7.0"
+tqdm = "^4.64.1"
+
+[tool.poetry.extras]
+db = ["pymongo"]
+all = ["db"]
+
+[tool.poetry.dev-dependencies]
+bumpversion = "*"
+coverage = "*"
+flake8 = "*"
+isort = "*"
+pylint = "*"
+pytest = "*"
+sphinx = "*"
+tox = "*"
+yapf = "*"
+sphinx-material = "*"
+nbsphinx = "*"
+invoke = "*"
+black = "*"
+pytest-cov = "*"
+hypothesis = "*"
+autodoc-pydantic = "*"
+jupyterlite-sphinx = "*"
+sphinxext-rediraffe = "*"
+pymongo = "*"
+
+[tool.poetry.scripts]
+xedocs = 'xedocs.cli:main'
+
+[tool.poetry.plugins]
+[tool.poetry.plugins."straxen"]
+"xedocs_protocol" = "xedocs._straxen_plugin"
+
+[tool.poetry.plugins."xedocs_db_interfaces"]
+"api" = "xedocs.databases.api:APIDatabase"
+"utilix" = "xedocs.databases.utilix:UtilixDatabase"
+"github" = "xedocs.databases.github:GithubDatabase"
+"local_repo" = "xedocs.databases.local:LocalRepoDatabase"
+"mongo" = "xedocs.databases.mongo:MongoDatabase"
+
+[build-system]
+requires = ["poetry-core>=1.0.8", "setuptools"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.dephell.main]
+versioning = "semver"
+from = {format = "poetry", path = "pyproject.toml"}
+to = {format = "setuppy", path = "setup.py"}
+
+[tool.poe.tasks]
+test   = "pytest --cov=xedocs"
+format = "black ."
+clean  = """
+    rm -rf .coverage
+        .mypy_cache
+        .pytest_cache
+        dist
+        ./**/__pycache__
+    """
+lint   = "pylint xedocs"
