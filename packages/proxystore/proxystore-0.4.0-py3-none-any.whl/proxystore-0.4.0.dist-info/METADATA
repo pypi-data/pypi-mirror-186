@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: proxystore
+Version: 0.4.0
+Summary: Python lazy object proxy interface for distributed stores.
+Home-page: https://github.com/proxystore/proxystore
+Author: Greg Pauloski
+Author-email: jgpauloski@uchicago.edu
+License: MIT
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: cloudpickle (>=1.6.0)
+Requires-Dist: cryptography (<=38.04)
+Requires-Dist: globus-sdk (>=3.3.0)
+Requires-Dist: lazy-object-proxy (>=1.6.0)
+Requires-Dist: redis (>=3.4)
+Requires-Dist: requests (>=2.27.1)
+Requires-Dist: typing-extensions (>=4.3.0)
+Provides-Extra: endpoints
+Requires-Dist: aiortc (>=1.3.2) ; extra == 'endpoints'
+Requires-Dist: hypercorn[uvloop] (>=0.13.0) ; extra == 'endpoints'
+Requires-Dist: psutil ; extra == 'endpoints'
+Requires-Dist: python-daemon ; extra == 'endpoints'
+Requires-Dist: quart (>=0.18.0) ; extra == 'endpoints'
+Requires-Dist: websockets (>=10.0) ; extra == 'endpoints'
+
+# ProxyStore
+
+[![Documentation Status](https://readthedocs.org/projects/proxystore/badge/?version=latest)](https://proxystore.readthedocs.io/en/latest/?badge=latest)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/proxystore/proxystore/main.svg)](https://results.pre-commit.ci/latest/github/proxystore/proxystore/main)
+[![Tests](https://github.com/proxystore/proxystore/actions/workflows/tests.yml/badge.svg)](https://github.com/proxystore/proxystore/actions)
+
+Python Lazy Object Proxy Interface for Distributed Stores
+
+## Installation
+
+Install via pip:
+```bash
+# Base install
+pip install proxystore
+# Extras install for serving Endpoints
+pip install proxystore[endpoints]
+```
+
+More details are available on the [Get Started](https://proxystore.readthedocs.io/en/latest/getstarted.html) guide.
+For local development, see the [Contributing](https://proxystore.readthedocs.io/en/latest/contributing.html) guide.
+
+## Documentation
+
+Complete documentation for ProxyStore available [here](https://proxystore.readthedocs.io/en/latest).
