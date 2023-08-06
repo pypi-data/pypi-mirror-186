@@ -1,0 +1,62 @@
+Metadata-Version: 2.1
+Name: mines-data-engineering
+Version: 0.1.7a1
+Summary: Helper package for the Data Engineering course at Colorado School of Mines
+Author: Gabe Fierro
+Author-email: gtfierro@mines.edu
+Requires-Python: >=3.7,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: docker (>=6.0.1,<7.0.0)
+Requires-Dist: psycopg2-binary (>=2.9.5,<3.0.0)
+Requires-Dist: pymongo (>=4.3.3,<5.0.0)
+Requires-Dist: spython (>=0.3.0,<0.4.0)
+Requires-Dist: xattr (>=0.10.1,<0.11.0)
+Description-Content-Type: text/markdown
+
+# Mines Data Engineering
+
+This package simplifies the process of starting common database systems in the background on Singularity Hub.
+
+## Supported Databases
+
+- MongoDB
+- TimescaleDB (and Postgres)
+
+## Examples
+
+### MongoDB
+
+```python
+from mines_data_engineering import start_mongo
+import pymongo
+
+# will need wait a couple minutes the first time this happens
+# while Singularity downloads and converts the Docker image
+connection_string = start_mongo()
+
+client = pymongo.MongoClient(connection_string)
+client.my_db.my_col.insert_one({'finally': 'working'})
+```
+
+### Postgres/TimescaleDB
+
+```python
+from mines_data_engineering import start_postgres
+import psycopg2
+
+
+# will need wait a couple minutes the first time this happens
+# while Singularity downloads and converts the Docker image
+connection_string = start_postgres()
+
+conn = psycopg2.connect(connection_string)
+cur = conn.cursor()
+cur.execute("SELECT 1")
+assert next(cur) == (1,)
+```
+
