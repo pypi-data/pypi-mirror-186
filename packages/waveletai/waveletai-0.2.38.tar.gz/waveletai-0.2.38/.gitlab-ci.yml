@@ -1,0 +1,172 @@
+stages:     #定义构建场景为部署，1.init初始化、2.lint代码规范、3.unit_test单元测试、4.build构建、 5.上传到pypi
+  - init
+  - lint
+  - test
+  - upload
+  - tag
+
+variables:
+  #项目名称即git名称
+  projectName: $CI_PROJECT_NAME
+  branch: $CI_COMMIT_BRANCH
+
+init_conda:
+  variables:
+    ############必须配置############
+    requirements: test_requirements.txt
+  stage: init
+  script:
+    - conda create -n $projectName python=3.7.5
+    - conda activate $projectName
+    - echo "Activating environment" $projectName
+    - echo "Installing PIP"
+#    - conda install -y pip
+    - echo "PIP installing required packages"
+    - echo `which pip`
+    - pip --cache-dir=.pip install -r $requirements -i https://pypi.mirrors.ustc.edu.cn/simple/ some-package
+    - pip install --user --upgrade setuptools wheel
+    - echo 'conda env done.'
+  only:
+    - master
+    - prod
+  tags:
+    - waveletai-sdk
+
+check_version:
+  stage: init
+  script:
+    - conda activate $projectName
+    - pypiVersion=$(curl -sL https://pypi.org/pypi/waveletai/json| jq -r .info.version)
+    - codeVersion=$(python waveletai/_version.py)
+    - latestHash=`git rev-list --tags --max-count=1`
+    - gitVersion=$(git describe --tags $latestHash)
+    # - eg：v0.2.17变为v0.2.18,要打的标签
+#    - gitTag=$(echo $latestgitTag| awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++; $NF=sprintf("%0*d", length($NF), ($NF+1)%(10^length($NF))); print}')
+    # 获取pypi最后版本
+    - if [ $codeVersion != $pypiVersion ]; then echo $codeVersion > waveletai/_version; fi
+    - if [ $codeVersion != $gitVersion ]; then echo $codeVersion > waveletai/gitVersion; fi
+  artifacts:
+    paths: ['waveletai/_version', 'waveletai/gitVersion']
+  only:
+    - prod
+  tags:
+    - waveletai-sdk
+
+lints:
+  stage: lint
+  script:
+    - conda activate $projectName
+    - echo "pylint start ..."
+#     使用自定义的规则进行代码检查, 得分低于 8 分则失败, 不再执行之后的 stage
+    - pylint --rcfile=pylint.conf --fail-under=8 $projectName
+    - echo "pylint end ..."
+  only:
+    - master
+  needs:
+    - job: init_conda
+  tags:
+    - waveletai-sdk
+
+pytest:
+  stage: test
+  script:
+    - echo "pytest start ..."
+    - conda activate $projectName
+    - cd tests
+    - pytest --junitxml=report.xml
+    - echo "pytest end ..."
+  artifacts:
+    when: always
+    reports:
+      junit: tests/report.xml
+    expire_in: 2 weeks
+  only:
+    - master
+  needs:
+    - job: lints
+  tags:
+    - waveletai-sdk
+
+coverage:
+  stage: test
+  script:
+    # 使用 coverage 执行 pytest 单元测试, 只统计当前文件夹下的代码覆盖情况, 生成报告
+    - conda activate $projectName
+    - cd tests
+    - coverage run -m pytest
+    - coverage report
+    - coverage xml
+  artifacts:
+    reports:
+      cobertura: tests/coverage.xml
+  only:
+    - master
+  needs:
+    - job: lints
+  tags:
+    - waveletai-sdk
+
+upload_testpypi:
+  stage: upload
+  script:
+    - conda activate $projectName
+    - codeVersion=$(python waveletai/_version.py)
+    - pypiVersion=$(curl -sL https://test.pypi.org/pypi/waveletai/json| jq -r .info.version)
+    #echo 0.2.18-2 | awk -F "-" '{print $1}'
+    - a=`echo $pypiVersion | awk -F "." '{print $1$2$3}'`
+    - b=`echo $codeVersion | awk -F "." '{print $1$2$3}'`
+    - if [ $a == $b ]; then echo $pypiVersion| awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++; $NF=sprintf("%0*d", length($NF), ($NF+1)%(10^length($NF))); print}' > waveletai/_version; else echo $codeVersion'.1' > waveletai/_version;  fi
+    - cat waveletai/_version
+    - codeVersion=$(python waveletai/_version.py)
+    # 修改下载waveletai的地址到testpypi
+    - sed -i 's@#holdplace@"RUN pip install -i https://test.pypi.org/simple/ waveletai=='$codeVersion'\\n"@g' waveletai/mlflow_plugs/project_backend/waveletai_backend.py
+    - rm -rf build
+    - rm -rf dist
+    - python setup.py sdist bdist_wheel
+    - python -m twine upload --repository testpypi dist/*
+#    - echo 0.2.17| awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++; $NF=sprintf("%0*d", length($NF), ($NF+1)%(10^length($NF))); print}'
+#    - echo 0.2.17| awk -F. -v OFS=. 'length($NF+1)>length($NF)$(NF-1)++; $NF=sprintf("%0*d", length($NF), ($NF+1)%(10^length($NF)));'
+  only:
+    refs:
+      - master
+  artifacts:
+    paths: ['waveletai/_version']
+  needs:
+    - job: pytest
+  tags:
+    - waveletai-sdk
+
+upload_pypi:
+  stage: upload
+  script:
+    - conda activate $projectName
+    - rm -rf build
+    - rm -rf dist
+    - python setup.py sdist bdist_wheel
+    - if [ -f waveletai/_version ] ;then python -m twine upload dist/* ;fi
+  only:
+    refs:
+      - prod
+  needs:
+    - job: check_version
+      artifacts: true
+  tags:
+    - waveletai-sdk
+
+add_tag:
+  stage: tag
+  variables:
+    jobToken: $ACCESS_TOKEN
+  script:
+    - conda activate $projectName
+    - TagName=$(python waveletai/_version.py)
+    -  if [ -f waveletai/gitVersion ] ;then git tag $TagName | git push http://oauth2:$jobToken@gitlab.xiaobodata.com/FirstGroup/WAI/waveletai.git $TagName|echo -e "新增版本号...... $TagName";fi
+  only:
+    refs:
+      - prod
+  needs:
+    - job: upload_pypi
+    - job: check_version
+      artifacts: true
+  tags:
+    - waveletai-sdk
