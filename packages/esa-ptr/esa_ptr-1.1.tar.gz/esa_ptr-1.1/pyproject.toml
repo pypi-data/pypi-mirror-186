@@ -1,0 +1,108 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# Poetry
+
+[tool.poetry]
+name = 'esa-ptr'
+version = '1.1'
+description = 'ESA Planning Timeline Request package'
+license = "BSD 3-Clause License"
+authors = [
+    "Benoît Seignovert <benoit.seignovert@univ-nantes.fr>"
+]
+readme = 'README.md'
+homepage = 'https://juigitlab.esac.esa.int/python/ptr'
+repository = 'https://juigitlab.esac.esa.int/python/ptr'
+documentation = "https://esa-ptr.readthedocs.io"
+keywords = ['esa', 'ptr', 'rosetta', 'juice']
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Developers',
+    'Intended Audience :: Science/Research',
+    'License :: OSI Approved :: BSD License',
+    'Natural Language :: English',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Topic :: Scientific/Engineering',
+    'Topic :: Scientific/Engineering :: Astronomy',
+]
+packages = [{ include = "ptr", from = "src"}]
+
+[tool.poetry.scripts]
+juice-agm = 'ptr.cli:cli_juice_agm'
+
+[tool.poetry.urls]
+"Bug Tracker" = 'https://juigitlab.esac.esa.int/python/ptr/-/issues'
+
+# Poetry depedencies
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.group.test.dependencies]
+pylint = "^2.14.5"
+flake8 = "^4.0.1"
+flake8-isort = "^4.1.2"
+flake8-print = "^5.0.0"
+pep8-naming = "^0.13.1"
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0"
+numpy = "^1.23.1"
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^4"
+sphinx-book-theme = "^0.3.3"
+sphinx-copybutton = "^0.5.0"
+sphinx-autobuild = "^2021.3.14"
+myst-nb = "^0.16.0"
+jupyterlab-server = "^2.18.0"
+jupyterlab = "^3.5.2"
+
+[tool.poetry.group.deploy.dependencies]
+bump2version = "^1.0.1"
+
+# Pylint configutation
+
+[tool.pylint."MESSAGES CONTROL"]
+output-format = 'colorized'
+disable = [
+    'invalid-name',
+    'no-name-in-module',
+    'too-few-public-methods',
+    'line-too-long',  # line length is catch by flake8
+]
+
+# Flake8 configutation is in .flake8 (see https://github.com/PyCQA/flake8/issues/234)
+
+# Pytest configuration
+
+[tool.pytest.ini_options]
+minversion = '6.0'
+addopts = '--color=yes --cov=ptr --cov-report term-missing'
+testpaths = ['tests']
+
+# Pytest coverage configuration
+
+[tool.coverage.report]
+fail_under = 100
+exclude_lines = [
+    'def __repr__',
+    'pragma: no cover',
+    'raise NotImplementedError',
+]
+
+# Isort configuration
+
+[tool.isort]
+lines_after_imports = 2
+multi_line_output = 5
+balanced_wrapping = true
+reverse_relative = true
+known_test = 'pytest'
+sections = ['FUTURE', 'STDLIB', 'TEST', 'THIRDPARTY', 'FIRSTPARTY', 'LOCALFOLDER']
