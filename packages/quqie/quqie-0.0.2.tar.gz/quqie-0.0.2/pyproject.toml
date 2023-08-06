@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "quqie"
+version = "0.0.2"
+description = ""
+authors = ["maguowei <imaguowei@gmail.com>"]
+homepage = "https://github.com/maguowei/quqie"
+repository = "https://github.com/maguowei/quqie"
+documentation = "https://github.com/maguowei/quqie"
+keywords = ["quqie"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+readme = "README.md"
+license = "MIT"
+
+[tool.poetry.scripts]
+quqie-cli = "quqie.cli:main"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+fire = "^0.5"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
