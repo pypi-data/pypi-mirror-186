@@ -1,0 +1,71 @@
+<odoo>
+  <data>
+
+    <record id="view_csgroup_window" model="ir.actions.act_window">
+      <field name="name">CS Groups</field>
+      <field name="res_model">smp.sm_group</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_csgroup_search" model="ir.ui.view">
+      <field name="name">smp.csgroup.search</field>
+      <field name="model">smp.sm_group</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="DB cs groups search">
+          <field name="name"/>
+          <field name="group_name"/>
+          <field name="related_billingaccount_index"/>
+        </search>
+      </field>
+    </record>
+
+    <record id="view_csgroup_list" model="ir.ui.view">
+      <field name="name">smp.csgroup.tree</field>
+      <field name="model">smp.sm_group</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="group_name"/>
+          <field name="related_billingaccount_id"/>
+          <field name="related_config_id"/>
+          <field name="owner_group_index"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_csgroup_form" model="ir.ui.view">
+      <field name="name">smp.csgroup.form</field>
+      <field name="model">smp.sm_group</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Edit group" version="7.0" delete="false">
+          <header>
+            <button name="view_on_app_action" type="object" string="View on App"/>
+          </header>
+          <sheet>
+            <notebook>
+              <page string="General">
+                <group>
+                  <field name="name" readonly="True"/>
+                  <field name="group_name" readonly="True"/>
+                  <field name="related_billingaccount_index"/>
+                  <field name="related_billingaccount_id" readonly="True"/>
+                  <field name="related_billingaccount_minutesleft" readonly="True"/>
+                  <field name="related_config_index"/>
+                  <field name="related_config_id" readonly="True"/>
+                  <field name="owner_group_index"/>
+                  <field name="owner_group_id" readonly="True"/>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <menuitem name="CS Groups" id="sm_partago_db.csgroup" parent="sm_partago_db.firebase"
+      action="view_csgroup_window"/>
+
+  </data>
+</odoo>

@@ -1,0 +1,74 @@
+<odoo>
+  <data>
+
+    <record id="view_car_config_window" model="ir.actions.act_window">
+      <field name="name">Car Configs</field>
+      <field name="res_model">smp.sm_car_config</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_car_config_search" model="ir.ui.view">
+      <field name="name">smp.car_configs.search</field>
+      <field name="model">smp.sm_car_config</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="DB carConfigs search">
+          <field name="name"/>
+          <field name="carconfig_name"/>
+        </search>
+      </field>
+    </record>
+
+    <record id="view_car_config_list" model="ir.ui.view">
+      <field name="name">smp.car_configs.tree</field>
+      <field name="model">smp.sm_car_config</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="carconfig_name"/>
+          <field name="rel_car_id"/>
+          <field name="rel_car_id_license_plate"/>
+          <field name="group_index"/>
+          <field name="owner_group_index"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_car_config_form" model="ir.ui.view">
+      <field name="name">smp.car_configs.form</field>
+      <field name="model">smp.sm_car_config</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Edit car config" version="7.0" delete="false">
+          <header>
+            <button name="view_on_app_action" type="object" string="View on App"/>
+          </header>
+          <sheet>
+            <notebook>
+              <page string="General">
+                <group>
+                  <field name="name" attrs="{'readonly':[('id','!=',False)]}"/>
+                  <field name="carconfig_name" readonly="True"/>
+                  <field name="home" readonly="True"/>
+                  <field name="description" readonly="True"/>
+                  <field name="type" readonly="True"/>
+                  <field name="group_index" readonly="True"/>
+                  <field name="group_id" readonly="True"/>
+                  <field name="owner_group_index" readonly="True"/>
+                  <field name="owner_group_id" readonly="True"/>
+                  <field name="rel_car_index" readonly="True"/>
+                  <field name="rel_car_id" readonly="True"/>
+                  <field name="rel_car_id_license_plate" readonly="True"/>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <menuitem name="Car Configs" id="sm_partago_db.car_config" parent="sm_partago_db.firebase"
+      action="view_car_config_window"/>
+
+  </data>
+</odoo>

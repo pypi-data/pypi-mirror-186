@@ -1,0 +1,72 @@
+<odoo>
+  <data>
+
+    <record id="view_car_window" model="ir.actions.act_window">
+      <field name="name">Cars</field>
+      <field name="res_model">smp.sm_car</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_car_search" model="ir.ui.view">
+      <field name="name">smp.cars.search</field>
+      <field name="model">smp.sm_car</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="DB cars search">
+          <field name="name"/>
+          <field name="car_name"/>
+          <field name="license_plate"/>
+        </search>
+      </field>
+    </record>
+
+    <record id="view_car_list" model="ir.ui.view">
+      <field name="name">smp.cars.tree</field>
+      <field name="model">smp.sm_car</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="car_name"/>
+          <field name="license_plate"/>
+          <field name="owner_group_index"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_car_form" model="ir.ui.view">
+      <field name="name">smp.cars.form</field>
+      <field name="model">smp.sm_car</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Edit car" version="7.0" delete="false">
+          <header>
+            <button name="view_on_app_action" type="object" string="View on App"/>
+          </header>
+          <sheet>
+            <notebook>
+              <page string="General">
+                <group>
+                  <field name="id" invisible="True"/>
+                  <field name="name" attrs="{'readonly':[('id','!=',False)]}"/>
+                  <field name="car_name" readonly="True"/>
+                  <field name="home" readonly="True"/>
+                  <field name="license_plate" readonly="True"/>
+                  <field name="owner_group_index" readonly="True"/>
+                  <field name="owner_group_id" readonly="True"/>
+                  <field name="swap_group" readonly="True"/>
+                  <field name="invers_qnr" readonly="True"/>
+                  <field name="invers_type" readonly="True"/>
+                  <field name="invers_lomo_adapter" readonly="True"/>
+                  <field name="db_carconfigs_id"/>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <menuitem name="Cars" id="sm_partago_db.car" parent="sm_partago_db.firebase" action="view_car_window"/>
+
+  </data>
+</odoo>

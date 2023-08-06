@@ -1,0 +1,53 @@
+<odoo>
+  <data>
+
+    <record id="view_billing_account_window" model="ir.actions.act_window">
+      <field name="name">Billing Accounts</field>
+      <field name="res_model">smp.sm_billing_account</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_billing_account_list" model="ir.ui.view">
+      <field name="name">smp.billing_account.tree</field>
+      <field name="model">smp.sm_billing_account</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="group_id"/>
+          <field name="minutesLeft"/>
+          <field name="owner_group_id"/>
+        </tree>
+      </field>
+    </record>
+    
+    <record id="view_billing_account_form" model="ir.ui.view">
+      <field name="name">smp.billing_account.form</field>
+      <field name="model">smp.sm_billing_account</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Edit billing account" version="7.0" delete="false">
+          <header>
+            <button name="view_on_app_action" type="object" string="View on App"/>
+          </header>
+          <sheet>
+            <notebook>
+              <page string="General">
+                <group>
+                  <field name="name" readonly="True"/>
+                  <field name="minutesLeft" readonly="True"/>
+                  <field name="group_index" readonly="True"/>
+                  <field name="group_id" readonly="True"/>
+                  <field name="owner_group_index" readonly="True"/>
+                  <field name="owner_group_id" readonly="True"/>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    
+    <menuitem name="Billing Account" id="sm_partago_db.billing_account" parent="sm_partago_db.firebase"
+    action="view_billing_account_window"/>
+  </data>
+</odoo>

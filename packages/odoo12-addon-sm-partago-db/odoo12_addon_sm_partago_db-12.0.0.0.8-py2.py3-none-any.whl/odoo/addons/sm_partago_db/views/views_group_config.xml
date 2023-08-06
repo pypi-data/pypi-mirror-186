@@ -1,0 +1,43 @@
+<odoo>
+  <data>
+
+    <record id="view_group_config_window" model="ir.actions.act_window">
+      <field name="name">Group Configs</field>
+      <field name="res_model">smp.sm_group_config</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_group_config_list" model="ir.ui.view">
+      <field name="name">smp.group_configs.tree</field>
+      <field name="model">smp.sm_group_config</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_group_config_form" model="ir.ui.view">
+      <field name="name">smp.group_configs.form</field>
+      <field name="model">smp.sm_group_config</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Edit group config" version="7.0" delete="false">
+          <sheet>
+            <notebook>
+              <page string="General">
+                <group>
+                  <field name="name" readonly="True"/>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <menuitem name="Group Configs" id="sm_partago_db.group_config" parent="sm_partago_db.firebase"
+      action="view_group_config_window"/>
+
+  </data>
+</odoo>
