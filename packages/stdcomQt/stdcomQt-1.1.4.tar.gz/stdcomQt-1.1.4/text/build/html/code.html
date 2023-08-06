@@ -1,0 +1,624 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Code Documentation &#8212; stdcomQt 1.1.4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to stdcom and stdcomqt5 documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-stdcomQt">
+<span id="code-documentation"></span><h1>Code Documentation<a class="headerlink" href="#module-stdcomQt" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomQt.SubObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQt.</span></span><span class="sig-name descname"><span class="pre">SubObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#SubObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.SubObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal use, not for users</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomQt.Subscriber">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQt.</span></span><span class="sig-name descname"><span class="pre">Subscriber</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloud</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stdcomQt.stecQSocket" title="stdcomQt.stecQSocket"><span class="pre">stdcomQt.stecQSocket</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">DataCallBack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DescCallBack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#Subscriber"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.Subscriber" title="Permalink to this definition">¶</a></dt>
+<dd><p>User connects to Multiverse just like c++ code
+Subscribers are used by any user to connect to a name or create a name on Multiverse</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.Subscriber.Data">
+<span class="sig-name descname"><span class="pre">Data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#Subscriber.Data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.Subscriber.Data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The data if it exists</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.Subscriber.Desc">
+<span class="sig-name descname"><span class="pre">Desc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#Subscriber.Desc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.Subscriber.Desc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Description if exists</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.Subscriber.SetUserData">
+<span class="sig-name descname"><span class="pre">SetUserData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userData</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#Subscriber.SetUserData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.Subscriber.SetUserData" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets user data locally for user to decide what to do with can be anything</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.Subscriber.StartSingleShot">
+<span class="sig-name descname"><span class="pre">StartSingleShot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#Subscriber.StartSingleShot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.Subscriber.StartSingleShot" title="Permalink to this definition">¶</a></dt>
+<dd><p>interanl use
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.Subscriber.UpdateData">
+<span class="sig-name descname"><span class="pre">UpdateData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">what</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#Subscriber.UpdateData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.Subscriber.UpdateData" title="Permalink to this definition">¶</a></dt>
+<dd><p>User can update multiverse with data
+:param what: Data to send to Muliverse
+:param index:  Zero default, but it can be sent in the middle of an arrary
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.Subscriber.UpdateDesc">
+<span class="sig-name descname"><span class="pre">UpdateDesc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">what</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#Subscriber.UpdateDesc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.Subscriber.UpdateDesc" title="Permalink to this definition">¶</a></dt>
+<dd><p>if we are the golden copy, we can send a Malcolm proof descriptor
+:param what: the descriptor
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.Subscriber.UserData">
+<span class="sig-name descname"><span class="pre">UserData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#Subscriber.UserData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.Subscriber.UserData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Users can attach user data here</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.Subscriber.deleteLater">
+<span class="sig-name descname"><span class="pre">deleteLater</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#Subscriber.deleteLater"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.Subscriber.deleteLater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes later inheritied</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="stdcomQt.Subscriber.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#stdcomQt.Subscriber.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.Subscriber.newData">
+<span class="sig-name descname"><span class="pre">newData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#Subscriber.newData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.Subscriber.newData" title="Permalink to this definition">¶</a></dt>
+<dd><p>intenal use
+:param name: subscription name
+:param data: Data
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.Subscriber.newDesc">
+<span class="sig-name descname"><span class="pre">newDesc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#Subscriber.newDesc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.Subscriber.newDesc" title="Permalink to this definition">¶</a></dt>
+<dd><p>internal use
+:param desc: new description coming from multiverse
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQt.</span></span><span class="sig-name descname"><span class="pre">stecQSocket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4897</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Qt Style cBridge to  Multiverse just like c++ code</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.Host">
+<span class="sig-name descname"><span class="pre">Host</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.Host"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.Host" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>current Host</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.InsertProxy">
+<span class="sig-name descname"><span class="pre">InsertProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.InsertProxy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.InsertProxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal use, not for user
+:param name: name of the subscription
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.Port">
+<span class="sig-name descname"><span class="pre">Port</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.Port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.Port" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>current service Port</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.ProcessCommand">
+<span class="sig-name descname"><span class="pre">ProcessCommand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.ProcessCommand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.ProcessCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>internal use, decodes messages
+:param row:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.SlotConnected">
+<span class="sig-name descname"><span class="pre">SlotConnected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.SlotConnected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.SlotConnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>interal use
+Will restart any Subscription previously made
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.SlotDataReady">
+<span class="sig-name descname"><span class="pre">SlotDataReady</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.SlotDataReady"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.SlotDataReady" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal use
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.SlotDisconnected">
+<span class="sig-name descname"><span class="pre">SlotDisconnected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.SlotDisconnected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.SlotDisconnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>internal use
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.SlotNewHost">
+<span class="sig-name descname"><span class="pre">SlotNewHost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.SlotNewHost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.SlotNewHost" title="Permalink to this definition">¶</a></dt>
+<dd><p>user can change the                                                                                                                                                             connection, by host and port
+:param host:
+:param port:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.SlotSocketError">
+<span class="sig-name descname"><span class="pre">SlotSocketError</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.SlotSocketError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.SlotSocketError" title="Permalink to this definition">¶</a></dt>
+<dd><p>internal use
+called when connection to multiverse fails
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.SlotTimerout">
+<span class="sig-name descname"><span class="pre">SlotTimerout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.SlotTimerout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.SlotTimerout" title="Permalink to this definition">¶</a></dt>
+<dd><p>internal use
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.SlotWrite">
+<span class="sig-name descname"><span class="pre">SlotWrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.SlotWrite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.SlotWrite" title="Permalink to this definition">¶</a></dt>
+<dd><p>internal use
+:param command:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.isConnected">
+<span class="sig-name descname"><span class="pre">isConnected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.isConnected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.isConnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns true if connected to multiverse
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.quit">
+<span class="sig-name descname"><span class="pre">quit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.quit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.quit" title="Permalink to this definition">¶</a></dt>
+<dd><p>call before deletelater by user
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQt.stecQSocket.setOwner">
+<span class="sig-name descname"><span class="pre">setOwner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Make</span> <span class="pre">this</span> <span class="pre">MalcolmProof</span> <span class="pre">Please'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQt.html#stecQSocket.setOwner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQt.stecQSocket.setOwner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets us as the owner of the subscription, we will automatically refeed multiverse if reset
+:param name: subscription name
+:param flag:  True means we are golden copy, false restores to non-golden copy
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-stdcomutilitywidgets"></span><dl class="py class">
+<dt class="sig sig-object py" id="stdcomutilitywidgets.StecIPconfigDialog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomutilitywidgets.</span></span><span class="sig-name descname"><span class="pre">StecIPconfigDialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">OkCallBack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CancelCallBack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'4897'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomutilitywidgets.html#StecIPconfigDialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomutilitywidgets.StecIPconfigDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>IP Dialog, it is a IP and Port Configuation Dialog
+User can attach to sigNewIPPort to get IP and Port Changes</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomutilitywidgets.StecPostgresConfigWidget">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomutilitywidgets.</span></span><span class="sig-name descname"><span class="pre">StecPostgresConfigWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">okCb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cancel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5432</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'vremsoft'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'vremsoft'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passowrd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'vrem2010!'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomutilitywidgets.html#StecPostgresConfigWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomutilitywidgets.StecPostgresConfigWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration Widget for connecting to Stec Postgres Database</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomutilitywidgets.StecPostgresConfigWidget.Cancel">
+<span class="sig-name descname"><span class="pre">Cancel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomutilitywidgets.html#StecPostgresConfigWidget.Cancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomutilitywidgets.StecPostgresConfigWidget.Cancel" title="Permalink to this definition">¶</a></dt>
+<dd><p>cancel ir pressed
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomutilitywidgets.StecPostgresConfigWidget.Ok">
+<span class="sig-name descname"><span class="pre">Ok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomutilitywidgets.html#StecPostgresConfigWidget.Ok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomutilitywidgets.StecPostgresConfigWidget.Ok" title="Permalink to this definition">¶</a></dt>
+<dd><p>when ok is pressed
+also  self.OKSignal.emit(a, b, c, d, e)  
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomutilitywidgets.StecTreeMorph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomutilitywidgets.</span></span><span class="sig-name descname"><span class="pre">StecTreeMorph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PyQt5.QtWidgets.QTreeWidget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">listOf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomutilitywidgets.html#StecTreeMorph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomutilitywidgets.StecTreeMorph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to create a communication tree of names based on NextStep names
+It is passed with an exisiting QTreeWidget, this is the most userful of the tree widget because
+it uses exisitng QTreeWidgets</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomutilitywidgets.StecTreeMorph.AddDesc">
+<span class="sig-name descname"><span class="pre">AddDesc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomutilitywidgets.html#StecTreeMorph.AddDesc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomutilitywidgets.StecTreeMorph.AddDesc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name in the tree</p></li>
+<li><p><strong>desc</strong> – Description of that name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomutilitywidgets.StecTreeMorph.AddName">
+<span class="sig-name descname"><span class="pre">AddName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomutilitywidgets.html#StecTreeMorph.AddName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomutilitywidgets.StecTreeMorph.AddName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connection from Multiverse, for one name at a time
+:param name:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomutilitywidgets.StecTreeMorph.AddNames">
+<span class="sig-name descname"><span class="pre">AddNames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomutilitywidgets.html#StecTreeMorph.AddNames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomutilitywidgets.StecTreeMorph.AddNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>adds a list of names</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomutilitywidgets.StecTreeMorph.DeleteSelected">
+<span class="sig-name descname"><span class="pre">DeleteSelected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomutilitywidgets.html#StecTreeMorph.DeleteSelected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomutilitywidgets.StecTreeMorph.DeleteSelected" title="Permalink to this definition">¶</a></dt>
+<dd><p>deletes selected items</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomutilitywidgets.StecTreeMorph.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomutilitywidgets.html#StecTreeMorph.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomutilitywidgets.StecTreeMorph.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>clears the list, and puts the original back</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomutilitywidgets.StecTreeMorph.getData">
+<span class="sig-name descname"><span class="pre">getData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PyQt5.QtWidgets.QTreeWidgetItem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomutilitywidgets.html#StecTreeMorph.getData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomutilitywidgets.StecTreeMorph.getData" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-stdcomvsettings"></span><dl class="py class">
+<dt class="sig sig-object py" id="stdcomvsettings.RetensionSettings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomvsettings.</span></span><span class="sig-name descname"><span class="pre">RetensionSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'stdcomQt.ResidentSubscriber'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomvsettings.html#RetensionSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomvsettings.RetensionSettings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomvsettings.VSettings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomvsettings.</span></span><span class="sig-name descname"><span class="pre">VSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'stec-general'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomvsettings.html#VSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomvsettings.VSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to save setup data</p>
+</dd></dl>
+
+<span class="target" id="module-stdcomQtC20"></span><dl class="py class">
+<dt class="sig sig-object py" id="stdcomQtC20.ComputerSL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQtC20.</span></span><span class="sig-name descname"><span class="pre">ComputerSL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#ComputerSL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.ComputerSL" title="Permalink to this definition">¶</a></dt>
+<dd><p>computers the slope and intercept for interpolation of history array</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomQtC20.Dahlin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQtC20.</span></span><span class="sig-name descname"><span class="pre">Dahlin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TC</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">15.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LAMBDA</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GAIN</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#Dahlin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.Dahlin" title="Permalink to this definition">¶</a></dt>
+<dd><p>simple Dahlin controller, if you don’t like the PID controller</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtC20.Dahlin.Reset">
+<span class="sig-name descname"><span class="pre">Reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#Dahlin.Reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.Dahlin.Reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>clears history</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtC20.Dahlin.XtoC">
+<span class="sig-name descname"><span class="pre">XtoC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#Dahlin.XtoC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.Dahlin.XtoC" title="Permalink to this definition">¶</a></dt>
+<dd><p>in with error from 0, where 0 is the target,
+return controller output</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomQtC20.ExpFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQtC20.</span></span><span class="sig-name descname"><span class="pre">ExpFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">FI</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#ExpFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.ExpFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exponetial filter</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtC20.ExpFilter.Reset">
+<span class="sig-name descname"><span class="pre">Reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#ExpFilter.Reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.ExpFilter.Reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>clean out history</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtC20.ExpFilter.SetFI">
+<span class="sig-name descname"><span class="pre">SetFI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">FI</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#ExpFilter.SetFI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.ExpFilter.SetFI" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets to new FI</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtC20.ExpFilter.XtoC">
+<span class="sig-name descname"><span class="pre">XtoC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#ExpFilter.XtoC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.ExpFilter.XtoC" title="Permalink to this definition">¶</a></dt>
+<dd><p>in with value return filtered value</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomQtC20.F25">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQtC20.</span></span><span class="sig-name descname"><span class="pre">F25</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LAMBDA</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TC</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TAU</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">40</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#F25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.F25" title="Permalink to this definition">¶</a></dt>
+<dd><p>F25 Lambda tuned Algorith</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtC20.F25.Control">
+<span class="sig-name descname"><span class="pre">Control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#F25.Control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.F25.Control" title="Permalink to this definition">¶</a></dt>
+<dd><p>0 is always the target so the value is delta to 0, it is the error
+returns control move</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtC20.F25.Reset">
+<span class="sig-name descname"><span class="pre">Reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#F25.Reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.F25.Reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>reset, normally just make a new controller, but if you want you can reset</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomQtC20.HistoryDelay">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQtC20.</span></span><span class="sig-name descname"><span class="pre">HistoryDelay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#HistoryDelay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.HistoryDelay" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a history array, it will work with either number storage IE steps, or if tau is not None, then it will work off of Tau
+It is meant as to not store more than necessary if tau is given.. if steps are used, then storage will be in steps and the use must ensure
+then number of steps is suffecient to store what is needed.
+No Block rate is needed, this works of actual seconds.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomQtC20.MapToZones">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQtC20.</span></span><span class="sig-name descname"><span class="pre">MapToZones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#MapToZones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.MapToZones" title="Permalink to this definition">¶</a></dt>
+<dd><dl>
+<dt>args = edge_allow_0=True   allows 0’s at the edges</dt><dd><p>middle_allow_0=False allows 0’s in the middle
+start_s=1   starting slice number or databox number
+end_s=20    ending slice number of databox number
+left_s=1    if rev with right_s then porfile is to be reversed
+right_s=20
+offset=0.0    offset in units of total_s_width actuator to headbox
+total_s_width=100   total slice width or headbox width
+min_d_width=6    units of total_s_width, the min actuator wisth
+d_count=10       number of actuators</p>
+<p>maps profile from scanner to actuator zones</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtC20.MapToZones.Control">
+<span class="sig-name descname"><span class="pre">Control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#MapToZones.Control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.MapToZones.Control" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enter with profile, return with profile mapped to zone</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomQtC20.PID">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQtC20.</span></span><span class="sig-name descname"><span class="pre">PID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#PID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.PID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple PID control.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomQtC20.RollingAverageFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQtC20.</span></span><span class="sig-name descname"><span class="pre">RollingAverageFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nbrSamples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#RollingAverageFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.RollingAverageFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>rolling average filter</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtC20.RollingAverageFilter.Reset">
+<span class="sig-name descname"><span class="pre">Reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#RollingAverageFilter.Reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.RollingAverageFilter.Reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>clears history</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stdcomQtC20.twiddle">
+<span class="sig-prename descclassname"><span class="pre">stdcomQtC20.</span></span><span class="sig-name descname"><span class="pre">twiddle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evaluator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_cmp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_guess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtC20.html#twiddle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtC20.twiddle" title="Permalink to this definition">¶</a></dt>
+<dd><p>A coordinate descent parameter tuning algorithm.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Coordinate_descent">https://en.wikipedia.org/wiki/Coordinate_descent</a></p>
+<p>Params:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>evaluator := callable that will be passed a series of number parameters, which will return</dt><dd><p>an error measure</p>
+</dd>
+</dl>
+<p>tol := tolerance threshold, the smaller the value, the greater the tuning</p>
+<p>params := the number of parameters to tune</p>
+<dl class="simple">
+<dt>error_cmp := a callable that takes two error measures (the current and last best)</dt><dd><p>and returns true if the first is less than the second</p>
+</dd>
+</dl>
+<p>initial_guess := parameters to begin tuning with</p>
+</div></blockquote>
+</dd></dl>
+
+<span class="target" id="module-stdcomQtPjanice"></span><dl class="py class">
+<dt class="sig sig-object py" id="stdcomQtPjanice.pjanicesimpleGeneric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQtPjanice.</span></span><span class="sig-name descname"><span class="pre">pjanicesimpleGeneric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cBridge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#stdcomQt.stecQSocket" title="stdcomQt.stecQSocket"><span class="pre">stdcomQt.stecQSocket</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtPjanice.html#pjanicesimpleGeneric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtPjanice.pjanicesimpleGeneric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stec Pjanice Widget, but with trees not list.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtPjanice.pjanicesimpleGeneric.addRow">
+<span class="sig-name descname"><span class="pre">addRow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtPjanice.html#pjanicesimpleGeneric.addRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtPjanice.pjanicesimpleGeneric.addRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>adds a row to table</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtPjanice.pjanicesimpleGeneric.getcBridge">
+<span class="sig-name descname"><span class="pre">getcBridge</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtPjanice.html#pjanicesimpleGeneric.getcBridge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtPjanice.pjanicesimpleGeneric.getcBridge" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the current cBridge, the stdcomPyQt which is the qt version of the stdcom</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtPjanice.pjanicesimpleGeneric.mousePressEvent">
+<span class="sig-name descname"><span class="pre">mousePressEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QMouseEvent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtPjanice.html#pjanicesimpleGeneric.mousePressEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtPjanice.pjanicesimpleGeneric.mousePressEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtPjanice.pjanicesimpleGeneric.newData">
+<span class="sig-name descname"><span class="pre">newData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtPjanice.html#pjanicesimpleGeneric.newData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtPjanice.pjanicesimpleGeneric.newData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal use
+:param name:
+:param data:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtPjanice.pjanicesimpleGeneric.on_any_itemChanged">
+<span class="sig-name descname"><span class="pre">on_any_itemChanged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">itm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PyQt5.QtWidgets.QTableWidgetItem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtPjanice.html#pjanicesimpleGeneric.on_any_itemChanged"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtPjanice.pjanicesimpleGeneric.on_any_itemChanged" title="Permalink to this definition">¶</a></dt>
+<dd><p>when any item is clicked</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtPjanice.pjanicesimpleGeneric.slotDesc">
+<span class="sig-name descname"><span class="pre">slotDesc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtPjanice.html#pjanicesimpleGeneric.slotDesc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtPjanice.pjanicesimpleGeneric.slotDesc" title="Permalink to this definition">¶</a></dt>
+<dd><p>internal use</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtPjanice.pjanicesimpleGeneric.slotNames">
+<span class="sig-name descname"><span class="pre">slotNames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtPjanice.html#pjanicesimpleGeneric.slotNames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtPjanice.pjanicesimpleGeneric.slotNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>internal use</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stdcomQtPjanice.pjanicesimpleGeneric.slotSelected">
+<span class="sig-name descname"><span class="pre">slotSelected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtPjanice.html#pjanicesimpleGeneric.slotSelected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtPjanice.pjanicesimpleGeneric.slotSelected" title="Permalink to this definition">¶</a></dt>
+<dd><p>selected slot, it tree item is clicked</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-stdcomQtargs"></span><p>This is where Stec parse args for  xxxx=   turns list into a dict.. for pulling out  xxxx=what</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="stdcomQtargs.stdcomQtargs">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stdcomQtargs.</span></span><span class="sig-name descname"><span class="pre">stdcomQtargs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'='</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stdcomQtargs.html#stdcomQtargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stdcomQtargs.stdcomQtargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>arguments list xxx=yyy
+delimter =
+returns dictionary of terms</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">stdcomQt</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Code Documentation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to stdcom and stdcomqt5 documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Ed Chapman.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/code.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
