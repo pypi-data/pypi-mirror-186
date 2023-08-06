@@ -1,0 +1,28 @@
+{
+    "sample": {
+        "required": false,
+        "flags": {
+            "small_form": "-z",
+            "long_form": "--sample"
+        },
+        "action": "store_true",
+        "help": "example flag, if you use this flag then this setting will be 'toggled on' by the 'action', sets the value to true.",
+        "type": "",
+        "default": "",
+        "nargs": 1,
+        "choices": []
+    },
+    "enable debugging": {
+        "required": false,
+        "flags": {
+            "small_form": "-d",
+            "long_form": "--debug"
+        },
+        "action": "store_true",
+        "help": "Temporary setting for developers!",
+        "type": "",
+        "default": "",
+        "nargs": 1,
+        "choices": []
+    }
+}

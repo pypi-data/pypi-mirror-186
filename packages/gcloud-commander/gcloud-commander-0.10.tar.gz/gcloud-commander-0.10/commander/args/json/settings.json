@@ -1,0 +1,41 @@
+{
+    "basepath": {
+        "required": false,
+        "flags": {
+            "small_form": "-b",
+            "long_form": "--basepath"
+        },
+        "action": "",
+        "help": "Adds a new base path to the cache.",
+        "type": "str",
+        "default": ".",
+        "nargs": "+",
+        "choices": []
+    },
+    "aging": {
+        "required": false,
+        "flags": {
+            "small_form": "-a",
+            "long_form": "--aging"
+        },
+        "action": "",
+        "help": "Determines how long new folders should be stored in cache(i.e., how quickly they age and are removed from cache)[Not yet implemented]",
+        "type": "int",
+        "default": "",
+        "nargs": 1,
+        "choices": []
+    },
+    "vi-mode": {
+        "required": false,
+        "flags": {
+            "small_form": "-v",
+            "long_form": "--vim"
+        },
+        "action": "store_true",
+        "help": "Enables vim input for some text screens",
+        "type": "",
+        "default": "",
+        "nargs": 1,
+        "choices": []
+    }
+}
