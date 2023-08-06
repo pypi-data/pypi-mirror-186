@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "idun_guardian_client"
+version = "0.1.0"
+authors = [
+  { name="IDUN Technologies", email="contact@iduntechnologies.com" },
+]
+description = "Python SDK for communication with the IDUN Guardian earbuds and IDUN cloud"
+readme = "README.md"
+requires-python = ">=3.10"
+
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "License :: Other/Proprietary License",
+    "Topic :: Software Development :: Libraries",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Natural Language :: English",
+
+]
+dependencies = [
+
+  "asyncio ~= 3.4.3",
+  "pycryptodome ~= 3.15.0",
+  "bleak ~= 0.18.1",
+  "python-dotenv ~= 0.21.0",
+  "websockets ~= 10.3",
+  "requests ~= 2.28.1",
+  "numpy ~= 1.23.3",
+  "pydantic ~= 1.10.2",
+]
+
+
+
