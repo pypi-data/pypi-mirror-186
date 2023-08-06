@@ -1,0 +1,35 @@
+disable_existing_loggers: true
+handlers:
+  email_handler:
+    (): np_logging.handlers.EmailHandler
+    toaddrs: ben.hardcastle@alleninstitute.org
+  log_server:
+    (): np_logging.handlers.ServerHandler
+    loglevel: INFO
+  console_handler:
+    (): np_logging.handlers.ConsoleHandler
+    loglevel: DEBUG
+  info_file_handler:
+    (): np_logging.handlers.FileHandler
+    loglevel: INFO
+  debug_file_handler:
+    (): np_logging.handlers.FileHandler
+    loglevel: DEBUG
+loggers:
+  email:
+    handlers:
+      - email_handler
+    level: INFO
+    propagate: false
+  web:
+    handlers:
+      - log_server
+    level: INFO
+    propagate: true
+root:
+  handlers:
+    - console_handler
+    - info_file_handler
+    - debug_file_handler
+  level: DEBUG
+version: 1
