@@ -1,0 +1,217 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+#  Copyright 2015 transLectures-UPV Team
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+
+import sys
+import os
+from configparser import ConfigParser, RawConfigParser, NoOptionError
+import argparse
+import tempfile
+import shutil
+from subprocess import check_output, CalledProcessError
+from datetime import datetime, timedelta
+import urllib.parse
+
+from tlp_client import TLPTextClient
+
+
+def error(msg):
+    sys.stderr.write("[EE] %s\n" % msg)
+    sys.exit(1)
+
+def log(msg):
+    sys.stderr.write("[LL] %s\n" % msg)
+
+def print_sample_config():
+    config = RawConfigParser()
+    config.add_section('general')
+    config.set('general', 'web_service_url', '')
+    config.set('general', 'player_url', '')
+    config.set('general', 'translation_editor_url', '')
+    config.set('general', 'web_translation_editor_url', '')
+    config.add_section('http_auth')
+    config.set('http_auth', 'enabled', 'no')
+    config.set('http_auth', 'username', '')
+    config.set('http_auth', 'password', '')
+    config.add_section('api_client_auth')
+    config.set('api_client_auth', 'enabled', 'yes')
+    config.set('api_client_auth', 'username', '')
+    config.set('api_client_auth', 'secret_key', '')
+    config.set('api_client_auth', 'request_key_expire_lifetime', '')
+    config.add_section('player_user_info')
+    config.set('player_user_info', 'user_id', '')
+    config.set('player_user_info', 'user_full_name', '')
+    config.set('player_user_info', 'user_confidence', '')
+    config.write(sys.stdout)
+
+def parse_config(cfg_fp): 
+    config = ConfigParser(allow_no_value=True)
+    with open(cfg_fp) as cfg_fd:
+        config.read_file(cfg_fd)
+
+    CFG = {}
+
+    csection = "general"
+
+    copt = "web_service_url"
+    try:
+        CFG['WSURL'] = config.get(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    if CFG['WSURL'].strip() == "": 
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+    copt = "player_url"
+    try:
+        CFG['PLURL'] = config.get(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    if CFG['PLURL'].strip() == "": 
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+    copt = "translation_editor_url"
+    try:
+        CFG['TEURL'] = config.get(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    if CFG['TEURL'].strip() == "": 
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+    csection = "api_client_auth"
+
+    copt = "username"
+    try:
+        CFG['ACAU'] = config.get(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    if CFG['ACAU'].strip() == "":
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+    copt = "secret_key"
+    try:
+        CFG['ACAF'] = config.get(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    if CFG['ACAF'].strip() == "":
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+    copt = 'request_key_expire_lifetime'
+    try:
+        CFG['TSL'] = config.getint(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    except ValueError:
+        error("On config file (%s):\n\t[%s] %s ---> must be a integer (seconds)." % (cfg_fp, csection, copt))
+
+    csection = 'player_user_info'
+
+    copt = 'user_id'
+    try:    
+        CFG['UID'] = config.get(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    if CFG['UID'].strip() == "":
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+    copt = 'user_full_name'
+    try:    
+        CFG['UNM'] = config.get(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    if CFG['UNM'].strip() == "":
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+
+    copt = 'user_confidence'
+    try:
+        CFG['UCF'] = config.getint(csection, copt)
+    except NoOptionError:
+        error("On config file (%s):\n\t[%s] %s ---> not provided." % (cfg_fp, csection, copt))
+    except ValueError:
+        error("On config file (%s):\n\t[%s] %s ---> must be a integer (0-100)." % (cfg_fp, csection, copt))
+
+    return CFG
+
+CFG_FILE = "%s/config.ini" % os.getcwd()
+CFG_FILENAME = "config.ini" 
+
+if __name__ == "__main__":
+       
+    help_str = """tlp-transedit-urlgen: Generates valid URLs to call/embed the TLP translation editor for a document object ID and translation language."""
+    
+    parser = argparse.ArgumentParser(description=help_str)
+
+    class WriteConfigAction(argparse.Action):
+        def __init__(self,option_strings,dest,nargs=0,**kwargs):
+            super(WriteConfigAction, self).__init__(option_strings,dest,0, **kwargs)
+        def __call__(self,parser,namespace,values,option_string=None):
+            print_sample_config()
+            sys.exit(0)
+
+    parser.add_argument("media_id", help="Media ID")
+    parser.add_argument("language", help="Translation language.")
+    parser.add_argument("-d", "--debug", action="store_true", default=False, help="Print debug information")
+    parser.add_argument("-C", "--print-sample-config-file", action=WriteConfigAction, help="Print sample config file and exit")
+    parser.add_argument("-c", "--config-file", default=CFG_FILE, help="Config file. Default: %s" % CFG_FILENAME, metavar="<file>")
+    parser.add_argument("-S", "--session-id", type=int, help="Review subtitle modifications made under the given Session ID.")
+    parser.add_argument("-t", "--time-slot", type=int, help="Time slot for editing in minutes. Default: from config file.")
+    parser.add_argument("-a", "--author-id", help="Author ID ('author_id'). Default: from config file.")
+    parser.add_argument("-n", "--author-name", help="Author Name. Default: from config file.")
+    parser.add_argument("-k", "--author-conf", type=int, help="Author confidence level [0-100]. Default: from config file.")
+    parser.add_argument("-I", "--api_user", dest="user", help="User name and authentication token, in the following format: USERNAME:AUTH_TOKEN. Default: from config file.", metavar="<user_tuple>")
+
+    args = parser.parse_args()
+   
+    if not(os.path.isfile(args.config_file)):
+        sys.stderr.write("'config.ini' file not found in your working directory (%s)\nPlease use -c (--config-file) option to provide it manually.\n\n" % CFG_FILE)
+        sys.stderr.write("Note: you can generate a sample config file using the --print-sample-config-file option.\n")
+        sys.exit(1)
+   
+    CFG = parse_config(args.config_file)
+
+    # WS Authentication   
+    user_name = CFG['ACAU']
+    auth_token = CFG['ACAF']
+    if args.user != None:
+      try:
+        user_name = args.user.split(':')[0]
+        auth_token = args.user.split(':')[1]
+      except:
+        sys.stderr.write("[EE] Bad format for -I (--user) option.\n")
+        sys.exit(1)
+  
+    expire = CFG['TSL']
+    if args.time_slot != None:
+        expire = args.time_slot
+    author_id = CFG['UID']
+    if args.author_id != None:
+        author_id = args.author_id
+    author_name = CFG['UNM']
+    if args.author_name != None:
+        author_name = args.author_name
+    author_conf = CFG['UCF']
+    if args.author_conf != None:
+        author_conf = args.author_conf
+
+
+    tlpcli = TLPTextClient(CFG['WSURL'], CFG['TEURL'], user_name, auth_token)
+    tlpcli.debug = args.debug
+
+    url = tlpcli.generate_translation_editor_url(args.media_id, args.language, author_id, author_conf, session_id=args.session_id, req_key_lifetime=expire, author_name=author_name)
+    if args.debug:
+      sys.stderr.write(tlpcli.debug_info)
+    sys.stdout.write("%s\n" % url)
+
