@@ -1,0 +1,55 @@
+[build-system]
+requires = [
+    "setuptools",
+    "py_simple_readme",
+    "pyaudio",
+    "scipy",
+    "numpy"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "py_simple_morse_code"
+readme = "README.md"
+dynamic = [
+    "version",
+]
+description = "A python module for interacting with morse code\n"
+authors = [
+    { name = "Andrew Spangler", email = "AndrewSpangler@users.noreply.github.com" },
+]
+requires-python = ">=3.11"
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Environment :: Console",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "pyaudio",
+    "scipy",
+    "numpy"
+]
+keywords = []
+
+[project.license]
+text = "LICENSE"
+
+[project.urls]
+homepage = "https://GitHub.com/AndrewSpangler/"
+"bug tracker" = "https://GitHub.com/AndrewSpangler/issues"
+documentation = "https://GitHub.com/AndrewSpangler/"
+repository = "https://GitHub.com/AndrewSpangler/"
+
+[tool.setuptools.dynamic.version]
+attr = "py_simple_morse_code.version"
+
+[tool.setuptools.packages.find]
+where = [
+    "src",
+]
+include = [
+    "*",
+]
