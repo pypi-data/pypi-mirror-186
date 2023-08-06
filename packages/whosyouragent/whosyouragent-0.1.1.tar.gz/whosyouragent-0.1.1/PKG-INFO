@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: whosYourAgent
+Version: 0.1.1
+Summary: Self updating package for generating random user agent strings.
+Project-URL: Homepage, https://github.com/matt-manes/whosYourAgent
+Project-URL: Documentation, https://github.com/matt-manes/whosYourAgent/tree/main/docs
+Project-URL: Source code, https://github.com/matt-manes/whosYourAgent/tree/main/src/whosYourAgent
+Author: Matt Manes
+License-File: LICENSE.txt
+Keywords: user-agent,useragent,web-scraping,webscraping
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.6
+Requires-Dist: bs4
+Requires-Dist: requests
+Description-Content-Type: text/markdown
+
+# whosYourAgent
+Self updating package for generating random user agent strings.<br>
+Install with:
+<pre>pip install whosYourAgent</pre>
+New browser versions will be checked for when the module is imported if it's been a week or more since the last update.<br>
+Usage:
+<pre>
+from whosYourAgent import getAgent
+print(getAgent())
+</pre>
+produces:
+<pre>
+Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.5359.98 Safari/537.36 Vivaldi/5.6
+</pre>
+
