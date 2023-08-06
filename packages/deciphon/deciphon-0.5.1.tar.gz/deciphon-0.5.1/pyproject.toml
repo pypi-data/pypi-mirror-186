@@ -1,0 +1,52 @@
+[project]
+requires-python = ">=3.9"
+
+[tool.poetry]
+name = "deciphon"
+version = "0.5.1"
+description = ""
+authors = ["Danilo Horta <danilo.horta@pm.me>"]
+license = "MIT"
+readme = "README.md"
+include = [
+  { path = "deciphon/*.so", format = "wheel" },
+  { path = "deciphon/*.pyd", format = "wheel" },
+  { path = "build_ext.py", format = "sdist" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+cffi = "*"
+typer = {extras = ["all"], version = "^0.7.0"}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+black = "^22.12.0"
+isort = "^5.11.4"
+pyright = "^1.1.288"
+blx = "^0.1.7"
+
+[tool.poetry.build]
+script = "build_ext.py"
+generate-setup-file = false
+
+[build-system]
+requires = ["poetry-core", "cffi", "cmake"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+dcp = 'deciphon.cli:app'
+
+[tool.cibuildwheel]
+skip = ["*i686"]
+
+[tool.cibuildwheel.linux]
+repair-wheel-command = """\
+env LD_LIBRARY_PATH=$PWD/.ext_deps/lib:$LD_LIBRARY_PATH auditwheel repair -w {dest_dir} {wheel}\
+"""
+
+[tool.cibuildwheel.macos]
+repair-wheel-command = """\
+env DYLD_LIBRARY_PATH=$PWD/.ext_deps/lib delocate-wheel \
+--require-archs {delocate_archs} -w {dest_dir} -v {wheel}\
+"""
