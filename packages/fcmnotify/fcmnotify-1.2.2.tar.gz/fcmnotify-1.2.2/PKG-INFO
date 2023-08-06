@@ -1,0 +1,70 @@
+Metadata-Version: 2.1
+Name: fcmnotify
+Version: 1.2.2
+Summary: A simple Django app to send notifications using Firebase! Adding Firebase Cloud Messaging Service into a Django Project The aim of this repository is to provide a step-by-step guide and a basic project sample to implement FCM (Firebase Cloud Messaging) feature into a django-based project.
+Home-page: https://github.com/dkkundu/fcmnotify
+Author: Dipto Kumar Kundu
+Author-email: dkkundu00@gmail.com
+License: MIT License
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+License-File: LICENSE
+
+
+fcmnotify is a simple Django app to conduct Web-based fcmnotify. For each
+question, visitors can choose between a fixed number of answers.
+
+Detailed documentation is in the "docs" directory.
+
+Quick start
+-----------
+1. Add "fcmnotify" to your INSTALLED_APPS setting like this::
+
+    pip install fcmnotify
+
+
+2. Add "fcmnotify" to your INSTALLED_APPS setting like this::
+
+    INSTALLED_APPS = [
+        ...
+        'fcmnotify',
+    ]
+
+3. Include the fcmnotify URLconf in your project urls.py like this::
+
+    path('', include('fcmnotify.urls')),
+     or
+    # url(r'^', include('fcmnotify.urls')),
+
+4. Run `python manage.py migrate` to create the polls models.
+
+5. Start the development server and visit http://127.0.0.1:8000/admin/
+   to create Firebase information.
+
+   Go into Fcmnotify > fcmsettings
+   Add Firebase information .
+   visit http://127.0.0.1:8000/fcm-settings/ To download HTML SETTINGS file
+   include download HTML file into base html file {% include 'fcm_settings.html' %}
+
+
+6. To send Notifications .
+    Call "from fcmnotify.sender import fcm_notify"
+    send notification using fcm_notify
+    fcm_notify(sender, recipient, message, title="DK", dataObject=None)
+    
+7. NOTE: 
+    Make sure you have jQuery, Your Browser should have notification permission
