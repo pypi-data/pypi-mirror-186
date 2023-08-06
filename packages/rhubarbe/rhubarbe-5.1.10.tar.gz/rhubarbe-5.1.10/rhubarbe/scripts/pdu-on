@@ -1,0 +1,292 @@
+#!/bin/bash
+
+COMMAND=$(basename $0)
+
+SSH="sshpass -p${PDU_PASSWORD} ssh -oLogLevel=ERROR -oUserKnownHostsFile=/dev/null -oStrictHostKeyChecking=no -oKexAlgorithms=+diffie-hellman-group1-sha1 -l${PDU_USER} -i /dev/null ${PDU_IP}"
+# with this setting -i /dev/null we get garbled errors at the top of the ssh session
+SSH_IGNORE_LINES=7
+
+# ignore that many lines when picking in the ssh output file
+function relevant-line() {
+    local line="$1"
+    echo $((${SSH_IGNORE_LINES} + $line))
+}
+
+
+function pdu-list() {
+    function help() {
+        echo "$COMMAND: Retrieve the status and label of all R2lab rack outlets"
+        echo "Usage: $COMMAND"
+        exit 1
+    }
+
+    [[ "$#" == 0 ]] || help
+
+    # this shows up at the end, to not really helpful is it
+    #echo "Be patient..."
+
+    #Expect script starts here
+    /usr/bin/expect <<EOF >/tmp/output.txt
+
+    set timeout 10
+
+    spawn -noecho ${SSH}
+    expect "pdu#0>"
+
+    send -- "pdu 0\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[1\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[1\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[2\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[2\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[3\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[3\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[4\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[4\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[5\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[5\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[6\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[6\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[7\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[7\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[8\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[8\].iName\r"
+    expect ">"
+
+    send -- "pdu 1\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[1\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[1\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[2\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[2\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[3\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[3\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[4\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[4\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[5\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[5\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[6\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[6\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[7\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[7\].iName\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[8\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[8\].iName\r"
+    expect ">"
+
+    send -- "quit"
+EOF
+
+    # the interesting stuff starts at line 3
+    line=$(relevant-line 3)
+    for pdu in 0 1; do
+        echo "PDU#: $pdu"
+        for outlet in {1..8}; do
+            res=$(sed -n "${line}p" /tmp/output.txt | sed "s/[^0-9]//g")
+            line=$((line + 2))
+            name=$(sed -n "${line}p" /tmp/output.txt | sed "s/[^0-9a-zA-Z ]//g")
+            line=$((line + 2))
+            echo "** res is $res and name is $name"
+            if [ $res -eq 0 ]; then
+                echo -e "\toutlet$outlet@pdu$pdu ($name): off"
+            elif [ $res -eq 1 ]; then
+                echo -e "\toutlet$outlet@pdu$pdu ($name): on"
+            else
+                echo "Could not retrieve outlet$outlet@pdu$pdu ($name) status, returned $res"
+                exit 1
+            fi
+        done
+        line=$((line + 1))
+    done
+    exit 0
+
+}
+
+
+function pdu-status() {
+
+    function help() {
+        echo "$COMMAND: Retrieve the status of a specific R2lab rack outlet"
+        echo "Usage: $COMMAND outlet# pdu#"
+        echo -e "\twith outlet# in [1:8] and pdu# in [0:1]"
+        exit 1
+    }
+
+    [[ "$#" == 2 ]] || help
+
+    local outlet="$1"; shift
+    local pdu="$1"; shift
+
+    [[ "$outlet" -lt 1 || "$outlet" -gt 8 || "$pdu" -lt 0 || "$pdu" -gt 1 ]] && help
+
+    #Expect script starts here
+    /usr/bin/expect <<EOF >/tmp/output.txt
+
+    set timeout 10
+
+    spawn -noecho ${SSH}
+    expect "pdu#0>"
+
+    send -- "pdu $pdu\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[$outlet\].PresentStatus.SwitchOnOff\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[$outlet\].iName\r"
+    expect ">"
+
+    send -- "quit"
+EOF
+
+    # on line 5
+    local line=$(relevant-line 5)
+    name=$(sed -n "${line}p" /tmp/output.txt | sed "s/[^0-9a-zA-Z ]//g")
+    # on line 3
+    line=$(relevant-line 3)
+    res=$(sed -n "${line}p" /tmp/output.txt | sed "s/[^0-9]//g")
+
+    if [ $res -eq 0 ]; then
+        echo "outlet$outlet@pdu$pdu ($name): off"
+    elif [ $res -eq 1 ]; then
+        echo "outlet$outlet@pdu$pdu ($name): on"
+    else
+        echo "Could not retrieve outlet$outlet@pdu$pdu ($name) status, returned $res"
+        exit 1
+    fi
+    exit 0
+
+}
+
+# factorized on and off
+
+function -pdu-on-off() {
+
+    local mode="$1"; shift    # 'on' or 'off'
+
+    function help() {
+        echo "$COMMAND: switch $mode a specific R2lab rack outlet"
+        echo "Usage: $COMMAND outlet# pdu#"
+        echo -e "\twith outlet# in [1:8] and pdu# in [0:1]"
+        exit 1
+    }
+
+    [[ "$#" == 2 ]] || help
+
+    local outlet="$1"; shift
+    local pdu="$1"; shift
+
+    # factorizing on and off
+    local setting=
+
+    case $mode in
+        on)  setting=DelayBeforeStartup; expected=0 ;;
+        off) setting=DelayBeforeShutdown; expected=-1 ;;
+    esac
+
+
+    #Expect script starts here
+    /usr/bin/expect <<EOF >/tmp/output.txt
+
+    set timeout 10
+
+    spawn -noecho ${SSH}
+
+    expect "pdu#0>"
+
+    send -- "pdu $pdu\r"
+    expect ">"
+
+    send -- "set PDU.OutletSystem.Outlet\[$outlet\].${setting} 0\r"
+    expect ">"
+
+    send -- "get PDU.OutletSystem.Outlet\[$outlet\].iName\r"
+    expect ">"
+
+    send -- "quit"
+
+EOF
+
+    local line=$(relevant-line 5)
+    local name=$(sed -n "${line}p" /tmp/output.txt | sed "s/[^0-9a-zA-Z ]//g")
+    line=$(relevant-line 3)
+    local res=$(sed -n "${line}p" /tmp/output.txt | sed "s/[^0-9-]//g")
+
+    if [ $res -eq $expected ]; then
+        echo "outlet$outlet@pdu$pdu ($name): ${mode}"
+        exit 0
+    else
+        echo "Error could not switch ${mode} outlet$outlet@pdu$pdu ($name), returns $res"
+        exit 1
+    fi
+}
+
+function pdu-on() {
+    -pdu-on-off on "$@"
+}
+function pdu-off() {
+    -pdu-on-off off "$@"
+}
+
+$COMMAND "$@"
