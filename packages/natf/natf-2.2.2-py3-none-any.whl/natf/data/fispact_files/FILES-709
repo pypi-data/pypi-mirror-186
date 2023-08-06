@@ -1,0 +1,32 @@
+# gamma attenuation data
+absorp  FISPACT_DATA_DIR/EAF2007data/eaf_abs_20070
+
+# index of nuclides to be included
+ind_nuc  FISPACT_DATA_DIR/ENDFdata/decay/decay_2012_index_2012
+
+# Library cross section data
+xs_endf FISPACT_DATA_DIR/ENDFdata/TENDL2012data/tal2012-n/gxs-709
+ 
+# Library probability tables for self-shielding
+prob_tab  FISPACT_DATA_DIR/ENDFdata/TENDL2012data/tal2012-n/tp-709-294
+
+#fluxes
+fluxes  FLUXES
+
+# Library decay data
+dk_endf FISPACT_DATA_DIR/ENDFdata/decay/decay_2012
+
+# Library fission  data
+fy_endf FISPACT_DATA_DIR/ENDFdata/TENDL2012data/tal2012-n/TENDL-nFY
+
+# Library regulatory data
+hazards FISPACT_DATA_DIR/ENDFdata/decay/hazards_2012
+clear   FISPACT_DATA_DIR/ENDFdata/decay/clear_2012
+a2data  FISPACT_DATA_DIR/ENDFdata/decay/a2_2012
+
+# collapsed cross section data (in and out)
+collapxi  COLLAPX
+collapxo  COLLAPX
+
+# condensed decay and fission data (in and out)
+arrayx  ARRAYX
