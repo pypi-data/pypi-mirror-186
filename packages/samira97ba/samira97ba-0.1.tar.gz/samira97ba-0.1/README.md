@@ -1,0 +1,1 @@
+This package simply calculates the surface of geometric shapes such as square,rectangle,etc..
