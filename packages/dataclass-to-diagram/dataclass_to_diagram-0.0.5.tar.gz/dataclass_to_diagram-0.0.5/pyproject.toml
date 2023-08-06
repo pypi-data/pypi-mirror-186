@@ -1,0 +1,59 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+
+[tool.black]
+line-length = 80
+
+
+[tool.poetry]
+authors = ["konstantin-dudersky <konstantin.dudersky@gmail.com>"]
+description = "Создание диаграмм из датаклассов python"
+homepage = "https://github.com/Konstantin-Dudersky/dataclass_to_diagram.git"
+name = "dataclass_to_diagram"
+readme = "README.md"
+repository = "https://github.com/Konstantin-Dudersky/dataclass_to_diagram.git"
+version = "0.0.5"
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "*"
+httpx = "*"
+typer = { extras = ["all"], version = "^0.7.0" }
+typing_extensions = "*"                          # delete
+
+
+[tool.poetry.group.dev.dependencies]
+black = "*"
+poethepoet = "*"
+pytest = "*"
+wemake-python-styleguide = "0.17.0"
+
+
+[tool.poetry.scripts]
+dtd = "dataclass_to_diagram.__main__:start"
+
+
+[tool.poe.tasks]
+docs = { script = "konstantin_docs.main:generate_images(path_src='test/dia_src', path_dist='test/dia_dist')" }
+lint = ["lint_pyright", "lint_flake8"]
+lint_flake8 = { shell = 'flake8 konstantin_docs/' }
+lint_pyright = { shell = 'pyright' }
+
+
+[tool.pyright]
+pythonPlatform = "Linux"
+pythonVersion = "3.11"
+reportUnnecessaryTypeIgnoreComment = true
+stubPath = '.venv/typings/'
+typeCheckingMode = "strict"
+venvPath = "."
+venv = ".venv"
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+log_format = "%(levelname)s: %(asctime)s.%(msecs)03d | %(name)s:%(lineno)d - %(funcName)s\n-> %(message)s"
+log_date_format = "%H:%M:%S"
