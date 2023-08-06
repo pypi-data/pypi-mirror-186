@@ -1,0 +1,24 @@
+config:
+    
+    # License name configuration (default to Mozilla Public License)
+    githubLicense: MPL
+
+    # Issues hosting repo (default to current repo)
+    githubIssuesRepo: ${githubRepo}
+
+    # Issues optional label
+    githubIssuesLabel: ""
+    githubIssuesLabelSuffix:
+        __resolver__: nmk_github.info.GithubIssuesLabelResolver
+
+    # Badges configuration
+    badges:
+      - alt: "License: ${githubLicense}"
+        img: https://img.shields.io/github/license/${githubUser}/${githubRepo}
+        url: https://github.com/${githubUser}/${githubRepo}/blob/main/LICENSE
+      - alt: Checks
+        img: https://img.shields.io/github/actions/workflow/status/${githubUser}/${githubRepo}/build.yml?branch=main&label=build%20%26%20u.t.
+        url: https://github.com/${githubUser}/${githubRepo}/actions?query=branch%3Amain
+      - alt: Issues
+        img: https://img.shields.io/github/issues-search/${githubUser}/${githubIssuesRepo}?label=issues&query=is%3Aopen+is%3Aissue${githubIssuesLabelSuffix}
+        url: https://github.com/${githubUser}/${githubIssuesRepo}/issues?q=is%3Aopen+is%3Aissue${githubIssuesLabelSuffix}
