@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "cwaft"
+version = "0.1.2"
+description = "A Python library of mathematical tools and algorithms."
+readme = "README.md"
+authors = ["brentnequin <brentnequin@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/brentnequin/cwaft"
+packages = [{include = "cwaft"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+numpy = "^1.24.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
