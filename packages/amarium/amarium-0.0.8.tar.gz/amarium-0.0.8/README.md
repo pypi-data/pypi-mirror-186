@@ -1,0 +1,17 @@
+# Amarium
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPL_v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![Python Versions](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C-blue) 
+ 
+[![status-badge](https://ci.codeberg.org/api/badges/cap_jmk/amarium/status.svg)](https://ci.codeberg.org/cap_jmk/amarium)
+
+# Why 
+I found myself constantly writing files of some sort always having to face the same problems and writing the same code for it. So I decided at some point to seperate the package out. U
+
+# What 
+
+Short program with a collection of functions frequently used in handling the filesystem
+
+# Usage 
+
+Please refer to the `tests/` directory for examples of the functions and their usage 
