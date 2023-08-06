@@ -1,0 +1,464 @@
+import numpy as np
+from scipy.linalg import cho_solve
+from typing import List, Optional, Tuple
+
+from autoarray.inversion.inversion.settings import SettingsInversion
+
+from autoarray import numba_util
+from autoarray import exc
+
+
+def curvature_matrix_via_w_tilde_from(
+    w_tilde: np.ndarray, mapping_matrix: np.ndarray
+) -> np.ndarray:
+    """
+    Returns the curvature matrix `F` (see Warren & Dye 2003) from `w_tilde`.
+
+    The dimensions of `w_tilde` are [image_pixels, image_pixels], meaning that for datasets with many image pixels
+    this matrix can take up 10's of GB of memory. The calculation of the `curvature_matrix` via this function will
+    therefore be very slow, and the method `curvature_matrix_via_w_tilde_curvature_preload_imaging_from` should be used
+    instead.
+
+    Parameters
+    ----------
+    w_tilde
+        A matrix of dimensions [image_pixels, image_pixels] that encodes the convolution or NUFFT of every image pixel
+        pair on the noise map.
+    mapping_matrix
+        The matrix representing the mappings between sub-grid pixels and pixelization pixels.
+
+    Returns
+    -------
+    ndarray
+        The curvature matrix `F` (see Warren & Dye 2003).
+    """
+
+    return np.dot(mapping_matrix.T, np.dot(w_tilde, mapping_matrix))
+
+
+def curvature_matrix_with_added_to_diag_from(
+    curvature_matrix: np.ndarray, no_regularization_index_list: Optional[List] = None
+) -> np.ndarray:
+    """
+    It is common for the `curvature_matrix` computed to not be positive-definite, leading for the inversion
+    via `np.linalg.solve` to fail and raise a `LinAlgError`.
+
+    In many circumstances, adding a small numerical value of `1.0e-8` to the diagonal of the `curvature_matrix`
+    makes it positive definite, such that the inversion is performed without raising an error.
+
+    This function adds this numerical value to the diagonal of the curvature matrix.
+
+    Parameters
+    ----------
+    curvature_matrix
+        The curvature matrix which is being constructed in order to solve a linear system of equations.
+    """
+
+    for i in no_regularization_index_list:
+        curvature_matrix[i, i] += 1e-8
+
+    return curvature_matrix
+
+
+def curvature_matrix_via_mapping_matrix_from(
+    mapping_matrix: np.ndarray,
+    noise_map: np.ndarray,
+    add_to_curvature_diag: bool = False,
+    no_regularization_index_list: Optional[List] = None,
+) -> np.ndarray:
+    """
+    Returns the curvature matrix `F` from a blurred mapping matrix `f` and the 1D noise-map $\sigma$
+     (see Warren & Dye 2003).
+
+    Parameters
+    ----------
+    mapping_matrix
+        The matrix representing the mappings (these could be blurred or transfomed) between sub-grid pixels and
+        pixelization pixels.
+    noise_map
+        Flattened 1D array of the noise-map used by the inversion during the fit.
+    """
+    array = mapping_matrix / noise_map[:, None]
+    curvature_matrix = np.dot(array.T, array)
+
+    if add_to_curvature_diag:
+        curvature_matrix = curvature_matrix_with_added_to_diag_from(
+            curvature_matrix=curvature_matrix,
+            no_regularization_index_list=no_regularization_index_list,
+        )
+
+    return curvature_matrix
+
+
+@numba_util.jit()
+def curvature_matrix_preload_from(
+    mapping_matrix: np.ndarray, mapping_matrix_threshold=1.0e-8
+) -> np.ndarray:
+    """
+    Returns a matrix that expresses the non-zero entries of the blurred mapping matrix for an efficient construction of
+    the curvature matrix `F` (see Warren & Dye 2003).
+
+    This is used for models where the blurred mapping matrix does not change, but the noise-map of the values that
+    are used to construct that blurred mapping matrix do change.
+
+    Parameters
+    ----------
+    mapping_matrix
+        The matrix representing the mappings (these could be blurred or transfomed) between sub-grid pixels and
+        pixelization pixels.
+    """
+
+    curvature_matrix_counts = np.zeros(mapping_matrix.shape[0])
+
+    for mask_1d_index in range(mapping_matrix.shape[0]):
+        for pix_index in range(mapping_matrix.shape[1]):
+            if mapping_matrix[mask_1d_index, pix_index] > mapping_matrix_threshold:
+                curvature_matrix_counts[mask_1d_index] += 1
+
+    preload_max = np.max(curvature_matrix_counts)
+
+    curvature_matrix_preload = np.zeros((mapping_matrix.shape[0], int(preload_max)))
+
+    for mask_1d_index in range(mapping_matrix.shape[0]):
+        index = 0
+        for pix_index in range(mapping_matrix.shape[1]):
+            if mapping_matrix[mask_1d_index, pix_index] > mapping_matrix_threshold:
+                curvature_matrix_preload[mask_1d_index, index] = pix_index
+                index += 1
+
+    return curvature_matrix_preload, curvature_matrix_counts
+
+
+@numba_util.jit()
+def curvature_matrix_via_sparse_preload_from(
+    mapping_matrix: np.ndarray,
+    noise_map: np.ndarray,
+    curvature_matrix_preload,
+    curvature_matrix_counts,
+) -> np.ndarray:
+    """
+    Returns the curvature matrix `F` from a blurred mapping matrix `f` and the 1D noise-map $\sigma$
+     (see Warren & Dye 2003) via a sparse preload matrix, which has already mapped out where all non-zero entries
+     and multiplications take place.
+
+    This is used for models where the blurred mapping matrix does not change, but the noise-map of the values that
+    are used to construct that blurred mapping matrix do change.
+
+    Parameters
+    ----------
+    mapping_matrix
+        The matrix representing the mappings (these could be blurred or transfomed) between sub-grid pixels and
+        pixelization pixels.
+    noise_map
+        Flattened 1D array of the noise-map used by the inversion during the fit.
+    """
+    curvature_matrix = np.zeros((mapping_matrix.shape[1], mapping_matrix.shape[1]))
+
+    for mask_1d_index in range(mapping_matrix.shape[0]):
+
+        total_pix = curvature_matrix_counts[mask_1d_index]
+
+        for preload_index_0 in range(total_pix):
+            for preload_index_1 in range(
+                preload_index_0, curvature_matrix_counts[mask_1d_index]
+            ):
+
+                pix_index_0 = curvature_matrix_preload[mask_1d_index, preload_index_0]
+                pix_index_1 = curvature_matrix_preload[mask_1d_index, preload_index_1]
+
+                curvature_matrix[pix_index_0, pix_index_1] += (
+                    mapping_matrix[mask_1d_index, pix_index_0]
+                    * mapping_matrix[mask_1d_index, pix_index_1]
+                ) / noise_map[mask_1d_index] ** 2
+
+    for i in range(mapping_matrix.shape[1]):
+        for j in range(mapping_matrix.shape[1]):
+            curvature_matrix[j, i] = curvature_matrix[i, j]
+
+    return curvature_matrix
+
+
+@numba_util.jit()
+def mapped_reconstructed_data_via_image_to_pix_unique_from(
+    data_to_pix_unique: np.ndarray,
+    data_weights: np.ndarray,
+    pix_lengths: np.ndarray,
+    reconstruction: np.ndarray,
+) -> np.ndarray:
+    """
+    Returns the reconstructed data vector from the blurred mapping matrix `f` and solution vector *S*.
+
+    Parameters
+    ----------
+    mapping_matrix
+        The matrix representing the blurred mappings between sub-grid pixels and pixelization pixels.
+
+    """
+
+    data_pixels = data_to_pix_unique.shape[0]
+
+    mapped_reconstructed_data = np.zeros(data_pixels)
+
+    for data_0 in range(data_pixels):
+        for pix_0 in range(pix_lengths[data_0]):
+
+            pix_for_data = data_to_pix_unique[data_0, pix_0]
+
+            mapped_reconstructed_data[data_0] += (
+                data_weights[data_0, pix_0] * reconstruction[pix_for_data]
+            )
+
+    return mapped_reconstructed_data
+
+
+@numba_util.jit()
+def mapped_reconstructed_data_via_mapping_matrix_from(
+    mapping_matrix: np.ndarray, reconstruction: np.ndarray
+) -> np.ndarray:
+    """
+    Returns the reconstructed data vector from the blurred mapping matrix `f` and solution vector *S*.
+
+    Parameters
+    ----------
+    mapping_matrix
+        The matrix representing the blurred mappings between sub-grid pixels and pixelization pixels.
+
+    """
+    mapped_reconstructed_data = np.zeros(mapping_matrix.shape[0])
+    for i in range(mapping_matrix.shape[0]):
+        for j in range(reconstruction.shape[0]):
+            mapped_reconstructed_data[i] += reconstruction[j] * mapping_matrix[i, j]
+
+    return mapped_reconstructed_data
+
+
+def reconstruction_from(
+    data_vector: np.ndarray,
+    curvature_reg_matrix_cholesky: np.ndarray,
+    settings: SettingsInversion = SettingsInversion(),
+):
+    """
+    Solve the linear system [F + reg_coeff*H] S = D -> S = [F + reg_coeff*H]^-1 D given by equation (12)
+    of https://arxiv.org/pdf/astro-ph/0302587.pdf
+
+    S is the vector of reconstructed inversion values.
+
+    This function checks that the solution does not give a linear algebra error (e.g. because the input matrix is
+    not positive-definitive) and that it avoids solutions where all reconstructed values go to the same value. If these
+    occur it raises an exception.
+
+    Parameters
+    ----------
+    data_vector
+        The `data_vector` D which is solved for.
+    curvature_reg_matrix_cholesky
+        The cholesky decomposition of the sum of the curvature and regularization matrices.
+    settings
+        Controls the settings of the inversion, for this function where the solution is checked to not be all
+        the same values.
+
+    Returns
+    -------
+    curvature_reg_matrix
+        The curvature_matrix plus regularization matrix, overwriting the curvature_matrix in memory.
+    """
+    try:
+        reconstruction = cho_solve((curvature_reg_matrix_cholesky, True), data_vector)
+    except np.linalg.LinAlgError:
+        raise exc.InversionException()
+
+    if settings.check_solution and len(reconstruction) > 1:
+        if np.isclose(a=reconstruction[0], b=reconstruction[1], atol=1e-4).all():
+            if np.isclose(a=reconstruction[0], b=reconstruction, atol=1e-4).all():
+                raise exc.InversionException()
+
+    return reconstruction
+
+
+def preconditioner_matrix_via_mapping_matrix_from(
+    mapping_matrix: np.ndarray,
+    regularization_matrix: np.ndarray,
+    preconditioner_noise_normalization: float,
+) -> np.ndarray:
+    """
+    Returns the preconditioner matrix `{` from a mapping matrix `f` and the sum of the inverse of the 1D noise-map
+    values squared (see Powell et al. 2020).
+
+    Parameters
+    ----------
+    mapping_matrix
+        The matrix representing the mappings between sub-grid pixels and pixelization pixels.
+    regularization_matrix
+        The matrix defining how the pixelization's pixels are regularized with one another for smoothing (H).
+    preconditioner_noise_normalization
+        The sum of (1.0 / noise-map**2.0) every value in the noise-map.
+    """
+
+    curvature_matrix = curvature_matrix_via_mapping_matrix_from(
+        mapping_matrix=mapping_matrix,
+        noise_map=np.ones(shape=(mapping_matrix.shape[0])),
+    )
+
+    return (
+        preconditioner_noise_normalization * curvature_matrix
+    ) + regularization_matrix
+
+
+def inversion_residual_map_from(
+    *,
+    reconstruction: np.ndarray,
+    data: np.ndarray,
+    slim_index_for_sub_slim_index: np.ndarray,
+    sub_slim_indexes_for_pix_index: [list],
+):
+    """
+    Returns the residual-map of the `reconstruction` of an `Inversion` on its pixel-grid.
+
+    For this residual-map, each pixel on the `reconstruction`'s pixel-grid corresponds to the sum of absolute residual
+    values in the `residual_map` of the reconstructed `data` divided by the number of data-points that it maps too,
+    (to normalize its value).
+
+    This provides information on where in the `Inversion`'s `reconstruction` it is least able to accurately fit the
+    `data`.
+
+    Parameters
+    ----------
+    reconstruction
+        The values computed by the `Inversion` for the `reconstruction`, which are used in this function to compute
+        the `residual_map` values.
+    data
+        The array of `data` that the `Inversion` fits.
+    slim_index_for_sub_slim_index
+        The mappings between the observed grid's sub-pixels and observed grid's pixels.
+    sub_slim_indexes_for_pix_index
+        The mapping of every pixel on the `LinearEqn`'s `reconstruction`'s pixel-grid to the `data` pixels.
+
+    Returns
+    -------
+    np.ndarray
+        The residuals of the `Inversion`'s `reconstruction` on its pixel-grid, computed by mapping the `residual_map`
+        from the fit to the data.
+    """
+    residual_map = np.zeros(shape=len(sub_slim_indexes_for_pix_index))
+
+    for pix_index, sub_slim_indexes in enumerate(sub_slim_indexes_for_pix_index):
+
+        sub_mask_total = 0
+        for sub_mask_1d_index in sub_slim_indexes:
+            sub_mask_total += 1
+            mask_1d_index = slim_index_for_sub_slim_index[sub_mask_1d_index]
+            residual = data[mask_1d_index] - reconstruction[pix_index]
+            residual_map[pix_index] += np.abs(residual)
+
+        if sub_mask_total > 0:
+            residual_map[pix_index] /= sub_mask_total
+
+    return residual_map.copy()
+
+
+def inversion_normalized_residual_map_from(
+    *,
+    reconstruction,
+    data,
+    noise_map_1d,
+    slim_index_for_sub_slim_index,
+    sub_slim_indexes_for_pix_index,
+):
+    """
+    Returns the normalized residual-map of the `reconstruction` of an `Inversion` on its pixel-grid.
+
+    For this normalized residual-map, each pixel on the `reconstruction`'s pixel-grid corresponds to the sum of
+    absolute normalized residual values in the `normalized residual_map` of the reconstructed `data` divided by the
+    number of data-points that it maps too (to normalize its value).
+
+    This provides information on where in the `Inversion`'s `reconstruction` it is least able to accurately fit the
+    `data`.
+
+    Parameters
+    ----------
+    reconstruction
+        The values computed by the `Inversion` for the `reconstruction`, which are used in this function to compute
+        the `normalized residual_map` values.
+    data
+        The array of `data` that the `Inversion` fits.
+    slim_index_for_sub_slim_index
+        The mappings between the observed grid's sub-pixels and observed grid's pixels.
+    sub_slim_indexes_for_pix_index
+        The mapping of every pixel on the `LinearEqn`'s `reconstruction`'s pixel-grid to the `data` pixels.
+
+    Returns
+    -------
+    np.ndarray
+        The normalized residuals of the `Inversion`'s `reconstruction` on its pixel-grid, computed by mapping the
+        `normalized_residual_map` from the fit to the data.
+    """
+    normalized_residual_map = np.zeros(shape=len(sub_slim_indexes_for_pix_index))
+
+    for pix_index, sub_slim_indexes in enumerate(sub_slim_indexes_for_pix_index):
+        sub_mask_total = 0
+        for sub_mask_1d_index in sub_slim_indexes:
+            sub_mask_total += 1
+            mask_1d_index = slim_index_for_sub_slim_index[sub_mask_1d_index]
+            residual = data[mask_1d_index] - reconstruction[pix_index]
+            normalized_residual_map[pix_index] += np.abs(
+                (residual / noise_map_1d[mask_1d_index])
+            )
+
+        if sub_mask_total > 0:
+            normalized_residual_map[pix_index] /= sub_mask_total
+
+    return normalized_residual_map.copy()
+
+
+def inversion_chi_squared_map_from(
+    *,
+    reconstruction,
+    data,
+    noise_map_1d,
+    slim_index_for_sub_slim_index,
+    sub_slim_indexes_for_pix_index,
+):
+    """
+    Returns the chi-squared-map of the `reconstruction` of an `Inversion` on its pixel-grid.
+
+    For this chi-squared-map, each pixel on the `reconstruction`'s pixel-grid corresponds to the sum of chi-squared
+    values in the `chi_squared_map` of the reconstructed `data` divided by the number of data-points that it maps too,
+    (to normalize its value).
+
+    This provides information on where in the `Inversion`'s `reconstruction` it is least able to accurately fit the
+    `data`.
+
+    Parameters
+    ----------
+    reconstruction
+        The values computed by the `Inversion` for the `reconstruction`, which are used in this function to compute
+        the `chi_squared_map` values.
+    data
+        The array of `data` that the `Inversion` fits.
+    slim_index_for_sub_slim_index
+        The mappings between the observed grid's sub-pixels and observed grid's pixels.
+    sub_slim_indexes_for_pix_index
+        The mapping of every pixel on the `LinearEqn`'s `reconstruction`'s pixel-grid to the `data` pixels.
+
+    Returns
+    -------
+    np.ndarray
+        The chi-squareds of the `Inversion`'s `reconstruction` on its pixel-grid, computed by mapping the `chi-squared_map`
+        from the fit to the data.
+    """
+    chi_squared_map = np.zeros(shape=len(sub_slim_indexes_for_pix_index))
+
+    for pix_index, sub_slim_indexes in enumerate(sub_slim_indexes_for_pix_index):
+        sub_mask_total = 0
+        for sub_mask_1d_index in sub_slim_indexes:
+            sub_mask_total += 1
+            mask_1d_index = slim_index_for_sub_slim_index[sub_mask_1d_index]
+            residual = data[mask_1d_index] - reconstruction[pix_index]
+            chi_squared_map[pix_index] += (
+                residual / noise_map_1d[mask_1d_index]
+            ) ** 2.0
+
+        if sub_mask_total > 0:
+            chi_squared_map[pix_index] /= sub_mask_total
+
+    return chi_squared_map.copy()
