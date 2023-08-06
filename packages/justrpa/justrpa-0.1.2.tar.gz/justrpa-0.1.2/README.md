@@ -1,0 +1,59 @@
+# JUSTRPA LIBRARY
+
+## Installation
+```
+pip install justrpa
+```
+
+### Get started
+How to use this library
+
+#### Define your Browser class 
+
+You can inherit from TaskBrowser to create your own browser object for browser tasks.
+
+```Python
+from justrpa.browser import TaskBrowser
+
+class TestBrowser(TaskBrowser):
+    def before_task_run(self, task_context:dict):
+        print("real before task implementation.")
+        return task_context
+    
+    def do_test_task(self, task_params:dict):
+        print("Do real task")
+        print(task_params)
+        return task_params
+```
+#### Run Task Executer
+
+```Python
+from justrpa.task import TaskExecuter 
+
+env = {"account":"TestAccount", "taskname":"test_task", "new_browser":1, "headless":1}
+task_params = {"United States": [{"test":"test"}]}
+t = TaskExecuter("test_task", "tests.executer_test.TestBrowser", "do_test_task", env, task_params)
+task_context = t.run()
+```
+
+#### Run Task Handler
+
+```Python
+import argparse
+from justrpa.task import TaskHandler
+
+def run_task(taskname:str):
+    handler = TaskHandler()
+    handler.run(taskname)
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("task",default="", nargs="?", help="task name to run")
+    args = ap.parse_args()
+    task_name = args.task
+    run_task(task_name)
+```
+
+#### Robot Example 
+
+[justrpa example repository](https://github.com/jingyan/justrpa-example)
