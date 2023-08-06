@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: pyplotgui
+Version: 1.0.0
+Summary: Cython-based Python bindings for dear imgui and implot
+Home-page: https://github.com/harskish/pyplotgui
+Author: Erik Härkönen
+Author-email: erik.harkonen@hotmail.com
+License: BSD
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Cython
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Cython
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Topic :: Games/Entertainment
+Description-Content-Type: text/markdown
+Provides-Extra: Cython
+Provides-Extra: cocos2d
+Provides-Extra: sdl2
+Provides-Extra: glfw
+Provides-Extra: pygame
+Provides-Extra: opengl
+Provides-Extra: pyglet
+Provides-Extra: full
+License-File: LICENSE
+
+# pyplotgui
+
+A Python package that extends
+[pyimgui](https://github.com/pyimgui/pyimgui/tree/dev/version-2.0) (v2.0 beta) with
+[pyimplot](https://github.com/hinxx/pyimplot).
+
+The package uses the same `imgui` namespace as pyimgui, but adds `imgui.plot`. The implot API is only partially implemented (pull requests are always welcome).
+
+See the Pyimgui documentation: [pyimgui.readthedocs.io](https://pyimgui.readthedocs.io/en/latest/index.html) for information on pyimgui.
+
+# Installation
+
+**pyplotgui** is available on PyPI and can be easily installed with `pip`:
+ 
+    pip install pyplotgui
+
+
+# Project distribution
+
+This project has a working build pipeline using GitHub actions. It builds
+succesfully for all major operating systems with different architectures:
+
+* Windows (32bit & 64bit)
+* Linux (32bit & 64bit)
+* OS X (universal build)
+
+The build pipeline covers Python versions `py36-py311`.
