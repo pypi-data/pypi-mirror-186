@@ -1,0 +1,73 @@
+Metadata-Version: 2.1
+Name: REaLTabFormer
+Version: 0.0.2.3.8
+Summary: A novel method for generating tabular and relational data using language models.
+Author-email: "Aivin V. Solatorio" <asolatorio@worldbank.org>
+License: MIT License
+        
+        Copyright (c) 2022 Aivin V. Solatorio
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/avsolatorio/REaLTabFormer
+Project-URL: Documentation, https://avsolatorio.github.io/REaLTabFormer/
+Keywords: REaLTabFormer,deep learning,tabular data,transformers,data generation,seq2seq model,synthetic data,pytorch,language models,synthetic data generation
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# DevRealTabFormer
+
+
+### Upload package to test pypi
+
+```
+python setup.py sdist
+twine upload --repository testpypi dist/*
+```
+
+### Install package from test pypi
+```
+pip install --upgrade --no-cache-dir --use-deprecated=legacy-resolver -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ REaLTabFormer==0.0.2.3.8
+```
+
+
+### Generating constrained tokens per step
+```
+    1 -> BOS
+    2 -> BMEM or EOS
+    3 -> col 0
+    ...
+    3 + col_size -> col col_size - 1
+    3 + col_size + 1 -> EMEM
+    3 + col_size + 2 -> BMEM or EOS
+    3 + col_size + 3 -> col 0
+```
+
+
+# Using the discriminator callback
+
+We can control the training process to prevent overfitting by using specific constraints and metrics based on a validation data.
+
+In this case, we propose to use a discriminator model to regulate the training process. We first identify the proportion of the full training data that will serve as the validation data. Then, we define the validation steps. For each step that is a multiple of the validation step, we generate synthetic data from the model. Then, we use the generated sample together with the validation data to train the discriminator model and quantify the model's ability to generate realistic samples.
+
+We should note that at the early stages of the model, the model will not be able to generate meaningful observations. This implies that we should at least set a warm-up period before we perform the disciminator-based assessment.
