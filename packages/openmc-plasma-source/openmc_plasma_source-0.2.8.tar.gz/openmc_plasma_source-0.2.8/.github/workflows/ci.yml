@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:    
+    branches:
+    - develop
+    - main
+  push:
+    branches:
+    - develop
+    - main
+ 
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    container:
+      image: openmc/openmc:v0.13.1
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Install
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install .[tests]
+
+      - name: Run tests
+        run: |
+          python3 -m pytest -v tests
+
+      - name: Run examples
+        run: |
+          python3 examples/point_source_example.py
+          python3 examples/ring_source_example.py
+          python3 examples/tokamak_source_example.py
