@@ -1,0 +1,57 @@
+import django_tables2 as tables
+
+from netbox.tables import (
+    NetBoxTable,
+    ToggleColumn,
+    ActionsColumn,
+)
+
+from netbox_storage.models import WindowsVolume
+
+
+class WindowsVolumeBaseTable(NetBoxTable):
+    """Base class for tables displaying WindowsVolume"""
+
+    filesystem = tables.Column(
+        linkify=True,
+    )
+    drive_name = tables.Column(
+        linkify=True,
+    )
+
+
+class WindowsVolumeTable(WindowsVolumeBaseTable):
+    """Table for displaying WindowsVolume objects."""
+
+    pk = ToggleColumn()
+
+    class Meta(NetBoxTable.Meta):
+        model = WindowsVolume
+        fields = (
+            "pk",
+            "drive_name",
+            "filesystem",
+            "description",
+        )
+        default_columns = (
+            "filesystem",
+            "description"
+        )
+
+
+class RelatedWindowsVolumeTable(WindowsVolumeBaseTable):
+    actions = ActionsColumn(actions=())
+
+    class Meta(NetBoxTable.Meta):
+        model = WindowsVolume
+        fields = (
+            "pk",
+            "drive_name",
+            "filesystem",
+            "description",
+        )
+        default_columns = (
+            "filesystem",
+            "description"
+        )
+
