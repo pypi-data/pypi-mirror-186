@@ -1,0 +1,99 @@
+Metadata-Version: 2.1
+Name: gm
+Version: 3.0.148
+Summary: 掘金量化 掘金3 sdk
+Home-page: https://www.myquant.cn/
+Author: myquant_dev
+Author-email: support@myquant.cn
+License: Apache 2.0
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.6, <4
+Description-Content-Type: text/markdown
+Requires-Dist: python-dateutil (>=2.7.3)
+Requires-Dist: arrow (>=0.12.1)
+Requires-Dist: grpcio (>=1.17.1)
+Requires-Dist: Cython (>=0.26.1)
+Requires-Dist: protobuf (<4.0,>=3.12.2)
+Requires-Dist: pandas (>=0.23.0)
+Requires-Dist: scipy (>=1.2.3)
+Requires-Dist: typing-extensions (>=4.1.1) ; python_version == "3.7.1"
+Provides-Extra: pandas
+Requires-Dist: pandas ; extra == 'pandas'
+
+# 掘金量化
+
+A股实盘量化 中国期货量化 程序化交易 仿真 中国量化第一 掘金3 sdk
+
+## Changelog
+
+### Version 3.0.147
+
+* 修复启动速度过慢的问题
+* 修复调用 get_history_symbols 接口时进程崩溃退出问题
+
+### Version 3.0.146
+
+* 修复 get_symbols 和 get_history_symbols 接口 bug
+* Tick 类型添加 ask_q, bid_q 字段
+
+### Version 3.0.145
+
+* 新增投研数据查询接口
+* 修复 ipo_get_match_number 和 ipo_get_lot_info 函数日期参数传输错误 bug
+* 修复 get_history_instruments 函数返回值不存在 info 字段时产生的 Bug
+* 修复用 in 判断 BarLikeDict2 对象时无法退出的 bug
+
+### Version 3.0.144
+
+* 修复 get_history_instruments 返回错误的调整标志的 Bug
+
+### Version 3.0.143
+
+* 增加接口 bond_convertible_get_call_info - 查询可转债赎回信息
+
+### Version 3.0.142
+
+* context.data 获取 tick 时返回格式修正为 DataFrame
+* get_history_instrument 增加可转债字段
+* 支持 Python3.10, 弃用 Python2.7
+
+### Version 3.0.141
+
+* 限制 protobuf 版本小于 4.0 防止不兼容情况
+* 修复 get_history_instruments 里获取的保证金比例 margin_ratio 获取的是最新数据而不是历史数据的问题
+
+### Version 3.0.140
+
+* 算法单新增 algo_params 字段
+* 兼容老版本客户端传入错误的默认参数 undefined 的情况
+* 实时模式能正确返回错误信息
+* instrument 添加 conversion_price 字段
+
+### Version 3.0.139
+
+* 修复 Python 3.7.1 版本 typing_extensions 依赖问题, typing_extensions 版本需要大于等于 4.1.1
+* 增加 get_expire_rest_days 查询到期剩余天数
+* 修改 option_covered_open 备兑开仓, 在回测/仿真模式下不占用保证金
+* 修改 option_covered_close 备兑平仓, 在回测/仿真模式下不释放保证金
+* 新增 option_preorder_valid_volume 备兑标志, 可获取备兑可开数量
+* run 函数新增 backtest_match_mode 参数, 设置回测撮合模式, 可设定市价单是否采用当前 bar/tick 撮合成交
+
+### Version 3.0.138
+
+* 策略进程退出前, SDK主动退订已订阅代码, 恢复订阅权限
+* 修复回测模式中在 on_bar 或 on_tick 里下单后资金和持仓没有变化的问题
+* 兼容 Pandas 1.4.0 以上版本
+* option_get_symbols_by_exchange 增加参数 adjust_flag
+* 修复 get_history_instruments 返回的 multiplier 和 exercise_price 字段只取最新数据问题
+* 之前对所有的浮点数四舍五入改为仅对价格类的字段四舍五入4位小数
+* run 添加参数 backtest_commission_unit, 表示回测手续费需要按张收取
+* option_get_symbols_by_in_at_out 添加参数 adjust_flag 来决定选择的合约范围是否包含调整过的合约
+* 修复 get_instruments 的 exchanges 不支持list格式问题
+* 增加针对剩余时间t=0导致分母为0的健壮性处理, 定价模型计算时剩余时间最小值设置为 0.01
+
+
