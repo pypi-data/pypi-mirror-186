@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: radianceQuantifier
+Version: 0.4.13
+Summary: Automatically crops mice and quantifies their tumor luminescences from raw IVIS images
+Home-page: https://github.com/soorajachar/radianceQuantifier
+Author: Sooraj Achar
+Author-email: acharsr@nih.gov
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Intended Audience :: Science/Research
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: joblib (>=1.1.0)
+Requires-Dist: numpy (>=1.21.1)
+Requires-Dist: opencv-python
+Requires-Dist: colorcet
+Requires-Dist: hdbscan
+Requires-Dist: scipy
+Requires-Dist: tqdm
+Requires-Dist: pandas
+Requires-Dist: pytesseract
+Requires-Dist: matplotlib (>=3.3.0)
+Requires-Dist: seaborn (>=0.11.1)
+Requires-Dist: Pillow
+Requires-Dist: plateypus
+Requires-Dist: scikit-learn
+
+A image processing pipeline to automatically crop and quantify tumor burdens (radiance) in mice treated with bioluminescent tumors.   
+Intutitive processing of quantitative radiance data and raw mouse images is supported through a user friendly GUI interface.
+
+PDF tutorial for GUI is hosted on google drive:
+https://drive.google.com/file/d/1Q7HhJTXOGI4TXo2OvoolGBY3IscC_FG0/view?usp=sharing
+ 
+To use this package:
+1. If anaconda is not installed, follow installation instructions here: https://docs.anaconda.com/anaconda/install/
+2. Start terminal, type in and enter:
+```
+conda activate
+```
+3. Now install radianceQuantifier via PyPi by typing the following line in the terminal:
+```
+pip install radianceQuantifier
+```
+4. In this anaconda environment, type: 
+```
+python3 -m radianceQuantifier
+```
+to start the program
