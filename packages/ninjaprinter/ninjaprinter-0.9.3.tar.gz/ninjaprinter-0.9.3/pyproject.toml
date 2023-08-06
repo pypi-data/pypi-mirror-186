@@ -1,0 +1,40 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ninjaprinter"
+version = "0.9.3"
+description = "Retrieves email attachments and send these to CUPS printer"
+readme = "README.md"
+license = {text = "MIT"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["printer", "ninjaprinter", "email"]
+authors = [{name = "jaspert123"}]
+requires-python = ">=3.9"
+dependencies = [
+    "imap-tools",
+    "Mako",
+    "pycups",
+    "PyPDF2",
+]
+
+[project.urls]
+Homepage = "https://gitlab.com/jaspert/printserver"
+
+[project.optional-dependencies]
+test = [
+    "pylint",
+    "build",
+    "twine"
+]
+publish = [ 
+    "build",
+    "twine"
+]

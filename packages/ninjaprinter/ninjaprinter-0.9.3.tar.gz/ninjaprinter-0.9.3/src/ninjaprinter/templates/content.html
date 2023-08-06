@@ -1,0 +1,49 @@
+
+<%inherit file="base.html" />
+<tr>
+    <td class="wrapper">
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+            <p>Hi ${data["recipient"]},</p>
+            ${next.body()}
+            <p>Kind Regards</p>
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                <tbody>
+                <tr>
+                    <td align="center">
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr>
+                            <td> <a href="${data['payment_url']}" target="_blank">
+                                <span class="btn-logo">💶</span><br/>  
+                                <span>Click here to pay</span>
+                            </a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h4>📄 Print status</h4>
+            <ul>
+                % for print_item in data["print_items"]:
+                <li> ${print_item.file_name} [${print_item.status}
+                    % if print_item.comment:
+                    - ${print_item.comment}
+                    % endif
+                    ]
+                </li>
+                % endfor
+            </ul>
+            <h4>❓ FAQ</h4>
+                <p><i>This is a question</i><br />
+                This is an answer</p>
+                </p>
+            </td>
+        </tr>
+        </table>
+    </td>
+</tr>
+
