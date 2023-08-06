@@ -1,0 +1,54 @@
+msa4u (version 0.1.1):
+Simple visualisation tool for Multiple Sequence Alignments.
+Home page and documentation:
+https://github.com/art-egorov/msa4u
+-------------------------------
+COMMAND-LINE PARAMETERS
+-------------------------------
+[POST-INSTALL STEPS]
+--data
+    Creates the 'uorf4u_data' folder in the current working directory.
+    The folder contains adjustable configuration files used by msa4u
+    (e.g. config, palettes...)
+--linux
+    Replaces the mafft path in the pre-made config file from the MacOS'
+    version [default] to the Linux'.
+-------------------------------
+[MANDATORY ARGUMENTS]
+-fa <input.fa>
+    Path to a fasta file with unaligned sequences.
+    Alignment will be performed with mafft:
+    [mafft --auto input.fa > input.aln.fa]
+ OR
+-aln <input.fa>
+    Path to a fasta file with aligned sequences.
+-------------------------------
+[OPTIONAL ARGUMENTS]
+-label <id|description|all>
+    Label style based on input fasta file.
+    id: sequence id from header (after > and before first space)
+    description: after first space on header
+    all: both (all header string)
+-o-aln <filename>
+    Alignment output filename.
+    (used only if input is unaligned sequences)
+    [default: auto; based on input file name]
+-o <filename>
+    Aligment visualisation filename.
+    [default: auto; based on input file name]
+-st <aa|nt|auto>
+    Sequence type
+    [default: auto; detected by used alphabet]
+-c <standard|<file.cfg>
+    Path to a configuration file or name of a premade config file
+    [default: standard].
+-------------------------------
+[MISCELLANEOUS ARGUMENTS]
+-h, --help
+    Show this help message and exit.
+-v, --version
+    Show program version.
+--debug
+    Provide detailed stack trace for debugging purposes.
+-q, --quiet
+    Don't show progress messages.
