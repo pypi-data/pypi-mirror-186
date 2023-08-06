@@ -1,0 +1,30 @@
+320aac1cf6c18c624714330111aadcb80925bd42
+5916d3fcdfd5207a55ef840cf97d3607fc7ae9b6 2.0b2dev10
+320aac1cf6c18c624714330111aadcb80925bd42 2.0b2dev11
+git diff 320aac1cf6c18c624714330111aadcb80925bd42 5916d3fcdfd5207a55ef840cf97d3607fc7ae9b6
+
+
+
+First bad
+commit b2a1fe4e45d2fac67b09da908678c0f7bbd066ac
+
+
+CHANGELOG.adoc                                    |   3 +-
+ src/robotide/controller/ctrlcommands.py           |  26 +++---
+ src/robotide/controller/macrocontrollers.py       |   2 +-
+ src/robotide/controller/stepcontrollers.py        |  97 ++++++++++++--------
+ src/robotide/lib/robot/parsing/datarow.py         |  29 +++---
+ src/robotide/lib/robot/parsing/model.py           | 105 ++++++++++++++++++----
+ src/robotide/lib/robot/parsing/tablepopulators.py |   5 +-
+ src/robotide/lib/robot/variables/isvar.py         |   9 +-
+ src/robotide/namespace/local_namespace.py         |   2 +-
+ src/robotide/namespace/namespace.py               |   3 +-
+ src/robotide/version.py                           |   2 +-
+ utest/controller/test_cellinfo.py                 |  21 +++--
+ utest/controller/test_commands.py                 |  41 ++++-----
+ utest/controller/test_extract_var_commands.py     |   1 +
+ utest/controller/test_for_loop.py                 |  26 +++---
+ utest/namespace/test_local_namespace.py           |   4 +-
+ utest/resources/fake.cfg                          |   2 -
+ utest/resources/robotdata/simple/test.robot       |   3 +-
+

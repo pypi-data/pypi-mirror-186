@@ -1,0 +1,70 @@
+= RIDE
+ifdef::env-github[:outfilesuffix: .adoc]
+
+RIDE is a development environment for Robot Framework test cases.
+
+=== Instant Communication ===
+
+Join our **#ride** channel in Robot Framework Slack: https://robotframework.slack.com
+(signup page: https://robotframework-slack-invite.herokuapp.com/)
+
+=== "Support" sites ===
+
+We have a RIDE section topic in https://forum.robotframework.org/c/tools/ride/21[Tools>RIDE].
+
+You can use the tag *robotframework-ide* to search and ask on https://stackoverflow.com/questions/tagged/robotframework-ide[StackOverflow].
+
+== **Welcome to the development version of RIDE - next release will be version 2.0**
+
+If you are looking for the latest released version, you can get the source code from **https://github.com/robotframework/RIDE/releases[releases]** or from branch **https://github.com/robotframework/RIDE/tree/release/1.7.4.2[release/1.7.4.2]**
+See the https://github.com/robotframework/RIDE/blob/master/doc/releasenotes/ride-1.7.4.2.rst[release notes] for latest release version 1.7.4.2.
+
+**Version 1.7.4.2 was the last release supporting Python 2.7**
+
+
+**Attention, this new version will break old style `:FOR`, and you have to change to `FOR/END` blocks.**
+
+**Attention, some problems have been detected when using wxPython 4.1.1, namely a crash when detaching File Explorer and Project panes.
+This is not happening with wxPython 4.2.0.**
+
+**The pre-release and current development, supports Python 3.8 (since February 2020).**
+
+**Attention:**
+
+**It is better to use Python 3.6, 3.7, 3.8 or 3.9 and now 3.10.**
+
+**To use Python 3.9, you should have wxPython 4.1.1, and install from `master` (since April 2021).**
+
+**Current development version 2.0b2.dev19 (20 August 2022) supports Python 3.10 with wxPython 4.2.0.**
+
+**24-jun-2022 A preliminary experiment was done on Fedora 36, Python 3.10.5 and wxPython 4.0.7**
+
+Install current development version with:
+[source, shell]
+pip install -U https://github.com/robotframework/RIDE/archive/master.zip
+
+(python < 3.9) Install current Beta version (2.0b1) with:
+[source, shell]
+pip install psutil
+pip install -U --pre robotframework-ride
+
+**Note: The PsUtil module is required, but missing on 2.0b1 requirements. This is already fixed in current development.**
+
+**See the https://github.com/robotframework/RIDE/wiki/F%2eA%2eQ%2e[FAQ] at https://github.com/robotframework/RIDE/wiki[Wiki]**
+
+
+
+== Unit testing statuses:
+Linux (py36, py37, py38, py39): image:https://app.travis-ci.com/HelioGuilherme66/RIDE.svg?branch=master[Unit Tests, link=https://app.travis-ci.com/github/HelioGuilherme66/RIDE]
+Windows (py36, py37, py38): image:https://ci.appveyor.com/api/projects/status/github/HelioGuilherme66/RIDE?branch=master&svg=true[Unit Tests, link=https://ci.appveyor.com/project/HelioGuilherme66/ride]
+
+Quality Gate Status: image:https://sonarcloud.io/api/project_badges/measure?project=HelioGuilherme66_RIDE&metric=alert_status[SonarCloud, link=https://sonarcloud.io/summary/new_code?id=HelioGuilherme66_RIDE]
+
+'''
+
+* https://pypi.python.org/pypi/robotframework-ride[Downloads at PyPi]
+* Statistics at https://pypistats.org/packages/robotframework-ride[PyPi Stats] and https://libraries.io/pypi/robotframework-ride[Libraries.io]
+* Usage instructions and some tips and tricks can be found from the https://github.com/robotframework/RIDE/wiki[Wiki]
+* Bug report/enhancement request? Use the https://github.com/robotframework/RIDE/issues[issue tracker]
+* Any questions? Do not hesitate to use the https://groups.google.com/group/robotframework-users/[mailing list], or https://forum.robotframework.org/c/tools/ride/21[Robot Framework Forum->Tools>RIDE], or https://stackoverflow.com/questions/tagged/robotframework-ide[StackOverflow].
+* Development information is in https://github.com/robotframework/RIDE/blob/master/BUILD.rest[BUILD] file
