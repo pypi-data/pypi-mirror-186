@@ -1,0 +1,65 @@
+[_]
+MAX_SESSIONS = 10
+ORACLE_TIMEOUT = 10
+
+[Geneity._]
+ORA_INST = "gnldb4"
+
+[Geneity.docker]
+ORA_POSTFIX = "_dock"
+ORA_INST = "localhost"
+
+[Geneity.dev]
+ORA_POSTFIX = "_dock"
+ORA_INST = "oracle"
+
+[Geneity.ci]
+ORA_INST = "gnldb4"
+ORA_POSTFIX = "_ci"
+
+[Geneity.featuretest]
+ORA_POSTFIX = "_ft"
+
+[Geneity.reptest]
+ORA_INST = "gnldb4"
+ORA_POSTFIX = "_rt"
+
+[Geneity.cert]
+ORA_INST = "gnldb4"
+ORA_POSTFIX = "_cert"
+
+[Geneity.moint]
+ORA_INST = "gnldb4"
+ORA_POSTFIX = "_moint"
+
+[Geneity.rtmoj]
+ORA_INST = "gnldb4"
+ORA_POSTFIX = "_rtmoj"
+
+[MultiOp.titantest]
+ORA_INST = "gnldb6"
+ORA_POSTFIX = "_tbtest"
+
+[MultiOp.mostage]
+ORA_INST = "gnldb6"
+ORA_POSTFIX = "_mostg"
+
+[MultiOp.mit]
+ORA_INST = "sb-db.mitsb.multiop.ptec:1521/trogensb.world"
+ORA_POSTFIX = "_pt"
+
+[Elmo.elmotest]
+ORA_INST = "gnldb4"
+ORA_POSTFIX = "_elmotest"
+
+[Elmo.live]
+ORA_INST = "sb-db.frgspgb.frgsp.ptec:1521/frgsbgb.world"
+ORA_POSTFIX = "_elmo"
+
+[Colmo.colmotest]
+ORA_INST = "gnldb4"
+ORA_POSTFIX = "_colmotest"
+
+[Colmo.live]
+ORA_INST = "sb-db.colrspgb.colshared.ptec:1521/colrspgb.world"
+ORA_POSTFIX = "_colmo"

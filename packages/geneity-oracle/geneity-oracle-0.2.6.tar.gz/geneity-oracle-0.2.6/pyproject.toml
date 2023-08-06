@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "geneity-oracle"
+version = "0.2.6"
+description = "Library for connections to oracle for geneity python3 apps"
+authors = ["Trading Bonus and Bet Team"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+cx-oracle = "8.0.1"
+geneity-logger = ">=20.10.0"
+geneity-config = ">=20.10.0"
+toml = "^0.10.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.1.1"
+pdoc3 = "^0.9.1"
+pytest-asyncio = "^0.14.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.source]]
+name = "framework"
+url = "http://pypi.registry.lohs.geneity/geneity/framework/+simple/"
+default = true
