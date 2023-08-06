@@ -1,0 +1,77 @@
+Metadata-Version: 2.1
+Name: openstack-cyborg
+Version: 7.0.1
+Summary: Distributed Acceleration Management as a Service
+Home-page: https://docs.openstack.org/cyborg/latest/
+Author: OpenStack
+Author-email: openstack-discuss@lists.openstack.org
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Environment :: OpenStack
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.6
+Requires-Dist: SQLAlchemy (!=1.1.5,!=1.1.6,!=1.1.7,!=1.1.8,>=0.9.0)
+Requires-Dist: WSME (>=0.8.0)
+Requires-Dist: alembic (>=0.8.10)
+Requires-Dist: cursive (>=0.2.1)
+Requires-Dist: eventlet (>=0.26.0)
+Requires-Dist: jsonpatch (!=1.20,>=1.16)
+Requires-Dist: keystonemiddleware (>=4.17.0)
+Requires-Dist: microversion-parse (>=0.2.1)
+Requires-Dist: openstacksdk (>=0.46.0)
+Requires-Dist: os-resource-classes (>=0.5.0)
+Requires-Dist: oslo.concurrency (>=3.26.0)
+Requires-Dist: oslo.config (!=4.3.0,!=4.4.0,>=1.1.0)
+Requires-Dist: oslo.context (>=2.9.0)
+Requires-Dist: oslo.db (>=10.0.0)
+Requires-Dist: oslo.i18n (>=1.5.0)
+Requires-Dist: oslo.log (>=1.14.0)
+Requires-Dist: oslo.messaging (>=10.3.0)
+Requires-Dist: oslo.policy (>=3.7.0)
+Requires-Dist: oslo.privsep (>=1.32.0)
+Requires-Dist: oslo.service (!=1.28.1,>=1.0.0)
+Requires-Dist: oslo.upgradecheck (>=0.1.0)
+Requires-Dist: oslo.utils (>=4.5.0)
+Requires-Dist: oslo.versionedobjects (>=1.31.2)
+Requires-Dist: pbr (!=2.1.0,>=0.11)
+Requires-Dist: pecan (!=1.0.2,!=1.0.3,!=1.0.4,!=1.2,>=1.0.0)
+Requires-Dist: psutil (>=3.2.2)
+Requires-Dist: python-glanceclient (>=2.3.0)
+Requires-Dist: stevedore (>=1.5.0)
+
+======
+Cyborg
+======
+
+OpenStack Acceleration as a Service
+
+Cyborg provides a general management framework for accelerators such as
+FPGA, GPU, SoCs, NVMe SSDs, CCIX caches, DPDK/SPDK, pmem  and so forth.
+
+* Free software: Apache license
+* Wiki: https://wiki.openstack.org/wiki/Cyborg
+* Source: https://opendev.org/openstack/cyborg
+* Blueprints: https://blueprints.launchpad.net/openstack-cyborg
+* Bugs: https://bugs.launchpad.net/openstack-cyborg
+* Documentation: https://docs.openstack.org/cyborg/latest/
+* Release notes: https://docs.openstack.org/releasenotes/cyborg/
+* Design specifications: https://specs.openstack.org/openstack/cyborg-specs/
+
+Features
+--------
+
+* REST API for basic accelerator life cycle management
+* Generic driver for common accelerator support
+
+
+
