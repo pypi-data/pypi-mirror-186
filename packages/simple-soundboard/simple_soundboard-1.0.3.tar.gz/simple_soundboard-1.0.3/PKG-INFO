@@ -1,0 +1,105 @@
+Metadata-Version: 2.1
+Name: simple-soundboard
+Version: 1.0.3
+Summary: Simple Soundboard
+License: Apache 2.0
+Author: Martin Rioux
+Requires-Python: >=3.9.0,<4.0.0
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: fastapi (>=0.88.0,<0.89.0)
+Requires-Dist: paho-mqtt (>=1.6.1,<2.0.0)
+Requires-Dist: pygame (>=2.1.2,<3.0.0)
+Requires-Dist: ujson (>=5.6.0,<6.0.0)
+Requires-Dist: uvicorn (>=0.20.0,<0.21.0)
+Description-Content-Type: text/markdown
+
+# Simple Soundboard
+Simple soundboard web app that plays sounds on a central server
+
+## Installation
+Install through pip with
+
+`pip install simple_soundboard`
+
+## Usage
+Edit config in ~/simple_soundboard/config.json
+Start by running
+`simple_soundboard`
+
+### MQTT API
+MQTT Server is configured in ~/simple_soundboard/config.json
+MQTT API includes
+```
+simple_soundboard/stop_all
+simple_soundboard/stop_sounds
+simple_soundboard/fadeout
+simple_soundboard/pause_music
+simple_soundboard/resume_music
+simple_soundboard/play/<topic_from_web_ui>
+```
+
+No payload required
+
+The server output two MQTT topic
+```
+simple_soundboard/stopped_all
+simple_soundboard/stopped_sounds
+simple_soundboard/playing/<topic_from_web_ui> (If MQTT Topic is set)
+```
+will be published
+
+## TODO
+- Make the config editable online
+- Multiple music?
+
+
+## Development
+git clone this project
+
+Create a new venv
+
+`python3 -m venv --system-site-packages ./venv`
+
+Source it
+
+`source ./venv/bin/activate`
+
+Install all dependancies with poetry
+
+`poetry install`
+
+Install git hooks
+
+`pre-commit install`
+
+### Upload to pypi
+
+Source the venv
+
+`source ./venv/bin/activate`
+
+Install twine
+
+`pip install twine`
+
+Config your pypi credentials in the file `~/.pypirc`
+
+```python
+[pypi]
+username = pypi_username
+password = pypi_password
+```
+
+Run
+
+```python
+poetry install
+twine check dist/*
+twine upload dist/*
+```
+
