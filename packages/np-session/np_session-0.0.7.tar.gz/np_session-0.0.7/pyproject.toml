@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "np-session"
+version = "0.0.7"
+description = "Tools for managing files and metadata associated with ecephys and behavior sessions for the Mindscope Neuropixels team."
+authors = ["Ben Hardcastle <ben.hardcastle@alleninstitute.org>"]
+readme = "README.md"
+packages = [{include = "np_session", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.7.0"
+typing-extensions = "*"
+psycopg2 = "^2.9.5"
+requests = "*"
+np_config = "*"
+pip-tools = {version = "*", optional = true}
+isort = {version = "*", optional = true}
+mypy = {version = "*", optional = true}
+black = {version = "*", optional = true}
+pytest = {version = "*", optional = true}
+poetry = {version = "*", optional = true}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+    "--doctest-modules",
+    # "--pdb",
+    # "--pdbcls=IPython.terminal.debugger:TerminalPdb",
+]
+
+doctest_optionflags = [
+    "NORMALIZE_WHITESPACE",
+    "IGNORE_EXCEPTION_DETAIL",
+    "ELLIPSIS",
+]
+
+testpaths = [
+    "tests",
+    "src",
+]
