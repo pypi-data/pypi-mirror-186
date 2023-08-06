@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: pytest-harmony
+Version: 1.0.0
+Summary: Chain tests and data with pytest
+License: MIT
+Author: TAG-Epic
+Author-email: tagepicuwu@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: Sphinx (>=4.4.0,<5.0.0)
+Requires-Dist: black (>=22.6.0,<23.0.0)
+Requires-Dist: furo (>=2022.1.2,<2023.0.0)
+Requires-Dist: isort (>=5.10.1,<6.0.0)
+Requires-Dist: pytest (>=7.2.1,<8.0.0)
+Requires-Dist: pytest-asyncio (>=0.20.3,<0.21.0)
+Requires-Dist: sphinx-copybutton (>=0.4.0,<0.5.0)
+Requires-Dist: taskipy (>=1.9.0,<2.0.0)
+Requires-Dist: typing-extensions (>=4.4.0,<5.0.0)
+Description-Content-Type: text/markdown
+
+# Pytest harmony
+A library to make test trees.  
+
+## What is test chains?
+- Test 1 starts  
+- Test 1 finishes, output goes to all depending tests  
+  - Test 2 starts with output from test 1  
+  - Test 2 finishes, output goes to all depending tests  
+    - Test 3 starts  
+    - Test 3 fails, depending tests gets skipped  
+    - Test 3 cleanup gets called  
+  - Test 2 cleanup gets called  
+- Test 1 cleanup gets called  
+
