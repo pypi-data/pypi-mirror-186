@@ -1,0 +1,54 @@
+---
+name: Build
+
+# yamllint disable-line rule:truthy
+on: [push, pull_request]
+
+env:
+    SETUPTOOLS_ENABLE_FEATURES: legacy-editable
+
+jobs:
+    build_wheels:
+        name: Build wheels on ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
+
+        strategy:
+            fail-fast: false
+            matrix:
+                # ubuntu-latest fails because Pillow doesn't find jpeg headers.
+                os: [windows-2019, macOS-latest]  # , ubuntu-latest]
+                gcc_v: [9]  # Version of GFortran we want to use.
+
+        env:
+            FC: gfortran-${{ matrix.gcc_v }}
+            GCC_V: ${{ matrix.gcc_v }}
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Install GFortran on macOS
+              if: contains(matrix.os, 'mac')
+              run: |
+                  brew install gcc@${GCC_V} || brew upgrade gcc@${GCC_V} || true
+                  sudo ln -s /usr/local/bin/gfortran-${GCC_V} \
+                      /usr/local/bin/gfortran
+                  sudo mkdir /usr/local/gfortran
+                  sudo ln -s /usr/local/Cellar/gcc@${GCC_V}/*/lib/gcc/${GCC_V} \
+                      /usr/local/gfortran/lib
+                  gfortran --version
+
+            - name: Build wheels
+              uses: pypa/cibuildwheel@v2.11.4
+              env:
+                  CIBW_SKIP: pp* cp36-* *win32
+                  CIBW_TEST_REQUIRES: pytest
+                  CIBW_TEST_COMMAND: pytest {package}/tests
+                  CIBW_BUILD_VERBOSITY_WINDOWS: 3
+                  # CIBW_BEFORE_BUILD_LINUX: |
+                  #     pip install --upgrade Pillow --use-pep517 \
+                  #     --no-binary=Pillow \
+                  #     --config-settings=global="--disable-jpeg"
+
+            - uses: actions/upload-artifact@v3
+              with:
+                  path: ./wheelhouse/*.whl
