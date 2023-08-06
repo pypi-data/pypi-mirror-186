@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "easyuri"
+version = "0.1.0"
+description = "a smart interface on a dumb URL parser"
+keywords = ["web", "www"]
+homepage = "https://ragt.ag/code/projects/easyuri"
+repository = "https://ragt.ag/code/projects/easyuri.git"
+documentation = "https://ragt.ag/code/projects/easyuri/api"
+authors = ["Angelo Gladding <angelo@ragt.ag>"]
+license = "BSD-2-Clause"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+hstspreload = ">=2022.10.1"
+requests = ">=2.28.1"
+
+[tool.poetry.group.dev.dependencies]
+gmpg = {path="../gmpg", develop=true}
+txtint = {path="../txtint", develop=true}
+
+# [[tool.poetry.source]]
+# name = "main"
+# url = "https://ragt.ag/code/pypi"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
