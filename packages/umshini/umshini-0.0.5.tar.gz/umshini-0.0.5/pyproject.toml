@@ -1,0 +1,26 @@
+# pyproject.toml
+
+include = [
+    "Umshini/**",
+]
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel", "numpy>=1.19.0", "Cython>=0.29.21"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "umshini"
+version = "0.0.5"
+description = "Umshini client for playing in MARL tournaments"
+readme = "README.md"
+authors = [{ name = "Jordan K. Terry", email = "j.k.terry@swarmlabs.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["Reinforcement Learning", "game", "RL", "AI", "gym"]
+requires-python = ">=3.6,<3.10"
+
+[project.urls]
+Homepage = "https://github.com/umshini/umshini"
