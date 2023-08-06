@@ -1,0 +1,2 @@
+class ConnectionToFollowerHasLost(BaseException):
+    pass
