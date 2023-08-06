@@ -1,0 +1,32 @@
+# deployment folder
+PUBLIC_FOLDER: ./public_www
+# the URL used for deploy
+BASE_URL: www.example.com
+# the protocol http:// or https://
+PROTOCOL: http://
+
+# Folders/files that should be copied to public folder
+includes:
+    - assets
+    - styles.css
+    - styles.rtl.css
+
+# Extensions
+extensions:
+    - menu
+    - tags
+    - pagelist
+    - search
+    - mostrecent
+
+# Extension config
+tags:
+    tags_ignored:
+        - movie
+    tags_map:
+        art:
+            label: Article # the `art` tag will be displayed as Article
+            order: 100
+        art2:
+            label: Annother article category
+            order: 101
