@@ -1,0 +1,32 @@
+
+[airflow]
+apache-airflow-providers-docker==3.1.0
+
+[airflow:python_version == "3.7.13"]
+apache-airflow==2.3.4
+
+[airflow:python_version > "3.7.13"]
+apache-airflow
+
+[flask]
+flask-jwt-extended
+Flask-SQLAlchemy
+Flask-WTF
+
+[geospatial]
+requests
+
+[postgres]
+psycopg2-binary
+
+[query]
+SQLAlchemy
+Jinja2
+cryptography>=3.2.1
+sshtunnel
+
+[scrape]
+beautifulsoup4
+cloudscraper
+selenium
+webdriver-manager
