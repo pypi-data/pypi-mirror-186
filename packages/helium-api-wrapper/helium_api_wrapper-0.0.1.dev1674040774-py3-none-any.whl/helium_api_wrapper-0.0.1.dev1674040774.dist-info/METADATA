@@ -1,0 +1,118 @@
+Metadata-Version: 2.1
+Name: helium-api-wrapper
+Version: 0.0.1.dev1674040774
+Summary: Helium Api Wrapper
+Home-page: https://github.com/emergotechnologies/helium-api-wrapper
+License: MIT
+Author: Lukas Huber
+Author-email: lukas.huber@fh-kufstein.ac.at
+Requires-Python: >=3.8,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: click (>=8.0.1)
+Requires-Dist: haversine (>=2.7.0,<3.0.0)
+Requires-Dist: pandas (>=1.5.1,<2.0.0)
+Requires-Dist: pyarrow (>=10.0.0,<11.0.0)
+Requires-Dist: pydantic (>=1.10.2,<2.0.0)
+Requires-Dist: python-dotenv (>=0.21.0,<0.22.0)
+Requires-Dist: sphinx-rtd-theme (>=1.1.1,<2.0.0)
+Requires-Dist: types-click (>=7.1.8,<8.0.0)
+Requires-Dist: types-requests (>=2.28.11.5,<3.0.0.0)
+Project-URL: Changelog, https://github.com/emergotechnologies/helium-api-wrapper/releases
+Project-URL: Documentation, https://helium-api-wrapper.readthedocs.io
+Project-URL: Repository, https://github.com/emergotechnologies/helium-api-wrapper
+Description-Content-Type: text/markdown
+
+# Helium Api Wrapper
+
+[![PyPI](https://img.shields.io/pypi/v/helium-api-wrapper.svg)][pypi_]
+[![Status](https://img.shields.io/pypi/status/helium-api-wrapper.svg)][status]
+[![Python Version](https://img.shields.io/pypi/pyversions/helium-api-wrapper)][python version]
+[![License](https://img.shields.io/pypi/l/helium-api-wrapper)][license]
+
+[![Read the documentation at https://helium-api-wrapper.readthedocs.io/](https://img.shields.io/readthedocs/helium-api-wrapper/latest.svg?label=Read%20the%20Docs)][read the docs]
+[![Tests](https://github.com/emergotechnologies/helium-api-wrapper/workflows/Tests/badge.svg)][tests]
+
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)][pre-commit]
+[![Black](https://img.shields.io/badge/code%20style-black-000000.svg)][black]
+
+[pypi_]: https://pypi.org/project/helium-api-wrapper/
+[status]: https://pypi.org/project/helium-api-wrapper/
+[python version]: https://pypi.org/project/helium-api-wrapper
+[read the docs]: https://helium-api-wrapper.readthedocs.io/
+[tests]: https://github.com/emergotechnologies/helium-api-wrapper/actions?workflow=Tests
+[pre-commit]: https://github.com/pre-commit/pre-commit
+[black]: https://github.com/psf/black
+
+## Features
+
+- Load data from the Helium Blockchain API
+  - Get hotspots by address
+  - Get hotspots by location
+  - Get a list of hotspots
+  - Get challenges of a hotspot
+  - Get a list of challenges
+- Load Data from the Helium Console API
+  - Get device information by uuid
+
+## Requirements
+
+- Python 3.8+
+- [Poetry](https://python-poetry.org/)
+
+## Installation
+
+You can install _Helium Api Wrapper_ via [pip] from [PyPI]:
+
+```console
+$ pip install helium-api-wrapper
+```
+
+## Usage
+
+You can run the wrapper as a python module:
+
+```
+python -m helium_api_wrapper --help
+python -m helium_api_wrapper get-hotspots
+python -m helium_api_wrapper get-hotspot --address your-hotspot-address
+```
+
+To personalise the settings command the file (using -, -- or CAPS to specify your settings) in a preferred terminal.
+To list all possible settings run the --help command.
+
+## Contributing
+
+Contributions are very welcome.
+To learn more, see the [Contributor Guide].
+
+## License
+
+Distributed under the terms of the [MIT license][license],
+_Helium Api Wrapper_ is free and open source software.
+
+## Issues
+
+If you encounter any problems,
+please [file an issue] along with a detailed description.
+
+## Credits
+
+This project was generated from [@cjolowicz]'s [Hypermodern Python Cookiecutter] template.
+
+[@cjolowicz]: https://github.com/cjolowicz
+[pypi]: https://pypi.org/
+[hypermodern python cookiecutter]: https://github.com/cjolowicz/cookiecutter-hypermodern-python
+[file an issue]: https://github.com/emergotechnologies/helium-api-wrapper/issues
+[pip]: https://pip.pypa.io/
+
+<!-- github-only -->
+
+[license]: https://github.com/emergotechnologies/helium-api-wrapper/blob/main/LICENSE
+[contributor guide]: https://github.com/emergotechnologies/helium-api-wrapper/blob/main/CONTRIBUTING.md
+[command-line reference]: https://helium-api-wrapper.readthedocs.io/en/latest/usage.html
+
