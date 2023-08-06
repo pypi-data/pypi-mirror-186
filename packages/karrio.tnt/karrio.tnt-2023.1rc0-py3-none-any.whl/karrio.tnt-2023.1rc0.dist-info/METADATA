@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: karrio.tnt
+Version: 2023.1rc0
+Summary: Karrio - TNT Shipping extension
+Home-page: https://github.com/karrioapi/karrio
+Author: karrio
+Author-email: hello@karrio.io
+License: Apache-2.0
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+Requires-Dist: karrio
+Requires-Dist: carrier.tnt
+
+# karrio.tnt
+
+This package is a TNT extension of the [karrio](https://pypi.org/project/karrio) multi carrier shipping SDK.
+
+## Requirements
+
+`Python 3.7+`
+
+## Installation
+
+```bash
+pip install karrio.tnt
+```
+
+## Usage
+
+```python
+import karrio
+from karrio.mappers.tnt.settings import Settings
+
+
+# Initialize a carrier gateway
+canadapost = karrio.gateway["tnt"].create(
+    Settings(
+        ...
+    )
+)
+```
+
+Check the [Karrio Mutli-carrier SDK docs](https://docs.karrio.io) for Shipping API requests
