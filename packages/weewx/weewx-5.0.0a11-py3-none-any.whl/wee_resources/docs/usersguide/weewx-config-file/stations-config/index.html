@@ -1,0 +1,2131 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://www.weewx.com/usersguide/weewx-config-file/stations-config/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>[Station] - weewx documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,700,700i%7CInconsolata+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"Inconsolata Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/weewx_ui.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="white">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#station" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="weewx documentation" class="md-header__button md-logo" aria-label="weewx documentation" data-md-component="logo">
+      
+  <img src="../../../images/logo-weewx.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            weewx documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              [Station]
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="white"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/weewx/weewx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WeeWX GitHub Repository
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../quickstart-overview/" class="md-tabs__link">
+        Quickstarts
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about-weewx/" class="md-tabs__link md-tabs__link--active">
+        User's guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../custom/intro/" class="md-tabs__link">
+        Customization guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../guides-overview/" class="md-tabs__link">
+        Other guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../support/" class="md-tabs__link">
+        Support
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="weewx documentation" class="md-nav__button md-logo" aria-label="weewx documentation" data-md-component="logo">
+      
+  <img src="../../../images/logo-weewx.png" alt="logo">
+
+    </a>
+    weewx documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/weewx/weewx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WeeWX GitHub Repository
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Quickstarts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Quickstarts" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Quickstarts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quickstart-overview/" class="md-nav__link">
+        Quickstart overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../debian/" class="md-nav__link">
+        Debian
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../redhat/" class="md-nav__link">
+        RedHat
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../suse/" class="md-nav__link">
+        SUSE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pip/" class="md-nav__link">
+        pip
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../v5-upgrade/" class="md-nav__link">
+        Migrating to V5
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          User's guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User's guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          User's guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about-weewx/" class="md-nav__link">
+        About WeeWX
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-requirements/" class="md-nav__link">
+        System requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installing-weewx/" class="md-nav__link">
+        Installing WeeWX
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../running-weewx/" class="md-nav__link">
+        Running WeeWX
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../webserver-integration/" class="md-nav__link">
+        Web server integration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backing-up-weewx/" class="md-nav__link">
+        Backup & restore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql-mariadb-config/" class="md-nav__link">
+        Configuring MySQL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting-guide/" class="md-nav__link">
+        Troubleshooting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Reference: options
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference: options" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Reference: options
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general/" class="md-nav__link">
+        General options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          [Station]
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        [Station]
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general-settings" class="md-nav__link">
+    General Settings
+  </a>
+  
+    <nav class="md-nav" aria-label="General Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location" class="md-nav__link">
+    location
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#latitude-longitude" class="md-nav__link">
+    latitude + longitude
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#altitude" class="md-nav__link">
+    altitude
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#station_type" class="md-nav__link">
+    station_type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#station_url" class="md-nav__link">
+    station_url
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulator" class="md-nav__link">
+    [Simulator]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acurite" class="md-nav__link">
+    [AcuRite]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cc3000" class="md-nav__link">
+    [CC3000]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fineoffsetusb" class="md-nav__link">
+    [FineOffsetUSB]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#te923" class="md-nav__link">
+    [TE923]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ultimeter" class="md-nav__link">
+    [Ultimeter]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vantage" class="md-nav__link">
+    [Vantage]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wmr100" class="md-nav__link">
+    [WMR100]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wmr300" class="md-nav__link">
+    [WMR300]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wmr9x8" class="md-nav__link">
+    [WMR9x8]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ws1" class="md-nav__link">
+    [WS1]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ws23xx" class="md-nav__link">
+    [WS23xx]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ws28xx" class="md-nav__link">
+    [WS28xx]
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdrestful-config/" class="md-nav__link">
+        [StdRESTful]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdreport-config/" class="md-nav__link">
+        [StdReport]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdconvert-config/" class="md-nav__link">
+        [StdConvert]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdcalibrate-config/" class="md-nav__link">
+        [StdCalibrate]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdqc-config/" class="md-nav__link">
+        [StdQC]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdwxcalculate-config/" class="md-nav__link">
+        [StdWXCalculate]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdarchive/" class="md-nav__link">
+        [StdArchive]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdtimesynch/" class="md-nav__link">
+        [StdTimeSynch]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-bindings/" class="md-nav__link">
+        [DataBindings]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../databases/" class="md-nav__link">
+        [Databases]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../engine/" class="md-nav__link">
+        [Engine]
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Customization guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Customization guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Customization guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/custom_reports/" class="md-nav__link">
+        Customizing reports
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/cheetah/" class="md-nav__link">
+        The cheetah generator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/image_generator/" class="md-nav__link">
+        The image generator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/multiple_bindings/" class="md-nav__link">
+        Multiple data bindings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/localization/" class="md-nav__link">
+        Localization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/service_engine/" class="md-nav__link">
+        Customizing the service engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/database/" class="md-nav__link">
+        Customizing the database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/units/" class="md-nav__link">
+        Customizing units
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/derived/" class="md-nav__link">
+        Derived types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/drivers/" class="md-nav__link">
+        Custom drivers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/extensions/" class="md-nav__link">
+        Extensions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/options_ref/" class="md-nav__link">
+        Reference: options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom/appendix/" class="md-nav__link">
+        Appendix
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Other guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Other guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Other guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides-overview/" class="md-nav__link">
+        Guides overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          weectl
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="weectl" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          weectl
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../weectl/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../weectl/station/" class="md-nav__link">
+        weectl station
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../weectl/extension/" class="md-nav__link">
+        weectl extension
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../weectl/daemon/" class="md-nav__link">
+        weectl daemon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../utilities.htm#wee_database_utility" class="md-nav__link">
+        wee_database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../utilities.htm#wee_debug_utility" class="md-nav__link">
+        wee_debug
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../utilities.htm#wee_device_utility" class="md-nav__link">
+        wee_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../utilities.htm#wee_import_utility" class="md-nav__link">
+        wee_import
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../utilities.htm#wee_reports_utility" class="md-nav__link">
+        wee_reports
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../utilities.htm#weewxd" class="md-nav__link">
+        weewxd
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../upgrading.htm" class="md-nav__link">
+        Upgrade guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changes/" class="md-nav__link">
+        Change log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hardware.htm" class="md-nav__link">
+        Hardware guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devnotes/" class="md-nav__link">
+        Notes for developers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hardware.htm" class="md-nav__link">
+        Hardware comparison
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Support
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Support
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../support/" class="md-nav__link">
+        Support
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general-settings" class="md-nav__link">
+    General Settings
+  </a>
+  
+    <nav class="md-nav" aria-label="General Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location" class="md-nav__link">
+    location
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#latitude-longitude" class="md-nav__link">
+    latitude + longitude
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#altitude" class="md-nav__link">
+    altitude
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#station_type" class="md-nav__link">
+    station_type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#station_url" class="md-nav__link">
+    station_url
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulator" class="md-nav__link">
+    [Simulator]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acurite" class="md-nav__link">
+    [AcuRite]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cc3000" class="md-nav__link">
+    [CC3000]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fineoffsetusb" class="md-nav__link">
+    [FineOffsetUSB]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#te923" class="md-nav__link">
+    [TE923]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ultimeter" class="md-nav__link">
+    [Ultimeter]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vantage" class="md-nav__link">
+    [Vantage]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wmr100" class="md-nav__link">
+    [WMR100]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wmr300" class="md-nav__link">
+    [WMR300]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wmr9x8" class="md-nav__link">
+    [WMR9x8]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ws1" class="md-nav__link">
+    [WS1]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ws23xx" class="md-nav__link">
+    [WS23xx]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ws28xx" class="md-nav__link">
+    [WS28xx]
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/weewx/weewx/edit/master/docs/usersguide/weewx-config-file/stations-config.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="station">[Station]<a class="headerlink" href="#station" title="Permanent link">&para;</a></h1>
+<p>This section covers options relating to your weather station setup.</p>
+<h2 id="general-settings">General Settings<a class="headerlink" href="#general-settings" title="Permanent link">&para;</a></h2>
+<p>This applies to all Station Types</p>
+<h3 id="location">location<a class="headerlink" href="#location" title="Permanent link">&para;</a></h3>
+<p>The station location should be a UTF-8 string that describes the geography of where your weather station is located. Required. No default.</p>
+<div class="highlight"><pre><span></span><code>location = &quot;A small ranch in Kentucky&quot;
+</code></pre></div>
+<h3 id="latitude-longitude">latitude + longitude<a class="headerlink" href="#latitude-longitude" title="Permanent link">&para;</a></h3>
+<p>The lat/lon should be set in decimal degrees, negative for southern and western hemispheres, respectively. Required. No default.</p>
+<div class="highlight"><pre><span></span><code>latitude = 38.8977
+longitude = -77.0366
+</code></pre></div>
+<h3 id="altitude">altitude<a class="headerlink" href="#altitude" title="Permanent link">&para;</a></h3>
+<p>Normally the station altitude is downloaded from your hardware, but not all stations support this. Set to the altitude of the station and the unit used for the altitude. Example:</p>
+<div class="highlight"><pre><span></span><code>altitude = 700, foot
+</code></pre></div>
+<p>An example in meters:
+<div class="highlight"><pre><span></span><code>altitude = 220, meter
+</code></pre></div></p>
+<h3 id="station_type">station_type<a class="headerlink" href="#station_type" title="Permanent link">&para;</a></h3>
+<p>Set to the type of hardware you are using.</p>
+<div class="highlight"><pre><span></span><code>station_type = Simulator
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Whatever option you choose, <strong>you must have a matching section</strong> in your configuration file. For example, if you choose <strong>station_type = Simulator</strong>, then you will need a <strong>[Simulator]</strong> section. While you can do this by hand, it is tedious and error-prone. The better way to add the needed section is by using the utility <a href="#">wee_config</a> with the <strong>--reconfigure</strong> option. If the needed section is missing, this utility will automatically inject it into the configuration file.</p>
+</div>
+<p>Valid Station Types include:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simulator</td>
+<td>A software weather station simulator. Useful for testing and debugging.</td>
+</tr>
+<tr>
+<td>AcuRite</td>
+<td>AcuRite 5-in-1 stations with USB interface.</td>
+</tr>
+<tr>
+<td>CC3000</td>
+<td>RainWise CC3000 data logger.</td>
+</tr>
+<tr>
+<td>FineOffsetUSB</td>
+<td>Fine Offset 10xx, 20xx, and 30xx stations.</td>
+</tr>
+<tr>
+<td>TE923</td>
+<td>Hideki TE923 stations.</td>
+</tr>
+<tr>
+<td>Ultimeter</td>
+<td>PeetBros Ultimeter stations</td>
+</tr>
+<tr>
+<td>Vantage</td>
+<td>Davis Vantage weather stations.</td>
+</tr>
+<tr>
+<td>WMR100</td>
+<td>Oregon Scientific WMR100 series stations.</td>
+</tr>
+<tr>
+<td>WMR300</td>
+<td>Oregon Scientific WMR300 series stations.</td>
+</tr>
+<tr>
+<td>WMR9x8</td>
+<td>Oregon Scientific WMR-918/968 series stations</td>
+</tr>
+<tr>
+<td>WS1</td>
+<td>Argent Data Systems WS1 stations.</td>
+</tr>
+<tr>
+<td>WS23xx</td>
+<td>La Crosse 23xx stations.</td>
+</tr>
+<tr>
+<td>WS28xx</td>
+<td>La Crosse 28xx stations.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="station_url">station_url<a class="headerlink" href="#station_url" title="Permanent link">&para;</a></h3>
+<p>If you have a website, you may optionally specify an URL for its HTML server. It will be included in the RSS file generated by WeeWX and, if you choose to opt into the <a href="#">station registry</a>, it will also be included in the <a href="#">map of WeeWX stations</a>.</p>
+<p>Example:</p>
+<p><div class="highlight"><pre><span></span><code>station_url = http://www.mywebsite.com
+</code></pre></div>
+<strong>rain_year_start</strong></p>
+<p>Normally the start of the rain year is downloaded from your hardware, but not all stations support this. Set to the start of your rain year, for example, 10, if your rain year starts in October (as mine does). Default is 1.</p>
+<div class="highlight"><pre><span></span><code>rain_year_start = 1
+</code></pre></div>
+<p><strong>week_start</strong></p>
+<p>Start of the week. 0=Monday, 1= Tuesday, ... , 6 = Sunday. Default is 6 (Sunday)
+<div class="highlight"><pre><span></span><code>week_start = 0
+</code></pre></div></p>
+<h2 id="simulator">[Simulator]<a class="headerlink" href="#simulator" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the software weather station simulator that comes with WeeWX.</p>
+<p><strong>loop_interval</strong></p>
+<p>The time (in seconds) between emitting loop packets. Default is 2.5</p>
+<p><strong>mode</strong></p>
+<p>One of either simulator or generator. Default is simulator.</p>
+<table>
+<thead>
+<tr>
+<th>mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>simulator</td>
+<td>Real-time simulator. It will sleep between emitting packets.</td>
+</tr>
+<tr>
+<td>generator</td>
+<td>Emit packets as fast as it can. Useful for testing.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>start</strong></p>
+<p>The local start time for the generator in the format <strong>YYYY-mm-ddTHH:MM</strong>. An example would be 2012-03-30T18:30. This would code 30-March-2012, at 6:30pm, local time. Optional. Default is the present time.</p>
+<h2 id="acurite">[AcuRite]<a class="headerlink" href="#acurite" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the AcuRite 5-in-1 series of weather stations with USB connectors.</p>
+<p><strong>model</strong></p>
+<p>Set to the station model. For example, "AcuRite 01035", "AcuRite 01036", or "02032C"</p>
+<p><strong>use_constants</strong></p>
+<p>Some stations (01035, 01036) use the HP038 sensor, which contains constants that define how the pressure and temperature should be interpreted. Other stations (02032, 02064) use the MS5607 sensor, which requires a different calculation to determine the pressure and temperature from the sensor. When <strong>use_constants</strong> is <strong>True</strong>, the driver will use the constants to determine which type of sensor is in the station and will adjust the calculation accordingly. A value of False causes the driver to use a linear approximation, regardless of the type of sensors. The default is True.</p>
+<h2 id="cc3000">[CC3000]<a class="headerlink" href="#cc3000" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the RainWise Mark III weather stations and CC3000 data logger.</p>
+<p><strong>port</strong></p>
+<p>The serial port, e.g., <strong>/dev/ttyS0</strong>. When using a USB-Serial converter, the port will be something like <strong>/dev/ttyUSB0</strong>. Default is <strong>/dev/ttyUSB0</strong></p>
+<p><strong>debug_serial, debug_openclose, debug_checksum</strong></p>
+<p>The debug_serial, debug_openclose and debug_checksum can be set to one to produce debugging information in the WeeWX log. The defaults for these options are zero.</p>
+<p><strong>logger_threshold</strong></p>
+<p>The <strong>logger_threshold</strong> specifies the number of records in the CC3000 station's memory at which the station memory's should be cleared. If logger_threshold is not specified, or if zero is specified, the station's memory will never be cleared. In this case, when the memory fills up, new archive records will no longer be saved in memory. Note: the CC3000's memory will hold about 35,000 records. The default is 0 (i.e., never clear memory).</p>
+<p><strong>max_tries</strong></p>
+<p>The max_tries option specifies how many times WeeWX should retry communicating with the CC3000 station when a serial communications error occurs. The default is 5 times.</p>
+<p><strong>model</strong></p>
+<p>The model option specifies the name of the hardware reported to WeeWX. The default is CC3000.</p>
+<p><strong>polling_interval</strong></p>
+<p>The <strong>polling_interval</strong> determines how often WeeWX will query the station for data. The default is 2 seconds. Note: 2 seconds is a good choice as this is the rate at which the CC3000 receives updates from the Rainwise Mark III Weather Station.</p>
+<p><strong>sensor_map</strong></p>
+<p>This option defines the mapping between temperature values in the database and the remote sensors. Two additional temperature sensors are supported.</p>
+<p>For example, this would associate extraTemp1 with the second optional temperature sensor:</p>
+<div class="highlight"><pre><span></span><code>[[sensor_map]]
+    extraTemp1 = TEMP 2
+</code></pre></div>
+<p>See the <a href="#">Hardware Guide</a> for a complete listing of sensor names and the default database fields for each sensor.</p>
+<p><strong>use_station_time</strong></p>
+<p>The <strong>use_station_time</strong> specifies whether the loop packets read by weewx should use the time specified in the CC3000 station packet or the computer time. The default is True (i.e., to use CC3000 station time.</p>
+<h2 id="fineoffsetusb">[FineOffsetUSB]<a class="headerlink" href="#fineoffsetusb" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the Fine Offset series of weather stations with USB connectors.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The following settings are highly recommended for Fine Offset stations. Using hardware record generation or adaptive polling is more likely to cause USB communication failure. Using hardware record generation will cause delays in report generation.</p>
+</div>
+<div class="highlight"><pre><span></span><code>[FineOffsetUSB]
+    polling_mode = PERIODIC
+    polling_interval = 60
+[StdArchive]
+    record_generation = software
+</code></pre></div>
+<p><strong>model</strong></p>
+<p>Set to the station model. For example, WH1080, WS2080, WH3081, etc.</p>
+<p><strong>polling_mode</strong></p>
+<p>One of <strong>PERIODIC</strong> or <strong>ADAPTIVE</strong>. In <strong>PERIODIC</strong> mode, WeeWX queries the console at regular intervals determined by the polling_interval. In ADAPTIVE mode, WeeWX attempts to query the console at times when it is not reading data from the sensors or writing data to memory. See the section <a href="./hardware-guide.md/#Polling-mode-and-interval">Polling Mode and interval</a> in the Hardware Guide for more details. The default is <strong>PERIODIC</strong>.</p>
+<p><strong>polling_interval</strong></p>
+<p>The frequency, in seconds, at which WeeWX will poll the console for data. Default is 60. This setting applies only when the polling_mode is <strong>PERIODIC</strong>.</p>
+<p><strong>data_format</strong></p>
+<p>There are two classes of hardware, the 10xx/20xx consoles and the 30xx consoles. Unlike the 10xx/20xx consoles, the 30xx consoles record luminosity and UV, so they have a different data format. Use the <strong>data_format</strong> to indicate which type of hardware you have. Possible values are <strong>1080</strong> (for the 10xx and 20xx consoles) and <strong>3080</strong> (for the 30xx consoles). Default is <strong>1080</strong>.</p>
+<h2 id="te923">[TE923]<a class="headerlink" href="#te923" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the Hideki TE923 series of weather stations.</p>
+<p><strong>model</strong></p>
+<p>Set to the station model. For example, Meade TE923W or TFA Nexus. Default is "TE923".</p>
+<p><strong>sensor_map</strong></p>
+<p>This option defines the mapping between temperature/humidity values in the database and the remote sensors. Up to 5 remote sensors are supported. A switch on each sensor determines which of 5 channels that sensor will use. For example, if the switch on the sensor is set to 3, the temperature from that sensor will be t_3 and the humidity from that sensor will be h_3.</p>
+<p>For example, this would associate outTemp and outHumidity with sensor 4:</p>
+<div class="highlight"><pre><span></span><code>[[sensor_map]]
+    outTemp = t_4
+    outHumidity = h_4
+</code></pre></div>
+<p>See the <a href="./hardware-guide.md">Hardware Guide</a> for a complete listing of sensor names and the default database fields for each sensor.</p>
+<h2 id="ultimeter">[Ultimeter]<a class="headerlink" href="#ultimeter" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the PeetBros Ultimeter weather stations.</p>
+<p><strong>port</strong></p>
+<p>The serial port, e.g., <strong>/dev/ttyS0</strong>. When using a USB-Serial converter, the port will be something like <strong>/dev/ttyUSB0</strong>. Default is <strong>/dev/ttyUSB0</strong></p>
+<p><strong>model</strong></p>
+<p>Set to the station model. For example, Ultimeter 2000 or Ultimeter 800. Default is "Ultimeter".</p>
+<h2 id="vantage">[Vantage]<a class="headerlink" href="#vantage" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the Davis Vantage series of hardware (VantagePro, VantagePro2 or VantageVue).</p>
+<p><strong>type</strong></p>
+<p>Set to either <strong>serial</strong>, for a serial or USB connection to the VantagePro (by far the most common), or to <strong>ethernet</strong> for the WeatherLinkIP. No default.</p>
+<p><strong>port</strong></p>
+<p>If you chose <strong>serial</strong>, for <strong>type</strong>, then set to the serial port name used by the station. For example, <strong>/dev/ttyUSB0</strong> is a common location for USB ports, <strong>/dev/ttyS0</strong> for serial ports. Otherwise, not required. No default.</p>
+<p><strong>host</strong></p>
+<p>If you chose <strong>ethernet</strong>, then specify either the IP address (e.g., <strong>192.168.0.1</strong>) or hostname (e.g., //console.mydomain.com**) to the console. Otherwise, not required. No default.</p>
+<p><strong>baudrate</strong></p>
+<p>Set to the baudrate of the station. The default is 19200.</p>
+<p><strong>tcp_port</strong></p>
+<p>The port where WeatherLinkIP will be listening. Default is 22222.</p>
+<p><strong>tcp_send_delay</strong></p>
+<p>How long to block after sending a socket packet to the WeatherLinkIP. Default is 0.5 second.</p>
+<p><strong>loop_request</strong></p>
+<p>The type of LOOP packet to use for LOOP data. Options are 1 (type <strong>LOOP1</strong>); 2 (type <strong>LOOP2</strong>); or 3 (alternate between). Type <strong>LOOP2</strong> packets have the advantage of including gauge pressure, altimeter, heat index, THSW, and a few other types, so they do not have to be calculated in software. On the other hand, they do not include any of the extra Davis sensors, such as soil moisture, leaf temperature, etc.</p>
+<p>If you decide to alternate between packet types (option <strong>3</strong>), then the console will send a type <strong>LOOP1</strong> packet, followed by a type <strong>LOOP2</strong> packet. This means that for certain types, and depending on the options specified in <strong>[StdWXCalculate]</strong>, the value that is used by WeeWX can flip between hardware and software values with every packet. In this case, you should be sure to specify option <strong>hardware</strong> for types <strong>pressure</strong>, <strong>altimeter</strong>, <strong>dewpoint</strong>, <strong>windchill</strong>, and <strong>heatindex</strong>. This way, only hardware values will be used.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Not all stations support LOOP2 data. You need firmware version 1.90 or later.</p>
+</div>
+<p>Default is 1 (use <strong>LOOP1</strong> type packets).</p>
+<p><strong>iss_id</strong></p>
+<p>Set to the ID number of the Integrated Sensor Suite (ISS). This is used in the formula to calculate reception quality for wireless stations. Default is 1.</p>
+<p><strong>timeout</strong></p>
+<p>How many seconds to wait for a response from the station before giving up. Default is 5 seconds.</p>
+<p><strong>wait_before_retry</strong></p>
+<p>How many seconds to wait before retrying. Unless you have a good reason to change it, this value should be left at the default, as it is long enough for the station to offer new data, but not so long as to go into a new loop packet (which arrive every 2 seconds). Default is 1.2 seconds.</p>
+<p><strong>max_tries</strong></p>
+<p>How many times to try again before giving up. Default is 4.</p>
+<h2 id="wmr100">[WMR100]<a class="headerlink" href="#wmr100" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the Oregon Scientific WMR100 series of weather stations with USB connectors.</p>
+<p><strong>model</strong></p>
+<p>Set to the station model. For example, WMR100 or WMRS200.</p>
+<p><strong>sensor_map</strong></p>
+<p>This option defines the mapping between observations from remote sensors and the fields in the database.</p>
+<p>For example, this would associate extraTemp1 with the remote T/H sensor on channel 5:</p>
+<div class="highlight"><pre><span></span><code>[[sensor_map]]
+    extraTemp1 = temperature_5
+</code></pre></div>
+<p>See the <a href="hardware-guide.md">Hardware Guide</a> for a complete listing of sensor names and the default database fields for each sensor.</p>
+<h2 id="wmr300">[WMR300]<a class="headerlink" href="#wmr300" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the Oregon Scientific WMR300 series of weather stations with USB connectors.</p>
+<p><strong>model</strong></p>
+<p>Set to the station model. For example, WMR300 or WMR300A.</p>
+<p><strong>sensor_map</strong></p>
+<p>This option defines the mapping between temperature/humidity values in the database and the remote sensors. Up to 8 remote sensors are supported.</p>
+<p>For example, this would associate outTemp and outHumidity with sensor 4:</p>
+<div class="highlight"><pre><span></span><code>[[sensor_map]]
+    outTemp = temperature_4
+    outHumidity = humidity_4
+</code></pre></div>
+<p>See the <a href="hardware-guide.md">Hardware Guide</a> for a complete listing of sensor names and the default database fields for each sensor.</p>
+<h2 id="wmr9x8">[WMR9x8]<a class="headerlink" href="#wmr9x8" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the Oregon Scientific WMR-918/968 series of weather stations with serial connectors.</p>
+<p><strong>type</strong></p>
+<p>For the moment, only serial is supported.</p>
+<p><strong>port</strong></p>
+<p>Along with the serial option above, you must set the serial port name used by the station. For example, <strong>/dev/ttyUSB0</strong> is a common location for USB ports, <strong>/dev/ttyS0</strong> for serial ports. No default.</p>
+<p><strong>model</strong></p>
+<p>Set to the station model. For example, WMR968 or WMR918.</p>
+<p><strong>sensor_map</strong></p>
+<p>This option defines the mapping between observations from remote sensors and the fields in the database.</p>
+<p>For example, this would associate extraTemp1 with the remote T/H sensor on channel 5:</p>
+<div class="highlight"><pre><span></span><code>[[sensor_map]]
+    extraTemp1 = temperature_5
+    extraHumid1 = humidity_5
+</code></pre></div>
+<p>See the <a href="hardware-guide.md">Hardware Guide</a> for a complete listing of sensor names and the default database fields for each sensor.</p>
+<h2 id="ws1">[WS1]<a class="headerlink" href="#ws1" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the Argent Data Systems WS1 weather stations.</p>
+<p><strong>mode</strong></p>
+<p>Select whether to connect via a serial line (option <strong>serial</strong>), or via an IP connection using TCP (option <strong>tcp</strong>), or UDP (option <strong>udp</strong>). Default is <strong>serial</strong>.</p>
+<p><strong>port</strong></p>
+<p>The port to be used. For a serial connection, this will be something like <strong>/dev/ttyUSB0</strong>. For a TCP or UDP connection, it will be an IP address and port, such as <strong>192.168.1.12:3000</strong> Default is <strong>/dev/ttyUSB0</strong>.</p>
+<p><strong>polling_interval</strong></p>
+<p>The <strong>polling_interval</strong> determines how often WeeWX will query the station for data. The default is 1 second.</p>
+<h2 id="ws23xx">[WS23xx]<a class="headerlink" href="#ws23xx" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the La Crosse WS-23xx series of weather stations.</p>
+<p><strong>port</strong></p>
+<p>The serial port, e.g., <strong>/dev/ttyS0</strong>. When using a USB-Serial converter, the port will be something like <strong>/dev/ttyUSB0</strong>. Default is <strong>/dev/ttyUSB0</strong></p>
+<p><strong>model</strong></p>
+<p>Set to the station model. For example, WS-2315, LaCrosse WS2317, etc. Default is "LaCrosse WS23xx".</p>
+<p><strong>polling_interval</strong></p>
+<p>The <strong>polling_interval</strong> determines how often WeeWX will query the station for data. If no polling_interval is specified (the default), WeeWX will automatically use a polling interval based on the type of connection between the station and the sensors (wired or wireless). When connected with a wire, the console updates sensor data every 8 seconds. When connected wirelessly, the console updates from 16 to 128 seconds, depending on sensor activity.</p>
+<h2 id="ws28xx">[WS28xx]<a class="headerlink" href="#ws28xx" title="Permanent link">&para;</a></h2>
+<p>This section is for options relating to the La Crosse WS-28xx series of weather stations.</p>
+<p><strong>transceiver_frequency</strong></p>
+<p>Radio frequency to use between USB transceiver and console. Specify either US or EU. US uses 915 MHz, EU uses 868.3 MHz. Default is US.</p>
+<p><strong>model</strong></p>
+<p>Set to the station model. For example, LaCrosse WS2810, TFA Primus, etc. Default is "LaCrosse WS28xx".</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../general/" class="md-footer__link md-footer__link--prev" aria-label="Previous: General options" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              General options
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../stdrestful-config/" class="md-footer__link md-footer__link--next" aria-label="Next: [StdRESTful]" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              [StdRESTful]
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © Tom Keffer and Matthew Wall, all rights reserved
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest"], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+    
+    
+  </body>
+</html>

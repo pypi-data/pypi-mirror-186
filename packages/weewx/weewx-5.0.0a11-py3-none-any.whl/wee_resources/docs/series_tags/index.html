@@ -1,0 +1,2061 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://www.weewx.com/series_tags/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>Series tags - weewx documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,700,700i%7CInconsolata+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"Inconsolata Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/weewx_ui.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="white">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="weewx documentation" class="md-header__button md-logo" aria-label="weewx documentation" data-md-component="logo">
+      
+  <img src="../images/logo-weewx.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            weewx documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Series tags
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="white"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/weewx/weewx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WeeWX GitHub Repository
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../quickstart-overview/" class="md-tabs__link">
+        Quickstarts
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../usersguide/about-weewx/" class="md-tabs__link">
+        User's guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../custom/intro/" class="md-tabs__link">
+        Customization guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../guides-overview/" class="md-tabs__link">
+        Other guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../support/" class="md-tabs__link">
+        Support
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="weewx documentation" class="md-nav__button md-logo" aria-label="weewx documentation" data-md-component="logo">
+      
+  <img src="../images/logo-weewx.png" alt="logo">
+
+    </a>
+    weewx documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/weewx/weewx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WeeWX GitHub Repository
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Quickstarts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Quickstarts" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Quickstarts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart-overview/" class="md-nav__link">
+        Quickstart overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../debian/" class="md-nav__link">
+        Debian
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redhat/" class="md-nav__link">
+        RedHat
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../suse/" class="md-nav__link">
+        SUSE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pip/" class="md-nav__link">
+        pip
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v5-upgrade/" class="md-nav__link">
+        Migrating to V5
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          User's guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User's guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          User's guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/about-weewx/" class="md-nav__link">
+        About WeeWX
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/system-requirements/" class="md-nav__link">
+        System requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/installing-weewx/" class="md-nav__link">
+        Installing WeeWX
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/running-weewx/" class="md-nav__link">
+        Running WeeWX
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/webserver-integration/" class="md-nav__link">
+        Web server integration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/backing-up-weewx/" class="md-nav__link">
+        Backup & restore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/mysql-mariadb-config/" class="md-nav__link">
+        Configuring MySQL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/troubleshooting-guide/" class="md-nav__link">
+        Troubleshooting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Reference: options
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference: options" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Reference: options
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/general/" class="md-nav__link">
+        General options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stations-config/" class="md-nav__link">
+        [Station]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdrestful-config/" class="md-nav__link">
+        [StdRESTful]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdreport-config/" class="md-nav__link">
+        [StdReport]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdconvert-config/" class="md-nav__link">
+        [StdConvert]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdcalibrate-config/" class="md-nav__link">
+        [StdCalibrate]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdqc-config/" class="md-nav__link">
+        [StdQC]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdwxcalculate-config/" class="md-nav__link">
+        [StdWXCalculate]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdarchive/" class="md-nav__link">
+        [StdArchive]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/stdtimesynch/" class="md-nav__link">
+        [StdTimeSynch]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/data-bindings/" class="md-nav__link">
+        [DataBindings]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/databases/" class="md-nav__link">
+        [Databases]
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usersguide/weewx-config-file/engine/" class="md-nav__link">
+        [Engine]
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Customization guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Customization guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Customization guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/custom_reports/" class="md-nav__link">
+        Customizing reports
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/cheetah/" class="md-nav__link">
+        The cheetah generator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/image_generator/" class="md-nav__link">
+        The image generator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/multiple_bindings/" class="md-nav__link">
+        Multiple data bindings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/localization/" class="md-nav__link">
+        Localization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/service_engine/" class="md-nav__link">
+        Customizing the service engine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/database/" class="md-nav__link">
+        Customizing the database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/units/" class="md-nav__link">
+        Customizing units
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/derived/" class="md-nav__link">
+        Derived types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/drivers/" class="md-nav__link">
+        Custom drivers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/extensions/" class="md-nav__link">
+        Extensions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/options_ref/" class="md-nav__link">
+        Reference: options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom/appendix/" class="md-nav__link">
+        Appendix
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Other guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Other guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Other guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides-overview/" class="md-nav__link">
+        Guides overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          weectl
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="weectl" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          weectl
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weectl/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weectl/station/" class="md-nav__link">
+        weectl station
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weectl/extension/" class="md-nav__link">
+        weectl extension
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weectl/daemon/" class="md-nav__link">
+        weectl daemon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities.htm#wee_database_utility" class="md-nav__link">
+        wee_database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities.htm#wee_debug_utility" class="md-nav__link">
+        wee_debug
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities.htm#wee_device_utility" class="md-nav__link">
+        wee_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities.htm#wee_import_utility" class="md-nav__link">
+        wee_import
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities.htm#wee_reports_utility" class="md-nav__link">
+        wee_reports
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities.htm#weewxd" class="md-nav__link">
+        weewxd
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading.htm" class="md-nav__link">
+        Upgrade guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changes/" class="md-nav__link">
+        Change log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware.htm" class="md-nav__link">
+        Hardware guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../devnotes/" class="md-nav__link">
+        Notes for developers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware.htm" class="md-nav__link">
+        Hardware comparison
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Support
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Support" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Support
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../support/" class="md-nav__link">
+        Support
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#series-with-no-aggregation" class="md-nav__link">
+    Series with no aggregation
+  </a>
+  
+    <nav class="md-nav" aria-label="Series with no aggregation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-just-start-times" class="md-nav__link">
+    With just start times:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#series-with-aggregation" class="md-nav__link">
+    Series with aggregation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-unit-conversion" class="md-nav__link">
+    Optional unit conversion.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-formatting" class="md-nav__link">
+    Optional formatting
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional formatting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optional-string-formatting" class="md-nav__link">
+    Optional string formatting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-json-formatting" class="md-nav__link">
+    Optional JSON formatting
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional JSON formatting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-series-with-aggregation-formatted-as-json" class="md-nav__link">
+    Example: series with aggregation, formatted as JSON
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-series-with-aggregation-formatted-as-json-selected-time-series" class="md-nav__link">
+    Example: series with aggregation, formatted as JSON, selected time series
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-series-with-aggregation-formatted-as-json-optional-time-unit" class="md-nav__link">
+    Example: series with aggregation, formatted as JSON, optional time unit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-series-with-aggregation-formatted-as-json-with-unit-conversion" class="md-nav__link">
+    Example: series with aggregation, formatted as JSON, with unit conversion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-optional-rounding" class="md-nav__link">
+    Example: optional rounding
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-wind-vectors" class="md-nav__link">
+    Working with wind vectors.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iteration" class="md-nav__link">
+    Iteration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-json" class="md-nav__link">
+    Working with JSON
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with JSON">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helper-function-jsonize" class="md-nav__link">
+    Helper function $jsonize()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/weewx/weewx/edit/master/docs/series_tags.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+  <h1>Series tags</h1>
+
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>WeeWX Version 4.5 introduces limited support of tags for working with <em>series</em>. The results
+can be formatted either as JSON, or as a string. This document describes the syntax.</p>
+<p><strong>NOTE:</strong> This syntax is still experimental and subject to change! </p>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
+<p>The tags used to specify a series is very similar to tags used for regular scalars, except they
+include the keyword <code>series</code>:</p>
+<div class="highlight"><pre><span></span><code>$period.obstype.series[.optional_unit_conversion][.optional_rounding][.optional_formatting]
+</code></pre></div>
+<p>The tags <code>.optional_unit_conversion</code>, <code>.optional_rounding</code>, and <code>.optional_formatting</code> are 
+explained below.</p>
+<p>The tag <code>.series()</code> can take a number of optional parameters:</p>
+<div class="highlight"><pre><span></span><code>.series(aggregate_type=None,
+        aggregate_interval=None,
+        time_series=&#39;both&#39;,
+        time_unit=&#39;unix_epoch&#39;)
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aggregate_type</code></td>
+<td>The type of aggregation (<code>max</code>, <code>avg</code>, etc.) to perform.</td>
+</tr>
+<tr>
+<td><code>aggregate_interval</code></td>
+<td>The length of each aggregation time in seconds. "Nicknames" (such as "day") are allowed.</td>
+</tr>
+<tr>
+<td><code>time_series</code></td>
+<td>Which time variables to include in the results. Choices are <code>start</code>, <code>stop</code>, or <code>both</code>.</td>
+</tr>
+<tr>
+<td><code>time_unit</code></td>
+<td>What time unit to use for the results. Choices are <code>unix_epoch</code>, <code>unix_epoch_ms</code>, or <code>unix_epoch_ns</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="series-with-no-aggregation">Series with no aggregation<a class="headerlink" href="#series-with-no-aggregation" title="Permanent link">&para;</a></h2>
+<p>Here's an example of asking for a series with the temperature for all records in the day. We will
+display it with an HTML <code>&lt;pre&gt;</code> tag so that the embedded newlines work.</p>
+<div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$day.outTemp.series
+&lt;/pre&gt;
+</code></pre></div>
+<p>This would result in something like this:
+<div class="highlight"><pre><span></span><code>12:00:00 AM, 12:05:00 AM, 43.8°F
+12:05:00 AM, 12:10:00 AM, 43.8°F
+12:10:00 AM, 12:15:00 AM, 42.7°F
+12:15:00 AM, 12:20:00 AM, 41.3°F
+          ...
+</code></pre></div>
+The first column is the start time of each point in the series, the second column is the stop time.
+From this example, we can see that the data have a 5 minute archive period.</p>
+<h3 id="with-just-start-times">With just start times:<a class="headerlink" href="#with-just-start-times" title="Permanent link">&para;</a></h3>
+<p>You can request that only the start, or stop, times be included. Here's an example where only the
+start time is included:
+<div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$day.outTemp.series(time_series=&#39;start&#39;)
+&lt;/pre&gt;
+</code></pre></div></p>
+<p>Results:
+<div class="highlight"><pre><span></span><code>12:00:00 AM, 43.8°F
+12:05:00 AM, 43.8°F
+12:10:00 AM, 42.7°F
+12:15:00 AM, 41.3°F
+          ...
+</code></pre></div></p>
+<h2 id="series-with-aggregation">Series with aggregation<a class="headerlink" href="#series-with-aggregation" title="Permanent link">&para;</a></h2>
+<p>Suppose you would like the maximum temperature for each day of the month. This is an <em>aggregation</em>
+(maximum temperature, in this case), over a time period (one day). This can be specified with
+optional parameters <code>aggregate_type</code> and <code>aggregate_interval</code> to the <code>series</code> tag. Here's
+an example:</p>
+<div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=86400)
+&lt;/pre&gt;
+</code></pre></div>
+<p>where <code>86400</code> is the number of seconds in the day. As an alternative, you can use the string <code>day</code>:</p>
+<div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;)
+&lt;/pre&gt;
+</code></pre></div>
+<p>Either way, the results would be:</p>
+<div class="highlight"><pre><span></span><code>03/01/2021 12:00:00 AM, 03/02/2021 12:00:00 AM, 58.2°F
+03/02/2021 12:00:00 AM, 03/03/2021 12:00:00 AM, 55.8°F
+03/03/2021 12:00:00 AM, 03/04/2021 12:00:00 AM, 59.6°F
+03/04/2021 12:00:00 AM, 03/05/2021 12:00:00 AM, 57.8°F
+03/05/2021 12:00:00 AM, 03/06/2021 12:00:00 AM, 50.2°F
+03/06/2021 12:00:00 AM, 03/07/2021 12:00:00 AM, 42.0°F
+  ...
+</code></pre></div>
+<p>The first column is the start of the aggregation period, the second the end of the period, and the
+final column the maximum temperature for aggregation period. In this example, because the
+aggregation period is one day, the start and stop fall on daily boundaries.</p>
+<h2 id="optional-unit-conversion">Optional unit conversion.<a class="headerlink" href="#optional-unit-conversion" title="Permanent link">&para;</a></h2>
+<p>Just like scalars, the unit system of the resultant series can be changed. Only the data
+part, not the time part, is converted. For example,</p>
+<div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;).degree_C
+&lt;/pre&gt;
+</code></pre></div>
+<p>Results in</p>
+<div class="highlight"><pre><span></span><code>03/01/2021 12:00:00 AM, 03/02/2021 12:00:00 AM, 14.6°C
+03/02/2021 12:00:00 AM, 03/03/2021 12:00:00 AM, 13.2°C
+03/03/2021 12:00:00 AM, 03/04/2021 12:00:00 AM, 15.3°C
+03/04/2021 12:00:00 AM, 03/05/2021 12:00:00 AM, 14.3°C
+03/05/2021 12:00:00 AM, 03/06/2021 12:00:00 AM, 10.1°C
+03/06/2021 12:00:00 AM, 03/07/2021 12:00:00 AM, 5.6°C
+  ...
+</code></pre></div>
+<h2 id="optional-formatting">Optional formatting<a class="headerlink" href="#optional-formatting" title="Permanent link">&para;</a></h2>
+<p>Similar to its scalar cousins, custom formatting can be applied to the results. Currently,
+there are two types of formatting: one for strings, and one for JSON.</p>
+<h3 id="optional-string-formatting">Optional string formatting<a class="headerlink" href="#optional-string-formatting" title="Permanent link">&para;</a></h3>
+<p>The format of the data can be changed with optional suffix <code>.format()</code>. Only the data is affected.
+If you want to change the formatting of the start and stop times, you must use iteration. See
+the section Iteration below.</p>
+<p>Example:
+<div class="highlight"><pre><span></span><code>$month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;).format(&quot;%.2f&quot;)
+</code></pre></div>
+yields something like
+<div class="highlight"><pre><span></span><code>03/01/2021 12:00:00 AM, 03/02/2021 12:00:00 AM, 58.20°F
+03/02/2021 12:00:00 AM, 03/03/2021 12:00:00 AM, 55.80°F
+03/03/2021 12:00:00 AM, 03/04/2021 12:00:00 AM, 59.60°F
+03/04/2021 12:00:00 AM, 03/05/2021 12:00:00 AM, 57.80°F
+03/05/2021 12:00:00 AM, 03/06/2021 12:00:00 AM, 50.20°F
+03/06/2021 12:00:00 AM, 03/07/2021 12:00:00 AM, 42.00°F
+  ...
+</code></pre></div></p>
+<h3 id="optional-json-formatting">Optional JSON formatting<a class="headerlink" href="#optional-json-formatting" title="Permanent link">&para;</a></h3>
+<p>By adding the suffix <code>.json()</code> to the tag, the results will be formatted as JSON. This option has
+one optional parameter <code>order_by</code>, It can also pass on parameters to the <code>json.loads()</code> call.
+<div class="highlight"><pre><span></span><code>.json(order_by=[&#39;row&#39;|&#39;column&#39;], 
+      **kwargs)
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>order_by</code></td>
+<td>The returned JSON can either be organized by rows, or by columns. The default is <code>row</code>.</td>
+</tr>
+<tr>
+<td><code>kwargs</code></td>
+<td>Optional keyword arguments that are passed on to the <a href="https://docs.python.org/3/library/json.html#basic-usage">Python <code>json.dumps()</code></a> call.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="example-series-with-aggregation-formatted-as-json">Example: series with aggregation, formatted as JSON<a class="headerlink" href="#example-series-with-aggregation-formatted-as-json" title="Permanent link">&para;</a></h4>
+<p>Here's an example of the maximum temperature for all days of the current month, formatted in JSON</p>
+<div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;).json
+&lt;/pre&gt;
+</code></pre></div>
+<p>This results in:
+<div class="highlight"><pre><span></span><code>[[1614585600, 1614672000, 58.2], [1614672000, 1614758400, 55.8], [1614758400, 1614844800, 59.6], [1614844800, 1614931200, 57.8], [1614931200, 1615017600, 50.2], [1615017600, 1615104000, 42.0]]
+</code></pre></div>
+The default is to order by row. If you want it by column:</p>
+<div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;).json(order_by=&#39;column&#39;)
+&lt;/pre&gt;
+</code></pre></div>
+<p>Results:
+<div class="highlight"><pre><span></span><code>[[1614585600, 1614672000, 1614758400, 1614844800, 1614931200, 1615017600], [1614672000, 1614758400, 1614844800, 1614931200, 1615017600, 1615104000], [58.2, 55.8, 59.6, 57.8, 50.2, 42.0]]
+</code></pre></div></p>
+<h4 id="example-series-with-aggregation-formatted-as-json-selected-time-series">Example: series with aggregation, formatted as JSON, selected time series<a class="headerlink" href="#example-series-with-aggregation-formatted-as-json-selected-time-series" title="Permanent link">&para;</a></h4>
+<p>The above examples include both start and stop times of each interval. 
+If you want only the start times, then use the optional argument <code>time_series</code>:</p>
+<div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;, time_series=&#39;start&#39;).json
+&lt;/pre&gt;
+</code></pre></div>
+<p>Results:
+<div class="highlight"><pre><span></span><code>[[1614585600, 58.2], [1614672000, 55.8], [1614758400, 59.6], [1614844800, 57.8], [1614931200, 50.2], [1615017600, 42.0]]
+</code></pre></div></p>
+<h4 id="example-series-with-aggregation-formatted-as-json-optional-time-unit">Example: series with aggregation, formatted as JSON, optional time unit<a class="headerlink" href="#example-series-with-aggregation-formatted-as-json-optional-time-unit" title="Permanent link">&para;</a></h4>
+<p>Suppose you want the previous example, except that you want the unix epoch time to be in
+miliseconds. To do this, add optional argument <code>time_unit</code> to <code>series()</code>:</p>
+<div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;, time_series=&#39;start&#39;, time_unit=&#39;unix_epoch_ms&#39;).json
+&lt;/pre&gt;
+</code></pre></div>
+<p>Results:
+<div class="highlight"><pre><span></span><code>[[1614585600000, 58.2], [1614672000000, 55.8], [1614758400000, 59.6], [1614844800000, 57.8], [1614931200000, 50.2], [1615017600000, 42.0]]
+</code></pre></div></p>
+<h4 id="example-series-with-aggregation-formatted-as-json-with-unit-conversion">Example: series with aggregation, formatted as JSON, with unit conversion<a class="headerlink" href="#example-series-with-aggregation-formatted-as-json-with-unit-conversion" title="Permanent link">&para;</a></h4>
+<p>Suppose you want the results in °C, rather than °F. Then including a <code>.degree_C</code> between the
+<code>.series</code> and <code>.json</code> tags will give the desired results:
+<div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;, time_series=&#39;start&#39;).degree_C.json
+&lt;/pre&gt;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[[1614585600, 14.555555555555555], [1614672000, 13.222222222222221], [1614758400, 15.333333333333334], [1614844800, 14.333333333333334], [1614931200, 10.111111111111112], [1615017600, 5.555555555555555]]
+</code></pre></div></p>
+<h4 id="example-optional-rounding">Example: optional rounding<a class="headerlink" href="#example-optional-rounding" title="Permanent link">&para;</a></h4>
+<p>Note that the previous example demonstrating unit conversion resulted in many extra decimal digits.
+It's an accurate representation of the internal data, but you may not want to transmit that much
+data over the network. You can limit the number of decimal digits by using an optional tag
+<code>.round(ndigits)</code>, where <code>ndigits</code> is the number of decimal digits to retain. For example:
+<div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;, time_series=&#39;start&#39;).degree_C.round(2).json
+&lt;/pre&gt;
+</code></pre></div>
+This gives a much more compact representation:
+<div class="highlight"><pre><span></span><code>[[1614585600, 14.56], [1614672000, 13.22], [1614758400, 15.33], [1614844800, 14.33], [1614931200, 10.11], [1615017600, 5.56]]
+</code></pre></div></p>
+<h2 id="working-with-wind-vectors">Working with wind vectors.<a class="headerlink" href="#working-with-wind-vectors" title="Permanent link">&para;</a></h2>
+<p>A series over types <code>windvec</code> and <code>windgustvec</code> return a series of <em>complex</em> numbers. For example,</p>
+<p><div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$month.windvec.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;).json(indent=2)
+&lt;/pre&gt;
+</code></pre></div>
+yields
+<div class="highlight"><pre><span></span><code>[
+  [
+    1614585600,
+    1614672000,
+    [
+      -6.0,
+      -7.347880794884119e-16
+    ]
+  ],
+  [
+    1614672000,
+    1614758400,
+    [
+      -9.0,
+      -1.102182119232618e-15
+    ]
+  ],
+  [
+    1614758400,
+    1614844800,
+    [
+      -1.1480502970952693,
+      -2.77163859753386
+    ]
+  ],
+   ...
+]
+</code></pre></div></p>
+<p>There are a number of conversion operators that can yield various parts of the complex results. </p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.x</code></td>
+<td>Just the x-components</td>
+</tr>
+<tr>
+<td><code>.y</code></td>
+<td>Just the y-components</td>
+</tr>
+<tr>
+<td><code>.magnitude</code></td>
+<td>Just the total (absolute) magnitude</td>
+</tr>
+<tr>
+<td><code>.direction</code></td>
+<td>Just the compass direction (in degrees 0°=N, 90°=E, etc.)</td>
+</tr>
+<tr>
+<td><code>.polar</code></td>
+<td>As polar coordinates (<code>magnitude</code>, <code>direction</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Note that direction uses <em>compass directions</em>.</p>
+<p>Here's an example. Other operators are similar. Suppose we would like the output in <em>polar</em>
+notation, that is a 2-way tuple of (<code>magnitude</code>, <code>direction</code>), where <code>direction</code> is the compass
+direction. </p>
+<p><div class="highlight"><pre><span></span><code>&lt;pre&gt;
+$month.windvec.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;).polar.json(indent=2)
+&lt;/pre&gt;
+</code></pre></div>
+yields
+<div class="highlight"><pre><span></span><code>[
+  [
+    1614585600,
+    1614672000,
+    [
+      6.0,
+      270.0
+    ]
+  ],
+  [
+    1614672000,
+    1614758400,
+    [
+      9.0,
+      270.0
+    ]
+  ],
+  [
+    1614758400,
+    1614844800,
+    [
+      2.9999999999999996,
+      202.5
+    ]
+  ],
+  ...
+</code></pre></div></p>
+<h2 id="iteration">Iteration<a class="headerlink" href="#iteration" title="Permanent link">&para;</a></h2>
+<p>If you want finer control over formatting, you can iterate over the series and apply precise
+formatting. Here's an example:</p>
+<p><div class="highlight"><pre><span></span><code>    &lt;table&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Start date&lt;/td&gt;
+        &lt;td&gt;Max temperature&lt;/td&gt;
+      &lt;/tr&gt;
+    #for ($start, $stop, $data) in $month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;) ## 1
+      &lt;tr&gt;
+        &lt;td&gt;$start.format(&quot;%Y-%m-%d&quot;)&lt;/td&gt;      ## 2
+        &lt;td&gt;$data.format(&quot;%.2f&quot;)&lt;/td&gt;           ## 3
+      &lt;/tr&gt;
+    #end for
+    &lt;/table&gt;
+</code></pre></div>
+Here, we create a table. Each row is individually formatted. Comments below refer to the marked
+lines:</p>
+<ol>
+<li>
+<p>Once evaluated, the tag <code>$month.outTemp.series(aggregate_type='max', aggregate_interval='day')</code>
+   returns a <code>SeriesHelper</code>. Normally, in order to embed the results into a document, Cheetah would
+   try to convert this into a string. However, in this case, we are <em>iterating</em> over the tag. 
+   Iterating over a <code>SeriesHelper</code> returns a 3-way tuple <code>start</code>, <code>stop</code>, and <code>data</code>, each an
+   instance of <code>ValueHelper</code>. They can be formatted like any other <code>ValueHelper</code>.</p>
+</li>
+<li>
+<p>We will work only with the start times and data. On line 2, we apply a custom formatting for the
+   start times, so that only the date (no time) is shown.</p>
+</li>
+<li>
+<p>Similarly, we apply some custom formatting for the datum to show two decimal points.</p>
+</li>
+</ol>
+<p>The final results look like:
+<div class="highlight"><pre><span></span><code> &lt;table&gt;
+   &lt;tr&gt;
+     &lt;td&gt;Start date&lt;/td&gt;
+     &lt;td&gt;Max temperature&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;2021-03-01&lt;/td&gt;
+     &lt;td&gt;58.20&amp;#176;F&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;2021-03-02&lt;/td&gt;
+     &lt;td&gt;55.80&amp;#176;F&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;2021-03-03&lt;/td&gt;
+     &lt;td&gt;59.60&amp;#176;F&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;2021-03-04&lt;/td&gt;
+     &lt;td&gt;57.80&amp;#176;F&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;2021-03-05&lt;/td&gt;
+     &lt;td&gt;50.20&amp;#176;F&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;2021-03-06&lt;/td&gt;
+     &lt;td&gt;42.00&amp;#176;F&lt;/td&gt;
+   &lt;/tr&gt;
+ &lt;/table&gt;
+</code></pre></div>
+Unfortunately, this Markdown document cannot show rendered HTML but, once rendered, it would look
+something like:
+<div class="highlight"><pre><span></span><code>Start date  Max temperature
+2021-03-01  58.20°F
+2021-03-02  55.80°F
+2021-03-03  59.60°F
+2021-03-04  57.80°F
+2021-03-05  50.20°F
+2021-03-06  42.00°F
+</code></pre></div></p>
+<h2 id="working-with-json">Working with JSON<a class="headerlink" href="#working-with-json" title="Permanent link">&para;</a></h2>
+<h3 id="helper-function-jsonize">Helper function <code>$jsonize()</code><a class="headerlink" href="#helper-function-jsonize" title="Permanent link">&para;</a></h3>
+<p>We saw some examples above where the results of a tag can be formatted as JSON. However, there are
+cases where you need to combine several queries together to get the results you desire. Here's a
+common example: you wish to create a JSON structure with the minimum and maximum temperature for
+each day in a month.</p>
+<p>Creating separate series of minimums and maximums is easy enough,</p>
+<div class="highlight"><pre><span></span><code>$month.outTemp.series(aggregate_type=&#39;min&#39;, aggregate_interval=&#39;day&#39;).json
+$month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;).json
+</code></pre></div>
+<p>but how do you combine them into a single structure? Here's one way to do it:</p>
+<div class="highlight"><pre><span></span><code> #set $min_sh = $month.outTemp.series(aggregate_type=&#39;min&#39;, aggregate_interval=&#39;day&#39;)
+ #set $max_sh = $month.outTemp.series(aggregate_type=&#39;max&#39;, aggregate_interval=&#39;day&#39;)
+ &lt;pre&gt;
+ $jsonize($zip($min_sh.start.raw, $min_sh.data.raw, $max_sh.data.raw))
+ &lt;/pre&gt;
+</code></pre></div>
+<p>The values <code>$min_sh</code> and <code>$max_sh</code> are <code>SeriesHelper</code>, each of which have three attributes:
+<code>.start</code>, <code>.stop</code>, and <code>.data</code>, which are, respectively, the start times, stop times, and data.</p>
+<p>So, <code>$min_sh.start</code> will be a series with just the start times. Similarly, <code>$min_sh.data</code> will a
+series with the aggregated minimum values, <code>$max_sh.data</code> a series with the aggregated maximum
+values.</p>
+<p>We then use the Python function <a href="https://docs.python.org/3/library/functions.html#zip"><code>zip()</code></a> to
+interleave the start times, minimums, and maximums together. This results in a list of 3-way tuples
+(time, minimum, maximum). The WeeWX helper function <code>$jsonize()</code> is then used to convert this to
+JSON. The result looks something like this:</p>
+<div class="highlight"><pre><span></span><code>[[1609488000, 38.9, 45.6], [1609574400, 41.6, 46.2], [1609660800, 40.7, 49.5], ... ]
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © Tom Keffer and Matthew Wall, all rights reserved
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+    
+    
+  </body>
+</html>
