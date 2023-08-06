@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: wmss
+Version: 0.1
+Summary: WMSS Library
+Author-email: Angel Marques Mateu <amarques@cgf.upv.es>
+Classifier: Programming Language :: Python :: 3.8
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: easygui
+Requires-Dist: OWSLib
+Requires-Dist: pyproj
+Requires-Dist: pyshp
+
+# WMSS: A Web Map Service Sampler
+
+# Description
+
+The `wmss` module allows extracting multiple image samples from Web Map Services (WMS), one of the mapping services described in the Open Geospatial Consortium (OGC) standard collection ([OGC, 2006](https://www.ogc.org/standards/wms)).
+
+# Installation
+
+Install the package using `pip`
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Python 
+>>> pip install wmss
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Dependencies
+
+- GUI programming in Python [easygui](https://pypi.org/project/easygui/)
+- Programming with Open Geospatial Consortium (OGC) web service [OWSLib](https://pypi.org/project/OWSLib/)
+- Python interface to PROJ (cartographic projections and coordinate transformations library) [Pyproj](https://pypi.org/project/pyproj/)
+- Pure Python read/write support for ESRI Shapefile format [pyshp](https://pypi.org/project/pyshp/)
