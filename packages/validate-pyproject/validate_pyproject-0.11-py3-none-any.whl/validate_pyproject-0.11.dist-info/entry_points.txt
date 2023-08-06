@@ -1,0 +1,6 @@
+[console_scripts]
+validate-pyproject = validate_pyproject.cli:main
+
+[validate_pyproject.tool_schema]
+distutils = validate_pyproject.api:load_builtin_plugin
+setuptools = validate_pyproject.api:load_builtin_plugin
