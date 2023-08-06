@@ -1,0 +1,29 @@
+service: {serverless_service_name}
+package:
+  exclude:
+  - aws/**
+  - node_modules/**
+  - venv/**
+  - .venv/**
+  - tests/**
+provider:
+  name: aws
+  runtime: python3.9
+  environment:
+    LOG_LEVEL: INFO
+    KMS_KEY_ID: serveyKmsKey
+    CONNECTION_TABLE_NAME: servey_app_connection
+    SERVICE_NAME: {service_name}
+custom:
+  pythonRequirements:
+    useDownloadCache: false
+    useStaticCache: false
+    dockerizePip: true
+  prune:
+    automatic: true
+    number: 3
+plugins:
+- serverless-python-requirements
+- serverless-prune-plugin
+- serverless-appsync-plugin
+# - serverless-api-gateway-caching
