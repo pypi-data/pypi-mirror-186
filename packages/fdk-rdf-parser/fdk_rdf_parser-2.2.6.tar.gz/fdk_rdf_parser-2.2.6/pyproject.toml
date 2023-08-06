@@ -1,0 +1,58 @@
+[tool.poetry]
+name = "fdk-rdf-parser"
+version = "2.2.6"
+description = ""
+authors = ["NilsOveTen <nils.ove.tendenes@digdir.no>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8.1,<4.0"
+rdflib = "^6.2.0"
+isodate = "^0.6.1"
+requests = "^2.28.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.2.0"
+coverage = {extras = ["toml"], version = "^7.0.5"}
+pytest-cov = "^4.0.0"
+black = "^22.12.0"
+flake8 = "^6.0.0"
+flake8-bandit = "^4.1.1"
+flake8-black = "^0.3.6"
+flake8-bugbear = "^22.12.6"
+flake8-import-order = "^0.18.2"
+pep8-naming = "^0.13.3"
+safety = "^2.3.5"
+pytest-mock = "^3.10.0"
+codecov = "^2.1.12"
+flake8-annotations = "^2.9.1"
+mypy = "^0.991"
+
+[tool.coverage.paths]
+source = ["src"]
+
+[tool.coverage.run]
+branch = true
+source = ["fdk_rdf_parser"]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.isort]
+profile = "black"
+line_length=120
+multi_line_output=3
+
+# from 'google' profile
+force_sort_within_sections=true
+lexicographical=true
+order_by_type=false
+group_by_package=true
+
+force_grid_wrap=2
+sections=["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+no_lines_before=["LOCALFOLDER"]
+src_paths = ["src", "test"]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
