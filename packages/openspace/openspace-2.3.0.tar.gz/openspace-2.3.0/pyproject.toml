@@ -1,0 +1,36 @@
+[project]
+name = "openspace"
+version = "2.3.0"
+description = "astrodynamics analysis and simulation package"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Brandon Sexton", email = "brandon.sexton@roguesolutions.us" }
+]
+
+[project.urls]
+"Homepage" = "https://www.openspace-docs.com/"
+
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 120
+force-exclude = '''
+^/(
+  (
+      \.eggs
+    | \.git
+    | \.pytest_cache
+    | \.tox
+    | dist
+  )/
+)
+'''
+
+[tool.isort]
+profile = "black"
+filter_files = true
+line_length = 120
