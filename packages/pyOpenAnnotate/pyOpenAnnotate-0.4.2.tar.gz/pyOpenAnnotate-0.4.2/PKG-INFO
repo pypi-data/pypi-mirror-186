@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: pyOpenAnnotate
+Version: 0.4.2
+Summary: Single class automated annotation tool using OpenCV
+Author-email: "Kukil Kashyap Borgohain, LearnOpenCV" <kukilp213@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2022 LearnOpenCV
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/bigvisionai/pyOpenAnnotate
+Keywords: Annotation,Automated Annotation,OpenCV Annotate,Image Annotation Tool,Single Class Annotation,Simple Annotation,Annotation Python,Dataset labelling,Object detection,Industrial annotation,openannotate,Annotation software,Deep Learning,Contour Analysis,Thresholding OpenCV,Color Segmentation,segmentation mask,Computer Vision,Bounding Box Annotation
+Classifier: Development Status :: 3 - Alpha
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Automated Annotation Tool
+
+Automate your image annotation pipeline using <b>pyOpenAnnotate</b>. It is built harnessing the power of OpenCV. Perfect for annotating single class datasets. Check out accompanying blog post to understand how <b>pyOpenAnnotate</b> has been designed. 
+
+[Automated Image Annotation Tool Using OpenCV](https://learnopencv.com/automated-image-annotation-tool-using-opencv-python/).
+
+<br>
+<br>
+
+<img src="https://learnopencv.com/wp-content/uploads/2022/12/annotation-tool.gif" alt="Automated Annotation Tool OpenCV" width="900">
+
+## Example Use Cases
+<img src="https://learnopencv.com/wp-content/uploads/2022/11/stags-and-boars-image-annotation-tool-opencv-contour-analysis.png" alt="Automated Annotation pyOpenAnnotate" width="900">
+
+<img src="https://learnopencv.com/wp-content/uploads/2022/11/image-annotation-tool-strawberries-and-fishes-opencv-contour-analysis.png" alt="Automated Annotation pyOpenAnnotate" width="900">
+
+## How To Use pyOpenAnnotate?
+Annotating images using pyOpenAnnotate is pretty simple. Use the command `annotate` followed by the following flags as per the requirement.
+### 1. Annotate Images
+
+```
+annotate --img <images_directory_path>
+```
+
+### 2. Annotate Video
+```
+annotate --vid <path_to_video_file>
+```
+### 3. Global Flags
+```
+-T : View mask window.
+--resume <existing-annotations-dir>: Continue from where you left off.
+--skip <int(Frames)> : Frames to skip while processing a video file.
+```
+
+### 4. Mouse Controls
+```
+Click and Drag: Draw bounding boxes.
+Double Click: Remove existing annotation.
+```
+
+## Display Annotations
+Visualize your annotations using the `showlbls` command.
+```
+showlbls --img <single_image_or_a_directory> --ann <single_annotation_text_file_or_a_directory>
+```
+
+## Keyboard Navigation
+```
+N or D : Save and go to next image
+B or A : Save and go back
+C : Toggle clear screen (during annotation)
+T : Toggle mask window (during annotation)
+Q : Quit
+```
