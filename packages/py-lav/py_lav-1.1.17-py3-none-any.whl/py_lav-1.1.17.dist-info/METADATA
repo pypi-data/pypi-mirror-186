@@ -1,0 +1,154 @@
+Metadata-Version: 2.1
+Name: py-lav
+Version: 1.1.17
+Summary:  A Lavalink WebSocket & API wrapper for discord.py
+Home-page: https://github.com/Drapersniper/PyLav
+License: AGPL-3.0-or-later
+Author: Draper
+Author-email: 27962761+Drapersniper@users.noreply.github.com
+Requires-Python: >=3.11,<4.0
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Classifier: Natural Language :: English
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: Version Control :: Git
+Classifier: Topic :: Utilities
+Classifier: Typing :: Typed
+Provides-Extra: all
+Provides-Extra: all-nored
+Provides-Extra: nored
+Provides-Extra: redis
+Provides-Extra: speed
+Requires-Dist: APScheduler (>=3.9.1.post1,<4.0.0)
+Requires-Dist: Brotli (>=1.0.9,<2.0.0)
+Requires-Dist: PyYAML (>=6.0,<7.0)
+Requires-Dist: Red-Commons (>=1.0.0,<2.0.0) ; extra == "nored" or extra == "all-nored"
+Requires-Dist: aiohttp-client-cache (>=0.8.0,<0.9.0)
+Requires-Dist: aiohttp[speedups] (>=3.8.3,<4.0.0) ; extra == "nored" or extra == "all-nored"
+Requires-Dist: aiopath (>=0.6.11,<0.7.0)
+Requires-Dist: apsw (>=3.40.0.0,<4.0.0.0) ; extra == "nored" or extra == "all-nored"
+Requires-Dist: asyncpg (>=0.27.0,<0.28.0)
+Requires-Dist: asyncspotify (>=0.12.1,<0.13.0)
+Requires-Dist: asyncstdlib (>=3.10.5,<4.0.0)
+Requires-Dist: cached-property (>=1.5.2,<2.0.0)
+Requires-Dist: cashews[dill,redis] (>=5.0.0,<6.0.0)
+Requires-Dist: dacite (>=1.7.0,<2.0.0)
+Requires-Dist: deepdiff6 (>=6.2.0,<7.0.0)
+Requires-Dist: expiringdict (>=1.2.2,<2.0.0)
+Requires-Dist: humanize (>=4.4.0,<5.0.0)
+Requires-Dist: importlib-metadata (>=6.0.0,<7.0.0) ; extra == "nored" or extra == "all-nored"
+Requires-Dist: iso8601 (>=1.1.0,<2.0.0)
+Requires-Dist: netaddr (>=0.8.0,<0.9.0)
+Requires-Dist: numpy (>=1.24.1,<2.0.0)
+Requires-Dist: orjson (>=3.8.3,<4.0.0) ; extra == "speed" or extra == "all" or extra == "nored" or extra == "all-nored" or extra == "all-nored"
+Requires-Dist: packaging (>=22.0,<23.0) ; extra == "nored" or extra == "all-nored"
+Requires-Dist: piccolo[all] (>=0.103.0,<0.104.0)
+Requires-Dist: pip (>=22.3.1,<23.0.0)
+Requires-Dist: platformdirs (>=2.6.2,<3.0.0) ; extra == "nored" or extra == "all-nored"
+Requires-Dist: psutil (>=5.9.4,<6.0.0) ; extra == "nored" or extra == "all-nored"
+Requires-Dist: python-dateutil (>=2.8.2,<3.0.0) ; extra == "nored" or extra == "all-nored"
+Requires-Dist: pytz (>=2022.7,<2023.0) ; extra == "nored" or extra == "all-nored"
+Requires-Dist: redis (>=4.4.0,<5.0.0) ; extra == "redis" or extra == "all" or extra == "all-nored"
+Requires-Dist: rich (>=13.0.0,<14.0.0) ; extra == "nored" or extra == "all-nored"
+Requires-Dist: setuptools (>=65.6.3,<66.0.0)
+Requires-Dist: tabulate[widechars] (>=0.9.0,<0.10.0)
+Requires-Dist: typing-extensions (>=4.4.0,<5.0.0) ; extra == "nored" or extra == "all-nored"
+Requires-Dist: ujson (>=5.6.0,<6.0.0)
+Requires-Dist: uvloop (>=0.17.0,<0.18.0) ; (sys_platform != "win32" and platform_python_implementation == "CPython") and (extra == "nored" or extra == "all-nored")
+Requires-Dist: wheel (>=0.38.4,<0.39.0)
+Project-URL: Bug Tracker, https://github.com/Drapersniper/PyLav/issues
+Project-URL: Documentation, https://pylav.readthedocs.io/en/latest/
+Project-URL: Repository, https://github.com/Drapersniper/PyLav
+Description-Content-Type: text/markdown
+
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/Drapersniper/Py-Lav/master.svg)](https://results.pre-commit.ci/latest/github/Drapersniper/Py-Lav/master)
+[![GitHub license](https://img.shields.io/github/license/Drapersniper/Py-Lav.svg)](https://github.com/Drapersniper/Py-Lav/blob/master/LICENSE)
+[![Support Server](https://img.shields.io/discord/970987707834720266)](https://discord.com/invite/Sjh2TSCYQB)
+[![PyPi](https://img.shields.io/pypi/v/Py-Lav?style=plastic)](https://pypi.org/project/Py-Lav/)
+[![Documentation Status](https://readthedocs.org/projects/pylav/badge/?version=latest)](https://pylav.readthedocs.io/en/latest/?badge=latest)
+[![Crowdin](https://badges.crowdin.net/pylav/localized.svg)](https://crowdin.com/project/pylav)
+
+
+# Documentation
+### Installation
+ - [Click Here](SETUP.md)
+---------------------------
+### Requirements
+- PostgresSQL 14 server
+  - MacOS: [PostgresSQL](https://www.postgresql.org/download/macosx/)
+  - Windows: [PostgresSQL](https://www.postgresql.org/download/windows/)
+  - Linux: [PostgresSQL](https://www.postgresql.org/download/linux/)
+- Python 3.11
+- [Discord.py](https://github.com/Rapptz/discord.py) 2.1.0+ bot
+- [Lavalink](https://github.com/freyacodes/Lavalink) v4.0.0+ server
+---------------------------
+## Supported sources
+### [Built-in](https://github.com/freyacodes/Lavalink):
+  - youtube
+  - soundcloud
+  - bandcamp
+  - twitch
+  - vimeo
+  - http
+  - local
+### With [LavaSrc](https://github.com/TopiSenpai/LavaSrc)
+  - spotify
+  - applemusic
+  - deezer
+### With [DuncteBot-plugin](https://github.com/DuncteBot/skybot-lavalink-plugin):
+  - getyarn.io
+  - clypit
+  - tts
+  - pornhub
+  - reddit
+  - ocremix
+  - tiktok
+  - mixcloud
+  - soundgasm
+### With [Google Cloud TTS](https://github.com/DuncteBot/tts-plugin):
+  - gcloud-tts
+### With [Sponsorblock-Plugin](https://github.com/Topis-Lavalink-Plugins/Sponsorblock-Plugin):
+  - sponsorblock
+
+## Supported Lavalink features
+  - Supports all features of [Lavalink](https://github.com/freyacodes/Lavalink)
+    - Filters
+    - IP Rotation
+    - Plug-ins
+
+Features
+---------------------------
+- Multiple node support
+  - Node region assignment based on IP
+- Track cache for the last 30 days to reduce the number of duplicated queries
+- Managed local node with auto-restart and auto update
+- Many helper methods and functions
+- Support for multiple cogs to access the library at once
+- Playlists and EQ saved at a library level to be shared with cogs
+- Player state persistence
+    - Upon library state being shutdown all player states are saved and restored on library startup
+- History of played tracks available for players
+- RadioBrowser.org API to retrieve radio stations available for players
+- Lyrics API to retrieve lyrics for tracks provided by [Flowery](https://flowery.pw)
+- M3U, PLS and PYLAV text file parser to convert contents into a playlist (p.s. Lavalink must support the format/coded of files still)
+
+
+Credits
+---------------------------
+- [Topi](https://github.com/TopiSenpai) for all the work done to Lavalink and implementing direct requests to make PyLav even better.
+- [Devoxin - Lavalink.py](https://github.com/Devoxin/Lavalink.py) for the original ideas for implementation.
+- [Ryan](https://github.com/ryan5453) for the amazing [Lyrics API](https://flowery.pw) used for lyrics.
+- [globocom/m3u8](https://github.com/globocom/m3u8) for the M3U8 parser which I made asynchronous found in [m3u8_parser](pylav/extension/m3u).
+- [andreztz/pyradios](https://github.com/andreztz/pyradios) for the radio parser which I made asynchronous found in [radio](pylav/extension/radio).
+- [Lifeismana](https://github.com/Lifeismana) for the custom Red-DiscordBot docker image which added Python3.11 support until Phasecore's image is updated.
+
