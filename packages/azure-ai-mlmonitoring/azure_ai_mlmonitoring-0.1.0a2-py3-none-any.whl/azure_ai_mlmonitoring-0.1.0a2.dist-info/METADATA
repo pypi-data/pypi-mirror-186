@@ -1,0 +1,119 @@
+Metadata-Version: 2.1
+Name: azure-ai-mlmonitoring
+Version: 0.1.0a2
+Summary: Azure Machine Learning Model Monitoring SDK V2
+Author: Microsoft Corporation
+Author-email: azuremlsdk@microsoft.com
+License: MIT License
+Keywords: AzureMachineLearning,ModelMonitoring
+Platform: any
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: MIT License
+Description-Content-Type: text/markdown
+Requires-Dist: requests (==2.28.1)
+Provides-Extra: setup
+Requires-Dist: setuptools (>=40.4.3) ; extra == 'setup'
+Requires-Dist: pip (~=20.3) ; extra == 'setup'
+Requires-Dist: wheel ; extra == 'setup'
+Provides-Extra: test
+Requires-Dist: pytest-subtests ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+Requires-Dist: pytest-xdist ; extra == 'test'
+Requires-Dist: numpy ; extra == 'test'
+Requires-Dist: pandas ; extra == 'test'
+
+# Azure Machine Learning Model Monitoring SDK
+
+The `azure-ai-mlmonitoring` package provides an SDK to enable Model Data Collector (MDC) for custom logging allows customers to collect data at arbitrary points in their data pre-processing pipeline. Customers can leverage SDK in `score.py` to log data to desired sink before, during, and after any data transformations. 
+
+Start by importing the `azure-ai-mlmonitoring` package in `score.py`
+
+```
+import pandas as pd
+import json
+from azure.ai.mlmonitoring import Collector
+
+def init():
+  global inputs_collector, outputs_collector
+
+  # instantiate collectors with appropriate names, make sure align with deployment spec
+  inputs_collector = Collector(name='model_inputs')                    
+  outputs_collector = Collector(name='model_outputs')
+
+def run(data): 
+  # convert json to python object and convert to pandas Dataframe
+  input_df = pd.DataFrame(json.loads(data))
+
+  # collect inputs data, store correlation_context
+  context = inputs_collector.collect(input_df) 
+
+  # perform scoring with pandas Dataframe, return value is also pandas Dataframe
+  output_df = predict(input_df) 
+
+  # collect outputs data, pass in correlation_context so inputs and outputs data can be correlated later
+  outputs_collector.collect(output_df, context)
+  
+  return output_df.to_dict()
+  
+def predict(input_df):
+  # process input and return with outputs
+  ...
+  
+  return output_df
+```
+
+Create environment with base image `mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04` and conda dependencies, then build the environment.
+
+```
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - numpy=1.23.5
+  - pandas=1.5.2
+  - pip=22.3.1
+  - pip:
+      - azureml-defaults==1.38.0
+      - requests==2.28.1
+      - azure-ai-mlmonitoring
+name: model-env
+```
+
+Create deployment with custom logging enabled (model_inputs and model_outputs are enabled) and the environment you just built, please update the yaml according to your scenario.
+
+```
+#source ../configs/model-data-collector/data-storage-basic-OnlineDeployment.YAML
+$schema: http://azureml/sdk-2-0/OnlineDeployment.json
+
+endpoint_name: my_endpoint #unchanged
+name: blue #unchanged
+model: azureml:my-model-m1:1 #azureml:models/<name>:<version> #unchanged
+environment: azureml:custom-logging-env:1 #unchanged
+data_collector:
+  model_inputs:
+      enabled: true
+  model_outputs:
+      enabled: true
+```
+
+# Change Log
+
+## [v0.1.0a2](https://pypi.org/project/azure-ai-mlmonitoring/0.1.0a2/) (2023.1.16)
+
+**Improvements**
+
+- Refine README.md.
+
+## [v0.1.0a1](https://pypi.org/project/azure-ai-mlmonitoring/0.1.0a1/) (2023.1.4)
+
+**New Features**
+
+- Support model data collection for pandas Dataframe.
