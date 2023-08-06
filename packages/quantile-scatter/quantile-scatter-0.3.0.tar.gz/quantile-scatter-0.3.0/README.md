@@ -1,0 +1,64 @@
+# quantile_scatter
+
+下の方に日本語の説明があります
+
+## Overview
+- Visualization tool that makes it easier to get scatter plots right.
+- The number of uniform data is divided into intervals on the x-axis, and the quantile points for each interval are displayed.
+
+## Usage
+```python
+import quantile_scatter
+
+# dummy data
+x_ls = [(4 * random.random() - 2) ** 3
+	for _ in range(1000)]
+y_ls = [math.sin(x) + random.random() * 0.5
+	for x in x_ls]
+
+# plot [quantile_scatter]
+quantile_scatter.plot(
+	x = x_ls,	# x-list
+	y = y_ls,	# y-list
+	min_bin_ratio = 1/20,	# Ratio of the smallest group (the number of records in the smallest group as a percentage of the total)
+	ile_ls = [0.25, 0.5, 0.75]
+)
+```
+
+## Advanced Usage
+- Option argument of `quantile_scatter.plot()` function:
+```python
+mean = True   # Also draw the "mean"
+show = False  # Do not show the graph and only return the data to be displayed (useful for saving the graph or drawing with something other than matplotlib)
+```
+
+## 概要
+- 散布図を正しく把握しやすくする可視化ツール
+- 均一データ数の横軸区間に分け、各区間の分位点を表示する
+- 説明は執筆中です
+
+## 使用例
+```python
+import quantile_scatter
+
+# ダミーデータ
+x_ls = [(4 * random.random() - 2) ** 3
+	for _ in range(1000)]
+y_ls = [math.sin(x) + random.random() * 0.5
+	for x in x_ls]
+
+# 分位点散布図の描画 [quantile_scatter]
+quantile_scatter.plot(
+	x = x_ls,	# 横軸数値リスト
+	y = y_ls,	# 縦軸数値リスト
+	min_bin_ratio = 1/20,	# 最小グループ割合 (最も小さいグループのレコード数が全体に占める割合)
+	ile_ls = [0.25, 0.5, 0.75]	# どこの分位点を出すか
+)
+```
+
+## 発展的な利用方法
+`quantile_scatter.plot()`関数のoption引数
+```python
+mean = True	# 「平均」も描画する
+show = False	# グラフ表示せず、表示対象データのみを返却 (グラフを保存したい場合や、matplotlib以外で描画したい場合などに有効)
+```
