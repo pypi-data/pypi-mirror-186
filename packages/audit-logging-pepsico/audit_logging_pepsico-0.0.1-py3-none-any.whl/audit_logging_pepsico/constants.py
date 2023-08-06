@@ -1,0 +1,6 @@
+SYSTEM_ACCOUNT = "system"
+ID_DELIMITER = "::"
+AUDIT_PRIFIX = "ochAudit"
+INTERFACE_NAME = "python_common_services"
+AUDIT_SERVICE="Audit"
+PREFIX = "audit"
