@@ -1,0 +1,123 @@
+[build-system]
+requires = [
+    "setuptools>=45",
+    "setuptools_scm[toml]>=6.2",
+    "wheel",
+    "oldest-supported-numpy",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tstoolbox"
+dynamic = ["readme", "version"]
+description = "Command line script and Python library to manipulate time series."
+dependencies = [
+    "cltoolbox >= 1.0.0",
+    "numpy",
+    "scipy",
+    "pandas",
+    "scikit-learn",
+    "statsmodels",
+    "pydantic",
+    "typing-extensions",
+    "pyaf",
+    "HydroErr",
+    "plottoolbox >= 101.6.2",
+    "toolbox_utils >= 1.0.0, < 2.0.0",
+    ]
+license = {text = "BSD-3-Clause"}
+authors = [
+    {name = "Tim Cera", email = "tim@cerazone.net"}
+    ]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Developers",
+    "Environment :: Console",
+    "License :: OSI Approved :: BSD License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    ]
+keywords = ["time-series",
+            "cli-app",
+            "aggregate",
+            "fill",
+            "filter",
+            ]
+
+[project.optional-dependencies]
+dev = [
+    "bandit",
+    "black",
+    "blacken-docs",
+    "black-nbconvert",
+    "cleanpy",
+    "commitizen",
+    "coverage",
+    "flake8",
+    "flakehell",
+    "isort",
+    "pre-commit",
+    "prospector",
+    "pyflakes",
+    "pylama",
+    "pylint",
+    "pyroma",
+    "pytest",
+    "pytest-cov",
+    "pytest-mpl",
+    "pyupgrade",
+    "twine",
+    "unimport",
+    "velin",
+    "vulture",
+    ]
+
+[project.scripts]
+tstoolbox = "tstoolbox.tstoolbox:main"
+
+[project.urls]
+documentation = "https://timcera.bitbucket.io/tstoolbox/docs/index.html#tstoolbox-documentation"
+github = "https://github.com/timcera/tstoolbox"
+bitbucket = "https://bitbucket.org/timcera/tstoolbox/src/main/"
+
+[tool]
+
+[tool.check-manifest]
+ignore = ["docs/_function_autosummary/*",
+          ".coverage",
+          ".deepsource.toml",
+          ".ipynb_checkpoints/*"]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "104.0.4"
+tag_format = "$version"
+version_files = ["VERSION"]
+update_changelog_on_bump = true
+
+[tool.isort]
+profile = "black"
+
+[tool.setuptools]
+license-files = ["LICENSE.txt"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+readme = {file = "README.rst"}
+version = {file = "VERSION"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["examples*", "tools*", "docs*", "tstoolbox.tests*"]
+
+[tool.setuptools_scm]
