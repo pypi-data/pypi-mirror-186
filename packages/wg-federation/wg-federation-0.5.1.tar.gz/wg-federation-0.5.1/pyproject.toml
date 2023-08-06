@@ -1,0 +1,83 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wg-federation"
+description = "A client/server tool to securely auto-registers peers to a wireguard VPN"
+dynamic = ["version"]
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = ["wireguard", "vpn", "federation", "radius"]
+authors = [{ name = "Anuvu DevOps Team", email = "MTL.DevOps.Team@globaleagle.com" }]
+maintainers = [{ name = "Anuvu DevOps Team", email = "MTL.DevOps.Team@globaleagle.com" }]
+urls = { source = "https://bitbucket.org/GEE_Media/python-wg-federation", container = "https://bitbucket.org/GEE_Media/container-wg-federation" }
+# https://pypi.org/classifiers/
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: System Administrators",
+    "Topic :: System :: Networking",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = [
+    'deepmerge == 1.*',
+    'dependency-injector == 4.*',
+    'ipaddr == 2.*',
+    'portalocker == 2.*',
+    'pycryptodomex == 3.*',
+    'pydantic == 1.*',
+    'pynacl == 1.*',
+    'pyyaml == 6.*',
+    'systemd-python',
+    'xdg == 5.*',
+]
+
+[project.scripts]
+wg-federation = "wg_federation:main"
+
+[project.optional-dependencies]
+dev = [
+    'behave', 'mockito',
+    'bandit', 'bandit[toml]',
+    'pytest>=7', 'pytest-pep8', 'pytest-cov', 'pytest-spec',
+    'pre-commit',
+    'pylint'
+]
+build = ['setuptools', 'build', 'wheel', 'twine', 'tomli', 'sphinx', 'sphinx_rtd_theme']
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+license-files = ["LICENSE", "NOTICE"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+wg_federation = ["__version__.txt"]
+
+[tool.pytest.ini_options]
+spec_test_format = '{result} {docstring_summary}'
+minversion = "7.0"
+addopts = "-ra"
+testpaths = [
+    "tests/unit",
+]
+pythonpath = [
+    "src"
+]
+
+[tool.mypy]
+enable_recursive_aliases = true
+
+[tool.bandit]
+exclude_dirs = ["tests", "doc", "build", "dist", "venv", "setup.py"]
+skips = [
+    'B404', # import subprocess. Importing this lib is obviously not a security threat.
+    'B603', # using subprocess without shell=True is considered safe. We need it. This silences a notice.
+]
