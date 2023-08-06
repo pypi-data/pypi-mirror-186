@@ -1,0 +1,30 @@
+[tool.black]
+line-length = 120
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | build
+  | dist
+)/
+'''
+
+[tool.mypy]
+exclude = [
+    '^(docs|tests)|setup\.py'
+]
+explicit_package_bases = true
+
+[[tool.mypy.overrides]]
+module = "thoth.storages.graph.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "thoth.storages.data.*"
+ignore_errors = true
