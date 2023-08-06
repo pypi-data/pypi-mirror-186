@@ -1,0 +1,37 @@
+[
+  {
+    "job_name": "assets",
+    "steps": [
+      {
+        "step_number": 1,
+        "worker_type": "mps-asset-validation",
+        "task_name": "check_jp2_compliance"
+      },
+      {
+        "step_number": 2,
+        "worker_type": "mps-asset-db-connector",
+        "task_name": "save_to_db"
+      }
+    ]
+  },
+  {
+    "job_name": "manifest",
+    "steps": [
+      {
+        "step_number": 1,
+        "worker_type": "iiif_validator",
+        "task_name": "validate_manifest"
+      },
+      {
+      	"step_number": 2,
+        "worker_type": "iiif_converter",
+        "task_name": "convert_manifest"
+      },
+      {
+      	"step_number": 3,
+        "worker_type": "iiif_services",
+        "task_name": "post_to_services"
+      }
+    ]
+  }
+]

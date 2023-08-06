@@ -1,0 +1,119 @@
+{
+  "type": "object",
+  "required": [
+    "job_name",
+    "job_management",
+    "creation_date",
+    "last_modified_date"
+  ],
+  "properties": {
+    "_id": { "type": "objectId" },
+    "job_name": {
+      "enum": [
+        "",
+        "assets",
+        "manifest"
+      ],
+      "description": "The name of a job being performed. A job is an instance of a workflow"
+    },
+    "parent_job_ref": {
+      "type": "objectId",
+      "description": "Reference to a parent job. Only filled in child jobs"
+    },
+    "job_management": {
+      "type": "object",
+      "properties": {
+        "maxNumberOfTries": {
+          "type": "integer",
+          "description": "The maximum number of tries for the current step"
+        },
+        "numberOfTries": {
+          "type": "integer",
+          "description": "The number of tries for the current step, this must be reset to 0 each time the job moves onto the next step"
+        },
+        "current_step": {
+          "type": "integer",
+          "description": "The step number of the current step"
+        },
+        "steps": {
+          "description": "An array containing the steps",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "step_number": {
+                "description": "The number of this step in the workflow order",
+                "type": "integer"
+              },
+              "task_name": {
+                "description": "The name of the task to be completed in this step",
+                "type": "string"
+              },
+              "worker_type": {
+                "description": "The worker responsible for the task, the worker will listen to the queue that matches the worker type",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "job_status": {
+          "description": "The state of the entire job",
+          "enum": [
+            "",
+            "ready",
+            "success",
+            "failed",
+            "queued",
+            "running"
+          ]
+        },
+        "previous_step_status": {
+          "description": "The status of the previous step",
+          "enum": [
+            "",
+            "success",
+            "failed"
+          ]
+        }
+      },
+      "required": [
+        "current_step",
+        "steps",
+        "maxNumberOfTries",
+        "numberOfTries"
+      ],
+      "additionalProperties": false
+    },
+    "context": {
+      "description": "The data necessary and expected for the particular workflow",
+      "type": "object"
+    },
+    "creation_date": {
+      "type": "datetime"
+    },
+    "last_modified_date": {
+      "type": "datetime"
+    }
+  },
+  "oneOf": [
+    {
+      "required": [
+        "job_name",
+        "job_management",
+        "creation_date",
+        "last_modified_date",
+        "parent_ref"
+      ]
+    },
+    {
+      "required": [
+        "job_name",
+        "job_management",
+        "creation_date",
+        "last_modified_date"
+      ]
+    }
+  ],
+  "additionalProperties": false
+}
