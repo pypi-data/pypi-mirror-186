@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "caronte-api-common"
+version = "0.2.0"
+description = "Common components and modules to integrate Caronte layers"
+authors = ["Giovani Liskoski Zanini <giovanilzanini@hotmail.com>"]
+license = "GNU"
+readme = "README.md"
+packages = [{ include = "caronte_common" }]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+pylint = "^2.15.10"
+black = "^22.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
