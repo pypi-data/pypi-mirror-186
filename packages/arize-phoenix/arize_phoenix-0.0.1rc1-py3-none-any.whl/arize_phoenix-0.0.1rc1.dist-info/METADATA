@@ -1,0 +1,60 @@
+Metadata-Version: 2.1
+Name: arize-phoenix
+Version: 0.0.1rc1
+Summary: ML Observability in your notebook
+Project-URL: Documentation, https://github.com/Arize-ai/phoenix#readme
+Project-URL: Issues, https://github.com/Arize-ai/phoenix/issues
+Project-URL: Source, https://github.com/Arize-ai/phoenix
+Author-email: Arize AI <phoenix-devs@arize.com>
+License-Expression: Elastic-2.0
+License-File: LICENSE
+Keywords: Explainability,Monitoring,Observability
+Classifier: Development Status :: 1 - Planning
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: <3.11,>=3.8
+Requires-Dist: hdbscan
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: psutil
+Requires-Dist: pyarrow
+Requires-Dist: starlette
+Requires-Dist: strawberry-graphql
+Requires-Dist: umap-learn
+Requires-Dist: uvicorn
+Provides-Extra: dev
+Requires-Dist: black; extra == 'dev'
+Requires-Dist: fastparquet; extra == 'dev'
+Requires-Dist: hatch; extra == 'dev'
+Requires-Dist: jupyter; extra == 'dev'
+Requires-Dist: pandas-stubs; extra == 'dev'
+Requires-Dist: pre-commit; extra == 'dev'
+Requires-Dist: pytest; extra == 'dev'
+Requires-Dist: pytest-cov; extra == 'dev'
+Requires-Dist: pytest-lazy-fixture; extra == 'dev'
+Requires-Dist: strawberry-graphql[debug-server]; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# Arize Phoenix
+
+<p>
+    <a href="https://pypi.org/project/arize-phoenix/">
+        <img src="https://img.shields.io/pypi/v/arize-phoenix">
+    </a>
+    <a href="https://pypi.org/project/arize-phoenix/">
+        <img src="https://img.shields.io/pypi/pyversions/arize-phoenix">
+    </a>
+</p>
+
+
+Phoenix provides MLOps insights at lightning speed with zero-config observability for model drift, performance, and data quality.
+
+***Phoenix is under active development. APIs may change at any time.***
+
+## Installation
+
+```shell
+pip install arize-phoenix
+```
