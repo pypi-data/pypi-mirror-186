@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: pywifiscan
+Version: 1.0.0
+Summary: Library to get the received signal strength indicator (RSSI) from Wi-Fi networks.
+Home-page: https://github.com/ferreirad08/pywifiscan
+Author: David Ferreira
+Author-email: ferreirad08@gmail.com
+License: MIT
+Project-URL: Source, https://github.com/ferreirad08/pywifiscan
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=2.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Pywifiscan
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ferreirad08/pywifiscan/blob/main/LICENSE)
+[![PyPI version](https://badge.fury.io/py/pywifiscan.svg)](https://badge.fury.io/py/pywifiscan)
+![Tests](https://github.com/ferreirad08/pywifiscan/actions/workflows/tests.yml/badge.svg)
+![Custom badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fjsonblob.com%2Fapi%2FjsonBlob%2F1065454290407276544)
+[![Downloads](https://pepy.tech/badge/pywifiscan)](https://pepy.tech/project/pywifiscan)
+[![Downloads](https://pepy.tech/badge/pywifiscan/month)](https://pepy.tech/project/pywifiscan)
+[![Supported versions](https://img.shields.io/pypi/pyversions/pywifiscan.svg)](https://pypi.org/project/pywifiscan)
+
+Library to get the received signal strength indicator (RSSI) from Wi-Fi networks.
+
+## Dependencies
+
+```bash
+$ sudo apt install net-tools wireless-tools
+```
+
+## Installation
+
+Simply install **pywifiscan** package from [PyPI](https://pypi.org/project/pywifiscan/)
+
+```bash
+$ pip install pywifiscan
+```
+
+## Examples
+
+```python
+>>> from pywifiscan import get_interface, scan_networks
+>>> # Getting the default Network Interface
+>>> iface = get_interface()
+>>> networks = scan_networks(iface)
+>>> print(networks)
+{
+    'networkName0': -70,
+    'networkName1': -75,
+    ...
+    'networkNameN': -91
+}
+```
+
+
