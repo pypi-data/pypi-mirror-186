@@ -1,0 +1,77 @@
+[tool.poetry]
+name = "dral"
+homepage = "https://github.com/gembcior/d-ral"
+version = "0.3.2"
+description = "D-RAL - Device Register Access Layer"
+authors = ["Gembcior <gembcior@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Environment :: Console",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+]
+packages = [{ include = "dral" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+svd2py = "^0.1"
+rich = "^12.5"
+click = "^8.1"
+pylama = { extras = ["all"], version = "^8.4.1" }
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.3"
+pytest-sugar = "^0.9.5"
+pytest-cov = "^3.0.0"
+pytest-clarity = "^1.0.1"
+pyyaml = "^6.0"
+black = "^22.8"
+mypy = "^0.971"
+pylama = { extras = ["all"], version = "^8.4" }
+
+[tool.poetry.scripts]
+dral = "dral.app:cli"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+files = ["dral"]
+show_error_codes = true
+strict = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+
+[[tool.mypy.overrides]]
+module = ["rich.*", "click.*", "svd2py.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 160
+
+[tool.pylama]
+max-line-length = 160
+format = "pylint"
+skip = "*/.tox/*,*/.env/*,**/__init__.py"
+linters = "eradicate,mccabe,pycodestyle,pyflakes,pylint"
+ignore = """
+  W0511,
+  E501,
+  D1,
+  C,
+  R,
+"""
+
+[tool.pylama.linter.pycodestyle]
+ignore = "E203,E501"
+max-line-length = 160
