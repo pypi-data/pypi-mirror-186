@@ -1,0 +1,18 @@
+{% for c in parent_settings.python.record_service_config_components %}
+from {{ c|package_name }} import {{ c|base_name }}
+{% endfor %}
+
+class {{ parent_settings.python.record_service_config_class|base_name }}:
+
+    # todo - this could be nicer
+    {% if python.record_service_config_bases %}
+    components = [ {% for c in parent_settings.python.record_service_config_components %}{{ ", " if not loop.first else "" }} {{ c|base_name }} {% endfor %}]
+    {% endif %}
+
+    @property
+    def links_item(self):
+        return {
+            "self": RecordLink("{self.url_prefix}{id}"),
+            # todo
+            "files": RecordLink("{self.url_prefix}{id}/files"),
+        }

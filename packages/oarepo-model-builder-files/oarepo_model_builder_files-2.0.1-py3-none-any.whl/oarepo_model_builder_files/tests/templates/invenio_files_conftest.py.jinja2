@@ -1,0 +1,47 @@
+import os
+
+from {{ python.record_service_config_class|package_name }} import {{ python.record_service_config_class|base_name }}
+from {{ python.record_service_class|package_name }} import {{ python.record_service_class|base_name }}
+from {{ python.record_resource_config_class|package_name }} import {{ python.record_resource_config_class|base_name }}
+from invenio_records_resources.resources import FileResource
+from invenio_app.factory import create_api as _create_api
+import pytest
+
+@pytest.fixture(scope="module")
+def file_service():
+    """File service shared fixture."""
+    service = {{ python.record_service_class|base_name }}({{ python.record_service_config_class|base_name }}())
+    return service
+
+@pytest.fixture(scope="module")
+def file_resource(file_service):
+    """File Resources."""
+    return FileResource({{ python.record_resource_config_class|base_name }}(), file_service)
+
+
+@pytest.fixture(scope="module")
+def headers():
+    """Default headers for making requests."""
+    return {
+        "content-type": "application/json",
+        "accept": "application/json",
+    }
+
+
+@pytest.fixture()
+def input_data():
+    """Input data (as coming from the view layer)."""
+    return {
+        "metadata": {"title": "Test"},
+    }
+
+@pytest.fixture(scope="module")
+def app_config(app_config):
+    app_config["FILES_REST_STORAGE_CLASS_LIST"] = {
+        "L": "Local",
+        "F": "Fetch",
+        "R": "Remote",
+    }
+    app_config["FILES_REST_DEFAULT_STORAGE_CLASS"] = "L"
+
+    return app_config
