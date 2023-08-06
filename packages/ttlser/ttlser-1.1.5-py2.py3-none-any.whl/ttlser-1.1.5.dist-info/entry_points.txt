@@ -1,0 +1,9 @@
+[console_scripts]
+ttlfmt = ttlser.ttlfmt:main
+
+[rdf.plugins.serializer]
+cmpttl = ttlser:CompactTurtleSerializer
+detttl = ttlser:CustomTurtleSerializer
+nifttl = ttlser:CustomTurtleSerializer
+rktttl = ttlser:CompactTurtleSerializer
+uncmpttl = ttlser:CompactTurtleSerializer
