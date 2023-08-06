@@ -1,0 +1,36 @@
+- Grab more recent versions of the PBP data JSON from NHL gamecenter
+- Harvest, Parse, and Store a dataset for modeling
+- Function(s) to grab and parse an individual game to help with applying model/viz
+- Models
+  - shot probability model
+  - win probability model
+  - faceoff model
+- Viz/Apps
+  - Streamlit
+
+
+# Resources:
+
+# https://github.com/dword4/nhlapi#game-ids <---- could use to build out a lahman like database in duckdb
+
+# Ideas
+
+# - build functions to crawl the data, parse into tables into duckdb, kinda like lahman database for hockey.
+
+# isssue will be schema changes for columns added, but I suppose working backwards helps that (newest -> oldest)
+
+# NOTES
+
+# - review the pbp response, roster data, official start/end data
+
+# - livedata boxscore includes player stats when drilling down, toi, etc
+
+# - pbp['liveData']['boxscore']['teams']['home']['players']
+
+# - livedata linescore shows periods and which team is on which side of the rink, plot the data to confirm
+
+# helps with shot distance, etc
+
+# - pbp['liveData']['linescore']
+
+# - inspect, looks like can extract all plays, or subset various plays by their ids (scoring, penalty, period, etc.)
