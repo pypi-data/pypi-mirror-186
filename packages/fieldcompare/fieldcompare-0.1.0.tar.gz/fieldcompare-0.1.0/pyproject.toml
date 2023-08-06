@@ -1,0 +1,77 @@
+[project]
+name = "fieldcompare"
+description = "Read and compare numerical data against reference data using exact, fuzzy or custom comparison operations. Simplify your regression testing pipeline."
+version = "0.1.0"
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+requires-python = ">=3.8"
+dependencies = ["numpy", "colorama"]
+authors = [
+  {name = "Dennis Gläser", email = "dennis.glaeser@iws.uni-stuttgart.de"}
+]
+maintainers = [
+  {name = "Dennis Gläser", email = "dennis.glaeser@iws.uni-stuttgart.de"}
+]
+keywords = [
+  "numerical data comparison",
+  "regression test",
+  "numerical simulation",
+  "finite elements",
+  "finite volumes"
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+[project.optional-dependencies]
+all = ["meshio[all]>=5.3", "lz4"]
+
+[project.urls]
+homepage = "https://gitlab.com/dglaeser/fieldcompare"
+repository = "https://gitlab.com/dglaeser/fieldcompare"
+
+[project.entry-points.console_scripts]
+fieldcompare = "fieldcompare._cli:main"
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.mypy]
+[[tool.mypy.overrides]]
+    module = ["colorama", "meshio", "meshio.xdmf"]
+    ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+junit_family = "xunit2"
+python_classes = "*Test"
+
+[tool.black]
+line-length = 120
+
+[tool.tox]
+legacy_tox_ini = """
+
+[tox]
+envlist = py38,py39,py310
+isolated_build = True
+
+[testenv]
+deps = -rrequirements.txt
+commands =
+  pytest --verbose --junit-xml test_report.xml
+  flake8
+  black --check --verbose -- fieldcompare
+  mypy fieldcompare
+
+[testenv:coverage]
+deps =
+  -rrequirements.txt
+  pytest-cov
+commands =
+  pytest --cov={envsitepackagesdir}/fieldcompare \
+         --cov-report xml:coverage.xml \
+         --cov-report html:cov_report \
+         --cov-report term
+"""
