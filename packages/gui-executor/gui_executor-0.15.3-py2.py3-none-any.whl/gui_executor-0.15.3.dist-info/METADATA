@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: gui-executor
+Version: 0.15.3
+Summary: Execute Python code in an automatically generated GUI App.
+Home-page: https://github.com/rhuygen/gui-executor
+Author: Rik Huygen
+Author-email: rik.huygen@kuleuven.be
+License: MIT
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Environment :: X11 Applications :: Qt
+Classifier: Topic :: Utilities
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.8.0
+Description-Content-Type: text/markdown
+Requires-Dist: rich (>=12.5)
+Requires-Dist: PyQt5
+Requires-Dist: executor
+Requires-Dist: pyyaml
+Requires-Dist: matplotlib
+Requires-Dist: jupyter-client (==6.1.12)
+Requires-Dist: jupyter-core (==4.11.1)
+Requires-Dist: qtconsole
+Requires-Dist: distro
+Provides-Extra: test
+Requires-Dist: faker ; extra == 'test'
+Requires-Dist: lorem-text ; extra == 'test'
+
+
+# GUI Executor
+
+You ever wanted to execute your Python code from a simple GUI without the need to use a REPL or commandline? Look no further, use GUI Executor.
+
+
+## Installation
+
+Install this package in your virtual environment:
+
+```
+python3 -m pip install gui-executor 
+```
+
+## Documentation
+
+You can find the documentation at https://rhuygen.github.io/gui-executor/.
+
+
