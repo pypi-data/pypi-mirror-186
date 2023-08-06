@@ -1,0 +1,801 @@
+Metadata-Version: 2.1
+Name: steampunk-spotter
+Version: 1.1.5rc1
+Summary: Quality scanner for Ansible Playbooks
+Home-page: https://spotter.steampunk.si/
+Author: XLAB d.o.o.
+Author-email: pypi@xlab.si
+Project-URL: Source Code, https://gitlab.com/xlab-steampunk/steampunk-spotter-client/spotter-cli
+Project-URL: Bug Tracker, https://gitlab.com/xlab-steampunk/steampunk-spotter-client/spotter-cli/-/issues
+Project-URL: Documentation, https://gitlab.com/xlab-steampunk/steampunk-spotter-client/spotter-cli
+Keywords: ansible,automation,spotter,scanner,quality,playbook,steampunk
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Information Technology
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Bug Tracking
+Classifier: Topic :: Software Development :: Quality Assurance
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Framework :: Ansible
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: PyYAML
+Requires-Dist: requests
+Requires-Dist: colorama
+Requires-Dist: pydantic (>=1.10.0)
+Requires-Dist: junitparser
+Requires-Dist: detect-secrets
+
+# Steampunk Spotter CLI
+
+[![PyPI](https://img.shields.io/pypi/v/steampunk-spotter)](https://pypi.org/project/steampunk-spotter/)
+
+## Table of Contents
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+    - [Limitations](#limitations)
+    - [Authentication](#authentication)
+    - [Scanning](#scanning)
+        - [Ansible content](#ansible-content)
+            - [Tasks](#tasks)
+            - [Playbooks](#playbooks)
+            - [Roles](#roles)
+            - [Collections](#collections)
+        - [Selecting the target project](#selecting-the-target-project)
+        - [Parsing values](#uploading-values)
+        - [Uploading metadata](#uploading-metadata)
+        - [Automated application of suggestions to your code](#automated-application-of-suggestions-to-your-code)
+        - [Suppressing check result levels](#suppressing-check-result-levels)
+        - [Exporting and importing scan payload](#exporting-and-importing-scan-payload)
+        - [Scan configuration](#scan-configuration)
+        - [Omitting documentation URLs from the output](#omitting-documentation-urls-from-the-output)
+    - [Setting storage folder](#setting-storage-folder)
+    - [Disabling colorized output](#disabling-colorized-output)
+    - [Setting API endpoint](#setting-api-endpoint)
+    - [CI/CD integrations](#cicd-integrations)
+        - [GitLab](#gitlab)
+        - [GitHub](#github)
+        - [Others](#others)
+- [Development](#development)
+    - [Running from source](#running-from-source)
+    - [Building Docker image](#building-docker-image)
+- [Acknowledgement](#acknowledgement)
+
+## Introduction
+[Steampunk Spotter] provides an Assisted Automation Writing tool that analyzes 
+and offers recommendations for your Ansible Playbooks.
+
+The Steampunk Spotter CLI enables the use from the console with the ability 
+to scan Ansible content such as playbooks, roles, collections, or task files.
+
+## Installation
+`steampunk-spotter` requires Python 3 and is available as a 
+[steampunk-spotter] Python package.
+
+```shell
+$ pip install steampunk-spotter
+```
+
+We suggest installing the package into a clean Python virtual environment.
+
+## Usage
+After the CLI is installed, you can explore its commands and options by 
+running `spotter --help`.
+The `--help/-h` optional argument is also available for every command.
+
+### Limitations
+The `1.1` release version of Steampunk Spotter contains the following
+limitations that also apply to the CLI: 
+
+- with the BASIC subscription plan, you can perform up to 50 scans/month and 
+  up to 100 tasks per each scan,
+- with the PRO subscription plan you can perform up to 200 scans/month and up to 
+  400 tasks per each scan,
+- for the ENTERPRISE subscription plan, you contact us at steampunk@xlab.si to
+  discuss your needs.
+
+### Authentication
+To use CLI, you have to log in with your [Steampunk Spotter] user account.
+To log in, you should provide your username and password:
+
+- via `--username/-u` and `--password/-p` global optional arguments;
+- by setting `SPOTTER_USERNAME` and `SPOTTER_PASSWORD` environment variables.
+
+For example:
+
+```console
+$ spotter --username <username> --password <password> scan playbook.yaml
+```
+
+or:
+
+```console
+$ export SPOTTER_USERNAME=<username>
+$ export SPOTTER_PASSWORD=<password>
+$ spotter scan playbook.yaml
+```
+
+After that, you can start scanning right away.
+
+### Scanning
+The CLI `spotter scan` command is used for scanning Ansible 
+content (playbooks, roles, collections, or task files) and returning back the 
+scan results.
+
+#### Ansible content
+The `scan` command will automatically detect the type of your Ansible content 
+and scan it.
+Here are some examples of running scans:
+
+```shell
+# scan task file, which contains the `tasks` section of the playbook
+$ spotter scan path/to/taskfile1.yaml
+
+# scan two playbooks
+$ spotter scan path/to/playbook1.yaml path/to/playbook2.yaml
+
+# scan multiple playbooks using glob
+$ spotter scan path/to/playbook/folder/play_*.yaml
+
+# scan two roles (scans tasks and handlers folders)
+$ spotter scan path/to/role1 path/to/role2
+
+# scan collection (scans Ansible content within roles and playbooks folders
+  and playbooks at the root of collection directory)
+$ spotter scan path/to/collection
+
+# scan multiple files at once
+$ spotter scan path/to/taskfile.yaml path/to/playbook.yaml 
+          path/to/role path/to/collection
+
+# scan any folder that contains Ansible content
+$ spotter scan path/to/folder
+```
+
+The next subsections showcase some examples of scanning different types of Ansible 
+content.
+
+##### Tasks
+Let us assume we have the following `taskfile.yaml` file:
+
+```yaml
+ 1 ---
+ 2 - name: Configure agent (Linux)
+ 3   include_tasks: linux/configure.yml
+ 4   when: ansible_facts.os_family != "Linux"
+ 5
+ 6 - name: Configure agent (Windows)
+ 7   include_tasks: windows/configure.yml
+ 8   when: ansible_facts.os_family == "Windows"
+```
+
+In this case, the CLI tool will report something like that back:
+
+```shell
+$ spotter scan taskfile.yaml
+taskfile.yaml:1:3: ERROR: Use a fully-qualified name, such as 
+  'ansible.builtin.include_tasks' instead of 'include_tasks'.
+taskfile.yaml:5:3: ERROR: Use a fully-qualified name, such as 
+  'ansible.builtin.include_tasks' instead of 'include_tasks'.
+------------------------------------------------------------------------
+Overall status: ERROR
+```
+
+##### Playbooks
+Let us assume we have the following Ansible playbook `playbook.yaml` file:
+
+```yaml
+ 1 ---
+ 2 - name: Sample playbook
+ 3   hosts: localhost
+ 4
+ 5   collections:
+ 6     - sensu.sensu_go
+ 7     - ansible.builtin
+ 8
+ 9   tasks:
+10     - name: Create local user
+11       sensu.sensu_go.user:
+12         name: johnmcclane
+13
+14     - name: OpenStack info gathering
+15       openstack.cloud.os_flavor_info:
+16
+17     - name: Create Sensu Go user
+18       user:
+19         name: joe
+20         password: "{{ lookup('env', 'SENSU_USER_PASSWORD') }}"
+21
+22     - name: Manage PHP dependencies
+23       composer:
+24         working-dir: /tmp
+25
+26     - name: Run command
+27       ansible.builtin.shell: touch /tmp/lock
+28
+29     - name: Read-only command
+30       ansible.builtin.command: ls /tmp
+31       changed_when: false
+32
+33     - name: Print a message
+34       ansible.builtin.debug:
+35         msg: Hello from Ansible
+36       check_mode: true
+```
+
+In this case, the CLI tool will report something like that back:
+
+```shell
+$ spotter scan playbook.yaml
+playbook.yaml:14:7: ERROR: The openstack.cloud.os_flavor_info module is 
+  deprecated. Module is deprecated. os_ prefixed module names are deprecated 
+  , use openstack.cloud.compute_flavor_info
+playbook.yaml:14:7: ERROR: The openstack.cloud.os_flavor_info module is 
+  redirected to the openstack.cloud.compute_flavor_info module. You should 
+  use fully-qualified collection name.
+playbook.yaml:17:7: WARNING: Potential name clashes for user between 
+  sensu.sensu_go.user, ansible.builtin.user
+playbook.yaml:17:7: ERROR: Use a fully-qualified name, 
+  such as sensu.sensu_go.user instead of user.
+playbook.yaml:22:7: ERROR: Use a fully-qualified name, such as 
+  community.general.composer instead of composer.
+playbook.yaml:22:7: ERROR: working-dir is not a valid parameter in module 
+  composer.
+playbook.yaml:26:7: WARNING: The task does not enforce a state. Use creates or 
+  removes parameters to inform Ansible under what conditions it should run 
+  the command. If the executed command is enforcing the desired state by 
+  itself already, use the changed_when keyword to inform Ansible when the 
+  state changed. The last two options are adding a when clause to the task or 
+  converting current task into a handler.
+playbook.yaml:33:7: HINT: Use of module debug is discouraged in production.
+------------------------------------------------------------------------
+Overall status: ERROR
+```
+
+##### Roles
+Let us assume we have an Ansible role (for example from [Sensu Go Ansible
+Collection]) with the following structure:
+
+```shell
+$ tree sensu-go/roles/backend/
+sensu-go/roles/backend/
+├── defaults
+│   └── main.yml
+├── handlers
+│   └── main.yml
+├── meta
+│   ├── argument_specs.yml
+│   └── main.yml
+├── README.md
+├── tasks
+│   ├── configure.yml
+│   ├── main.yml
+│   └── start.yml
+├── templates
+│   └── backend.yml.j2
+└── vars
+    └── main.yml
+```
+
+In this case, the CLI tool will scan `tasks` and `handlers` and report 
+something like that back:
+
+```shell
+$ spotter scan sensu-go/roles/backend/
+sensu_go/roles/backend/tasks/start.yml:2:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.service instead of service.
+sensu_go/roles/backend/tasks/start.yml:8:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.command instead of command.
+sensu_go/roles/backend/tasks/start.yml:16:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.command instead of command.
+sensu_go/roles/backend/tasks/configure.yml:2:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.copy instead of copy.
+sensu_go/roles/backend/tasks/configure.yml:2:3: HINT: Mode 
+  {{ item.mode | default(0644) }} in module copy contains variables, which is 
+  not a good practice.
+sensu_go/roles/backend/tasks/configure.yml:29:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.copy instead of copy.
+sensu_go/roles/backend/tasks/configure.yml:29:3: HINT: Mode 
+  {{ item.mode | default(0644) }} in module copy contains variables, which is 
+  not a good practice.
+sensu_go/roles/backend/tasks/configure.yml:47:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.copy instead of copy.
+sensu_go/roles/backend/tasks/configure.yml:47:3: HINT: Mode {{ item.mode }} in 
+  module copy contains variables, which is not a good practice.
+sensu_go/roles/backend/tasks/configure.yml:63:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.template instead of template.
+sensu_go/roles/backend/tasks/main.yml:2:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.include_role instead of include_role.
+sensu_go/roles/backend/tasks/main.yml:8:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.set_fact instead of set_fact.
+sensu_go/roles/backend/tasks/main.yml:12:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.include_tasks instead of include_tasks.
+sensu_go/roles/backend/tasks/main.yml:15:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.include_tasks instead of include_tasks.
+sensu_go/roles/backend/handlers/main.yml:2:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.service instead of service.
+------------------------------------------------------------------------
+Overall status: ERROR
+```
+
+##### Collections
+Let us assume we have an Ansible collection (for instance [Sensu Go Ansible
+Collection]) with the following structure:
+
+```shell
+$ ls -l sensu-go/
+total 116
+drwxrwxr-x 2 user user  4096 Sep  6 09:28 changelogs
+-rw-rw-r-- 1 user user  8589 Sep  6 09:28 CODE_OF_CONDUCT.md
+-rw-rw-r-- 1 user user     7 Sep  6 09:28 collection.requirements
+-rw-rw-r-- 1 user user 35148 Sep  6 09:28 COPYING
+drwxrwxr-x 2 user user  4096 Sep  6 09:28 docker
+drwxrwxr-x 5 user user  4096 Sep  6 09:28 docs
+-rw-rw-r-- 1 user user    46 Sep  6 09:28 docs.requirements
+-rw-rw-r-- 1 user user   529 Sep  6 09:28 galaxy.yml
+-rw-rw-r-- 1 user user   348 Sep  6 09:28 integration.requirements
+-rw-rw-r-- 1 user user  2828 Sep  6 09:28 Makefile
+drwxrwxr-x 2 user user  4096 Sep  6 09:28 meta
+drwxrwxr-x 7 user user  4096 Sep  6 09:28 plugins
+-rw-rw-r-- 1 user user    31 Sep  6 09:28 pytest.ini
+-rw-rw-r-- 1 user user  1415 Sep  6 09:28 README.md
+drwxrwxr-x 5 user user  4096 Sep 28 10:20 roles
+-rw-rw-r-- 1 user user   182 Sep  6 09:28 sanity.requirements
+drwxrwxr-x 5 user user  4096 Sep  6 09:28 tests
+drwxrwxr-x 2 user user  4096 Sep  6 09:28 tools
+drwxrwxr-x 3 user user  4096 Sep  6 09:28 vagrant
+```
+
+In this case, the CLI tool will scan `roles` and `playbooks` folders and any 
+task files or playbooks at the root of the collection and report something 
+like that back:
+
+```shell
+$ spotter scan sensu-go/
+sensu_go/playbooks/playbook.yaml:17:7: WARNING: Potential name clashes for 
+  user between sensu.sensu_go.user, ansible.builtin.user
+sensu_go/roles/backend/tasks/start.yml:2:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.service instead of service.
+sensu_go/roles/backend/tasks/start.yml:8:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.command instead of command.
+sensu_go/roles/backend/tasks/start.yml:16:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.command instead of command.
+sensu_go/roles/backend/tasks/configure.yml:2:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.copy instead of copy.
+sensu_go/roles/backend/tasks/configure.yml:2:3: HINT: 
+  Mode {{ item.mode | default(0644) }} in module copy contains variables 
+  , which is not a good practice.
+sensu_go/roles/backend/tasks/configure.yml:29:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.copy instead of copy.
+sensu_go/roles/backend/tasks/configure.yml:29:3: HINT: Mode 
+  {{ item.mode | default(0644) }} in module copy contains variables, which is 
+  not a good practice.
+sensu_go/roles/backend/tasks/configure.yml:47:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.copy instead of copy.
+sensu_go/roles/backend/tasks/configure.yml:47:3: HINT: Mode {{ item.mode }} in 
+  module copy contains variables, which is not a good practice.
+sensu_go/roles/backend/tasks/configure.yml:63:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.template instead of template.
+sensu_go/roles/backend/tasks/main.yml:2:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.include_role instead of include_role.
+sensu_go/roles/backend/tasks/main.yml:8:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.set_fact instead of set_fact.
+sensu_go/roles/backend/tasks/main.yml:12:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.include_tasks instead of include_tasks.
+sensu_go/roles/backend/tasks/main.yml:15:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.include_tasks instead of include_tasks.
+sensu_go/roles/backend/handlers/main.yml:2:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.service instead of service.
+sensu_go/roles/install/tasks/packages.yml:2:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.include_tasks instead of include_tasks.
+sensu_go/roles/install/tasks/packages.yml:6:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.include_tasks instead of include_tasks.
+sensu_go/roles/install/tasks/repositories.yml:2:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.include_tasks instead of 
+  include_tasks.
+sensu_go/roles/install/tasks/main.yml:2:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.include_tasks instead of include_tasks.
+sensu_go/roles/install/tasks/main.yml:6:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.include_tasks instead of include_tasks.
+sensu_go/roles/install/tasks/yum/install.yml:4:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.yum instead of yum.
+sensu_go/roles/install/tasks/yum/prepare.yml:2:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.include_vars instead of include_vars.
+sensu_go/roles/install/tasks/yum/prepare.yml:5:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.yum_repository instead of yum_repository.
+sensu_go/roles/install/tasks/yum/prepare.yml:19:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.yum_repository instead of 
+  yum_repository.
+sensu_go/roles/install/tasks/msi/install.yml:2:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.assert instead of assert.
+sensu_go/roles/install/tasks/msi/install.yml:10:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.include_vars instead of 
+  include_vars.
+sensu_go/roles/install/tasks/msi/install.yml:14:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.assert instead of assert.
+sensu_go/roles/install/tasks/msi/install.yml:21:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.set_fact instead of set_fact.
+sensu_go/roles/install/tasks/msi/install.yml:27:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.set_fact instead of set_fact.
+sensu_go/roles/install/tasks/msi/install.yml:31:3: ERROR: Use a 
+  fully-qualified name, such as ansible.windows.win_package instead of 
+  win_package.
+sensu_go/roles/install/tasks/apt/install.yml:2:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.apt instead of apt.
+sensu_go/roles/install/tasks/apt/install.yml:2:3: WARNING: Use of parameter 
+  name is deprecated in module apt. The new alternative is parameter package.
+sensu_go/roles/install/tasks/apt/prepare.yml:2:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.include_vars instead of include_vars.
+sensu_go/roles/install/tasks/apt/prepare.yml:5:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.apt instead of apt.
+sensu_go/roles/install/tasks/apt/prepare.yml:12:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.apt instead of apt.
+sensu_go/roles/install/tasks/apt/prepare.yml:12:3: WARNING: Use of parameter 
+  name is deprecated in module apt. The new alternative is parameter package.
+sensu_go/roles/install/tasks/apt/prepare.yml:20:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.uri instead of uri.
+sensu_go/roles/install/tasks/apt/prepare.yml:34:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.apt_key instead of apt_key.
+sensu_go/roles/install/tasks/apt/prepare.yml:38:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.apt_repository instead of
+  apt_repository.
+sensu_go/roles/install/tasks/apt/prepare.yml:44:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.apt_repository instead of
+  apt_repository.
+sensu_go/roles/install/tasks/dnf/install.yml:4:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.dnf instead of dnf.
+sensu_go/roles/install/tasks/dnf/prepare.yml:2:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.include_vars instead of include_vars.
+sensu_go/roles/install/tasks/dnf/prepare.yml:5:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.yum_repository instead of yum_repository.
+sensu_go/roles/install/tasks/dnf/prepare.yml:19:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.yum_repository instead of 
+  yum_repository.
+sensu_go/roles/agent/tasks/start.yml:2:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.service instead of service.
+sensu_go/roles/agent/tasks/start.yml:9:3: ERROR: Use a fully-qualified name, 
+  such as ansible.windows.win_service instead of win_service.
+sensu_go/roles/agent/tasks/configure.yml:2:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.include_tasks instead of include_tasks.
+sensu_go/roles/agent/tasks/configure.yml:6:3: ERROR: Use a fully-qualified 
+  name, such as ansible.builtin.include_tasks instead of include_tasks.
+sensu_go/roles/agent/tasks/main.yml:2:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.include_role instead of include_role.
+sensu_go/roles/agent/tasks/main.yml:8:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.set_fact instead of set_fact.
+sensu_go/roles/agent/tasks/main.yml:12:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.include_tasks instead of include_tasks.
+sensu_go/roles/agent/tasks/main.yml:15:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.include_tasks instead of include_tasks.
+sensu_go/roles/agent/tasks/windows/configure.yml:2:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.include_vars instead of 
+  include_vars.
+sensu_go/roles/agent/tasks/windows/configure.yml:5:3: ERROR: Use a 
+  fully-qualified name, such as ansible.windows.win_copy instead of win_copy.
+sensu_go/roles/agent/tasks/windows/configure.yml:11:3: ERROR: Use a 
+  fully-qualified name, such as ansible.windows.win_template instead of 
+  win_template.
+sensu_go/roles/agent/tasks/linux/configure.yml:2:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.include_vars instead of 
+  include_vars.
+sensu_go/roles/agent/tasks/linux/configure.yml:5:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.copy instead of copy.
+sensu_go/roles/agent/tasks/linux/configure.yml:15:3: ERROR: Use a 
+  fully-qualified name, such as ansible.builtin.template instead of template.
+sensu_go/roles/agent/handlers/main.yml:2:3: ERROR: Use a fully-qualified name, 
+  such as ansible.builtin.service instead of service.
+sensu_go/roles/agent/handlers/main.yml:8:3: ERROR: Use a fully-qualified name, 
+  such as ansible.windows.win_service instead of win_service.
+sensu_go/playbooks/playbook.yaml:10:7: ERROR: Cannot find module usr 
+  information in the database. Is this a custom module not published on 
+  Ansible Galaxy?
+sensu_go/playbooks/playbook.yaml:14:7: ERROR: The 
+  openstack.cloud.os_flavor_info module is deprecated. Module is deprecated 
+  . os_ prefixed module names are deprecated, use openstack.cloud 
+  .compute_flavor_info
+sensu_go/playbooks/playbook.yaml:14:7: ERROR: The 
+  openstack.cloud.os_flavor_info module is redirected to the openstack.cloud 
+  .compute_flavor_info module. You should use fully-qualified collection name.
+sensu_go/playbooks/playbook.yaml:17:7: ERROR: Use a fully-qualified name, such 
+  as sensu.sensu_go.user instead of user.
+sensu_go/playbooks/playbook.yaml:22:7: ERROR: Use a fully-qualified name, such 
+  as community.general.composer instead of composer.
+sensu_go/playbooks/playbook.yaml:22:7: ERROR: working-dir is not a valid 
+  parameter in module composer.
+sensu_go/playbooks/playbook.yaml:26:7: WARNING: The task does not enforce a 
+  state. Use creates or removes parameters to inform Ansible under what 
+  conditions it should run the command. If the executed command is enforcing 
+  the desired state by itself already, use the changed_when keyword to inform 
+  Ansible when the state changed. The last two options are adding a when 
+  clause to the task or converting current task into a handler.
+sensu_go/playbooks/playbook.yaml:33:7: HINT: Use of module debug is 
+  discouraged in production.
+------------------------------------------------------------------------
+Overall status: ERROR
+```
+
+#### Selecting the target project
+*This part is only relevant for users with a PRO plan or higher.*
+
+By default, the scan results are stored in the first project of the user's
+first organization (in the app).
+
+Users that have multiple organizations or projects in the app can use 
+`--project-id` optional argument to specify the UUID of an existing target 
+project, where the scan result will be stored.
+
+```shell
+$ spotter scan --project-id <project-id> .
+```
+
+You can learn your project id by logging into the app, selecting the
+appropriate organization and navigating to the project's dashboard.
+
+#### Uploading values
+By default, CLI parses Ansible YAML content without any parameter values.
+With values, we can discover additional tips for improvements, so if you want 
+to parse and send the values, you can use `--upload-values` optional argument.
+
+```shell
+$ spotter scan --upload-values playbook.yaml
+```
+
+#### Uploading metadata
+By default, CLI collects and uses metadata (file names, line and column
+numbers, YAML markers) from Ansible content just for displaying the scan 
+output, which means that no data about your Ansible content structure is sent  
+to the backend server. 
+For enriched user experience in the app and to get additional tips for 
+improvements, you can use `--upload-metadata` optional argument to send the 
+metadata.
+
+```shell
+$ spotter scan --upload-metadata playbook.yaml
+```
+
+#### Automated application of suggestions to your code
+There is also a `--rewrite` optional argument that rewrites your files with 
+fixes after scanning.
+This action will modify your files.
+
+```shell
+$ spotter scan --rewrite playbook.yaml
+```
+
+#### Suppressing check result levels
+You can use `--display-level` optional argument for suppressing check result 
+levels.
+For example, to show only errors (suppress warnings and hints):
+
+```shell
+$ spotter scan --display-level error playbook.yaml 
+```
+
+#### Exporting and importing scan payload
+To see what data is collected from your Ansible content and sent to the 
+backend server, you can use the optional `--export-payload` argument.
+
+```shell
+$ spotter scan --export-payload payload.json playbook.yaml 
+Scan data saved to payload.json.
+Note: this operation is fully offline. No actual scan was executed.
+```
+
+After that you can also import (with `--import-payload` optional argument) 
+the exported payload and scan it:
+
+```shell
+$ spotter scan --import-payload payload.json
+```
+
+#### Scan configuration
+Before scanning, it is possible to configure the environment via the configuration 
+file or optional CLI variables.
+By default, the CLI runs local discovery of the user's environment.
+
+Currently, the supported variables for configuration file and options are:
+
+- `ansible_version` - sets target Ansible version
+
+When `--config` optional argument is used, the variables specified in 
+JSON/YAML config file will overwrite the ones from local discovery.
+For instance, if we want to overwrite the target Ansible version, we can use the 
+following JSON config file:
+
+```json
+{
+  "ansible_version": "2.9"
+}
+```
+
+And after that we can run the scan command:
+
+```shell
+$ spotter scan --config config.json playbook.yaml
+```
+
+We can also use ``--option`` optional argument that will overwrite local 
+discovery and config file.
+After `--option` optional argument, the user should provide configuration 
+via key=value pairs.
+For instance, if we want to set the Ansible version, we can use the following 
+command:
+
+```shell
+# scan Ansible playbooks
+$ spotter scan --option ansible_version=2.9 playbook.yaml
+```
+
+#### Omitting documentation URLs from the output
+In the scan output, the CLI will display an URL to the relevant Ansible content documentation in whenever possible.
+To omit these documentation URLs from all the output, use `--no-docs-url` optional argument.
+
+```console
+$ spotter scan --no-docs-url playbook.yaml
+```
+
+### Setting storage folder
+The CLI uses local storage for caching access tokens for the Steampunk 
+Spotter API.
+The default location is `~/.config/steampunk-spotter`, but if you want to 
+change it you can use `--storage-path` optional argument.
+
+```console
+$ spotter --storage-path /my/project/.storage scan playbook.yaml
+```
+
+### Disabling colorized output
+The CLI will colorize the scan output by default.
+To make the output non-colorized use `--no-colors` option.
+
+```console
+$ spotter --no-colors scan playbook.yaml
+```
+
+### Setting API endpoint
+The CLI connects to Steampunk Spotter API (backend server) to perform scanning.
+The default API endpoint is already set, but if you ever need to change it, 
+you can do this by setting `SPOTTER_ENDPOINT` environment variable:
+
+```console
+$ export SPOTTER_ENDPOINT=<spotter-api-url>
+```
+
+### CI/CD integrations
+The CLI can be used in CI/CD pipelines to set up quality scanning of your Ansible content.
+
+When using the CLI in CI/CD workflows, it is important that you provide Steampunk Spotter credentials as secrets 
+(i.e., pipeline-protected and masked variables).
+
+#### GitLab
+The CLI can be integrated with GitLab CI/CD to display scan results as GitLab’s unit test reports. 
+This means that you will be quickly able to see which checks have failed within your CI/CD pipeline. 
+
+This is done by using Spotter CLI tool directly in the CI/CD configuration and configuring it to output your scan 
+result in JUnit XML format, which allows GitLab to display check results as green check marks for successful checks and 
+red crosses for unsuccessful checks. 
+To do so, you should use `spotter scan` CLI command along with `--junit-xml <path-junit-xml>` optional argument that 
+will create JUnit XML report at the specified location. 
+
+Below is a `.gilab-ci.yaml` example containing a CI job for the test stage, where you call the aforementioned CLI 
+command and then upload the created JUnit report format XML file as an artifact to GitLab, which will then display it 
+within your pipeline details page or merge request widget. 
+
+```yaml
+stages:
+  - test
+
+spotter-scan:
+  stage: test
+  image:
+    name: registry.gitlab.com/xlab-steampunk/steampunk-spotter-client/spotter-cli:1.1.0
+    entrypoint: [""]
+  variables:
+    SPOTTER_USERNAME: $SPOTTER_USERNAME
+    SPOTTER_PASSWORD: $SPOTTER_PASSWORD
+  script:
+    - spotter scan --junit-xml report.xml .
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
+```
+
+#### GitHub
+In your CI/CD pipeline, you can specify the name of the [Steampunk Spotter GitHub Action] 
+(`xlab-steampunk/spotter-action@master`) with a tag number as a step within your YAML workflow file. 
+
+For example, inside your `.github/workflows/ci.yml` file, you can do:
+
+```yaml
+name: test
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v3
+
+      - name: Run Ansible content scan
+        uses: ./
+        env:
+          SPOTTER_USERNAME: ${{ secrets.SPOTTER_USERNAME }}
+          SPOTTER_PASSWORD: ${{ secrets.SPOTTER_PASSWORD }}
+```
+
+For comprehensive usage and more examples refer to [Steampunk Spotter Action on GitHub Marketplace] and 
+[Steampunk Spotter GitHub Action] repository.
+
+#### Others
+For other CI/CDs, we currently only support using the [steampunk-spotter] Python package and setting it up as a
+regular shell command.
+You can also use [spotter-cli Docker image] that is available in our GitLab Registry (use 
+`registry.gitlab.com/xlab-steampunk/steampunk-spotter-client/spotter-cli:latest` image path and select the appropriate tag).
+You can use `spotter scan` CLI command along with `--junit-xml <path-junit-xml>` optional argument to export scan 
+result in JUnit XML format, which is consumed by some CI tools such as Jenkins or Bamboo.
+
+## Development
+You will first need to clone this repository.
+
+```shell
+$ git clone https://gitlab.com/xlab-steampunk/steampunk-spotter-client/spotter-cli
+$ cd spotter-cli
+```
+
+### Running from source
+If you want to run directly from the source, run the following commands:
+
+```shell
+$ python3 -m venv .venv && . .venv/bin/activate
+$ pip install -e .
+```
+
+### Building Docker image
+Before building the Docker image, copy the wheel file distribution to the
+root of this repository. 
+Make sure that you have only one `*.whl` file. 
+You can build the wheel yourself or download one from the latest CI/CD 
+pipeline.
+After that, proceed with the following commands:
+
+```shell
+$ docker build -t spotter-cli .
+```
+
+After that, you will be able to run scanning in a Docker container.
+You can mount your Ansible content to the default `/scan` working directory.
+The credentials can be specified as environment variables for the Docker
+container or later via `--username` and `--password` CLI optional arguments.
+
+```shell
+docker run --rm -it -e SPOTTER_USERNAME=<username> -e SPOTTER_PASSWORD=<password> -v "/path/to/your/playbooks/:/scan" spotter-cli scan .
+```
+
+## Acknowledgement
+This tool was created by [XLAB Steampunk], IT automation specialist and 
+leading expert in building Enterprise Ansible Collections.
+
+[Steampunk Spotter]: https://spotter.steampunk.si/
+[steampunk-spotter]: https://pypi.org/project/steampunk-spotter/
+[PyPI production]: https://pypi.org/project/steampunk-spotter/#history
+[Sensu Go Ansible Collection]: https://galaxy.ansible.com/sensu/sensu_go
+[Steampunk Spotter GitHub Action]: https://github.com/xlab-steampunk/spotter-action
+[Steampunk Spotter Action on GitHub Marketplace]: https://github.com/marketplace/actions/steampunk-spotter
+[spotter-cli Docker image]: https://gitlab.com/xlab-steampunk/steampunk-spotter-client/spotter-cli/container_registry/3453459
+[XLAB Steampunk]: https://steampunk.si/
