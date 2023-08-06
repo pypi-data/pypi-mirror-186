@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "crudhex"
+version = "0.16.1"
+description = "Java/Spring CRUD code generator"
+authors = ["salpreh <salpreh.7@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/salpreh/crudhex"
+repository = "https://github.com/salpreh/crudhex"
+documentation = "https://github.com/salpreh/crudhex"
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development",
+    "Topic :: Terminals",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+    "Development Status :: 3 - Alpha"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+typer = {extras = ["all"], version = "^0.6.1"}
+PyYAML = "^6.0"
+Jinja2 = "^3.1.2"
+inflect = "^6.0.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0"
+beautifulsoup4 = "^4.11.1"
+urllib3 = "^1.26.14"
+
+[tool.poetry.scripts]
+crudhex = "crudhex.adapters.application.cli.main:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
