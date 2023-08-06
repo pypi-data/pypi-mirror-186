@@ -1,0 +1,18 @@
+# Python plugin definition
+refs:
+    - python.yml    # Python path contribution
+    - action.yml    # Action generation
+    - badges.yml    # Badges generation
+
+config:
+    # Plugin version
+    nmkGithubPluginVersion:
+        __resolver__: nmk_github.NmkGithubVersionResolver
+
+    # Plugin versions dict
+    nmkPluginsVersions:
+        nmk-github: ${nmkGithubPluginVersion}
+
+    # Plugin help links dict
+    nmkPluginsDocs:
+        nmk-github: https://github.com/dynod/nmk/wiki/nmk-github-plugin
