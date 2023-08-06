@@ -1,0 +1,53 @@
+Metadata-Version: 2.1
+Name: qrcite
+Version: 0.2.1
+Summary: Small python tool to generate qr codes with doi links out of .bib files. 
+Author: Meph
+Author-email: "Erik E. Lorenz" <erik@tuvero.de>
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# qrcite
+Generate QR Codes from .bib-files.
+
+Example:
+
+![Einstein1905 QR Code](https://codeberg.org/Meph/qrcite/media/branch/main/EinsteinUeberErzeugungund1905.png)
+
+Inspired by https://github.com/nucleic-acid/namedropR.
+
+
+## Installation
+
+from pypi <https://pypi.org/project/qrcite/>
+
+    pip install qrcite
+
+from the git repository
+
+    pip install https://codeberg.org/Meph/qrcite
+
+
+## Usage after installation
+
+    qrcite input.bib
+
+    qrcite --help
+
+
+## Examples
+
+With text, red background
+
+    qrcite inputfile.bib -c "#900000" -t png
+
+QR Code only, as pdf
+
+    python -m qrcite inputfile.bib --color "#070" --style qrcode --type pdf
+
+
+<br /><br /><br />
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.  
+Follow me on <a rel="me" href="https://nerdculture.de/@M">Mastodon</a>.
