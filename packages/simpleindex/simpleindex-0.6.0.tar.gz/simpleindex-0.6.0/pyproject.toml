@@ -1,0 +1,33 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "simpleindex"
+author = "Tzu-ping Chung"
+author-email = "uranusjr@gmail.com"
+home-page = "https://github.com/uranusjr/simpleindex"
+classifiers = ["License :: OSI Approved :: MIT License"]
+requires-python = ">=3.8"
+requires = [
+    "packaging >=20.9",
+    "pydantic",
+    "starlette",
+    "toml",
+    "uvicorn",
+]
+
+[tool.flit.metadata.requires-extra]
+test = [
+    "mousebender",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-httpx",
+]
+
+[tool.flit.scripts]
+simpleindex = "simpleindex.__main__:run"
+
+[tool.flit.entrypoints."simpleindex.routes"]
+http = "simpleindex.routes:HTTPRoute"
+path = "simpleindex.routes:PathRoute"

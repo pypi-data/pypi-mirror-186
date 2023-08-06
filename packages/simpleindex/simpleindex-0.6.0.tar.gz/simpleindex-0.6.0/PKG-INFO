@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: simpleindex
+Version: 0.6.0
+Summary: PEP 503 Simple Repository index by declaring routing rules.
+Home-page: https://github.com/uranusjr/simpleindex
+Author: Tzu-ping Chung
+Author-email: uranusjr@gmail.com
+Requires-Python: >=3.8
+Classifier: License :: OSI Approved :: MIT License
+Requires-Dist: packaging >=20.9
+Requires-Dist: pydantic
+Requires-Dist: starlette
+Requires-Dist: toml
+Requires-Dist: uvicorn
+Requires-Dist: mousebender ; extra == "test"
+Requires-Dist: pytest ; extra == "test"
+Requires-Dist: pytest-asyncio ; extra == "test"
+Requires-Dist: pytest-httpx ; extra == "test"
+Provides-Extra: test
