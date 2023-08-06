@@ -1,0 +1,112 @@
+[tool.poetry]
+name = "circuit-maintenance-parser"
+version = "v2.2.1"
+description = "Python library to parse Circuit Maintenance notifications and return a structured data back"
+authors = ["Network to Code <opensource@networktocode.com>"]
+license = "Apache-2.0"
+homepage = "https://github.com/networktocode/circuit-maintenance-parser"
+repository = "https://github.com/networktocode/circuit-maintenance-parser"
+readme = "README.md"
+keywords = ["parser", "circuit", "maintenance"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+include = [
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+click = ">=7.1, <9.0"
+# Skipping 1.9.x versions due issue https://github.com/samuelcolvin/pydantic/issues/4114
+pydantic = {version = "~1.8.2", extras = ["dotenv"]}
+icalendar = "^5.0.0"
+bs4 = "^0.0.1"
+lxml = "^4.6.2"
+geopy = "^2.1.0"
+tzwhere = "^3.0.3"
+backoff = "^1.11.1"
+chardet = "^5"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0.0"
+requests_mock = "^1.7.0"
+pyyaml = "^6.0"
+black = "^22.3.0"
+pylint = "^2.4.4"
+pydocstyle = "^6.0.0"
+yamllint = "^1.20.0"
+bandit = "^1.6.2"
+invoke = "^1.4.1"
+flake8 = "^5.0.0"
+mypy = "^0.982"
+# Dependencies for mypy to correctly analyze code using these libraries
+types-python-dateutil = "^2.8.3"
+types-pytz = "^2022.0.0"
+types-toml = "^0.10.1"
+netconan = "^0.12.3"
+toml = "0.10.2"
+types-chardet = "^5.0.4"
+
+[tool.poetry.scripts]
+circuit-maintenance-parser = "circuit_maintenance_parser.cli:main"
+
+[tool.black]
+line-length = 120
+target-version = ['py37']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | settings.py     # This is where you define files that should not be stylized by black
+                     # the root of the project
+)
+'''
+
+[tool.pylint.basic]
+# No docstrings required for private methods (Pylint default), or for test_ functions, or for inner Meta classes.
+no-docstring-rgx="^(_|test_|Meta$)"
+extension-pkg-whitelist = [
+    "pydantic",
+]
+
+[tool.pylint.messages_control]
+# Line length is enforced by Black, so pylint doesn't need to check it.
+# Pylint and Black disagree about how to format multi-line arrays; Black wins.
+disable = """,
+    line-too-long,
+    bad-continuation,
+    duplicate-code,
+    """
+
+[tool.pylint.miscellaneous]
+# Don't flag TODO as a failure, let us commit with things that still need to be done in the code
+notes = """,
+    FIXME,
+    XXX,
+    """
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[tool.pytest.ini_options]
+python_paths = "./"
+addopts = "-vv --doctest-modules"
