@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: pyhaloxml
+Version: 2.3.1
+Summary: Read and write the annotation files from Halo
+Author-email: Rolf Harkes <r.harkes@nki.nl>
+Project-URL: Homepage, https://github.com/rharkes/pyhaloxml
+Keywords: Halo,reader,annotation
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: lxml (>=4.9)
+Requires-Dist: geojson (>=2.5)
+Requires-Dist: Shapely (>=1.8)
+Requires-Dist: numba
+Requires-Dist: numpy
+Provides-Extra: dev
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: bumpver ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: setuptools ; extra == 'dev'
+Requires-Dist: build ; extra == 'dev'
+Requires-Dist: twine ; extra == 'dev'
+
+# PyHaloXML
+Python code to read/write .annotation files from Halo. Can export as .geojson for further analysis.
+
+# Examples
+[Example 1](https://github.com/rharkes/pyhaloxml/blob/main/examples/example1.py) : Move rectangles to a different layer and save as `.annotation`.
+
+[Example 2](https://github.com/rharkes/pyhaloxml/blob/main/examples/example2.py) : Check if annotations have holes in them and save as `.geojson`.
+
+[Example 3](https://github.com/rharkes/pyhaloxml/blob/main/examples/example3.py) : Show the wkt representation of the shapely polygon.
+
+[Example 4](https://github.com/rharkes/pyhaloxml/blob/main/examples/example4.py) : Create a .annotation file from coordinates.
+
+# Installation
+`pip install pyhaloxml`
