@@ -1,0 +1,76 @@
+Metadata-Version: 2.1
+Name: PiML
+Version: 0.4.2.post2
+Summary: A low-code interpretable machine learning toolbox in Python.
+Home-page: https://github.com/SelfExplainML/PiML-Toolbox
+Author: Sudjianto, Agus and Zhang, Aijun and Yang, Zebin and Su, Yu and Zeng, Ningzhou and Nair, Vijay
+License: Apache
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: License :: OSI Approved :: Apache Software License
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: ipywidgets (>=7.7.0)
+Requires-Dist: joblib (>=1.1.0)
+Requires-Dist: ipython (>=7.12.0)
+Requires-Dist: numpy (>=1.21.4)
+Requires-Dist: scipy (>=1.5.3)
+Requires-Dist: pandas (>=1.3.5)
+Requires-Dist: matplotlib (>=3.1.2)
+Requires-Dist: seaborn (>=0.11.2)
+Requires-Dist: xlrd (>=1.2.0)
+Requires-Dist: scikit-learn (>=0.24.2)
+Requires-Dist: xgboost (>=1.4.2)
+Requires-Dist: lightgbm (>=3.1.1)
+Requires-Dist: statsmodels (>=0.12.2)
+Requires-Dist: lime (>=0.2.0.1)
+Requires-Dist: shap (>=0.39.0)
+Requires-Dist: torch (>=1.11.0)
+Requires-Dist: pygam (>=0.8.0)
+Requires-Dist: natsort (>=8.2.0)
+Requires-Dist: dcor (>=0.5.3)
+Requires-Dist: packaging (>=20.5)
+Requires-Dist: momentchi2
+
+<div align="center">
+  
+<img src="https://raw.githubusercontent.com/SelfExplainML/PiML-Toolbox/master/examples/results/LogoPiML.png" alt="drawing" width="314.15926"/>
+
+**An integrated Python toolbox for interpretable machine learning** 
+
+`pip install PiML`
+  
+<g-emoji class="g-emoji" alias="rocket" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f680.png">🚀</g-emoji> **October 31, 2022:**  V0.4.0 is released with enriched models and enhanced diagnostics.
+
+<g-emoji class="g-emoji" alias="rocket" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f680.png">🚀</g-emoji> **July 26, 2022:**  V0.3.0 is released with classic statistical models.
+
+<g-emoji class="g-emoji" alias="rocket" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f680.png">🚀</g-emoji> **June 26, 2022:** V0.2.0 is released with high-code APIs.
+
+<g-emoji class="g-emoji" alias="loudspeaker" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e2.png">📢</g-emoji> **May 4, 2022:**  V0.1.0 is launched with low-code UI/UX.
+</div>
+
+PiML (or π-ML, /ˈpaɪ·ˈem·ˈel/) is a new Python toolbox for interpretable machine learning model development and validation. Through low-code interface and high-code APIs, PiML supports a growing list of inherently interpretable ML models:
+
+1. **GLM**: Linear/Logistic Regression with L1 ∨ L2 Regularization
+1. **GAM**: Generalized Additive Models using B-splines
+1. **Tree**: Decision Tree for Classification and Regression
+2. **FIGS**: Fast Interpretable Greedy-Tree Sums (Tan, et al. 2022)
+3. **XGB2**: Extreme Gradient Boosted Trees of Depth 2 (Chen and Guestrin, 2016; Lengerich, et al. 2020)
+4. **EBM**: Explainable Boosting Machine (Nori, et al. 2019; Lou, et al. 2013)
+5. **GAMI-Net**: Generalized Additive Model with Structured Interactions (Yang, Zhang and Sudjianto, 2021)
+6. **ReLU-DNN**: Deep ReLU Networks using Aletheia Unwrapper and Sparsification (Sudjianto, et al. 2020)
+
+PiML also works for arbitrary supervised ML models under regression and binary classification settings. It supports a whole spectrum of outcome testing, including but not limited to, the following:
+
+1. **Accuracy**: popular metrics like MSE, MAE for regression tasks and ACC, AUC, Recall, Precision, F1-score for binary classification tasks. 
+1. **Explainability**: post-hoc global explainers (PFI, PDP, ALE) and local explainers (LIME, SHAP).
+1. **Fairness**: disparity test and segmented analysis by integrating the solas-ai package.
+1. **WeakSpot**: identification of weak regions with high residuals by slicing techniques.
+2. **Overfit**: identification of overfitting regions according ot train-test performance gap.
+3. **Reliability**: assessment of prediction uncertainty by split conformal prediction techniques.
+4. **Robustness**: evaluation of performance degradation under covariate noise perturbation.
+5. **Resilience**: evaluation of performance degradation under different out-of-distribution scenarios.
+
+
