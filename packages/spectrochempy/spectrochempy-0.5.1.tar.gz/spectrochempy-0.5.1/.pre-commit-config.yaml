@@ -1,0 +1,50 @@
+default_language_version:
+  # force all unspecified python hooks to run python3
+  python: python3
+
+repos:
+
+  - repo: local
+    hooks:
+      - id: create-requirements
+        name: create-requirements
+        description: Create environment and requirement files according to a template
+        entry: python .ci/create_requirements.py
+        language: python
+        additional_dependencies: [pyyaml, jinja2]
+        pass_filenames: false
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+
+  - repo: https://github.com/MarcoGorelli/absolufy-imports
+    rev: v0.3.1
+    hooks:
+      - id: absolufy-imports
+        name: absolufy-imports
+        files: ^spectrochempy/
+
+  - repo: https://github.com/PyCQA/autoflake
+    rev: "v2.0.0"
+    hooks:
+      - id: autoflake
+        args: ["--in-place", "--ignore-init-module-imports"]
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.11.4
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/ambv/black
+    rev: 22.12.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+        - id: flake8

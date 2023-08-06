@@ -1,0 +1,103 @@
+{% set name = "SpectroChemPy" %}
+
+{% set version = environ["VERSION"] %}
+
+{% set devstring = environ["DEVSTRING"] %}
+
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  path: ../
+
+build:
+  script_env:
+    - VERSION
+    - DEVSTRING
+  string: {{ devstring }}
+  noarch: python
+  script:
+    - export SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
+    - {{ PYTHON }} -m pip install .
+
+requirements:
+  host:
+    - pip
+    - python >=3.7
+    - setuptools
+    - setuptools_scm
+  run:
+    - python
+
+    # specific dependencies
+    - quadprog
+    - brukeropusreader
+    - quaternion
+
+    # dependencies for the core package
+    - cffconvert
+    - colorama
+    - dill
+    - ipython
+    - jinja2
+    - matplotlib
+    - numba
+    - numpy
+    - numpydoc
+    - pint
+    - pytz
+    - requests
+    - scipy
+    - tqdm
+    - traitlets
+    - traittypes
+    - xlrd
+    - pyyaml
+    - ipywidgets
+    - widgetsnbextension
+    - jupyterlab_widgets
+    - ipympl
+
+    # dependencies needed mainly for install and a bit more ...
+    - setuptools
+    - setuptools_scm
+    - git
+
+    # Jupyter lab
+    - jupyterlab
+    - nodejs
+
+
+#EOF
+
+
+  test:
+    - python  {{ python }}
+
+test:
+  script_env:
+    - VERSION
+    - DEVSTRING
+  imports:
+    - spectrochempy
+
+about:
+  home: "https://github.com/spectrochempy/spectrochempy"
+  license: CeCILL-B
+  license_family: OTHER
+  summary: "Processing, analysis and modelling Spectroscopic data for Chemistry with Python"
+  doc_url: "https://www.spectrochempy.fr"
+  dev_url: "https://github.com/spectrochempy/spectrochempy"
+  description: |
+    SpectroChemPy is a framework for processing, analyzing and modeling Spectroscopic data for Chemistry with Python.
+    It is a cross platform software, running on Linux, Windows or OS X.
+
+    SpectroChemPy is still experimental and under active development.
+    Its current design is subject to major changes, reorganizations, bugs and crashes!!!.
+    Please report any issues to the Issue Tracker on github.
+
+extra:
+  recipe-maintainers:
+    - fernandezc
