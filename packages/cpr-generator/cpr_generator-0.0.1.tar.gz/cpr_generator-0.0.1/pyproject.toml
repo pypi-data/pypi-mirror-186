@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cpr_generator"
+version = "0.0.1"
+authors = [
+  { name="HackTheOxidation", email="tomas.hagenau@protonmail.ch" },
+]
+description = "An unofficial tool for generating and verifying Danish CPR-numbers."
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.10"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+dependencies = []
+
+[project.scripts]
+cpr-gen = "cpr_generator:main"
+
+[project.urls]
+"Homepage" = "https://codeberg.org/HackTheOxidation/cpr-generator"
+"Bug Tracker" = "https://codeberg.org/HackTheOxidation/cpr-generator/issues"
