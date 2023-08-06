@@ -1,0 +1,267 @@
+Metadata-Version: 2.1
+Name: Misago
+Version: 0.28.1
+Summary: Misago is modern, fully featured forum application written in Python and ES6, powered by Django and React.js. It works out of the box and can be run alone or be connected to existing site with built in OAuth 2 client.
+Home-page: http://www.misago-project.org/
+Author: Rafał Pitoń
+Author-email: kontakt@rpiton.com
+License: GPLv2
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Internet :: WWW/HTTP :: WSGI
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+License-File: LICENSE.rst
+Requires-Dist: amqp (==5.1.1)
+Requires-Dist: anyio (==3.6.1)
+Requires-Dist: ariadne (==0.15.1)
+Requires-Dist: ariadne-django (==0.3.0)
+Requires-Dist: asgiref (==3.5.2)
+Requires-Dist: async-timeout (==4.0.2)
+Requires-Dist: attrs (==22.1.0)
+Requires-Dist: beautifulsoup4 (==4.7.1)
+Requires-Dist: billiard (==3.6.4.0)
+Requires-Dist: bleach (==5.0.1)
+Requires-Dist: celery[redis] (==5.2.7)
+Requires-Dist: certifi (==2022.6.15)
+Requires-Dist: cffi (==1.15.1)
+Requires-Dist: charset-normalizer (==2.1.0)
+Requires-Dist: click (==8.1.3)
+Requires-Dist: click-didyoumean (==0.3.0)
+Requires-Dist: click-plugins (==1.1.1)
+Requires-Dist: click-repl (==0.2.0)
+Requires-Dist: coverage[toml] (==6.5.0)
+Requires-Dist: coveralls (==3.3.1)
+Requires-Dist: cryptography (==37.0.4)
+Requires-Dist: defusedxml (==0.7.1)
+Requires-Dist: deprecated (==1.2.13)
+Requires-Dist: django (==3.2.15)
+Requires-Dist: django-debug-toolbar (==3.5.0)
+Requires-Dist: django-htmlmin (==0.11.0)
+Requires-Dist: django-js-asset (==2.0.0)
+Requires-Dist: django-mptt (==0.13.4)
+Requires-Dist: django-simple-sso (==1.1.0)
+Requires-Dist: djangorestframework (==3.13.1)
+Requires-Dist: docopt (==0.6.2)
+Requires-Dist: faker (==13.15.1)
+Requires-Dist: fastdiff (==0.3.0)
+Requires-Dist: graphql-core (==3.2.1)
+Requires-Dist: html5lib (==1.1)
+Requires-Dist: idna (==3.3)
+Requires-Dist: iniconfig (==1.1.1)
+Requires-Dist: itsdangerous (==0.24)
+Requires-Dist: kombu (==5.2.4)
+Requires-Dist: markdown (==3.4.1)
+Requires-Dist: oauthlib (==3.2.0)
+Requires-Dist: packaging (==21.3)
+Requires-Dist: pillow (==9.2.0)
+Requires-Dist: pluggy (==1.0.0)
+Requires-Dist: prompt-toolkit (==3.0.30)
+Requires-Dist: psycopg2-binary (==2.9.3)
+Requires-Dist: py (==1.11.0)
+Requires-Dist: pycparser (==2.21)
+Requires-Dist: pyjwt (==2.4.0)
+Requires-Dist: pyparsing (==3.0.9)
+Requires-Dist: pytest (==7.1.2)
+Requires-Dist: pytest-cov (==4.0.0)
+Requires-Dist: pytest-django (==4.5.2)
+Requires-Dist: pytest-mock (==3.8.2)
+Requires-Dist: python-dateutil (==2.8.2)
+Requires-Dist: python3-openid (==3.2.0)
+Requires-Dist: pytz (==2022.1)
+Requires-Dist: redis (==4.3.4)
+Requires-Dist: requests (==2.28.1)
+Requires-Dist: requests-oauthlib (==1.3.1)
+Requires-Dist: responses (==0.21.0)
+Requires-Dist: six (==1.16.0)
+Requires-Dist: snapshottest (==0.6.0)
+Requires-Dist: sniffio (==1.2.0)
+Requires-Dist: social-auth-app-django (==5.0.0)
+Requires-Dist: social-auth-core (==4.3.0)
+Requires-Dist: soupsieve (==2.3.2.post1)
+Requires-Dist: sqlparse (==0.4.2)
+Requires-Dist: starlette (==0.20.4)
+Requires-Dist: termcolor (==1.1.0)
+Requires-Dist: tomli (==2.0.1)
+Requires-Dist: typing-extensions (==4.3.0)
+Requires-Dist: unidecode (==1.3.4)
+Requires-Dist: urllib3 (==1.26.11)
+Requires-Dist: vine (==5.0.0)
+Requires-Dist: wasmer (==1.1.0)
+Requires-Dist: wasmer-compiler-cranelift (==1.1.0)
+Requires-Dist: wcwidth (==0.2.5)
+Requires-Dist: webencodings (==0.5.1)
+Requires-Dist: webservices[django] (==0.7)
+Requires-Dist: wrapt (==1.14.1)
+
+======
+Misago
+======
+
+.. image:: https://travis-ci.org/rafalp/Misago.svg?branch=master
+   :target: https://travis-ci.org/rafalp/Misago
+   :alt: Tests Result
+
+.. image:: https://coveralls.io/repos/github/rafalp/Misago/badge.svg?branch=master
+   :target: https://coveralls.io/github/rafalp/Misago?branch=master
+   :alt: Test Coverage
+
+.. image:: https://img.shields.io/badge/release-0.28.0-brightgreen.svg
+   :target: https://pypi.org/project/Misago/
+   :alt: Release 0.28.1
+
+.. image:: https://img.shields.io/badge/python-3.11-blue.svg
+   :target: https://travis-ci.org/rafalp/Misago
+   :alt: Works on Python 3.11
+
+.. image:: https://img.shields.io/badge/chat-on_discord-7289da.svg
+   :target: https://discord.gg/fwvrZgB
+   :alt: Community Chat
+
+
+**Development Status:** 🍌 `Bananas <https://en.wikipedia.org/wiki/Perpetual_beta>`_ 🍌
+
+Misago aims to be complete, featured and modern forum solution that has no fear to say 'NO' to common and outdated opinions about how forum software should be made and what it should do.
+
+* **Homepage:** http://misago-project.org/
+* **Documentation:** https://misago.gitbook.io/docs/
+* **Code & BugTracker:** https://github.com/rafalp/Misago/
+
+
+Screenshots
+===========
+
+.. image:: https://misago-project.org/media/mporg-home-small.png?01062018
+   :target: https://misago-project.org
+   :alt: Forum index
+
+.. image:: https://misago-project.org/media/mporg-thread-small.png?01062018
+   :target: https://misago-project.org
+   :alt: Thread view
+
+
+Production use
+==============
+
+As of now Misago implements all features considered "must have" on live internet forum:
+
+* Your users may register accounts, set avatars, change options and edit their profiles. They have option to reset forgotten password.
+* Sign in with Facebook, Google, Github, Steam, Blizzard.net or any other over 50 supported OAuth providers.
+* Site admins may require users to confirm validity of their e-mail addresses via e-mail sent activation link, or limit user account activation to administrator action. They can use custom Q&A challenge, ReCAPTCHA, Stop Forum Spam or IP's blacklist to combat spam registrations. Pletora of settings are available to control user account behaviour, like username lengths or avatar restrictions.
+* Create categories together with unlimited number and depth of subcategories.
+* Write messages using either GitHub flavoured markdown, BBCode subset, or both.
+* Presence features let site members know when other users are online, offline or banned. Individual users have setting to hide their activity from non-admins.
+* Complete moderation toolset allowing admin-approved moderators to edit, move, hide, approve, delete or close user posted content. This also includes option to delete or block user accounts or avatars.
+* Ban system allows you to ban existing users as well as forbid certain user names, e-mails or IP addresses from registering accounts.
+* Permission system allowing you to control which features are available to users based on their rank, roles or category they are in.
+* Post accurate read tracker that lets your users spot threads with new posts as well as let moderators spot unapproved replies and non-moderators spot approved posts.
+* Private threads feature allowing users to create threads visible only to them and those they've invited. 
+* Python-based profile fields framework letting site owners to define custom fields for users to fill in complete with powerful customization options for custom requirements, display or validation logic.
+* Rich polls  system, allowing polls with public and private voters, single and multiple choices as well as ones that allow vote change or limit voting tp limited period of time.
+* Post attachments complete thumbnailing and gif's animation removal.
+* Mark post in question thread as best answer, bringing basic Q&A functionality.
+* Posts edits log allowing you to see how user messages used to look in past as well as revert function protecting you from malignant users emptying their posts contents.
+* Moderation queue for users and categories allowing you to moderate content before it becomes visible to other members of the community.
+* Custom theme developed with bootstrap.
+* Features and settings for achieving GDPR compliance.
+* Integrate forum with your site using implemented OAuth2 client and JSON API.
+
+Even more features will follow in future releases:
+
+* Forum-wide JS routing further reducing navigation times.
+* Replacing current API with GraphQL API for easier integrations and extending.
+* Plugin system to extend core package with new features.
+* WYSIWYM content editor for even easier post formatting.
+* Ranking system for forum search results based on post links, likes, author and thread importance.
+
+
+Development
+===========
+
+Preferred way to run Misago development instances on your machine is with `Docker <https://www.docker.com/community-edition#/download>`_, which makes it easy to spin up arbitrary number of instances running different code with separate databases and dependencies besides each other.
+
+To start, clone the repository and run ``./dev init`` command in your terminal. This will build necessary docker containers, install python dependencies and initialize the database. After command does its magic, you will be able to start development server using the ``docker-compose up`` command.
+
+After development server starts, visit the ``http://127.0.0.1:8000/`` in your browser to see your Misago installation.
+
+Admin Control Panel is available under the ``http://127.0.0.1:8000/admincp/`` address. To log in to it use ``Admin`` username and ``password`` password.
+
+The ``./dev`` utility implements other features besides the ``init``. Run it without any arguments to get the list of available actions.
+
+
+Running Misago in development without `dev`
+-------------------------------------------
+
+You may skip `./dev init` and setup dev instance manually, running those commands:
+
+1. `docker-compose build` - builds docker containers
+2. `docker-compose run --rm misago python manage.py migrate` - runs migrations
+3. `docker-compose run --rm misago python manage.py createsuperuser` - creates test user
+4. `docker-compose up` - starts dev server
+
+
+Frontend
+--------
+
+With exception of Admin Panel, Misago frontend relies heavily on React.js components backed by Django API. This application uses webpack for building.
+
+Currently Misago defines following taks:
+
+* **npm run build** does production build of Misago's assets, concating and minifying javascripts, css and images, as well as moving them to misago/static directory.
+* **npm run start** does quick build for assets (concat assets into single files, compile less, deploy to misago/static but don't minify/optimize) as well as runs re-build when less/js changes.
+* **npm run prettier** formats code with prettier.
+* **npm run eslint** lints code with eslint.
+
+To start work on custom frontend for Misago, fork and install it locally to have development forum setup. You can now develop custom theme by modifying assets in ``frontend`` directory, however special care should be taken when changing source javascripts.
+
+Misago defines template that allows you to include custom html and js code before Misago's JavaScript app is ran, named **scripts.html**.
+
+
+Bug reports, features and feedback
+==================================
+
+If you have found bug, please report it on `issue tracker <https://github.com/rafalp/Misago/issues>`_.
+
+For feature or support requests as well as general feedback please use `official forum <http://misago-project.org>`_ instead. Your feedback means much to the project so please do share your thoughts!
+
+There's also Gitter for those looking for instant-messaging approach for discussing Misago development.
+
+
+Contributing
+============
+
+If you have corrected spelling, wrote new tests or fixed a bug, feel free to open pull request.
+
+Many issues are open for takers. If you've found one you feel you could take care of, please announce your intent in issue discussion before you start working. That way situations when more than one person works on solving same issue can be avoided.
+
+
+Authors
+=======
+
+**Rafał Pitoń**
+
+* http://rpiton.com
+* http://github.com/rafalp
+* https://twitter.com/RafalPiton
+
+
+English sentences used within ``misago.faker.phrases`` were extracted from `National Aeronautics and Space Administration Solar System Exploration Portal <http://solarsystem.nasa.gov/planets/>`_ and are not copyrighted as per `Media and content usage guidelines <https://www.nasa.gov/multimedia/guidelines/index.html>`_.
+
+
+Copyright and license
+=====================
+
+**Misago** - Copyright © 2018 `Rafał Pitoń <http://github.com/rafalp>`_
+This program comes with ABSOLUTELY NO WARRANTY.
+
+This is free software and you are welcome to modify and redistribute it under the conditions described in the license.
+For the complete license, refer to LICENSE.rst
