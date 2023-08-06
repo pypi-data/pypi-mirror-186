@@ -1,0 +1,16 @@
+include CHANGELOG.md
+include CITATION.cff
+include COPYING
+include INSTALL
+include compile_externals.py
+include README.md
+
+prune test/
+graft data/
+graft src/
+graft scripts/
+exclude scripts/download_motif_databases.py
+exclude scripts/gimme_benchmark
+
+include versioneer.py
+include gimmemotifs/_version.py
