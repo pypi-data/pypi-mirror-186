@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+
+[project]
+dependencies = [
+    "gradescope-utils >= 0.3.1", 
+    "pycodestyle",
+    "click",
+]
+
+name = "neugs_utils"
+description = "Alternative Grading Options for Gradescope autograder"
+version = "0.0.11"
+authors = [{name = "Albert Lionelle", email = "lionelle+neugs-utils@gmail.com"}]
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["gradescope", "grading"]
+requires-python = ">=3.6"
+
+
+[project.urls]
+Source = "https://github.com/lionelle/neugs-utils"
+
+
+
+[project.scripts]
+neugs-build = "neugs_utils.scripts.build_autograder:build_autograder"
+neugs-add = "neugs_utils.scripts.test_utils:new_test"
