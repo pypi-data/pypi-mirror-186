@@ -1,0 +1,1 @@
+from .whisp_main import test_func
