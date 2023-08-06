@@ -1,0 +1,50 @@
+[tool.poetry]
+name = "odapdbxbundle"
+version = "0.0.5dev0"
+description = "ODAP Databricks Bundle"
+readme = "README.md"
+
+license = "Proprietary"
+
+authors = [
+    "Tomas Bouma <tomas.bouma@datasentics.com>",
+    "Karla Strachonova <karla.strachonova@datasentics.com>"
+]
+
+packages = [
+    { include = "odapdbxbundle", from = "src"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+databricks_api = "*"
+pyyaml = "^6.0"
+
+[tool.poetry.dev-dependencies]
+pyspark = {url = "https://daipe-packages.s3.eu-central-1.amazonaws.com/pyspark-3.2.0-py2.py3-none-any.whl"}
+delta-spark = {url = "https://daipe-packages.s3.eu-central-1.amazonaws.com/delta_spark-1.1.0-py3-none-any.whl"}
+requests = "2.28.1"
+
+[tool.black]
+line-length = 120
+
+[tool.pylint.basic]
+module-rgx = "(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$"
+
+[tool.pylint.messages_control]
+disable = [
+    "missing-docstring",
+    "line-too-long",
+    "too-many-arguments",
+    "too-few-public-methods",
+    "logging-fstring-interpolation"
+]
+good-names = ["e", "i", "k", "n", "f", "v", "df", "sc", "fs"]
+
+[tool.pytest.ini_options]
+python_files = "*_test.py *Test.py"
+
+[tool.poe.tasks]
+black = "black src"
+black-check = "black --check src"
+pylint = "pylint src --max-nested-blocks 2 --max-statements 10"
