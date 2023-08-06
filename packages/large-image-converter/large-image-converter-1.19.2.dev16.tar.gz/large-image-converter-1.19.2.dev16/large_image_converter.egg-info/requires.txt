@@ -1,0 +1,21 @@
+gdal
+large-image-source-tiff>=1.19.2.dev16
+numpy
+psutil
+pyvips
+tifftools
+
+[:python_version < "3.8"]
+importlib-metadata<5
+
+[jp2k]
+glymur
+
+[sources]
+large-image[sources]>=1.19.2.dev16
+
+[stats]
+packaging
+
+[stats:python_version < "3.11"]
+scikit-image
