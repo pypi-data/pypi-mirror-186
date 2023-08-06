@@ -1,0 +1,26 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="collective.consent">
+
+  -*- extra stuff goes here -*-
+
+  <browser:page
+     name="consent-item-consents-view"
+     for="collective.consent.content.consent_item.IConsentItem"
+     class=".consent_item_consents_view.ConsentItemConsentsView"
+     template="consent_item_consents_view.pt"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     name="view"
+     for="collective.consent.content.consent_item.IConsentItem"
+     class=".consent_item_view.ConsentItemView"
+     template="consent_item_view.pt"
+     permission="zope2.View"
+     />
+
+
+</configure>

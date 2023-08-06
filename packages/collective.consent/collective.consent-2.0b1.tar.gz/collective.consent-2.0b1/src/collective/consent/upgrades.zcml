@@ -1,0 +1,34 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+  <!-- -*- extra stuff goes here -*- -->
+  <genericsetup:upgradeStep
+    source="*"
+    destination="1001"
+    title="Reload GS profiles, to update FTI settings"
+    description=""
+    profile="collective.consent:default"
+    handler=".upgrades.reload_gs_profile"
+    />
+
+  <genericsetup:upgradeStep
+    source="1001"
+    destination="1002"
+    title="Reload GS profiles, enable versioning support"
+    description=""
+    profile="collective.consent:default"
+    handler=".upgrades.reload_gs_profile"
+    />
+
+  <genericsetup:upgradeStep
+    source="1002"
+    destination="1003"
+    title="Reload GS profiles, to set new consent item actions"
+    description=""
+    profile="collective.consent:default"
+    handler=".upgrades.reload_gs_profile"
+    />
+
+
+</configure>
