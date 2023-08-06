@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "djangomni-search"
+version = "0.3.0"
+description = "Quick search anything in Django Admin from a single place"
+authors = ["Pavel Žák <pavel@zak.global>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "djangomni_search"}]
+include = [
+  "**/djangomni_search/static/**/*",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
