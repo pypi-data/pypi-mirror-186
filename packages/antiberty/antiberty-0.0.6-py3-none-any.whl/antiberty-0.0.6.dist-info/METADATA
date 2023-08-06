@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: antiberty
+Version: 0.0.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.MD
+Requires-Dist: einops (>=0.3.0)
+Requires-Dist: numpy (>=1.21.2)
+Requires-Dist: tokenizers (>=0.10.2)
+Requires-Dist: torch (>=1.7.1)
+Requires-Dist: transformers (>=4.5.1)
+
+# AntiBERTy
+
+Antibody-specific transformer language model pre-trained on 558M natural antibody sequences.
+
+## Usage
+
+```
+from antiberty import AntiBERTy, get_weights
+
+antiberty = AntiBERTy.from_pretrained(get_weights()) 
+```
+
+## Citing this work
+
+```bibtex
+@article{ruffolo2021deciphering,
+    title = {Deciphering antibody affinity maturation with language models and weakly supervised learning},
+    author = {Ruffolo, Jeffrey A and Gray, Jeffrey J and Sulam, Jeremias},
+    journal = {arXiv preprint arXiv:2112.07782},
+    year= {2021}
+}
+```
