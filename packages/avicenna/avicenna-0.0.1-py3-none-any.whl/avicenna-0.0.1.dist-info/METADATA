@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: avicenna
+Version: 0.0.1
+Summary: Semantic Debugging: Avicenna
+Home-page: https://github.com/martineberlein/semantic-debugging
+Author: Martin Eberlein
+Author-email: martin.eberlein@informatik.hu-berlin.de
+License: MIT License
+Project-URL: Bug Tracker, https://github.com/martineberlein/semantic-debugging/issues
+Platform: UNKNOWN
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Testing
+Description-Content-Type: text/markdown
+Requires-Dist: fuzzingbook (~=1.1)
+Requires-Dist: isla-solver (~=1.10)
+Requires-Dist: islearn (>=0.2.10)
+Requires-Dist: shap (>=0.41)
+Requires-Dist: lightgbm (>=3.3.2)
+Requires-Dist: z3-solver (>=4.10.2.0)
+Requires-Dist: pandas (~=1.4.4)
+Requires-Dist: numpy (~=1.23.2)
+Requires-Dist: scikit-learn (~=1.1.2)
+Provides-Extra: dev
+Requires-Dist: pytest (>=7.2.0) ; extra == 'dev'
+Requires-Dist: twine ; extra == 'dev'
+
+# Semantic Debugging (ICSE'23 Artifact)
+
+This repository provides the tool **AVICENNA** for our ICSE'23 Submission _Semantic Debugging_.
+
+This repository includes: 
+* the source code of **AVICENNA** ([src](./src)),
+* the scripts to rerun all experiments ([evaluation](./evaluation)),
+* and the automatically generated evaluation data sets to measure the performance of both **AVICENNA** and _ALHAZEN_ ([data_sets](resources/evaluation_data_sets)).
+
