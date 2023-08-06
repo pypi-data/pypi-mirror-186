@@ -1,0 +1,23 @@
+matplotlib==3.5.2
+numba==0.56.*
+ftfy
+numpy==1.22.*
+pandas==1.4.*
+torch==1.12.*
+torchvision==0.13.*
+open_clip_torch==2.0.*
+tqdm==4.64.0
+timm==0.6.*
+torchtyping
+regex
+scikit-image==0.19.3
+scikit-learn==1.1.*
+scipy==1.8.1
+h5py==3.7.0
+CLIP
+
+[:sys_platform != "darwin" or platform_machine != "arm64"]
+tensorflow==2.9.*
+
+[:sys_platform == "darwin" and platform_machine == "arm64"]
+tensorflow-macos==2.9.*
