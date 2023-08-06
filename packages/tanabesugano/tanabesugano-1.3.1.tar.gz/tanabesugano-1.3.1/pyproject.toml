@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "tanabesugano"
+version = "1.3.1"
+description = "A python-solver for Tanabe-Sugano and Energy-Correlation diagrams"
+authors = ["Anselm Hahn <anselm.hahn@gmail.com>"]
+maintainers = ["Anselm Hahn <anselm.hahn@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+keywords = [
+        "terminal",
+        "data-visualization",
+        "tanabe-sugano",
+        "energy-correlation",
+        "complex-ions",
+]
+repository = "https://github.com/Anselmoo/TanabeSugano"
+homepage = "https://pypi.org/project/TanabeSugano"
+classifiers = [
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Console",
+        "Intended Audience :: Education",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: MacOS",
+        "Operating System :: Unix",
+        "Operating System :: Microsoft :: Windows",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Topic :: System :: Shells",
+        "Topic :: Scientific/Engineering :: Visualization",
+        "Topic :: Scientific/Engineering :: Chemistry",
+        "Topic :: Scientific/Engineering :: Physics",
+        "Topic :: Utilities",
+]
+include = ["LICENSE", "example/**"]
+exclude = ["test/**/*.py"]
+
+        [tool.poetry.dependencies]
+        python = ">=3.8.1,<4.0"
+        pandas = "^1.2.4"
+        numpy = "^1.20.3"
+        matplotlib = "^3.4.2"
+        prettytable = "^2.1.0"
+
+        [tool.poetry.group.dev.dependencies]
+        pytest = "^7.2.0"
+        pytest-clarity = "^1.0.1"
+        pytest-cov = "^4.0.0"
+        flake8 = "^6.0.0"
+        black = "^22.12.0"
+        isort = "^5.11.4"
+        pytest-console-scripts = "^1.3.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+tanabesugano = "tanabesugano.cmd:cmd_line"
