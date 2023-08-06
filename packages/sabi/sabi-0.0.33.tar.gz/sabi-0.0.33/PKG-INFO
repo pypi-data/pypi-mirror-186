@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: sabi
+Version: 0.0.33
+Summary: A client for the SABI api (www.sabi.ai)
+Home-page: https://github.com/sabi-ai/sabi
+Author: Scientific Advanced Business Intelligence
+Author-email: alon@sabi.ai
+License: UNKNOWN
+Description: # Sabi
+        
+        ## To set up the repo:
+        
+        `pip install wheel`
+        `pip install twine`
+        
+        API for the scientific advamced business intelligence tool at sabi.ai.
+        
+        ## To Deploy:
+        
+        - Make the changes
+        - Increment the version (setup.py)
+        
+        `make deploy`
+        
+        ## Example usage:
+        
+        `pip install sabi`
+        
+        ```
+        from sabi import Sync
+        
+        api_key = <your api key>
+        
+        sabi_sync_api = Sync(api_key)
+        sabi_sync_api.get_missing_individuals()
+        ```
+        
+        
+Keywords: Scientific,Advanced,Business,Intelligence
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.6, <4
+Description-Content-Type: text/markdown
+Provides-Extra: dev
