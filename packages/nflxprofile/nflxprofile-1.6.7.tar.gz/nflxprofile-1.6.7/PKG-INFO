@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: nflxprofile
+Version: 1.6.7
+Summary: Protobuf specification of the nflxprofile format
+Home-page: https://github.com/Netflix/nflxprofile
+Author: Mary Marchini
+Author-email: mmarchini@netflix.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+
+# nflxprofile
+
+Python package exposing the `nflxprofile` format as a Python class.
+
+## Install
+
+```
+pip install nflxprofile
+```
+
+## Usage
+
+```python
+from nflxprofile import nflxprofile_pb2
+
+profile = nflxprofile_pb2.Profile()
+```
