@@ -1,0 +1,24 @@
+---
+#
+# copy/adapt into clouds.yml
+#
+# The password for the OpenStack tenant below can be requested here:
+# https://forum.enough.community/t/openstack-tenant-dedicated-to-hostea-testing/814
+#
+openstack_provider: ovh
+clouds:
+  production:
+    auth: &os_auth
+      auth_url: https://auth.cloud.ovh.net/v3
+      username: "user-yjHGdxZRmYtt"
+      password: "??????????????"
+      project_id: f721c0a2bf624b7ea643f114242c714a
+      project_name: "1212472822801405"
+      user_domain_name: "Default"
+    region_name: "GRA5"
+    interface: "public"
+    identity_api_version: 3
+  clone:
+    auth:
+      <<: *os_auth
+    region_name: "SBG5"

@@ -1,0 +1,15 @@
+- name: reload icinga2
+  systemd:
+    name: icinga2
+    state: reloaded
+    enabled: True
+  changed_when: False
+  delegate_to: "{{ item }}"
+  loop: "{{groups['icinga-service-group']}}"
+
+- name: reload icinga2 client
+  systemd:
+    name: icinga2
+    state: reloaded
+    enabled: True
+  changed_when: False

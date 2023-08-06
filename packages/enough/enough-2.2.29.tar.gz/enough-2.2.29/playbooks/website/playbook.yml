@@ -1,0 +1,11 @@
+---
+- import_playbook: ../infrastructure/bullseye-playbook.yml
+- import_playbook: ../infrastructure/network-playbook.yml
+- import_playbook: ../firewall/firewall-playbook.yml
+- import_playbook: ../icinga/test-icinga-playbook.yml
+- import_playbook: ../bind/bind-playbook.yml
+- import_playbook: ../bind/bind-client-playbook.yml
+- import_playbook: ../icinga/icinga-playbook.yml
+- import_playbook: website-playbook.yml
+- import_playbook: proxy-playbook.yml
+- import_playbook: proxy-test-playbook.yml

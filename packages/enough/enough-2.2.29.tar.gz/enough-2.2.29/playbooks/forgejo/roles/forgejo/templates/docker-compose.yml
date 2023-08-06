@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  woodpecker-agent:
+    image: {{ woodpecker_image_prefix }}-agent:{{ woodpecker_version }}
+    command: agent
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WOODPECKER_SERVER={{ woodpecker_hostname }}.{{ domain }}:9000
+      - WOODPECKER_AGENT_SECRET={{ woodpecker_agent_secret }}
+      - WOODPECKER_MAX_PROCS={{ woodpecker_max_procs }}
+      - WOODPECKER_LOG_LEVEL={{ woodpecker_log_level }}
+
+  woodpecker-server:
+    image: {{ woodpecker_image_prefix }}-server:{{ woodpecker_version }}
+    ports:
+      - 8000:8000
+      - 9000:9000
+    volumes:
+      - /srv/woodpecker/data:/var/lib/woodpecker/
+      - /etc/ssl/certs:/etc/ssl/certs:ro
+      - /usr/local/share/ca-certificates/infrastructure:/usr/local/share/ca-certificates/infrastructure:ro
+    restart: always
+    environment:
+      - WOODPECKER_OPEN=true
+      - WOODPECKER_ADMIN={{ woodpecker_admins }}
+      - WOODPECKER_AGENT_SECRET={{ woodpecker_agent_secret }}
+      - WOODPECKER_GITEA=true
+      - WOODPECKER_AUTHENTICATE_PUBLIC_REPOS=true
+      - WOODPECKER_HOST=https://{{ woodpecker_host }}
+      - WOODPECKER_GITEA_URL=https://{{ forgejo_host }}
+      - WOODPECKER_GITEA_CLIENT={{ client_id.stdout }}
+      - WOODPECKER_GITEA_SECRET={{ client_secret.stdout }}
+      - WOODPECKER_GITEA_SKIP_VERIFY=true
+      - WOODPECKER_LOG_LEVEL={{ woodpecker_log_level }}
+      - WOODPECKER_DEFAULT_CANCEL_PREVIOUS_PIPELINE_EVENTS=pull_request

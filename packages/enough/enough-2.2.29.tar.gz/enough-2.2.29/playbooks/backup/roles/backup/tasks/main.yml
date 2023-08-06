@@ -1,0 +1,83 @@
+---
+
+- when: (groups['pets'] | length) > 0
+  block:
+
+  - name: mkdir /usr/lib/backup
+    file:
+      state: directory
+      path: /usr/lib/backup
+      mode: 0750
+
+  - name: cp clouds.yml /usr/lib/backup/clouds.yml
+    template:
+      src: clouds.yml.j2
+      dest: /usr/lib/backup/clouds.yml
+      mode: 0640
+
+  - name: copy backup scripts
+    template:
+      src: "{{ item }}.sh"
+      dest: "/etc/cron.daily/{{ item }}"
+      mode: +x
+    loop:
+      - backup
+
+  - name: copy prune scripts
+    template:
+      src: "{{ item }}.sh"
+      dest: "/etc/cron.daily/{{ item }}"
+      mode: +x
+    loop:
+      - prune-backup
+
+  - name: apt-get install python3-pip gcc python3-dev
+    apt:
+      name:
+        - python3-pip
+        - gcc
+        - python3-dev
+
+  - name: pip3 install --upgrade pip
+    pip:
+      executable: pip3
+      state: latest
+      name: pip
+
+  - name: pip3 install python-openstackclient
+    pip:
+      executable: pip3
+      name: python-openstackclient==5.4.0
+      extra_args: --ignore-installed
+
+- name: mkdir -p /root/.enough/{{ domain }}/inventory/group_vars/all
+  file:
+    state: directory
+    path: "/root/.enough/{{ domain }}/inventory/group_vars/all"
+    mode: 0750
+
+- name: cp clouds.yml /root/.enough/{{ domain }}/inventory/group_vars/all/clouds.yml
+  template:
+    src: clouds.yml.j2
+    dest: "/root/.enough/{{ domain }}/inventory/group_vars/all/clouds.yml"
+    mode: 0640
+
+- name: mkdir -p ~/.enough/{{ domain }}/inventory/group_vars/all
+  file:
+    state: directory
+    path: "/home/debian/.enough/{{ domain }}/inventory/group_vars/all"
+    mode: 0750
+
+- name: cp clouds.yml ~/.enough/{{ domain }}/inventory/group_vars/all/clouds.yml
+  template:
+    src: clouds.yml.j2
+    dest: "/home/debian/.enough/{{ domain }}/inventory/group_vars/all/clouds.yml"
+    mode: 0640
+
+- name: copy snapshot backup
+  template:
+    src: "{{ item }}.sh.j2"
+    dest: "/etc/cron.daily/{{ item }}"
+    mode: +x
+  loop:
+    - snapshot

@@ -1,0 +1,151 @@
+---
+- name: Check there is at most one empty disk if there is no encrypted one
+  fail:
+    msg: 'More than one empty disk attached, unable to choose one'
+  when: not blkid_luks.stdout_lines and unused_devices|length > 1
+
+- name: apt-get install cryptsetup-run
+  apt:
+    name: cryptsetup-run
+    state: present
+  register: result
+  until: result is success
+  retries: 5
+  delay: 1
+
+- name: check for existing keyfile
+  stat:
+    path: "{{ enough_domain_config_directory }}/volume-keys/{{ encrypted_volume_name }}.key"
+  register: keyfile
+  delegate_to: localhost
+  become: no
+
+- when: keyfile.stat.exists == False
+  block:
+
+  - name: create keyfile for {{ selected_disk }}
+    shell: |
+      set -ex
+      if test -f /etc/cryptsetup/keyfile ; then
+         echo OK
+      else
+         mkdir /etc/cryptsetup
+         dd if=/dev/urandom of=/etc/cryptsetup/keyfile bs=32 count=1
+         echo Changed
+      fi
+    register: result
+    changed_when: '"Changed" in result.stdout'
+
+  - name: "mkdir volume-keys"
+    file:
+      path: "{{ enough_domain_config_directory }}/volume-keys"
+      state: directory
+      mode: 0750
+    delegate_to: localhost
+    become: no
+
+  - name: "save keyfile"
+    fetch:
+      src: /etc/cryptsetup/keyfile
+      dest: "{{ enough_domain_config_directory }}/volume-keys/{{ encrypted_volume_name }}.key"
+      flat: yes
+
+- when: keyfile.stat.exists == True
+  block:
+
+  - name: mkdir -p /etc/cryptsetup
+    file:
+      state: directory
+      path: /etc/cryptsetup
+      mode: 0755
+
+  - name: upload existing keyfile
+    copy:
+      src: "{{ enough_domain_config_directory }}/volume-keys/{{ encrypted_volume_name }}.key"
+      dest: /etc/cryptsetup/keyfile
+      mode: '0600'
+
+- name: encrypt {{ selected_disk }}
+  shell: |
+    set -ex
+    dev={{ selected_disk }}
+    if cryptsetup isLuks $dev ; then
+       echo OK
+    else
+       type="$(blkid --output value --match-tag TYPE $dev || true)"
+       if test "$type" != "" ; then
+          echo "Ignored because $dev is already formatted as TYPE=$type"
+       else
+          cryptsetup luksFormat --batch-mode $dev /etc/cryptsetup/keyfile
+          echo Changed
+       fi
+    fi
+  register: encrypt_format
+  changed_when: '"Changed" in encrypt_format.stdout'
+
+- when: "'Ignored' not in encrypt_format.stdout"
+  block:
+
+  - name: map {{ selected_disk }} at boot
+    shell: |
+      set -ex
+      dev={{ selected_disk }}
+      if grep -q $dev /etc/crypttab ; then
+         echo OK
+      else
+         echo spare $dev /etc/cryptsetup/keyfile luks > /etc/crypttab
+         cryptdisks_start spare
+         echo Changed
+      fi
+    register: result
+    changed_when: '"Changed" in result.stdout'
+
+  - name: mkfs.ext4 /dev/mapper/spare
+    filesystem:
+      fstype: ext4
+      dev: /dev/mapper/spare
+
+  - name: mount /dev/mapper/spare {{ encrypted_device_mount_point }}
+    mount:
+      path: "{{ encrypted_device_mount_point }}"
+      src: /dev/mapper/spare
+      fstype: ext4
+      state: mounted
+
+- when: "'Ignored' not in encrypt_format.stdout and encrypted_volume_for_docker"
+  block:
+
+  - name: mkdir -p {{ encrypted_device_mount_point }}/docker
+    file:
+      state: directory
+      path: "{{ encrypted_device_mount_point }}/docker"
+      mode: 0755
+
+  - name: ln -s {{ encrypted_device_mount_point }}/docker /var/lib/docker
+    file:
+      state: link
+      src: "{{ encrypted_device_mount_point }}/docker"
+      dest: /var/lib/docker
+
+- when: "'Ignored' not in encrypt_format.stdout and encrypted_volume_for_snap"
+  block:
+
+  - name: mkdir -p {{ encrypted_device_mount_point }}/snap
+    file:
+      state: directory
+      path: "{{ encrypted_device_mount_point }}/snap"
+      mode: 0755
+
+  - name: mkdir -p /var/snap
+    file:
+      state: directory
+      path: /var/snap
+      mode: 0755
+
+  - name: mount --bind /var/snap {{ encrypted_device_mount_point }}/snap
+    mount:
+      path: /var/snap
+      src: "{{ encrypted_device_mount_point }}/snap"
+      fstype: none
+      opts: defaults,bind
+      state: mounted

@@ -1,0 +1,92 @@
+---
+
+- name: apt-get install git
+  apt:
+    name: [ git ]
+    state: present
+
+- name: mkdir -p /srv/securedrop
+  file:
+    path: /srv/securedrop
+    state: directory
+    mode: 0755
+    owner: debian
+    group: debian
+
+- name: git clone https://github.com/freedomofpress/securedrop
+  git:
+    repo: "https://github.com/freedomofpress/securedrop"
+    version: "{{ securedrop_version }}"
+    force: yes
+    dest: /srv/securedrop/securedrop
+  become: false
+
+- name: Copy /srv/securedrop/securedrop/securedrop/bin/server
+  template:
+    src: server.j2
+    dest: /srv/securedrop/securedrop/securedrop/bin/server
+    mode: "0755"
+  become: false
+
+- name: Copy /srv/securedrop/securedrop/securedrop/create-admin.py
+  copy:
+    src: create-admin.py
+    dest: /srv/securedrop/securedrop/securedrop/create-admin.py
+    mode: "0755"
+  become: false
+
+- name: Copy /srv/securedrop/securedrop/securedrop/dockerfiles/xenial/python3/Dockerfile
+  copy:
+    src: Dockerfile
+    dest: /srv/securedrop/securedrop/securedrop/dockerfiles/xenial/python3/Dockerfile
+    mode: "0444"
+  become: false
+
+- name: run SecureDrop server
+  shell: |
+    set -xe
+    export DOCKER_BUILD_VERBOSE=true
+    export DOCKER_RUN_ARGUMENTS="-v /srv/securedrop/data:/var/lib/securedrop --detach --restart=always"
+    bin=/srv/securedrop/securedrop/securedrop/bin
+    sed -i -e 's/--rm//' $bin/dev-shell
+    bash -x $bin/dev-shell $bin/server > /srv/securedrop/securedrop.log 2>&1
+  args:
+    executable: /bin/bash
+    chdir: /srv/securedrop/securedrop
+  become: false
+
+- name: apt-get install tor
+  apt:
+    name: [ tor ]
+    state: present
+
+- name: mkdir /var/lib/tor/services
+  file:
+    state: directory
+    dest: /var/lib/tor/services
+    owner: debian-tor
+    group: debian-tor
+    mode: "0700"
+
+- name: mkdir /var/lib/tor/services/{journalist,source}
+  file:
+    state: directory
+    dest: "/var/lib/tor/services/{{ item }}"
+    owner: debian-tor
+    group: debian-tor
+    mode: "0700"
+  loop:
+    - journalist
+    - source
+
+- name: Copy /etc/tor/torrc
+  template:
+    src: torrc.j2
+    dest: /etc/tor/torrc
+    mode: "0644"
+
+- name: restart tor
+  service:
+    name: tor
+    enabled: True
+    state: restarted

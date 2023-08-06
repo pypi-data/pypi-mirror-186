@@ -1,0 +1,18 @@
+---
+- name: apt-get install monitoring plugins deps
+  apt:
+    name: [ whois, libdate-manip-perl ]
+    state: present
+
+- name: declare zone {{ domain }} on {{ inventory_hostname }}
+  template:
+    src: icinga-zones.conf
+    dest: '/etc/icinga2/zones.d/master/{{ inventory_hostname }}/conf.d/bind_{{ bind_zone_name }}.conf'
+  delegate_to: "{{ groups['icinga-service-group'][0] }}"
+  when: groups['icinga-service-group'] | length
+  notify: reload icinga2
+
+- name: install sudo file for check named zone
+  copy:
+    dest: /etc/sudoers.d/icinga2_check_zone
+    src: files/icinga2_check_zone

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo --------------------------
+date
+
+days=${1:-20}
+volumes="-v /run/libvirt/libvirt-sock:/run/libvirt/libvirt-sock -v /var/lib/libvirt/images/enough:/var/lib/libvirt/images/enough -v /var/lib/libvirt/images/enough:/var/lib/libvirt/images/enough -v $HOME/.enough:/root/.enough"
+docker run $volumes --rm enoughcommunity/enough:latest --domain {{ domain }} backup create --driver libvirt
+docker run $volumes --rm enoughcommunity/enough:latest --domain {{ domain }} backup prune --driver libvirt $days

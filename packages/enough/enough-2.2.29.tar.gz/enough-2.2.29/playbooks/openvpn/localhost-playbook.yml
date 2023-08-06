@@ -1,0 +1,23 @@
+---
+- name: create openvpn client
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: mkdir -p /etc/openvpn
+      file:
+        state: directory
+        path: /etc/openvpn
+        mode: 0755
+
+    - name: copy client credentials
+      copy:
+        src: "{{ openvpn_local_directory }}/localhost.tar.gz"
+        dest: "/etc/openvpn/localhost.tar.gz"
+
+    - name: cd /etc/openvpn ; tar zxvf localhost.tar.gz
+      shell: |
+        set -ex
+        tar zxvf localhost.tar.gz
+      args:
+        chdir: /etc/openvpn

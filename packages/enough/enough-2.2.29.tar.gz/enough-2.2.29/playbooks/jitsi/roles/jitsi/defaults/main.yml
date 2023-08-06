@@ -1,0 +1,71 @@
+---
+#
+##################################
+#
+# Start the conference in audio only mode (no video is being received)
+#
+jitsi_startAudioOnly: 'true'
+#
+##################################
+#
+# Require users to always specify a display name
+#
+jitsi_requireDisplayName: 'true'
+#
+##################################
+#
+# Default language for the user interface
+#
+jitsi_defaultLanguage: 'en'
+#
+##################################
+#
+# Enables peer to peer mode. When enabled the system will try to
+# establish a direct connection when there are exactly 2 participants
+# in the room. If that succeeds the conference will stop sending data
+# through the JVB and use the peer to peer connection instead. When a
+# 3rd participant joins the conference will be moved back to the JVB
+# connection.
+#
+jitsi_p2p_enabled: 'true'
+#
+##################################
+#
+# Sets the preferred resolution (height) for local video
+#
+jitsi_constraint_video_height_ideal: '720'
+jitsi_constraint_video_height_max: '720'
+jitsi_constraint_video_height_min: '240'
+#
+##################################
+#
+# The FQDN for Jitsi users
+#
+jitsi_fqdn: jitsi.{{ domain }}
+#
+##################################
+# DO NOT MODIFY BELOW THIS LINE
+##################################
+#
+# adapted from https://github.com/robertdebock/ansible-role-jitsi/blob/0fdb6371d75cfd10d82b512b916f492b953dc9ae/defaults/main.yml
+# You can choose to install different release: `stable`, `testing` or `nightly`.
+jitsi_release: stable
+
+# Settings used for the installation of jitsi-meet
+jitsi_settings:
+  - name: jitsi-meet
+    question: jitsi-meet/cert-choice
+    value: "Generate a new self-signed certificate (You will later get a chance to obtain a Let's encrypt certificate)"
+    type: string
+  - name: jitsi-meet
+    question: jitsi-meet/jvb-serve
+    value: yes|bool
+    type: boolean
+  - name: jitsi-meet-prosody
+    question: jitsi-meet-prosody/jvb-hostname
+    value: "jitsi.{{ domain }}"
+    type: string
+  - name: jitsi-videobridge
+    question: jitsi-videobridge/jvb-hostname
+    value: "{{ jitsi_fqdn }}"
+    type: string

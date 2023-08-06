@@ -1,0 +1,8 @@
+---
+- name: encrypt and mount /srv
+  hosts: wekan-service-group
+  become: true
+
+  roles:
+    - role: encrypted_device
+      encrypted_device_mount_point: /srv

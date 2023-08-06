@@ -1,0 +1,25 @@
+/* Node setup */
+
+object Endpoint NodeName {
+}
+
+object Zone ZoneName {
+	endpoints = [ NodeName ]
+	parent = "master"
+}
+
+/* Global zone */
+
+object Zone "global-templates" {
+  global = true
+}
+
+/* Master zone */
+ 
+object Zone "master" {
+  endpoints = [ "{{ groups['icinga-service-group'][0] }}" ]
+}
+ 
+object Endpoint "{{ groups['icinga-service-group'][0] }}" {
+  host = "{{ hostvars[groups['icinga-service-group'][0]]['ansible_host'] }}"
+}

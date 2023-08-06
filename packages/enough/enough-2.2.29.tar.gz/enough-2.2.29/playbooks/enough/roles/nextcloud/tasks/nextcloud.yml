@@ -1,0 +1,239 @@
+---
+
+- name: apt-get install git curl
+  apt:
+    name: [ git, curl ]
+    state: present
+
+- name: chown debian /srv
+  file:
+    path: /srv
+    owner: debian
+
+- name: mkdir -p /srv/nextcloud/apache/web
+  file:
+    path: /srv/nextcloud/apache/web
+    state: directory
+    owner: debian
+    group: debian
+    mode: 0755
+
+- name: set_fact app_sh & app_dir
+  set_fact:
+    app_dir: "/srv/nextcloud/apache"
+    app_sh: "docker-compose exec -T -u www-data app"
+
+- name: Copy docker files templates
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ app_dir }}/{{ item }}"
+    owner: debian
+    mode: "0644"
+  become: False
+  loop:
+    - db.env
+    - Dockerfile
+    - supervisord.conf
+
+- name: Copy docker files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ app_dir }}/{{ item }}"
+    owner: debian
+    mode: "0644"
+  become: False
+  loop:
+    - web/Dockerfile
+    - web/nginx.conf
+
+- name: Copy docker-compose.yml
+  template:
+    src: "docker-compose-{{ enough_nextcloud_database }}.yml.j2"
+    dest: "{{ app_dir }}/docker-compose.yml"
+    owner: debian
+    mode: "0644"
+  become: False
+
+- name: cleanup docker leftovers
+  shell: docker system prune --force
+
+- name: docker build fpm-cron
+  shell: |
+    docker build --pull -t nextcloud:{{ enough_nextcloud_version }}-fpm-cron .
+  args:
+    chdir: "{{ app_dir }}"
+
+- name: (re)create nextcloud
+  shell: |
+    docker-compose up -d
+  args:
+    chdir: "{{ app_dir }}"
+
+- name: wait for {{ vhost_fqdn }} to be ready
+  shell: |
+    set $(curl -k -L -s --head https://{{ vhost_fqdn }} | grep HTTP | tail -1)
+    # 400 is because vhost_fqdn may not yet been set as a trusted domain
+    if test "$2" = 200 -o "$2" = 400 ; then
+      exit 0
+    else
+      exit 1
+    fi
+  register: nextcloud_get
+  until: nextcloud_get is success
+  # this may seem a very large number of retries but sometimes upgrades take really long
+  retries: 60
+  delay: 5
+
+- name: test -f config/config.php
+  shell: |
+    {{ app_sh }} grep installed config/config.php
+  args:
+    chdir: "{{ app_dir }}"
+  register: nextcloud_config
+  ignore_errors: True
+
+- name: occ maintenance:install
+  shell: |
+    {{ app_sh }} bash -c 'php -f occ maintenance:install \
+                                    --database {{ enough_nextcloud_database }} --database-host=$DB_HOST --database-name=nextcloud --database-user=$DB_USER --database-pass=$DB_PASSWORD \
+                                    --admin-user="{{ nextcloud_admin_user }}" --admin-pass="{{ nextcloud_admin_pass }}"'
+  args:
+    chdir: "{{ app_dir }}"
+  when: nextcloud_config.rc == 1
+  # when I/O lags the database may not be ready and retry is necessary
+  register: nextcloud_install
+  until: nextcloud_install is success
+  retries: 10
+  delay: 5
+
+- name: occ config:system:set trusted_proxies local ip ranges
+  shell: |
+    set -e
+    {{ app_sh }} php -f occ config:system:set trusted_proxies 0 --value 172.16.0.0/12
+    {{ app_sh }} php -f occ config:system:set trusted_proxies 1 --value 10.0.0.0/8
+    {{ app_sh }} php -f occ config:system:set trusted_proxies 2 --value 192.168.0.0/16
+  args:
+    chdir: "{{ app_dir }}"
+
+- name: occ config:system:set trusted_domains {{ vhost_fqdn }}
+  shell: |
+    set -e
+    {{ app_sh }} php -f occ config:system:set trusted_domains 0 --value {{ vhost_fqdn }}
+    {{ app_sh }} php -f occ config:system:set trusted_domains 1 --value {{ ansible_host }} # for test purposes only
+    {{ app_sh }} php -f occ config:system:set trusted_domains 2 --value {{ nextcloud_public_url }}
+  args:
+    chdir: "{{ app_dir }}"
+
+- name: occ config:system:set overwriteprotocol --value=https
+  shell: |
+    {{ app_sh }} php -f occ config:system:set overwriteprotocol --value=https
+  args:
+    chdir: "{{ app_dir }}"
+
+# cron jobs rely on overwrite.cli.url to set the URL
+- name: occ config:system:set config:system:set overwrite.cli.url --value=https://{{ vhost_fqdn }}
+  shell: |
+    {{ app_sh }} php -f occ config:system:set overwrite.cli.url --value=https://{{ vhost_fqdn }}
+  args:
+    chdir: "{{ app_dir }}"
+
+# needed when upgrading because it is not done by the upgrade
+- name: occ db:add-missing-indices
+  shell: |
+    {{ app_sh }} php -f occ db:add-missing-indices
+  args:
+    chdir: "{{ app_dir }}"
+
+# needed when upgrading because it is not done by the upgrade
+- name: occ db:add-missing-columns
+  shell: |
+    if {{ app_sh }} php -f occ list | grep -q db:add-missing-columns ; then
+      {{ app_sh }} php -f occ db:add-missing-columns
+    fi
+  args:
+    chdir: "{{ app_dir }}"
+
+- name: occ db:convert-filecache-bigint
+  shell: |
+    {{ app_sh }} php -f occ db:convert-filecache-bigint --no-interaction
+  args:
+    chdir: "{{ app_dir }}"
+
+- name: occ app:update --all
+  shell: |
+    {{ app_sh }} php -f occ app:update --all
+    {{ app_sh }} php -f occ upgrade
+  args:
+    chdir: "{{ app_dir }}"
+
+- name: Install and enable NextCloud apps
+  shell: |
+    set -e
+    {{ app_sh }} php -f occ app:install {{ item }} || true
+    {{ app_sh }} php -f occ app:enable {{ item }}
+  args:
+    chdir: "{{ app_dir }}"
+  loop: '{{ enough_nextcloud_apps }}'
+
+- name: occ app:enable encryption
+  shell: |
+    set -e
+    {{ app_sh }} php -f occ app:enable encryption
+    {{ app_sh }} php -f occ config:app:set --value=yes core encryption_enabled
+  args:
+    chdir: "{{ app_dir }}"
+
+# needed when installing 20
+- name: occ encryption:migrate-key-storage-format
+  shell: |
+    if {{ app_sh }} php -f occ list | grep -q encryption:migrate-key-storage-format ; then
+      {{ app_sh }} php -f occ encryption:migrate-key-storage-format
+      {{ app_sh }} php -f occ config:app:set --value=no core encryption_enabled
+      {{ app_sh }} sed -i -e '/encryption.legacy_format_support/d' config/config.php
+    fi
+  args:
+    chdir: "{{ app_dir }}"
+
+# needed when installing 20
+- name: occ db:add-missing-primary-keys
+  shell: |
+    if {{ app_sh }} php -f occ list | grep -q db:add-missing-primary-keys ; then
+      {{ app_sh }} php -f occ db:add-missing-primary-keys
+    fi
+  args:
+    chdir: "{{ app_dir }}"
+
+- name: occ config:system:set mail
+  shell: |
+    set -e
+    {{ app_sh }} php -f occ config:system:set mail_domain --value={{ nextcloud_mail_domain }} --type string
+    {{ app_sh }} php -f occ config:system:set mail_from_address --value=noreply --type string
+    {{ app_sh }} php -f occ config:system:delete mail_smtpauth
+    {{ app_sh }} php -f occ config:system:set mail_smtphost --value={{ inventory_hostname }}.{{ domain }} --type string
+    {{ app_sh }} php -f occ config:system:set mail_smtpmode --value=smtp --type string
+    {{ app_sh }} php -f occ config:system:delete mail_smtpsecure
+    {{ app_sh }} php -f occ config:system:set mail_smtpport --value=25 --type int
+  args:
+    chdir: "{{ app_dir }}"
+
+- name: occ app:enable activity
+  shell: |
+    set -e
+    {{ app_sh }} php -f occ app:enable activity
+    {{ app_sh }} php -f occ config:app:set --value=1 activity notify_email_file_created
+  args:
+    chdir: "{{ app_dir }}"
+
+- name: occ app:enable documentserver_community
+  shell: |
+    set -e
+    {{ app_sh }} php -f occ config:app:set --value='https://{{ nextcloud_public_url }}/apps/documentserver_community/' onlyoffice DocumentServerUrl
+  args:
+    chdir: "{{ app_dir }}"
+  when: "'documentserver_community' in enough_nextcloud_apps"
+
+- name: (re)create nextcloud
+  shell: |
+    docker-compose up -d
+  args:
+    chdir: "{{ app_dir }}"

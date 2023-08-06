@@ -1,0 +1,69 @@
+---
+- name: firewall for web
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['icinga-service-group'] | default([]) }}"
+
+- name: setup icinga DNS
+  hosts: icinga-service-group
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "icinga.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ groups['icinga-service-group'][0] }}.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+- name: install icinga master
+  hosts: icinga-service-group
+  become: true
+
+  pre_tasks:
+    - import_role:
+        name: icinga2_common
+        tasks_from: apt
+
+  roles:
+    - role: icinga2
+    - role: enough-nginx
+      vars:
+        enough_nginx_fqdn: "{{ icinga_vhost_fqdn }}"
+        enough_nginx_sites: |
+            location ~ ^/icingaweb2/index\.php(.*)$ {
+              fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+              fastcgi_index index.php;
+              include fastcgi_params;
+              fastcgi_param SCRIPT_FILENAME /usr/share/icingaweb2/public/index.php;
+              fastcgi_param ICINGAWEB_CONFIGDIR /etc/icingaweb2;
+              fastcgi_param REMOTE_USER $remote_user;
+            }
+
+            location ~ ^/icingaweb2(.+)? {
+            	alias /usr/share/icingaweb2/public;
+            	index index.php;
+            	try_files $1 $uri $uri/ /icingaweb2/index.php$is_args$args;
+            }
+            location / {
+              return 302 /icingaweb2;
+            }
+    - role: certificate
+      vars:
+        certificate_email: "{{ icingaadmins_email }}"
+        certificate_fqdn: "{{ icinga_vhost_fqdn }}"
+        certificate_installer: nginx
+    - role: icinga2_common

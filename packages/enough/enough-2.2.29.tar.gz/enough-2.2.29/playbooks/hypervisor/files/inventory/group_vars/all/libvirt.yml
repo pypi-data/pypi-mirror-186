@@ -1,0 +1,14 @@
+---
+libvirt_uri: "qemu+ssh://debian@hypervisor-host.hypervisor.test/system?keyfile=/root/.enough/hypervisor.tld/infrastructure_key"
+libvirt_ssh: ["-i", "/root/.enough/hypervisor.tld/infrastructure_key", "debian@hypervisor-host.hypervisor.test"]
+
+libvirt_network_external_prefix: 10.10.10
+libvirt_network_external_forward: "<forward mode='nat'/>"
+libvirt_network_external_dhcp: |
+  <ip address='{{ libvirt_network_external_prefix }}.64' netmask='255.255.255.248'>
+   <dhcp>
+    <range start='{{ libvirt_network_external_prefix }}.65' end='{{ libvirt_network_external_prefix }}.65'/>
+   </dhcp>
+  </ip>
+
+libvirt_network_internal_prefix: 10.10.50

@@ -1,0 +1,50 @@
+---
+- name: test setup for the libvirt hypervisor
+  hosts: hypervisor-service-group
+  become: false
+
+  pre_tasks:
+
+    - name: dotenough for test purposes
+      copy:
+        src: files/inventory
+        dest: .enough/hypervisor.tld
+
+    - name: ssh-keygen
+      openssh_keypair:
+        path: "/home/{{ ansible_user }}/.enough/hypervisor.tld/infrastructure_key"
+      register: infrastructure_key
+
+    - name: add own ssh to authorized_keys
+      authorized_key:
+        user: "{{ ansible_user }}"
+        state: present
+        key: "{{ infrastructure_key.public_key }}"
+
+    - name: ssh-keyscan
+      shell: |
+        ssh-keyscan hypervisor-host.hypervisor.test
+      register: keyscan
+
+    - name: add to known_hosts
+      known_hosts:
+        key: "{{ keyscan.stdout }}"
+        name: hypervisor-host.hypervisor.test
+
+    - name: enough --domain hypervisor.tld libvirt network
+      shell: |
+        enough --domain hypervisor.tld libvirt network
+
+    #
+    # Whenever libvirt creates networks, it messes up the docker
+    # iptables configuration, restart docker to set them right again
+    #
+    - name: systemctl restart docker
+      service:
+        name: docker
+        state: restarted
+      become: true
+
+    - name: enough --domain hypervisor.tld host create --driver=libvirt other-host
+      shell: |
+        enough --debug --domain hypervisor.tld host create --driver=libvirt other-host

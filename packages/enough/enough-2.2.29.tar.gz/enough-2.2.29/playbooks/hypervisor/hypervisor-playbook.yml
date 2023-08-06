@@ -1,0 +1,49 @@
+---
+- name: install the libvirt hypervisor
+  hosts: hypervisor-service-group
+  become: true
+
+  pre_tasks:
+
+    - name: apt-get install libvirt common
+      apt:
+        name:
+          - libvirt-clients
+          - libguestfs-tools
+          - virtinst
+          - libvirt-dev
+          - pkg-config
+          - libvirt-daemon-system
+
+    - name: apt-get install libvirt python
+      apt:
+        name:
+          - python3-libvirt
+          - python3-lxml
+
+    - name: addgroup libvirt to user {{ ansible_user }}
+      user:
+        name: "{{ ansible_user }}"
+        groups: libvirt,kvm
+        append: yes
+
+    - name: chmod 751 /var/lib/libvirt/images
+      file:
+        path: /var/lib/libvirt/images
+        state: directory
+        owner: root
+        group: libvirt
+        mode: 0751
+
+    - name: chmod 775 /var/lib/libvirt/images/enough
+      file:
+        path: /var/lib/libvirt/images/enough
+        state: directory
+        owner: root
+        group: libvirt
+        mode: 0775
+
+    - name: systemctl restart docker
+      service:
+        name: docker
+        state: restarted

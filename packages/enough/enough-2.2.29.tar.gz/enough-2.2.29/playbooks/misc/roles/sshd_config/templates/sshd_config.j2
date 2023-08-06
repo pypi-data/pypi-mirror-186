@@ -1,0 +1,18 @@
+# Ansible managed.
+
+Port {{ ansible_port }}
+
+# Based on Debian default settings
+
+PermitRootLogin no
+ChallengeResponseAuthentication no
+UsePAM yes
+X11Forwarding no
+PrintMotd no
+
+# Needed by ansible
+Subsystem sftp  /usr/lib/openssh/sftp-server
+
+# Specific infrastructure settings
+
+AcceptEnv LANG LC_* GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL

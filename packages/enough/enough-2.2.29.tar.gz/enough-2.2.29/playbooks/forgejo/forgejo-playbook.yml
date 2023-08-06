@@ -1,0 +1,56 @@
+---
+- name: firewall for forgejo
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 22, 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['forgejo-service-group'] | default([]) }}"
+
+- name: install forgejo
+  hosts: forgejo-service-group
+  become: true
+
+  roles:
+    - role: ansible-role-docker
+
+    - role: forgejo
+
+    - role: enough-nginx
+      # do **not** use vars here because of https://github.com/ansible/ansible/issues/50278
+      enough_nginx_reverse_proxy: 127.0.0.1:8080
+      enough_nginx_fqdn: "{{ forgejo_host }}"
+
+    - role: certificate
+      certificate_fqdn: "{{ forgejo_host }}"
+      certificate_installer: nginx
+
+    - role: monitor_http_vhost
+      http_vhost_https: true
+      http_vhost_name: Forgejo
+      http_vhost_fqdn: "{{ forgejo_host }}"
+      http_vhost_uri: "/user/login"
+      http_vhost_string: "html"
+
+    - role: enough-nginx
+      # do **not** use vars here because of https://github.com/ansible/ansible/issues/50278
+      enough_nginx_reverse_proxy: 127.0.0.1:8000
+      enough_nginx_fqdn: "{{ woodpecker_host }}"
+
+    - role: certificate
+      certificate_fqdn: "{{ woodpecker_host }}"
+      certificate_installer: nginx
+
+    - role: monitor_http_vhost
+      http_vhost_https: true
+      http_vhost_name: Woodpecker
+      http_vhost_fqdn: "{{ woodpecker_host }}"
+      http_vhost_uri: "/do-login"
+      http_vhost_string: "Woodpecker"

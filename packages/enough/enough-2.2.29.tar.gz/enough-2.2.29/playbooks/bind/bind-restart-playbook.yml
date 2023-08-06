@@ -1,0 +1,22 @@
+---
+
+- name: restart DNS server
+  hosts: bind-service-group
+  become: true
+
+  tasks:
+
+    - name: restart bind
+      service:
+         name: bind9
+         state: restarted
+
+    - name: apt-get install python3-pip
+      apt:
+        name: [ python3-pip ]
+
+    # dependency of
+    # https://docs.ansible.com/ansible/latest/modules/nsupdate_module.html
+    - name: pip install dnspython
+      pip:
+        name: dnspython==1.16.0

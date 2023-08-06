@@ -1,0 +1,36 @@
+- name: install openvpnclient
+  hosts: openvpnclient-service-group
+  become: true
+
+  roles:
+
+    - role: openvpnclient
+
+- name: add routes provided by the VPN to all hosts
+  hosts: "live:!openvpnclient-service-group"
+  become: true
+
+  tasks:
+
+    - name: install systemd unit to activate route to VPN
+      copy:
+        content: |
+          [Unit]
+          Description=route to vpn
+
+          [Service]
+          User=root
+          WorkingDirectory=/tmp
+          ExecStart=/usr/sbin/ip route add {{ openvpnclient_can_route }} via {{ openvpnclient_ip }}
+          RemainAfterExit=true
+
+          [Install]
+          WantedBy=multi-user.target
+        dest: /etc/systemd/system/vpn-route.service
+
+    - name: start and enable route to VPN systemd unit
+      service:
+        name: vpn-route
+        daemon_reload: yes
+        state: started
+        enabled: yes

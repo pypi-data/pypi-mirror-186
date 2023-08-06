@@ -1,0 +1,7 @@
+---
+# encrypted_device_mount_point: /srv
+encrypted_volume_name: "{{ openstack_volumes[0].name }}"
+encrypted_volume_for_docker: true
+encrypted_volume_for_snap: true
+
+unused_devices: '{{ ansible_devices|dict2items|json_query("[?!(value.partitions) && to_number(value.removable)==`0`].key")|list }}'

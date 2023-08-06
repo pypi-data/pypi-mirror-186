@@ -1,0 +1,43 @@
+---
+- name: apt-get install gnupg2
+  apt:
+    name: gnupg2
+    state: present
+  register: result
+  until: result is success
+  retries: 5
+  delay: 1
+
+- name: apt-get install xz-utils lz4 lzop
+  apt:
+    name: [ xz-utils, lz4, lzop ]
+    state: present
+
+- name: pin icinga2 Debian packages
+  template:
+    src: icinga2.pref
+    dest: /etc/apt/preferences.d/
+    owner: root
+    group: root
+    mode: 0644
+  register: icinga2_pref
+
+- name: apt-key https://packages.icinga.com/icinga.key
+  apt_key:
+    url: https://packages.icinga.com/icinga.key
+  # The retries should not be necessary but proved useful May 2020
+  register: output
+  until: output is success
+  retries: 10
+  delay: 5
+
+- name: deb http://packages.icinga.com/debian icinga-bullseye main
+  apt_repository:
+    repo: deb http://packages.icinga.com/debian icinga-bullseye main
+    state: present
+  register: icinga2_repository
+
+- name: Take in account updated APT pinning
+  apt:
+    update_cache: yes
+  when: icinga2_pref is changed and icinga2_repository is not changed

@@ -1,0 +1,54 @@
+---
+- name: mkdir /etc/static-pages
+  file:
+    path: /etc/static-pages
+    state: directory
+    mode: 0755
+
+- name: install /etc/static-pages/config.toml
+  template:
+    src: config.toml.j2
+    dest: /etc/static-pages/config.toml
+  register: config
+
+- name: stop pages if config has changed
+  docker_container:
+    name: pages
+    state: absent
+  when: config is changed
+
+- name: apt-get install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: does /usr/share/nginx/html/.git exist?
+  stat:
+    path: /usr/share/nginx/html/.git
+  register: dot_git
+
+- name: rm -fr /usr/share/nginx/html if there is no .git
+  file:
+    path: /usr/share/nginx/html
+    state: absent
+  when: dot_git.stat.isdir is not defined or not dot_git.stat.isdir
+  
+- name: /usr/share/nginx is owned by 1000
+  file:
+    path: /usr/share/nginx
+    state: directory
+    mode: 0755
+    owner: 1000
+
+- name: start pages
+  docker_container:
+    name: pages
+    image: "realaravinth/pages:{{ pages_version }}"
+    restart_policy: always
+    env:
+      LOCAL_USER_ID: "1000"
+    ports:
+      - "{{ pages_port }}:5000"
+    volumes:
+      - /etc/static-pages/config.toml:/etc/static-pages/config.toml:ro
+      - /usr/share/nginx:/nginx

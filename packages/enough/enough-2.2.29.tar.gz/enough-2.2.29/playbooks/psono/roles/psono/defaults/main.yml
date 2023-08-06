@@ -1,0 +1,23 @@
+---
+#
+####################################################
+#
+# Emails sent are from this address
+#
+psono_contact: admin@enough.community
+#
+####################################################
+#
+# Enable registration
+#
+psono_registration: True
+#
+####################################################
+# DO NOT MODIFY BELOW THIS LINE
+####################################################
+#
+psono_version: latest
+psono_server_port: 8600
+psono_client_port: 8601
+psono_root: /srv/psono
+psono_mail_host: "{{ groups['psono-service-group'][0] }}.{{ domain }}"

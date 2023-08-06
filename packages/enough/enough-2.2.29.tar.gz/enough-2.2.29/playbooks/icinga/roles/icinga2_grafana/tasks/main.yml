@@ -1,0 +1,237 @@
+---
+#
+# Based on https://forum.enough.community/t/integrating-grafana-into-icinga/659
+#
+#
+# Install and configure influxdb
+#
+- name: apt-key https://repos.influxdata.com/influxdb.key
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+  register: result
+  until: result is success
+  retries: 5
+  delay: 1
+
+- name: deb https://repos.influxdata.com/debian bullseye stable
+  apt_repository:
+    repo: deb https://repos.influxdata.com/debian bullseye stable
+    state: present
+  register: result
+  until: result is success
+  retries: 5
+  delay: 1
+
+- name: apt-get install influxdb
+  apt:
+    name: "influxdb={{ icinga_influxdb_version }}"
+    state: present
+  register: result
+  until: result is success
+  retries: 5
+  delay: 1
+
+- name: systemctl enable influxdb
+  service:
+    name: influxdb
+    enabled: yes
+    state: started
+
+- name: apt-get install python3-influxdb
+  apt:
+    name: python3-influxdb
+    state: present
+  register: result
+  until: result is success
+  retries: 5
+  delay: 1
+
+- name: influxdb create database
+  influxdb_database:
+    hostname: "{{ icinga_influxdb_host }}"
+    port: "{{ icinga_influxdb_port }}"
+    database_name: "{{ icinga_influxdb_db }}"
+
+- name: create 365 days retention policy
+  influxdb_retention_policy:
+    hostname: "{{ icinga_influxdb_host }}"
+    port: "{{ icinga_influxdb_port }}"
+    database_name: "{{ icinga_influxdb_db }}"
+    policy_name: oneyear
+    duration: 365d
+    replication: 1
+
+- name: influxdb create user & grant all on database
+  influxdb_user:
+    hostname: "{{ icinga_influxdb_host }}"
+    port: "{{ icinga_influxdb_port }}"
+    user_name: "{{ icinga_influxdb_user }}"
+    user_password: "{{ icinga_influxdb_password }}"
+    grants:
+      - database: '{{ icinga_influxdb_db }}'
+        privilege: 'ALL'
+
+#
+# Install and configure grafana
+#
+# To debug grafana, open the port 3000 in the OpenStack security
+# group.
+#
+- name: apt-key https://packages.grafana.com/gpg.key
+  apt_key:
+    url: https://packages.grafana.com/gpg.key
+
+- name: deb https://packages.grafana.com/oss/deb stable main
+  apt_repository:
+    repo: deb https://packages.grafana.com/oss/deb stable main
+    state: present
+
+- name: apt-mark install grafana
+  dpkg_selections:
+    name: grafana
+    selection: install
+
+- name: apt-get install grafana
+  apt:
+    name: "grafana={{ icinga_grafana_version }}"
+    state: present
+
+- name: systemctl enable grafana-server
+  service:
+    name: grafana-server
+    enabled: yes
+    state: started
+
+- name: install grafana-image-renderer dependencies
+  apt:
+    name:
+      - libxdamage1
+      - libxext6
+      - libxi6
+      - libxtst6
+      - libnss3
+      - libnss3
+      - libcups2
+      - libxss1
+      - libxrandr2
+      - libasound2
+      - libatk1.0-0
+      - libatk-bridge2.0-0
+      - libpangocairo-1.0-0
+      - libpango-1.0-0
+      - libcairo2
+      - libatspi2.0-0
+      - libgtk3.0-cil
+      - libgdk3.0-cil
+      - libx11-xcb-dev
+      - libgbm1
+      - libdrm2
+      - libxcb-dri3-0
+    state: present
+
+- name: install grafana-image-renderer plugin
+  grafana_plugin:
+    name: grafana-image-renderer
+    version: "{{ icinga_grafana_image_renderer_version }}"
+    state: present
+  register: plugin
+
+- name: systemctl restart grafana-server
+  service:
+    name: grafana-server
+    state: restarted
+  when: plugin is changed
+
+- name: "add grafana datasource {{ icinga_grafana_datasource }}"
+  grafana_datasource:
+    grafana_url: 'http://{{ icinga_grafana_host }}'
+    grafana_user: "{{ icinga_grafana_admin_user }}"
+    grafana_password: "{{ icinga_grafana_admin_password }}"
+    name: "{{ icinga_grafana_datasource }}"
+    ds_type: influxdb
+    access: proxy
+    url: 'http://{{ icinga_influxdb_host }}:{{ icinga_influxdb_port }}'
+    user: "{{ icinga_influxdb_user }}"
+    password: "{{ icinga_influxdb_password }}"
+    database: "{{ icinga_influxdb_db }}"
+
+- name: install /etc/grafana/icinga2-default.json
+  template:
+    src: icinga2-default.json.j2
+    dest: /etc/grafana/icinga2-default.json
+    mode: 0440
+    owner: root
+    group: grafana
+
+- name: Import Grafana dashboard icinga2-default.json
+  grafana_dashboard:
+    grafana_url: 'http://{{ icinga_grafana_host }}'
+    grafana_user: "{{ icinga_grafana_admin_user }}"
+    grafana_password: "{{ icinga_grafana_admin_password }}"
+    state: present
+    message: Updated by ansible
+    overwrite: yes
+    path: /etc/grafana/icinga2-default.json
+
+#
+# Influxdb configuration for icinga
+#
+- name: add /etc/icinga2/features-enabled/influxdb.conf
+  template:
+    src: influxdb.conf.j2
+    dest: /etc/icinga2/features-enabled/influxdb.conf
+    mode: 0440
+    owner: nagios
+    group: nagios
+
+#
+# Grafana display in icinga
+#
+# To debug go to /icingaweb2/config/modules#!/icingaweb2/grafana/config
+# and look at /icingaweb2/monitoring/service/show?host=icinga-host&service=load
+# to verify an graph shows under the "Performance Graph" section
+#
+- name: apt-get install git
+  apt:
+    name: git
+    state: present
+
+- name: git clone https://github.com/Mikesch-mp/icingaweb2-module-grafana
+  git:
+    repo: https://github.com/Mikesch-mp/icingaweb2-module-grafana
+    dest: /usr/share/icingaweb2/modules/grafana
+    version: 56bd559533f6b9cb732f4370e6c3b58aca59bca8
+    force: yes
+
+- name: apt-get install php7.4-curl
+  apt:
+    name: php7.4-curl
+    state: present
+
+- name: mkdir /etc/icingaweb2/modules/grafana
+  file:
+    path: "/etc/icingaweb2/modules/grafana"
+    state: directory
+    mode: 0750
+    owner: www-data
+    group: icingaweb2
+
+- name: add /etc/icingaweb2/modules/grafana/config.ini
+  template:
+    src: config.ini.j2
+    dest: /etc/icingaweb2/modules/grafana/config.ini
+    mode: 0440
+    owner: www-data
+    group: icingaweb2
+
+- name: icingacli module enable grafana
+  command: icingacli module enable grafana
+  args:
+    creates: /etc/icingaweb2/enabledModules/grafana
+  register: grafana
+
+- name: systemctl restart icinga2
+  service:
+    name: icinga2
+    state: restarted
+  when: grafana is changed

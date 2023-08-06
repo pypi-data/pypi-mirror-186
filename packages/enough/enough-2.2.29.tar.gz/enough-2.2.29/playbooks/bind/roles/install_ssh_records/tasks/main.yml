@@ -1,0 +1,48 @@
+---
+- name: remove apt pinning for openssh-client required for stretch
+  file:
+    state: absent
+    path: /etc/apt/preferences.d/{{ item }}
+  loop:
+    - default
+    - openssh-client
+  delegate_to: "{{groups['bind-service-group'][0]}}"
+  run_once: true
+
+- name: install openssh-client
+  apt:
+    name: openssh-client
+    state: latest
+  delegate_to: "{{groups['bind-service-group'][0]}}"
+  run_once: true
+  # The retries should not be necessary but proved useful May 2020
+  register: output
+  until: output is success
+  retries: 10
+  delay: 5
+
+- name: generate SSHFP records
+  shell: |
+    set -ex
+    ssh-keyscan -D -p {{ install_ssh_records_port }} {{ install_ssh_records_host }} | tee | grep -q SSHFP
+    echo "[ '{{ install_ssh_records_host }}', ["
+    ssh-keyscan -D -p {{ install_ssh_records_port }} {{ install_ssh_records_host }} | while read record IN SSHFP value ; do
+       echo "'$value',"
+    done
+    echo '] ]'
+  delegate_to: "{{groups['bind-service-group'][0]}}"
+  changed_when: false
+  register: cmd
+
+- name: install SSHFP records
+  nsupdate:
+    server: "127.0.0.1"
+    zone: "{{ domain }}"
+    record: "{{ sshfp.0 }}"
+    ttl: 604800
+    type: SSHFP
+    value: "{{ sshfp.1 }}"
+  vars:
+    sshfp: "{{ cmd.stdout }}"
+  delegate_to: "{{groups['bind-service-group'][0]}}"
+  notify: reload bind

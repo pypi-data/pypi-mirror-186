@@ -1,0 +1,22 @@
+---
+- name: apt-get install snapd
+  apt:
+    name: [snapd]
+    state: present
+
+# https://github.com/wekan/wekan-snap/wiki/Install
+# https://github.com/wekan/wekan/wiki/Adding-users
+- name: snap install wekan
+  shell: |
+    snap install wekan
+    snap set wekan root-url='https://{{ wekan_vhost_fqdn }}'
+
+# https://github.com/wekan/wekan/wiki/Troubleshooting-Mail#starttls-sending-test-email-failed
+# wekan should know to not try TLS when smtp is specified but it does not
+- name: snap set wekan mail-url='smtp://{{groups['wekan-service-group'][0]}}.{{ domain }}:25/'
+  shell: |
+    snap set wekan mail-url='smtp://{{groups['wekan-service-group'][0]}}.{{ domain }}:25/?ignoreTLS=true&tls={rejectUnauthorized:false}&secure=false'
+
+- name: snap set wekan mail-from='{{ wekan_mail_from }}'
+  shell: |
+    snap set wekan mail-from='{{ wekan_mail_from }}'

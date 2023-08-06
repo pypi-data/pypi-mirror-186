@@ -1,0 +1,34 @@
+---
+- name: firewall for web
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['proxy-service-group'] | default([]) }}"
+
+- name: install proxy root CA
+  hosts: proxy-service-group
+  become: true
+
+  pre_tasks:
+
+    - name: mkdir -p /usr/local/share/ca-certificates/infrastructure
+      file:
+        path: /usr/local/share/ca-certificates/infrastructure
+        state: directory
+
+    - name: install proxy CA
+      copy:
+        src: "{{ website_proxy_ca }}"
+        dest: /usr/local/share/ca-certificates/infrastructure/proxy-ca.crt
+
+    - name: update-ca-certificates
+      command: update-ca-certificates --fresh

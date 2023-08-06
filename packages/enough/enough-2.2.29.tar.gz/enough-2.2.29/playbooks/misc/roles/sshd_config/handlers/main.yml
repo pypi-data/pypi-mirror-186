@@ -1,0 +1,6 @@
+- name: reload sshd
+  systemd:
+    name: sshd
+    state: reloaded
+    enabled: True
+  changed_when: False

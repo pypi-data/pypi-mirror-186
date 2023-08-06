@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo --------------------------
+date
+
+ssh -tt {{ ansible_user }}@127.0.0.1 docker run -ti --rm -v $HOME/.enough:/root/.enough --entrypoint enough enoughcommunity/enough:latest --domain {{ domain }} backup download {% for host in libvirt_hypervisor_download_hosts %}--hosts {{ host }} {% endfor %} {% for volume in libvirt_hypervisor_download_volumes %}--volumes {{ volume }}{% endfor %}

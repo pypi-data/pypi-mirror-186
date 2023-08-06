@@ -1,0 +1,10 @@
+---
+openvpn_active_clients:
+  - localhost
+  - retired
+  - lan
+openvpn_retired_clients:
+  - retired
+openvpn_server_conf: |
+  push "route {{ openstack_internal_network_prefix }}.0 255.255.255.0"
+openvpn_easy_rsa_root: /srv

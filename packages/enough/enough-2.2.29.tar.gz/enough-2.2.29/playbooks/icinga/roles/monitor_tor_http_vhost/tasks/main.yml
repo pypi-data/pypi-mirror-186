@@ -1,0 +1,30 @@
+- when: groups['icinga-service-group'] | length
+  block:
+
+  - name: install tor for check_tor_http
+    apt:
+      name: [ tor, torsocks ]
+      state: present
+    delegate_to: "{{ groups['icinga-service-group'][0] }}"
+
+  - name: restart tor
+    service:
+      name: tor
+      state: restarted
+      enabled: True
+
+  - name: retrieve tor_http_vhost_fqdn
+    shell: "cat {{ tor_hostname_file }}"
+    register: output
+    when: tor_http_vhost_fqdn is undefined
+
+  - name: declare tor http vhost on {{ inventory_hostname }}
+    template:
+      src: tor-vhost.conf
+      dest: '/etc/icinga2/zones.d/master/{{ inventory_hostname }}/conf.d/tor-vhost_{{ tor_http_vhost_name }}.conf'
+      owner: root
+      group: root
+      mode: 0644
+    delegate_to: "{{ groups['icinga-service-group'][0] }}"
+    notify: reload icinga2
+    loop: "{{ ansible_play_batch }}"

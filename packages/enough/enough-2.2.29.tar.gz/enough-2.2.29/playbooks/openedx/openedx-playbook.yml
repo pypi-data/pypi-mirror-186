@@ -1,0 +1,90 @@
+---
+- name: firewall for web
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['openedx-service-group'] | default([]) }}"
+
+- name: setup openedx DNS
+  hosts: openedx-service-group
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "openedx.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ groups['openedx-service-group'][0] }}.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "studio.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ groups['openedx-service-group'][0] }}.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+- name: install openedX
+  hosts: openedx-service-group
+  become: true
+
+  roles:
+    - role: ansible-role-docker
+      docker_install_compose: true
+
+    - role: docker
+
+    - role: enough-nginx
+      vars:
+        enough_nginx_reverse_proxy: 127.0.0.1:{{ openedx_port }}
+        enough_nginx_reverse_proxy_name: openedxbackend
+        enough_nginx_fqdn: "openedx.{{ domain }}"
+
+    - role: certificate
+      vars:
+        certificate_fqdn: "openedx.{{ domain }}"
+        certificate_installer: nginx
+
+    - role: openedx
+
+    - role: monitor_http_vhost
+      http_vhost_https: true
+      http_vhost_name: openedX
+      http_vhost_fqdn: "openedx.{{ domain }}"
+      http_vhost_uri: "/"
+      http_vhost_string: "openedx"
+
+- name: reverse proxy for openedX studio
+  hosts: openedx-service-group
+  become: true
+
+  roles:
+    # this is to get the default value for openedx_port
+    - role: openedx
+      when: false
+
+    - role: enough-nginx
+      vars:
+        enough_nginx_reverse_proxy: 127.0.0.1:{{ openedx_port }}
+        enough_nginx_reverse_proxy_name: openedxbackend
+        enough_nginx_fqdn: "studio.{{ domain }}"
+
+    - role: certificate
+      vars:
+        certificate_fqdn: "studio.{{ domain }}"
+        certificate_installer: nginx

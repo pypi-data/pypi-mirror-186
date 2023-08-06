@@ -1,0 +1,65 @@
+---
+- name: apt-get install git virtualenv python3-pip
+  apt:
+    name: [ git, virtualenv, python3-pip ]
+    state: present
+
+- name: chown debian /srv
+  file:
+    path: /srv
+    owner: debian
+
+- name: "git clone {{ website_repository }}"
+  git:
+    repo: "{{ website_repository }}"
+    force: yes
+    dest: /srv/website
+  become: False
+
+- name: apt-get install rsync
+  apt:
+    name: rsync
+    state: present
+
+- name: apt-get install hugo
+  apt:
+    name: hugo
+    state: present
+
+- name: /usr/share/nginx/html is owned by debian
+  file:
+    path: /usr/share/nginx/html
+    state: directory
+    mode: 0755
+    owner: debian
+
+- name: Copy update-website.sh
+  template:
+    src: update-website.sh.j2
+    dest: /srv/update-website.sh
+    owner: debian
+    mode: "0755"
+
+- name: Copy crontab
+  template:
+    src: crontab
+    dest: /srv/crontab
+    owner: debian
+    mode: "0600"
+  register: crontab
+
+- name: update-website.sh log file
+  file:
+    path: /var/log/update-website.log
+    state: touch
+    owner: debian
+
+- name: install /etc/logrotate.d/website-logrotate
+  copy:
+    src: website-logrotate
+    dest: /etc/logrotate.d/website-logrotate
+
+- name: Activate crontab
+  shell: crontab /srv/crontab
+  when: crontab is changed
+  become: False

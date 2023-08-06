@@ -1,0 +1,182 @@
+---
+- name: mkdir -p /srv/hosteadashboard
+  file:
+    path: "/srv/hosteadashboard"
+    state: directory
+    mode: 0755
+    owner: debian
+
+- name: apt-get install git
+  apt:
+    name: git
+    state: present
+
+- name: git clone https://gitea.gna.org/Hostea/dashboard.git
+  git:
+    repo: https://gitea.gna.org/Hostea/dashboard.git
+    dest: /srv/hosteadashboard/dashboard
+    version: "{{ hosteadashboard_version }}"
+    force: yes
+  become: False
+
+- name: apt install postgres
+  apt:
+    name:
+      - postgresql
+      - postgresql-contrib
+      - libpq-dev
+      - python3-psycopg2
+      - acl
+
+- name: listen on *
+  lineinfile:
+    path: /etc/postgresql/13/main/postgresql.conf
+    line: "listen_addresses = '*'"
+
+- name: allow all connexions
+  lineinfile:
+    path: /etc/postgresql/13/main/pg_hba.conf
+    line: "host all all 0.0.0.0/0 trust"
+
+- name: systemctl restart postgresql
+  service:
+    name: postgresql
+    state: restarted
+
+- name: create pg user
+  postgresql_user:
+    name: "{{ hosteadashboard_db_user }}"
+    password: "{{ hosteadashboard_db_password }}"
+    role_attr_flags: SUPERUSER
+  become_user: postgres
+
+- name: create pg database
+  postgresql_db:
+    login_user: "{{ hosteadashboard_db_user }}"
+    login_password: "{{ hosteadashboard_db_password }}"
+    login_host: localhost
+    name: "{{ hosteadashboard_db_name }}"
+
+- name: virtualenv /srv/hosteadashboard/venv
+  shell: |
+    virtualenv /srv/hosteadashboard/venv
+  args:
+    creates: /srv/hosteadashboard/venv
+  become: False
+
+- name: pip3 install -r /srv/hosteadashboard/dashboard/requirements.txt
+  shell: |
+    /srv/hosteadashboard/venv/bin/pip3 install -r /srv/hosteadashboard/dashboard/requirements.txt
+  become: False
+
+- name: wait for the domain name to be set in the fleet repository
+  shell: |
+    set -ex
+    if ! test -f /usr/bin/yq ; then
+        wget --quiet -O /usr/bin/yq https://github.com/mikefarah/yq/releases/download/v4.25.2/yq_linux_amd64
+        chmod +x /usr/bin/yq
+    fi
+    export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -i /srv/hostea/deploy"
+    d=/tmp/hosteadashboard-checkout
+    rm -fr $d
+    git clone --depth 1 git@{{ hostea_forgejo }}:/{{ hostea_user }}/{{ hostea_project }} $d
+    cd $d
+    test -s inventory/group_vars/all/domain.yml
+    yq .domain < inventory/group_vars/all/domain.yml
+  register: fleet_domain
+  until: fleet_domain is success
+  retries: 60
+  delay: 30
+
+- set_fact:
+    hostea_fleet_domain: "{{ fleet_domain.stdout }}"
+
+- name: install /srv/hosteadashboard/dashboard/dashboard/local_settings.py
+  template:
+    src: local_settings.py.j2
+    dest: /srv/hosteadashboard/dashboard/dashboard/local_settings.py
+
+- name: manage.py migrate
+  shell: |
+    /srv/hosteadashboard/venv/bin/python3 manage.py migrate
+  args:
+    chdir: /srv/hosteadashboard/dashboard
+  become: False
+
+- name: manage.py collectstatic
+  shell: |
+    yes yes | /srv/hosteadashboard/venv/bin/python3 manage.py collectstatic
+  args:
+    chdir: /srv/hosteadashboard/dashboard
+  become: False
+
+- name: install /etc/systemd/system/hosteadashboard.service
+  template:
+    src: unit.j2
+    dest: /etc/systemd/system/hosteadashboard.service
+
+- name: systemctl restart hosteadashboard
+  systemd:
+    name: hosteadashboard
+    state: restarted
+    enabled: yes
+
+- name: createsuperuser
+  shell: |
+    if ! /srv/hosteadashboard/venv/bin/python3 manage.py createsuperuser --username {{ hosteadashboard_user }} --noinput --email "{{ hosteadashboard_instance_maintainer_contact }}" >& /tmp/hosteadashboard.out ; then
+       if ! grep -q 'That username is already taken' /tmp/hosteadashboard.out ; then
+          cat /tmp/hosteadashboard.out
+          exit 1
+       fi
+    fi
+  environment:
+    DJANGO_SUPERUSER_PASSWORD: "{{ hosteadashboard_password }}"
+  args:
+    executable: /bin/bash
+    chdir: /srv/hosteadashboard/dashboard
+  become: False
+
+- name: get oidc from the dashboard
+  shell: |
+    /srv/hosteadashboard/venv/bin/python3 manage.py create_oidc forgejo {{ hosteadashboard_user }} https://{{ hostea_forgejo }}/user/oauth2/{{ hosteadashboard_oauth_name }}/callback | sed -n -e 's/: /=/' -e '/^client_/p' > /srv/hosteadashboard/oidc
+    test -s /srv/hosteadashboard/oidc
+  args:
+    creates: /srv/hosteadashboard/oidc
+    chdir: /srv/hosteadashboard/dashboard
+  become: False
+
+- name: setup oauth from oidc in forgejo
+  shell: |
+    . /srv/hosteadashboard/oidc
+    set $(docker exec --user git forgejo gitea admin auth list | grep {{ hosteadashboard_oauth_name }})
+    if test "$1" ; then
+      echo "Removing existing {{ hosteadashboard_oauth_name }} id == $1"
+      if ! docker exec --user git forgejo gitea admin auth delete --id $1 >& /srv/hosteadashboard/oidc.delete.log ; then
+        if grep -q 'still used by some users' /srv/hosteadashboard/oidc.delete.log ; then
+          echo "Will not reset because it is already in use"
+          exit 0
+        else
+          cat /srv/hosteadashboard/oidc.delete.log
+          exit 1
+        fi
+      fi
+    fi
+
+    docker exec --user git forgejo gitea admin auth add-oauth --name {{ hosteadashboard_oauth_name }} --provider openidConnect --key $client_id --secret $client_secret --auto-discover-url https://{{ hosteadashboard_host }}/o/.well-known/openid-configuration/
+  args:
+    executable: /bin/bash
+
+- name: install /srv/hosteadashboard/generate-invoice.sh
+  template:
+    src: generate-invoice.sh.j2
+    dest: /srv/hosteadashboard/generate-invoice.sh
+    mode: 0755
+    owner: debian
+
+- name: run manage.py generate-invoice daily
+  cron:
+    name: "hosteadashboard"
+    minute: "18"
+    hour: "10"
+    job: "/srv/hosteadashboard/generate-invoice.sh >> /srv/hosteadashboard/generate-invoice.log 2>&1"
+  become: False

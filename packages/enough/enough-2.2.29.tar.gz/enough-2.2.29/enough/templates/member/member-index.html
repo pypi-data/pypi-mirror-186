@@ -1,0 +1,23 @@
+{% extends "bases/bootstrap-member.html" %}
+
+{% load bootstrap3 %}
+
+{% block head_title %}Welcome{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% bootstrap_messages %}
+
+    <div class="col-sm-6 col-md-4 col-lg-4">
+      <h3>Profile</h3>
+      <ul class="list-unstyled">
+        <li>Email: <strong id="mail">{{user.email}}</strong></li>
+        <li>Token: <strong id="token">{{token}}</strong></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,14 @@
+clone:
+ git:
+   image: woodpeckerci/plugin-git:v1.6.1
+   volumes:
+     - /etc/ssl/certs:/etc/ssl/certs:ro
+     - /usr/local/share/ca-certificates/infrastructure:/usr/local/share/ca-certificates/infrastructure:ro
+
+pipeline:
+  something:
+    image: golang
+    volumes:
+      - /tmp/out:/tmp/out
+    commands:
+      - touch /tmp/out/done

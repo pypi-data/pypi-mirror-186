@@ -1,0 +1,41 @@
+---
+- name: install wazuh-agent
+  hosts: live:!wazuh-service-group
+  become: true
+
+  roles:
+    - role: ansible-wazuh-agent
+      vars:
+        wazuh_managers:
+          - address: "wazuh.{{ domain }}"
+            port: 1514
+            protocol: tcp
+            api_port: 55000
+            api_proto: 'https'
+            api_user: '{{ wazuh_api_username }}'
+            max_retries: 5
+            retry_interval: 5
+            register: yes
+        api_pass: '{{ wazuh_api_password }}'
+        wazuh_api_reachable_from_agent: true
+        wazuh_agent_enrollment:
+          enabled: 'no'
+          #
+          # The following lines are not needed because it is not enabled.
+          # But they are used anyway during template instantiation
+          # and must be present.
+          #
+          manager_address: ''
+          port: 1515
+          agent_name: ''
+          groups: ''
+          agent_address: ''
+          ssl_cipher: HIGH:!ADH:!EXP:!MD5:!RC4:!3DES:!CAMELLIA:@STRENGTH
+          server_ca_path: ''
+          agent_certificate_path: ''
+          agent_key_path: ''
+          authorization_pass_path: /var/ossec/etc/authd.pass
+          auto_method: 'no'
+          delay_after_enrollment: 20
+          use_source_ip: 'no'
+      when: (groups['wazuh-service-group'] | length) > 0

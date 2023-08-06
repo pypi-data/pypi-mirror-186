@@ -1,0 +1,15 @@
+---
+- name: setup DNS client (allow-recursion)
+  hosts: bind-client-group:!external-host
+  become: true
+  serial: 1  # so blockinfile does not race against itslef
+
+  tasks:
+    - name: allow recursion for {{ ansible_hostname }}
+      blockinfile:
+        path: /etc/bind/named.conf.allow-recursion
+        insertafter: allow-recursion {
+        marker: "# {mark} ansible managed {{ ansible_host }}"
+        content: "{{ ansible_host }};"
+      delegate_to: "{{ item }}"
+      loop: "{{groups['bind-service-group']}}"

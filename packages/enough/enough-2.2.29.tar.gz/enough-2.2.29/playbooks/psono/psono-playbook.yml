@@ -1,0 +1,77 @@
+---
+- name: firewall for web
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['psono-service-group'] | default([]) }}"
+
+- name: setup psono DNS
+  hosts: psono-service-group
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "psono.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ groups['psono-service-group'][0] }}.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "psono-server.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ groups['psono-service-group'][0] }}.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+- name: install psono
+  hosts: psono-service-group
+  become: true
+
+  roles:
+    - role: ansible-role-docker
+      docker_install_compose: true
+
+    - role: docker
+
+    - role: enough-nginx
+      enough_nginx_reverse_proxy: 127.0.0.1:{{ psono_client_port }}
+      enough_nginx_reverse_proxy_name: psonoclientbackend
+      enough_nginx_fqdn: "psono.{{ domain }}"
+
+    - role: certificate
+      certificate_fqdn: "psono.{{ domain }}"
+      certificate_installer: nginx
+
+    - role: psono
+
+    - role: monitor_http_vhost
+      http_vhost_https: true
+      http_vhost_name: psono
+      http_vhost_fqdn: "psono.{{ domain }}"
+      http_vhost_uri: "/"
+      http_vhost_string: "psono"
+
+    - role: enough-nginx
+      enough_nginx_reverse_proxy: 127.0.0.1:{{ psono_server_port }}
+      enough_nginx_reverse_proxy_name: psonoserverbackend
+      enough_nginx_fqdn: "psono-server.{{ domain }}"
+
+    - role: certificate
+      certificate_fqdn: "psono-server.{{ domain }}"
+      certificate_installer: nginx

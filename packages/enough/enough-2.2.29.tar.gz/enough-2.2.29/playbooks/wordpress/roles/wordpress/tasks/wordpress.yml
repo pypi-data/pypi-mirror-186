@@ -1,0 +1,68 @@
+---
+- name: apt-get install git virtualenv python3-pip
+  apt:
+    name: [ git, virtualenv, python3-pip ]
+    state: present
+
+- name: "mkdir {{ wordpress_root }}"
+  file:
+    path: "{{ wordpress_root }}"
+    state: directory
+    mode: 0755
+    owner: debian
+    group: debian
+
+- name: Copy docker-compose.yml
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ wordpress_root }}/docker-compose.yml"
+    owner: debian
+    mode: "0644"
+
+- name: Copy uploads.ini
+  template:
+    src: uploads.ini.j2
+    dest: "{{ wordpress_root }}/uploads.ini"
+    owner: debian
+    mode: "0644"
+
+- name: (re)create wordpress
+  shell: |
+    docker-compose up -d
+  args:
+    chdir: "{{ wordpress_root }}"
+
+- name: apt-get install curl
+  apt:
+    name: curl
+    state: present
+
+- name: wait for wordpress.{{ domain }} to be ready
+  shell: |
+    set $(curl -k -s --head https://wordpress.{{ domain }} | grep HTTP | tail -1)
+    if test "$2" = 200 -o "$2" = 302 -o "$2" = 301 ; then
+      exit 0
+    else
+      exit 1
+    fi
+  register: wordpress_get
+  until: wordpress_get is success
+  retries: 20
+  delay: 5
+
+- name: set_fact wp_cli
+  set_fact:
+    wp_cli: "docker run --rm --volumes-from wordpress_wordpress_1 --network container:wordpress_wordpress_1 -e WORDPRESS_DB_USER='{{ wordpress_db_user }}' -e WORDPRESS_DB_PASSWORD='{{ wordpress_db_password }}' -e WORDPRESS_DB_NAME='{{ wordpress_db_name }}' -e WORDPRESS_DB_HOST=db wordpress:cli-2.7.1 wp"
+
+- name: is WordPress installed already ?
+  shell: |
+    {{ wp_cli }} core is-installed
+  register: wordpress_installed
+  ignore_errors: True
+
+- when: wordpress_installed.rc == 1
+  block:
+
+    - name: install WordPress
+      shell: |
+        {{ wp_cli }} core install --url='{{ wordpress_domain }}' --title="Enough" --admin_name={{ wordpress_admin_user }} --admin_password='{{ wordpress_admin_password }}' --admin_email='{{ wordpress_admin_email }}'

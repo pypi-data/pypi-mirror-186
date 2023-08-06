@@ -1,0 +1,59 @@
+---
+#######################################
+#
+# URI of the libvirt daemon
+#
+libvirt_uri: "qemu:///system"
+#######################################
+#
+# SSH command to connect to the libvirt daemon
+# libvirt_ssh: ['-i', '/my/privatekey', 'example.com']
+#
+libvirt_ssh: []
+#
+#######################################
+#
+# RAM (MB)
+#
+libvirt_ram: 2048
+#
+#######################################
+#
+# Disk
+#
+libvirt_disk: 10G
+#
+#######################################
+#
+# Number of vcpus
+#
+libvirt_cpus: 1
+#
+#######################################
+#
+# List of hosts that need backups
+#
+libvirt_pets: []
+#
+#######################################
+#
+libvirt_network_hypervisor_prefix: 10.0.48
+
+libvirt_network_external_name: enough-ext
+libvirt_network_external_prefix: 10.23.10
+libvirt_network_external_forward: "<forward mode='nat'/>"
+libvirt_network_external_dhcp: |
+  <ip address='{{ libvirt_network_external_prefix }}.1' netmask='255.255.255.0'>
+   <dhcp>
+    <range start='{{ libvirt_network_external_prefix }}.100' end='{{ libvirt_network_external_prefix }}.254'/>
+   </dhcp>
+  </ip>
+libvirt_network_internal_name: enough-int
+libvirt_network_internal_prefix: 10.23.90
+libvirt_network_internal_forward: "<forward mode='nat'/>"
+libvirt_network_internal_dhcp: |
+  <ip address='{{ libvirt_network_internal_prefix }}.1' netmask='255.255.255.0'>
+   <dhcp>
+    <range start='{{ libvirt_network_internal_prefix }}.100' end='{{ libvirt_network_internal_prefix }}.254'/>
+   </dhcp>
+  </ip>

@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:10.6
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      # must be the same as db.env DB_USER
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=
+      # prevents the container from creating the database named nextcloud
+      - POSTGRES_DB=noneed
+
+  app:
+    image: nextcloud:{{ enough_nextcloud_version }}-fpm-cron
+    restart: always
+    volumes:
+      - nextcloud:/var/www/html
+{% if  certificate_authority != 'letsencrypt' %}
+      - /etc/ssl/certs:/etc/ssl/certs:ro
+      - /usr/local/share/ca-certificates/infrastructure:/usr/local/share/ca-certificates/infrastructure:ro
+{% endif %}
+    environment:
+      - DB_PASSWORD={{ enough_nextcloud_db_password | default(omit) }}
+    env_file:
+      - db.env
+    depends_on:
+      - db
+
+  web:
+    build: ./web
+    restart: always
+    ports:
+      - {{ enough_nextcloud_port }}:80
+    volumes:
+      - nextcloud:/var/www/html:ro
+{% if  certificate_authority != 'letsencrypt' %}
+      - /etc/ssl/certs:/etc/ssl/certs:ro
+      - /usr/local/share/ca-certificates/infrastructure:/usr/local/share/ca-certificates/infrastructure:ro
+{% endif %}
+    depends_on:
+      - app
+
+volumes:
+  db:
+  nextcloud:

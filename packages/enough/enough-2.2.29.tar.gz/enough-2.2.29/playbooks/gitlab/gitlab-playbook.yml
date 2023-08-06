@@ -1,0 +1,69 @@
+---
+- name: firewall for gitlab
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 22, 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['gitlab-service-group'] | default([]) }}"
+
+- name: install gitlab
+  hosts: gitlab-service-group
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "{{ hostvars['bind-host']['ansible_host'] }}"
+        zone: "{{ domain }}"
+        record: "{{ short_gitlab_vhost_fqdn }}."
+        ttl: 1800
+        type: CNAME
+        value: "gitlab-host"
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+  roles:
+    - role: ansible-role-docker
+      vars:
+        docker_install_compose: false
+
+    - role: gitlab
+
+    - role: enough-nginx
+      # do **not** use vars here because of https://github.com/ansible/ansible/issues/50278
+      enough_nginx_reverse_proxy: 127.0.0.1:8080
+      enough_nginx_fqdn: "{{ gitlab_vhost_fqdn }}"
+
+    - role: certificate
+      certificate_fqdn: "{{ gitlab_vhost_fqdn }}"
+      certificate_installer: nginx
+
+    - role: enough-nginx
+      # do **not** use vars here because of https://github.com/ansible/ansible/issues/50278
+      enough_nginx_reverse_proxy: 127.0.0.1:8080
+      enough_nginx_fqdn: "{{ short_gitlab_vhost_fqdn }}"
+
+    - role: certificate
+      certificate_fqdn: "{{ short_gitlab_vhost_fqdn }}"
+      certificate_installer: nginx
+
+    - role: monitor_http_vhost
+      http_vhost_https: true
+      http_vhost_name: Gitlab
+      http_vhost_fqdn: "gitlab.{{ domain }}"
+      http_vhost_uri: "/users/sign_in"
+      http_vhost_string: "GitLab"
+
+    - role: monitor_http_vhost
+      http_vhost_https: true
+      http_vhost_name: Lab
+      http_vhost_fqdn: "{{ gitlab_host }}"
+      http_vhost_uri: "/users/sign_in"
+      http_vhost_string: "GitLab"

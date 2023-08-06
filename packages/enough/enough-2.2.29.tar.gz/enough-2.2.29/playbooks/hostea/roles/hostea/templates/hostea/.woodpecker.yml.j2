@@ -1,0 +1,27 @@
+#
+# DO NOT MODIFY
+#
+# The authoritative source of this file is at
+#
+# https://lab.enough.community/main/infrastructure/-/tree/master/playbooks/hostea/roles/hostea/templates/hostea
+#
+clone:
+ git:
+   image: woodpeckerci/plugin-git
+   volumes:
+     - /etc/ssl/certs:/etc/ssl/certs:ro
+     - /usr/local/share/ca-certificates/infrastructure:/usr/local/share/ca-certificates/infrastructure:ro
+
+pipeline:
+  deploy:
+    image: debian:bullseye
+    volumes:
+      - /var/run/docker.sock:/run/docker.sock
+      - /usr/lib/x86_64-linux-gnu/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7:ro
+      - /usr/bin/docker:/bin/docker:ro
+      - /tmp/hostea:/tmp/hostea
+    commands:
+      - bash hostea.sh
+    secrets:
+      - deploy
+      - enough

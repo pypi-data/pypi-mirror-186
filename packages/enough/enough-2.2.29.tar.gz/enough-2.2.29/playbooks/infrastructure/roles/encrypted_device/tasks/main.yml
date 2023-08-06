@@ -1,0 +1,18 @@
+---
+- name: find encrypted partition
+  command: blkid --output device --match-token TYPE=crypto_LUKS
+  register: blkid_luks
+  ignore_errors: yes  # blkid returns 2 when no partition found
+
+- name: Check there is at most one encrypted disk
+  fail:
+    msg: 'More than one encrypted disk attached, unable to choose one'
+  when: blkid_luks.stdout_lines|length > 1
+
+- import_tasks: encrypted_device.yml
+  vars:
+    # disk is either already encrypted or empty
+    selected_disk: '{{ blkid_luks.stdout_lines|ternary(blkid_luks.stdout_lines[0], "/dev/" ~ (unused_devices|first)) }}'
+  when:
+    - encrypted_device_mount_point is defined
+    - blkid_luks.stdout_lines or unused_devices

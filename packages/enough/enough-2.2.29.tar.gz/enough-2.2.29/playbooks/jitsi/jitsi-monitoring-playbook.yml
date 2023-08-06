@@ -1,0 +1,86 @@
+---
+- name: firewall for Jitsi monitoring
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ "{{ hostvars[groups['icinga-service-group'][0]]['ansible_host'] }}/32" ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 8080 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['jitsi-service-group'] | default([]) }}"
+
+- name: Jitsi enable API
+  hosts: jitsi-service-group
+  become: true
+  gather_facts: false
+
+  pre_tasks:
+    - name: JVB_OPTS="--apis=rest,xmpp"
+      shell: |
+        set -ex
+        sed -i -e 's/^JVB_OPTS.*/JVB_OPTS="--apis=rest,xmpp"/' /etc/jitsi/videobridge/config
+
+    - name: REST must listen on * for icinga to check health
+      blockinfile:
+        path: /etc/jitsi/videobridge/sip-communicator.properties
+        marker: "# {mark} ansible managed {{ ansible_host }}"
+        content: |
+          org.jitsi.videobridge.rest.private.jetty.host=0.0.0.0
+
+    - name: restart jitsi-videobridge2
+      service:
+        name: jitsi-videobridge2
+        state: restarted
+
+- name: Jitsi install Icinga monitoring check
+  hosts: icinga-service-group
+  become: true
+
+  pre_tasks:
+    - name: Icinga install command-check_jitsi.conf
+      copy:
+        src: command-check_jitsi.conf
+        dest: /etc/icinga2/conf.d/command-check_jitsi.conf
+        mode: 0444
+
+    # https://exchange.icinga.com/nicolaiB/check_jiitsi https://github.com/nbuchwitz/check_jitsi
+    - name: install check_jitsi.py
+      get_url:
+        url: https://raw.githubusercontent.com/nbuchwitz/check_jitsi/37d38249bb73e594fbd2bb48744e0b8d3d141d3d/check_jitsi.py
+        dest: /usr/lib/nagios/plugins/check_jitsi
+        mode: 0555
+          
+    - name: Icinga for Jitsi
+      copy:
+        content: |
+          apply Service "Jitsi" {
+                import host.vars.service_template
+    
+                check_command = "jitsi"
+                vars.jitsi_port = "8080"
+                vars.jitsi_mode = "health"
+                command_endpoint = NodeName
+    
+                assign where host.vars.jitsi == true
+          }
+        dest: /etc/icinga2/zones.d/global-templates/jitsi.conf
+    
+    - name: Add Jitsi check
+      copy:
+        content: |
+            vars.jitsi = true
+        dest: "/etc/icinga2/zones.d/master/{{ item }}/conf.d/jitsi.conf"
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['jitsi-service-group'] | default([]) }}"
+    
+    - name: reload icinga2
+      systemd:
+        name: icinga2
+        state: reloaded
+        enabled: True
+      changed_when: False

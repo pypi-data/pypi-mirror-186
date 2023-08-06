@@ -1,0 +1,50 @@
+---
+- name: install postfix clients
+  hosts: "live:!postfix-service-group"
+  become: True
+
+  environment: '{{ inventory__environment | d({})
+                   | combine(inventory__group_environment | d({}))
+                   | combine(inventory__host_environment  | d({})) }}'
+
+  pre_tasks:
+    - import_role:
+        name: debops.postfix
+        tasks_from: main_env
+
+  roles:
+
+    - role: debops.secret
+      secret__directories:
+        - '{{ postfix__secret__directories     | d([ ])}}'
+
+    - role: debops.postfix
+      postfix__mailname: '{{ postfix_client_mailname | default(domain) }}'
+      postfix__fqdn: '{{ postfix_client_fqdn | default(inventory_hostname + "." + domain) }}'
+      postfix__relayhost: '[{{ postfix_client_relayhost | default((groups["postfix-service-group"] | first | default("MISSING")) + "." + domain) }}]:465'
+      postfix__maincf:
+        - name: 'smtpd_recipient_restrictions'
+          section: 'restrictions'
+          weight: 50
+          value:
+            - name: 'check_recipient_access regexp:/etc/postfix/hold.regexp'
+              weight: -300
+            - name: 'reject_non_fqdn_recipient'
+              weight: -200
+            - name: 'reject_unknown_recipient_domain'
+              weight: -100
+        - name: 'mynetworks'
+          value: [ '172.16.0.0/12', '{{ ansible_host }}/32' ]
+          comment: Set docker net in mynetworks
+        - name: 'smtp_tls_security_level'
+          value: 'encrypt'
+          section: 'smtp-tls'
+        - name: 'smtp_tls_wrappermode'
+          value: 'yes'
+          section: 'smtp-tls'
+
+  tasks:
+    - name: touch /etc/postfix/hold.regexp
+      file:
+        path: /etc/postfix/hold.regexp
+        state: touch

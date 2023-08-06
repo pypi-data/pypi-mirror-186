@@ -1,0 +1,77 @@
+---
+- name: encrypted_device on a host with no volume does nothing
+  hosts: infrastructure5-host
+  become: true
+
+  roles:
+    - role: encrypted_device
+
+- name: volumes for which encrypted_device_mount_point is not defined are not modified
+  hosts: infrastructure4-host
+  become: true
+
+  roles:
+    - role: encrypted_device
+
+- name: already formatted volume will not be clobbered
+  hosts: infrastructure3-host
+  become: true
+
+  pre_tasks:
+
+    - name: mkfs.ext4 /dev/mapper/spare
+      filesystem:
+        fstype: ext4
+        dev: '/dev/{{ unused_devices|first }}'
+
+    - import_role:
+        name: encrypted_device
+
+    - assert:
+        that: "'Ignored' in encrypt_format.stdout"
+
+- name: encrypted volume
+  hosts: infrastructure1-host
+  become: true
+
+  roles:
+    - role: encrypted_device
+      encrypted_device_mount_point: /srv
+      encrypted_volume_for_docker: false
+      encrypted_volume_for_snap: false
+
+
+- name: pre-defined key and snap and docker
+  hosts: infrastructure2-host
+  become: true
+
+  pre_tasks:
+    - name: create an encryption key to be re-used
+      file:
+        state: directory
+        path: "{{ enough_domain_config_directory }}/volume-keys"
+      delegate_to: localhost
+      become: no
+
+    # verified by infrastructure/tests/test_encrypted_reuse_key_volume.py
+    - name: create an encryption key to be re-used
+      copy:
+        content: "PASSWORD"
+        dest: "{{ enough_domain_config_directory }}/volume-keys/infrastructure2-volume.key"
+      delegate_to: localhost
+      become: no
+
+  roles:
+    - role: encrypted_device
+      encrypted_device_mount_point: /opt
+
+  tasks:
+    - name: apt-get install snap docker
+      apt:
+        name:
+          - docker.io
+          - snapd
+        state: present
+    - name: snap install hello-world
+      shell: |
+        snap install hello-world

@@ -1,0 +1,97 @@
+---
+- name: Ensure dependencies are installed
+  package:
+    name: [gnupg, python3-gpg]
+    state: present
+
+- name: Ensure application user exists
+  user:
+    name: zeyple
+    shell: /bin/false
+    home: /var/lib/zeyple/
+
+- name: Ensure application folders exists
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.state }}"
+    mode: "{{ item.mode | default('') }}"
+    owner: zeyple
+    group: zeyple
+  with_items:
+    - path: /opt/zeyple
+      state: directory
+      mode: "0755"
+    - path: /var/lib/zeyple/keys
+      state: directory
+      mode: "0700"
+
+- name: Ensure application log file exists
+  copy:
+    content: ""
+    dest: /var/log/zeyple.log
+    force: no
+    mode: "0744"
+    owner: zeyple
+    group: zeyple
+
+- name: Download script
+  get_url:
+    url: "https://raw.githubusercontent.com/infertux/zeyple/{{ postfix_zeyple_version }}/zeyple/zeyple.py"
+    dest: /opt/zeyple/
+    mode: 0744
+    owner: zeyple
+    group: zeyple
+  register: result
+  until: result is success
+  retries: 5
+
+- name: Ensure zeyple uses python3
+  lineinfile:
+    path: /opt/zeyple/zeyple.py
+    regexp: "^#!/usr/bin/env"
+    line: "#!/usr/bin/env python3"
+
+- name: Configure application
+  template:
+    src: zeyple.conf.j2
+    dest: /etc/zeyple.conf
+    owner: zeyple
+    group: zeyple
+
+- name: Add zeyple filter to postfix
+  blockinfile:
+    path: /etc/postfix/master.cf
+    marker: "# {mark} ZEYPLE FILTER"
+    block: |
+      zeyple    unix  -       n       n       -       -       pipe
+        user=zeyple argv=/opt/zeyple/zeyple.py ${recipient}
+
+      localhost:10026 inet  n       -       n       -       10      smtpd
+        -o content_filter=
+        -o smtpd_tls_security_level=
+        -o receive_override_options=no_unknown_recipient_checks,no_header_body_checks,no_milters
+        -o smtpd_helo_restrictions=
+        -o smtpd_client_restrictions=
+        -o smtpd_sender_restrictions=
+
+- name: Ensure postfix uses zeyple filter
+  lineinfile:
+    path: /etc/postfix/main.cf
+    regexp: "^content_filter[ \t]*="
+    line: "content_filter = zeyple"
+
+- name: Copy GPG keys to the host
+  copy:
+    src: "{{ item }}"
+    dest: "/opt/zeyple/{{ item | basename }}"
+    mode: 0444
+    owner: zeyple
+    group: zeyple
+  loop: "{{ query('fileglob', *postfix_gpg_keys) }}"
+
+- name: Import GPG keys
+  shell: |
+    set -ex
+    sudo -u zeyple gpg --homedir /var/lib/zeyple/keys --import /opt/zeyple/*.asc
+  register: gpg
+  changed_when: "'imported:' in gpg.stderr"

@@ -1,0 +1,139 @@
+---
+- name: setup ownca
+  hosts: ownca-host
+  become: true
+
+  roles:
+    - role: enough-nginx
+      vars:
+        enough_nginx_fqdn: "{{ inventory_hostname }}.{{ domain }}"
+        enough_nginx_sites: "# SOMETHING TESTS CAN GREP"
+        
+    - role: certificate
+      vars:
+        certificate_authority: ownca
+        certificate_fqdn: "{{ inventory_hostname }}.{{ domain }}"
+        certificate_email: "contact-nginx@something.com"
+        certificate_installer: nginx
+
+- name: get the certificate but do not install it
+  hosts: owncanotweb-host
+  become: true
+
+  roles:
+    - role: certificate
+      vars:
+        certificate_authority: ownca
+        certificate_fqdn: "{{ inventory_hostname }}.{{ domain }}"
+        certificate_email: "contact-nginx@something.com"
+
+- name: setup fake LE
+  hosts: letsencryptstaging-host
+  become: true
+
+  roles:
+    - role: enough-nginx
+      vars:
+        enough_nginx_fqdn: "{{ inventory_hostname }}.{{ domain }}"
+        enough_nginx_sites: "# SOMETHING TESTS CAN GREP"
+
+    - role: certificate
+      vars:
+        certificate_authority: letsencrypt_staging
+        certificate_email: "contact-nginx@something.com"
+        certificate_fqdn: "{{ inventory_hostname }}.{{ domain }}"
+        certificate_installer: nginx
+
+- name: setup fake LE reverse proxy
+  hosts: letsencryptstaging-host
+  become: true
+
+  pre_tasks:
+    - name: set A
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "reverse.{{ domain }}."
+        ttl: 1800
+        type: A
+        value: "{{ ansible_host }}"
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+  roles:
+    - role: enough-nginx
+      vars:
+        enough_nginx_reverse_proxy: 127.0.0.1:8080
+        enough_nginx_fqdn: "reverse.{{ domain }}"
+
+    - role: jdauphant.nginx
+      vars:
+        # must match playbooks/enough-nginx/roles/enough-nginx/tasks/enough-nginx.yml
+        nginx_http_params: "{{ nginx_http_default_params + enough_nginx_http_params }}"
+        enough_nginx_http_params:
+          # because server names can be long when using test subdomains
+          - server_names_hash_bucket_size 128
+        nginx_sites:
+          backend:
+            - |
+              listen 8080;
+              server_name _;
+              root /tmp;
+
+    - role: certificate
+      vars:
+        certificate_authority: letsencrypt_staging
+        certificate_email: "contact-nginx@something.com"
+        certificate_fqdn: "reverse.{{ domain }}"
+        certificate_installer: nginx
+
+  tasks:
+    - name: insert content in reverse proxy
+      shell: echo REVERSEPROXY > /tmp/index.html
+
+- name: setup real LE
+  hosts: bind-host
+  become: true
+
+  pre_tasks:
+    - name: mkdir {{ certificate_directory }}
+      file:
+        state: directory
+        path: "{{ certificate_directory }}"
+        mode: 0755
+    # these files must be replaced by the role, if they exist
+    - name: cp /dev/null {{ certificate_directory }}/*.{chain.crt,key,crt}
+      copy:
+        content: "# EMPTY from ansible"
+        dest: "{{ certificate_directory }}/{{ item }}"
+      loop:
+        - "{{ certificate_fqdn }}.chain.crt"
+        - "{{ certificate_fqdn }}.key"
+        - "{{ certificate_fqdn }}.crt"
+
+  roles:
+    - role: enough-nginx
+      vars:
+        enough_nginx_fqdn: "{{ inventory_hostname }}.{{ domain }}"
+        enough_nginx_sites: "# SOMETHING TESTS CAN GREP"
+        
+    - role: certificate
+      vars:
+        certificate_authority: letsencrypt
+        certificate_fqdn: "{{ inventory_hostname }}.{{ domain }}"
+        certificate_email: "contact-nginx@something.com"
+        certificate_installer: nginx
+
+- name: setup client
+  hosts: client-host
+  become: true
+
+  roles:
+    - role: certificate
+      vars:
+        certificate_authority: ownca
+        certificate_create: false
+
+    - role: certificate
+      vars:
+        certificate_authority: letsencrypt_staging
+        certificate_create: false

@@ -1,0 +1,48 @@
+# inspired by https://github.com/robertdebock/ansible-role-jitsi/blob/0fdb6371d75cfd10d82b512b916f492b953dc9ae/tasks/main.yml
+---
+
+- name: apt-get install apt-transport-https
+  apt:
+    name: apt-transport-https
+    state: present
+
+- name: apt-get install nginx certbot
+  apt:
+    name: nginx
+    state: present
+
+- name: install repository key
+  apt_key:
+    url: "https://download.jitsi.org/jitsi-key.gpg.key"
+    state: present
+
+- name: add repository
+  apt_repository:
+    repo: "deb https://download.jitsi.org {{ jitsi_release }}/"
+    filename: jitsi-{{ jitsi_release }}
+    state: present
+
+- name: set installer options
+  debconf:
+    name: "{{ item.name }}"
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.type }}"
+  loop: "{{ jitsi_settings }}"
+  loop_control:
+    label: "{{ item.question }}"
+
+- name: install jitsi-meet
+  package:
+    name: jitsi-meet
+    state: present
+
+- name: setup certificate
+  shell: |
+    set -ex
+    echo contact@{{ domain }} | /usr/share/jitsi-meet/scripts/install-letsencrypt-cert.sh
+
+- name: copy configuration
+  template:
+    src: config.js.j2
+    dest: "/etc/jitsi/meet/jitsi.{{ domain }}-config.js"

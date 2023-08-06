@@ -1,0 +1,17 @@
+#!/bin/bash
+
+service="$1"
+shift
+host="$1"
+shift
+
+export OS_CLIENT_CONFIG_FILE=tests/clouds.yml
+export OS_CLOUD=production
+
+hosts=.tox/$service/.pytest_cache/d/dotenough/$service.test/inventory/hosts.yml
+ip=$(yq --raw-output  '.live.hosts["'$host'"].ansible_host' $hosts)
+port=$(yq --raw-output  '.live.hosts["'$host'"].ansible_port' $hosts)
+
+private_key=.tox/$service/.pytest_cache/d/dotenough/$service.test/infrastructure_key
+
+ssh -oStrictHostKeyChecking=no -i $private_key -p $port debian@$ip "$@"

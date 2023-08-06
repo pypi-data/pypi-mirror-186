@@ -1,0 +1,59 @@
+---
+- name: firewall for web
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['weblate-service-group'] | default([]) }}"
+
+- name: setup weblate DNS
+  hosts: weblate-service-group
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "weblate.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ groups['weblate-service-group'][0] }}.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+- name: install weblate
+  hosts: weblate-service-group
+  become: true
+
+  roles:
+    - role: ansible-role-docker
+      docker_install_compose: true
+
+    - role: docker
+
+    - role: weblate
+
+    - role: enough-nginx
+      vars:
+        enough_nginx_reverse_proxy: 127.0.0.1:8000
+        enough_nginx_fqdn: "weblate.{{ domain }}"
+
+    - role: certificate
+      vars:
+        certificate_fqdn: "weblate.{{ domain }}"
+        certificate_installer: nginx
+
+    - role: monitor_http_vhost
+      http_vhost_https: true
+      http_vhost_name: Weblate
+      http_vhost_fqdn: "weblate.{{ domain }}"
+      http_vhost_uri: "/"
+      http_vhost_string: "Weblate"

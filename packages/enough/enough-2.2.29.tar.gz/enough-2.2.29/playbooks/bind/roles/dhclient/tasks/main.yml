@@ -1,0 +1,40 @@
+---
+#
+# The following is only necessary for backward compatibility. Once all Enough
+# instances have a separate dhclient_routers.conf for the secondary
+# interface, it can be removed, as well as the template.
+#
+- name: setup dhclient.conf
+  template:
+    src: dhclient.conf.j2
+    dest: /etc/dhcp/dhclient.conf
+  register: dhclient
+
+#
+# The following is necessary if the host was not created by Enough
+# because it is created by playbooks/infrastructure/template-host.yaml
+#
+- name: touch /etc/dhcp/dhclient_routers.conf
+  file:
+    path: /etc/dhcp/dhclient_routers.conf
+    state: touch
+    mode: 0644
+
+- name: setup dhclient_routers.conf
+  blockinfile:
+    block: |
+      supersede domain-name "{{ dns_domain }}";
+      supersede domain-search "{{ dns_domain }}";
+      supersede domain-name-servers {{ bind_server_ip_for_clients }};
+    path: /etc/dhcp/dhclient_routers.conf
+    marker: "# {mark} Enough"
+  register: dhclient_routers
+
+- name: restart all interfaces to reload dhclient.conf and update /etc/resolv.conf
+  shell: |
+    set -ex
+    ifdown {{ network_primary_interface }}
+    ifup {{ network_primary_interface }}
+    ifdown {{ network_secondary_interface }} || true
+    ifup {{ network_secondary_interface }} || true
+  when: dhclient is changed or dhclient_routers is changed

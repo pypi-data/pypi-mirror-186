@@ -1,0 +1,52 @@
+---
+- name: apt-get install git virtualenv python3-pip
+  apt:
+    name: [ git, virtualenv, python3-pip ]
+    state: present
+
+- name: "chown debian {{ weblate_root }}"
+  file:
+    path: "{{ weblate_root }}"
+    mode: 0755
+    owner: debian
+
+- name: git clone https://github.com/WeblateOrg/docker-compose
+  git:
+    repo: 'https://github.com/WeblateOrg/docker-compose'
+    version: 62a9ce84d3e818814a92571e3f6ecc54fb46b3e5
+    force: yes
+    dest: "{{ weblate_root }}/weblate"
+  become: False
+
+- name: Copy docker-compose-infrastructure.yml
+  template:
+    src: docker-compose-infrastructure.yml
+    dest: "{{ weblate_root }}/weblate/docker-compose-infrastructure.yml"
+    owner: debian
+    mode: "0600"
+
+- name: Copy supervisord.conf
+  template:
+    src: supervisord.conf.j2
+    dest: "{{ weblate_root }}/weblate/supervisord.conf"
+    owner: debian
+    mode: "0600"
+
+- name: Copy crontab
+  template:
+    src: crontab
+    dest: "{{ weblate_root }}/weblate/crontab"
+    owner: debian
+    mode: "0600"
+  register: crontab
+
+- name: Activate crontab
+  shell: "crontab {{ weblate_root }}/weblate/crontab"
+  when: crontab is changed
+  become: False
+
+- name: (re)create weblate
+  shell: |
+    docker-compose -f docker-compose-infrastructure.yml up -d
+  args:
+    chdir: "{{ weblate_root }}/weblate"

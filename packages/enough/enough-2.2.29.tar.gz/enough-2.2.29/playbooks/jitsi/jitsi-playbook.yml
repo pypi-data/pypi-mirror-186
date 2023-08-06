@@ -1,0 +1,4 @@
+---
+- import_playbook: jitsi-server-playbook.yml
+- import_playbook: jitsi-monitoring-playbook.yml
+  when: (groups['icinga-service-group'] | length) > 0

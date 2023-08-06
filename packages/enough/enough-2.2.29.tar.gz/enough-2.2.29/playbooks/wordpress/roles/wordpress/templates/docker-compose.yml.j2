@@ -1,0 +1,32 @@
+---
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress:{{ wordpress_version }}
+    depends_on:
+     - db
+    ports:
+     - "{{ wordpress_port }}:80"
+    volumes:
+     - ./wp-content:/var/www/html/wp-content
+     - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    restart: always
+    environment:
+#     WORDPRESS_DEBUG: 1
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: {{ wordpress_db_user }}
+      WORDPRESS_DB_PASSWORD: {{ wordpress_db_password }}
+      WORDPRESS_DB_NAME: {{ wordpress_db_name }}
+
+  db:
+    image: mysql:5.7
+    volumes:
+     - ./db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: {{ wordpress_db_name }}
+      MYSQL_USER:  {{ wordpress_db_user }}
+      MYSQL_PASSWORD: {{ wordpress_db_password }}
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'

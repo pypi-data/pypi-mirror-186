@@ -1,0 +1,7 @@
+---
+- name: install sshd config
+  hosts: 'all'
+  become: true
+
+  roles:
+    - role: sshd_config

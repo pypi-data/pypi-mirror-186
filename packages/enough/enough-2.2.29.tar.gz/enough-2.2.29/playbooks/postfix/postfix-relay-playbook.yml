@@ -1,0 +1,139 @@
+---
+- name: firewall for web
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['postfix-service-group'] | default([]) }}"
+
+- name: install nginx
+  hosts: postfix-service-group
+  become: true
+
+  roles:
+    - role: jdauphant.nginx
+      vars:
+        # must match playbooks/enough-nginx/roles/enough-nginx/tasks/enough-nginx.yml
+        nginx_http_params: "{{ nginx_http_default_params + enough_nginx_http_params }}"
+        enough_nginx_http_params:
+          # because server names can be long when using test subdomains
+          - server_names_hash_bucket_size 128
+
+  tasks:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+- name: install certificate if needed
+  hosts: postfix-service-group
+  become: true
+
+  roles:
+    - role: certificate
+      certificate_installer: nginx
+      certificate_fqdn: "{{ groups['postfix-service-group'][0] }}.{{ domain }}"
+
+- name: setup postfix DNS
+  hosts: postfix-service-group
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "postfix.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ groups['postfix-service-group'][0] }}.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+- name: install and configure postfix relay
+  hosts: postfix-service-group
+  become: true
+
+  environment: '{{ inventory__environment | d({})
+                   | combine(inventory__group_environment | d({}))
+                   | combine(inventory__host_environment  | d({})) }}'
+
+  pre_tasks:
+    - import_role:
+        name: debops.postfix
+        tasks_from: main_env
+
+  roles:
+    - role: debops.secret
+      secret__directories:
+        - '{{ postfix__secret__directories     | d([])}}'
+
+    - role: debops.postfix
+      postfix__mailname: '{{ postfix_mailname | default(domain) }}'
+      postfix__fqdn: '{{ postfix_fqdn | default(inventory_hostname + "." + domain) }}'
+      postfix__mastercf:
+        - name: 'smtps'
+          state: 'present'
+          options:
+            - smtpd_sasl_auth_enable: False
+            - name: 'smtpd_relay_restrictions'
+              state: 'comment'
+      base__maincf:
+        - name: 'mynetworks'
+          value:
+            - name: '0.0.0.0/0'
+        - name: 'smtpd_banner'
+          value: "{{ postfix_smtpd_banner | default }}"
+          state: "{{ (postfix_smtpd_banner is defined) | ternary('present', 'ignore') }}"
+        - name: 'smtpd_recipient_restrictions'
+          section: 'restrictions'
+          value:
+            - name: 'check_recipient_access regexp:/etc/postfix/hold.regexp'
+      TLS__maincf:
+        - name: 'smtpd_tls_security_level'
+          value: 'encrypt'
+          comment: |
+            This enforce TLS usage.
+            According to RFC 2487 this MUST NOT be applied in case
+            of a publicly-referenced Postfix SMTP server.
+          section: 'smtpd-tls'
+        - name: 'smtpd_tls_cert_file'
+          value: "/etc/certificates/{{ groups['postfix-service-group'][0] }}.{{ domain }}.crt"
+          section: 'smtpd-tls'
+        - name: 'smtpd_tls_key_file'
+          value: "/etc/certificates/{{ groups['postfix-service-group'][0] }}.{{ domain }}.key"
+          section: 'smtpd-tls'
+        - name: 'smtpd_tls_CAfile'
+          value: "/etc/certificates/{{ groups['postfix-service-group'][0] }}.{{ domain }}.chain.crt"
+          section: 'smtpd-tls'
+      postfix__maincf: "{{ base__maincf + TLS__maincf }}"
+      postfix__restrictions_maincf: [ ]
+
+    - role: postfix_encrypt
+
+    - role: postfix_relay_monitoring
+
+  tasks:
+
+    - name: set SPF DNS record
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "{{ domain }}."
+        ttl: 1800
+        type: TXT
+        value: "{{ postfix_spf }}"
+      delegate_to: "{{ item }}"
+      loop: "{{groups['bind-service-group']}}"
+
+    - name: touch /etc/postfix/hold.regexp
+      file:
+        path: /etc/postfix/hold.regexp
+        state: touch

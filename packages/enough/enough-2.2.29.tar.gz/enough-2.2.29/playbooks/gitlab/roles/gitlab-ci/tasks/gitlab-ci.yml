@@ -1,0 +1,75 @@
+---
+- name: get gitlab-runner package
+  get_url:
+    url: https://gitlab-runner-downloads.s3.amazonaws.com/latest/deb/gitlab-runner_amd64.deb
+    dest: ~/gitlab-runner_amd64.deb
+    owner: root
+    group: root
+    mode: 0755
+
+- name: apt-get install curl libcurl4
+  apt:
+    name:
+      - curl
+      - libcurl4
+    state: present
+
+- name: install gitlab-runner
+  shell: |
+    dpkg -i ~/gitlab-runner_amd64.deb
+
+- name: hold gitlab-runner
+  command: apt-mark hold gitlab-runner
+
+- name: wait for the gitlab API to be ready, in case we reached this point and GitLab is not finished bootstraping itself
+  command: docker exec gitlab wget -qO- http://127.0.0.1/-/readiness
+  # expected output: {"status":"ok","master_check":[{"status":"ok"}]}
+  register: gitlab_readiness
+  until: 'gitlab_readiness.stdout and ((gitlab_readiness.stdout | from_json).get("status") == "ok")'
+  retries: 20
+  delay: 30
+  delegate_to: gitlab-host
+
+- name: grep sd-runner /etc/gitlab-runner/config.toml
+  command: grep -q sd-runner /etc/gitlab-runner/config.toml
+  register: result
+  ignore_errors: True
+
+- name: apt-get install python3-openstackclient
+  apt:
+    name: python3-openstackclient
+    state: present
+
+- name: daily-cron docker system prune --all --force --volumes
+  copy:
+    src: docker-cleanup
+    dest: /etc/cron.daily/docker-cleanup
+    mode: 0755
+
+- when: result is failed
+  block:
+  - name: check if kvm is available
+    stat:
+      path: /dev/kvm
+      get_checksum: no
+      get_mime: no
+    register: kvm_device
+
+  # --docker-volumes /run/libvirt/libvirt-sock:/run/libvirt/libvirt-sock
+  - name: register the runner
+    shell: |
+      gitlab-runner register \
+          --non-interactive \
+          --registration-token '{{ gitlab_shared_runners_registration_token }}' \
+          --name 'sd-runner' \
+          --url https://{{ gitlab_host }} \
+          --executor docker \
+          --docker-image debian:bullseye \
+          {% if kvm_device.stat.exists -%}
+          --docker-devices /dev/kvm \
+          {% endif -%}
+          --docker-volumes /srv:/srv \
+          --docker-volumes /var/run/docker.sock:/run/docker.sock \
+          --docker-volumes /usr/lib/x86_64-linux-gnu/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7 \
+          --docker-volumes $(which docker):/bin/docker \
+          --docker-pull-policy if-not-present

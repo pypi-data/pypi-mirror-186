@@ -1,0 +1,10 @@
+---
+
+- name: declare host attribute
+  copy:
+    content: |
+      vars.postfix_relay= true
+    dest: /etc/icinga2/zones.d/master/{{ inventory_hostname }}/conf.d/postfix.conf
+  delegate_to: "{{ groups['icinga-service-group'][0] }}"
+  when: (groups['icinga-service-group'] | length) > 0
+  notify: reload icinga2

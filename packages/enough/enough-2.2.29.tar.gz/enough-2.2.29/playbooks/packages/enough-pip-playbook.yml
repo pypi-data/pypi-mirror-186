@@ -1,0 +1,70 @@
+---
+- name: upload enough to packages (if running from sources)
+  hosts: packages-host
+  become: true
+
+  roles:
+    - role: enough-pip
+
+- name: build enough docker image on the host using it (if running from sources)
+  hosts: enough-user-group
+  become: true
+
+  roles:
+
+    - role: ansible-role-docker
+      docker_install_compose: false
+
+    - role: docker
+
+    - role: certificate
+      certificate_create: false
+
+  tasks:
+
+    - name: get the Enough version from setup.cfg, if running from sources
+      shell: |
+        set -e
+        cd $(git rev-parse --show-toplevel)
+        grep -q 'name = enough' setup.cfg
+        sed -n -e 's/^version = \(.*\)/\1/p' setup.cfg
+      changed_when: False
+      ignore_errors: True
+      register: enough_version
+      delegate_to: localhost
+      become: no
+
+    - when: enough_version.rc == 0
+      block:
+
+        - name: get enough installation script
+          uri:
+            dest: /usr/local/bin/enough-build-docker-image.sh
+            url: https://packages.{{ domain }}/docker-enough/enough-build-docker-image.sh
+
+        - name: apt-get install curl
+          apt:
+            name:
+              - curl
+            state: present
+
+        - name: build enough
+          shell: |
+            bash -x /usr/local/bin/enough-build-docker-image.sh
+
+    - when: enough_version.rc != 0
+      block:
+
+        - name: pull enough
+          shell: |
+            docker pull enoughcommunity/enough:latest
+            docker tag  enoughcommunity/enough:latest enough:latest
+
+    - name: install enough
+      shell: |
+        set -e
+        docker run --rm enoughcommunity/enough:latest install --no-tty --no-tag internal/data/install.sh > /usr/local/bin/enough
+        test -s /usr/local/bin/enough
+        chmod +x /usr/local/bin/enough
+      args:
+        creates: /usr/local/bin/enough

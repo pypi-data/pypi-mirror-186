@@ -1,0 +1,131 @@
+- name: setup nginx server
+  hosts: website-host
+  become: true
+
+  roles:
+    - role: enough-nginx
+      vars:
+        enough_nginx_fqdn: "{{ inventory_hostname }}.{{ domain }}"
+        enough_nginx_sites: "# SOMETHING TESTS CAN GREP"
+
+- name: setup nginx server with reverse proxy
+  hosts: other-host
+  become: true
+
+  roles:
+    - role: enough-nginx
+      vars:
+        enough_nginx_reverse_proxy: 127.0.0.1:8080
+        enough_nginx_fqdn: "{{ inventory_hostname }}.{{ domain }}"
+
+    - role: jdauphant.nginx
+      vars:
+        # must match playbooks/enough-nginx/roles/enough-nginx/tasks/enough-nginx.yml
+        nginx_http_params: "{{ nginx_http_default_params + enough_nginx_http_params }}"
+        enough_nginx_http_params:
+          # because server names can be long when using test subdomains
+          - server_names_hash_bucket_size 128
+        nginx_sites:
+          backend8080:
+            - |
+              listen 8080;
+              server_name _;
+              root /tmp;
+
+  tasks:
+    - name: insert content in reverse proxy
+      shell: echo SOMETHING > /tmp/index.html
+
+- name: setup nginx server with reverse proxy and named backend
+  hosts: other-host
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "name1.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "other-host.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "name2.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "other-host.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "name3.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "other-host.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+  roles:
+    - role: enough-nginx
+      vars:
+        enough_nginx_reverse_proxy: 127.0.0.1:9080
+        enough_nginx_reverse_proxy_name: backendname
+        enough_nginx_fqdn: "name1.{{ domain }}"
+
+    - role: enough-nginx
+      vars:
+        enough_nginx_reverse_proxy: 127.0.0.1:9080
+        enough_nginx_reverse_proxy_name: backendname
+        enough_nginx_fqdn: "name2.{{ domain }}"
+
+    - role: enough-nginx
+      vars:
+        enough_nginx_proxy_pass: http://127.0.0.1:9080
+        enough_nginx_fqdn: "name3.{{ domain }}"
+
+    - role: jdauphant.nginx
+      vars:
+        # must match playbooks/enough-nginx/roles/enough-nginx/tasks/enough-nginx.yml
+        nginx_http_params: "{{ nginx_http_default_params + enough_nginx_http_params }}"
+        enough_nginx_http_params:
+          # because server names can be long when using test subdomains
+          - server_names_hash_bucket_size 128
+        nginx_sites:
+          backend9080:
+            - |
+              listen 9080;
+              server_name _;
+              root /tmp/named;
+
+  tasks:
+    - name: insert content in named reverse proxy
+      shell: |
+        mkdir -p /tmp/named
+        echo NAMEDBACKEND  > /tmp/named/index.html
+
+- name: setup nginx server with explicit URL for proxy_pass
+  hosts: other-host
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "name3.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "other-host.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+  roles:
+    - role: enough-nginx
+      vars:
+        enough_nginx_proxy_pass: http://127.0.0.1:9080
+        enough_nginx_fqdn: "name3.{{ domain }}"

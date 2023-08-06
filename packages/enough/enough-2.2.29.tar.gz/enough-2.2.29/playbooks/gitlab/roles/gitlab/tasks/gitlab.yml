@@ -1,0 +1,82 @@
+---
+- name: apt-get install virtualenv python3-pip
+  apt:
+    name: [ virtualenv, python3-pip ]
+    state: present
+
+- name: pip install docker
+  pip:
+    name: docker
+
+- name: chown debian /opt
+  file:
+    path: /opt
+    owner: debian
+
+- name: start redis
+  docker_container:
+    name: redis
+    image: sameersbn/redis:4.0.9
+    command: --appendonly yes --protected-mode no
+    restart_policy: always
+    state: started
+
+- name: start postgresql
+  docker_container:
+    name: gitlab-postgresql
+    image: "sameersbn/postgresql:{{ gitlab_postgresql_version }}"
+    restart_policy: always
+    env:
+      DB_NAME: gitlabhq_production
+      DB_USER: gitlab
+      DB_PASS: "{{ gitlab_password }}"
+      DB_EXTENSION: pg_trgm,btree_gist
+    volumes:
+      - /opt/postgresql:/var/lib/postgresql
+    state: started
+
+- name: start gitlab
+  docker_container:
+    name: gitlab
+    image: "sameersbn/gitlab:{{ gitlab_version }}"
+    restart_policy: always
+    links:
+      - gitlab-postgresql:postgresql
+      - redis:redisio
+    ports:
+      - "22:22"
+      - "8080:80"
+    volumes:
+      - /opt/gitlab/data:/home/git/data
+      - /opt/gitlab/logs:/var/log/gitlab
+    env:
+      GITLAB_EMAIL: "{{ gitlab_email }}"
+      SMTP_ENABLED: 'true'
+      SMTP_DOMAIN: "{{ domain }}"
+      SMTP_USER: ''
+      SMTP_HOST: 'gitlab-host.{{ domain }}'
+      SMTP_PORT: '25'
+      SMTP_STARTTLS: 'false'
+      SMTP_OPENSSL_VERIFY_MODE: 'none'
+      SMTP_AUTHENTICATION: ':plain'
+      GITLAB_SIGNUP: 'true'
+      GITLAB_PORT: "443"
+      GITLAB_HOST: "{{ gitlab_host }}"
+      GITLAB_HTTPS: "true"
+      OAUTH_BLOCK_AUTO_CREATED_USERS: 'false'
+      PUMA_WORKERS: '1'
+      GITLAB_SSH_PORT: "{{ gitlab_ssh_port }}"
+      GITLAB_SECRETS_SECRET_KEY_BASE: "{{ gitlab_secrets_secret_key_base }}"
+      GITLAB_SECRETS_DB_KEY_BASE: "{{ gitlab_secrets_db_key_base }}"
+      GITLAB_SECRETS_OTP_KEY_BASE: "{{ gitlab_secrets_otp_key_base }}"
+      GITLAB_ROOT_PASSWORD: "{{ gitlab_password }}"
+      GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN: "{{ gitlab_shared_runners_registration_token }}"
+      # a worker is killed if it consumes between MIN and MAX
+      GITLAB_UNICORN_MEMORY_MIN: '700100100'
+      GITLAB_UNICORN_MEMORY_MAX: '800100100'
+
+# to not block entropy
+- name: apt-get install haveged
+  apt:
+    name: haveged
+    state: present

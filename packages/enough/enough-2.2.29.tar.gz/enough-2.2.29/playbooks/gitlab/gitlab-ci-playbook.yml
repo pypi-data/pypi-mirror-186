@@ -1,0 +1,19 @@
+---
+- name: install gitlab runner
+  hosts: runner-host
+  become: true
+
+  environment: '{{ inventory__environment | d({})
+                   | combine(inventory__group_environment | d({}))
+                   | combine(inventory__host_environment  | d({})) }}'
+  roles:
+    - role: ansible-role-docker
+      docker_install_compose: false
+
+    - role: certificate
+      certificate_create: false
+
+#    - role: debops.libvirtd
+#    - role: debops.libvirtd_qemu
+
+    - role: gitlab-ci

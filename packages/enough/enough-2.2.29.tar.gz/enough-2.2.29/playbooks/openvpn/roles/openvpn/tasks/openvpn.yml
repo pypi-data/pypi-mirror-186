@@ -1,0 +1,127 @@
+---
+- name: "is {{ openstack_internal_network_prefix }}.1 available already ?"
+  shell: "hostname -I | grep -wq {{ openstack_internal_network_prefix }}.1"
+  ignore_errors: true
+  register: openvpn_ip_available
+
+- when: openvpn_ip_available.rc != 0
+  block:
+
+  - name: "install /etc/network/interfaces.d/interface-openvpn.cfg"
+    template:
+      src: interface-openvpn.cfg.j2
+      dest: /etc/network/interfaces.d/interface-openvpn.cfg
+    register: interface
+
+  - name: bring {{ network_secondary_interface }}:1 up
+    shell: |
+      set -ex
+      ifup {{ network_secondary_interface }}:1
+    when: interface is changed
+
+- name: apt-get install openvpn easy-rsa nftables
+  apt:
+    name: [openvpn, easy-rsa, nftables]
+    state: present
+
+- name: net.ipv4.ip_forward=1
+  shell: |
+    set -ex
+    sed -i -e '/net.ipv4.ip_forward/s/.*/net.ipv4.ip_forward=1/' /etc/sysctl.conf
+    sysctl -p
+
+- name: nftables
+  template:
+    src: nftables.conf.j2
+    dest: /etc/nftables.conf
+    force: "{{ openvpn_overwrite_nftables_conf }}"
+
+- name: systemctl enable nftables
+  systemd:
+    name: nftables
+    enabled: yes
+
+- name: nft -f /etc/nftables.conf
+  shell:
+    nft -f /etc/nftables.conf
+  changed_when: False
+
+- name: "mkdir {{ openvpn_easy_rsa_root }}/openvpn"
+  file:
+    path: "{{ openvpn_easy_rsa_root }}/openvpn"
+    state: directory
+    mode: 0755
+
+- name: "cp -r /usr/share/easy-rsa {{ openvpn_easy_rsa_root }}/openvpn/"
+  shell: |
+    cp -r /usr/share/easy-rsa {{ openvpn_easy_rsa_root }}/openvpn
+  args:
+    creates: "{{ openvpn_easy_rsa_root }}/openvpn/easy-rsa"
+
+- name: "{{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/vars"
+  template:
+    src: vars.j2
+    dest: "{{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/vars"
+
+- name: ./easyrsa init-pki
+  shell: |
+    set -ex
+    ./easyrsa init-pki
+    yes | ./easyrsa build-ca nopass
+    echo server | ./easyrsa gen-req server nopass
+    echo yes | ./easyrsa sign-req server server
+    ./easyrsa gen-dh
+    openvpn --genkey --secret ta.key
+    ./easyrsa gen-crl
+    # crl.pem is loaded when a client starts, as user nobody
+    cp pki/crl.pem /etc/openvpn/crl.pem ; chmod +r /etc/openvpn/crl.pem
+  args:
+    creates: "{{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/pki/private/server.key"
+    chdir: "{{ openvpn_easy_rsa_root }}/openvpn/easy-rsa"
+
+- name: "{{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/create-client.sh"
+  template:
+    src: create-client.sh.j2
+    dest: "{{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/create-client.sh"
+    mode: 0755
+
+- name: mkdir -p /etc/openvpn/ccd
+  file:
+    state: directory
+    path: /etc/openvpn/ccd
+    mode: 0755
+
+- name: /etc/openvpn/ccd/lan
+  template:
+    src: ccd/lan.j2
+    dest: /etc/openvpn/ccd/lan
+
+- name: /etc/openvpn/ccd/hypervisor
+  template:
+    src: ccd/hypervisor.j2
+    dest: /etc/openvpn/ccd/hypervisor
+
+- name: /etc/openvpn/server.conf
+  template:
+    src: server.conf.j2
+    dest: /etc/openvpn/server.conf
+  register: server
+
+- name: systemctl enable openvpn@server ; systemctl start openvpn@server
+  systemd:
+    name: openvpn@server
+    state: restarted
+    enabled: yes
+  when: server is changed
+
+- name: "{{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/renew-crl.sh"
+  template:
+    src: renew-crl.sh.j2
+    dest: "{{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/renew-crl.sh"
+    mode: 0755
+
+- name: run renew-crl.sh every month
+  cron:
+    name: "renew-crl"
+    special_time: "monthly"
+    job: "{{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/renew-crl.sh >> /home/{{ ansible_user }}/renew-crl.log 2>&1"

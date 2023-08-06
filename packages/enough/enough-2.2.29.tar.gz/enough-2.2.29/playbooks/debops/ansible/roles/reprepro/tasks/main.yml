@@ -1,0 +1,21 @@
+---
+# Copyright (C) 2014-2019 Maciej Delmanowski <drybjed@gmail.com>
+# Copyright (C) 2015-2019 DebOps <https://debops.org/>
+# SPDX-License-Identifier: GPL-3.0-only
+
+- import_role:
+    name: 'global_handlers'
+
+- import_role:
+    name: 'secret'
+
+- include: configure_reprepro.yml
+
+- include: configure_gnupg.yml
+
+- include: reprepro_init.yml
+
+- include: configure_inoticoming.yml
+  when: reprepro_enable_inoticoming
+
+- include: snapshot_gnupg.yml

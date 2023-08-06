@@ -1,0 +1,8 @@
+---
+- name: prepare cloud environment
+  hosts: cloud-host
+  become: true
+
+  roles:
+    - role: encrypted_device
+      encrypted_device_mount_point: /srv

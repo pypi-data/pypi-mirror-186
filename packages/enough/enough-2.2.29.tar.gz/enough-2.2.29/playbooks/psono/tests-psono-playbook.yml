@@ -1,0 +1,17 @@
+---
+- name: prepare psono-host for tests
+  hosts: psono-service-group
+  become: true
+
+  pre_tasks:
+
+    - name: hold all mails /etc/postfix/hold.regexp
+      copy:
+        content: |
+          /^/   HOLD
+        dest: /etc/postfix/hold.regexp
+
+    - name: systemtcl restart postfix
+      service:
+        name: postfix
+        state: restarted

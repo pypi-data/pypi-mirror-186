@@ -1,0 +1,59 @@
+#!/bin/bash
+# shellcheck disable=SC1090
+
+set -eu
+
+REPOROOT=$(git rev-parse --show-toplevel)
+cd "${REPOROOT}/securedrop"
+
+source "${BASH_SOURCE%/*}/dev-deps"
+
+# copied from securedrop/bin/dev-deps:reset_demo
+function prepare_server() {
+    # Set up gpg keys directory structure.
+    sudo mkdir -p /var/lib/securedrop/{store,keys,tmp}
+    sudo chown -R "$(id -u)" /var/lib/securedrop
+    cp ./tests/files/test_journalist_key.pub /var/lib/securedrop/keys
+    gpg2 --homedir /var/lib/securedrop/keys --import /var/lib/securedrop/keys/test_journalist_key.pub >& /tmp/gpg.out || cat /tmp/gpg.out
+
+    # Create gpg-agent.conf
+    echo allow-loopback-pinentry > /var/lib/securedrop/keys/gpg-agent.conf
+
+    # Kill gpg-agent(s) if they exist so it picks up the new config on restart.
+    pkill -f gpg-agent || true
+    # Note that we should avoid `gpgconf --kill gpg-agent` since the pkill command will
+    # handle killing multiple gpg-agent processes if they exist (this is what we want).
+
+    # Set permissions on gpg-related directories/files.
+    sudo chown -R "$(id -gn)" /var/lib/securedrop/keys
+    chmod 700 /var/lib/securedrop/keys
+    chmod 600 /var/lib/securedrop/keys/*
+
+    # If the following directories exist, make sure they have the proper permissions.
+    chmod -f 700 /var/lib/securedrop/keys/private-keys-v1.d || true
+    chmod -f 700 /var/lib/securedrop/keys/openpgp-revocs.d || true
+
+    # Generate translated strings
+    ./i18n_tool.py translate-messages --compile
+
+    # create an empty database
+    if ! test -e /var/lib/securedrop/db.sqlite ; then
+        sqlite3 /var/lib/securedrop/db.sqlite .databases &> /dev/null
+        ./manage.py reset
+        ./create-admin.py "{{ securedrop_admin_user }}" "{{ securedrop_admin_password }}" "{{ securedrop_admin_otp_secret }}"
+    fi
+}
+
+run_redis &
+# copied from securedrop/bin/dev-deps:run_sass
+sass --stop-on-error --update sass:static/css --style compressed
+maybe_create_config_py
+prepare_server
+
+# run the batch processing services normally managed by systemd
+/opt/venvs/securedrop-app-code/bin/rqworker &
+PYTHONPATH="${REPOROOT}/securedrop" /opt/venvs/securedrop-app-code/bin/python "${REPOROOT}/securedrop/scripts/rqrequeue" --interval 60 &
+/opt/venvs/securedrop-app-code/bin/python "${REPOROOT}/securedrop/scripts/shredder" --interval 60 &
+/opt/venvs/securedrop-app-code/bin/python "${REPOROOT}/securedrop/scripts/source_deleter" --interval 10 &
+
+./manage.py run

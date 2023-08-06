@@ -1,0 +1,6 @@
+- hosts: infrastructure1-host pipelining
+  connection: local
+  tasks:
+    - name: Check that pipelining is enabled
+      assert:
+        that: ansible_pipelining

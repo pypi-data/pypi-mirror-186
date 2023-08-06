@@ -1,0 +1,54 @@
+---
+#
+#############################################
+#
+# public facing URL (defaults to cloud.{{ domain }})
+#
+nextcloud_public_url: "cloud.{{ domain }}"
+#
+#############################################
+#
+# mail domain when sending mail
+#
+nextcloud_mail_domain: "{{ domain }}"
+#
+#############################################
+#
+# user name of the Nextcloud administrator
+#
+nextcloud_admin_user: admin
+#
+#############################################
+#
+# password of the Nextcloud administrator
+#
+nextcloud_admin_pass: mynextcloud
+#
+#############################################
+#
+# Nextcloud version available at
+# https://hub.docker.com/_/nextcloud/
+#
+enough_nextcloud_version: 23
+#
+#############################################
+#
+# Database type used by Nextcloud
+#
+#enough_nextcloud_database: mysql
+enough_nextcloud_database: pgsql
+#
+#############################################
+#
+# Port published by the Nextcloud container
+#
+enough_nextcloud_port: 8080
+#
+#############################################
+#
+# Install and enable these apps
+enough_nextcloud_apps:
+  - twofactor_totp
+  - twofactor_u2f
+  - onlyoffice
+  - documentserver_community

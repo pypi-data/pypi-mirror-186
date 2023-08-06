@@ -1,0 +1,94 @@
+---
+- name: apt-get install python3 python3-pip libyaml-dev curl
+  apt:
+    name: [ python3, python3-pip, libyaml-dev, curl ]
+    state: present
+
+- name: pip install tutor-openedx
+  pip:
+    executable: pip3
+    name: tutor-openedx==11.2.11
+
+- name: "mkdir -p {{ openedx_root }}"
+  file:
+    path: "{{ openedx_root }}/.local/share/tutor-plugins"
+    state: directory
+    mode: 0755
+    owner: debian
+    group: debian
+
+- name: install custom LMS/CMS settings
+  copy:
+    content: |
+      name: {{ item[0] }}-settings
+      version: 0.0.1
+      patches:
+        openedx-{{ item[0] }}-production-settings: |
+          ALLOWED_HOSTS.append("{{ item[1] }}.{{ domain }}")
+    dest: "{{ openedx_root }}/.local/share/tutor-plugins/{{ item[0] }}-settings.yml"
+  loop:
+    - ['cms', 'studio']
+    - ['lms', 'openedx']
+
+- name: configure and create openedX
+  shell: |
+    set -ex
+    tutor plugins enable lms-settings
+    tutor plugins enable cms-settings
+    tutor config save --set CMS_HOST={{ openedx_cms_host }} \
+                      --set CONTACT_EMAIL='{{ openedx_contact }}' \
+                      --set LANGUAGE_CODE={{ openedx_language }} \
+                      --set LMS_HOST={{ openedx_lms_host }} \
+                      --set PLATFORM_NAME='{{ openedx_platform_name }}' \
+                      --set NGINX_HTTP_PORT={{ openedx_port }} \
+                      --set RUN_CADDY=false \
+                      --set SMTP_HOST=openedx-host.{{ domain }} \
+                      --set SMTP_PORt=25
+
+    if ! test -f {{ openedx_root }}/configured ; then
+      tutor local quickstart --non-interactive
+      tutor local createuser --staff --password '{{ openedx_password }}' --superuser '{{ openedx_user }}' '{{ openedx_contact }}'
+      touch {{ openedx_root }}/configured
+    else
+      tutor local start -d
+    fi
+  environment:
+    HOME: "{{ openedx_root }}"
+  become: False
+
+- name: wait for {{ openedx_lms_host }} to be ready
+  shell: |
+    set $(curl -k -L -s --head https://{{ openedx_lms_host }} | grep HTTP | tail -1)
+    if test "$2" = 200 ; then
+      exit 0
+    else
+      exit 1
+    fi
+  register: openedx_get
+  until: openedx_get is success
+  retries: 50
+  delay: 5
+    
+- name: git clone https://github.com/overhangio/indigo
+  git:
+    repo: https://github.com/overhangio/indigo
+    force: yes
+    dest: "{{ openedx_root }}/indigo"
+  become: False
+
+- name: install indigo theme
+  shell: |
+    set -ex
+    if ! test -f {{ openedx_root }}/themed ; then
+      tutor config render --extra-config ./indigo/config.yml ./indigo/theme "$(tutor config printroot)/env/build/openedx/themes/indigo"
+      tutor images build openedx
+      tutor local start -d
+      tutor local settheme indigo localhost studio.localhost \
+         $(tutor config printvalue LMS_HOST) $(tutor config printvalue CMS_HOST)
+      touch {{ openedx_root }}/themed
+    fi
+  args:
+    chdir: "{{ openedx_root }}"
+  environment:
+    HOME: "{{ openedx_root }}"
+  become: False

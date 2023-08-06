@@ -1,0 +1,35 @@
+---
+- name: delegate A record
+  nsupdate:
+    server: "127.0.0.1"
+    zone: "{{ bind_delegate_domain }}"
+    record: "ns1-{{ bind_delegate_subdomain }}.{{ bind_delegate_domain }}."
+    ttl: 1800
+    type: A
+    value: "{{ bind_delegate_ip }}"
+  delegate_to: "{{groups['bind-service-group'][0]}}"
+
+#
+# For NS records, "present" is not idempotent, but "absent" is
+# idempotent so make sure it is absent before adding it
+#
+- name: delete NS record
+  nsupdate:
+    server: "127.0.0.1"
+    zone: "{{ bind_delegate_domain }}"
+    record: "{{ bind_delegate_subdomain }}.{{ bind_delegate_domain }}."
+    ttl: 1800
+    type: NS
+    value: "ns1-{{ bind_delegate_subdomain }}"
+    state: absent
+  delegate_to: "{{groups['bind-service-group'][0]}}"
+
+- name: delegate NS record
+  nsupdate:
+    server: "127.0.0.1"
+    zone: "{{ bind_delegate_domain }}"
+    record: "{{ bind_delegate_subdomain }}.{{ bind_delegate_domain }}."
+    ttl: 1800
+    type: NS
+    value: "ns1-{{ bind_delegate_subdomain }}"
+  delegate_to: "{{groups['bind-service-group'][0]}}"

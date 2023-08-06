@@ -1,0 +1,18 @@
+[Unit]
+Description=Hostea dashboard
+After=syslog.target
+After=network.target
+Wants=postgresql.service
+After=postgresql.service
+
+[Service]
+RestartSec=10s
+Type=simple
+User=debian
+Group=debian
+WorkingDirectory=/srv/hosteadashboard/dashboard
+ExecStart=/srv/hosteadashboard/venv/bin/python3 manage.py runserver 0.0.0.0:{{ hosteadashboard_port }}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

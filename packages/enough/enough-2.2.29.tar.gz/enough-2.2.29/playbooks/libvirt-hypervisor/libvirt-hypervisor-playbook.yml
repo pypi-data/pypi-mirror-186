@@ -1,0 +1,174 @@
+---
+- name: cleanup libvirt hypervisor
+  hosts: libvirt-hypervisor
+  become: true
+
+  pre_tasks:
+
+    - name: sed -i -e '/cdrom/d' /etc/apt/sources.list
+      lineinfile:
+        path: /etc/apt/sources.list
+        regexp: '.*cdrom'
+        state: absent
+
+- import_playbook: ../misc/sexy-debian-playbook.yml
+- import_playbook: ../authorized_keys/authorized-keys-playbook.yml
+# does not work on bullseye
+# - import_playbook: ../backup/backup-playbook.yml
+
+- name: install libvirt hypervisor
+  hosts: libvirt-hypervisor
+  become: true
+
+  pre_tasks:
+
+    - name: mkdir ~/.enough/{{ domain }}/inventory/group_vars/all
+      file:
+        state: directory
+        path: "/home/{{ ansible_user }}/.enough/{{ domain }}/inventory/group_vars/all"
+      become: false
+
+    - name: cp ~/.enough/{{ domain }}/inventory/group_vars/all/clouds.yml
+      copy:
+        src: "{{ enough_domain_config_directory }}/inventory/group_vars/all/clouds.yml"
+        dest: "/home/{{ ansible_user }}/.enough/{{ domain }}/inventory/group_vars/all/clouds.yml"
+
+    - name: ssh-keygen
+      openssh_keypair:
+        path: "/home/{{ ansible_user }}/.ssh/id_rsa"
+      register: id_rsa
+      become: false
+
+    - name: add own ssh to authorized_keys
+      authorized_key:
+        user: "{{ ansible_user }}"
+        state: present
+        key: "{{ id_rsa.public_key }}"
+      become: false
+
+    - name: ssh-keyscan 127.0.0.1
+      shell: |
+        ssh-keyscan 127.0.0.1
+      register: keyscan
+
+    - name: add 127.0.0.1 to known_hosts
+      known_hosts:
+        key: "{{ keyscan.stdout }}"
+        name: 127.0.0.1
+      become: false
+
+    - name: do not suspend or hibernate
+      copy:
+        src: etc/systemd/sleep.conf
+        dest: /etc/systemd/sleep.conf
+        mode: 0444
+
+    - name: disable suspend for gdm
+      shell: |
+        if grep -q Debian-gdm /etc/passwd ; then
+          sudo -u Debian-gdm dbus-launch gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type nothing
+        fi
+
+    - name: set {{ libvirt_network_hypervisor_prefix }}.1 to lo:1
+      template:
+        src: etc/network/interfaces.d/hypervisor-vpn.j2
+        dest: /etc/network/interfaces.d/hypervisor-vpn
+        mode: 0444
+
+    - name: script to download hosts and volumes
+      template:
+        src: enough-download.j2
+        dest: "/home/{{ ansible_user }}/enough-download"
+        mode: 0555
+      become: false
+
+    - name: run enough-download every week
+      cron:
+        name: "enough-download"
+        minute: "15"
+        hour: "2"
+        weekday: "6"
+        job: "flock /tmp/enough-download /home/{{ ansible_user }}/enough-download >> /home/{{ ansible_user }}/enough-download.log 2>&1"
+      become: False
+
+    - name: script to upload libvirt backups
+      template:
+        src: enough-upload.j2
+        dest: "/home/{{ ansible_user }}/enough-upload"
+        mode: 0555
+      become: false
+
+    - name: run enough-upload every week
+      cron:
+        name: "enough-upload"
+        minute: "18"
+        hour: "2"
+        weekday: "7"
+        job: "flock /tmp/enough-upload /home/{{ ansible_user }}/enough-upload >> /home/{{ ansible_user }}/enough-upload.log 2>&1"
+      become: False
+
+    - name: apt-get install rsync
+      apt:
+        name:
+          - rsync
+
+    - name: apt-get install libvirt common
+      apt:
+        name:
+          - libvirt-clients
+          - libguestfs-tools
+          - virtinst
+          - libvirt-dev
+          - pkg-config
+          - libvirt-daemon-system
+
+    - name: apt-get install libvirt python
+      apt:
+        name:
+          - python3-libvirt
+          - python3-lxml
+
+    - name: load enough in .bashrc
+      blockinfile:
+        path: /home/{{ ansible_user }}/.bashrc
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        block: |
+          eval "$(docker run --rm enoughcommunity/enough:latest install)"
+
+    - import_role:
+        name: ansible-role-docker
+
+    - import_role:
+        name: docker
+
+- name: connect libvirt hypervisor to VPN
+  hosts: libvirt-hypervisor
+  become: true
+
+  pre_tasks:
+
+    - when: vpn != "NOOP"
+      block:
+
+        - name: apt-get install openvpn
+          apt:
+            name:
+              - openvpn
+
+        - name: copy VPN credentials
+          copy:
+            src: "{{ enough_domain_config_directory }}/{{ vpn }}"
+            dest: "/etc/openvpn/client/hypervisor.tar.gz"
+
+        - name: expand credentials
+          shell: |
+            tar zxvf hypervisor.tar.gz
+          args:
+            chdir: "/etc/openvpn/client"
+
+        - name: systemctl enable openvpn-client@hypervisor
+          service:
+            name: openvpn-client@hypervisor
+            enabled: yes
+            state: started

@@ -1,0 +1,62 @@
+---
+- name: apt-get install rsync, git, jdupes and haveged
+  apt:
+    name:
+      - rsync
+      - git
+      - jdupes
+      - haveged
+    state: present
+
+- name: chown debian /srv
+  file:
+    path: /srv
+    mode: 0755
+    owner: debian
+
+- name: GPG key creation batch
+  copy:
+    dest: /tmp/batch
+    content: |
+     %echo Generating a basic OpenPGP key
+     Key-Type: RSA
+     Key-Length: 4096
+     Subkey-Type: ELG-E
+     Subkey-Length: 4096
+     Name-Real: Enough test packages
+     Name-Comment: with no passphrase
+     Name-Email: contact@enough.community
+     Expire-Date: 0
+     %no-protection
+     %commit
+
+- name: create GPG key
+  shell: |
+    gpg --batch --generate-key /tmp/batch
+  args:
+    creates: /home/debian/.gnupg/trustdb.gpg
+  become: False
+
+- name: /usr/share/nginx/html is owned by debian
+  file:
+    path: /usr/share/nginx/html
+    state: directory
+    mode: 0755
+    owner: debian
+
+- name: Create empty update-packages.sh log file
+  copy:
+    dest: /var/log/update-packages.log
+    content: ""
+    force: False
+    owner: debian
+
+- name: rm -f /usr/share/nginx/html/index.html
+  file:
+    path: /usr/share/nginx/html/index.html
+    state: absent
+
+- name: install /etc/logrotate.d/packages-logrotate
+  copy:
+    src: packages-logrotate
+    dest: /etc/logrotate.d/packages-logrotate

@@ -1,0 +1,5 @@
+---
+- import_playbook: "{{ '$SHARE_DIR/playbooks/misc/uninstall-ntp.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/misc/fail2ban-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/misc/upgrades-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/misc/commit_etc-playbook.yml' | expandvars }}"

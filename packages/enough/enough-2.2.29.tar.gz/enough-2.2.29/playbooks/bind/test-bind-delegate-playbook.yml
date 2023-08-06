@@ -1,0 +1,43 @@
+- name: define xxx.domain
+  hosts: otherbind-host
+  become: true
+
+  roles:
+
+    - role: bind
+      bind_zone_name: "xxx.{{ domain }}"
+
+      bind_zone_master:
+        - |
+          zone "xxx.{{ domain }}" IN {
+            type master;
+            file "xxx.{{ domain }}";
+            allow-update { localhost; };
+            allow-transfer { "none"; };
+          };
+
+      bind_zone:
+        - |
+          $ORIGIN xxx.{{ domain }}.
+          $TTL 1W
+
+          @ IN SOA ns1.xxx.{{ domain }}. xxx.{{ domain }}. (
+          22091021
+          1D
+          1H
+          1W
+          1D )
+
+                     IN  NS     ns1.xxx.{{ domain }}.
+          ns1 1800 IN A {{ ansible_host }}
+
+- name: delegate xxx.domain to otherbind-host
+  hosts: otherbind-host
+  become: true
+
+  roles:
+
+    - role: bind-delegate
+      bind_delegate_domain: "{{ domain }}"
+      bind_delegate_subdomain: "xxx"
+      bind_delegate_ip: "{{ ansible_host }}"

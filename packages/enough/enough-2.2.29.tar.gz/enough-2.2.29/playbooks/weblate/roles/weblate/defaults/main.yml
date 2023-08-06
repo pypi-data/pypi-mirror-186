@@ -1,0 +1,51 @@
+---
+#
+####################################################
+#
+# https://docs.weblate.org/en/latest/admin/config.html#site-domain
+#
+weblate_site_domain: "weblate.{{ domain }}"
+#
+####################################################
+#
+# https://docs.weblate.org/en/latest/admin/install/docker.html#envvar-WEBLATE_ALLOWED_HOSTS
+#
+weblate_allowed_hosts: "weblate.{{ domain }},{{ hostvars[groups['weblate-service-group'][0]]['ansible_host'] }}"
+#
+####################################################
+#
+# weblate_server_email and weblate_default_from_email as
+# described in the weblate documentation as SERVER_EMAIL and
+# DEFAULT_FROM_EMAIL respectively.
+#
+# https://docs.weblate.org/en/latest/admin/install.html#production-email
+#
+weblate_server_email: "admin@enough.community"
+weblate_default_from_email: "admin@enough.community"
+#
+####################################################
+#
+# weblate_admin_email and weblate_admin_password as
+# described in the weblate documentation as WEBLATE_ADMIN_NAME
+# and WEBLATE_ADMIN_EMAIL
+#
+# https://docs.weblate.org/en/latest/admin/install/docker.html#envvar-WEBLATE_ADMIN_EMAIL
+#
+weblate_admin_email: "admin@enough.community"
+weblate_admin_password: admin
+#
+####################################################
+# DO NOT MODIFY BELOW THIS LINE
+####################################################
+#
+weblate_version: 4.2-1
+weblate_root: /srv
+#
+# Used in templates/supervisord.conf.j2
+#
+weblate_celery_main_concurrency: 1
+weblate_celery_notify_concurrency: 1
+weblate_celery_memory_concurrency: 1
+weblate_celery_translate_concurrency: 1
+weblate_celery_backup_concurrency: 1
+

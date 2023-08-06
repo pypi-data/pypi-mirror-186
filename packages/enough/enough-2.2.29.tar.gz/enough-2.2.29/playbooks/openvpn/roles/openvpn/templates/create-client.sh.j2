@@ -1,0 +1,31 @@
+#!/bin/bash
+
+name=$1
+cd {{ openvpn_easy_rsa_root }}/openvpn/easy-rsa
+echo $name | ./easyrsa gen-req $name nopass
+echo yes | ./easyrsa sign-req client $name
+mkdir -p {{ openvpn_easy_rsa_root }}/openvpn/keys/$name
+cp pki/issued/$name.crt pki/private/$name.key {{ openvpn_easy_rsa_root }}/openvpn/keys/$name
+cp ta.key {{ openvpn_easy_rsa_root }}/openvpn/keys/$name/$name-server-ta.key
+cp pki/ca.crt {{ openvpn_easy_rsa_root }}/openvpn/keys/$name/$name-server-ca.crt
+cat > {{ openvpn_easy_rsa_root }}/openvpn/keys/$name/$name.conf <<EOF
+client
+dev tun
+proto udp
+remote {{ openvpn_public_ip }}
+resolv-retry infinite
+nobind
+user nobody
+group nogroup
+persist-key
+persist-tun
+ca $name-server-ca.crt
+cert $name.crt
+key $name.key
+remote-cert-tls server
+tls-auth $name-server-ta.key 1
+cipher AES-256-CBC
+verb 3
+EOF
+cd {{ openvpn_easy_rsa_root }}/openvpn/keys/$name
+tar -zcvf ../$name.tar.gz .

@@ -1,0 +1,28 @@
+---
+#
+#############################################
+#
+# Directory on the ansible host where the client certificates
+# are stored.
+#
+openvpn_local_directory: "{{ enough_domain_config_directory }}/openvpn"
+#
+#############################################
+#
+# List of active openvpn clients
+#
+openvpn_active_clients: []
+#
+#############################################
+#
+# List of retired openvpn clients, previously found in
+# openvpn_active_clients
+#
+openvpn_retired_clients: []
+#
+######################################################
+#
+# DO NOT MODIFY VARIABLES BELOW THIS LINE
+#
+openvpn_easy_rsa_root: /etc
+openvpn_is_server: "{{ inventory_hostname in groups['openvpn-service-group'] }}"

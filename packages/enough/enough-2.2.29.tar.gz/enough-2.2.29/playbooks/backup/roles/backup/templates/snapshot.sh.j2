@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -ex
+
+days=${1:-{{ backup_retention_days }}}
+volumes="-v /var/lib/libvirt/images/enough:/var/lib/libvirt/images/enough -v $HOME/.enough:/root/.enough"
+docker run $volumes --rm enoughcommunity/enough:latest --domain {{ domain }} backup create --driver {{ infrastructure_driver }}
+docker run $volumes --rm enoughcommunity/enough:latest --domain {{ domain }} backup prune --driver {{ infrastructure_driver }} $days

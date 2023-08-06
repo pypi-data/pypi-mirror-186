@@ -1,0 +1,10 @@
+---
+- import_playbook: "{{ '$SHARE_DIR/tests/enough/common/test_ansible_utils/playbook-imported.yml' | expandvars }}"
+
+- name: all is well
+  hosts: localhost
+  become: false
+
+  tasks:
+    - debug:
+        msg: OK_PLAYBOOK

@@ -1,0 +1,49 @@
+---
+- name: prepare test clients
+  hosts: bind-client-host
+  become: True
+
+  roles:
+
+    - role: install_ssh_records
+      vars:
+        install_ssh_records_host: ns1
+
+  tasks:
+    - name: apt-get install dnsutils
+      apt:
+        name: dnsutils
+        state: present
+
+- name: define another.tld
+  hosts: bind-service-group
+  become: true
+
+  roles:
+
+    - role: bind
+      bind_zone_name: "another.tld"
+
+      bind_zone_master:
+        - |
+          zone "another.tld" IN {
+            type master;
+            file "another.tld";
+            allow-update { localhost; };
+            allow-transfer { "none"; };
+          };
+
+      bind_zone:
+        - |
+          $ORIGIN another.tld.
+          $TTL 1W
+
+          @ IN SOA ns1.another.tld. hostmaster.another.tld. (
+          22091021
+          1D
+          1H
+          1W
+          1D )
+
+                     IN  NS     ns1.another.tld.
+          ns1 1800 IN A 1.2.3.4

@@ -1,0 +1,30 @@
+---
+- name: prepare chat environment
+  hosts: chat-service-group
+  become: true
+
+  pre_tasks:
+
+    - include_role:
+        name: ansible-role-docker
+
+  roles:
+    - role: docker
+    - role: mattermost
+
+    - role: enough-nginx
+      vars:
+        enough_nginx_reverse_proxy: mattermost_app_1:8000
+        enough_nginx_fqdn: "chat.{{ domain }}"
+
+    - role: certificate
+      vars:
+        certificate_fqdn: "chat.{{ domain }}"
+        certificate_installer: nginx
+
+    - role: monitor_http_vhost
+      http_vhost_https: true
+      http_vhost_name: Chat
+      http_vhost_fqdn: "chat.{{ domain }}"
+      http_vhost_uri: "/"
+      http_vhost_string: "Mattermost"

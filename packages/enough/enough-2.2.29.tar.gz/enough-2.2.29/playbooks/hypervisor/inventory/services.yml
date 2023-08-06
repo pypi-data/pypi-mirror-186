@@ -1,0 +1,14 @@
+---
+icinga-service-group:
+  hosts:
+    bind-host:
+
+hypervisor-service-group:
+  hosts:
+    hypervisor-host:
+
+enough-user-group:
+  children:
+    hypervisor-service-group:
+
+

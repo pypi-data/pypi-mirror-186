@@ -1,0 +1,16 @@
+---
+
+postfix-service-group:
+  hosts:
+    postfix-host:
+
+icinga-service-group:
+  hosts:
+    bind-host:
+
+forgejo-service-group:
+  hosts:
+    forgejo-host:
+      ansible_port: 2222
+    otherforgejo-host:
+      ansible_port: 2222

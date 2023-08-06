@@ -1,0 +1,24 @@
+---
+- name: apt-get install virtualenv python3-pip
+  apt:
+    name: [ virtualenv, python3-pip ]
+    state: present
+
+- name: pip install docker
+  pip:
+    name: [ docker ]
+
+- name: Allow debian user to use docker without sudo
+  user:
+    name: debian
+    groups: docker
+
+- name: reset ssh connection to be in the docker group
+  meta: reset_connection
+
+- name: docker network create {{ domain }}
+  docker_network:
+    name: "{{ domain }}"
+    ipam_options:
+      subnet: "{{ docker_network_subnet }}"
+      gateway: "{{ docker_network_gateway }}"

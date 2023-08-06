@@ -1,0 +1,26 @@
+#
+# Machines in the pets groups are long lived and contain data that
+# needs to be saved.
+#
+pets:
+  hosts: {}
+
+enough:
+  hosts:
+    cloud-host:
+
+gitlab:
+  hosts:
+    runner-host:
+    gitlab-host:
+    api-host:
+
+enough-user-group:
+  children:
+    backup-service-group:
+    api-service-group:
+
+copy-group:
+  hosts:
+    copy-from-host:
+    copy-to-host:

@@ -1,0 +1,8 @@
+---
+#
+#############################################
+#
+# IP address the icinga master uses to ping
+# the icinga client
+#
+icinga_client_address: "{{ hostvars[inventory_hostname]['ansible_host'] }}"

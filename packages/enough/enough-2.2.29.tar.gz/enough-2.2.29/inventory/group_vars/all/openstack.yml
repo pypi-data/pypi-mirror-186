@@ -1,0 +1,41 @@
+---
+#
+#############################################
+#
+# Key of the 'clouds' variable containing the credentials
+# where OpenStack resources are provisionned. The 'clouds'
+# variable is defined in the clouds.yml file.
+#
+openstack_cloud: production
+
+openstack_providers:
+  ovh:
+    flavors:
+      small: s1-2
+      medium: s1-4
+      large: s1-8
+    image: Debian 11
+    network: Ext-Net
+    network_primary_interface: ens3
+    network_secondary_interface: ens7
+  fuga:
+    flavors:
+      small: s3.small
+      medium: c3.small
+      large: t3.small
+    image: Debian 11
+    network: public
+    network_primary_interface: ens3
+    network_secondary_interface: ens8
+
+_provider: "{{ openstack_provider|default(lookup('env', 'ENOUGH_PROVIDER'))|default('ovh', true) }}"
+
+openstack_flavor_small: "{{ openstack_providers[_provider].flavors.small }}"
+openstack_flavor_medium: "{{ openstack_providers[_provider].flavors.medium }}"
+openstack_flavor_large: "{{ openstack_providers[_provider].flavors.large }}"
+
+openstack_flavor: '{{ openstack_flavor_small }}'
+openstack_image: "{{ openstack_providers[_provider].image }}"
+openstack_network: "{{ openstack_providers[_provider].network }}"
+openstack_network_primary_interface: "{{ openstack_providers[_provider].network_primary_interface }}"
+openstack_network_secondary_interface: "{{ openstack_providers[_provider].network_secondary_interface }}"

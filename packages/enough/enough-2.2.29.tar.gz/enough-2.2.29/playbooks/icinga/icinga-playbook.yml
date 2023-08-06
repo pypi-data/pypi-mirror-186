@@ -1,0 +1,6 @@
+---
+- import_playbook: icinga-firewall-playbook.yml
+- import_playbook: icinga-master-playbook.yml
+- import_playbook: icinga-grafana-playbook.yml
+  when: icinga_grafana
+- import_playbook: icinga-client-playbook.yml

@@ -1,0 +1,38 @@
+---
+- name: declare process on {{ inventory_hostname }}
+  copy:
+    content: |
+      vars.process["Systemd login"] = {
+        procs_command = "systemd-logind"
+        procs_critical = "1:1"
+      }
+    dest: '/etc/icinga2/zones.d/master/{{ inventory_hostname }}/conf.d/process-systemd-login.conf'
+    owner: root
+    group: root
+    mode: 0644
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['icinga-service-group'] }}"
+  notify: reload icinga2
+
+- name: install git
+  apt:
+    name: git
+    state: present
+
+- name: declare git repo
+  copy:
+    content: |
+      vars.repos["Icinga2 Docker image"] = {
+        dir = "/root/icinga2"
+      }
+    dest: "/etc/icinga2/zones.d/master/{{ groups['icinga-service-group'][0] }}/git-icinga2-docker-image.conf"
+    owner: root
+    group: root
+    mode: 0644
+  delegate_to: "{{ groups['icinga-service-group'][0] }}"
+
+- name: git clone https://github.com/jjethwa/icinga2
+  git:
+    repo: 'https://github.com/jjethwa/icinga2'
+    force: yes
+    dest: /root/icinga2

@@ -1,0 +1,8 @@
+---
+- name: do nothing
+  hosts: sample-host
+  become: true
+
+  tasks:
+    - debug:
+        msg: "NOTHING"

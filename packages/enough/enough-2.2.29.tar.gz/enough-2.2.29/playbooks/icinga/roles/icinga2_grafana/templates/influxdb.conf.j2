@@ -1,0 +1,24 @@
+object InfluxdbWriter "influxdb" {
+  host = "{{ icinga_influxdb_host }}"
+  port = {{ icinga_influxdb_port }}
+  database = "{{ icinga_influxdb_db }}"
+  username = "{{ icinga_influxdb_user }}"
+  password = "{{ icinga_influxdb_password }}"
+
+  enable_send_thresholds = true
+  enable_send_metadata = true
+
+  host_template = {
+    measurement = "$host.check_command$"
+    tags = {
+      hostname = "$host.name$"
+    }
+  }
+  service_template = {
+    measurement = "$service.check_command$"
+    tags = {
+      hostname = "$host.name$"
+      service = "$service.name$"
+    }
+  }
+}

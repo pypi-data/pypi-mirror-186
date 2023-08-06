@@ -1,0 +1,10 @@
+- name: declare http vhost on {{ inventory_hostname }}
+  template:
+    src: vhost.conf
+    dest: '/etc/icinga2/zones.d/master/{{ inventory_hostname }}/conf.d/vhost_{{ http_vhost_name }}.conf'
+    owner: root
+    group: root
+    mode: 0644
+  delegate_to: "{{ groups['icinga-service-group'][0] }}"
+  when: groups['icinga-service-group'] | length
+  notify: reload icinga2

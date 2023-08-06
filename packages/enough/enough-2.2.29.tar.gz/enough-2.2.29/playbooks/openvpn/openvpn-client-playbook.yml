@@ -1,0 +1,60 @@
+---
+- name: create openvpn client directory
+  hosts: localhost
+  become: false
+
+  tasks:
+    - name: mkdir -p {{ openvpn_local_directory }}
+      file:
+        state: directory
+        mode: 0755
+        path: "{{ openvpn_local_directory }}"
+
+- name: create and retire openvpn clients
+  hosts: openvpn-service-group
+  become: true
+
+  tasks:
+    - name: "{{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/create-client.sh"
+      shell: |
+        set -ex
+        if ! test -d {{ openvpn_easy_rsa_root }}/openvpn/keys/{{ item }} ; then
+           {{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/create-client.sh {{ item }}
+        fi
+      loop: "{{ openvpn_active_clients }}"
+
+    - name: copy client credentials locally
+      fetch:
+        src: "{{ openvpn_easy_rsa_root }}/openvpn/keys/{{ item }}.tar.gz"
+        dest: "{{ openvpn_local_directory }}/{{ item }}.tar.gz"
+        flat: yes
+      loop: "{{ openvpn_active_clients }}"
+
+    - name: retire clients
+      shell: |
+        set -ex
+        if test -f {{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/pki/issued/{{ item }}.crt ; then
+           cd {{ openvpn_easy_rsa_root }}/openvpn/easy-rsa
+           ./easyrsa --batch revoke {{ item }}
+           echo Updated {{ item }}
+        fi
+      loop: "{{ openvpn_retired_clients }}"
+      register: retire
+      changed_when: '"Updated" in retire.stdout'
+
+    - when: retire is changed
+      block:
+
+      - name: rebuild and publish CRL
+        shell: |
+          set -ex
+          ./easyrsa gen-crl
+          # crl.pem is loaded when a client starts, as user nobody
+          cp pki/crl.pem /etc/openvpn/crl.pem ; chmod +r /etc/openvpn/crl.pem
+        args:
+          chdir: "{{ openvpn_easy_rsa_root }}/openvpn/easy-rsa"
+
+      - name: systemctl restart openvpn@server
+        systemd:
+          name: openvpn@server
+          state: restarted

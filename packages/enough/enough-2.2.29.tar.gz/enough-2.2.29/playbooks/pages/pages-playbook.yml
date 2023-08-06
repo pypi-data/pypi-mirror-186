@@ -1,0 +1,89 @@
+---
+- name: firewall for web
+  hosts: localhost
+  gather_facts: false
+
+  roles:
+    # This is just so default values are loaded and available in post_tasks instead of not
+    - role: pages
+      when: false
+
+  post_tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443, "{{ pages_port }}" ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['pages-service-group'] | default([]) }}"
+
+- name: install pages
+  hosts: pages-service-group
+  become: true
+
+  pre_tasks:
+    - name: set A
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "{{ domain }}."
+        ttl: 1800
+        type: A
+        value: "{{ ansible_host }}"
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "www.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+  roles:
+    - role: ansible-role-docker
+      docker_install_compose: false
+
+    - role: docker
+
+    - role: pages
+
+    - role: monitor_http_vhost
+      http_vhost_https: true
+      http_vhost_name: Pages
+      http_vhost_fqdn: "{{ domain }}"
+      http_vhost_uri: "/"
+      http_vhost_string: "{{ pages_monitoring_string }}"
+
+# separate plays because of https://github.com/ansible/ansible/issues/50278
+- name: install certificate on {{ domain }}
+  hosts: pages-service-group
+  become: true
+
+  roles:
+    - role: enough-nginx
+      vars:
+        enough_nginx_fqdn: "{{ domain }}"
+
+    - role: certificate
+      vars:
+        certificate_fqdn: "{{ domain }}"
+        certificate_installer: nginx
+
+- name: install certificate on www.{{ domain }}
+  hosts: pages-service-group
+  become: true
+
+  roles:
+    - role: enough-nginx
+      vars:
+        enough_nginx_fqdn: "www.{{ domain }}"
+
+    - role: certificate
+      vars:
+        certificate_fqdn: "www.{{ domain }}"
+        certificate_installer: nginx

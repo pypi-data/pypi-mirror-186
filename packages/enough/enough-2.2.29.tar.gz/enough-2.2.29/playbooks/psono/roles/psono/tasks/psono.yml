@@ -1,0 +1,55 @@
+---
+- name: apt-get install git virtualenv python3-pip
+  apt:
+    name: [ git, virtualenv, python3-pip ]
+    state: present
+
+- name: "mkdir -p {{ psono_root }}/psono-client"
+  file:
+    path: "{{ psono_root }}/psono-client"
+    state: directory
+    mode: 0755
+    owner: debian
+
+- name: Copy templates
+  template:
+    src: "{{ item[0] }}.j2"
+    dest: "{{ psono_root }}/{{ item[0] }}"
+    owner: debian
+    mode: "{{ item[1]|default('0600') }}"
+  loop:
+    - [docker-compose.yml]
+    - [settings.yaml]
+    - [crontab]
+    - [psono-client/config.json, '0644']
+
+- name: generate server keys in settings.yaml
+  shell: |
+    set -ex
+    if ! test -f {{ psono_root }}/server-keys ; then
+        docker run --rm psono/psono-server:{{ psono_version }} python3 ./psono/manage.py generateserverkeys > {{ psono_root }}/server-keys
+        echo Changed
+    fi
+    if ! grep -q '^EMAIL_SECRET_SALT' {{ psono_root }}/settings.yaml ; then
+       cat {{ psono_root }}/server-keys >> {{ psono_root }}/settings.yaml
+    fi
+  register: result
+  changed_when: '"Changed" in result.stdout'
+
+- name: python3 ./psono/manage.py migrate
+  command: "docker-compose run server python3 ./psono/manage.py migrate"
+  args:
+    chdir: "{{ psono_root }}"
+  register: result
+  until: result is success
+  retries: 5
+  delay: 5
+
+- name: Activate crontab
+  command: "crontab {{ psono_root }}/crontab"
+  become: False
+
+- name: (re)create psono
+  command: "docker-compose up -d"
+  args:
+    chdir: "{{ psono_root }}"

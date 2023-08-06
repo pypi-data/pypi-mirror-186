@@ -1,0 +1,25 @@
+[console_scripts]
+enough = enough.cmd:main
+
+[enough.cli]
+backup_clone_volume = enough.cli.backup:CloneVolume
+backup_download = enough.cli.backup:Download
+backup_restore = enough.cli.backup:Restore
+host_create = enough.cli.host:Create
+host_delete = enough.cli.host:Delete
+info = enough.cli.info:Info
+libvirt_install = enough.cli.libvirt:Install
+libvirt_network = enough.cli.libvirt:Network
+manage = enough.cli.manage:Manage
+openstack = enough.cli.openstack:Cli
+playbook = enough.cli.playbook:Playbook
+service_create = enough.cli.service:Create
+ssh = enough.cli.ssh:SSH
+volume_resize = enough.cli.volume:Resize
+
+[enough.internal.cli]
+backup_create = enough.internal.cli.backup:Create
+backup_prune = enough.internal.cli.backup:Prune
+build_image = enough.internal.cli.docker:Build
+create_test_subdomain = enough.internal.cli.test:CreateTestSubdomain
+install = enough.internal.cli.install:InstallScript

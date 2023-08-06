@@ -1,0 +1,51 @@
+---
+
+- name: apt-get install git
+  apt:
+    name: git
+    state: present
+
+- name: mkdir /srv/forum
+  file:
+    state: directory
+    path: /srv/forum
+    mode: 0755
+    owner: debian
+  become: true
+
+- name: git clone https://github.com/discourse/discourse_docker
+  git:
+    repo: "https://github.com/discourse/discourse_docker"
+    version: "{{ forum_discourse_docker_version }}"
+    dest: "/srv/forum/{{ forum_name }}"
+  become: false
+
+- name: deploy configuration
+  template:
+    src: "templates/app.yml.j2"
+    dest: "/srv/forum/{{ forum_name }}/containers/app.yml"
+  become: false
+  register: app_config
+
+- name: rebuild and launch discourse
+  command: ./launcher rebuild app
+  args:
+    chdir: "/srv/forum/{{ forum_name }}"
+  become: false
+  when: app_config is changed
+
+- name: create API key
+  shell: |
+    docker exec app rake 'api_key:create_master[ADMIN]' | tee apikey
+  args:
+    chdir: "/srv/forum/{{ forum_name }}"
+    creates: "/srv/forum/{{ forum_name }}/apikey"
+
+- name: "create {{ forum_user }} user"
+  shell: |
+    set -ex
+    pass="{{ forum_password }}" ; ( echo {{ forum_user }} ; echo "$pass" ; echo "$pass" ; echo ) | docker exec -i app rake 'admin:create'
+    touch admin_exists
+  args:
+    chdir: "/srv/forum/{{ forum_name }}"
+    creates: "/srv/forum/{{ forum_name }}/admin_exists"

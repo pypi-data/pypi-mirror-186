@@ -1,0 +1,5 @@
+MAILTO=""
+
+*/5 * * * * cd {{ weblate_root }}/weblate; flock --timeout 600 /tmp/weblate sudo docker-compose -f docker-compose-infrastructure.yml run --rm weblate update_index
+@daily cd {{ weblate_root }}/weblate; flock --timeout 600 /tmp/weblate sudo docker-compose -f docker-compose-infrastructure.yml run --rm weblate cleanuptrans
+@hourly cd {{ weblate_root }}/weblate; flock --timeout 600 /tmp/weblate sudo docker-compose -f docker-compose-infrastructure.yml run --rm weblate commit_pending --all --age=1

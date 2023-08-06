@@ -1,0 +1,8 @@
+- name: reload icinga2
+  systemd:
+    name: icinga2
+    state: reloaded
+    enabled: True
+  changed_when: False
+  delegate_to: "{{ groups['icinga-service-group'][0] }}"
+

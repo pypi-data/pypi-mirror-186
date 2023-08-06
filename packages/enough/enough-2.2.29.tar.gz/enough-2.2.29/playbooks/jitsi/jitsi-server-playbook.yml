@@ -1,0 +1,47 @@
+---
+# https://jitsi.github.io/handbook/docs/devops-guide/devops-guide-quickstart#setup-and-configure-your-firewall
+- name: firewall for jitsi
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443, 4443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['jitsi-service-group'] | default([]) }}"
+
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ udp ]
+        firewall_ports: [ 10000 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['jitsi-service-group'] | default([]) }}"
+
+- name: install jitsi DNS entry
+  hosts: jitsi-service-group
+  become: true
+
+  pre_tasks:
+
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "{{ jitsi_fqdn }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ item }}.{{ domain }}."
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['jitsi-service-group'] | default([]) }}"
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+  roles:
+    - role: jitsi

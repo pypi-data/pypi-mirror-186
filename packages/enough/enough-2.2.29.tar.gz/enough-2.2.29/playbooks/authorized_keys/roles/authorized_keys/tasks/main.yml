@@ -1,0 +1,14 @@
+---
+- name: Add to authorized keys
+  authorized_key:
+    user: "{{ ansible_user }}"
+    state: present
+    key: "{{ lookup('file', item) }}"
+  loop: "{{ query('fileglob', *authorized_keys_globs) }}"
+
+- name: Remove from authorized keys
+  authorized_key:
+    user: "{{ ansible_user }}"
+    state: absent
+    key: "{{ lookup('file', item) }}"
+  loop: "{{ query('fileglob', *authorized_keys_globs_remove) }}"

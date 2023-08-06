@@ -1,0 +1,37 @@
+---
+- name: firewall for openvpn
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ udp ]
+        firewall_ports: [ 1194 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['openvpn-service-group'] | default([]) }}"
+
+- name: setup openvpn DNS
+  hosts: openvpn-service-group
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "openvpn.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ groups['openvpn-service-group'][0] }}.{{ domain }}."
+      delegate_to: bind-host
+
+- name: install openvpn
+  hosts: openvpn-service-group
+  become: true
+
+  roles:
+    - role: openvpn

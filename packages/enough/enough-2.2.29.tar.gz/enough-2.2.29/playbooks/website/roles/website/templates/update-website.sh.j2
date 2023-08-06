@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+echo ======================================================================
+date
+echo ======================================================================
+
+cd /srv/website
+git fetch
+
+git pull
+git submodule sync
+git submodule update --init --recursive
+hugo --baseURL="https://{{ website_domain }}/"
+rsync -av --delete public/ /usr/share/nginx/html/

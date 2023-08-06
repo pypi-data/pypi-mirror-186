@@ -1,0 +1,30 @@
+---
+- name: hosts have a volume
+  hosts: sample-host
+  become: true
+
+  pre_tasks:
+    - name: create an encryption key to be re-used
+      file:
+        state: directory
+        path: "{{ enough_domain_config_directory }}/volume-keys"
+      delegate_to: localhost
+      become: no
+
+    # verified by infrastructure/tests/test_encrypted_reuse_key_volume.py
+    - name: create an encryption key to be re-used
+      copy:
+        content: "PASSWORD"
+        dest: "{{ enough_domain_config_directory }}/volume-keys/backup-volume.key"
+      delegate_to: localhost
+      become: no
+
+  roles:
+    - role: encrypted_device
+      encrypted_device_mount_point: /srv
+
+  tasks:
+    - name: chown debian /srv
+      file:
+        path: /srv
+        owner: debian

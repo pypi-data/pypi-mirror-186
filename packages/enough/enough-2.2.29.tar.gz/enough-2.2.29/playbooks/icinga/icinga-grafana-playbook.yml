@@ -1,0 +1,7 @@
+- name: install grafana for icinga
+  hosts: icinga-service-group
+  become: true
+
+  roles:
+
+    - role: icinga2_grafana

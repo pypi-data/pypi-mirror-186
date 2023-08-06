@@ -1,0 +1,31 @@
+version: '2'
+services:
+  server:
+    image: psono/psono-server:{{ psono_version }}
+    ports:
+      - '{{ psono_server_port }}:80'
+    depends_on:
+      - postgres
+    volumes:
+      - ./settings.yaml:/root/.psono_server/settings.yaml
+    restart: always
+
+  postgres:
+    image: postgres:9.6-alpine
+    environment:
+      - POSTGRES_USER=psono
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    restart: always
+
+  client:
+    image: psono/psono-client:{{ psono_version }}
+    depends_on:
+      - postgres
+      - server
+    ports:
+      - '{{ psono_client_port }}:80'
+    volumes:
+      - ./psono-client/config.json:/usr/share/nginx/html/config.json
+    restart: always

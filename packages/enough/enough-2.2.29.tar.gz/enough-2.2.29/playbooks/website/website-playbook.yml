@@ -1,0 +1,79 @@
+---
+- name: firewall for web
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['website-service-group'] | default([]) }}"
+
+- name: install website
+  hosts: website-service-group
+  become: true
+
+  pre_tasks:
+    - name: set A
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "{{ domain }}."
+        ttl: 1800
+        type: A
+        value: "{{ ansible_host }}"
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "www.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+  roles:
+    - role: website
+
+    - role: monitor_http_vhost
+      http_vhost_https: true
+      http_vhost_name: Website
+      http_vhost_fqdn: "{{ website_domain }}"
+      http_vhost_uri: "/"
+      http_vhost_string: "{{ website_domain_string }}"
+
+# separate plays because of https://github.com/ansible/ansible/issues/50278
+- name: install certificate on {{ domain }}
+  hosts: website-service-group
+  become: true
+
+  roles:
+    - role: enough-nginx
+      vars:
+        enough_nginx_fqdn: "{{ domain }}"
+
+    - role: certificate
+      vars:
+        certificate_fqdn: "{{ domain }}"
+        certificate_installer: nginx
+
+- name: install certificate on www.{{ domain }}
+  hosts: website-service-group
+  become: true
+
+  roles:
+    - role: enough-nginx
+      vars:
+        enough_nginx_fqdn: "www.{{ domain }}"
+
+    - role: certificate
+      vars:
+        certificate_fqdn: "www.{{ domain }}"
+        certificate_installer: nginx

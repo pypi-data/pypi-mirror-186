@@ -1,0 +1,13 @@
+---
+- import_playbook: ../infrastructure/bullseye-playbook.yml
+- import_playbook: ../infrastructure/network-playbook.yml
+- import_playbook: ../firewall/firewall-playbook.yml
+- import_playbook: ../icinga/test-icinga-playbook.yml
+- import_playbook: ../bind/bind-playbook.yml
+- import_playbook: ../bind/bind-client-playbook.yml
+- import_playbook: ../icinga/icinga-playbook.yml
+- import_playbook: ../postfix/postfix-playbook.yml
+# tests if wazuh-agent-playbook.yml is safe to include when there is no wazuh host
+- import_playbook: ../wazuh/wazuh-agent-playbook.yml
+- import_playbook: test-wekan-playbook.yml
+- import_playbook: wekan-playbook.yml

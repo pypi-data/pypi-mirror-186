@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd {{ openvpn_easy_rsa_root }}/openvpn/easy-rsa
+./easyrsa gen-crl
+cp -f pki/crl.pem /etc/openvpn/crl.pem
+chmod +r /etc/openvpn/crl.pem

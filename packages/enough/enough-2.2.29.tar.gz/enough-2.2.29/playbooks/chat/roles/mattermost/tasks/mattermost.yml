@@ -1,0 +1,99 @@
+---
+- name: apt-get install git
+  apt:
+    name: git
+    state: present
+
+- name: mkdir -p /opt/enough/enough.community/chat-host
+  file:
+    path: "/opt/enough/enough.community/chat-host"
+    state: directory
+    mode: 0755
+    owner: debian
+
+- name: git clone https://github.com/mattermost/mattermost-docker.git
+  git:
+    repo: https://github.com/mattermost/mattermost-docker.git
+    dest: "/opt/enough/enough.community/chat-host/mattermost"
+    version: "tags/{{ chat_version}}"
+  become: False
+
+- name: create mattermost directories
+  file:
+    dest: '/opt/enough/enough.community/chat-host/mattermost/volumes/{{ item }}'
+    state: directory
+    owner: debian
+    group: debian
+    mode: '0755'
+  loop:
+    - app
+    - app/mattermost
+    - app/mattermost/data
+    - app/mattermost/config
+    - app/mattermost/logs
+    - app/mattermost/plugins
+    - app/mattermost/client-plugins
+
+- name: Copy docker-compose-infrastructure.yml
+  template:
+    src: docker-compose-infrastructure.yml
+    dest: "/opt/enough/enough.community/chat-host/mattermost/docker-compose-infrastructure.yml"
+    owner: debian
+    mode: "0600"
+  become: False
+
+- name: (re)create mattermost
+  shell: |
+    docker-compose -f docker-compose-infrastructure.yml build
+    docker-compose -f docker-compose-infrastructure.yml up -d
+  args:
+    chdir: "/opt/enough/enough.community/chat-host/mattermost"
+
+- name: wait for test -f config/config.json
+  wait_for:
+    path: "/opt/enough/enough.community/chat-host/mattermost/volumes/app/mattermost/config/config.json"
+
+- name: check if EnableDiagnostics is true in config.json
+  shell: |
+    grep '"EnableDiagnostics": true' config.json
+  args:
+    chdir: "/opt/enough/enough.community/chat-host/mattermost/volumes/app/mattermost/config"
+  ignore_errors: true
+  register: diagnostics
+
+- when: diagnostics.rc == 0
+  block:
+
+  - name: stop mattermost
+    shell: |
+      docker-compose -f docker-compose-infrastructure.yml stop
+    args:
+      chdir: "/opt/enough/enough.community/chat-host/mattermost"
+
+  - name: apt-get install jq
+    apt:
+      name: jq
+      state: present
+
+  - name:
+    shell: |
+       set -ex
+       cp config.json /tmp/old.json
+       cat /tmp/old.json | \
+         jq '.PluginSettings.Enable |= false' | \
+         jq '.EmailSettings.SendPushNotifications |= false' | \
+         jq '.EmailSettings.SendEmailNotifications |= true' | \
+         jq '.EmailSettings.FeedbackName |= "Mattermost"' | \
+         jq '.EmailSettings.FeedbackEmail |= "noreply@{{ domain }}"' | \
+         jq '.ServiceSettings.SiteURL |= "https://chat.{{ domain }}"' | \
+         jq '.TeamSettings.EnableOpenServer |= true' | \
+         jq '.LogSettings.EnableDiagnostics |= false' > /tmp/new.json
+       mv /tmp/new.json config.json
+    args:
+       chdir: "/opt/enough/enough.community/chat-host/mattermost/volumes/app/mattermost/config"
+
+  - name: start mattermost with updated config.json
+    shell: |
+      docker-compose -f docker-compose-infrastructure.yml start
+    args:
+      chdir: "/opt/enough/enough.community/chat-host/mattermost"

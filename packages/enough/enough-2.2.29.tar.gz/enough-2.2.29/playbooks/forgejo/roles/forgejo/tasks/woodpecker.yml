@@ -1,0 +1,61 @@
+---
+- name: set CNAME
+  nsupdate:
+    server: "127.0.0.1"
+    zone: "{{ domain }}"
+    record: "{{ woodpecker_hostname }}.{{ domain }}."
+    ttl: 1800
+    type: CNAME
+    value: '{{ ansible_hostname | replace("-host","") }}'
+  delegate_to: "{{groups['bind-service-group'][0]}}"
+
+- name: apt-get install virtualenv python3-pip
+  apt:
+    name: [ virtualenv, python3-pip ]
+    state: present
+
+- name: pip install docker
+  pip:
+    name: docker
+
+- name: mkdir /srv/woodpecker
+  file:
+    state: directory
+    path: /srv/woodpecker
+    mode: 0755
+  become: true
+
+- name: apt-get install curl jq
+  apt:
+    name: [ curl, jq ]
+    state: present
+
+- name: cp setup-woodpecker.sh /srv/setup-woodpecker.sh
+  copy:
+    src: setup-woodpecker.sh
+    dest: /srv/woodpecker/setup-woodpecker.sh
+    mode: 0755
+
+- name: setup woodpecker
+  shell: |
+    /srv/woodpecker/setup-woodpecker.sh "{{ inventory_hostname }}.{{ domain }}" "{{ woodpecker_host }}"
+
+- name: get client_id
+  shell: cat /srv/woodpecker/secrets/forgejo-client-id
+  register: client_id
+
+- name: get client_secret
+  shell: cat /srv/woodpecker/secrets/forgejo-client-secret
+  register: client_secret
+
+- name: install /srv/woodpecker/docker-compose.yml
+  template:
+    src: docker-compose.yml
+    dest: /srv/woodpecker/docker-compose.yml
+    mode: 0644
+
+- name: docker-compose up -d
+  shell: |
+    docker-compose up -d
+  args:
+    chdir: "/srv/woodpecker"

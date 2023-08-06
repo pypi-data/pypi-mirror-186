@@ -1,0 +1,59 @@
+---
+- name: firewall for web
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['wordpress-service-group'] | default([]) }}"
+
+- name: setup wordpress DNS
+  hosts: wordpress-service-group
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "wordpress.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ groups['wordpress-service-group'][0] }}.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+- name: install wordpress
+  hosts: wordpress-service-group
+  become: true
+
+  roles:
+    - role: ansible-role-docker
+      docker_install_compose: true
+
+    - role: docker
+
+    - role: enough-nginx
+      vars:
+        enough_nginx_reverse_proxy: "127.0.0.1:{{ wordpress_port }}"
+        enough_nginx_fqdn: "wordpress.{{ domain }}"
+
+    - role: certificate
+      vars:
+        certificate_fqdn: "wordpress.{{ domain }}"
+        certificate_installer: nginx
+
+    - role: wordpress
+
+    - role: monitor_http_vhost
+      http_vhost_https: true
+      http_vhost_name: WordPress
+      http_vhost_fqdn: "wordpress.{{ domain }}"
+      http_vhost_uri: "/"
+      http_vhost_string: "WordPress"

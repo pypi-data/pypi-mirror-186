@@ -1,0 +1,79 @@
+---
+- name: apt-get install git python3-requests python3-bs4 python3-yaml python3-furl python3-sh
+  apt:
+    name: [git, python3-requests, python3-bs4, python3-yaml, python3-furl, python3-sh]
+    state: present
+
+- name: mkdir /srv/hostea
+  file:
+    path: /srv/hostea
+    state: directory
+    mode: 0755
+    owner: "{{ ansible_user }}"
+
+- name: mkdir /srv/hostea/repository/hosts-scripts
+  file:
+    path: /srv/hostea/repository/hosts-scripts
+    state: directory
+    mode: 0755
+    owner: "{{ ansible_user }}"
+
+- name: cp hosteasetup.py /srv/hostea/hosteasetup.py
+  copy:
+    src: hosteasetup.py
+    dest: /srv/hostea/hosteasetup.py
+    mode: 0755
+    owner: "{{ ansible_user }}"
+
+- name: copy templates to /srv/hostea/repository to update the repository
+  template:
+    src: "hostea/{{ item }}.j2"
+    dest: "/srv/hostea/repository/{{ item }}"
+    mode: 0444
+    owner: "{{ ansible_user }}"
+  loop:
+    - .woodpecker.yml
+    - hostea.sh
+    - hosts-scripts/00-banner.sh
+
+- name: mkdir /srv/hostea/repository/inventory/group_vars/all
+  file:
+    path: /srv/hostea/repository/inventory/group_vars/all
+    state: directory
+    mode: 0755
+    owner: "{{ ansible_user }}"
+
+- name: copy inventory/group_vars/all/clouds.yml
+  template:
+    src: "clouds.yml"
+    dest: "/srv/hostea/repository/inventory/group_vars/all/clouds.yml"
+    mode: 0444
+    owner: "{{ ansible_user }}"
+  ignore_errors: true
+
+- name: setup backup
+  template:
+    src: "hostea/{{ item }}.j2"
+    dest: "/srv/hostea/repository/inventory/{{ item }}"
+    mode: 0444
+    owner: "{{ ansible_user }}"
+  loop:
+    - backup-service-host.yml
+
+- name: configure backup
+  template:
+    src: "hostea/{{ item }}.j2"
+    dest: "/srv/hostea/repository/inventory/group_vars/{{ item }}"
+    mode: 0444
+    owner: "{{ ansible_user }}"
+  loop:
+    - backup-service-group.yml
+
+- name: create deploy key
+  openssh_keypair:
+    path: /srv/hostea/deploy
+  become: False
+
+- name: setup hostea
+  shell: |
+    /srv/hostea/hosteasetup.py --woodpecker-token-path /srv/hostea/woodpecker-token --enough-api-token "{{ enough_api_token | default('') }}" --deploy /srv/hostea/deploy --update-directory /srv/hostea/repository --certs /usr/share/ca-certificates --debug "{{ hostea_forgejo }}" "{{ hostea_admin_user }}" "{{ hostea_admin_password }}" "{{ hostea_user }}" "{{ hostea_password }}" "{{ hostea_email }}" "{{ hostea_project }}" "{{ hostea_woodpecker }}"

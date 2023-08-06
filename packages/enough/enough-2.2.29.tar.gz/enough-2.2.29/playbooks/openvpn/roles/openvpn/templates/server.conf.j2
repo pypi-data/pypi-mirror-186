@@ -1,0 +1,20 @@
+port 1194
+proto udp
+dev tun
+ca {{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/pki/ca.crt
+cert {{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/pki/issued/server.crt
+key {{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/pki/private/server.key  # This file should be kept secret
+dh {{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/pki/dh.pem
+crl-verify crl.pem
+server {{ openvpn_server_ip_range }}
+keepalive 10 120
+tls-auth {{ openvpn_easy_rsa_root }}/openvpn/easy-rsa/ta.key 0 # This file is secret
+cipher AES-256-CBC
+user nobody
+group nogroup
+persist-key
+persist-tun
+ifconfig-pool-persist ipp.txt
+client-to-client
+client-config-dir ccd
+{{ openvpn_server_conf }}

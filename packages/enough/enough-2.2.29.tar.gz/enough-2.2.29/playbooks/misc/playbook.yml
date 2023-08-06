@@ -1,0 +1,9 @@
+---
+- import_playbook: ../infrastructure/bullseye-playbook.yml
+- import_playbook: ../infrastructure/network-playbook.yml
+- import_playbook: sexy-debian-playbook.yml
+- import_playbook: sshd-playbook.yml
+- import_playbook: commit_etc-playbook.yml
+- import_playbook: fail2ban-playbook.yml
+- import_playbook: uninstall-ntp.yml
+- import_playbook: upgrades-playbook.yml

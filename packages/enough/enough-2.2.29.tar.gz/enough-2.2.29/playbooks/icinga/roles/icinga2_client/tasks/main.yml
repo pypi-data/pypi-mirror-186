@@ -1,0 +1,135 @@
+---
+- name: apt-get install icinga2
+  apt:
+    name:
+      - 'icinga2={{ icinga_version }}'
+      - 'icinga2-bin={{ icinga_version }}'
+      - 'icinga2-common={{ icinga_version }}'
+    state: present
+
+- name: apt-get install monitoring plugins
+  apt:
+    name: [ monitoring-plugins, nagios-plugins-contrib ]
+    state: present
+    install_recommends: no
+
+- name: apt-get install monitoring plugins deps
+  apt:
+    name: [ xz-utils, libmonitoring-plugin-perl ]
+    state: present
+
+- name: ensure that /etc/icinga2/pki exists and is owned by the icinga user
+  file:
+    path: /etc/icinga2/pki
+    state: directory
+    mode: 0700
+    owner: nagios
+    group: nagios
+
+- name: generate a new local self-signed certificate
+  shell: |
+    icinga2 pki new-cert \
+      --cn   {{ inventory_hostname }} \
+      --key  /etc/icinga2/pki/{{ inventory_hostname }}.key \
+      --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt
+  args:
+    creates: /etc/icinga2/pki/{{ inventory_hostname }}.crt
+
+- name: wait for master availability
+  wait_for:
+    host: "{{ hostvars[groups['icinga-service-group'][0]]['ansible_host'] }}"
+    port: 5665
+    state: drained
+
+- name: request the master certificate from the master host
+  shell: |
+    icinga2 pki save-cert \
+      --key /etc/icinga2/pki/{{ inventory_hostname }}.key  \
+      --cert /etc/icinga2/pki/{{ inventory_hostname }}.crt \
+      --trustedcert /etc/icinga2/pki/trusted-master.crt \
+      --host {{ hostvars[groups['icinga-service-group'][0]]['ansible_host'] }}
+  changed_when: False
+  register: output
+  until: output is success
+  retries: 10
+  delay: 5
+
+- name: generate ticket number on the master
+  shell: |
+    icinga2 pki ticket --cn {{ inventory_hostname }}
+  delegate_to: "{{ groups['icinga-service-group'][0] }}"
+  register: command_output
+  changed_when: False
+
+- set_fact:
+    icinga_ticket: "{{ command_output.stdout }}"
+
+- name: wait for master availability
+  wait_for:
+    host: "{{ hostvars[groups['icinga-service-group'][0]]['ansible_host'] }}"
+    port: 5665
+    state: drained
+
+- name: node setup
+  shell: |
+    icinga2 node setup \
+      --ticket {{ icinga_ticket }} \
+      --cn {{ inventory_hostname }} \
+      --endpoint {{ groups['icinga-service-group'][0] }} \
+      --zone {{ inventory_hostname }} \
+      --master_host {{ hostvars[groups['icinga-service-group'][0]]['ansible_host'] }} \
+      --trustedcert /etc/icinga2/pki/trusted-master.crt \
+      --accept-commands \
+      --accept-config
+  changed_when: False
+  register: output
+  until: output is success
+  retries: 10
+  delay: 5
+
+- name: disable local configuration
+  lineinfile:
+    line: 'include_recursive "conf.d"'
+    state: absent
+    path: /etc/icinga2/icinga2.conf
+
+- name: disable configuration checker
+  icinga2_feature:
+    name: checker
+    state: absent
+
+- name: install master and global zones definitions on client
+  template:
+    src: templates/zones.conf.client
+    dest: /etc/icinga2/zones.conf
+  notify: reload icinga2 client
+
+- name: create zone directory on master
+  file:
+    path: /etc/icinga2/zones.d/master/{{ inventory_hostname }}
+    state: "{{ 'absent' if ansible_hostname in groups['deleted-hosts'] else 'directory' }}"
+    mode: 0755
+  delegate_to: "{{ groups['icinga-service-group'][0] }}"
+
+- name: install host definition on master
+  template:
+    src: templates/host.conf
+    dest: /etc/icinga2/zones.d/master/{{ inventory_hostname }}/host.conf
+  delegate_to: "{{ groups['icinga-service-group'][0] }}"
+  when: ansible_hostname not in groups['deleted-hosts']
+
+- name: create directory for a collection of configuration files
+  file:
+    path: /etc/icinga2/zones.d/master/{{ inventory_hostname }}/conf.d
+    state: directory
+    mode: 0755
+  delegate_to: "{{ groups['icinga-service-group'][0] }}"
+  when: ansible_hostname not in groups['deleted-hosts']
+
+- name: install client zone definition on master
+  template:
+    src: templates/zones.conf.master
+    dest: /etc/icinga2/zones.d/{{ inventory_hostname }}.conf
+  delegate_to: "{{ groups['icinga-service-group'][0] }}"
+  notify: reload icinga2
+  when: ansible_hostname not in groups['deleted-hosts']

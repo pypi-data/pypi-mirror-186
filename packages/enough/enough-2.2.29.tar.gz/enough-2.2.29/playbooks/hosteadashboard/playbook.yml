@@ -1,0 +1,14 @@
+---
+- import_playbook: ../infrastructure/bullseye-playbook.yml
+- import_playbook: ../infrastructure/network-playbook.yml
+- import_playbook: ../firewall/firewall-playbook.yml
+- import_playbook: ../misc/sshd-playbook.yml
+- import_playbook: ../icinga/test-icinga-playbook.yml
+- import_playbook: ../bind/bind-playbook.yml
+- import_playbook: ../bind/bind-client-playbook.yml
+- import_playbook: ../icinga/icinga-playbook.yml
+- import_playbook: ../postfix/postfix-playbook.yml
+- import_playbook: ../postfix/test-postfix-playbook.yml
+- import_playbook: ../forgejo/forgejo-playbook.yml
+- import_playbook: ../hostea/hostea-playbook.yml
+- import_playbook: hosteadashboard-playbook.yml

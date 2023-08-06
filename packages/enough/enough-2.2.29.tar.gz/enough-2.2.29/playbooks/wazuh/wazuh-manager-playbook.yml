@@ -1,0 +1,98 @@
+---
+- name: firewall for web
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['wazuh-service-group'] | default([]) }}"
+
+- name: setup wazuh DNS
+  hosts: wazuh-service-group
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "wazuh.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ groups['wazuh-service-group'][0] }}.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+- name: install wazuh-manager
+  hosts: wazuh-service-group
+  become: true
+
+  roles:
+    - role: ansible-wazuh-manager
+      vars:
+        wazuh_manager_email_notification: 'yes'
+        wazuh_manager_mailto:
+          - '{{ wazuh_mailto }}'
+        wazuh_manager_email_smtp_server: "localhost"
+        wazuh_manager_email_from: '{{ wazuh_email_from }}'
+        wazuh_api_users:
+          - username: "{{ wazuh_api_username }}"
+            password: "{{ wazuh_api_password }}"
+        wazuh_manager_fqdn: "wazuh.{{ domain }}"
+        wazuh_manager_vulnerability_detector:
+          enabled: 'yes'
+          interval: '5m'
+          ignore_time: '6h'
+          run_on_start: "{{ wazuh_manager_vulnerability_detector_run_on_start | default('no') }}"
+          providers:
+            - enabled: 'yes'
+              os:
+                - 'buster'
+              update_interval: '1h'
+              name: '"debian"'
+            - enabled: 'yes'
+              update_from_year: '2010'
+              update_interval: '1h'
+              name: '"nvd"'
+        wazuh_manager_authd:
+          enable: false
+          #
+          # The following lines are not needed because it is not enabled.
+          # But they are used anyway during template instantiation
+          # and must be present.
+          #
+          port: 1515
+          use_source_ip: 'no'
+          force_insert: 'yes'
+          force_time: 0
+          purge: 'yes'
+          use_password: 'no'
+          limit_maxagents: 'yes'
+          ciphers: 'HIGH:!ADH:!EXP:!MD5:!RC4:!3DES:!CAMELLIA:@STRENGTH'
+          ssl_agent_ca: null
+          ssl_verify_host: 'no'
+          ssl_manager_cert: 'sslmanager.cert'
+          ssl_manager_key: 'sslmanager.key'
+          ssl_auto_negotiate: 'no'
+
+  tasks:
+
+    - name: /var/ossec/etc/rules/local_rules.xml
+      copy:
+        content: |
+          <!-- Local rules -->
+          <group name="vulnerability-detector">
+            <rule id="100010" level="0">
+              <if_sid>23506</if_sid>
+              <field name="vulnerability.cve">CVE-2019-20367</field>
+              <description>Vulnerable non-upgradeable packages</description>
+            </rule>
+          </group>
+        dest: /var/ossec/etc/rules/local_rules.xml
+        mode: 0444

@@ -1,0 +1,47 @@
+---
+- name: firewall for web
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['securedrop-service-group'] | default([]) }}"
+
+- name: setup securedrop DNS
+  hosts: securedrop-service-group
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "securedrop.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ groups['securedrop-service-group'][0] }}.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+- name: prepare SecureDrop environment
+  hosts: securedrop-service-group
+  become: true
+
+  roles:
+    - role: ansible-role-docker
+    - role: docker
+
+    - role: securedrop
+
+    - role: monitor_tor_http_vhost
+      vars:
+        tor_hostname_file: /var/lib/tor/services/source/hostname
+        tor_http_vhost_name: "{{ inventory_hostname }}"
+        tor_http_vhost_uri: "/"
+        tor_http_vhost_string: "SecureDrop"

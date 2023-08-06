@@ -1,0 +1,106 @@
+---
+#
+#######################################
+#
+# Public hostname of the Forgejo instance
+#
+#
+forgejo_host: "forgejo.{{ domain }}"
+#
+#######################################
+#
+# Mailer from
+#
+#
+forgejo_mailer_from: "noreply@enough.community"
+#
+#######################################
+#
+# SSH port of the Forgejo instance
+#
+#
+forgejo_ssh_port: "22"
+#
+#######################################
+#
+# Forgejo container image
+#
+#
+forgejo_image: "codeberg.org/forgejo/forgejo"
+#######################################
+#
+# Forgejo version
+#
+#
+forgejo_version: "1.18.0-1"
+#
+#######################################
+#
+# Admin user name
+#
+forgejo_user: root
+#
+#######################################
+#
+# Admin user password
+#
+#forgejo_password: etquofEtseudett
+#
+#######################################
+#
+# Admin user email
+#
+forgejo_email: contact@enough.community
+#
+#######################################
+#
+# Unique hostname of the woodpecker server relative to {{ domain }}
+#
+woodpecker_hostname: "woodpecker"
+#
+#######################################
+#
+# Public hostname of the Woodpecker instance
+#
+woodpecker_host: "{{ woodpecker_hostname }}.{{ domain }}"
+#
+#######################################
+#
+# Forgejo users with admin rights on woodpecker
+#
+woodpecker_admins: "{{ forgejo_user }}"
+#
+#######################################
+#
+# Woodpecker shared agent secret `openssl rand -hex 32`
+#
+#woodpecker_agent_secret: c2cd326f7104c2ca93e6d22da0b28d1e33b4aeaa071c08945e0ade576b3192ce
+#
+#######################################
+#
+# Woodpecker container image prefix from which the server and agent image
+# names are composed:
+#
+# {{ woodpecker_image_prefix }}-server
+# {{ woodpecker_image_prefix }}-agent
+#
+woodpecker_image_prefix: "woodpeckerci/woodpecker"
+#
+#######################################
+#
+# Woodpecker version
+#
+woodpecker_version: "next-5c617accd8"
+#
+#######################################
+#
+# Woodpecker max procs
+#
+woodpecker_max_procs: 1
+#
+#######################################
+#
+# Woodpecker server and agent log level
+# see https://woodpecker-ci.org/docs/administration/agent-config#woodpecker_log_level
+#
+woodpecker_log_level: info

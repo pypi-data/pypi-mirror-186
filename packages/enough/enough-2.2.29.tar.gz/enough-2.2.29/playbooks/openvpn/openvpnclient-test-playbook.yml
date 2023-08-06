@@ -1,0 +1,10 @@
+---
+- name: install the lan VPN credentials
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: copy lan credentials
+      copy:
+        src: "{{ openvpn_local_directory }}/lan.tar.gz"
+        dest: "{{ enough_domain_config_directory }}/lan.tar.gz"

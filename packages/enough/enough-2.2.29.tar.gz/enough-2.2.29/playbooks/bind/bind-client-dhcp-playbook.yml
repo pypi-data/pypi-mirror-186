@@ -1,0 +1,20 @@
+---
+- name: setup DHCP client
+  hosts: bind-client-group:!external-host
+  become: true
+
+  roles:
+    - role: dhclient
+      vars:
+        dns_nameservers: [ '{{ hostvars[groups["bind-service-group"][0]]["ansible_host"] }}' ]
+        dns_search: "{{ domain }}"
+        dns_domain: "{{ domain }}"
+
+  tasks:
+    #
+    # it must *not* be set before the DNS is updated otherwise
+    # the name resolution will fail and sudo will timeout
+    #
+    - name: set hostname
+      hostname:
+        name: '{{ inventory_hostname }}.{{ domain }}'

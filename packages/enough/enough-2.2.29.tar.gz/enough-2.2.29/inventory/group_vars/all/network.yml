@@ -1,0 +1,31 @@
+---
+#
+#############################################
+#
+# All hosts have two interfaces
+#
+#   network_primary_interface is bound to the external network and has a public IP
+#   network_secondary_interface is bound to the internal network and has a private IP
+#
+# When network_internal_only is false
+#   the default route is network_primary_interface
+#
+# When network_internal_only is true
+#   the network_primary_interface is not configured (has no IP)
+#   the default route is network_secondary_interface
+#
+network_internal_only: false
+network_primary_interface: "{{ (infrastructure_driver == 'openstack') | ternary(openstack_network_primary_interface, 'enp1s0') }}"
+network_secondary_interface: "{{ (infrastructure_driver == 'openstack') | ternary(openstack_network_secondary_interface, 'enp2s0') }}"
+#
+# Only one of the two interfaces is routed
+#
+network_interface_unconfigured: "{{ network_internal_only | ternary(network_primary_interface, 'noname') }}"
+network_interface_routed: "{{ network_internal_only | ternary(network_secondary_interface, network_primary_interface) }}"
+network_interface_not_routed: "{{ network_internal_only | ternary('noname', network_secondary_interface) }}"
+#
+#############################################
+#
+# The name of the network with public IPs
+#
+openstack_network: Ext-Net

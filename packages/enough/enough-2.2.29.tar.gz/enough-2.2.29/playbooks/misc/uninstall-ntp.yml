@@ -1,0 +1,15 @@
+---
+- name: apt-get remove ntp
+  hosts: 'all'
+  become: true
+
+  tasks:
+    #
+    # On Debian GNU/Linux bullseye, if ntp is installed it deactivates systemd-timesyncd
+    # but we prefer systemd-timesyncd over ntp. Reason why ntp is removed in case it
+    # was installed because of an indirect system dependency.
+    #
+    - name: apt-get remove ntp
+      apt:
+        name: ntp
+        state: absent

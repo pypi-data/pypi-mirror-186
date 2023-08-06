@@ -1,0 +1,58 @@
+---
+#
+####################################################
+#
+# discourse name
+#
+forum_name: Enough
+#
+####################################################
+#
+# The domain name from which discourse will be accessed by the users
+#
+forum_domain: "forum.{{ domain }}"
+#
+####################################################
+#
+# discourse user with administrative rights
+#
+forum_user: "admin@{{ domain }}"
+forum_password: "BefShnygs33SwowCifViwag"
+#
+####################################################
+#
+# discourse version as found in https://github.com/discourse/discourse/tags
+#
+forum_discourse_version: v2.8.8
+#
+####################################################
+#
+# discourse docker hash commit compatible with forum_discourse_version
+# https://github.com/discourse/discourse_docker/
+#
+forum_discourse_docker_version: 727dad5c48e022e547d420764f7c7d6ea5699e52
+#
+####################################################
+#
+# discourse plugins
+#
+# name: name of the plugin
+# url: URL of the plugin
+# hash: commit hash compatible with forum_discourse_version
+#
+forum_plugins:
+  - name: discourse-chat-integration
+    url: https://github.com/discourse/discourse-chat-integration
+    hash: 0c367e19ca4c06ace067f1268c1a1a64d8da4253
+  - name: discourse-solved
+    url: https://github.com/discourse/discourse-solved
+    hash: 9aba2bd6b7efbea3e46158fd0b1ce96a975379d7
+  - name: discourse-events
+    url: https://github.com/angusmcleod/discourse-events
+    hash: 00fc913a97633daa0bd9fda950b09b984538a6b1
+  - name: discourse-calendar
+    url: https://github.com/discourse/discourse-calendar
+    hash: c44d348c7739f08fe026f1d67dbd902cb2f4d590
+  - name: discourse-locations
+    url: https://github.com/angusmcleod/discourse-locations
+    hash: 5b726cc207c0053a3d95c2ad6e2eaf9180c2c0f4

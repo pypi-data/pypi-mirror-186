@@ -1,0 +1,25 @@
+---
+# Copyright (C) 2016 Maciej Delmanowski <drybjed@gmail.com>
+# Copyright (C) 2016 DebOps <https://debops.org/>
+# SPDX-License-Identifier: GPL-3.0-only
+
+- name: Restart gunicorn for netbox
+  service:
+    name: 'gunicorn@netbox'
+    state: 'restarted'
+  when: (not netbox__app_internal_appserver|bool and
+         ansible_local.gunicorn.installed|d()|bool)
+
+- name: Restart netbox internal appserver
+  service:
+    name: 'netbox'
+    state: 'restarted'
+    enabled: True
+  when: netbox__app_internal_appserver|bool
+
+- name: Restart netbox Request Queue Worker
+  service:
+    name: 'netbox-rq'
+    state: 'restarted'
+    enabled: True
+  when: netbox__app_internal_appserver|bool

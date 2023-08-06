@@ -1,0 +1,62 @@
+---
+- name: setup openvpn DNS
+  hosts: openvpn-service-group
+  become: true
+
+  tasks:
+        
+    - delegate_to: "{{ groups['icinga-service-group'][0] }}"
+      when: (groups['icinga-service-group'] | length) > 0
+      block:
+      - name: apt-get install nmap
+        apt:
+          name: nmap
+          state: present
+      
+      - name: Icinga install command-check_udp_port.conf
+        copy:
+          src: command-check_udp_port.conf
+          dest: /etc/icinga2/conf.d/command-check_udp_port.conf
+          mode: 0444
+      
+      - name: Icinga install check_udp_port
+        copy:
+          src: check_udp_port
+          dest: /usr/lib/nagios/plugins/check_udp_port
+          mode: 0555
+      
+      - name: /etc/sudoers.d/icinga
+        copy:
+          content: |
+            nagios ALL=NOPASSWD: /usr/lib/nagios/plugins/check_udp_port
+          dest: /etc/sudoers.d/icinga2_check_udp_port
+          mode: 0440
+          owner: root
+      
+      - name: Icinga for OpenVPN
+        copy:
+          content: |
+            apply Service "Check OpenVPN" {
+                  import host.vars.service_template
+      
+                  check_command = "udp_port"
+                  vars.udp_port_port = "1194"
+                  vars.udp_port_service = "openvpn"
+                  command_endpoint = NodeName
+      
+                  assign where host.vars.vpn == true
+            }
+          dest: /etc/icinga2/zones.d/global-templates/openvpn.conf
+      
+      - name: Add OpenVPN check
+        copy:
+          content: |
+              vars.vpn = true
+          dest: /etc/icinga2/zones.d/master/{{ inventory_hostname }}/conf.d/vpn.conf
+      
+      - name: reload icinga2
+        systemd:
+          name: icinga2
+          state: reloaded
+          enabled: True
+        changed_when: False

@@ -1,0 +1,8 @@
+---
+- name: exercize the IP role
+  hosts: infrastructure1-host
+  become: true
+
+  roles:
+
+    - role: ip

@@ -1,0 +1,8 @@
+- name: setup backup
+  hosts: backup-service-group
+  become: true
+
+  roles:
+    - role: ansible-role-docker
+    - role: docker
+    - role: backup

@@ -1,0 +1,16 @@
+---
+- name: install icinga clients and monitoring capabilities
+  hosts: icinga-client-group:!icinga-service-group:!icinga-not-client-group
+  become: true
+  tasks:
+    - when: not_monitored is undefined
+      block:
+        - import_role:
+            name: icinga2_common
+            tasks_from: apt
+
+        - import_role:
+            name: icinga2_client
+
+        - import_role:
+            name: icinga2_common

@@ -1,0 +1,39 @@
+---
+- name: prepare cloud environment
+  hosts: enough
+  become: true
+
+  roles:
+    - role: ansible-role-docker
+    - role: docker
+
+    - role: enough-nginx
+      vars:
+        enough_nginx_reverse_proxy: "127.0.0.1:{{ enough_nextcloud_port }}"
+        enough_nginx_fqdn: "{{ inventory_hostname | replace('-host','') }}.{{ domain }}"
+        enough_nginx_sites: |
+          add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload;" always;
+
+          location = /.well-known/carddav {
+             return 301 $scheme://$host:$server_port/remote.php/dav;
+          }
+          location = /.well-known/caldav {
+             return 301 $scheme://$host:$server_port/remote.php/dav;
+          }
+
+    - role: certificate
+      vars:
+        certificate_fqdn: "{{ inventory_hostname | replace('-host','') }}.{{ domain }}"
+        certificate_installer: nginx
+
+    - role: nextcloud
+      vars:
+        vhost_fqdn: "{{ inventory_hostname | replace('-host','') }}.{{ domain }}"
+
+    - role: monitor_http_vhost
+      vars:
+        http_vhost_https: true
+        http_vhost_name: "{{ inventory_hostname }}"
+        http_vhost_fqdn: "{{ inventory_hostname | replace('-host','') }}.{{ domain }}"
+        http_vhost_uri: "/login"
+        http_vhost_string: "This application requires JavaScript"

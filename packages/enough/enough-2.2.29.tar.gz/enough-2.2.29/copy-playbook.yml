@@ -1,0 +1,39 @@
+---
+- name: configure copy host
+  hosts: copy-group
+  become: true
+
+  pre_tasks:
+
+    - name: Enable root login
+      authorized_key:
+        user: root
+        state: present
+        key: "{{ lookup('file', ansible_ssh_private_key_file + '.pub') }}"
+
+    - name: upload private key
+      copy:
+        src: "{{ ansible_ssh_private_key_file }}"
+        dest: "/root/.ssh/id_rsa"
+        mode: '0400'
+
+    - name: /etc/ssh/ssh_config StrictHostKeyChecking no
+      lineinfile:
+        path: /etc/ssh/ssh_config
+        line: StrictHostKeyChecking no
+        create: yes
+
+    - name: echo nameserver 8.8.8.8 > /etc/resolv.conf
+      copy:
+        dest: /etc/resolv.conf
+        content: |
+          nameserver 8.8.8.8
+
+    - name: apt-get install rsync
+      apt:
+        name: rsync
+        state: present
+
+  roles:
+    - role: encrypted_device
+      encrypted_device_mount_point: /srv

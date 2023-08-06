@@ -1,0 +1,25 @@
+---
+- import_playbook: "{{ '$SHARE_DIR/playbooks/infrastructure/bullseye-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/infrastructure/network-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/infrastructure/encrypted-volume-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/firewall/firewall-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/wazuh/wazuh-firewall-playbook.yml' | expandvars }}"
+  when: (groups['wazuh-service-group'] | length) > 0
+- import_playbook: "{{ '$SHARE_DIR/playbooks/misc/sexy-debian-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/misc/sshd-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/bind/bind-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/bind/bind-client-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/authorized_keys/authorized-keys-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/backup/backup-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/icinga/icinga-playbook.yml' | expandvars }}"
+  when: (groups['icinga-service-group'] | length) > 0
+- import_playbook: "{{ '$SHARE_DIR/playbooks/bind/bind-monitoring-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/postfix/postfix-firewall-playbook.yml' | expandvars }}"
+  when: (groups['postfix-service-group'] | length) > 0
+- import_playbook: "{{ '$SHARE_DIR/playbooks/postfix/postfix-relay-playbook.yml' | expandvars }}"
+  when: (groups['postfix-service-group'] | length) > 0
+- import_playbook: "{{ '$SHARE_DIR/playbooks/postfix/postfix-client-playbook.yml' | expandvars }}"
+- import_playbook: "{{ '$SHARE_DIR/playbooks/wazuh/wazuh-manager-playbook.yml' | expandvars }}"
+  when: (groups['wazuh-service-group'] | length) > 0
+- import_playbook: "{{ '$SHARE_DIR/playbooks/wazuh/wazuh-agent-playbook.yml' | expandvars }}"
+  when: (groups['wazuh-service-group'] | length) > 0

@@ -1,0 +1,93 @@
+---
+- name: upgrade to Debian GNU/Linux bullseye
+  hosts: all
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Set Debian GNU/Linux bullseye repositories
+      copy:
+        dest: /etc/apt/sources.list
+        content: |
+          deb http://deb.debian.org/debian/ bullseye main
+          deb http://deb.debian.org/debian/ buster main
+          deb http://security.debian.org/debian-security bullseye-security main
+          deb http://security.debian.org/debian-security buster/updates main
+          deb http://deb.debian.org/debian bullseye-backports main
+      when: '"debian" == ansible_user'
+
+    - name: Debian/Ubuntu | Installing repository key
+      apt_key: url=https://packages.wazuh.com/key/GPG-KEY-WAZUH
+
+    - name: apt-mark hold grafana
+      dpkg_selections:
+        name: grafana
+        selection: hold
+
+    - name: Run the equivalent of "apt-get update"
+      shell: |
+        apt-get --allow-releaseinfo-change update
+
+    #
+    # The old configuration will be discarded but restored by the next run
+    # of the playbooks.
+    #
+    - name: apt-get install unattended-upgrades
+      apt:
+        name: unattended-upgrades
+        state: latest
+        dpkg_options: force-confnew
+
+    #
+    # It will break because python vanishes: just run again
+    #
+    - name: Update all packages to the latest version
+      apt:
+        upgrade: dist
+        autoremove: yes
+        dpkg_options: force-confold
+
+    #
+    # For some reason doing it a second time upgrades more
+    #
+    - name: Update all packages to the latest version
+      apt:
+        upgrade: dist
+        autoremove: yes
+        dpkg_options: force-confold
+
+    #
+    # It is never used anywhere but is sometime installed because
+    # of indirect dependencies and may get in the way of the nginx
+    # reverse proxy.
+    #
+    - name: apt-get remove apache2
+      apt:
+        name: apache2
+        state: absent
+        autoremove: yes
+
+    - name: rm -f /etc/ansible/facts.d/postfix.fact
+      file:
+        path: /etc/ansible/facts.d/postfix.fact
+        state: absent
+
+    #
+    # python3.7 must not be left installed, it will interfere
+    # with ansible and fail in strange ways such as complaining
+    # that python3-apt is not installed
+    #
+    - name: apt-get remove python3.7-minimal
+      apt:
+        name: python3.7-minimal
+        state: absent
+        autoremove: yes
+
+    - name: apt-get remove python-is-python2 python2.7-minimal python2-minimal
+      apt:
+        name:
+          - python-is-python2
+          - python2.7-minimal
+          - python2-minimal
+        state: absent
+        autoremove: yes

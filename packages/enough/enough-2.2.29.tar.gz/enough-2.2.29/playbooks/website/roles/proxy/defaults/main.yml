@@ -1,0 +1,33 @@
+---
+#
+######################################################
+#
+# Public name that will be reverse proxy
+# as {{ website_proxy_name }}.{{ domain }}
+#
+#website_proxy_name:
+#
+######################################################
+#
+# FQDN that will be reverse proxy
+#
+website_proxy_fqdn: "{{ website_proxy_name }}.{{ domain }}"
+#
+######################################################
+#
+# FQDN of the backend to reverse proxy {{ website_proxy_name }}
+#
+#website_proxy_backend:
+#
+######################################################
+#
+# CA necessary to interact with {{ website_proxy_backend }}
+#
+#website_proxy_ca:
+#
+######################################################
+#
+# String found in the backend website that should be monitored
+# in the public website to verify the proxy actually works.
+#
+#website_proxy_monitor_string

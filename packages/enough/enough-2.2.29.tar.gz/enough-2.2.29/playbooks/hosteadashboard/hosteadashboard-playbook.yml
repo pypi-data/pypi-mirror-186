@@ -1,0 +1,88 @@
+---
+- name: firewall for web
+  hosts: localhost
+  gather_facts: false
+
+  post_tasks:
+    - include_role:
+        name: firewall
+      vars:
+        firewall_server: "{{ item }}"
+        firewall_clients: [ 0.0.0.0/0 ]
+        firewall_protocols: [ tcp ]
+        firewall_ports: [ 80, 443 ]
+      when: hostvars[item].ansible_host is defined
+      with_items: "{{ groups['hosteadashboard-service-group'] | default([]) }}"
+
+- name: setup DNS entry for hosteadashboard
+  hosts: hosteadashboard-service-group
+  become: true
+
+  pre_tasks:
+    - name: set CNAME
+      nsupdate:
+        server: "127.0.0.1"
+        zone: "{{ domain }}"
+        record: "hosteadashboard.{{ domain }}."
+        ttl: 1800
+        type: CNAME
+        value: "{{ groups['hosteadashboard-service-group'][0] }}.{{ domain }}."
+      delegate_to: "{{groups['bind-service-group'][0]}}"
+
+- name: install certificate on hosteadashboard.{{ domain }}
+  hosts: hosteadashboard-service-group
+  become: true
+
+  roles:
+    # so that variables are available for hosteadashboard
+    - role: forgejo
+      when: False
+
+    # so that variables are available for hosteadashboard
+    - role: hostea
+      when: False
+
+    # so that variables are available for hosteadashboard
+    - role: hosteadashboard
+      when: False
+
+    - role: enough-nginx
+      vars:
+        enough_nginx_reverse_proxy: 127.0.0.1:4000
+        enough_nginx_fqdn: "hosteadashboard.{{ domain }}"
+        #
+        # When this reverse proxy is itself behind a reverse proxy,
+        # the first reverse proxy will have hosteadashboard.{{ domain }} as a backend
+        # and will set Host to {{ hosteadashboard_host }}. If server_name is not set to
+        # {{ hosteadashboard_host }}, nginx will pick the first available server and
+        # send the request to it because there is no server_name matching the Host header.
+        #
+        enough_nginx_sites: |
+          server_name {{ hosteadashboard_host }};
+
+    - role: certificate
+      vars:
+        certificate_fqdn: "hosteadashboard.{{ domain }}"
+        certificate_installer: nginx
+
+- name: install hosteadashboard
+  hosts: hosteadashboard-service-group
+  become: true
+
+  roles:
+    # so that variables are available for hosteadashboard
+    - role: forgejo
+      when: False
+
+    # so that variables are available for hosteadashboard
+    - role: hostea
+      when: False
+
+    - role: hosteadashboard
+
+    - role: monitor_http_vhost
+      http_vhost_https: true
+      http_vhost_name: Hosteadashboard
+      http_vhost_fqdn: "hosteadashboard.{{ domain }}"
+      http_vhost_uri: "/login/"
+      http_vhost_string: "{{ hosteadashboard_monitoring_string }}"

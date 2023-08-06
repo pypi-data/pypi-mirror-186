@@ -1,0 +1,12 @@
+---
+# letsencrypt, letsencrypt_staging, ownca
+certificate_authority: letsencrypt_staging
+certificate_create: true
+certificate_email: "contact@{{ domain }}"
+# certificate_fqdn:
+# certificate_installer:
+certificate_directory: /etc/certificates
+certificate_local_directory: /tmp/certificates
+certificate_year_0: "{{ lookup('pipe', 'date  +%Y-%m-%d') }}"
+certificate_year_1: "{{ lookup('pipe', 'date --date=1year +%Y%m%d000000Z') }}"
+certificate_year_2: "{{ lookup('pipe', 'date --date=2year +%Y%m%d000000Z') }}"

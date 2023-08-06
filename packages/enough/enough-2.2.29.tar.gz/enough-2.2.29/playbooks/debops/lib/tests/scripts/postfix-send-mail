@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Copyright (C) 2019 Maciej Delmanowski <drybjed@gmail.com>
+# Copyright (C) 2019 DebOps <https://debops.org/>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+set -o nounset -o pipefail -o errexit
+
+jane notify info "Sending test mail message to vagrant..."
+printf "Hello, world!\\n\\nThis is a test message from Jane.\\n" \
+    | mail -a "Content-Type: text/plain; charset=utf-8" \
+           -s "Test message" "vagrant@$(hostname -f)"
+
+# Let Postfix process the message in case the server is under load
+sleep 10
+
+jane notify info "Displaying vagrant mailbox..."
+cat /var/mail/vagrant

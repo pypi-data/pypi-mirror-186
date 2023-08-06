@@ -1,0 +1,43 @@
+---
+- name: apt-get install openvpn nftables
+  apt:
+    name: [openvpn, nftables]
+    state: present
+
+- name: net.ipv4.ip_forward=1
+  shell: |
+    set -ex
+    sed -i -e '/net.ipv4.ip_forward/s/.*/net.ipv4.ip_forward=1/' /etc/sysctl.conf
+    sysctl -p
+
+- name: nftables
+  copy:
+    src: nftables.conf
+    dest: /etc/nftables.conf
+
+- name: systemctl enable nftables
+  systemd:
+    name: nftables
+    enabled: yes
+
+- name: nft -f /etc/nftables.conf
+  shell:
+    nft -f /etc/nftables.conf
+  changed_when: False
+
+- name: copy VPN credentials
+  copy:
+    src: "{{ enough_domain_config_directory }}/{{ openvpnclient_name }}.tar.gz"
+    dest: "/etc/openvpn/client/{{ openvpnclient_name }}.tar.gz"
+
+- name: expand credentials
+  shell: |
+    tar zxvf {{ openvpnclient_name }}.tar.gz
+  args:
+    chdir: "/etc/openvpn/client"
+
+- name: systemctl enable openvpn-client@{{ openvpnclient_name }}
+  service:
+    name: "openvpn-client@{{ openvpnclient_name }}"
+    enabled: yes
+    state: started

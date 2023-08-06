@@ -1,0 +1,16 @@
+---
+
+- name: apt-get install useful git etckeeper
+  apt:
+    name: [ git, etckeeper ]
+    state: present
+
+- name: get git commit
+  shell: git log --oneline -n 1 | tr -d"'" || true
+  register: cmd
+  become: false
+  delegate_to: localhost
+
+- name: commit etc
+  shell: |
+    etckeeper commit -m 'Commit by playbook launched with rev "{{ cmd.stdout }}"' || true

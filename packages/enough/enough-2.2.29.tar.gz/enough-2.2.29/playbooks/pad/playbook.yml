@@ -1,0 +1,16 @@
+---
+- import_playbook: ../infrastructure/bullseye-playbook.yml
+- import_playbook: ../infrastructure/network-playbook.yml
+- import_playbook: ../firewall/firewall-playbook.yml
+- import_playbook: ../icinga/test-icinga-playbook.yml
+- import_playbook: ../bind/bind-playbook.yml
+- import_playbook: ../bind/bind-client-playbook.yml
+- import_playbook: ../icinga/icinga-playbook.yml
+#
+# the following is intended to test the when expression used
+# in ../../enough-playbook.yml
+# there no need for postfix in the pad
+#
+- import_playbook: ../postfix/postfix-playbook.yml
+  when: (groups['postfix-service-group'] | length) > 0
+- import_playbook: pad-playbook.yml

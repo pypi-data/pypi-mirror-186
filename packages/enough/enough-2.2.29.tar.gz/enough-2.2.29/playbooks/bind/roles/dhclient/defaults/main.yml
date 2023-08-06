@@ -1,0 +1,2 @@
+---
+bind_server_ip_for_clients: "{{ hostvars[groups['bind-service-group'][0]]['ansible_facts'][network_secondary_interface]['ipv4']['address'] }}"

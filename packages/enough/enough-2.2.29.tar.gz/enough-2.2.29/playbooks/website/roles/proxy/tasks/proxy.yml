@@ -1,0 +1,36 @@
+---
+- name: set CNAME
+  nsupdate:
+    server: "127.0.0.1"
+    zone: "{{ domain }}"
+    record: "{{ website_proxy_name }}.{{ domain }}."
+    ttl: 1800
+    type: CNAME
+    value: "{{ groups['proxy-service-group'][0] }}.{{ domain }}."
+  delegate_to: "{{ item }}"
+  loop: "{{groups['bind-service-group']}}"
+  when: website_proxy_name is defined
+
+- name: setup the reverse proxy
+  import_role:
+    name: enough-nginx
+  vars:
+    enough_nginx_proxy_pass: "{{ website_proxy_pass }}"
+    enough_nginx_fqdn: "{{ website_proxy_fqdn }}"
+
+- name: setup the certificate
+  import_role:
+    name: certificate
+  vars:
+    certificate_fqdn: "{{ website_proxy_fqdn }}"
+    certificate_installer: nginx
+
+- name: monitor the public website
+  import_role:
+    name: monitor_http_vhost
+  vars:
+    http_vhost_https: true
+    http_vhost_name: "Proxy {{ website_proxy_fqdn }}"
+    http_vhost_fqdn: "{{ website_proxy_fqdn }}"
+    http_vhost_uri: "/"
+    http_vhost_string: "{{ website_proxy_monitor_string }}"

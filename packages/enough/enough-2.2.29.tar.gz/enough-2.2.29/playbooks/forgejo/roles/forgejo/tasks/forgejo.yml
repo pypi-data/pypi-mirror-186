@@ -1,0 +1,60 @@
+---
+- name: apt-get install virtualenv python3-pip
+  apt:
+    name: [ virtualenv, python3-pip ]
+    state: present
+
+- name: pip install docker
+  pip:
+    name: docker
+
+- name: mkdir /srv/forgejo
+  file:
+    state: directory
+    path: /srv/forgejo
+    mode: 0755
+    owner: 1000
+    group: 1000
+  become: true
+
+- name: start forgejo
+  docker_container:
+    name: forgejo
+    image: "{{ forgejo_image }}:{{ forgejo_version }}"
+    restart_policy: always
+    ports:
+      - "22:22"
+      - "8080:3000"
+    volumes:
+      - /srv/forgejo:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/ssl/certs:/etc/ssl/certs:ro
+      - /usr/local/share/ca-certificates/infrastructure:/usr/local/share/ca-certificates/infrastructure:ro
+    env:
+      USER_UID: "1000"
+      USER_GID: "1000"
+      LFS_START_SERVER: "true"
+      GITEA__security__INSTALL_LOCK: "true"
+      GITEA__server__DOMAIN: "{{ forgejo_host }}"
+      GITEA__server__SSH_DOMAIN: "{{ forgejo_host }}"
+      GITEA__server__ROOT_URL: "https://{{ forgejo_host }}/"
+      GITEA__service__DEFAULT_KEEP_EMAIL_PRIVATE: "true"
+      GITEA__service__ENABLE_NOTIFY_MAIL: "true"
+      GITEA__service__REGISTER_EMAIL_CONFIRM: "true"
+      GITEA__mailer__ENABLED: "true"
+      GITEA__mailer__FROM: "{{ forgejo_mailer_from }}"
+      GITEA__mailer__MAILER_TYPE: "sendmail"
+      GITEA__mailer__SENDMAIL_PATH: "/usr/sbin/sendmail"
+      GITEA__mailer__SENDMAIL_ARGS: "-S {{ inventory_hostname }}.{{ domain }}:25 --"
+      GITEA__webhook__ALLOWED_HOST_LIST: "external,private,loopback"
+
+- name: cp setup-forgejo.sh /srv/setup-forgejo.sh
+  copy:
+    src: setup-forgejo.sh
+    dest: /srv/setup-forgejo.sh
+    mode: 0755
+
+- name: setup forgejo, create or update admin user
+  shell: |
+    /srv/setup-forgejo.sh "{{ forgejo_user }}" "{{ forgejo_password }}" "{{ forgejo_email }}"

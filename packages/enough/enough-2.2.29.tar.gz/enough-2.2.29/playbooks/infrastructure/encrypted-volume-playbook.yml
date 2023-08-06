@@ -1,0 +1,8 @@
+---
+- name: Ensure encrypted devices are formatted and ready
+  hosts: live
+  become: true
+
+  roles:
+
+    - role: encrypted_device

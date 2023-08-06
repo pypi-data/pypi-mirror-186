@@ -1,0 +1,11 @@
+zone "test" IN {
+    type forward;
+    forward only;
+    #
+    # Assumes
+    #
+    # 1) libvirt_network_external_prefix: 10.23.10
+    # 2) enough/common/libvirt.py assigns the fixed IP .2 to bind-host
+    #
+    forwarders { 10.23.10.2; };
+};

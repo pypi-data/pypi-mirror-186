@@ -1,0 +1,12 @@
+---
+#
+#############################################
+#
+# When true, the OpenStack security groups will be set to only allow
+# incoming data to reach the host if it is supposed to. For instance
+# the monitoring can only be reached by the hosts being monitored. But
+# the http(s) ports for publicly available websites can be reached
+# from anywhere.
+#
+firewall_enabled: "{% if infrastructure_driver == 'openstack' %}true{% else %}false{% endif %}"
+# firewall_enabled: "false"

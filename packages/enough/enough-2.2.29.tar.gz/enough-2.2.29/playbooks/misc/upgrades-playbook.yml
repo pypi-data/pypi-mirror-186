@@ -1,0 +1,28 @@
+---
+- name: install and configure unattended-upgrades
+  hosts: 'all'
+  become: true
+
+  tasks:
+
+    - name: apt-get install unattended-upgrades
+      apt:
+        name:
+          - unattended-upgrades
+        state: present
+
+    - name: Unattended-Upgrade::Automatic-Reboot "true";
+      shell: |
+        set -x
+        sed -i -e 's/.*Unattended-Upgrade::Automatic-Reboot .*/Unattended-Upgrade::Automatic-Reboot "true";/' \
+               -e 's/.*Unattended-Upgrade::Automatic-Reboot-Time .*/Unattended-Upgrade::Automatic-Reboot-Time "02:00";/' \
+                  /etc/apt/apt.conf.d/50unattended-upgrades
+
+    - name: Dpkg::Options { "--force-confdef"; "--force-confold"; }
+      copy:
+        content: |
+          Dpkg::Options { "--force-confdef"; "--force-confold"; }
+        dest: /etc/apt/apt.conf.d/99force-conf
+        owner: root
+        group: root
+        mode: '0644'

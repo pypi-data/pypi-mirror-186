@@ -1,0 +1,12 @@
+---
+- name: setup DNS client
+  hosts: bind-client-group:!external-host
+  become: true
+
+  roles:
+
+    - role: install_ssh_records
+      when: inventory_hostname not in groups['deleted-hosts']
+      vars:
+        install_ssh_records_host: "{{ ansible_hostname }}"
+        install_ssh_records_port: "{{ ansible_port }}"

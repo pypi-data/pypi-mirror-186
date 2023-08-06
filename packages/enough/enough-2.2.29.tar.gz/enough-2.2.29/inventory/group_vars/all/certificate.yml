@@ -1,0 +1,32 @@
+---
+#
+######################################################################
+#
+# When servers are deployed in production with public IPs,
+# they can have letsencrypt certificates.
+#
+# certificate_authority: letsencrypt
+#
+# When servers are deployed in production with private IPs,
+# a self signed certificate authority must be created.
+#
+# certificate_authority: "ownca"
+#
+# During development, certificates are renewed quickly and need
+# the fake staging letsencrypt certificates, when servers have public IPs.
+# When the infrastructure is not OpenStack but Docker, a self signed
+# certificate authority should be created and used instead because there
+# are no public IPs at all.
+#
+# certificate_authority: letsencrypt_staging
+#
+certificate_authority: "{% if infrastructure_driver == 'openstack' %}letsencrypt_staging{% else %}ownca{% endif %}"
+#
+######################################################################
+#
+# Only valid when certificate_authority: "ownca"
+#
+# The directory in which the certificates and the certificate authority
+# are stored on the ansible host.
+#
+certificate_local_directory: "{{ enough_domain_config_directory }}/certs"

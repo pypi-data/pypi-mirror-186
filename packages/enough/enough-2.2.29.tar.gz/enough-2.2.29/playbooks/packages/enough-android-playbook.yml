@@ -1,0 +1,7 @@
+---
+- name: enough android app package
+  hosts: packages-host
+  become: true
+
+  roles:
+    - role: enough-android

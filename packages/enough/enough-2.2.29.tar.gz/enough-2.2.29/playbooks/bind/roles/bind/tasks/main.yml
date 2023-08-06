@@ -1,0 +1,84 @@
+---
+- name: BIND Install
+  package:
+    pkg: [ python3-netaddr, bind9, bind9utils, dnsutils ]
+    state: present
+
+- name: Create serial, based on last two digits of year, month, day, and hour
+  command: date +%y%m%d%H
+  register: bind_timestamp
+  changed_when: false
+  run_once: true
+
+- name: BIND master config file allow recursion
+  copy:
+    content: |
+      allow-recursion {
+        127.0.0.0/8;
+        10.0.0.0/8;
+        172.0.0.0/8;
+        192.168.0.0/16;
+      };
+    dest: /etc/bind/named.conf.allow-recursion
+    force: no
+    owner: root
+    group: bind
+    mode: '0640'
+
+- name: BIND default configuration
+  copy:
+    src: default/bind9
+    dest: /etc/default/bind9
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart bind
+
+- name: mkdir /etc/bind/zones
+  file:
+    state: directory
+    path: /etc/bind/zones
+    owner: root
+    group: bind
+    mode: '0755'
+
+- name: BIND zone file in master
+  template:
+    src: master-zone.conf.j2
+    dest: "/etc/bind/zones/{{ bind_zone_name }}.conf"
+    force: yes
+    owner: root
+    group: bind
+    mode: '0640'
+  when: bind_zone is defined
+  notify: restart bind
+
+- name: BIND zone file
+  template:
+    src: zone.conf.j2
+    dest: "/var/cache/bind/{{ bind_zone_name }}"
+    force: no
+    owner: root
+    group: bind
+    mode: '0640'
+    validate: 'named-checkzone -d {{ bind_zone_name }} %s'
+  when: bind_zone is defined
+  notify: restart bind
+
+- name: BIND master config file
+  template:
+    src: named.conf.j2
+    dest: /etc/bind/named.conf
+    force: yes
+    owner: root
+    group: bind
+    mode: '0640'
+  when: bind_master is defined
+  notify: restart bind
+
+- name: Include the zone in the master
+  lineinfile:
+    path: /etc/bind/named.conf
+    line: 'include "/etc/bind/zones/{{ bind_zone_name }}.conf";'
+  when: bind_zone is defined
+  notify: restart bind

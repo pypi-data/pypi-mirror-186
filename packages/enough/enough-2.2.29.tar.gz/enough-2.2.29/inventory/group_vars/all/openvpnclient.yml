@@ -1,0 +1,13 @@
+---
+#
+#############################################
+#
+# Route provided by the VPN, to be installed on all hosts
+#
+openvpnclient_can_route: "{{ openstack_internal_network_cidr }}"
+#
+#############################################
+#
+# IP of the host running the VPN client
+#
+openvpnclient_ip: "{{ libvirt_network_external_prefix }}.2"

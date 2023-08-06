@@ -1,0 +1,46 @@
+---
+#
+######################################################
+#
+# Information included in the OpenVPN client certificate
+#
+# See templates/vars.j2
+#
+openvpn_country: FR
+openvpn_province: Paris
+openvpn_city: Paris
+openvpn_org: Enough
+openvpn_email: contact@enough.community
+openvpn_ou: Enough Community
+#
+######################################################
+#
+# Added in the OpenVPN server configuration
+#
+# See templates/server.conf.j2
+#
+openvpn_server_conf: |
+  push "route {{ openstack_internal_network_prefix }}.0 255.255.255.0"
+  route {{ libvirt_network_external_prefix }}.0 255.255.255.0
+  route {{ libvirt_network_hypervisor_prefix }}.0 255.255.255.0
+#
+######################################################
+#
+# Added to the --server option of the OpenVPN server
+#
+# See templates/server.conf.j2
+#
+openvpn_server_ip_range: 10.8.0.0 255.255.255.0
+#
+######################################################
+#
+# See templates/create-client.sh.j2
+#
+openvpn_public_ip: "{{ ansible_host }}"
+#
+######################################################
+#
+# DO NOT MODIFY VARIABLES BELOW THIS LINE
+#
+openvpn_local_directory: /tmp/enough-openvpn
+openvpn_overwrite_nftables_conf: yes

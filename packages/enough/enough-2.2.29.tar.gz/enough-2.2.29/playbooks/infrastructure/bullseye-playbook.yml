@@ -1,0 +1,20 @@
+---
+- name: Prepare Debian GNU/Linux host
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Set Debian GNU/Linux bullseye repositories
+      copy:
+        dest: /etc/apt/sources.list
+        content: |
+          deb http://deb.debian.org/debian/ bullseye main
+          deb http://deb.debian.org/debian/ buster main
+          deb http://security.debian.org/debian-security bullseye-security main
+          deb http://security.debian.org/debian-security buster/updates main
+          deb http://deb.debian.org/debian bullseye-backports main
+      when: '"debian" == ansible_user'
+
+    - name: Run the equivalent of "apt-get update"
+      shell: |
+        apt-get --allow-releaseinfo-change update

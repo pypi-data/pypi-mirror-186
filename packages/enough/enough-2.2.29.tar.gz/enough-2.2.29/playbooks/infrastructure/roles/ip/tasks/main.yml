@@ -1,0 +1,21 @@
+---
+- name: assign static IPs to the primary interface
+  copy:
+    content: |
+      auto {{ network_primary_interface }}:{{ item.id }}
+      iface {{ network_primary_interface }}:{{ item.id }} inet static
+          address {{ item.ip }}
+          netmask 255.255.255.255
+    dest: "/etc/network/interfaces.d/{{ network_primary_interface }}:{{ item.id }}.cfg"
+    mode: 0444
+    owner: root
+    group: root
+  with_items: "{{ static_ips }}"
+  register: assign_ip
+
+- name: bring interfaces up
+  shell: |
+    ifdown {{ network_primary_interface }}:{{ item.item.id }} || true
+    ifup {{ network_primary_interface }}:{{ item.item.id }}
+  when: item is changed
+  with_items: "{{ assign_ip.results }}"

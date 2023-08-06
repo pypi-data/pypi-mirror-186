@@ -1,0 +1,257 @@
+---
+essential-service-group:
+  hosts: {}
+
+essential-service-hosts:
+  children:
+    essential-service-group:
+    bind-service-group:
+    postfix-service-group:
+    icinga-service-group:
+
+hypervisor-service-group:
+  hosts: {}
+
+bind-service-group:
+  hosts: {}
+
+bind-service-hosts:
+  children:
+    essential-service-hosts:
+
+bind-client-group:
+  children:
+    live:
+
+postfix-service-group:
+  hosts: {}
+
+postfix-service-hosts:
+  children:
+    essential-service-hosts:
+
+postfix-client-group:
+  children:
+    live:
+
+icinga-service-group:
+  hosts: {}
+
+icinga-service-hosts:
+  children:
+    essential-service-hosts:
+
+icinga-client-group:
+  children:
+    live:
+
+icinga-not-client-group:
+  hosts: {}
+
+wazuh-service-group:
+  hosts: {}
+
+wazuh-service-hosts:
+  children:
+    essential-service-hosts:
+
+wazuh-client-group:
+  children:
+    live:
+
+cloud-service-group:
+  hosts:
+    cloud-host:
+
+cloud-service-hosts:
+  children:
+    cloud-service-group:
+    essential-service-hosts:
+
+gitlab-service-group:
+  hosts:
+    gitlab-host:
+
+gitlab-runner-service-group:
+  hosts:
+    runner-host:
+
+gitlab-service-hosts:
+  children:
+    gitlab-service-group:
+    gitlab-runner-service-group:
+    essential-service-group:
+
+weblate-service-group:
+  hosts: {}
+
+weblate-service-hosts:
+  children:
+    weblate-service-group:
+    postfix-service-group:
+    essential-service-group:
+
+packages-service-group:
+  hosts:
+    packages-host:
+
+packages-service-hosts:
+  children:
+    packages-service-group:
+    essential-service-group:
+
+chat-service-group:
+  hosts: {}
+
+chat-service-hosts:
+  children:
+    chat-service-group:
+    essential-service-group:
+
+forum-service-group:
+  hosts:
+    forum-host:
+
+forum-service-hosts:
+  children:
+    forum-service-group:
+    essential-service-group:
+
+website-service-group:
+  hosts: {}
+
+website-service-hosts:
+  children:
+    website-service-group:
+    essential-service-group:
+
+pages-service-group:
+  hosts: {}
+
+pages-service-hosts:
+  children:
+    pages-service-group:
+    essential-service-group:
+
+hosteadashboard-service-group:
+  hosts: {}
+
+hosteadashboard-service-hosts:
+  children:
+    hosteadashboard-service-group:
+    essential-service-group:
+
+proxy-service-group:
+  hosts: {}
+
+proxy-service-hosts:
+  children:
+    proxy-service-group:
+    essential-service-group:
+
+api-service-group:
+  hosts: {}
+
+api-service-hosts:
+  children:
+    api-service-group:
+    gitlab-service-hosts:
+    essential-service-group:
+
+wekan-service-group:
+  hosts: {}
+
+wekan-service-hosts:
+  children:
+    wekan-service-group:
+    essential-service-group:
+
+psono-service-group:
+  hosts: {}
+
+psono-service-hosts:
+  children:
+    psono-service-group:
+    essential-service-group:
+
+forgejo-service-group:
+  hosts: {}
+
+forgejo-service-hosts:
+  children:
+    forgejo-service-group:
+    essential-service-group:
+
+hostea-service-group:
+  hosts: {}
+
+hostea-service-hosts:
+  children:
+    hostea-service-group:
+    essential-service-group:
+
+openedx-service-group:
+  hosts:
+    openedx-host:
+
+openedx-service-hosts:
+  children:
+    openedx-service-group:
+    essential-service-group:
+
+pad-service-group:
+  hosts: {}
+
+pad-service-hosts:
+  children:
+    pad-service-group:
+    essential-service-group:
+
+openvpnclient-service-group:
+  hosts: {}
+
+openvpnclient-service-hosts:
+  children:
+    openvpnclient-service-group:
+    essential-service-group:
+
+openvpn-service-group:
+  hosts: {}
+
+openvpn-service-hosts:
+  children:
+    openvpn-service-group:
+    essential-service-group:
+
+backup-service-group:
+  hosts: {}
+
+backup-service-hosts:
+  children:
+    backup-service-group:
+    essential-service-group:
+
+securedrop-service-group:
+  hosts: {}
+
+securedrop-service-hosts:
+  children:
+    securedrop-service-group:
+    essential-service-group:
+
+jitsi-service-group:
+  hosts:
+    jitsi-host:
+
+jitsi-service-hosts:
+  children:
+    jitsi-service-group:
+    essential-service-group:
+
+wordpress-service-group:
+  hosts: {}
+
+wordpress-service-hosts:
+  children:
+    wordpress-service-group:
+    essential-service-group:

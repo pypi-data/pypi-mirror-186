@@ -1,0 +1,8 @@
+HiddenServiceDir /var/lib/tor/services/source
+HiddenServiceVersion 2
+HiddenServicePort 80 127.0.0.1:8180
+
+HiddenServiceDir /var/lib/tor/services/journalist
+HiddenServiceVersion 2
+HiddenServicePort 80 127.0.0.1:8181
+HiddenServiceAuthorizeClient stealth journalist

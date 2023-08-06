@@ -1,0 +1,8 @@
+---
+- name: imported by playbook-ok.yml
+  hosts: localhost
+  become: false
+
+  tasks:
+    - debug:
+        msg: OK_IMPORTED
