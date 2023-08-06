@@ -1,0 +1,17 @@
+[tool.black]
+line-length = 84
+exclude = '''
+(
+  ^/(
+    | .git
+    | .github
+    | .idea
+    | .pytest_cache
+    | .venv
+    | resources
+    | trapper.egg-info
+    | venv
+    | __pycache__
+  )/
+)
+'''
