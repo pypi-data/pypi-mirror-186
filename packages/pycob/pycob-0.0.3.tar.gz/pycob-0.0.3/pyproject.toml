@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pycob"
+version = "0.0.3"
+authors = [
+  { name="Zain Hoda", email="zain@pycob.com" },
+]
+description = "Build web apps using just Python"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+keywords = ["pycob", "web", "framework", "python", "crud"]
+dependencies = [
+    "flask", "sqlalchemy"
+]
+
+[project.urls]
+"Homepage" = "https://pycob.com/"
+"Bug Tracker" = "https://github.com/pycob/pycob/issues"
