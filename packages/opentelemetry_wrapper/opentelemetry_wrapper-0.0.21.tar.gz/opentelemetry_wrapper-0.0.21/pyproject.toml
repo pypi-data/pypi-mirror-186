@@ -1,0 +1,33 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "opentelemetry_wrapper"
+authors = [{ name = "Avery Khoo", email = "averykhoo@gmail.com" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+classifiers = ["License :: OSI Approved :: Apache Software License"]
+dynamic = ["version", "description"]
+requires-python = ">3.8.0"
+
+# NOTE: also update requirements.txt
+dependencies = [
+    "asgiref",
+    "fastapi",
+    "itsdangerous",
+    "opentelemetry-api",
+    "opentelemetry-exporter-otlp",
+    "opentelemetry-instrumentation-fastapi",
+    "opentelemetry-instrumentation-logging",
+    "opentelemetry-instrumentation-requests",
+    "opentelemetry-instrumentation-sqlalchemy",
+    "opentelemetry-sdk",
+    "requests",
+    "sqlalchemy",
+    "starlette",
+    "uvicorn",
+]
+
+[project.urls]
+Home = "https://github.com/averykhoo/opentelemetry_wrapper"
