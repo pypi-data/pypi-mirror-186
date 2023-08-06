@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "cenfind"
+version = "0.10.1"
+description = "Score cells for centrioles in IF data"
+authors = ["Leo Burgy <leo.burgy@epfl.ch>"]
+repository = "https://github.com/UPGON/cenfind"
+readme = "README.md"
+keywords = ["microscopy", "scientific", "biology", "image-analysis"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.10"
+opencv-python = "^4.5.5.62"
+numpy = ">=1.21.2, <1.22"
+tifffile = "^2022.5.4"
+tqdm = "^4.62.3"
+xarray = "^0.21.1"
+pytomlpp = "^1.0.10"
+imageio = "^2.16.0"
+scikit-image = "^0.19.2"
+pandas = "^1.4.1"
+scipy = "^1.7.1"
+csbdeep = "^0.6.3"
+stardist = "^0.8.3"
+scikit-learn = "^1.1.3"
+tensorflow = "^2.9.0"
+spotipy-detector = "^0.1.0"
+
+[tool.poetry.scripts]
+cenfind = "cenfind.cli.main:main"
+evaluate = "cenfind.cli.evaluate:main"
+vignettes = "cenfind.labelbox.vignettes:main"
+upload = "cenfind.labelbox.upload_labels:main"
+
+[tool.poetry.dev-dependencies]
+albumentations = "^1.3.0"
+pytest = "^7.2.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "setuptools>=45", "setuptools_scm[toml]>=6.2"]
+build-backend = "poetry.core.masonry.api"
