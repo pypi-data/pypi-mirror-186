@@ -1,0 +1,58 @@
+Metadata-Version: 2.1
+Name: datahtml
+Version: 0.2.0
+Summary: A lib to work with html and web data
+Project-URL: Documentation, https://github.com/algorinfo/datahtml#readme
+Project-URL: Issues, https://github.com/algorinfo/datahtml/issues
+Project-URL: Source, https://github.com/algorinfo/datahtml
+Author-email: Xavier Petit <nuxion@gmail.com>
+License-File: LICENSE
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.7
+Requires-Dist: beautifulsoup4~=4.10.0
+Requires-Dist: extruct~=0.13.0
+Requires-Dist: feedparser~=6.0.8
+Requires-Dist: httpx~=0.23.0
+Requires-Dist: lxml~=4.6.3
+Requires-Dist: newspaper3k~=0.2.8
+Requires-Dist: ujson~=4.2.0
+Description-Content-Type: text/markdown
+
+# datahtml
+
+[![PyPI - Version](https://img.shields.io/pypi/v/datahtml.svg)](https://pypi.org/project/datahtml)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/datahtml.svg)](https://pypi.org/project/datahtml)
+
+**datahtml** is a library for crawling and extraction of data from html and xml content. 
+
+Datahtml lets you:
+
+* Extract ld+json data from html
+* Extract frequently used meta tags from html (those that are used for SEO and social media, between others)
+* Extract Article data from a html, usually from Newspaper sites
+* Parse RSS feeds from sites
+* Crawl some specific social media sites like google and youtube
+
+Under the hood datahtml uses libraries like BeautifoulSoup, Newspaper2k, feedparser between others, but
+datahtml takes an opinionated approach for crawling based on our expriencies doing so. 
+
+
+
+## Quickstart
+
+```console
+pip install datahtml
+```
+
+
+## License
+
+`datahtml` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
