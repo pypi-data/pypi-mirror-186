@@ -1,0 +1,220 @@
+Metadata-Version: 2.1
+Name: Weblate
+Version: 4.15.1
+Summary: A web-based continuous localization system with tight version control integration
+Home-page: https://weblate.org/
+Download-URL: https://weblate.org/download/
+Author: Michal Čihař
+Author-email: michal@weblate.org
+License: GPLv3+
+Project-URL: Issue Tracker, https://github.com/WeblateOrg/weblate/issues
+Project-URL: Documentation, https://docs.weblate.org/
+Project-URL: Source Code, https://github.com/WeblateOrg/weblate
+Project-URL: Twitter, https://twitter.com/WeblateOrg
+Project-URL: Release Notes, https://docs.weblate.org/en/latest/changes.html
+Project-URL: Funding, https://weblate.org/donate/
+Keywords: i18n l10n gettext git mercurial translate
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Internationalization
+Classifier: Topic :: Software Development :: Localization
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Requires-Python: >=3.7
+Description-Content-Type: text/x-rst
+License-File: COPYING
+Requires-Dist: bleach (<6.0,>=3.1.1)
+Requires-Dist: borgbackup (!=1.2.0,<1.3,>=1.1.11)
+Requires-Dist: celery[redis] (<5.3,>=5.0.3)
+Requires-Dist: charset-normalizer (<4.0,>=2.0.12)
+Requires-Dist: cssselect (<1.3,>=1.2)
+Requires-Dist: Cython (<0.30,>=0.29.14)
+Requires-Dist: diff-match-patch (==20200713)
+Requires-Dist: django-appconf (<1.1,>=1.0.3)
+Requires-Dist: django-compressor (<5,>=2.4)
+Requires-Dist: django-crispy-forms (<1.15,>=1.9.0)
+Requires-Dist: django-filter (<23.0,>=2.4.0)
+Requires-Dist: django-redis (<6.0,>=4.11.0)
+Requires-Dist: Django[argon2] (<4.2,>=3.2)
+Requires-Dist: djangorestframework (<3.15,>=3.11.0)
+Requires-Dist: filelock (<3.10,>=3.7)
+Requires-Dist: GitPython (<3.2,>=2.1.15)
+Requires-Dist: hiredis (<2.2,>=1.0.1)
+Requires-Dist: html2text (<2020.1.17,>=2019.8.11)
+Requires-Dist: jsonschema (<5,>=4.5)
+Requires-Dist: lxml (<4.10,>=4.9.1)
+Requires-Dist: misaka (<2.2,>=2.1.0)
+Requires-Dist: openpyxl (!=3.0.2,<3.1,>=2.6.0)
+Requires-Dist: packaging (<23.1,>=22)
+Requires-Dist: Pillow (<10.0,>=9.0.0)
+Requires-Dist: pyahocorasick (<2.1,>=1.4)
+Requires-Dist: pycairo (>=1.15.3)
+Requires-Dist: Pygments (<3.0,>=2.6.0)
+Requires-Dist: pygobject (>=3.34.0)
+Requires-Dist: pyicumessageformat (<1.1,>=1.0.0)
+Requires-Dist: pyparsing (<3.1,>=3.0.7)
+Requires-Dist: python-dateutil (>=2.8.1)
+Requires-Dist: python-redis-lock (<4.1,>=4)
+Requires-Dist: rapidfuzz (<3.0,>=2.6.0)
+Requires-Dist: requests (<2.29,>=2.26.0)
+Requires-Dist: sentry-sdk (<2,>=1.6)
+Requires-Dist: siphashc (<3.0,>=1.2)
+Requires-Dist: social-auth-app-django (==5.0.0)
+Requires-Dist: social-auth-core (==4.3.0)
+Requires-Dist: translate-toolkit (<3.9,>=3.8.3)
+Requires-Dist: translation-finder (<3.0,>=2.15)
+Requires-Dist: user-agents (<2.3,>=2.0)
+Requires-Dist: weblate-language-data (>=2022.7)
+Requires-Dist: weblate-schemas (==2022.1)
+Requires-Dist: importlib-metadata (<5,>=4.12) ; python_version < "3.8"
+Provides-Extra: amazon
+Requires-Dist: boto3 (<1.27.0,>=1.19.0) ; extra == 'amazon'
+Provides-Extra: antispam
+Requires-Dist: python-akismet (<0.5,>=0.4.2) ; extra == 'antispam'
+Provides-Extra: fluent
+Requires-Dist: fluent.syntax (<0.19,>=0.18.1) ; extra == 'fluent'
+Provides-Extra: gerrit
+Requires-Dist: git-review (>=1.27.0) ; extra == 'gerrit'
+Provides-Extra: google
+Requires-Dist: google-cloud-translate (<3.11.0,>=3.0.0) ; extra == 'google'
+Provides-Extra: ini
+Requires-Dist: iniparse (==0.5) ; extra == 'ini'
+Provides-Extra: ldap
+Requires-Dist: django-auth-ldap (<4.2.0,>=1.3.0) ; extra == 'ldap'
+Provides-Extra: msterminology
+Requires-Dist: zeep (<4.3.0,>=3.2.0) ; extra == 'msterminology'
+Provides-Extra: mercurial
+Requires-Dist: Mercurial (>=5.2) ; extra == 'mercurial'
+Provides-Extra: mysql
+Requires-Dist: mysqlclient (>=2.0.1) ; extra == 'mysql'
+Provides-Extra: ocr
+Requires-Dist: tesserocr (>=2.3.0) ; extra == 'ocr'
+Provides-Extra: openidconnect
+Requires-Dist: social-auth-core[openidconnect] (==4.3.0) ; extra == 'openidconnect'
+Provides-Extra: php
+Requires-Dist: phply (<1.3,>=1.2.6) ; extra == 'php'
+Provides-Extra: postgres
+Requires-Dist: psycopg2-binary (<2.10.0,>=2.8.0) ; extra == 'postgres'
+Provides-Extra: saml
+Requires-Dist: python3-saml (>=1.2.1) ; extra == 'saml'
+Provides-Extra: subtitles
+Requires-Dist: aeidon (<1.12.0,>=1.9.0) ; extra == 'subtitles'
+Provides-Extra: yaml
+Requires-Dist: ruamel.yaml (<0.18.0,>=0.16.0) ; extra == 'yaml'
+Provides-Extra: all
+Requires-Dist: aeidon (<1.12.0,>=1.9.0) ; extra == 'all'
+Requires-Dist: boto3 (<1.27.0,>=1.19.0) ; extra == 'all'
+Requires-Dist: django-auth-ldap (<4.2.0,>=1.3.0) ; extra == 'all'
+Requires-Dist: fluent.syntax (<0.19,>=0.18.1) ; extra == 'all'
+Requires-Dist: git-review (>=1.27.0) ; extra == 'all'
+Requires-Dist: google-cloud-translate (<3.11.0,>=3.0.0) ; extra == 'all'
+Requires-Dist: iniparse (==0.5) ; extra == 'all'
+Requires-Dist: Mercurial (>=5.2) ; extra == 'all'
+Requires-Dist: phply (<1.3,>=1.2.6) ; extra == 'all'
+Requires-Dist: psycopg2-binary (<2.10.0,>=2.8.0) ; extra == 'all'
+Requires-Dist: python-akismet (<0.5,>=0.4.2) ; extra == 'all'
+Requires-Dist: python3-saml (>=1.2.1) ; extra == 'all'
+Requires-Dist: ruamel.yaml (<0.18.0,>=0.16.0) ; extra == 'all'
+Requires-Dist: social-auth-core[openidconnect] (==4.3.0) ; extra == 'all'
+Requires-Dist: tesserocr (>=2.3.0) ; extra == 'all'
+Requires-Dist: zeep (<4.3.0,>=3.2.0) ; extra == 'all'
+Provides-Extra: zxcvbn
+Requires-Dist: django-zxcvbn-password (==2.1.1) ; extra == 'zxcvbn'
+
+.. image:: https://s.weblate.org/cdn/Logo-Darktext-borders.png
+   :alt: Weblate
+   :target: https://weblate.org/
+   :height: 80px
+
+**Weblate is a copylefted libre software web-based continuous localization system,
+used by over 2500 libre projects and companies in more than 165 countries.**
+
+Install it, or use the Hosted Weblate service at `weblate.org`_.
+
+.. image:: https://img.shields.io/badge/website-weblate.org-blue.svg
+    :alt: Website
+    :target: https://weblate.org/
+
+.. image:: https://hosted.weblate.org/widgets/weblate/-/svg-badge.svg
+    :alt: Translation status
+    :target: https://hosted.weblate.org/engage/weblate/
+
+.. image:: https://bestpractices.coreinfrastructure.org/projects/552/badge
+    :alt: CII Best Practices
+    :target: https://bestpractices.coreinfrastructure.org/projects/552
+
+.. image:: https://api.reuse.software/badge/github.com/WeblateOrg/weblate
+    :alt: REUSE status
+    :target: https://api.reuse.software/info/github.com/WeblateOrg/weblate
+
+.. image:: https://img.shields.io/pypi/v/weblate.svg
+    :target: https://pypi.org/project/Weblate/
+
+.. image:: https://readthedocs.org/projects/weblate/badge/
+    :target: https://docs.weblate.org/
+
+.. image:: https://img.shields.io/github/license/WeblateOrg/weblate.svg
+    :alt: License
+    :target: https://github.com/WeblateOrg/weblate/blob/main/COPYING
+
+Support
+-------
+
+Weblate is a libre software with optional professional support and cloud
+hosting offerings. Check out https://weblate.org/hosting/ for more information.
+
+Documentation
+-------------
+
+To be found in the ``docs`` directory of the source code, or
+viewed online on https://docs.weblate.org/
+
+Installation
+------------
+
+Setup instructions:
+
+https://docs.weblate.org/en/latest/admin/install.html
+
+Bugs
+----
+
+Please report feature requests and problems to:
+
+https://github.com/WeblateOrg/weblate/issues
+
+
+Live chat
+---------
+
+Live chat about Weblate is available at `Libera.Chat <https://libera.chat/>`_ IRC network. The channel name is ``#weblate``. This can be accessed by, for example, https://web.libera.chat/#weblate or an IRC client installed on your computer.
+
+License
+-------
+
+Copyright © Michal Čihař michal@weblate.org
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the `GNU General Public License`_ for more details.
+
+.. _weblate.org: https://weblate.org/
+.. _GNU General Public License: https://www.gnu.org/licenses/gpl-3.0.html
