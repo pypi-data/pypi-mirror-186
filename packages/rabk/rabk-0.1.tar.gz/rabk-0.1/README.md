@@ -1,0 +1,5 @@
+The rabk  package allows you to easily generate bills using templates. With rabk , you can use different templates, and fill the context variables to generate the bill. The package also provides a GUI that makes it easy for the user to enter the details of the bill, it uses the tkinter library to create the GUI. Additionally, the package uses Jinja2 template engine to generate the bill, it will raise an error if the passed context variables are not enough to generate the bill. This package is useful for anyone who needs to generate bills quickly and easily, it can be used for invoicing, receipts, or any other type of bill.
+
+You can use this package in your script with minimal setup, it is easy to use, and it saves a lot of time compared to manually creating the bill.
+
+rabk  is compatible with python 3.6 or higher and it's available on PyPI, so you can easily install it using pip.
