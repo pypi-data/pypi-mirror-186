@@ -1,0 +1,79 @@
+[tool.poetry]
+name = "dnspython"
+version = "2.3.0"
+description = "DNS toolkit"
+authors = ["Bob Halley <halley@dnspython.org>"]
+license = "ISC"
+packages = [
+    {include = "dns"}
+]
+include = [
+    { path="LICENSE", format="sdist" },
+    { path="README.md", format="sdist" },
+    { path="examples/*.txt", format="sdist" },
+    { path="examples/*.py", format="sdist" },
+    { path="tests/*.txt", format="sdist" },
+    { path="tests/*.py", format="sdist" },
+    { path="tests/*.good", format="sdist" },
+    { path="tests/example", format="sdist" },
+    { path="tests/query", format="sdist" },
+    { path="tests/*.pickle", format="sdist" },
+    { path="tests/*.text", format="sdist" },
+    { path="tests/*.generic", format="sdist" },
+    { path="tests/tls/*.crt", format="sdist" },
+    { path="tests/tls/*.pem", format="sdist" },
+    { path="util/**", format="sdist" },
+    { path="setup.cfg", format="sdist" },
+]
+exclude = [
+    "**/.DS_Store",
+    "**/__pycache__/**",
+]
+readme = "README.md"
+homepage = "https://www.dnspython.org"
+repository = "https://github.com/rthalley/dnspython.git"
+documentation = "https://dnspython.readthedocs.io/en/stable/"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/rthalley/dnspython/issues"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+httpx = {version=">=0.21.1", optional=true, python=">=3.6.2"}
+h2 = {version=">=4.1.0", optional=true, python=">=3.6.2"}
+requests-toolbelt = {version=">=0.9.1,<0.11.0", optional=true}
+requests = {version="^2.23.0", optional=true}
+idna = {version=">=2.1,<4.0", optional=true}
+cryptography = {version=">=2.6,<40.0", optional=true}
+trio = {version=">=0.14,<0.23", optional=true}
+curio = {version="^1.2", optional=true}
+sniffio = {version="^1.1", optional=true}
+wmi = {version="^1.5.1", optional=true}
+aioquic = {version=">=0.9.20", optional=true}
+
+[tool.poetry.dev-dependencies]
+pytest = ">=5.4.1,<8"
+pytest-cov = "^4.0.0"
+flake8 = "^5.0.3"
+sphinx = "^4.0.0"
+coverage = "^7.0"
+twine = "^4.0.0"
+wheel = "^0.38.1"
+pylint = "^2.7.4"
+mypy = ">=0.940"
+black = "^22.1.0"
+
+[tool.poetry.extras]
+doh = ['httpx', 'h2', 'requests', 'requests-toolbelt']
+idna = ['idna']
+dnssec = ['cryptography']
+trio = ['trio']
+curio = ['curio', 'sniffio']
+wmi = ['wmi']
+doq = ['aioquic']
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.setuptools_scm]
