@@ -1,0 +1,33 @@
+[build-system]
+requires = [ "setuptools>=61.0", "wheel",]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyhlo"
+version = "v1.0.0"
+description = "A Hello Program."
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [ "requests",]
+keywords = [ "python", "hello",]
+classifiers = [ "Programming Language :: Python :: 3", "Development Status :: 1 - Planning", "Intended Audience :: Developers", "License :: OSI Approved :: MIT License", "Operating System :: Unix", "Operating System :: MacOS :: MacOS X", "Operating System :: Microsoft :: Windows",]
+[[project.authors]]
+name = "Pankaj Jackson"
+email = "pankajackson@live.co.uk"
+
+[[project.maintainers]]
+name = "Pankaj Jackson"
+email = "pankajackson@live.co.uk"
+
+[project.license]
+file = "LICENSE"
+
+[project.scripts]
+pyhlo = "pyhlo.hello:main"
+rhlo = "pyhlo.hello:reply_hello"
+
+[project.urls]
+Homepage = "https://github.com/pankajackson/pyhlo"
+"Bug Tracker" = "https://github.com/pankajackson/pyhlo/issues"
+"Say Thanks!" = "https://www.evega.co.in"
+Source = "https://github.com/pankajackson/pyhlo"
