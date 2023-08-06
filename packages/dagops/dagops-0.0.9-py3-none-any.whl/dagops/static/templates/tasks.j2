@@ -1,0 +1,7 @@
+{% extends 'base.j2' %}
+{% block title %}tasks{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="/static/css/table.css"/>{% endblock %}
+{% block content %}
+<h1>tasks</h1>
+{% include 'tasks_table.j2' %}
+{% endblock %}
