@@ -1,0 +1,109 @@
+<p align="left">
+<img src="docs/images/eossr_logo.png" width="400px" >
+</p>
+
+
+# The ESCAPE OSSR library
+
+The eOSSR Python library gathers all the developments made for the OSSR. In particular, it includes:
+- an API to programmatically access the OSSR, retrieve records and publish content
+- functions to map and crosswalk metadata between the CodeMeta schema adopted for the OSSR and Zenodo internal schema
+- functions to help developers automatically contribute to the OSSR, in particular using their continuous integration (see also code snippets)
+
+
+Code: [https://gitlab.in2p3.fr/escape2020/wp3/eossr](https://gitlab.in2p3.fr/escape2020/wp3/eossr)
+Documentation: [https://escape2020.pages.in2p3.fr/wp3/eossr/](https://escape2020.pages.in2p3.fr/wp3/eossr/)
+
+
+
+[![](https://gitlab.in2p3.fr/escape2020/wp3/eossr/badges/master/pipeline.svg)](
+https://gitlab.in2p3.fr/escape2020/wp3/eossr/-/commits/master)
+[![](https://gitlab.in2p3.fr/escape2020/wp3/eossr/badges/master/coverage.svg)](
+https://gitlab.in2p3.fr/escape2020/wp3/eossr/-/commits/master)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5712/badge)](https://bestpractices.coreinfrastructure.org/projects/5712)
+[![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![](https://zenodo.org/badge/DOI/10.5281/zenodo.5524912.svg)](https://doi.org/10.5281/zenodo.5524912)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgitlab.in2p3.fr%2Fescape2020%2Fwp3%2Feossr/HEAD?labpath=examples%2Fnotebooks%2Fossr_api-Explore_the_OSSR.ipynb)
+
+
+## Former stable versions
+
+- v0.6: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6475946.svg)](https://doi.org/10.5281/zenodo.6475946)
+- v0.5: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6352039.svg)](https://doi.org/10.5281/zenodo.6352039)
+- v0.4: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6326454.svg)](https://doi.org/10.5281/zenodo.6326454)
+- v0.3.3: [![](https://zenodo.org/badge/DOI/10.5281/zenodo.5592584.svg)](https://doi.org/10.5281/zenodo.5592584)
+- v0.2 : [![](https://zenodo.org/badge/DOI/10.5281/zenodo.5524913.svg)](https://doi.org/10.5281/zenodo.5524913)
+
+
+## Install
+
+Commands to be run in your terminal.
+
+### For users
+```
+cd eossr
+pip install .
+```
+
+You can also run it with docker:
+```
+docker run -it gitlab-registry.in2p3.fr/escape2020/wp3/eossr:latest
+```
+
+[Visit our registry](https://gitlab.in2p3.fr/escape2020/wp3/eossr/container_registry) to see the available docker containers.
+
+Note that `latest` tag always point to the latest stable released container.
+
+
+### For developers
+
+```
+git clone https://gitlab.in2p3.fr/escape2020/wp3/eossr.git
+cd eossr
+pip install -e .
+```
+
+#### Running tests
+To run tests locally, run:
+```
+pip install -e ".[tests]"
+
+pytest eossr
+```
+
+Some tests will be skiped if `SANDBOX_ZENODO_TOKEN` is not defined in your environment variables.
+If you want to run these tests, you will need to create a [sandbox zenodo token](https://sandbox.zenodo.org/account/settings/applications/tokens/new/) and add it to your env:
+```
+export SANDBOX_ZENODO_TOKEN="your_sandbox_token"
+```
+
+## Online CodeMeta validator for the OSSR
+
+The eOSSR powers an online validator for your CodeMeta metadata and to convert it to Zenodo metadata.
+
+[Just follow this link (running on mybinder)](https://mybinder.org/v2/git/https%3A%2F%2Fgitlab.in2p3.fr%2Fescape2020%2Fwp3%2Feossr/HEAD?urlpath=voila%2Frender%2Fdocs%2Fmetadata%2Fvalidate_codemeta.ipynb)
+
+## License
+
+See [LICENSE](LICENSE)
+
+## Cite
+
+To cite this library, please cite our ADASS proceedings:
+
+```
+@misc{https://doi.org/10.48550/arxiv.2212.00499,
+  doi = {10.48550/ARXIV.2212.00499},
+  url = {https://arxiv.org/abs/2212.00499},
+  author = {Vuillaume, Thomas and Garcia, Enrique and Tacke, Christian and Gal, Tamas},
+  keywords = {Instrumentation and Methods for Astrophysics (astro-ph.IM), FOS: Physical sciences, FOS: Physical sciences},
+  title = {The eOSSR library},
+  publisher = {arXiv},
+  year = {2022},
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+```
+
+If you used the library in a workflow, please cite the version used as well, using the cite section in [the Zenodo page](https://zenodo.org/record/5592584#.YiALJRPMI-Q) (right column, below the `Versions` section).
+
+
