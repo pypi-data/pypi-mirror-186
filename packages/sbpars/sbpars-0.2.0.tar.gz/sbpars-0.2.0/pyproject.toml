@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "sbpars"
+version = "0.2.0"
+description = ""
+authors = ["qmka <eidolonzx@gmail.com>"]
+readme = "README.md"
+packages = [{include = "sbpars"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+bs4 = "^0.0.1"
+flake8 = "^6.0.0"
+pandas = "^1.5.2"
+openpyxl = "^3.0.10"
+
+[tool.poetry.scripts]
+sbpars = "sbpars.scripts.sbpars:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
