@@ -1,0 +1,28 @@
+{% extends "zenblog/_base.html" %}
+{% load static %}
+{% load zenblog_tags %}
+
+{% block content %}
+  {% show_hero_slider %}
+  {% show_post_grid %}
+  {% for category_int, name in category %}
+  <!-- ======= Category Section ======= -->
+    <section class="category-section">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header d-flex justify-content-between align-items-center mb-5">
+          <h2>{{ name }}</h2>
+          <div><a href="{% url 'zenblog:category' category_int %}" class="more">See All {{ name }}</a></div>
+        </div>
+        <!-- 카테고리를 보여주는 패턴을 골고루 보여주기 위함 -->
+        {% if category_int == 0 or category_int == 3 %}
+        {% show_category_pattern0 category_int %}
+        {% elif category_int == 1 or category_int == 4 %}
+        {% show_category_pattern1 category_int %}
+        {% elif category_int == 2 or category_int == 5 %}
+        {% show_category_pattern2 category_int %}
+        {% endif %}
+      </div>
+    </section><!-- End Culture Category Section -->
+  {% endfor %}
+{% endblock %}
+

@@ -1,0 +1,77 @@
+{% load static %}
+{% load zenblog_tags %}
+<div class="footer-content">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <h3 class="footer-heading">About {{ blog_name }}</h3>
+        <p>{{ footer_about }}</p>
+        {% if 'about' in menu %}
+          <p><a href="{% url 'zenblog:about' %}" class="footer-link-more">Learn More</a></p>
+        {% endif %}
+      </div>
+      <div class="col-6 col-lg-2">
+        <h3 class="footer-heading">Navigation</h3>
+        <ul class="footer-links list-unstyled">
+          {% if 'about' in menu %}
+          <li><a href="{% url 'zenblog:about' %}"><i class="bi bi-chevron-right"></i> About me</a></li>
+          {% endif %}
+          <li><a href="{% url 'zenblog:home' %}"><i class="bi bi-chevron-right"></i> Blog</a></li>
+          <li><a href="{% url 'zenblog:post_detail' latest_one.slug %}"><i class="bi bi-chevron-right"></i> Single Post</a></li>
+          {% if 'contact' in menu %}
+          <li><a href="{% url 'zenblog:contact' %}"><i class="bi bi-chevron-right"></i> Contact</a></li>
+          {% endif %}
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h3 class="footer-heading">Categories</h3>
+        <ul class="footer-links list-unstyled">
+          {% for category_int, name in category %}
+          <li><a href="{% url 'zenblog:category' category_int %}"><i class="bi bi-chevron-right"></i> {{ name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="col-lg-4">
+        <h3 class="footer-heading">Recent Posts</h3>
+
+        <ul class="footer-links footer-blog-entry list-unstyled">
+          {% for item in latest %}
+          <li>
+            <a href="{% url 'zenblog:post_detail' item.slug  %}" class="d-flex align-items-center">
+              <img src="{{ item.thumbnail.url }}" alt="" class="img-fluid me-3">
+              <div>
+                <div class="post-meta d-block"><span class="date">{{ item | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ item.updated_on | date:"M jS 'y"}}</span></div>
+                <span>{{ item.title }}</span>
+              </div>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-legal">
+  <div class="container">
+
+    <div class="row justify-content-between">
+      <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+        <div class="copyright">
+          © Copyright <strong><span>Demiansoft</span></strong>. All Rights Reserved
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="social-links mb-3 mb-lg-0 text-center text-md-end">
+          <a href="{{ clinic_link }}" target="_blank"><i class="bi-house-fill"></i></a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

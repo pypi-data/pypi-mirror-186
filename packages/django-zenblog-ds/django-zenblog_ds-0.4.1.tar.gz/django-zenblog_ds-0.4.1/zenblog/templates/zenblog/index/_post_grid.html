@@ -1,0 +1,69 @@
+{% load zenblog_tags %}
+
+<!-- ======= Post Grid Section ======= -->
+<section id="posts" class="posts">
+  <div class="container" data-aos="fade-up">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <div class="post-entry-1 lg">
+          <a href="{% url 'zenblog:post_detail' latest_one.slug  %}"><img src="{{ latest_one.thumbnail.url }}" alt="" class="img-fluid"></a>
+          <div class="post-meta"><span class="date">{{ latest_one | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ latest_one.updated_on | date:"M jS 'y"}}</span></div>
+          <h2><a href="{% url 'zenblog:post_detail' latest_one.slug  %}">{{ latest_one.title }}</a></h2>
+          {% autoescape on %}
+          <p class="mb-4 d-block">{{ latest_one.content |remove_html_tags | truncatechars:500 }}</p>
+          {% endautoescape %}
+
+          <div class="d-flex align-items-center author">
+            <div class="photo"><img src="{{ latest_one.author.profile.image.url }}" alt="" class="img-fluid"></div>
+            <div class="name">
+              <h3 class="m-0 p-0">{{ latest_one.author.last_name}} {{latest_one.author.first_name }}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="row g-5">
+          <!-- 매 3번째 포스트별로 나눠주는 코드 -->
+          {% for post in the_others %}
+            {% if forloop.first %}
+            <div class="col-lg-4 border-start custom-border">
+            {% endif %}
+              <div class="post-entry-1">
+                <a href="{% url 'zenblog:post_detail' post.slug  %}"><img src="{{ post.thumbnail.url }}" alt="" class="img-fluid"></a>
+                <div class="post-meta"><span class="date">{{ post | get_category_display }}</span> <span class="mx-1">&bullet;</span> <span>{{ post.updated_on | date:"M jS 'y"}}</span></div>
+                <h2><a href="{% url 'zenblog:post_detail' post.slug  %}">{{ post.title }}</a></h2>
+              </div>
+            {% if forloop.last %}
+            </div>
+            {% elif forloop.counter|divisibleby:"3" %}
+            </div>
+            <div class="col-lg-4 border-start custom-border">
+            {% endif %}
+          {% endfor %}
+
+          <!-- Trending Section -->
+          <div class="col-lg-4">
+
+            <div class="trending">
+              <h3>Trending</h3>
+              <ul class="trending-post">
+                {% for item in trending %}
+                <li>
+                  <a href="{% url 'zenblog:post_detail' item.slug  %}">
+                    <span class="number">{{ forloop.counter }}</span>
+                    <h3>{{ item.title }}</h3>
+                    <span class="author">{{ item.author.last_name }} {{ item.author.first_name }}</span>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+
+          </div> <!-- End Trending Section -->
+        </div>
+      </div>
+
+    </div> <!-- End .row -->
+  </div>
+</section> <!-- End Post Grid Section -->
