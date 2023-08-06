@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "x4xl"
+version = "0.0.1"
+authors = [
+  { name="Luis Xavier", email="luisrosaxavier@gmail.com" },
+]
+keywords = ["excel", "pandas", "import", "export"]
+description = "A small package utility that easily wraps Excel importation into Pandas Dataframes"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+	"pandas"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/xinablak/x4xl"
