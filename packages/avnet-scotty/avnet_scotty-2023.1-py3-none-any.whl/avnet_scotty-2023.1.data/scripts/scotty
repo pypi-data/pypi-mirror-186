@@ -1,0 +1,218 @@
+#!/bin/bash
+# SPDX-FileCopyrightText: (C) 2022 Avnet Embedded GmbH
+# SPDX-License-Identifier: GPL-3.0-only
+
+set -o errexit -o errtrace -o nounset
+
+if [ "${SCOTTY_DEBUG:-0}" == "1" ]; then
+  set -o xtrace
+fi
+
+trap 'echo -e "\033[1;31mscotty failed on line ${LINENO}\033[0m" >&2' ERR
+
+declare -r outdir=${PWD}/build
+
+declare -r scotty_whitelist_default="\
+	ACCEPT_FSL_EULA \
+	COLUMNS \
+	DISTRO \
+	LICENSE_FLAGS_ACCEPTED \
+	LINES \
+	MACHINE \
+	SCOTTY_DEBUG \
+	SCOTTY_QEMUPARAMS \
+	TEMPLATECONF \
+	TERM \
+	UBOOT_ENV_VARS \
+	"
+# SCOTTY_FEATURES_LAYERS REPO_URL SCOTTY_MACHINE_DIR BUILDDIR
+declare -r scotty_whitelist=${SCOTTY_WHITELIST:-${scotty_whitelist_default}}
+
+if [ "${SCOTTY_DOCKER_IMAGE:-1}" == "1" ]; then
+    declare -r docker_default_image="ghcr.io/avnet-embedded/simplecore-tools:kirkstone"
+else
+    declare -r docker_default_image="${SCOTTY_DOCKER_IMAGE}"
+fi
+
+debug() {
+	if [ "${SCOTTY_DEBUG:-0}" == "1" ]; then
+		echo -e "\033[1;38m${*}\033[0m"
+	fi
+}
+
+info() {
+	if [ "${SCOTTY_QUIET:-0}" != "1" ]; then
+		echo -e "\033[1;34m${*}\033[0m"
+	fi
+}
+
+error() {
+    echo -e "\033[1;31m${*}\033[0m" >&2
+}
+
+check_docker() {
+    if ! command -v docker > /dev/null; then
+        error "\`docker\` command was not found. Please ensure docker is installed and in your path"
+        exit 1
+    fi
+    if ! docker info > /dev/null 2>/dev/null; then
+        error 'Failed to connect to docker daemon: are you in the docker group ?'
+        exit 1
+    fi
+    if ! command -v openssl > /dev/null; then
+        error "\`openssl\` command was not found. Please ensure openssl is installed and in your path"
+        exit 1
+    fi
+}
+
+prepare_docker() {
+	local ssh_auth_sock
+	declare -ga docker_args
+
+	# Create persistent home files
+	declare SCOTTY_HOME
+	SCOTTY_HOME=$(realpath "$(dirname "$0")")/scotty_home
+	readonly SCOTTY_HOME
+	mkdir -p "${SCOTTY_HOME}"
+	touch "${SCOTTY_HOME}/bash_history"
+
+	# Set docker parameters
+	read -ra docker_args <<< "${DOCKER_EXTRA_ARGS:-}"
+	docker_args+=(--env "uid=$(id --user)")
+	docker_args+=(--env "gid=$(id --group)")
+	docker_args+=(--env "kvm_gid=$(getent group kvm | cut -d: -f3)")
+	if [ -n "${SIMPLESWITCH_REGISTRY_USERNAME:-}" ]; then
+		docker_args+=(--env "SIMPLESWITCH_REGISTRY_USERNAME=${SIMPLESWITCH_REGISTRY_USERNAME}")
+	fi
+	if [ -n "${SIMPLESWITCH_REGISTRY_PAT:-}" ]; then
+		docker_args+=(--env "SIMPLESWITCH_REGISTRY_PAT=${SIMPLESWITCH_REGISTRY_PAT}")
+	fi
+	docker_args+=(--volume "${outdir}:${outdir}")
+	if [ -n "${SCOTTY_DOCKER_EXTRA_VOLUME:-}" ]; then
+    while read -r -d ',' volume
+      do
+        docker_args+=(--volume "${volume}:${volume}")
+      done <<< "${SCOTTY_DOCKER_EXTRA_VOLUME},"
+	fi
+	docker_args+=(--volume "${SCOTTY_HOME}/bash_history:/home/scotty/.bash_history")
+	docker_args+=(--workdir "${outdir}")
+	docker_args+=(--rm)
+	docker_args+=(--oom-score-adj=900)
+	if [ -f "${HOME}/.gitconfig" ]; then
+		docker_args+=(--volume "${HOME}/.gitconfig:/home/scotty/.gitconfig")
+	fi
+	if [ -z "${SSH_AUTH_SOCK:-}" ]; then
+		eval "$(ssh-agent)"
+		if [ -z "${SSH_AUTH_SOCK:-}" ]; then
+			error "Could not start ssh-agent and no other SSH_AUTH_SOCK found.\nPlease make sure to have a suitable ssh-agent installed and configured"
+			exit 1
+		fi
+	fi
+	ssh-add -l 2>/dev/null 1>/dev/null || ssh-add 2>/dev/null 1>/dev/null
+	ssh_auth_sock=$(readlink --canonicalize "${SSH_AUTH_SOCK}")
+	docker_args+=(--volume "${ssh_auth_sock}:/ssh-agent")
+	docker_args+=(--env "SSH_AUTH_SOCK=/ssh-agent")
+	if [ -n "${DISPLAY:-}" ]; then
+		docker_args+=(--env "DISPLAY=${DISPLAY}")
+		docker_args+=(--volume "/tmp/.X11-unix:/tmp/.X11-unix")
+	fi
+	if [ -n "${SCOTTY_GIT_URL:-}" ]; then
+		docker_args+=(--env "SCOTTY_GIT_URL=${SCOTTY_GIT_URL}")
+	fi
+
+	# Allow some environment variables to be passed through docker
+	# Call env to force freezing of terminal defined variables, such as
+	# `COLUMNS` or `LINES`
+	env true
+	for var in ${scotty_whitelist}; do
+		if [ -n "${!var+x}" ]; then
+			debug "Adding environment variable ${var}=${!var}"
+			docker_args+=(--env "${var}=${!var}")
+		fi
+	done
+
+	# Test if the shell is interactive or not.
+	if [ -t 0 ]; then
+		docker_args+=(--interactive --tty)
+	fi
+
+	readonly docker_args
+}
+
+docker_update() {
+	info "Updating docker image"
+	docker pull "${docker_default_image}"
+}
+
+docker_update_on_demand() {
+	if [ -e "${outdir}/.do_docker_pull" ]; then
+		rm "${outdir}/.do_docker_pull"
+		docker_update
+	fi
+}
+
+run_in_docker() {
+	# Run a command in a new docker instance
+	local docker_instance
+	local -a docker_cmd
+	local docker_image="${docker_default_image}"
+
+	if [ "${SCOTTY_USE_LOCAL_DOCKERFILE:-0}" == "1" ]; then
+		docker_dir=$(dirname "$0")/scotty_docker
+		info "Using local Dockerfile"
+		DOCKER_BUILDKIT=1 docker build "${docker_dir}"
+		docker_image=$(DOCKER_BUILDKIT=1 docker build --quiet "${docker_dir}")
+	fi
+
+	docker_instance=scotty_$(openssl rand -hex 8)
+	docker_cmd=(docker run --name "${docker_instance}" \
+		"${docker_args[@]}" "${docker_image}" "$@")
+	debug "Creating docker instance:" "${docker_cmd[@]}"
+
+	# Explicitly exit on fail so the error trap is not executed: docker
+	# executed command is responsible of showing errors.
+	"${docker_cmd[@]}" || exit
+}
+
+run_command() {
+	if [ "${SCOTTY_USE_DOCKER:-1}" == "1" ]; then
+		run_in_docker "${@}"
+	else
+		export SCOTTY_GIT_URL
+		PATH="$(dirname "$0")/scotty_docker/helpers:${PATH}"
+		(cd "${outdir}" && "${@}") || exit
+	fi
+}
+
+get_default_remote() {
+	local SCOTTY_GIT_DIR
+	declare -g SCOTTY_GIT_URL
+	SCOTTY_GIT_DIR=$(realpath "$(dirname "$0")")
+	SCOTTY_GIT_URL=$(git -C "${SCOTTY_GIT_DIR}" remote get-url origin 2>/dev/null || true)
+	readonly SCOTTY_GIT_DIR SCOTTY_GIT_URL
+}
+
+get_default_remote
+check_docker
+
+# Special case: if the command is exactly "${0} docker-update", run a docker
+# update.  Docker update is generally triggerred from the python script running
+# inside docker, but make sure we can update the docker in some extreme cases
+# where the docker image itself is bad.
+# Also update the docker on the first build (output dir does not exist).
+
+if [ $# -eq 1 ] && [ "${1}" == "docker-update" ]; then
+	docker_update
+	exit
+fi
+if [ ! -d "${outdir}" ] && [ "${SCOTTY_USE_LOCAL_DOCKERFILE:-0}" == "0" ]; then
+	docker_update
+fi
+
+mkdir -p "${outdir}"
+prepare_docker
+
+if [ "${BASH_SOURCE[0]}" == "${0}" ]; then
+    run_command scotty.py "${@}"
+    docker_update_on_demand
+fi

@@ -1,0 +1,61 @@
+#!/bin/bash
+# SPDX-FileCopyrightText: (C) 2022 Avnet Embedded GmbH
+# SPDX-License-Identifier: GPL-3.0-only
+
+scotty_dir=$(dirname "${0}")
+SCOTTY_QEMUPARAMS="${SCOTTY_QEMUPARAMS:--smp 4 -serial mon:stdio}"
+
+# Prints script info
+#
+function print_help() {
+	printf "Scotty-runqemu: A tool script for running qemu using compiled images\n"
+	printf "Usage: scotty-runqemu [option] <image-name>\n"
+	printf "  -h, --help\t\t show this help message and exit\n"
+	printf "  -t, --testimage\t perform image testing\n"
+}
+
+# Runs a compiled image
+#
+# string image_name and additional arguments
+function run_qemu() {
+	DOCKER_EXTRA_ARGS="${DOCKER_EXTRA_ARGS} --privileged --network host"
+
+	# shellcheck source=/dev/null
+	source "${scotty_dir}"/scotty
+	run_command scotty-runqemu.py "${@}"
+}
+
+# Compiles and runs a test image
+#
+# string image_name
+function test_image() {
+	read -ra scotty_options <<< "${SCOTTY_RUNQEMU_TEST_IMAGE_OPTIONS}"
+	bitbake_command=("${scotty_options[@]}" "bitbake" "${@} -c testimage")
+	# Invoking "--network host" is not possible, as it causes recipe parsing to hang.
+	DOCKER_EXTRA_ARGS="${DOCKER_EXTRA_ARGS} --privileged"
+
+	# This qemu requirement is not explicitly stated in case of an error.
+	if echo "${@}" | grep -v "image-\|-image"; then
+		echo "Image name must include \"image-\" or \"-image\" substrings"
+		exit 1
+	fi
+
+	# shellcheck source=/dev/null
+	source "${scotty_dir}"/scotty
+	run_command scotty.py "${bitbake_command[@]}"
+}
+
+case "${1}" in
+	-h | --help)
+		print_help
+		;;
+
+	-t | --testimage)
+		shift
+		test_image "${@}"
+		;;
+
+	*)
+		run_qemu "${@}"
+		;;
+esac
