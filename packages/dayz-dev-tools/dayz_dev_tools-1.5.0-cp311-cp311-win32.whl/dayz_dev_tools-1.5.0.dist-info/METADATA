@@ -1,0 +1,61 @@
+Metadata-Version: 2.1
+Name: dayz-dev-tools
+Version: 1.5.0
+Summary: Useful tools for DayZ mod developers.
+Home-page: https://dayz-dev-tools.readthedocs.io/
+Author: Tim Jensen
+Author-email: tim.l.jensen@gmail.com
+License: MIT
+Project-URL: Source, https://github.com/tjensen/dayz-dev-tools
+Project-URL: Tracker, https://github.com/tjensen/dayz-dev-tools/issues
+Keywords: dayz,tools,pbo,server
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Games/Entertainment :: First Person Shooters
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: Topic :: Utilities
+Classifier: Typing :: Typed
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: jsonschema (>=3.2.0)
+Requires-Dist: tomli (>=2.0.0)
+
+# DayZ Dev Tools
+
+This project contains tools and libraries that can be useful for DayZ mod
+developers and server owners, including:
+
+* `guid` - Tool for converting 64-bit SteamIDs to DayZ GUIDs
+* `unpbo` - Tool for inspecting PBO archives and extracting their contents
+* `run-server` - Tool that makes running DayZ Server easier
+
+More information:
+
+* [Documentation](https://dayz-dev-tools.readthedocs.io/)
+
+## Installation
+
+DayZ Dev Tools is listed on [PyPI](https://pypi.org/project/dayz-dev-tools/). I
+highly recommend installing it using [`pipx`](https://pypa.github.io/pipx/) for
+command line use:
+
+```
+pipx install dayz-dev-tools
+```
+
+
+It can also be installed with `pip` or using your preferred Python package
+manager:
+
+```
+pip install dayz-dev-tools
+```
+
+DayZ Dev Tools can be run on Windows or Linux but Python 3.8 or higher is
+required.
