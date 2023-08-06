@@ -1,0 +1,122 @@
+Metadata-Version: 2.1
+Name: playmobile-client
+Version: 1.0.0
+Summary: Python client for Playmobile.uz API
+Home-page: https://github.com/absolutionsuz/playmobile-client
+License: BSD-3-Clause
+Keywords: playmobile,smsxabar,client,httpx,requests
+Author: Daniil Andreev
+Author-email: dandreevv22@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Framework :: AsyncIO
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: attrs (>=22.0,<23.0)
+Requires-Dist: faker (>=16.6,<17.0)
+Requires-Dist: httpx (>=0.23,<0.24)
+Requires-Dist: marshmallow (>=3.18,<4.0)
+Project-URL: Repository, https://github.com/absolutionsuz/playmobile-client
+Description-Content-Type: text/markdown
+
+# Python client for Playmobile.uz API (aka smsxabar.uz)
+
+This is Python HTTP Client for [Playmobile.uz](https://playmobile.uz) (aka [smsxabar.uz](https://smsxabar.uz))
+based on [httpx](https://github.com/encode/httpx).
+
+Playmobile is a SMS broker which allows you to send messages throughout Uzbekistan.
+
+## Installation
+
+To install playmobile-client, simply:
+
+``` bash
+$ pip install playmobile-client
+```
+This package can be found on [PyPI](https://pypi.org/project/playmobile-client/).
+
+## Usage
+
+```python
+import httpx
+import playmobile
+
+client = playmobile.HttpClient(
+    account=playmobile.Credentials(
+        username="example",
+        password="example",
+    ),
+    base_url=httpx.URL("https://playmobile-example.uz"),
+    session=httpx.Client(),
+)
+
+sms = playmobile.SMS(
+    id="unique_string",
+    sender="0001",
+    recipient="998xx3332211",
+    text="Hello world!",
+)
+
+# Single SMS
+client.send_sms(sms)
+
+# SMS batch
+sms_batch = [
+    playmobile.SMS(
+        id="unique_string_1",
+        sender="0001",
+        recipient="998xx3332211",
+        text="Hello world!",
+    ),
+    playmobile.SMS(
+        id="unique_string_2",
+        sender="0001",
+        recipient="998xx3332211",
+        text="Yankee!",
+    ),
+]
+client.send_sms_batch(sms_batch)  
+```
+
+You can set up Timing settings:
+
+```python
+import playmobile
+
+sms = playmobile.SMS(...)
+
+timing = playmobile.Timing(
+    start_at=datetime(2023, 1, 1, 12, 0),
+    end_at=datetime(2023, 1, 1, 14, 0),
+)
+
+# Single SMS
+client.send_sms(sms, timing=timing)
+```
+
+Advanced users can set up HTTPX session with custom parameters. For example:
+
+```python
+client = playmobile.Client(
+    ...,
+    session = httpx.Client(
+        timeout=httpx.Timeout(timeout=2.0),
+    ),
+)
+```
+
+Package also have the test utils which will help you test your service:
+- playmobile.generate_sms
+- playmobile.generate_error
+
