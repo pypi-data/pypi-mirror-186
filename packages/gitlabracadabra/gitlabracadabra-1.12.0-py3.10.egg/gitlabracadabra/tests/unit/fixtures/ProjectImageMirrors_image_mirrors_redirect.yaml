@@ -1,0 +1,1153 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-type:
+      - application/json
+      PRIVATE-TOKEN:
+      - x4Kb73vfXagPSsGhntG5
+      User-Agent:
+      - python-gitlab/3.4.0
+    method: GET
+    uri: http://localhost/api/v4/projects/root%2Ftest-registry
+  response:
+    body:
+      string: '{"id":2,"description":"","name":"Test Registry","name_with_namespace":"Administrator
+        / Test Registry","path":"test-registry","path_with_namespace":"root/test-registry","created_at":"2022-06-21T20:05:27.534Z","default_branch":"main","tag_list":[],"topics":[],"ssh_url_to_repo":"git@gitlab.example.com:root/test-registry.git","http_url_to_repo":"http://gitlab.example.com/root/test-registry.git","web_url":"http://gitlab.example.com/root/test-registry","readme_url":"http://gitlab.example.com/root/test-registry/-/blob/main/README.md","avatar_url":null,"forks_count":0,"star_count":0,"last_activity_at":"2022-06-21T20:05:27.534Z","namespace":{"id":1,"name":"Administrator","path":"root","kind":"user","full_path":"root","parent_id":null,"avatar_url":"https://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=80\u0026d=identicon","web_url":"http://gitlab.example.com/root"},"container_registry_image_prefix":"gitlab-registry.example.com/root/test-registry","_links":{"self":"http://gitlab.example.com/api/v4/projects/2","issues":"http://gitlab.example.com/api/v4/projects/2/issues","merge_requests":"http://gitlab.example.com/api/v4/projects/2/merge_requests","repo_branches":"http://gitlab.example.com/api/v4/projects/2/repository/branches","labels":"http://gitlab.example.com/api/v4/projects/2/labels","events":"http://gitlab.example.com/api/v4/projects/2/events","members":"http://gitlab.example.com/api/v4/projects/2/members","cluster_agents":"http://gitlab.example.com/api/v4/projects/2/cluster_agents"},"packages_enabled":true,"empty_repo":false,"archived":false,"visibility":"private","owner":{"id":1,"username":"root","name":"Administrator","state":"active","avatar_url":"https://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=80\u0026d=identicon","web_url":"http://gitlab.example.com/root"},"resolve_outdated_diff_discussions":false,"container_expiration_policy":{"cadence":"1d","enabled":false,"keep_n":10,"older_than":"90d","name_regex":".*","name_regex_keep":null,"next_run_at":"2022-06-22T20:05:27.671Z"},"issues_enabled":true,"merge_requests_enabled":true,"wiki_enabled":true,"jobs_enabled":true,"snippets_enabled":true,"container_registry_enabled":true,"service_desk_enabled":false,"service_desk_address":null,"can_create_merge_request_in":true,"issues_access_level":"enabled","repository_access_level":"enabled","merge_requests_access_level":"enabled","forking_access_level":"enabled","wiki_access_level":"enabled","builds_access_level":"enabled","snippets_access_level":"enabled","pages_access_level":"private","operations_access_level":"enabled","analytics_access_level":"enabled","container_registry_access_level":"enabled","security_and_compliance_access_level":"private","emails_disabled":null,"shared_runners_enabled":true,"lfs_enabled":true,"creator_id":1,"import_url":null,"import_type":null,"import_status":"none","import_error":null,"open_issues_count":0,"runners_token":"GR1348941LxFCDbRKfP89xeqXoBQd","ci_default_git_depth":20,"ci_forward_deployment_enabled":true,"ci_job_token_scope_enabled":false,"ci_separated_caches":true,"public_jobs":true,"build_git_strategy":"fetch","build_timeout":3600,"auto_cancel_pending_pipelines":"enabled","build_coverage_regex":null,"ci_config_path":null,"shared_with_groups":[],"only_allow_merge_if_pipeline_succeeds":false,"allow_merge_on_skipped_pipeline":null,"restrict_user_defined_variables":false,"request_access_enabled":true,"only_allow_merge_if_all_discussions_are_resolved":false,"remove_source_branch_after_merge":true,"printing_merge_request_link_enabled":true,"merge_method":"merge","squash_option":"default_off","enforce_auth_checks_on_uploads":true,"suggestion_commit_message":null,"merge_commit_template":null,"squash_commit_template":null,"auto_devops_enabled":true,"auto_devops_deploy_strategy":"continuous","autoclose_referenced_issues":true,"repository_storage":"default","keep_latest_artifact":true,"runner_token_expiration_interval":null,"requirements_enabled":false,"requirements_access_level":"enabled","security_and_compliance_enabled":true,"compliance_frameworks":[],"permissions":{"project_access":{"access_level":50,"notification_level":3},"group_access":null}}'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jun 2022 19:48:04 GMT
+      Etag:
+      - W/"9685f764a0ddcf7805e33bad92c9a99c"
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 01G6NXPHMKJ4JAMAZX9YNM2G9G
+      X-Runtime:
+      - '0.705012'
+      content-length:
+      - '4169'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://registry.k8s.io/v2/
+  response:
+    body:
+      string: '<a href="https://k8s.gcr.io/v2/">Permanent Redirect</a>.
+
+
+        '
+    headers:
+      Age:
+      - '202'
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Content-Length:
+      - '58'
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Tue, 28 Jun 2022 19:44:42 GMT
+      Server:
+      - Google Frontend
+      Via:
+      - 1.1 google
+      X-Cloud-Trace-Context:
+      - 4d67c30100d96a021f3a4145cf8a0c0f
+      location:
+      - https://k8s.gcr.io/v2/
+    status:
+      code: 308
+      message: Resume Incomplete
+- request:
+    body: null
+    headers:
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://k8s.gcr.io/v2/
+  response:
+    body:
+      string: '{"errors":[{"code":"UNAUTHORIZED","message":"Unauthorized access."}]}'
+    headers:
+      Accept-Ranges:
+      - none
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jun 2022 19:48:04 GMT
+      Docker-Distribution-API-Version:
+      - registry/2.0
+      Server:
+      - Docker Registry
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      WWW-Authenticate:
+      - Bearer realm="https://k8s.gcr.io/v2/token",service="k8s.gcr.io"
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 401
+      message: Unauthorized
+- request:
+    body: null
+    headers:
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://k8s.gcr.io/v2/token?service=k8s.gcr.io&scope=repository%3Asig-storage%2Fcsi-node-driver-registrar%3Apull
+  response:
+    body:
+      string: '{"expires_in":43200,"issued_at":"2022-06-28T12:48:26.977263585-07:00","token":"AJAD5v2C6DVKXeDz7Z56h/x/Hj1PIa7cTyGspRKKZcivYYShr4qTISvDnyMBK+jYZTFjtxkFTTIkInvzfX5au7eucY/ZzgWetlVpTYW8WWpFVRfMkM0mWe1vHMCLZxZXXAP6luZ5/klNNE8isg3z1qVhtHTrchbq9werxiG6t0XaQ0eT8TVXCM85nxVW9LFZJLsLFKouriOtZmnFhkhHwJ/c8lzMQx2tHoUziwzr+xL2c8SlZ2Rr7IKFUmWFm4X0wyTxcpFzvD8/r2sjBP7oIweItO4WduFCHAZ7GeVqmoeBDC8h+6V8IkZM/vRx0OWi/mf4MK/H3wusw0GBIjd44OADcGy1Xbek2reHZ0C9YVKYGcSqq3QbdbUQTj5rHIetTFhUb4sHz9jDxTYp8BhQ+JB2e/Dc3aDca+qjtUeGPAqGMWS6BIbAS7k5iSirhnAJ0OMTat7nN+Z6sBIZa8piW6cjVsEpzxk595Uy68alkc2+Aq8/vbOrKq7lFwiynoreOeEwQdbI4w=="}'
+    headers:
+      Accept-Ranges:
+      - none
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jun 2022 19:48:26 GMT
+      Docker-Distribution-API-Version:
+      - registry/2.0
+      Server:
+      - Docker Registry
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.v2+json,
+        application/vnd.docker.distribution.manifest.v1+prettyjws, application/vnd.docker.distribution.manifest.v1+json,
+        application/vnd.docker.distribution.manifest.list.v2+json, application/vnd.oci.image.index.v1+json
+      Authorization:
+      - Bearer AJAD5v2C6DVKXeDz7Z56h/x/Hj1PIa7cTyGspRKKZcivYYShr4qTISvDnyMBK+jYZTFjtxkFTTIkInvzfX5au7eucY/ZzgWetlVpTYW8WWpFVRfMkM0mWe1vHMCLZxZXXAP6luZ5/klNNE8isg3z1qVhtHTrchbq9werxiG6t0XaQ0eT8TVXCM85nxVW9LFZJLsLFKouriOtZmnFhkhHwJ/c8lzMQx2tHoUziwzr+xL2c8SlZ2Rr7IKFUmWFm4X0wyTxcpFzvD8/r2sjBP7oIweItO4WduFCHAZ7GeVqmoeBDC8h+6V8IkZM/vRx0OWi/mf4MK/H3wusw0GBIjd44OADcGy1Xbek2reHZ0C9YVKYGcSqq3QbdbUQTj5rHIetTFhUb4sHz9jDxTYp8BhQ+JB2e/Dc3aDca+qjtUeGPAqGMWS6BIbAS7k5iSirhnAJ0OMTat7nN+Z6sBIZa8piW6cjVsEpzxk595Uy68alkc2+Aq8/vbOrKq7lFwiynoreOeEwQdbI4w==
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://k8s.gcr.io/v2/sig-storage/csi-node-driver-registrar/manifests/v2.5.0
+  response:
+    body:
+      string: "{\n   \"schemaVersion\": 2,\n   \"mediaType\": \"application/vnd.docker.distribution.manifest.list.v2+json\",\n
+        \  \"manifests\": [\n      {\n         \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+        \        \"size\": 738,\n         \"digest\": \"sha256:383afca6cfdc41ddf9b44491958604fcf1faf3d15894e4032e671fbbfd55c9d8\",\n
+        \        \"platform\": {\n            \"architecture\": \"amd64\",\n            \"os\":
+        \"linux\"\n         }\n      },\n      {\n         \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+        \        \"size\": 950,\n         \"digest\": \"sha256:4f59cd50e37538e0d853fc53f58d40e3ee91a56ce0706580514a7870af2cda3c\",\n
+        \        \"platform\": {\n            \"architecture\": \"amd64\",\n            \"os\":
+        \"windows\",\n            \"os.version\": \"10.0.17763.2458\"\n         }\n
+        \     },\n      {\n         \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+        \        \"size\": 950,\n         \"digest\": \"sha256:7b492de3430ef65869780a6a9d3b18741cbb4f67a4205c1a03c928fdd16e678a\",\n
+        \        \"platform\": {\n            \"architecture\": \"amd64\",\n            \"os\":
+        \"windows\",\n            \"os.version\": \"10.0.18363.1556\"\n         }\n
+        \     },\n      {\n         \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+        \        \"size\": 950,\n         \"digest\": \"sha256:e7904ccb7f3e2d590dc1305a3a7df5ad5134b764988810578b68e5d36b31fc92\",\n
+        \        \"platform\": {\n            \"architecture\": \"amd64\",\n            \"os\":
+        \"windows\",\n            \"os.version\": \"10.0.19041.1415\"\n         }\n
+        \     },\n      {\n         \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+        \        \"size\": 950,\n         \"digest\": \"sha256:34706062d0d65f621f51c049b0160a3e7fd2e94a76fdefb06708f2a9ec97e347\",\n
+        \        \"platform\": {\n            \"architecture\": \"amd64\",\n            \"os\":
+        \"windows\",\n            \"os.version\": \"10.0.19042.1469\"\n         }\n
+        \     },\n      {\n         \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+        \        \"size\": 950,\n         \"digest\": \"sha256:f153fd8ef7f1be20712b1f113db581b0f354039f212c4c3c31ec14c5859aa80a\",\n
+        \        \"platform\": {\n            \"architecture\": \"amd64\",\n            \"os\":
+        \"windows\",\n            \"os.version\": \"10.0.20348.473\"\n         }\n
+        \     },\n      {\n         \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+        \        \"size\": 738,\n         \"digest\": \"sha256:db1f7db33319057b081a49c95088d868d879465eb6ecc5aa6e0af9360c68f667\",\n
+        \        \"platform\": {\n            \"architecture\": \"arm\",\n            \"os\":
+        \"linux\",\n            \"variant\": \"v7\"\n         }\n      },\n      {\n
+        \        \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+        \        \"size\": 738,\n         \"digest\": \"sha256:87b78d27052287be44e4b95803b294384a4ca34efedd4d7638ec04ebac928b26\",\n
+        \        \"platform\": {\n            \"architecture\": \"arm\",\n            \"os\":
+        \"linux\",\n            \"variant\": \"v7\"\n         }\n      },\n      {\n
+        \        \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+        \        \"size\": 738,\n         \"digest\": \"sha256:0d0b2da970ee51110a68b2c97e6fd49a76870a096ae2f5443bf5bf9dd4ae7e7e\",\n
+        \        \"platform\": {\n            \"architecture\": \"arm64\",\n            \"os\":
+        \"linux\"\n         }\n      },\n      {\n         \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+        \        \"size\": 738,\n         \"digest\": \"sha256:f92c0c42449999be572b9390fa275f33bc64f42a989303690902304c6ba3d449\",\n
+        \        \"platform\": {\n            \"architecture\": \"ppc64le\",\n            \"os\":
+        \"linux\"\n         }\n      },\n      {\n         \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+        \        \"size\": 738,\n         \"digest\": \"sha256:5e8d3b9b29db0e7e2b42656e052a1de5f10f5d1239538954bb88b8ab00b9685d\",\n
+        \        \"platform\": {\n            \"architecture\": \"s390x\",\n            \"os\":
+        \"linux\"\n         }\n      }\n   ]\n}"
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Content-Length:
+      - '3803'
+      Content-Type:
+      - application/vnd.docker.distribution.manifest.list.v2+json
+      Date:
+      - Tue, 28 Jun 2022 19:48:27 GMT
+      Docker-Content-Digest:
+      - sha256:4fd21f36075b44d1a423dfb262ad79202ce54e95f5cbc4622a6c1c38ab287ad6
+      Docker-Distribution-API-Version:
+      - registry/2.0
+      Server:
+      - Docker Registry
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://gitlab-registry.example.com/v2/
+  response:
+    body:
+      string: '{"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":null}]}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '87'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jun 2022 19:48:27 GMT
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Server:
+      - nginx
+      Www-Authenticate:
+      - Bearer realm="http://gitlab.example.com/jwt/auth",service="container_registry"
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 401
+      message: Unauthorized
+- request:
+    body: null
+    headers:
+      Authorization:
+      - Basic cGVyc29uYWwtYWNjZXNzLXRva2VuOng0S2I3M3ZmWGFnUFNzR2hudEc1
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: http://gitlab.example.com/jwt/auth?service=container_registry&scope=repository%3Aroot%2Ftest-registry%2Fsig-storage%2Fcsi-node-driver-registrar%3Apull
+  response:
+    body:
+      string: '{"token":"eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdWxsIl19XSwianRpIjoiNGJjYzNmMTItNGM5NC00NTBjLWJmYjEtYjdkYWE3ZmYxMTA1IiwiYXVkIjoiY29udGFpbmVyX3JlZ2lzdHJ5Iiwic3ViIjoicm9vdCIsImlzcyI6Im9tbmlidXMtZ2l0bGFiLWlzc3VlciIsImlhdCI6MTY1NjQ0NTcwNywibmJmIjoxNjU2NDQ1NzAyLCJleHAiOjE2NTY0NDYwMDd9.aQVy3-6tjBxBhdywzM429DnChGOg5qE9DSU1ZItN9MsPSCsmr8SEUeAIb8uIcFMiIeCWNeeITCqr97nTppF3VRbMd2W2OxwcNo5JWuEKmkzm-qwtNzHFo2P4DyBPxBSUnww5qQDGsKoYCbFf3nUIEelSIdgP-TSM4zkC3fCWvOQrW8D4yw_RuvElhwDH5Je8MjTlXjRDKndBSjQ0l_srJuizppmpzPZnnQTJlBIy3A4mpT4TaMbeTICWNXV1eWXo7SUdOzCt_Qkr01UVKJRgDOiY5g6xSa3FwctMttRYHE3FIf7S5N2Eh0JlQmyM1jepfsolsCLM1CMiqaFVfKJX_mO8gcSUai71JwCtMIvBK20aDB_5A2d3UWbqBpipFS0UGc9m-KWR2_uA-lNusCnRB5mMqxNnB6V0k4ZxnI3x_fLxwI3oCsSlmrVObnpiis84VlFqKqDFtgk_YCqZ1LrALji9LcJVZJAvcHAEKDn1PWIXcUljfqVwSB4lOXHdkoiBwbRYAPmKbtAoxVZP_DuDSQaf-W8jSJM20XCubLiQpxUi7kUptgJ0VN04XMk7IUTbnq7N1EMMG6BtoJE8eG3IQvs7yJTOVUNxgZRaOpZnef6sQKRGxeFJdvI6meHHXyoCcIfHw8R2MbFpRQB46XVAnHSg_SXkv85jv4EtlqnPZJI"}'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1204'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 28 Jun 2022 19:48:27 GMT
+      Etag:
+      - W/"35e1dcc6903aa7492bb0f746872c1509"
+      Permissions-Policy:
+      - interest-cohort=()
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 01G6NXQ926DF2T4EZ9V093K426
+      X-Runtime:
+      - '0.117993'
+      X-Ua-Compatible:
+      - IE=edge
+      X-Xss-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.v2+json,
+        application/vnd.docker.distribution.manifest.v1+prettyjws, application/vnd.docker.distribution.manifest.v1+json,
+        application/vnd.docker.distribution.manifest.list.v2+json, application/vnd.oci.image.index.v1+json
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdWxsIl19XSwianRpIjoiNGJjYzNmMTItNGM5NC00NTBjLWJmYjEtYjdkYWE3ZmYxMTA1IiwiYXVkIjoiY29udGFpbmVyX3JlZ2lzdHJ5Iiwic3ViIjoicm9vdCIsImlzcyI6Im9tbmlidXMtZ2l0bGFiLWlzc3VlciIsImlhdCI6MTY1NjQ0NTcwNywibmJmIjoxNjU2NDQ1NzAyLCJleHAiOjE2NTY0NDYwMDd9.aQVy3-6tjBxBhdywzM429DnChGOg5qE9DSU1ZItN9MsPSCsmr8SEUeAIb8uIcFMiIeCWNeeITCqr97nTppF3VRbMd2W2OxwcNo5JWuEKmkzm-qwtNzHFo2P4DyBPxBSUnww5qQDGsKoYCbFf3nUIEelSIdgP-TSM4zkC3fCWvOQrW8D4yw_RuvElhwDH5Je8MjTlXjRDKndBSjQ0l_srJuizppmpzPZnnQTJlBIy3A4mpT4TaMbeTICWNXV1eWXo7SUdOzCt_Qkr01UVKJRgDOiY5g6xSa3FwctMttRYHE3FIf7S5N2Eh0JlQmyM1jepfsolsCLM1CMiqaFVfKJX_mO8gcSUai71JwCtMIvBK20aDB_5A2d3UWbqBpipFS0UGc9m-KWR2_uA-lNusCnRB5mMqxNnB6V0k4ZxnI3x_fLxwI3oCsSlmrVObnpiis84VlFqKqDFtgk_YCqZ1LrALji9LcJVZJAvcHAEKDn1PWIXcUljfqVwSB4lOXHdkoiBwbRYAPmKbtAoxVZP_DuDSQaf-W8jSJM20XCubLiQpxUi7kUptgJ0VN04XMk7IUTbnq7N1EMMG6BtoJE8eG3IQvs7yJTOVUNxgZRaOpZnef6sQKRGxeFJdvI6meHHXyoCcIfHw8R2MbFpRQB46XVAnHSg_SXkv85jv4EtlqnPZJI
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/manifests/v2.5.0
+  response:
+    body:
+      string: '{"errors":[{"code":"MANIFEST_UNKNOWN","message":"manifest unknown","detail":{"Tag":"v2.5.0"}}]}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '96'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jun 2022 19:48:27 GMT
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Server:
+      - nginx
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.v2+json,
+        application/vnd.docker.distribution.manifest.v1+prettyjws, application/vnd.docker.distribution.manifest.v1+json,
+        application/vnd.docker.distribution.manifest.list.v2+json, application/vnd.oci.image.index.v1+json
+      Authorization:
+      - Bearer AJAD5v2C6DVKXeDz7Z56h/x/Hj1PIa7cTyGspRKKZcivYYShr4qTISvDnyMBK+jYZTFjtxkFTTIkInvzfX5au7eucY/ZzgWetlVpTYW8WWpFVRfMkM0mWe1vHMCLZxZXXAP6luZ5/klNNE8isg3z1qVhtHTrchbq9werxiG6t0XaQ0eT8TVXCM85nxVW9LFZJLsLFKouriOtZmnFhkhHwJ/c8lzMQx2tHoUziwzr+xL2c8SlZ2Rr7IKFUmWFm4X0wyTxcpFzvD8/r2sjBP7oIweItO4WduFCHAZ7GeVqmoeBDC8h+6V8IkZM/vRx0OWi/mf4MK/H3wusw0GBIjd44OADcGy1Xbek2reHZ0C9YVKYGcSqq3QbdbUQTj5rHIetTFhUb4sHz9jDxTYp8BhQ+JB2e/Dc3aDca+qjtUeGPAqGMWS6BIbAS7k5iSirhnAJ0OMTat7nN+Z6sBIZa8piW6cjVsEpzxk595Uy68alkc2+Aq8/vbOrKq7lFwiynoreOeEwQdbI4w==
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://k8s.gcr.io/v2/sig-storage/csi-node-driver-registrar/manifests/sha256:383afca6cfdc41ddf9b44491958604fcf1faf3d15894e4032e671fbbfd55c9d8
+  response:
+    body:
+      string: "{\n   \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+        \  \"schemaVersion\": 2,\n   \"config\": {\n      \"mediaType\": \"application/vnd.docker.container.image.v1+json\",\n
+        \     \"digest\": \"sha256:cb03930a2bd4247929205f328d7c1b7d9594d7586813d4c108c43dc852fad219\",\n
+        \     \"size\": 1506\n   },\n   \"layers\": [\n      {\n         \"mediaType\":
+        \"application/vnd.docker.image.rootfs.diff.tar.gzip\",\n         \"digest\":
+        \"sha256:2df365faf0e3007f983fadd7a65ba51d41b488eb2ed8fc70f4bf97043cfea560\",\n
+        \        \"size\": 803833\n      },\n      {\n         \"mediaType\": \"application/vnd.docker.image.rootfs.diff.tar.gzip\",\n
+        \        \"digest\": \"sha256:09d1617f1bddc41c1e3a9f6e30fada6ad4c9340c931f2c22af0ff4212fa7f3b3\",\n
+        \        \"size\": 8322757\n      }\n   ]\n}"
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Content-Length:
+      - '738'
+      Content-Type:
+      - application/vnd.docker.distribution.manifest.v2+json
+      Date:
+      - Tue, 28 Jun 2022 19:48:27 GMT
+      Docker-Content-Digest:
+      - sha256:383afca6cfdc41ddf9b44491958604fcf1faf3d15894e4032e671fbbfd55c9d8
+      Docker-Distribution-API-Version:
+      - registry/2.0
+      Server:
+      - Docker Registry
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdWxsIl19XSwianRpIjoiNGJjYzNmMTItNGM5NC00NTBjLWJmYjEtYjdkYWE3ZmYxMTA1IiwiYXVkIjoiY29udGFpbmVyX3JlZ2lzdHJ5Iiwic3ViIjoicm9vdCIsImlzcyI6Im9tbmlidXMtZ2l0bGFiLWlzc3VlciIsImlhdCI6MTY1NjQ0NTcwNywibmJmIjoxNjU2NDQ1NzAyLCJleHAiOjE2NTY0NDYwMDd9.aQVy3-6tjBxBhdywzM429DnChGOg5qE9DSU1ZItN9MsPSCsmr8SEUeAIb8uIcFMiIeCWNeeITCqr97nTppF3VRbMd2W2OxwcNo5JWuEKmkzm-qwtNzHFo2P4DyBPxBSUnww5qQDGsKoYCbFf3nUIEelSIdgP-TSM4zkC3fCWvOQrW8D4yw_RuvElhwDH5Je8MjTlXjRDKndBSjQ0l_srJuizppmpzPZnnQTJlBIy3A4mpT4TaMbeTICWNXV1eWXo7SUdOzCt_Qkr01UVKJRgDOiY5g6xSa3FwctMttRYHE3FIf7S5N2Eh0JlQmyM1jepfsolsCLM1CMiqaFVfKJX_mO8gcSUai71JwCtMIvBK20aDB_5A2d3UWbqBpipFS0UGc9m-KWR2_uA-lNusCnRB5mMqxNnB6V0k4ZxnI3x_fLxwI3oCsSlmrVObnpiis84VlFqKqDFtgk_YCqZ1LrALji9LcJVZJAvcHAEKDn1PWIXcUljfqVwSB4lOXHdkoiBwbRYAPmKbtAoxVZP_DuDSQaf-W8jSJM20XCubLiQpxUi7kUptgJ0VN04XMk7IUTbnq7N1EMMG6BtoJE8eG3IQvs7yJTOVUNxgZRaOpZnef6sQKRGxeFJdvI6meHHXyoCcIfHw8R2MbFpRQB46XVAnHSg_SXkv85jv4EtlqnPZJI
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: HEAD
+    uri: https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/sha256:cb03930a2bd4247929205f328d7c1b7d9594d7586813d4c108c43dc852fad219
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '157'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jun 2022 19:48:27 GMT
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Server:
+      - nginx
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://gitlab-registry.example.com/v2/
+  response:
+    body:
+      string: '{"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":null}]}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '87'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jun 2022 19:48:27 GMT
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Server:
+      - nginx
+      Www-Authenticate:
+      - Bearer realm="http://gitlab.example.com/jwt/auth",service="container_registry"
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 401
+      message: Unauthorized
+- request:
+    body: null
+    headers:
+      Authorization:
+      - Basic cGVyc29uYWwtYWNjZXNzLXRva2VuOng0S2I3M3ZmWGFnUFNzR2hudEc1
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: http://gitlab.example.com/jwt/auth?service=container_registry&scope=repository%3Aroot%2Ftest-registry%2Fsig-storage%2Fcsi-node-driver-registrar%3Apush%2Cpull
+  response:
+    body:
+      string: '{"token":"eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdXNoIiwicHVsbCJdfV0sImp0aSI6Ijk1MzAwMzA5LTIxMWQtNGQ4MS04NDcyLWM2NTU3NDRiYjQ1ZiIsImF1ZCI6ImNvbnRhaW5lcl9yZWdpc3RyeSIsInN1YiI6InJvb3QiLCJpc3MiOiJvbW5pYnVzLWdpdGxhYi1pc3N1ZXIiLCJpYXQiOjE2NTY0NDU3MDgsIm5iZiI6MTY1NjQ0NTcwMywiZXhwIjoxNjU2NDQ2MDA4fQ.wTPWefEG_YlGtO49I4Dc8RktkY40PnSDmtq-9gJrSS6MVsUPIbeMXkLniUg4fhbAtleewzkvu9PcAjYshIi09hZsI3THN0fGd_9q_dLYEt0jz2H-NimR-VmXV0Je7KJgUF0EutfjzyYSRjxpf2URuXGdrLF6rnwsRvGk0pDDKAyd_uJgZMbJNTv78N__e1AZMFEuP3blGWIOcxeK_XNlKtbFGvgY8MNdXL8OG8rU1xwCsmTOl3FB2Ptcyf2bBuJn58At6schgecUb4nPQWiC9HiPQ7a9ctk7f9U1ZwtDVygBsg5-87avKJyG1UU6tHhkZ897e_9hQx_pb05MYkcJ96PzK55-uP0yU32ZsvUrjczjqIjJozgctpLLnWNyD-e5LYcgsWpqod87cxtqfAf9aweK44cp5QcCH8eNIUxNdY4r34hih666fBPHFpozo-4YrpreQIao0GrxF_6R8sPUGJeg0RSOuhcajDdwKT3E4SQdMoXWbqE-iP-3vlSqYkosT-l5rgo3c669Kz0AKfBrtt721vTai2cGJIzcYV_FZmLoGYlyn7aHj91PV1te8NWldzJjW_tzzaxQkxZBC5z2TRy0jxzuAgNTwOb7dpNf7yFb18vgeRT82NB-ahecmC4ZIZzI-WBKU9DBNji4TggZ-BGtIW7_TFPme8ASXyRiqVo"}'
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1214'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 28 Jun 2022 19:48:28 GMT
+      Etag:
+      - W/"3a51b8d6d69784dbef07912e3cd6ae51"
+      Permissions-Policy:
+      - interest-cohort=()
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Request-Id:
+      - 01G6NXQ9F9TQHHH9JN71FC4PVN
+      X-Runtime:
+      - '0.287314'
+      X-Ua-Compatible:
+      - IE=edge
+      X-Xss-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdXNoIiwicHVsbCJdfV0sImp0aSI6Ijk1MzAwMzA5LTIxMWQtNGQ4MS04NDcyLWM2NTU3NDRiYjQ1ZiIsImF1ZCI6ImNvbnRhaW5lcl9yZWdpc3RyeSIsInN1YiI6InJvb3QiLCJpc3MiOiJvbW5pYnVzLWdpdGxhYi1pc3N1ZXIiLCJpYXQiOjE2NTY0NDU3MDgsIm5iZiI6MTY1NjQ0NTcwMywiZXhwIjoxNjU2NDQ2MDA4fQ.wTPWefEG_YlGtO49I4Dc8RktkY40PnSDmtq-9gJrSS6MVsUPIbeMXkLniUg4fhbAtleewzkvu9PcAjYshIi09hZsI3THN0fGd_9q_dLYEt0jz2H-NimR-VmXV0Je7KJgUF0EutfjzyYSRjxpf2URuXGdrLF6rnwsRvGk0pDDKAyd_uJgZMbJNTv78N__e1AZMFEuP3blGWIOcxeK_XNlKtbFGvgY8MNdXL8OG8rU1xwCsmTOl3FB2Ptcyf2bBuJn58At6schgecUb4nPQWiC9HiPQ7a9ctk7f9U1ZwtDVygBsg5-87avKJyG1UU6tHhkZ897e_9hQx_pb05MYkcJ96PzK55-uP0yU32ZsvUrjczjqIjJozgctpLLnWNyD-e5LYcgsWpqod87cxtqfAf9aweK44cp5QcCH8eNIUxNdY4r34hih666fBPHFpozo-4YrpreQIao0GrxF_6R8sPUGJeg0RSOuhcajDdwKT3E4SQdMoXWbqE-iP-3vlSqYkosT-l5rgo3c669Kz0AKfBrtt721vTai2cGJIzcYV_FZmLoGYlyn7aHj91PV1te8NWldzJjW_tzzaxQkxZBC5z2TRy0jxzuAgNTwOb7dpNf7yFb18vgeRT82NB-ahecmC4ZIZzI-WBKU9DBNji4TggZ-BGtIW7_TFPme8ASXyRiqVo
+      Content-Length:
+      - '0'
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: POST
+    uri: https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/uploads/
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Date:
+      - Tue, 28 Jun 2022 19:48:28 GMT
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Docker-Upload-Uuid:
+      - 9360ab3d-8df3-496f-8376-3d2f22ea9f57
+      Location:
+      - https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/uploads/9360ab3d-8df3-496f-8376-3d2f22ea9f57?_state=69jAVRfEvsKwF7OCpVGpP5oFq-R9hfeJDuv4TlinxWV7Ik5hbWUiOiJyb290L3Rlc3QtcmVnaXN0cnkvc2lnLXN0b3JhZ2UvY3NpLW5vZGUtZHJpdmVyLXJlZ2lzdHJhciIsIlVVSUQiOiI5MzYwYWIzZC04ZGYzLTQ5NmYtODM3Ni0zZDJmMjJlYTlmNTciLCJPZmZzZXQiOjAsIlN0YXJ0ZWRBdCI6IjIwMjItMDYtMjhUMTk6NDg6MjguMDU3NjU1NTJaIn0%3D
+      Range:
+      - 0-0
+      Server:
+      - nginx
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 202
+      message: Accepted
+- request:
+    body: null
+    headers:
+      Authorization:
+      - Bearer AJAD5v2C6DVKXeDz7Z56h/x/Hj1PIa7cTyGspRKKZcivYYShr4qTISvDnyMBK+jYZTFjtxkFTTIkInvzfX5au7eucY/ZzgWetlVpTYW8WWpFVRfMkM0mWe1vHMCLZxZXXAP6luZ5/klNNE8isg3z1qVhtHTrchbq9werxiG6t0XaQ0eT8TVXCM85nxVW9LFZJLsLFKouriOtZmnFhkhHwJ/c8lzMQx2tHoUziwzr+xL2c8SlZ2Rr7IKFUmWFm4X0wyTxcpFzvD8/r2sjBP7oIweItO4WduFCHAZ7GeVqmoeBDC8h+6V8IkZM/vRx0OWi/mf4MK/H3wusw0GBIjd44OADcGy1Xbek2reHZ0C9YVKYGcSqq3QbdbUQTj5rHIetTFhUb4sHz9jDxTYp8BhQ+JB2e/Dc3aDca+qjtUeGPAqGMWS6BIbAS7k5iSirhnAJ0OMTat7nN+Z6sBIZa8piW6cjVsEpzxk595Uy68alkc2+Aq8/vbOrKq7lFwiynoreOeEwQdbI4w==
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://k8s.gcr.io/v2/sig-storage/csi-node-driver-registrar/blobs/sha256:cb03930a2bd4247929205f328d7c1b7d9594d7586813d4c108c43dc852fad219
+  response:
+    body:
+      string: '{"errors":[]}'
+    headers:
+      Accept-Ranges:
+      - none
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jun 2022 19:48:28 GMT
+      Docker-Distribution-API-Version:
+      - registry/2.0
+      Location:
+      - https://storage.googleapis.com/eu.artifacts.k8s-artifacts-prod.appspot.com/containers/images/sha256:cb03930a2bd4247929205f328d7c1b7d9594d7586813d4c108c43dc852fad219
+      Server:
+      - Docker Registry
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://storage.googleapis.com/eu.artifacts.k8s-artifacts-prod.appspot.com/containers/images/sha256:cb03930a2bd4247929205f328d7c1b7d9594d7586813d4c108c43dc852fad219
+  response:
+    body:
+      string: '{"architecture":"amd64","author":"Bazel","config":{"User":"0","Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"],"Entrypoint":["/csi-node-driver-registrar"],"WorkingDir":"/","Labels":{"description":"CSI
+        Node driver registrar","maintainers":"Kubernetes Authors","revision":"v2.5.0"},"OnBuild":null},"created":"2022-02-03T05:08:24.207219337Z","history":[{"created":"1970-01-01T00:00:00Z","created_by":"bazel
+        build ...","author":"Bazel"},{"created":"2022-02-03T05:08:24.207219337Z","created_by":"LABEL
+        maintainers=Kubernetes Authors","comment":"buildkit.dockerfile.v0","empty_layer":true},{"created":"2022-02-03T05:08:24.207219337Z","created_by":"LABEL
+        description=CSI Node driver registrar","comment":"buildkit.dockerfile.v0","empty_layer":true},{"created":"2022-02-03T05:08:24.207219337Z","created_by":"ARG
+        binary=./bin/csi-node-driver-registrar","comment":"buildkit.dockerfile.v0","empty_layer":true},{"created":"2022-02-03T05:08:24.207219337Z","created_by":"COPY
+        ./bin/csi-node-driver-registrar csi-node-driver-registrar # buildkit","comment":"buildkit.dockerfile.v0"},{"created":"2022-02-03T05:08:24.207219337Z","created_by":"ENTRYPOINT
+        [\"/csi-node-driver-registrar\"]","comment":"buildkit.dockerfile.v0","empty_layer":true}],"os":"linux","rootfs":{"type":"layers","diff_ids":["sha256:5b1fa8e3e100361047c8bcd5553ab6329b9c713c1d4eb87a646760329cea5b3a","sha256:e20ed4c7320651a0889e3faf4915a8edfa089b0cf1c9ac89fb9ae956eac2152d"]}}'
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '3390'
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Cache-Control:
+      - public, max-age=3600
+      Content-Length:
+      - '1506'
+      Content-Type:
+      - application/octet-stream
+      Date:
+      - Tue, 28 Jun 2022 18:51:58 GMT
+      ETag:
+      - '"6df71589070a4b1c0fc30050911c4579"'
+      Expires:
+      - Tue, 28 Jun 2022 19:51:58 GMT
+      Last-Modified:
+      - Thu, 03 Feb 2022 21:59:51 GMT
+      Server:
+      - UploadServer
+      X-GUploader-UploadID:
+      - ADPycdv4_MfzqfCIE3Lnt9sRb9KZP5uUBNYxpl14M1HZJfDy_8Xlo_OTi6VW6ykZ3WAInCeUGAEmLxXfiOYiB3WAbCxv1g
+      x-goog-generation:
+      - '1643925591728121'
+      x-goog-hash:
+      - crc32c=dGVYeA==
+      - md5=bfcViQcKSxwPwwBQkRxFeQ==
+      x-goog-metageneration:
+      - '1'
+      x-goog-storage-class:
+      - STANDARD
+      x-goog-stored-content-encoding:
+      - identity
+      x-goog-stored-content-length:
+      - '1506'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "5e2\r\n{\"architecture\":\"amd64\",\"author\":\"Bazel\",\"config\":{\"User\":\"0\",\"Env\":[\"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\"SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt\"],\"Entrypoint\":[\"/csi-node-driver-registrar\"],\"WorkingDir\":\"/\",\"Labels\":{\"description\":\"CSI
+      Node driver registrar\",\"maintainers\":\"Kubernetes Authors\",\"revision\":\"v2.5.0\"},\"OnBuild\":null},\"created\":\"2022-02-03T05:08:24.207219337Z\",\"history\":[{\"created\":\"1970-01-01T00:00:00Z\",\"created_by\":\"bazel
+      build ...\",\"author\":\"Bazel\"},{\"created\":\"2022-02-03T05:08:24.207219337Z\",\"created_by\":\"LABEL
+      maintainers=Kubernetes Authors\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2022-02-03T05:08:24.207219337Z\",\"created_by\":\"LABEL
+      description=CSI Node driver registrar\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2022-02-03T05:08:24.207219337Z\",\"created_by\":\"ARG
+      binary=./bin/csi-node-driver-registrar\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2022-02-03T05:08:24.207219337Z\",\"created_by\":\"COPY
+      ./bin/csi-node-driver-registrar csi-node-driver-registrar # buildkit\",\"comment\":\"buildkit.dockerfile.v0\"},{\"created\":\"2022-02-03T05:08:24.207219337Z\",\"created_by\":\"ENTRYPOINT
+      [\\\"/csi-node-driver-registrar\\\"]\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true}],\"os\":\"linux\",\"rootfs\":{\"type\":\"layers\",\"diff_ids\":[\"sha256:5b1fa8e3e100361047c8bcd5553ab6329b9c713c1d4eb87a646760329cea5b3a\",\"sha256:e20ed4c7320651a0889e3faf4915a8edfa089b0cf1c9ac89fb9ae956eac2152d\"]}}\r\n0\r\n\r\n"
+    headers:
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdXNoIiwicHVsbCJdfV0sImp0aSI6Ijk1MzAwMzA5LTIxMWQtNGQ4MS04NDcyLWM2NTU3NDRiYjQ1ZiIsImF1ZCI6ImNvbnRhaW5lcl9yZWdpc3RyeSIsInN1YiI6InJvb3QiLCJpc3MiOiJvbW5pYnVzLWdpdGxhYi1pc3N1ZXIiLCJpYXQiOjE2NTY0NDU3MDgsIm5iZiI6MTY1NjQ0NTcwMywiZXhwIjoxNjU2NDQ2MDA4fQ.wTPWefEG_YlGtO49I4Dc8RktkY40PnSDmtq-9gJrSS6MVsUPIbeMXkLniUg4fhbAtleewzkvu9PcAjYshIi09hZsI3THN0fGd_9q_dLYEt0jz2H-NimR-VmXV0Je7KJgUF0EutfjzyYSRjxpf2URuXGdrLF6rnwsRvGk0pDDKAyd_uJgZMbJNTv78N__e1AZMFEuP3blGWIOcxeK_XNlKtbFGvgY8MNdXL8OG8rU1xwCsmTOl3FB2Ptcyf2bBuJn58At6schgecUb4nPQWiC9HiPQ7a9ctk7f9U1ZwtDVygBsg5-87avKJyG1UU6tHhkZ897e_9hQx_pb05MYkcJ96PzK55-uP0yU32ZsvUrjczjqIjJozgctpLLnWNyD-e5LYcgsWpqod87cxtqfAf9aweK44cp5QcCH8eNIUxNdY4r34hih666fBPHFpozo-4YrpreQIao0GrxF_6R8sPUGJeg0RSOuhcajDdwKT3E4SQdMoXWbqE-iP-3vlSqYkosT-l5rgo3c669Kz0AKfBrtt721vTai2cGJIzcYV_FZmLoGYlyn7aHj91PV1te8NWldzJjW_tzzaxQkxZBC5z2TRy0jxzuAgNTwOb7dpNf7yFb18vgeRT82NB-ahecmC4ZIZzI-WBKU9DBNji4TggZ-BGtIW7_TFPme8ASXyRiqVo
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Transfer-Encoding:
+      - chunked
+    method: PUT
+    uri: https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/uploads/9360ab3d-8df3-496f-8376-3d2f22ea9f57?_state=69jAVRfEvsKwF7OCpVGpP5oFq-R9hfeJDuv4TlinxWV7Ik5hbWUiOiJyb290L3Rlc3QtcmVnaXN0cnkvc2lnLXN0b3JhZ2UvY3NpLW5vZGUtZHJpdmVyLXJlZ2lzdHJhciIsIlVVSUQiOiI5MzYwYWIzZC04ZGYzLTQ5NmYtODM3Ni0zZDJmMjJlYTlmNTciLCJPZmZzZXQiOjAsIlN0YXJ0ZWRBdCI6IjIwMjItMDYtMjhUMTk6NDg6MjguMDU3NjU1NTJaIn0%3D&digest=sha256:cb03930a2bd4247929205f328d7c1b7d9594d7586813d4c108c43dc852fad219
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Date:
+      - Tue, 28 Jun 2022 19:48:28 GMT
+      Docker-Content-Digest:
+      - sha256:cb03930a2bd4247929205f328d7c1b7d9594d7586813d4c108c43dc852fad219
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Location:
+      - https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/sha256:cb03930a2bd4247929205f328d7c1b7d9594d7586813d4c108c43dc852fad219
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdWxsIl19XSwianRpIjoiNGJjYzNmMTItNGM5NC00NTBjLWJmYjEtYjdkYWE3ZmYxMTA1IiwiYXVkIjoiY29udGFpbmVyX3JlZ2lzdHJ5Iiwic3ViIjoicm9vdCIsImlzcyI6Im9tbmlidXMtZ2l0bGFiLWlzc3VlciIsImlhdCI6MTY1NjQ0NTcwNywibmJmIjoxNjU2NDQ1NzAyLCJleHAiOjE2NTY0NDYwMDd9.aQVy3-6tjBxBhdywzM429DnChGOg5qE9DSU1ZItN9MsPSCsmr8SEUeAIb8uIcFMiIeCWNeeITCqr97nTppF3VRbMd2W2OxwcNo5JWuEKmkzm-qwtNzHFo2P4DyBPxBSUnww5qQDGsKoYCbFf3nUIEelSIdgP-TSM4zkC3fCWvOQrW8D4yw_RuvElhwDH5Je8MjTlXjRDKndBSjQ0l_srJuizppmpzPZnnQTJlBIy3A4mpT4TaMbeTICWNXV1eWXo7SUdOzCt_Qkr01UVKJRgDOiY5g6xSa3FwctMttRYHE3FIf7S5N2Eh0JlQmyM1jepfsolsCLM1CMiqaFVfKJX_mO8gcSUai71JwCtMIvBK20aDB_5A2d3UWbqBpipFS0UGc9m-KWR2_uA-lNusCnRB5mMqxNnB6V0k4ZxnI3x_fLxwI3oCsSlmrVObnpiis84VlFqKqDFtgk_YCqZ1LrALji9LcJVZJAvcHAEKDn1PWIXcUljfqVwSB4lOXHdkoiBwbRYAPmKbtAoxVZP_DuDSQaf-W8jSJM20XCubLiQpxUi7kUptgJ0VN04XMk7IUTbnq7N1EMMG6BtoJE8eG3IQvs7yJTOVUNxgZRaOpZnef6sQKRGxeFJdvI6meHHXyoCcIfHw8R2MbFpRQB46XVAnHSg_SXkv85jv4EtlqnPZJI
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: HEAD
+    uri: https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/sha256:2df365faf0e3007f983fadd7a65ba51d41b488eb2ed8fc70f4bf97043cfea560
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '157'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jun 2022 19:48:28 GMT
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Server:
+      - nginx
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdXNoIiwicHVsbCJdfV0sImp0aSI6Ijk1MzAwMzA5LTIxMWQtNGQ4MS04NDcyLWM2NTU3NDRiYjQ1ZiIsImF1ZCI6ImNvbnRhaW5lcl9yZWdpc3RyeSIsInN1YiI6InJvb3QiLCJpc3MiOiJvbW5pYnVzLWdpdGxhYi1pc3N1ZXIiLCJpYXQiOjE2NTY0NDU3MDgsIm5iZiI6MTY1NjQ0NTcwMywiZXhwIjoxNjU2NDQ2MDA4fQ.wTPWefEG_YlGtO49I4Dc8RktkY40PnSDmtq-9gJrSS6MVsUPIbeMXkLniUg4fhbAtleewzkvu9PcAjYshIi09hZsI3THN0fGd_9q_dLYEt0jz2H-NimR-VmXV0Je7KJgUF0EutfjzyYSRjxpf2URuXGdrLF6rnwsRvGk0pDDKAyd_uJgZMbJNTv78N__e1AZMFEuP3blGWIOcxeK_XNlKtbFGvgY8MNdXL8OG8rU1xwCsmTOl3FB2Ptcyf2bBuJn58At6schgecUb4nPQWiC9HiPQ7a9ctk7f9U1ZwtDVygBsg5-87avKJyG1UU6tHhkZ897e_9hQx_pb05MYkcJ96PzK55-uP0yU32ZsvUrjczjqIjJozgctpLLnWNyD-e5LYcgsWpqod87cxtqfAf9aweK44cp5QcCH8eNIUxNdY4r34hih666fBPHFpozo-4YrpreQIao0GrxF_6R8sPUGJeg0RSOuhcajDdwKT3E4SQdMoXWbqE-iP-3vlSqYkosT-l5rgo3c669Kz0AKfBrtt721vTai2cGJIzcYV_FZmLoGYlyn7aHj91PV1te8NWldzJjW_tzzaxQkxZBC5z2TRy0jxzuAgNTwOb7dpNf7yFb18vgeRT82NB-ahecmC4ZIZzI-WBKU9DBNji4TggZ-BGtIW7_TFPme8ASXyRiqVo
+      Content-Length:
+      - '0'
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: POST
+    uri: https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/uploads/
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Date:
+      - Tue, 28 Jun 2022 19:48:28 GMT
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Docker-Upload-Uuid:
+      - 1bbe3ad3-30c5-4db7-928f-84252609c1f8
+      Location:
+      - https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/uploads/1bbe3ad3-30c5-4db7-928f-84252609c1f8?_state=U2OSDaeDqZfhzzzPtefOxA-E2csYkcGJ_aT5VVMSUtV7Ik5hbWUiOiJyb290L3Rlc3QtcmVnaXN0cnkvc2lnLXN0b3JhZ2UvY3NpLW5vZGUtZHJpdmVyLXJlZ2lzdHJhciIsIlVVSUQiOiIxYmJlM2FkMy0zMGM1LTRkYjctOTI4Zi04NDI1MjYwOWMxZjgiLCJPZmZzZXQiOjAsIlN0YXJ0ZWRBdCI6IjIwMjItMDYtMjhUMTk6NDg6MjguMjY0NjE1OTQzWiJ9
+      Range:
+      - 0-0
+      Server:
+      - nginx
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 202
+      message: Accepted
+- request:
+    body: null
+    headers:
+      Authorization:
+      - Bearer AJAD5v2C6DVKXeDz7Z56h/x/Hj1PIa7cTyGspRKKZcivYYShr4qTISvDnyMBK+jYZTFjtxkFTTIkInvzfX5au7eucY/ZzgWetlVpTYW8WWpFVRfMkM0mWe1vHMCLZxZXXAP6luZ5/klNNE8isg3z1qVhtHTrchbq9werxiG6t0XaQ0eT8TVXCM85nxVW9LFZJLsLFKouriOtZmnFhkhHwJ/c8lzMQx2tHoUziwzr+xL2c8SlZ2Rr7IKFUmWFm4X0wyTxcpFzvD8/r2sjBP7oIweItO4WduFCHAZ7GeVqmoeBDC8h+6V8IkZM/vRx0OWi/mf4MK/H3wusw0GBIjd44OADcGy1Xbek2reHZ0C9YVKYGcSqq3QbdbUQTj5rHIetTFhUb4sHz9jDxTYp8BhQ+JB2e/Dc3aDca+qjtUeGPAqGMWS6BIbAS7k5iSirhnAJ0OMTat7nN+Z6sBIZa8piW6cjVsEpzxk595Uy68alkc2+Aq8/vbOrKq7lFwiynoreOeEwQdbI4w==
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://k8s.gcr.io/v2/sig-storage/csi-node-driver-registrar/blobs/sha256:2df365faf0e3007f983fadd7a65ba51d41b488eb2ed8fc70f4bf97043cfea560
+  response:
+    body:
+      string: '{"errors":[]}'
+    headers:
+      Accept-Ranges:
+      - none
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jun 2022 19:48:28 GMT
+      Docker-Distribution-API-Version:
+      - registry/2.0
+      Location:
+      - https://storage.googleapis.com/eu.artifacts.k8s-artifacts-prod.appspot.com/containers/images/sha256:2df365faf0e3007f983fadd7a65ba51d41b488eb2ed8fc70f4bf97043cfea560
+      Server:
+      - Docker Registry
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://storage.googleapis.com/eu.artifacts.k8s-artifacts-prod.appspot.com/containers/images/sha256:2df365faf0e3007f983fadd7a65ba51d41b488eb2ed8fc70f4bf97043cfea560
+  response:
+    body:
+      string: Blob content 1
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '547'
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Cache-Control:
+      - public, max-age=3600
+      Content-Length:
+      - '803833'
+      Content-Type:
+      - application/octet-stream
+      Date:
+      - Tue, 28 Jun 2022 19:39:21 GMT
+      ETag:
+      - '"6816b7d41e7857371420360e5b476efb"'
+      Expires:
+      - Tue, 28 Jun 2022 20:39:21 GMT
+      Last-Modified:
+      - Wed, 02 Feb 2022 16:11:23 GMT
+      Server:
+      - UploadServer
+      X-GUploader-UploadID:
+      - ADPycdtLTKsTzVSvniCb0I7jwfFePX_4Y1TStqJjpb3stbRVl0lUkeUUkteNKgO3-TDwK4qdkiJ-qnteCtPWASIkGt7wNw
+      x-goog-generation:
+      - '1640710501818431'
+      x-goog-hash:
+      - crc32c=7ppTFw==
+      - md5=aBa31B54VzcUIDYOW0du+w==
+      x-goog-metageneration:
+      - '1'
+      x-goog-storage-class:
+      - STANDARD
+      x-goog-stored-content-encoding:
+      - identity
+      x-goog-stored-content-length:
+      - '803833'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "e\r\nBlob content 1\r\n0\r\n\r\n"
+    headers:
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdXNoIiwicHVsbCJdfV0sImp0aSI6Ijk1MzAwMzA5LTIxMWQtNGQ4MS04NDcyLWM2NTU3NDRiYjQ1ZiIsImF1ZCI6ImNvbnRhaW5lcl9yZWdpc3RyeSIsInN1YiI6InJvb3QiLCJpc3MiOiJvbW5pYnVzLWdpdGxhYi1pc3N1ZXIiLCJpYXQiOjE2NTY0NDU3MDgsIm5iZiI6MTY1NjQ0NTcwMywiZXhwIjoxNjU2NDQ2MDA4fQ.wTPWefEG_YlGtO49I4Dc8RktkY40PnSDmtq-9gJrSS6MVsUPIbeMXkLniUg4fhbAtleewzkvu9PcAjYshIi09hZsI3THN0fGd_9q_dLYEt0jz2H-NimR-VmXV0Je7KJgUF0EutfjzyYSRjxpf2URuXGdrLF6rnwsRvGk0pDDKAyd_uJgZMbJNTv78N__e1AZMFEuP3blGWIOcxeK_XNlKtbFGvgY8MNdXL8OG8rU1xwCsmTOl3FB2Ptcyf2bBuJn58At6schgecUb4nPQWiC9HiPQ7a9ctk7f9U1ZwtDVygBsg5-87avKJyG1UU6tHhkZ897e_9hQx_pb05MYkcJ96PzK55-uP0yU32ZsvUrjczjqIjJozgctpLLnWNyD-e5LYcgsWpqod87cxtqfAf9aweK44cp5QcCH8eNIUxNdY4r34hih666fBPHFpozo-4YrpreQIao0GrxF_6R8sPUGJeg0RSOuhcajDdwKT3E4SQdMoXWbqE-iP-3vlSqYkosT-l5rgo3c669Kz0AKfBrtt721vTai2cGJIzcYV_FZmLoGYlyn7aHj91PV1te8NWldzJjW_tzzaxQkxZBC5z2TRy0jxzuAgNTwOb7dpNf7yFb18vgeRT82NB-ahecmC4ZIZzI-WBKU9DBNji4TggZ-BGtIW7_TFPme8ASXyRiqVo
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Transfer-Encoding:
+      - chunked
+    method: PUT
+    uri: https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/uploads/1bbe3ad3-30c5-4db7-928f-84252609c1f8?_state=U2OSDaeDqZfhzzzPtefOxA-E2csYkcGJ_aT5VVMSUtV7Ik5hbWUiOiJyb290L3Rlc3QtcmVnaXN0cnkvc2lnLXN0b3JhZ2UvY3NpLW5vZGUtZHJpdmVyLXJlZ2lzdHJhciIsIlVVSUQiOiIxYmJlM2FkMy0zMGM1LTRkYjctOTI4Zi04NDI1MjYwOWMxZjgiLCJPZmZzZXQiOjAsIlN0YXJ0ZWRBdCI6IjIwMjItMDYtMjhUMTk6NDg6MjguMjY0NjE1OTQzWiJ9&digest=sha256:2df365faf0e3007f983fadd7a65ba51d41b488eb2ed8fc70f4bf97043cfea560
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Date:
+      - Tue, 28 Jun 2022 19:48:29 GMT
+      Docker-Content-Digest:
+      - sha256:2df365faf0e3007f983fadd7a65ba51d41b488eb2ed8fc70f4bf97043cfea560
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Location:
+      - https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/sha256:2df365faf0e3007f983fadd7a65ba51d41b488eb2ed8fc70f4bf97043cfea560
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdWxsIl19XSwianRpIjoiNGJjYzNmMTItNGM5NC00NTBjLWJmYjEtYjdkYWE3ZmYxMTA1IiwiYXVkIjoiY29udGFpbmVyX3JlZ2lzdHJ5Iiwic3ViIjoicm9vdCIsImlzcyI6Im9tbmlidXMtZ2l0bGFiLWlzc3VlciIsImlhdCI6MTY1NjQ0NTcwNywibmJmIjoxNjU2NDQ1NzAyLCJleHAiOjE2NTY0NDYwMDd9.aQVy3-6tjBxBhdywzM429DnChGOg5qE9DSU1ZItN9MsPSCsmr8SEUeAIb8uIcFMiIeCWNeeITCqr97nTppF3VRbMd2W2OxwcNo5JWuEKmkzm-qwtNzHFo2P4DyBPxBSUnww5qQDGsKoYCbFf3nUIEelSIdgP-TSM4zkC3fCWvOQrW8D4yw_RuvElhwDH5Je8MjTlXjRDKndBSjQ0l_srJuizppmpzPZnnQTJlBIy3A4mpT4TaMbeTICWNXV1eWXo7SUdOzCt_Qkr01UVKJRgDOiY5g6xSa3FwctMttRYHE3FIf7S5N2Eh0JlQmyM1jepfsolsCLM1CMiqaFVfKJX_mO8gcSUai71JwCtMIvBK20aDB_5A2d3UWbqBpipFS0UGc9m-KWR2_uA-lNusCnRB5mMqxNnB6V0k4ZxnI3x_fLxwI3oCsSlmrVObnpiis84VlFqKqDFtgk_YCqZ1LrALji9LcJVZJAvcHAEKDn1PWIXcUljfqVwSB4lOXHdkoiBwbRYAPmKbtAoxVZP_DuDSQaf-W8jSJM20XCubLiQpxUi7kUptgJ0VN04XMk7IUTbnq7N1EMMG6BtoJE8eG3IQvs7yJTOVUNxgZRaOpZnef6sQKRGxeFJdvI6meHHXyoCcIfHw8R2MbFpRQB46XVAnHSg_SXkv85jv4EtlqnPZJI
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: HEAD
+    uri: https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/sha256:09d1617f1bddc41c1e3a9f6e30fada6ad4c9340c931f2c22af0ff4212fa7f3b3
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '157'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jun 2022 19:48:29 GMT
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Server:
+      - nginx
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdXNoIiwicHVsbCJdfV0sImp0aSI6Ijk1MzAwMzA5LTIxMWQtNGQ4MS04NDcyLWM2NTU3NDRiYjQ1ZiIsImF1ZCI6ImNvbnRhaW5lcl9yZWdpc3RyeSIsInN1YiI6InJvb3QiLCJpc3MiOiJvbW5pYnVzLWdpdGxhYi1pc3N1ZXIiLCJpYXQiOjE2NTY0NDU3MDgsIm5iZiI6MTY1NjQ0NTcwMywiZXhwIjoxNjU2NDQ2MDA4fQ.wTPWefEG_YlGtO49I4Dc8RktkY40PnSDmtq-9gJrSS6MVsUPIbeMXkLniUg4fhbAtleewzkvu9PcAjYshIi09hZsI3THN0fGd_9q_dLYEt0jz2H-NimR-VmXV0Je7KJgUF0EutfjzyYSRjxpf2URuXGdrLF6rnwsRvGk0pDDKAyd_uJgZMbJNTv78N__e1AZMFEuP3blGWIOcxeK_XNlKtbFGvgY8MNdXL8OG8rU1xwCsmTOl3FB2Ptcyf2bBuJn58At6schgecUb4nPQWiC9HiPQ7a9ctk7f9U1ZwtDVygBsg5-87avKJyG1UU6tHhkZ897e_9hQx_pb05MYkcJ96PzK55-uP0yU32ZsvUrjczjqIjJozgctpLLnWNyD-e5LYcgsWpqod87cxtqfAf9aweK44cp5QcCH8eNIUxNdY4r34hih666fBPHFpozo-4YrpreQIao0GrxF_6R8sPUGJeg0RSOuhcajDdwKT3E4SQdMoXWbqE-iP-3vlSqYkosT-l5rgo3c669Kz0AKfBrtt721vTai2cGJIzcYV_FZmLoGYlyn7aHj91PV1te8NWldzJjW_tzzaxQkxZBC5z2TRy0jxzuAgNTwOb7dpNf7yFb18vgeRT82NB-ahecmC4ZIZzI-WBKU9DBNji4TggZ-BGtIW7_TFPme8ASXyRiqVo
+      Content-Length:
+      - '0'
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: POST
+    uri: https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/uploads/
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Date:
+      - Tue, 28 Jun 2022 19:48:29 GMT
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Docker-Upload-Uuid:
+      - 656ac494-9c49-4437-ad90-dd6c4d3b0fbb
+      Location:
+      - https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/uploads/656ac494-9c49-4437-ad90-dd6c4d3b0fbb?_state=5AMzUkyNulSitG6MjkGOlX_pm6uY7M9JOaFDQbCFNBJ7Ik5hbWUiOiJyb290L3Rlc3QtcmVnaXN0cnkvc2lnLXN0b3JhZ2UvY3NpLW5vZGUtZHJpdmVyLXJlZ2lzdHJhciIsIlVVSUQiOiI2NTZhYzQ5NC05YzQ5LTQ0MzctYWQ5MC1kZDZjNGQzYjBmYmIiLCJPZmZzZXQiOjAsIlN0YXJ0ZWRBdCI6IjIwMjItMDYtMjhUMTk6NDg6MjkuMTQwOTI0MTYyWiJ9
+      Range:
+      - 0-0
+      Server:
+      - nginx
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 202
+      message: Accepted
+- request:
+    body: null
+    headers:
+      Authorization:
+      - Bearer AJAD5v2C6DVKXeDz7Z56h/x/Hj1PIa7cTyGspRKKZcivYYShr4qTISvDnyMBK+jYZTFjtxkFTTIkInvzfX5au7eucY/ZzgWetlVpTYW8WWpFVRfMkM0mWe1vHMCLZxZXXAP6luZ5/klNNE8isg3z1qVhtHTrchbq9werxiG6t0XaQ0eT8TVXCM85nxVW9LFZJLsLFKouriOtZmnFhkhHwJ/c8lzMQx2tHoUziwzr+xL2c8SlZ2Rr7IKFUmWFm4X0wyTxcpFzvD8/r2sjBP7oIweItO4WduFCHAZ7GeVqmoeBDC8h+6V8IkZM/vRx0OWi/mf4MK/H3wusw0GBIjd44OADcGy1Xbek2reHZ0C9YVKYGcSqq3QbdbUQTj5rHIetTFhUb4sHz9jDxTYp8BhQ+JB2e/Dc3aDca+qjtUeGPAqGMWS6BIbAS7k5iSirhnAJ0OMTat7nN+Z6sBIZa8piW6cjVsEpzxk595Uy68alkc2+Aq8/vbOrKq7lFwiynoreOeEwQdbI4w==
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://k8s.gcr.io/v2/sig-storage/csi-node-driver-registrar/blobs/sha256:09d1617f1bddc41c1e3a9f6e30fada6ad4c9340c931f2c22af0ff4212fa7f3b3
+  response:
+    body:
+      string: '{"errors":[]}'
+    headers:
+      Accept-Ranges:
+      - none
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jun 2022 19:48:29 GMT
+      Docker-Distribution-API-Version:
+      - registry/2.0
+      Location:
+      - https://storage.googleapis.com/eu.artifacts.k8s-artifacts-prod.appspot.com/containers/images/sha256:09d1617f1bddc41c1e3a9f6e30fada6ad4c9340c931f2c22af0ff4212fa7f3b3
+      Server:
+      - Docker Registry
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-XSS-Protection:
+      - '0'
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+    method: GET
+    uri: https://storage.googleapis.com/eu.artifacts.k8s-artifacts-prod.appspot.com/containers/images/sha256:09d1617f1bddc41c1e3a9f6e30fada6ad4c9340c931f2c22af0ff4212fa7f3b3
+  response:
+    body:
+      string: Blob content 2
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '2791'
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Cache-Control:
+      - public, max-age=3600
+      Content-Length:
+      - '8322757'
+      Content-Type:
+      - application/octet-stream
+      Date:
+      - Tue, 28 Jun 2022 19:01:58 GMT
+      ETag:
+      - '"c56ea2e3f91d4909e55bba42848c426b"'
+      Expires:
+      - Tue, 28 Jun 2022 20:01:58 GMT
+      Last-Modified:
+      - Thu, 03 Feb 2022 21:59:52 GMT
+      Server:
+      - UploadServer
+      X-GUploader-UploadID:
+      - ADPycduu4OeRABHqSUnGfHYbtQaS3edwJRu1Jy-aAdUZZMRqUyeP65b1zYYCbOzPEEnh5RF_lAGIgxR3OVZmbgqA-aI7kw
+      x-goog-generation:
+      - '1643925592058704'
+      x-goog-hash:
+      - crc32c=n6XYIQ==
+      - md5=xW6i4/kdSQnlW7pChIxCaw==
+      x-goog-metageneration:
+      - '1'
+      x-goog-storage-class:
+      - STANDARD
+      x-goog-stored-content-encoding:
+      - identity
+      x-goog-stored-content-length:
+      - '8322757'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "e\r\nBlob content 2\r\n0\r\n\r\n"
+    headers:
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdXNoIiwicHVsbCJdfV0sImp0aSI6Ijk1MzAwMzA5LTIxMWQtNGQ4MS04NDcyLWM2NTU3NDRiYjQ1ZiIsImF1ZCI6ImNvbnRhaW5lcl9yZWdpc3RyeSIsInN1YiI6InJvb3QiLCJpc3MiOiJvbW5pYnVzLWdpdGxhYi1pc3N1ZXIiLCJpYXQiOjE2NTY0NDU3MDgsIm5iZiI6MTY1NjQ0NTcwMywiZXhwIjoxNjU2NDQ2MDA4fQ.wTPWefEG_YlGtO49I4Dc8RktkY40PnSDmtq-9gJrSS6MVsUPIbeMXkLniUg4fhbAtleewzkvu9PcAjYshIi09hZsI3THN0fGd_9q_dLYEt0jz2H-NimR-VmXV0Je7KJgUF0EutfjzyYSRjxpf2URuXGdrLF6rnwsRvGk0pDDKAyd_uJgZMbJNTv78N__e1AZMFEuP3blGWIOcxeK_XNlKtbFGvgY8MNdXL8OG8rU1xwCsmTOl3FB2Ptcyf2bBuJn58At6schgecUb4nPQWiC9HiPQ7a9ctk7f9U1ZwtDVygBsg5-87avKJyG1UU6tHhkZ897e_9hQx_pb05MYkcJ96PzK55-uP0yU32ZsvUrjczjqIjJozgctpLLnWNyD-e5LYcgsWpqod87cxtqfAf9aweK44cp5QcCH8eNIUxNdY4r34hih666fBPHFpozo-4YrpreQIao0GrxF_6R8sPUGJeg0RSOuhcajDdwKT3E4SQdMoXWbqE-iP-3vlSqYkosT-l5rgo3c669Kz0AKfBrtt721vTai2cGJIzcYV_FZmLoGYlyn7aHj91PV1te8NWldzJjW_tzzaxQkxZBC5z2TRy0jxzuAgNTwOb7dpNf7yFb18vgeRT82NB-ahecmC4ZIZzI-WBKU9DBNji4TggZ-BGtIW7_TFPme8ASXyRiqVo
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Transfer-Encoding:
+      - chunked
+    method: PUT
+    uri: https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/uploads/656ac494-9c49-4437-ad90-dd6c4d3b0fbb?_state=5AMzUkyNulSitG6MjkGOlX_pm6uY7M9JOaFDQbCFNBJ7Ik5hbWUiOiJyb290L3Rlc3QtcmVnaXN0cnkvc2lnLXN0b3JhZ2UvY3NpLW5vZGUtZHJpdmVyLXJlZ2lzdHJhciIsIlVVSUQiOiI2NTZhYzQ5NC05YzQ5LTQ0MzctYWQ5MC1kZDZjNGQzYjBmYmIiLCJPZmZzZXQiOjAsIlN0YXJ0ZWRBdCI6IjIwMjItMDYtMjhUMTk6NDg6MjkuMTQwOTI0MTYyWiJ9&digest=sha256:09d1617f1bddc41c1e3a9f6e30fada6ad4c9340c931f2c22af0ff4212fa7f3b3
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Date:
+      - Tue, 28 Jun 2022 19:48:34 GMT
+      Docker-Content-Digest:
+      - sha256:09d1617f1bddc41c1e3a9f6e30fada6ad4c9340c931f2c22af0ff4212fa7f3b3
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Location:
+      - https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/blobs/sha256:09d1617f1bddc41c1e3a9f6e30fada6ad4c9340c931f2c22af0ff4212fa7f3b3
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 201
+      message: Created
+- request:
+    body: "2e2\r\n{\n   \"mediaType\": \"application/vnd.docker.distribution.manifest.v2+json\",\n
+      \  \"schemaVersion\": 2,\n   \"config\": {\n      \"mediaType\": \"application/vnd.docker.container.image.v1+json\",\n
+      \     \"digest\": \"sha256:cb03930a2bd4247929205f328d7c1b7d9594d7586813d4c108c43dc852fad219\",\n
+      \     \"size\": 1506\n   },\n   \"layers\": [\n      {\n         \"mediaType\":
+      \"application/vnd.docker.image.rootfs.diff.tar.gzip\",\n         \"digest\":
+      \"sha256:2df365faf0e3007f983fadd7a65ba51d41b488eb2ed8fc70f4bf97043cfea560\",\n
+      \        \"size\": 803833\n      },\n      {\n         \"mediaType\": \"application/vnd.docker.image.rootfs.diff.tar.gzip\",\n
+      \        \"digest\": \"sha256:09d1617f1bddc41c1e3a9f6e30fada6ad4c9340c931f2c22af0ff4212fa7f3b3\",\n
+      \        \"size\": 8322757\n      }\n   ]\n}\r\n0\r\n\r\n"
+    headers:
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlJUVE46R1ZZSTpHNklLOlEyQlc6T1VRUTpIMlY0OjRLQU86T0hURjpKRkdGOjRaRU06UkhQQTpHRVJPIiwidHlwIjoiSldUIn0.eyJhY2Nlc3MiOlt7InR5cGUiOiJyZXBvc2l0b3J5IiwibmFtZSI6InJvb3QvdGVzdC1yZWdpc3RyeS9zaWctc3RvcmFnZS9jc2ktbm9kZS1kcml2ZXItcmVnaXN0cmFyIiwiYWN0aW9ucyI6WyJwdXNoIiwicHVsbCJdfV0sImp0aSI6Ijk1MzAwMzA5LTIxMWQtNGQ4MS04NDcyLWM2NTU3NDRiYjQ1ZiIsImF1ZCI6ImNvbnRhaW5lcl9yZWdpc3RyeSIsInN1YiI6InJvb3QiLCJpc3MiOiJvbW5pYnVzLWdpdGxhYi1pc3N1ZXIiLCJpYXQiOjE2NTY0NDU3MDgsIm5iZiI6MTY1NjQ0NTcwMywiZXhwIjoxNjU2NDQ2MDA4fQ.wTPWefEG_YlGtO49I4Dc8RktkY40PnSDmtq-9gJrSS6MVsUPIbeMXkLniUg4fhbAtleewzkvu9PcAjYshIi09hZsI3THN0fGd_9q_dLYEt0jz2H-NimR-VmXV0Je7KJgUF0EutfjzyYSRjxpf2URuXGdrLF6rnwsRvGk0pDDKAyd_uJgZMbJNTv78N__e1AZMFEuP3blGWIOcxeK_XNlKtbFGvgY8MNdXL8OG8rU1xwCsmTOl3FB2Ptcyf2bBuJn58At6schgecUb4nPQWiC9HiPQ7a9ctk7f9U1ZwtDVygBsg5-87avKJyG1UU6tHhkZ897e_9hQx_pb05MYkcJ96PzK55-uP0yU32ZsvUrjczjqIjJozgctpLLnWNyD-e5LYcgsWpqod87cxtqfAf9aweK44cp5QcCH8eNIUxNdY4r34hih666fBPHFpozo-4YrpreQIao0GrxF_6R8sPUGJeg0RSOuhcajDdwKT3E4SQdMoXWbqE-iP-3vlSqYkosT-l5rgo3c669Kz0AKfBrtt721vTai2cGJIzcYV_FZmLoGYlyn7aHj91PV1te8NWldzJjW_tzzaxQkxZBC5z2TRy0jxzuAgNTwOb7dpNf7yFb18vgeRT82NB-ahecmC4ZIZzI-WBKU9DBNji4TggZ-BGtIW7_TFPme8ASXyRiqVo
+      Content-Type:
+      - application/vnd.docker.distribution.manifest.v2+json
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Transfer-Encoding:
+      - chunked
+    method: PUT
+    uri: https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/manifests/v2.5.0
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Date:
+      - Tue, 28 Jun 2022 19:48:35 GMT
+      Docker-Content-Digest:
+      - sha256:383afca6cfdc41ddf9b44491958604fcf1faf3d15894e4032e671fbbfd55c9d8
+      Docker-Distribution-Api-Version:
+      - registry/2.0
+      Location:
+      - https://gitlab-registry.example.com/v2/root/test-registry/sig-storage/csi-node-driver-registrar/manifests/sha256:383afca6cfdc41ddf9b44491958604fcf1faf3d15894e4032e671fbbfd55c9d8
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 201
+      message: Created
+version: 1
