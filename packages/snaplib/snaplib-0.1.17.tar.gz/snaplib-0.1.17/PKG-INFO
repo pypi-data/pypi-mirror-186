@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: snaplib
+Version: 0.1.17
+Summary: Data preprocessing lib
+Home-page: https://github.com/kolasdevpy/snaplib
+Author: Artyom Kolas
+Author-email: artyom.kolas@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.7
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+<h1>snaplib</h1>
+<h2>A simple data preprocessing tools.</h2>
+
+____________________________________________
+
+# user guide
+
+**[Kaggle Notebook](https://www.kaggle.com/code/artyomkolas/titanic-snaplib-classification/settings?scriptVersionId=116790545)**   
+<https://www.kaggle.com/code/artyomkolas/titanic-snaplib-classification/settings?scriptVersionId=116790545>
+
+
+____________________________________________
+
+# PyPi
+
+!pip install snaplib     
+
+
+
+# Use cases
+from snaplib.snaplib import Snaplib     
+sl = Snaplib()    
+       
+     
+      
+missing_info_df = sl.nan_info(df)     
+      
+sl.nan_plot(df)      
+     
+df = sl.cleane(df, target_name, verbose=True)     
+      
+train_X, test_X, train_y, test_y = sl.train_test_split_balanced(df, target_name, test_size=0.2, random_state=0, research_iter=0)     
+      
+df = sl.recover_data(df, verbose=True, stacking=True)    
+
