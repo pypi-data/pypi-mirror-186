@@ -1,0 +1,84 @@
+Metadata-Version: 2.1
+Name: wxdat
+Version: 0.7.1
+Summary: Weather data explorer.
+License: MIT
+Author: jheddings
+Author-email: jheddings@gmail.com
+Requires-Python: >=3.10,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: click (>=8.1.3,<9.0.0)
+Requires-Dist: prometheus-client (>=0.15.0,<0.16.0)
+Requires-Dist: psycopg2 (>=2.9.5,<3.0.0)
+Requires-Dist: pydantic (>=1.10.4,<2.0.0)
+Requires-Dist: ratelimit (>=2.2.1,<3.0.0)
+Requires-Dist: requests (>=2.28.1,<3.0.0)
+Requires-Dist: ruamel-yaml (>=0.17.21,<0.18.0)
+Requires-Dist: sqlalchemy (>=1.4.46,<2.0.0)
+Description-Content-Type: text/markdown
+
+# wxdat #
+
+[![PyPI](https://img.shields.io/pypi/v/wxdat.svg)](https://pypi.org/project/wxdat)
+[![LICENSE](https://img.shields.io/github/license/jheddings/wxdat)](LICENSE)
+[![Style](https://img.shields.io/badge/style-black-black)](https://github.com/ambv/black)
+
+A general purpose weather data recorder & explorer.
+
+While the primary purpose of this library is to record weather data, it can also be
+used as a framework for collecting weather information in other apps.
+
+## Installation ##
+
+Install the published package using pip:
+
+    pip3 install wxdat
+
+This project uses `poetry` to manage dependencies and a local virtual environment.  To
+get started, clone the repository and install the dependencies with the following:
+
+    poetry install
+
+## Usage ##
+
+Run the module and tell it which config file to use.
+
+    python3 -m wxdat --config wxdat.yaml
+
+If you are using `poetry` to manage the virtual environment, use the following:
+
+    poetry run python -m wxdat --config wxdat.yaml
+
+## Configuration ##
+
+The configuration file is a YAML document with a list of stations to export.  See the
+included default file for more details.
+
+All stations have the following configuration values:
+* name - must be unique
+* type - the support station type
+
+## Supported Stations ##
+
+Eventually, I'd like to add local stations, not just online sources.  Please see
+the example configuration file for details on each provider.
+
+* AccuWeather
+* Ambient Weather Network
+* OpenWeatherMap
+* National Weather Service (NOAA)
+* Weather Underground
+
+## Unit Conversion ##
+
+`wxdat` also includes a limited set of conversion helpers for working with units.  In
+general, the pattern for using them is:
+
+   from wxdat import units
+
+   # convert 100.0 from celsius to fahrenheit
+   temp = units.degC(100).degf
+
