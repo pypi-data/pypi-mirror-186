@@ -1,0 +1,1 @@
+from .generate_coordinates import generate_coordinates
