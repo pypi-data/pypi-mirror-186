@@ -1,0 +1,104 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "spiel"
+version = "0.4.5"
+description = "A framework for building and presenting richly-styled presentations in your terminal using Python."
+readme="README.md"
+homepage="https://github.com/JoshKarpel/spiel"
+repository="https://github.com/JoshKarpel/spiel"
+documentation="https://www.spiel.how"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Operating System :: Unix",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Artistic Software",
+    "Topic :: Multimedia :: Graphics :: Presentation",
+    "Typing :: Typed",
+]
+keywords = [
+    "presentation",
+    "slides",
+    "tui",
+    "terminal",
+]
+authors = ["JoshKarpel <josh.karpel@gmail.com>"]
+license = "MIT"
+include = ["py.typed", "demo/*", "spiel.css"]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4"
+rich = ">=12"
+typer = ">=0.6"
+pillow = ">=8"
+textual = "==0.4.0"
+watchfiles = ">=0.18"
+more-itertools = ">=9"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = ">=2.20.0"
+pytest = ">=7"
+pytest-cov = ">=3"
+pytest-xdist = ">=3"
+mypy = ">=0.991"
+pytest-mypy = ">=0.10"
+pytest-mock = ">=3"
+hypothesis = ">=6"
+textual = {extras = ["dev"], version = "==0.4.0"}
+mkdocs = ">=1.4"
+mkdocs-material = ">=9"
+mkdocstrings = {extras = ["python"], version = ">=0.19.0"}
+pytest-asyncio = ">=0.20"
+
+[tool.poetry.scripts]
+spiel = 'spiel.cli:cli'
+
+[tool.black]
+line-length = 100
+include = "\\.pyi?$"
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.pycln]
+all = true
+
+[tool.pytest.ini_options]
+addopts = ["--strict-markers", "--mypy", "-n", "auto"]
+testpaths = ["tests", "spiel", "docs"]
+
+markers = ["slow"]
+
+asyncio_mode = "auto"
+
+[tool.mypy]
+pretty = false
+show_error_codes = true
+
+files = ["."]
+
+check_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+disallow_any_generics = true
+
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+warn_redundant_casts = true
+
+ignore_missing_imports = true
