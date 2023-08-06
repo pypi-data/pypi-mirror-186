@@ -1,0 +1,60 @@
+[tool.poetry]
+name = "alchemical_queues"
+version = "0.1.1"
+description = "Task Queues on pure SQLAlchemy"
+authors = ["Thijs Miedema <mail@tmiedema.com>"]
+license = "MIT"
+packages = [{include = "alchemical_queues", from = "src" }]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra --cov-config=.coveragerc --cov-report=xml"
+required_plugins = "pytest-cov"
+testpaths = "tests"
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+SQLAlchemy = "^1"
+typing_extensions = "*"
+
+[tool.poetry.dev-dependencies]
+SQLAlchemy = {version = "^1", extras = ["mypy"]}
+mkdocs-macros-plugin = "^0.7.0"
+black = ">=22"
+pytest = ">=7"
+pytest-cov = "^4.0.0"
+Mypy="*"
+pylint=">=2"
+anybadge = "*"
+mkdocs = ">=1.4"
+mkdocs-material = ">=8"
+mike = ">=1"
+mkdocstrings = { version = ">=0.19", extras = ["python"] }
+
+[tool.poetry.scripts]
+alchemical_worker = "alchemical_queues.tasks.cli:cli"
+
+[tool.mypy]
+python_version = "3.7"
+plugins = "sqlalchemy.ext.mypy.plugin"
+warn_unused_configs = true
+exclude = ["meta/", "tests/"]
+
+[[tool.mypy.overrides]]
+module = "alchemical_queues.tasks"
+warn_return_any = true
+disallow_untyped_defs = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = "alchemical_queues"
+warn_return_any = true
+disallow_untyped_defs = true
+warn_unreachable = true
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = ["R0903", "C0301"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
