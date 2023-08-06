@@ -1,0 +1,72 @@
+Metadata-Version: 2.1
+Name: plastik
+Version: 0.2.4
+Summary: plastic surgery for plt
+Home-page: https://github.com/engeir/plastik
+License: GPLv3
+Author: Eirik Rolland Enger
+Author-email: eirroleng@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: attrs (>=21.4.0,<22.0.0)
+Requires-Dist: matplotlib (>=3.5.0,<4.0.0)
+Requires-Dist: numpy (>=1.21.4,<2.0.0)
+Project-URL: Documentation, https://plastik.readthedocs.io/en/latest/
+Project-URL: Repository, https://github.com/engeir/plastik
+Description-Content-Type: text/markdown
+
+# plastik
+
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+> plt assist, plastic surgery for plt
+
+## TODO
+
+* Add and set up tests in pre-commit
+
+## Install
+
+This module is available through [PyPI]:
+
+```sh
+pip install plastik
+```
+
+Installing the development version is done using [poetry]:
+
+```sh
+git clone https://github.com/engeir/plastik.git
+cd plastik
+poetry install
+```
+
+## Usage
+
+### Functions
+
+* `dark_theme`
+* `log_tick_format`
+* `topside_legends`
+
+### Classes
+
+* `Ridge`
+
+### Example use
+
+See [examples](examples/example.ipynb).
+
+[PyPI]: https://pypi.org/
+[poetry]: https://python-poetry.org
+
