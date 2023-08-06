@@ -1,0 +1,43 @@
+[project]
+name = "protobuf-grpc-distutils"
+description = ""
+authors = [
+    { name = "Shareef Jalloq" },
+    { email = "shareef.jalloq@idexbiometrics.com" }
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.6"
+keywords = [
+    "protobuf",
+    "grpc",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "grpcio_tools",
+]
+dynamic = ["version"]
+
+[project.urls]
+homepage = "https://github.com/idex-biometrics/protobuf-grpc-distutils"
+
+[build-system]
+requires = [
+    "setuptools>=61.0", 
+    "wheel",
+    "setuptools_scm[toml]>=6.0",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "protobuf_grpc_distutils.__version__"}
+
+[tool.setuptools_scm]
+write_to = "src/protobuf_grpc_distutils/_version.py"
+local_scheme = "dirty-tag"
+
+[project.entry-points."distutils.commands"]
+generate_grpc_py_protobufs = "protobuf_grpc_distutils.generate_grpc_py_protobufs:generate_grpc_py_protobufs"
