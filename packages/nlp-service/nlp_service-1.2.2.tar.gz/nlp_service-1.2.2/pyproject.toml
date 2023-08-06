@@ -1,0 +1,50 @@
+[tool.poetry]
+name = "nlp-service"
+version = "1.2.2"
+description = "Microservice for NLP tasks using gRPC"
+authors = ["Mirko Lenz <info@mirko-lenz.de>"]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "http://recap.uni-trier.de"
+repository = "https://github.com/ReCAP-UTR/NLP"
+packages = [{ include = "nlp_service" }]
+
+[tool.poetry.scripts]
+nlp-service = "nlp_service.server:app"
+
+[tool.poetry.dependencies]
+python = ">=3.9, <3.12"
+numpy = "^1.24.1"
+scipy = "^1.10.0"
+spacy = "^3.4.4"
+arg-services = "^1.0.8"
+nltk = "^3.8.1"
+gensim = { version = "^4.3.0", optional = true }
+pyemd = { version = "^0.5.1", optional = true }
+python-Levenshtein = { version = "^0.20.9", optional = true }
+sentence-transformers = { version = "^2.2.2", optional = true }
+# tensorflow = { version = "^2.11.0", optional = true }
+# tensorflow-hub = { version = "^0.12.0", optional = true }
+torch = { version = "^1.13.1", optional = true }
+typer = { version = "^0.7.0", optional = true }
+nptyping = "^2.4.1"
+transformers = { version = "^4.25.1", optional = true }
+mashumaro = "^3.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.extras]
+wmd = ["gensim"]
+server = [
+    "gensim",
+    "pyemd",
+    "python-levenshtein",
+    "sentence-transformers",
+    # "tensorflow-hub",
+    # "tensorflow",
+    "torch",
+    "typer",
+    "transformers",
+]
