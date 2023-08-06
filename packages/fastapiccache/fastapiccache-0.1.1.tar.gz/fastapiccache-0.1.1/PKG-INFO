@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: fastapiccache
+Version: 0.1.1
+Summary: 
+Home-page: https://github.com/dsal3389/fastapicache
+License: MIT
+Author: Daniel Sonbolian
+Author-email: dsal3389@gmail.com
+Requires-Python: >=3.10,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Project-URL: Repository, https://github.com/dsal3389/fastapicache
+Description-Content-Type: text/markdown
+
+
+# fastapicache
+fastapicache is a package that privde simple and fast caching system for the fastapi package
+
+## install
+note for the double C in the name
+```sh
+pip install fastapiccache
+```
+
+## usage
+
+### fast and simple
+
+```py
+import time 
+from fastapi import FastAPI
+from fastapicache import fastapicache
+
+
+app = FastAPI()
+
+
+@app.get('/')
+@fastapicache(revalidate=0)
+async def index(name: str = "unknown"):
+    time.sleep(4)
+    return f"{name}: hello world"
+```
+
+

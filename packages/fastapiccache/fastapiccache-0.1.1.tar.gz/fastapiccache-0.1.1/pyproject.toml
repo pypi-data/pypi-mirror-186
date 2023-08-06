@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "fastapiccache"
+version = "0.1.1"
+description = ""
+authors = ["Daniel Sonbolian <dsal3389@gmail.com>"]
+packages = [
+    { include = "fastapiccache", from = "lib" }
+]
+readme = "README.md"
+repository = "https://github.com/dsal3389/fastapicache"
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
