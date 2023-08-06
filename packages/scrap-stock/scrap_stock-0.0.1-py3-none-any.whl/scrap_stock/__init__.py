@@ -1,0 +1,1 @@
+from scrap_stock import scrap_price_history
