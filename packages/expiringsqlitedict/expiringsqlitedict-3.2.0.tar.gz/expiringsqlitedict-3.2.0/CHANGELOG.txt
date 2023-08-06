@@ -1,0 +1,47 @@
+Changes
+=======
+3.0.0, 2022-07-01
+* Remove the serializer ABC.
+* Use WAL, serialized=NORMAL, and optimize the database on close.
+* Allow serializers to use many types, instead of just bytes.
+* Allow non-class serializers, like the json module (and other similar modules).
+* Change default serializer to json.
+* Use cursors for all operation, instead of the implicit db.execute.
+* Allow customizing transaction type, defaulting to IMMEDIATE.
+* Make a SqliteDict.close method, so the user doesn't have to wait until program
+  exit.
+* Add a OnDemand, allowing opening a SqliteDict, entering it, and closing
+  it in one context manager that is reentrant.  The use of it is the same, but
+  it won't open until needed and will immediately close when done with.
+
+2.1.0, 2021-10-13
+* Fill type hints through all parts of module
+
+2.0.0, 2021-06-14
+* Completely rewrite module to rely on sqlite3 internals as much as possible.
+
+1.5.0, 13/02/2017
+* Add encode and decode parameters to store json, compressed or pickled objects (@erosennin, #65)
+* Python 3.6 fix: commit before turning off synchronous (@bit, #59)
+* Update sqlite version to 3.8.2 (@tmylk, #63)
+
+1.4.2, 26/08/2016
+* Fix some hangs on closing. Let __enter__ re-open a closed connection. (@ecederstrand, #55)
+* Surround table names with quotes. (@Digenis, #50)
+
+1.4.1, 15/05/2016
+* Read-only mode (@nrhine1, #37)
+* Check file exists before deleting (@adibo, #39)
+* AttributeError after SqliteDict is closed (@guyskk, #40)
+* Python 3.5 support (@jtatum, #47)
+* Pickle when updating with 2-tuples seq (@Digenis, #49)
+* Fix exit errors: TypeError("'NoneType' object is not callable",) (@janrygl, #45)
+
+1.4.0
+* fix regression where iterating over keys/values/items returned a full list instead of iterator
+
+1.3.0
+* improve error handling in multithreading (PR #28); 100% test coverage.
+
+1.2.0
+* full python 3 support, continuous testing via Travis CI.
