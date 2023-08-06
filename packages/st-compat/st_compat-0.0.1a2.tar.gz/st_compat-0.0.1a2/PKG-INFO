@@ -1,0 +1,48 @@
+Metadata-Version: 2.1
+Name: st-compat
+Version: 0.0.1a2
+Summary: Module to make it easier to build streamlit modules by implementing standard retro-compatiblity
+Home-page: https://github.com/Wirg/st_compat
+License: Apache-2.0
+Keywords: streamlit,compatibility,compat,st_compat,get_script_run_ctx,get_report_ctx
+Author: Wirg
+Author-email: Wirg@users.noreply.github.com
+Maintainer: Wirg
+Maintainer-email: Wirg@users.noreply.github.com
+Requires-Python: >=3.7.2,<4.0.0
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: streamlit (>=0.65)
+Project-URL: Repository, https://github.com/Wirg/st_compat
+Description-Content-Type: text/markdown
+
+# st-compat
+[![Tests](https://github.com/Wirg/st-compat/actions/workflows/tests.yml/badge.svg)](https://github.com/Wirg/st-compat/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/github/Wirg/st-compat/branch/main/graph/badge.svg?token=DSA23TOBWV)](https://codecov.io/github/Wirg/st-compat)
+[![CodeQL](https://github.com/Wirg/st-compat/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Wirg/st-compat/actions/workflows/codeql-analysis.yml)
+[![Downloads](https://static.pepy.tech/personalized-badge/st-compat?period=month&units=international_system&left_color=grey&right_color=brightgreen&left_text=downloads/month)](https://pepy.tech/project/st-compat)
+![Supported Python Versions](https://img.shields.io/pypi/pyversions/st-compat)
+![pypi version](https://img.shields.io/pypi/v/st-compat)
+
+`st-compat` is the simplest way to handle compatibility between streamlit versions when building utils and modules for the community!
+
+## How to install
+
+```sh
+pip install st-compat
+```
+
+## How to use
+
+```python
+from st_compat import get_script_run_ctx
+
+ctx = get_script_run_ctx()
+```
+
