@@ -1,0 +1,34 @@
+Source: click-reviewers-tools
+Section: devel
+Priority: optional
+Maintainer: Ubuntu Appstore Developers <ubuntu-appstore-developers@lists.launchpad.net>
+Build-Depends: debhelper (>= 9~),
+               dh-python,
+               python3-all (>= 3.2~),
+               python3-apt,
+               python3-debian,
+               python3-lxml,
+               python3-magic,
+               python3-setuptools,
+               python3-xdg,
+               python3-yaml
+Standards-Version: 3.9.5
+Homepage: https://launchpad.net/click-reviewers-tools
+Vcs-Bzr: lp:click-reviewers-tools
+Vcs-Browser: http://bazaar.launchpad.net/~click-reviewers/click-reviewers-tools/trunk/files
+X-Python3-Version: >= 3.2
+
+Package: click-reviewers-tools
+Architecture: all
+Depends: binutils,
+         python3-apt,
+         python3-debian,
+         python3-lxml,
+         python3-magic,
+         python3-xdg,
+         python3-yaml,
+         ${misc:Depends},
+         ${python3:Depends}
+Description: tools to review click packages
+ These scripts can be used to review click packages both manually and in a
+ programmatic fashion.
