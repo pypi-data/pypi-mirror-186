@@ -1,0 +1,165 @@
+# Non-interactive CLI login for OpenShift clusters via OpenID-connected IdP with Kerberos support
+
+This package can be found on PyPI as [ocp-sso-token](https://pypi.org/project/ocp-sso-token).
+
+## Problem: several manual steps to log into an OpenShift cluster via OIDC without ROPC
+
+To log into an OpenShift cluster on the command line, [oc login] supports
+user/password authentication for various [identity providers] like [LDAP] or [OIDC
+with ROPC grant flow].
+
+If no provider with password support is configured, the user is referred to the
+OAuth login page to obtain a temporary token interactively. After selecting the
+right provider, the user is forwarded to authenticate with the SSO provider,
+and redirected back to the cluster afterwards. Another click reveals the
+temporary token that can now be used for the CLI tools.
+
+For an OpenID provider that supports Kerberos tickets, the authentication with
+the SSO provider happens transparently. For such setups, logging into a cluster
+via the CLI roughly requires the following steps:
+
+- run `oc login` and click on the link, or visit a bookmark for the cluster
+  login page
+- click on the button for the OpenID provider
+- watch the webpages forwarding to each other
+- click on the link to reveal the temporary token
+- use the shown temporary token/oc login command to log into the cluster
+
+These steps must be performed daily and per cluster.
+
+## Approach: automate all the steps above
+
+The Python script in this repository automates all the steps to obtain the
+temporary token so that the following is possible:
+
+```bash
+kinit $user@$domain
+
+# either save the token directly in the specified context in ~/.kube/config...
+ocp-sso-token $server --context $context --namespace $namespace
+oc --context $context get pod
+
+# ...or use the token with oc login
+oc login --server $server --token $(ocp-sso-token $server)
+oc get pod
+```
+
+[oc login]: https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/getting-started-cli.html#cli-logging-in_cli-developer-commands
+[identity providers]: https://docs.openshift.com/container-platform/latest/authentication/understanding-identity-provider.html
+[LDAP]: https://docs.openshift.com/container-platform/latest/authentication/identity_providers/configuring-ldap-identity-provider.html
+[OIDC with ROPC grant flow]: https://docs.openshift.com/container-platform/latest/authentication/identity_providers/configuring-oidc-identity-provider.html#add-identity-provider_configuring-oidc-identity-provider
+
+## Installing the script
+
+```bash
+# from PyPI
+pip install ocp-sso-token
+
+# from source
+pip install --user git+https://gitlab.com/cki-project/ocp-sso-token
+```
+
+## Using the script to log into an OpenShift cluster via OIDC
+
+```text
+usage: ocp-sso-token [-h] [--identity-providers IDENTITY_PROVIDERS]
+                     [--context CONTEXT] [--namespace NAMESPACE]
+                     api_url
+
+Obtain an OCP OAuth token for a Kerberos ticket
+
+positional arguments:
+  api_url               Cluster API URL like https://api.cluster:6443
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --identity-providers IDENTITY_PROVIDERS
+                        Identity provider names (default: SSO,OpenID)
+  --context CONTEXT     Instead of printing the token, store it in the given context (default:
+                        None)
+  --namespace NAMESPACE
+                        Namespace to use for --context (default: None)
+```
+
+If your identity provider name is not included in the defaults shown above, add
+it via `--identity-providers`. The first matching identity provider will be
+used.
+
+With `--context`, the token is directly added to the Kubernetes configuration file
+(`~/.kube/config` or KUBECONFIG). Otherwise, the token is printed to the console.
+
+### Running a smoke test
+
+```bash
+kinit user@DOMAIN.COM
+server=https://api.cluster:6443; oc --server $server --token $(ocp-sso-token $server) get project
+```
+
+### Logging into clusters with custom context names
+
+With `--context` and `--namespace`, the obtained tokens are directly configured
+in the specified contexts:
+
+```bash
+$ kinit user@DOMAIN.COM
+$ ocp-sso-token https://api.cluster1:6443 --context cluster1 --namespace project1
+$ ocp-sso-token https://api.cluster2:6443 --context cluster2 --namespace project2
+
+$ oc config get-contexts
+CURRENT   NAME       CLUSTER             AUTHINFO            NAMESPACE
+          cluster1   api-cluster1:6443   api-cluster1:6443   project1
+          cluster2   api-cluster2:6443   api-cluster2:6443   project2
+
+$ oc --context cluster1 get pod
+$ oc --context cluster2 get pod
+```
+
+### Logging into clusters via `oc login`
+
+Without `--context`, the obtained tokens are printed to the console and can be
+used with `oc login`. Logging into clusters this way creates context names
+automatically. This is most useful with a single cluster, but works with
+multiple clusters as well:
+
+```bash
+$ kinit user@DOMAIN.COM
+$ server=https://api.cluster1:6443; oc login --server $server --token $(ocp-sso-token $server)
+$ server=https://api.cluster2:6443; oc login --server $server --token $(ocp-sso-token $server)
+
+$ oc config get-contexts
+CURRENT   NAME                                        CLUSTER             AUTHINFO                            NAMESPACE
+          default/api-cluster1:6443/user@domain.com   api-cluster1:6443   user@domain.com/api-cluster1:6443   default
+*         default/api-cluster2:6443/user@domain.com   api-cluster2:6443   user@domain.com/api-cluster2:6443   default
+
+$ oc --namespace project2 get pod
+$ oc --context default/api-cluster1:6443/user@domain.com --namespace project1 get pod
+$ oc --context default/api-cluster2:6443/user@domain.com --namespace project2 get pod
+```
+
+## Creating a development setup and running the tests
+
+Installing development dependencies:
+
+```bash
+pip install -e .[dev]
+```
+
+Running linting/tests:
+
+```bash
+tox
+```
+
+## Creating a release
+
+1. Create a release MR with an update of the version number in
+   `ocp_sso_token/__init__.py`, e.g to '3.1.4'
+1. After merging, push a new tag with the same version prefixed with `v`, e.g.
+
+   ```shell
+   git tag v3.1.4
+   git push origin v3.1.4
+   ```
+
+1. Wait for the pipeline to finish
+1. Check the resulting GitLab and PyPI releases
