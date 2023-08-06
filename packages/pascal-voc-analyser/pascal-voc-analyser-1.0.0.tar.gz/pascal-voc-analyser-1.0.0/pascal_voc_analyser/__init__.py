@@ -1,0 +1,1 @@
+from pascal_voc_analyser.voc_analyser import XmlHandler
