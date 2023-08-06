@@ -1,0 +1,47 @@
+recursive-include src/phybers/clustering/ffclust/*
+graft src/phybers/clustering/ffclust/*
+include src/phybers/clustering/ffclust/*.jpg
+include src/phybers/clustering/ffclust/*.c
+include src/phybers/clustering/ffclust/*.h
+
+
+recursive-include src/phybers/clustering/hclust/*
+graft src/phybers/clustering/hclust/*
+include src/phybers/clustering/hclust/*.c
+include src/phybers/clustering/hclust/*.h
+
+recursive-include src/phybers/clustering/*.py
+graft src/phybers/clustering/*.py
+
+
+recursive-include src/phybers/fibervis/*
+graft src/phybers/fibervis/*
+
+
+recursive-include src/phybers/phyexample/*
+graft src/phybers/phyexample/*
+
+
+recursive-include src/phybers/segment/*
+graft src/phybers/segment/*
+include src/phybers/segment/fiberseg/*.c
+include src/phybers/segment/fiberseg/*.h
+include src/phybers/segment/fiberseg/*.cpp
+
+
+recursive-include src/phybers/utils/*
+graft src/phybers/utils/*
+include src/phybers/utils/deform/*.c
+include src/phybers/utils/deform/*.h
+include src/phybers/utils/intersection/*.c
+include src/phybers/utils/intersection/*.h
+include src/phybers/utils/postprocessing/*.c
+include src/phybers/utils/postprocessing/*.h
+include src/phybers/utils/sampling/*.c
+include src/phybers/utils/sampling/*.h
+
+
+include src/phybers/*.py
+exclude src/phybers/fibervis_backup
+recursive-exclude src/phybers/fibervis_backup/*
+
