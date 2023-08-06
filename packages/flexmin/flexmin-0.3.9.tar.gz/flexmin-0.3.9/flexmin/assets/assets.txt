@@ -1,0 +1,37 @@
+prerequisites:
+  - check: nginx
+    fail_msg: 'NGINX not installed, please install nginx'
+  - check: openssl
+  - check: uwsgi
+    fail_msg: 'uWSGI not installed, please install uwsgi and uwsgi-plugin-python/uwsgi-plugin-python3'
+assets:
+  - source: system.zip
+    destination: {FM_HOME}/system
+  - source: scripts.zip
+    destination: {FM_HOME}/scripts
+  - source: py4web.zip
+    destination: {FM_HOME}/py4web
+    preserve: ['**/databases/*', 'password.txt']
+  - source: configs.zip
+    destination: {FM_HOME}/configs
+  - source: config-examples.zip
+    destination: {FM_HOME}/config-examples
+  - source: config-templates.zip
+    destination: {FM_HOME}/config-templates
+files:
+  configs:
+    - name: menu.yaml
+      destination: '/etc/flexmin/'
+    - name: flexmin.conf
+      destination: '/etc/flexmin/'
+      check_existing: yes
+      user_confirm: yes
+    - name: flexmin.nginx.yaml
+      destination: '/etc/flexmin/'
+      yamlconfig: yes
+  system:
+    - name: flexmin.ini
+      destination: '/etc/uwsgi/'
+      check_existing: yes
+      user_confirm: yes
+
