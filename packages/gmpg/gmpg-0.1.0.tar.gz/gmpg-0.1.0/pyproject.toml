@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "gmpg"
+version = "0.1.0"
+description = "tools for metamodern software development"
+keywords = ["Git", "Poetry"]
+homepage = "https://ragt.ag/code/projects/gmpg"
+repository = "https://ragt.ag/code/projects/gmpg.git"
+documentation = "https://ragt.ag/code/projects/gmpg/api"
+authors = ["Angelo Gladding <angelo@ragt.ag>"]
+license = "BSD-2-Clause"
+
+[tool.poetry.scripts]
+gmpg = "gmpg.__main__:main"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+black = ">=22.12.0"
+isort = ">=5.11.4"
+pendulum = ">=2.1.2"
+pydeps = ">=1.10.24"
+pyright = ">=1.1.288"
+pytest-cov = ">=4.0.0"
+pytest-pep8 = ">=1.0.6"
+pytest-gevent = ">=1.1.0"
+pytest = ">=7.1.3"
+radon = ">=5.1.0"
+responses = ">=0.22.0"
+toml = ">=0.10.2"
+txtint = ">=0.0.0"
+ipython = "^8.8.0"
+
+[tool.poetry.group.dev.dependencies]
+txtint = {path="../txtint", develop=true}
+
+# [[tool.poetry.source]]
+# name = "main"
+# url = "https://ragt.ag/code/pypi"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
