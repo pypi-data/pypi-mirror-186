@@ -1,0 +1,89 @@
+[tool.poetry]
+name = "einspect"
+version = "0.4.6"
+description = "Extended Inspect - view and modify memory structs of runtime objects."
+authors = ["ionite34 <dev@ionite.io>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/ionite34/einspect"
+repository = "https://github.com/ionite34/einspect"
+documentation = "https://docs.ionite.io/einspect"
+
+keywords = [
+    "einspect",
+    "inspect",
+    "inspections",
+    "extensions",
+    "inspect-extensions",
+    "ctypes",
+    "ctypes-extensions",
+    "pointers",
+    "structs",
+    "memory",
+    "mutate",
+    "setattr",
+    "modify",
+]
+
+classifiers = [
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Debuggers",
+    "Typing :: Typed",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.12"
+typing-extensions = "^4.4.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+pytest-cov = "^4.0.0"
+pytest-xdist = "^3.1.0"
+mypy = "^0.991"
+pre-commit = "^2.20.0"
+flake8 = { version = "^6.0.0", python = ">= 3.8.1" }
+flake8-print = { version = "^5.0.0", python = ">= 3.8.1" }
+
+[tool.poetry.group.dev-extras.dependencies]
+jupyter = "^1.0.0"
+rich = "^12.6.0"
+
+[tool.poetry.group.ci.dependencies]
+typing-extensions = "^4.4.0"
+pytest = "^7.2.0"
+
+[tool.poetry.group.ci-cov.dependencies]
+typing-extensions = "^4.4.0"
+pytest = "^7.2.0"
+pytest-cov = "^4.0.0"
+
+[tool.poetry.group.docs.dependencies]
+Sphinx = ">4.0.0,<6.0.0"
+myst-parser = "^0.18.1"
+sphinx-copybutton = "^0.5.1"
+furo = "^2022.12.7"
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "@overload"
+]
+
+[tool.isort]
+skip = ["einspect/structs/__init__.py"]
+
+[tool.pytest.ini_options]
+markers = [
+    "run_in_subprocess: Run marked test in a subprocess",
+]
+
+[tool.mypy]
+python_version = 3.11
+allow_redefinition = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
