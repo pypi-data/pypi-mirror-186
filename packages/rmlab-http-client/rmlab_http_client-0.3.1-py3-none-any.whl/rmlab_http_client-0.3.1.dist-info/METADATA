@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: rmlab-http-client
+Version: 0.3.1
+Summary: RMLab module wrapping a HTTP client providing auth and async utilities.
+Home-page: https://github.com/antonrv/rmlab-py-http-client
+Author: Anton Rey
+Author-email: aanton.rv@gmail.com
+Project-URL: Bug Tracker, https://github.com/antonrv/rmlab-py-http-client/issues
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Operating System :: OS Independent
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Office/Business
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: User Interfaces
+Classifier: Framework :: AsyncIO
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aiodns (==3.0.0)
+Requires-Dist: aiohttp (==3.8.3)
+Requires-Dist: Brotli (==1.0.9)
+Requires-Dist: cchardet (==2.1.7)
+Requires-Dist: rmlab-errors (==0.1.5)
+
+# RMLab HTTP Client
+
+Small python module wrapping a HTTP client based on `asyncio`, providing several utilities required on RMLab server:
+
+* Basic/key/jwt authentication.
+
+* Token refresh.
+
+* State polling and result fetching of long-running asynchronous operations.
+
+* Server-defined type/value-safe endpoints to minimize API breaking changes.
+
+* Capture ill-formed requests before submission.
+
+* Custom error handling unified for client and server.
+
+## Installation
+
+```
+pip install rmlab-http-client
+```
+
+## Requirements
+
+* python 3.9+
+* aiohttp 3.8.1
+
+## License
+
+This package is offered under a [MIT License](LICENSE).
