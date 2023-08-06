@@ -1,0 +1,1 @@
+from .electrumsv import Plugin
