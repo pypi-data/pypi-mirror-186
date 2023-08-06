@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: logutils-serpucga
+Version: 0.1.6
+Summary: Tools to generate pretty logs quickly using default logging library
+Home-page: https://gitlab.com/Serbaf/logging_utils
+Author: Sergio Puche García
+Author-email: spuche@upv.es
+License: GPL3
+Description-Content-Type: text/markdown
+
+# Logging utils
+
+Este repositorio contiene un código muy básico que sirve para dar un formato
+visual e informacionalmente completo a los logs usando la librería estándar
+logging. Por supuesto, esta configuración podría realizarse cada vez en cada
+proyecto, pero encuentro eso engorroso y una pérdida de tiempo, así que he
+considerado mejor externalizarlo todo a una pequeña librería externa.
+
+## Utilización
+```
+from logutils import get_logger
+
+logger = get_logger(__name__)
+logger.info("Hola hola!")
+```
