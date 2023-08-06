@@ -1,0 +1,10 @@
+{% extends 'commons/base.html' %}
+{% load static %}
+
+{% block base_custom_styles %}
+    <link rel="stylesheet" href="{% static 'commons/css/external_commons.css' %}">
+{% endblock %}
+
+{% block base_custom_scripts %}
+    <script src="{% static 'commons/js/external_commons.js' %}"></script>
+{% endblock %}

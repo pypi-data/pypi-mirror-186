@@ -1,0 +1,36 @@
+@import "bootstrap.css";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css");
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+body, html {
+    font-family: Montserrat, Georgia, 'Times New Roman', Times, serif;
+}
+
+body, html,
+div.base-container,
+div.base-container > nav,
+div.base-container > main {
+    min-height: 100vh;
+
+    background-color: var(--bss-clean);
+}
+
+
+/*Action buttons*/
+a.action-button {
+    margin: 0.3rem;
+    color: var(--bs-secondary);
+}
+
+a.action-button:hover {
+    color: var(--bs-primary);
+    cursor: pointer;
+}
+
+
+/** Pagination styles **/
+div.pagination a:hover {
+    cursor: pointer;
+}
+
+

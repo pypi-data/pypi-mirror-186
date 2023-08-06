@@ -1,0 +1,23 @@
+{% comment %}
+    :: params ::
+    @item_value_class : classes of card value
+    @item_value : value of card
+    @item_desc : text of card
+    @icon_classes : classe of icon and other to format this
+
+    :: model container of card col ::
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4"> ... </div>
+{% endcomment %}
+<div class="col">
+    <div class="card on-card">
+        <div class="card-body">
+            <div class="media d-flex flex-nowrap">
+                <div class="media-body text-left">
+                    <h3 class="{{ color_class }}">{{ item_value }}</h3>
+                    <span>{{ item_desc }}</span>
+                </div>
+                <i class="{{ icon }} {{ color_class }} opacity-50"></i>
+            </div>
+        </div>
+    </div>
+</div>

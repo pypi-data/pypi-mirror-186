@@ -1,0 +1,20 @@
+{% load static %}
+{% load commons %}
+
+{% comment documentation::parameters %}
+    @tag:: alert-danger, alert-warning, alert-success, alert-info
+    @closable:: True, False, defaulte=False
+    @showicon:: True, False, default=True
+    @message:: String value
+{% endcomment %}
+
+<div class="alert text-start {{ tag }} {% if closable|to_boolean %} alert-dismissible fade show {% endif %}"
+     role="alert">
+    {% if withicon|true_if_none %}
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"><use xlink:href="#{{ tag }}"/></svg>
+    {% endif %}
+    {{ message }}
+    {% if closable|to_boolean %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    {% endif %}
+</div>

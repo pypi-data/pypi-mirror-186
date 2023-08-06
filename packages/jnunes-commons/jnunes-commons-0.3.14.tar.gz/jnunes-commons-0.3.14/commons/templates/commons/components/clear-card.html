@@ -1,0 +1,20 @@
+<clean-card class="{{ class_card }}">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col-11">
+                <div class="col">
+                    <h3 class="card-title">{{ card_title }}</h3>
+                </div>
+                <div class="col" >
+                    <h3 style="font-weight: bold;!important;">{{ item_card_number }}</h3>
+                </div>
+            </div>
+            <div class="col-1">
+                <h3 class="card-title float-end fw-bold">
+                    <i class="{{ class_card_icon }}" style="font-size: 2em; color: {{icon_color|default:"#00000073" }};"></i>
+                </h3>
+            </div>
+        </div>
+
+    </div>
+</clean-card>

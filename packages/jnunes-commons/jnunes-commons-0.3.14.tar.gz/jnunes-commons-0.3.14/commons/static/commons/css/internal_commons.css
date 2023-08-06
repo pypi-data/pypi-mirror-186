@@ -1,0 +1,129 @@
+@import "commons.css";
+
+:root {
+    --nav-width: 4.5rem;
+    --main-width: calc(100% - var(--nav-width));
+    --main-mg-left: var(--nav-width);
+    --top-bar-height: 3rem;
+    --main-resp-width: 100%;
+    --z-index-sidebar: 1000;
+    --z-index-page-title: 999;
+}
+
+/*@media query*/
+div.base-container > nav {
+    position: fixed;
+    left: 0;
+    min-height: 100vh;
+    width: var(--nav-width);
+    background-color: var(--bs-primary);
+    z-index: var(--z-index-sidebar);
+    transition: all 0.5s ease;
+}
+
+div.base-container > nav div.sidebar-container {
+    min-height: 100vh;
+}
+
+div.base-container > nav i {
+    color: var(--bss-nepal);
+    font-size: 1.5rem;
+}
+
+/*@media query*/
+div.base-container nav ~ main {
+    position: absolute;
+    width: var(--main-width);
+    margin-left: var(--main-mg-left);
+    transition: all 0.5s ease;
+}
+
+div.base-container > main div.top-bar {
+    background-color: var(--bss-clean);
+    position: fixed;
+    height: var(--top-bar-height);
+    width: var(--main-width);
+    padding: .5rem 1rem;
+    font-weight: 400;
+    font-size: 1.5rem;
+    z-index: var(--z-index-page-title);
+}
+
+
+/*@media query*/
+div.base-container > main div.toolbar-container {
+    margin-top: calc(var(--top-bar-height) + 2rem);
+}
+
+div.base-container > main div.top-bar i#btnMenu {
+    display: none;
+}
+
+div.base-container > main div.page-container:not(:empty) {
+    margin-bottom: 2rem;
+    background-color: var(--bs-white);
+    border-radius: 0 0 .3rem .3rem;
+    padding: 1rem;
+}
+
+@media all and (max-width: 480px ) {
+    div.base-container > nav.display-hide {
+        display: none;
+    }
+
+    div.base-container nav ~ main,
+    div.base-container nav.display-hide ~ main div.top-bar {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    div.base-container > main div.top-bar {
+        width: var(--main-width);
+        margin-left: var(--main-mg-left);
+    }
+
+    div.base-container > main div.top-bar i#btnMenu {
+        font-size: 25px;
+        color: var(--bs-primary);
+        font-weight: 700;
+        display: initial;
+    }
+
+}
+
+/*Cads dashboard*/
+
+div.on-card * {
+    font-weight: 400;
+    line-height: 1.2;
+    color: inherit;
+    user-select: none;
+}
+
+div.on-card {
+    box-shadow: 0 10px 40px 0 rgba(62, 57, 107, .07), 0 2px 9px 0 rgba(62, 57, 107, .06);
+    border: none;
+    border-radius: 0.25rem;
+}
+
+div.on-card .card-body {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+}
+
+div.on-card .card-body .media {
+    display: flex;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    justify-content: space-between;
+}
+
+div.on-card .card-body .media i {
+    font-size: 3.3rem;
+}
+
+/*End cards dashboard*/

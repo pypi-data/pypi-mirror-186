@@ -1,0 +1,30 @@
+{% load static %}
+
+{% comment documentation::parameters %}
+    @tag:: alert-danger, alert-warning, alert-success, alert-info
+    @closable:: True, False, defaulte=False
+    @showicon:: True, False, default=True
+    @message:: String value
+{% endcomment %}
+
+{% if messages %}
+    {% for msg in messages %}
+        {% include 'commons/components/partial/message_alert.html' with tag=msg.tags closable=closable withicon=withicon message=msg %}
+    {% endfor %}
+{% endif %}
+
+<!-- model.Form Messages-->
+{% if form.errors %}
+    {% if form.non_field_errors %}
+        {% for msg in form.non_field_errors %}
+            {% include 'commons/components/partial/message_alert.html' with tag='alert-danger' closable=closable withicon=withicon message=msg %}
+        {% endfor %}
+    {% endif %}
+    {% for field in form %}
+        {% for msg in field.errors %}
+            {% include 'commons/components/partial/message_alert.html' with tag='alert-danger' closable=closable withicon=withicon message=msg %}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% include 'commons/components/partial/message_icons.html' %}

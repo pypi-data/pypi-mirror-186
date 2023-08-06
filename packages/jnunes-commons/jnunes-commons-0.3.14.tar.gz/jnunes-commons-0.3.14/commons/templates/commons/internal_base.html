@@ -1,0 +1,51 @@
+{% extends 'commons/base.html' %}
+{% load static %}
+
+{% block custom_styles %}
+    <link rel="stylesheet" href="{% static 'commons/css/internal_commons.css' %}">
+{% endblock %}
+
+{% block base_container %}
+    {# :: Menu Items :: #}
+    <nav class="display-hide">
+        <div class="d-flex flex-column flex-shrink-0 bg-primary position-fixed sidebar-container">
+            <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+                {% block menuitems %} {% endblock %}
+            </ul>
+            <div class="dropdown border-top">
+                <a href="#"
+                   class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle"
+                   id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                    <!--
+                         <li><a class="dropdown-item" href="#">Visão do Paciente</a></li>
+                         <li><hr class="dropdown-divider"></li>
+                         <li><a class="dropdown-item" href="#">Sign out</a></li> -->
+                    {% block menudropdown %}{% endblock %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {# :: main contents and container :: #}
+    <main>
+        <div class="top-bar shadow-sm">
+            <div class="page-title">
+                <i class="bi bi-list " id="btnMenu"></i>
+                {% block page_title %}{% endblock %}
+            </div>
+        </div>
+        <div id="baseContainer" class="container toolbar-container">
+            <div id="messages" class="messages">{% include 'commons/components/messages.html' %}</div>
+            <div id="toolbar" class="top-toolbar">{% block toolbar %}{% endblock %}</div>
+            <div id="whiteContainer" class="page-container shadow-lg">{% block whitecontainer %}{% endblock %}</div>
+            <div id="cleanContainer" class="clean-container">{% block cleancontainer %}{% endblock %}</div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block custom_scripts %}
+    <script src="{% static 'commons/js/internal_commons.js' %}"></script>
+{% endblock %}

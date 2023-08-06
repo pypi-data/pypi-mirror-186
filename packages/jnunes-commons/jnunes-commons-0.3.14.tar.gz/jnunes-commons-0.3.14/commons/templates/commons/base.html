@@ -1,0 +1,30 @@
+{% load static %}
+<!doctype html>
+<html lang="pt">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {# :: common styles and head :: #}
+    {% include 'commons/partial/_head.html' %}
+
+    {#  :: base_custom_styles :: Don't ovewrite this block in local applications! #}
+    {% block base_custom_styles %}{% endblock %}
+
+    {#  :: custom style for individual application ::#}
+    {% block custom_styles %}{% endblock %}
+</head>
+<body>
+
+<div class="base-container">
+    {# :: base container :: #}
+    {% block base_container %}{% endblock %}
+</div>
+{# :: commons scripts and footer :: #}
+{% include 'commons/partial/_footer.html' %}
+
+{# :: custom scripts for base aplications :: #}
+{% block base_custom_scripts %}{% endblock %}
+
+{# :: custom scripts for individual applications  :: #}
+{% block custom_scripts %}{% endblock %}
+</body>
+</html>
