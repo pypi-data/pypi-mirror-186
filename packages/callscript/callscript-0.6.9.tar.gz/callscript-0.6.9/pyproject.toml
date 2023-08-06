@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "callscript"
+description = "Makes scripts feel like functions."
+requires-python = ">=3.8"
+license = {file = "LICENSE.txt"}
+readme = "README.md"
+keywords = []#
+authors = [
+  {name = "Nicholas A. Del Grosso", email = "delgrosso.nick@gmail.com"},
+]
+maintainers = [
+  {name = "Nicholas A. Del Grosso", email = "delgrosso.nick@gmail.com"},
+]
+classifiers = [
+#   "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+dependencies = [
+  "redbaron",
+]
+
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-cov[all]",
+  "tox",
+  "scriv[toml]"
+]
+
+[tool.setuptools.dynamic]
+readme = {file = "README.md"}
+
+[tool.setuptools_scm]
+write_to = "callscript/_version.py"
+local_scheme = "no-local-version"
+
+[tool.mypy]
+
+[[tool.mypy.overrides]]
+module = [
+  "redbaron"
+]
+ignore_missing_imports = true
+[project.urls]
+# homepage = "https://example.com"
+# documentation = "https://readthedocs.org"
+repository = "https://github.com/nickdelgrosso/callscript"
+changelog = "https://github.com/nickdelgrosso/callscript/blob/main/CHANGELOG.md"
+
+[tool.scriv]
+format = "md"
+version = "literal:callscript/_version.py:version"
+
+# [project.scripts]
+# spam-cli = "spam:main_cli"
+
+# [project.entry-points."spam.magical"]
+# tomatoes = "spam:main_tomatoes"
