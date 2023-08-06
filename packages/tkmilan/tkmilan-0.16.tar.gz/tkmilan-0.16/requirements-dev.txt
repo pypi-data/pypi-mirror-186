@@ -1,0 +1,23 @@
+# Debug process
+defaultlist  # GPLv3
+
+# Development
+coloredlogs  # Optional
+build
+twine  # Publishing
+# pyproject.toml
+setuptools_scm[toml]>=6.4.2
+
+# Lint
+flake8
+# Tests
+mypy~=0.991
+
+# Docs
+Sphinx>=5.1,<5.2
+sphinx-automodapi
+## Sphinx Themes
+sphinx-rtd-theme
+# furo
+
+# vim: ft=conf:
