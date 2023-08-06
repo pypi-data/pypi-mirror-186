@@ -1,0 +1,28 @@
+# The cloud cost estimator settings file allows for customization
+# of setting for the estimator.
+
+# clouds to include (currently supported are aws and google)
+clouds: [aws, google]
+
+# config editor
+config_editor: vim
+
+# Only use the cache
+cache_only: true
+
+# oras package that can provide offline cache
+# Note this includes only a select number of regions
+cache_oras: ghcr.io/converged-computing/cloud-select-cache:nightly
+
+# Disable adding prices?
+disable_prices: false
+
+# Allow asking for attributes that aren't implemented yet
+allow_missing_attributes: false
+
+# cloud specific settings
+google:
+  regions: ["us-east1", "us-west1", "us-central1"]
+
+aws:
+  regions: ["us-east-1"]
