@@ -1,0 +1,172 @@
+[tool.poetry]
+name = "tmuxp"
+version = "1.26.0"
+description = "tmux session manager"
+license = "MIT"
+authors = ["Tony Narlock <tony@git-pull.com>"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: POSIX",
+  "Operating System :: MacOS :: MacOS X",
+  "Environment :: Web Environment",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: Utilities",
+  "Topic :: System :: Shells",
+]
+keywords = ["tmux", "session manager", "terminal", "ncurses"]
+homepage = "http://github.com/tmux-python/tmuxp/"
+readme = "README.md"
+packages = [
+  { include = "*", from = "src" },
+]
+include = [
+  { path = "CHANGES", format = "sdist" },
+  { path = ".tmuxp.yaml", format = "sdist" },
+  { path = "tests", format = "sdist" },
+  { path = "examples", format = "sdist" },
+  { path = "docs", format = "sdist" },
+  { path = "conftest.py", format = "sdist" },
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/tmux-python/tmuxp/issues"
+Documentation = "https://tmuxp.git-pull.com"
+Repository = "https://github.com/tmux-python/tmuxp"
+Changes = "https://github.com/tmux-python/tmuxp/blob/master/CHANGES"
+
+[tool.poetry.scripts]
+tmuxp = 'tmuxp:cli.cli'
+
+[tool.poetry.dependencies]
+python = "^3.7"
+libtmux = "~0.20.0"
+colorama = ">=0.3.9"
+PyYAML = "^6.0"
+
+[tool.poetry.dev-dependencies]
+### Docs ###
+sphinx = "*"
+aafigure = ">=0.6"
+pillow = "*"
+furo = "*"
+gp-libs = "0.0.1a17"
+sphinx-autobuild = "*"
+sphinx-autodoc-typehints = "*"
+sphinx-argparse = "*"
+sphinx-inline-tabs = "*"
+sphinxext-opengraph = "*"
+sphinx-copybutton = "*"
+sphinxext-rediraffe = "*"
+myst_parser = ">=0.18.1"
+docutils = "*"
+
+### Testing ###
+pytest = "*"
+pytest-rerunfailures = "*"
+pytest-mock = "*"
+pytest-cov = "*"
+pytest-watcher = "*"
+
+### Coverage ###
+codecov = "*"
+coverage = "*"
+
+### Format ###
+black = "*"
+isort = "*"
+
+### Lint ###
+flake8 = [
+  { version = "*", python = "^3.7" },
+  { version = ">=5", python = "^3.8" },
+]
+flake8-bugbear = "*"
+flake8-comprehensions = "*"
+mypy = "*"
+types-colorama = "*"
+types-docutils = "*"
+types-PyYAML = "*"
+
+### Quirks ###
+importlib-metadata = "<5" # https://github.com/PyCQA/flake8/issues/1701
+
+[tool.poetry.extras]
+docs = [
+  "docutils",
+  "sphinx",
+  "sphinx-argparse",
+  "sphinx-autodoc-typehints",
+  "sphinx-autobuild",
+  "sphinx-copybutton",
+  "sphinxext-opengraph",
+  "sphinx-inline-tabs",
+  "sphinxext-rediraffe",
+  "myst_parser",
+  "furo",
+  "gp-libs",
+  "aafigure",
+  "pillow",
+]
+test = ["pytest", "pytest-rerunfailures", "pytest-mock", "pytest-watcher"]
+coverage = ["codecov", "coverage", "pytest-cov"]
+format = ["black", "isort"]
+lint = [
+  "flake8",
+  "flake8-bugbear",
+  "flake8-comprehsions",
+  "mypy",
+  "types-colorama",
+  "types-docutils",
+  "types-PyYAML",
+]
+
+[tool.coverage.run]
+branch = true
+source = [
+  "tmuxp",
+]
+omit = [
+  "tests/*",
+  "*/_vendor/*",
+  "*/_*",
+  "pkg/*",
+  "*/log.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "raise NotImplementedError",
+  "if __name__ == .__main__.:",
+  "def parse_args",
+]
+
+[tool.mypy]
+files = [
+  "src/",
+  "tests/",
+]
+
+[[tool.mypy.overrides]]
+module = [
+  "shtab",
+  "aafigure",
+  "IPython.*",
+  "ptpython.*",
+  "prompt_toolkit.*",
+  "bpython",
+]
+ignore_missing_imports = true
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
