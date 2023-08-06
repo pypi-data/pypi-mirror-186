@@ -1,0 +1,9 @@
+libdir=/var/folders/76/zy5ktkns50v6gt5g8r0sf6sc0000gn/T/cmeel-g11axwjn/pfx/cmeel.prefix/lib
+includedir=/var/folders/76/zy5ktkns50v6gt5g8r0sf6sc0000gn/T/cmeel-g11axwjn/pfx/cmeel.prefix/include
+
+Name: Assimp
+Description: Import various well-known 3D model formats in an uniform manner.
+Version: 5.2.4
+Libs: -L${libdir} -lassimp
+Libs.private:  -lz
+Cflags: -I${includedir}
