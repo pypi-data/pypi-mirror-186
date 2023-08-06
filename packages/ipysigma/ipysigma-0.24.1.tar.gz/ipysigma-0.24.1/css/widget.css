@@ -1,0 +1,223 @@
+/* Choices.js overrides */
+.ipysigma-widget .choices {
+  margin-bottom: 5px;
+}
+
+.ipysigma-widget .choices__inner {
+  border-radius: 0;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  box-sizing: border-box;
+  padding-right: 50px;
+}
+
+.ipysigma-widget .choices__item--selectable {
+  padding-right: 0px !important;
+}
+
+.ipysigma-widget .choices__item {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Ipysigma own styles */
+.ipysigma-widget {
+  /* Background color is now set by widget directly! */
+  /* background-color: white; */
+  margin: 0;
+  padding: 0;
+  border: 1px solid #e0e0e0;
+  font-family: sans-serif;
+  color: black;
+}
+
+.ipysigma-widget ~ .ipysigma-widget {
+  border-left: none;
+}
+
+.widget-hbox ~ .widget-hbox .ipysigma-widget {
+  border-top: none;
+}
+
+.ipysigma-widget hr {
+  height: 1px;
+  border: none;
+  background-color: #e0e0e0;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.ipysigma-widget .ipysigma-left-panel {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.ipysigma-widget .ipysigma-right-panel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 250px;
+  height: 100%;
+}
+
+.ipysigma-widget .ipysigma-right-panel.hidden {
+  pointer-events: none;
+}
+
+.ipysigma-widget .ipysigma-graph-description {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  padding: 5px 10px;
+  font-size: 12px;
+  /* font-style: italic; */
+  line-height: 16px;
+}
+
+.ipysigma-widget .ipysigma-button {
+  cursor: pointer;
+  text-align: center;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  user-select: none;
+}
+
+.ipysigma-widget .ipysigma-button.disabled {
+  border: none;
+  cursor: default;
+}
+
+.ipysigma-widget .ipysigma-button.disabled svg {
+  fill: #efefef;
+}
+
+.ipysigma-widget .ipysigma-button:hover {
+  border-color: grey;
+}
+
+.ipysigma-widget .ipysigma-svg-icon {
+  width: 32px;
+  height: 32px;
+  font-size: 24px;
+  line-height: 30px;
+  box-sizing: border-box;
+}
+
+.ipysigma-widget .ipysigma-zoom-button {
+  margin-top: 10px;
+}
+
+.ipysigma-widget .ipysigma-unzoom-button {
+  margin-top: 10px;
+}
+
+.ipysigma-widget .ipysigma-reset-zoom-button {
+  margin-top: 10px;
+}
+
+.ipysigma-widget .ipysigma-fullscreen-button {
+  margin-top: 10px;
+}
+
+.ipysigma-widget .ipysigma-layout-controls {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+}
+
+.ipysigma-widget .ipysigma-reset-layout-button,
+.ipysigma-widget .ipysigma-noverlap-button {
+  margin-left: 4px;
+}
+
+.ipysigma-widget .ipysigma-spinner {
+  font-size: 20px;
+  padding-left: 5px;
+  line-height: 26px;
+}
+
+.ipysigma-widget .ipysigma-tab-button.selectable {
+  color: cornflowerblue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ipysigma-widget .ipysigma-information-display {
+  width: 100%;
+  height: calc(100% - 45px - 5px - 20px - 25px);
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  box-sizing: border-box;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 10px;
+}
+
+.ipysigma-widget .ipysigma-information-display.full {
+  height: calc(100% - 20px - 25px);
+}
+
+.ipysigma-widget .ipysigma-information-shadow-display {
+  width: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 10px;
+}
+
+.ipysigma-widget .ipysigma-information-hide-button,
+.ipysigma-widget .ipysigma-information-show-button {
+  float: right;
+  cursor: pointer;
+}
+
+.ipysigma-widget .ipysigma-information-contents,
+.ipysigma-widget .ipysigma-legend {
+  font-family: monospace;
+}
+
+.ipysigma-widget .ipysigma-string {
+  color: #bc2828;
+}
+
+.ipysigma-widget .ipysigma-number {
+  color: #008800;
+}
+
+.ipysigma-widget .ipysigma-boolean,
+.ipysigma-widget .ipysigma-keyword {
+  color: #0457ab;
+}
+
+.ipysigma-widget .ipysigma-download-controls {
+  margin-top: 5px;
+  display: flex;
+  text-align: right;
+  position: absolute;
+  bottom: 20px;
+  right: 0px;
+}
+
+.ipysigma-widget .ipysigma-download-png-button,
+.ipysigma-widget .ipysigma-download-svg-button,
+.ipysigma-widget .ipysigma-download-gexf-button {
+  margin-right: 3px;
+}
+
+.ipysigma-widget .category {
+  cursor: pointer;
+}
+.ipysigma-widget .category.evicted .category-value {
+  color: gray;
+  text-decoration: line-through;
+}
+
+.ipysigma-widget .ipysigma-search,
+.ipysigma-widget .ipysigma-download-controls,
+.ipysigma-widget .ipysigma-information-shadow-display,
+.ipysigma-widget .choices {
+  pointer-events: auto;
+}
