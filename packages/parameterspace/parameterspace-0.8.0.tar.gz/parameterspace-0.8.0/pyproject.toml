@@ -1,0 +1,122 @@
+[tool.poetry]
+name = "parameterspace"
+version = "0.8.0"
+description = "Parametrized hierarchical spaces with flexible priors and transformations."
+readme = "README.md"
+repository = "https://github.com/boschresearch/parameterspace"
+authors = ["Bosch Center for AI, Robert Bosch GmbH"]
+license = "Apache-2.0"
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+
+[[tool.poetry.source]]
+name = "public-pypi"
+url = "https://pypi.python.org/simple"
+default = true
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+numpy = ">=1.22.0"
+scipy = ">=1.6.0"
+
+[tool.poetry.dev-dependencies]
+black = "22.3.0"
+isort = "^5.7.0"
+mkdocs = "^1.3.0"
+mkdocs-awesome-pages-plugin = "^2.7.0"
+mkdocs-gen-files = "^0.4.0"
+mkdocs-material = "^8.2.11"
+mkdocstrings = {version="^0.19.0", extras=["python-legacy"]}
+mkdocs-jupyter = "^0.21.0"
+mypy = "^0.910"
+pylint = "^2.8.2"
+pytest = "^7.2.0"
+pytest-cov = "^3.0.0"
+pre-commit = "^2.18.1"
+dill = "^0.3.4"
+pytest-rerunfailures = "^10.1"
+num2tex = "^0.8"
+mike = "^1.1.2"
+pydocstyle = "^6.1.1"
+
+[tool.poetry.extras]
+examples = ["notebook", "matplotlib"]
+
+[tool.poetry.group.dev.dependencies]
+configspace = "^0.6.0"
+
+[tool.pytest.ini_options]
+filterwarnings = ["error::DeprecationWarning", "error::PendingDeprecationWarning"]
+markers = ["integration_test: Execute API calls."]
+addopts = "-m 'not integration_test'"
+
+[tool.mypy]
+ignore_missing_imports = true
+no_strict_optional = true
+exclude = 'site/generate_references.py'
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+
+[tool.pylint.format]
+max-line-length = 88
+
+[tool.pylint.messages_control]
+extension-pkg-whitelist = ["pydantic", "numpy", "scipy"]
+disable = [
+    # Switched off to be less aggressive
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "invalid-name",
+    "logging-not-lazy",
+    "logging-format-interpolation",
+    "logging-fstring-interpolation",
+    "duplicate-code",
+    "too-many-instance-attributes",
+    "too-many-arguments",
+    "too-few-public-methods",
+    "too-many-locals",
+    "protected-access"
+]
+
+[tool.pydocstyle]
+convention = "google"
+add-ignore = "D105"
+match = '(?!test_|__init__).*\.py'
+match-dir = '[^\tests].*'
+
+[tool.coverage.run]
+source = ['parameterspace']
+relative_files = true
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover",
+
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    "if self\\.debug",
+
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:"
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
