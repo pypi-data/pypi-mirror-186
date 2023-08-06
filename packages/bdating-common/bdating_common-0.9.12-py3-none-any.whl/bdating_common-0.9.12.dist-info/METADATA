@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: bdating-common
+Version: 0.9.12
+Summary: Bdating common libraries standard library
+Home-page: https://github.com/bdating-io/bdating-python-common
+Author: Zac
+Author-email: zac@bdating.io
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Utilities
+Classifier: Typing :: Typed
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: PyJWT (==2.1.0)
+Requires-Dist: PyMySQL
+Requires-Dist: aioredis (<2)
+Requires-Dist: auth0-python
+Requires-Dist: boto3 (<2)
+Requires-Dist: click
+Requires-Dist: click-log
+Requires-Dist: cryptography (==3.4.7)
+Requires-Dist: dnspython (==2.2.0)
+Requires-Dist: elasticsearch (>8)
+Requires-Dist: fastapi
+Requires-Dist: pyyaml
+Requires-Dist: redis (<5)
+Requires-Dist: requests
+Requires-Dist: web3 (<6,>5.0)
+Requires-Dist: wsproto (==1.2.0)
+
+# README #
+
+Standard python library for Bdating
+
+# build
+
+### install tools
+```
+python -m pip install build twine tox
+```
+
+### build and upload
+```
+# given ~/.pypirc has been set.
+rm -rf dist/*; tox -e build && tox -e upload 
+
+```
+
