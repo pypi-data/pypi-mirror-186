@@ -1,0 +1,73 @@
+"""Documentation objects for use in templates."""
+from hitchstory.step_method import StepMethod
+import pathlib
+
+
+class DocInfoProperty(object):
+    def __init__(self, templates, name, info_property):
+        self._documentation = templates.info_from_name(
+            name, info_property
+        )
+
+    def documentation(self):
+        return self._documentation
+
+
+class DocGivenProperty(object):
+    def __init__(self, templates, name, given_property):
+        self._documentation = templates.given_from_name(
+            name, given_property
+        )
+
+    def documentation(self):
+        return self._documentation
+
+
+class DocGivenProperties(object):
+    def __init__(self, templates, given):
+        self._property_docs = {
+            name: DocGivenProperty(templates, name, given[name])
+            for name, given_property in given.items()
+        }
+
+    def __getattr__(self, name):
+        return self._property_docs[name]
+
+    def items(self):
+        return self._property_docs.items()
+
+
+class DocStep(object):
+    def __init__(self, templates, step):
+        step_method = StepMethod(step.step_method)
+        arguments = {name: None for name in step_method.argspec.args[1:]}
+
+        if step.arguments.single_argument:
+            var_name = step_method.argspec.args[1:][0]
+            arguments[var_name] = step.arguments.data
+        else:
+            if step_method.argspec.keywords:
+                var_name = step_method.argspec.keywords
+                arguments[var_name] = step.arguments.data
+            else:
+                arguments.update(step.arguments.data)
+
+        self._documentation = templates.step_from_slug(step.slug, arguments)
+
+    def documentation(self):
+        return self._documentation
+
+
+def story_template(story, doc_templates):
+    return doc_templates.story(
+        info={
+            name: DocInfoProperty(doc_templates, name, info_property)
+            for name, info_property in story.info.items()
+        },
+        slug=story.slug,
+        given=DocGivenProperties(doc_templates, story.given),
+        name=story.name,
+        about=story.about,
+        steps=[DocStep(doc_templates, step) for step in story.steps],
+        filename=pathlib.Path(story.filename),
+    )
