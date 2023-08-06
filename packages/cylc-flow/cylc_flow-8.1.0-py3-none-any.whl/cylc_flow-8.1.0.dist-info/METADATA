@@ -1,0 +1,248 @@
+Metadata-Version: 2.1
+Name: cylc-flow
+Version: 8.1.0
+Summary: A workflow engine for cycling systems
+Home-page: https://cylc.org/
+Author: Hilary Oliver
+License: GPL
+Project-URL: Documentation, https://cylc.github.io/cylc-doc/stable/html/index.html
+Project-URL: Source, https://github.com/cylc/cylc-flow
+Project-URL: Tracker, https://github.com/cylc/cylc-flow/issues
+Keywords: cycling-workflows,hpc,job-scheduler,metascheduler,workflow-automation,workflow-engine,workflow-management,scheduling
+Platform: any
+Classifier: Environment :: Console
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Scientific/Engineering :: Atmospheric Science
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: COPYING
+Requires-Dist: aiofiles (==0.7.*)
+Requires-Dist: ansimarkup (>=1.0.0)
+Requires-Dist: async-timeout (>=3.0.0)
+Requires-Dist: colorama (<=1,>=0.4)
+Requires-Dist: graphene (<3,>=2.1)
+Requires-Dist: jinja2 (==3.0.*)
+Requires-Dist: metomi-isodatetime (==1!3.0.*)
+Requires-Dist: protobuf (<4.22.0,>=4.21.2)
+Requires-Dist: psutil (>=5.6.0)
+Requires-Dist: pyzmq (==22.*)
+Requires-Dist: setuptools (>=49)
+Requires-Dist: urwid (==2.*)
+Requires-Dist: rx
+Requires-Dist: promise
+Requires-Dist: tomli (>=2.*)
+Provides-Extra: all
+Requires-Dist: EmPy (==3.3.*) ; extra == 'all'
+Requires-Dist: pillow ; extra == 'all'
+Requires-Dist: pympler ; extra == 'all'
+Requires-Dist: matplotlib ; extra == 'all'
+Requires-Dist: sqlparse ; extra == 'all'
+Requires-Dist: pandas (==1.*) ; extra == 'all'
+Requires-Dist: async-generator ; extra == 'all'
+Requires-Dist: bandit (>=1.7.0) ; extra == 'all'
+Requires-Dist: coverage (>=5.0.0) ; extra == 'all'
+Requires-Dist: flake8-broken-line (>=0.3.0) ; extra == 'all'
+Requires-Dist: flake8-bugbear (>=21.0.0) ; extra == 'all'
+Requires-Dist: flake8-builtins (>=1.5.0) ; extra == 'all'
+Requires-Dist: flake8-comprehensions (>=3.5.0) ; extra == 'all'
+Requires-Dist: flake8-debugger (>=4.0.0) ; extra == 'all'
+Requires-Dist: flake8-mutable (>=1.2.0) ; extra == 'all'
+Requires-Dist: flake8-simplify (>=0.14.0) ; extra == 'all'
+Requires-Dist: flake8 (>=3.0.0) ; extra == 'all'
+Requires-Dist: mypy (>=0.910) ; extra == 'all'
+Requires-Dist: pytest-asyncio (>=0.17) ; extra == 'all'
+Requires-Dist: pytest-cov (>=2.8.0) ; extra == 'all'
+Requires-Dist: pytest-xdist (>=2) ; extra == 'all'
+Requires-Dist: pytest-env (>=0.6.2) ; extra == 'all'
+Requires-Dist: pytest-mock (>=3.6.1) ; extra == 'all'
+Requires-Dist: pytest (>=6) ; extra == 'all'
+Requires-Dist: testfixtures (>=6.11.0) ; extra == 'all'
+Requires-Dist: types-aiofiles (>=0.7.0) ; extra == 'all'
+Requires-Dist: types-Jinja2 (>=0.1.3) ; extra == 'all'
+Requires-Dist: types-aiofiles (>=0.1.3) ; extra == 'all'
+Requires-Dist: types-pkg-resources (>=0.1.2) ; extra == 'all'
+Requires-Dist: types-protobuf (>=0.1.10) ; extra == 'all'
+Requires-Dist: types-six (>=0.1.6) ; extra == 'all'
+Requires-Dist: typing-extensions (>=4) ; extra == 'all'
+Requires-Dist: requests ; extra == 'all'
+Provides-Extra: empy
+Requires-Dist: EmPy (==3.3.*) ; extra == 'empy'
+Provides-Extra: graph
+Requires-Dist: pillow ; extra == 'graph'
+Provides-Extra: main_loop-log_data_store
+Requires-Dist: pympler ; extra == 'main_loop-log_data_store'
+Requires-Dist: matplotlib ; extra == 'main_loop-log_data_store'
+Provides-Extra: main_loop-log_db
+Requires-Dist: sqlparse ; extra == 'main_loop-log_db'
+Provides-Extra: main_loop-log_main_loop
+Requires-Dist: matplotlib ; extra == 'main_loop-log_main_loop'
+Provides-Extra: main_loop-log_memory
+Requires-Dist: pympler ; extra == 'main_loop-log_memory'
+Requires-Dist: matplotlib ; extra == 'main_loop-log_memory'
+Provides-Extra: report-timings
+Requires-Dist: pandas (==1.*) ; extra == 'report-timings'
+Requires-Dist: matplotlib ; extra == 'report-timings'
+Provides-Extra: tests
+Requires-Dist: async-generator ; extra == 'tests'
+Requires-Dist: bandit (>=1.7.0) ; extra == 'tests'
+Requires-Dist: coverage (>=5.0.0) ; extra == 'tests'
+Requires-Dist: flake8-broken-line (>=0.3.0) ; extra == 'tests'
+Requires-Dist: flake8-bugbear (>=21.0.0) ; extra == 'tests'
+Requires-Dist: flake8-builtins (>=1.5.0) ; extra == 'tests'
+Requires-Dist: flake8-comprehensions (>=3.5.0) ; extra == 'tests'
+Requires-Dist: flake8-debugger (>=4.0.0) ; extra == 'tests'
+Requires-Dist: flake8-mutable (>=1.2.0) ; extra == 'tests'
+Requires-Dist: flake8-simplify (>=0.14.0) ; extra == 'tests'
+Requires-Dist: flake8 (>=3.0.0) ; extra == 'tests'
+Requires-Dist: mypy (>=0.910) ; extra == 'tests'
+Requires-Dist: pytest-asyncio (>=0.17) ; extra == 'tests'
+Requires-Dist: pytest-cov (>=2.8.0) ; extra == 'tests'
+Requires-Dist: pytest-xdist (>=2) ; extra == 'tests'
+Requires-Dist: pytest-env (>=0.6.2) ; extra == 'tests'
+Requires-Dist: pytest-mock (>=3.6.1) ; extra == 'tests'
+Requires-Dist: pytest (>=6) ; extra == 'tests'
+Requires-Dist: testfixtures (>=6.11.0) ; extra == 'tests'
+Requires-Dist: types-aiofiles (>=0.7.0) ; extra == 'tests'
+Requires-Dist: types-Jinja2 (>=0.1.3) ; extra == 'tests'
+Requires-Dist: types-aiofiles (>=0.1.3) ; extra == 'tests'
+Requires-Dist: types-pkg-resources (>=0.1.2) ; extra == 'tests'
+Requires-Dist: types-protobuf (>=0.1.10) ; extra == 'tests'
+Requires-Dist: types-six (>=0.1.6) ; extra == 'tests'
+Requires-Dist: typing-extensions (>=4) ; extra == 'tests'
+Provides-Extra: tutorials
+Requires-Dist: pillow ; extra == 'tutorials'
+Requires-Dist: requests ; extra == 'tutorials'
+
+<div
+  align="center"
+>
+<img
+  src="https://raw.githubusercontent.com/cylc/cylc-admin/master/docs/img/cylc-logo.svg"
+  width="50%"
+/>
+
+[![PyPI](https://img.shields.io/pypi/v/cylc-flow.svg?color=yellow)](https://pypi.org/project/cylc-flow/)
+[![Anaconda-Server Badge](https://anaconda.org/conda-forge/cylc-flow/badges/version.svg)](https://anaconda.org/conda-forge/cylc-flow)
+[![chat](https://img.shields.io/matrix/cylc-general:matrix.org)](https://matrix.to/#/#cylc-general:matrix.org)
+[![forum](https://img.shields.io/discourse/https/cylc.discourse.group/posts.svg)](https://cylc.discourse.group/)
+[![Documentation](https://img.shields.io/website?label=documentation&up_message=live&url=https%3A%2F%2Fcylc.github.io%2Fcylc-doc%2Fstable%2Fhtml%2Findex.html)](https://cylc.github.io/cylc-doc/stable/html/index.html)
+
+</div>
+
+Cylc (pronounced silk) is a general purpose workflow engine that also
+manages cycling systems very efficiently. It is used in production weather,
+climate, and environmental forecasting on HPC, but is not specialized to those
+domains.
+
+### Quick Start
+
+
+[Installation](https://cylc.github.io/cylc-doc/stable/html/installation.html) |
+[Documentation](https://cylc.github.io/cylc-doc/stable/html/index.html)
+
+```bash
+# install cylc
+conda install cylc-flow
+
+# write your first workflow
+mkdir -p ~/cylc-src/example
+cat > ~/cylc-src/example/flow.cylc <<__CONFIG__
+[scheduling]
+    initial cycle point = 1
+    cycling mode = integer
+    [[graph]]
+        P1 = """
+            a => b => c & d
+            b[-P1] => b
+        """
+[runtime]
+    [[a, b, c, d]]
+        script = echo "Hello $CYLC_TASK_NAME"
+__CONFIG__
+
+# install and run it
+cylc install example
+cylc play example
+
+# watch it run
+cylc tui example
+```
+
+### Migrating From Cylc 7
+
+[Migration Guide](https://cylc.github.io/cylc-doc/stable/html/7-to-8/index.html)
+| [Migration Support](https://cylc.discourse.group/c/cylc/7-to-8/13)
+
+Cylc 8 can run most Cylc 7 workflows in compatibility mode with little to no
+changes, go through the
+[migration guide](https://cylc.github.io/cylc-doc/stable/html/7-to-8/index.html)
+for more details.
+
+Quick summary of major changes:
+
+* Python 2 -> 3.
+* Internal communications converted from HTTPS to ZMQ (TCP).
+* PyGTK GUIs replaced by:
+  * Terminal user interface (TUI) included in cylc-flow.
+  * Web user interface provided by the cylc-uiserver package.
+* A new scheduling algorithm with support for branched workflows.
+* Command line changes:
+  * `cylc run <id>` -> `cylc play <id>`
+  * `cylc restart <id>` -> `cylc play <id>`
+  * `rose suite-run` -> `cylc install; cylc play <id>`
+* The core package containing Cylc scheduler program has been renamed cylc-flow.
+* Cylc review has been removed, the Cylc 7 version remains Cylc 8 compatible.
+
+
+### Citations & Publications
+
+[![DOI](https://zenodo.org/badge/1836229.svg)](https://zenodo.org/badge/latestdoi/1836229)
+[![JOSS](http://joss.theoj.org/papers/10.21105/joss.00737/status.svg)](https://doi.org/10.21105/joss.00737)
+[![CISE](https://img.shields.io/website/https/ieeexplore.ieee.org/document/8675433.svg?color=orange&label=CISE&up_message=10.1109%2FMCSE.2019.2906593)](https://ieeexplore.ieee.org/document/8675433)
+
+### Copyright and Terms of Use
+
+[![License](https://img.shields.io/github/license/cylc/cylc-flow.svg?color=lightgrey)](https://github.com/cylc/cylc-flow/blob/master/COPYING)
+
+Copyright (C) 2008-<span actions:bind='current-year'>2023</span> NIWA & British Crown (Met Office) & Contributors.
+
+Cylc is free software: you can redistribute it and/or modify it under the terms
+of the GNU General Public License as published by the Free Software Foundation,
+either version 3 of the License, or (at your option) any later version.
+
+Cylc is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+Cylc.  If not, see [GNU licenses](http://www.gnu.org/licenses/).
+
+### Contributing
+
+[![Contributors](https://img.shields.io/github/contributors/cylc/cylc-flow.svg?color=9cf)](https://github.com/cylc/cylc-flow/graphs/contributors)
+[![Commit activity](https://img.shields.io/github/commit-activity/m/cylc/cylc-flow.svg?color=yellowgreen)](https://github.com/cylc/cylc-flow/commits/master)
+[![Last commit](https://img.shields.io/github/last-commit/cylc/cylc-flow.svg?color=ff69b4)](https://github.com/cylc/cylc-flow/commits/master)
+
+Contributions welcome:
+
+* Read the [contributing](CONTRIBUTING.md) page.
+* Development setup instructions are in the
+  [developer docs](https://cylc.github.io/cylc-admin/#cylc-8-developer-docs).
+* Involved change proposals can be found in the
+  [admin pages](https://cylc.github.io/cylc-admin/#change-proposals).
+* Touch base in the
+  [developers chat](https://matrix.to/#/#cylc-general:matrix.org).
+
+
