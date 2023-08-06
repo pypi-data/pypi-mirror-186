@@ -1,0 +1,23 @@
+{% extends 'timeseer.html' %}
+
+{% from 'resources.html' import resource_breadcrumb, resource_menu with context %}
+
+{% block menu %}
+{{ resource_menu('Manage resources') }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{
+    resource_breadcrumb([
+        "Manage resources"
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+    <div id="export-resource" data-config-url="{{ url_for('config.get_config') }}"></div>
+{% endblock %}
+
+{% block scripts_bottom %}
+<script src="{{ url_for('static', filename='dist/manage-resource.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}

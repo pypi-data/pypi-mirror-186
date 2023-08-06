@@ -1,0 +1,62 @@
+{% extends 'timeseer.html' %}
+{% from 'data-service-header.html' import data_service_breadcrumb, data_service_header with context %}
+{% from 'macros.html' import visualize_score, visualize_series_name, pagination %}
+{% from 'data-service-menu.html' import data_service_menu with context %}
+
+{% block menu %}
+{{ data_service_menu('Time series') }}
+{% endblock %}
+
+{% set title = 'Time series' %}
+
+{% block breadcrumb %}
+{{
+    data_service_breadcrumb(current_bin, [
+        title
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+{% call data_service_header(current_bin, 'Time series score') %}
+<a  href="{{ url_for('.compare_series_scores', binid=current_bin.db_id, sourcename=source_name) }}"
+    class="btn btn-primary">
+    Compare scores
+</a>
+{% endcall %}
+
+{% if series_scores|count > 0 %}
+<div class="pt-3 my-3">
+    {{ pagination(
+        paging,
+        url_for('.series_score_report', sourcename=source_name, page=paging.page-1, binid=current_bin.db_id),
+        url_for('.series_score_report', sourcename=source_name, page=paging.page+1, binid=current_bin.db_id)
+    ) }}
+    <table class="ts-table table table-borderless">
+        <thead class="thead-secondary">
+            <tr class="border-top border-bottom">
+                <th scope="col">Series name</th>
+                <th scope="col">Score (higher is better)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for series, score in series_scores.items() %}
+            <tr class="border-bottom">
+                <td>
+                    <a class="ts-table-link text-dark fw-normal text-decoration-none" href="{{ url_for('data_services.show_event_frames', seriesid=series.series_id, binid=current_bin.db_id) }}">
+                        {{ visualize_series_name(series.name) }}
+                    </a>
+                </td>
+                {{ visualize_score(score) }}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ pagination(
+        paging,
+        url_for('.series_score_report', sourcename=source_name, page=paging.page-1, binid=current_bin.db_id),
+        url_for('.series_score_report', sourcename=source_name, page=paging.page+1, binid=current_bin.db_id)
+    ) }}
+</div>
+{% endif %}
+{% endblock %}

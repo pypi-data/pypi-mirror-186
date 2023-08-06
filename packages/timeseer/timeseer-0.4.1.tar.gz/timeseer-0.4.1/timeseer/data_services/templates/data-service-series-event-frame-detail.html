@@ -1,0 +1,225 @@
+{% extends 'data-service-series-layout.html' %}
+
+{% from 'macros.html' import display_event_frame_checks, bootstrap_icon, pagination, data_service_event_frame_details %}
+
+{% macro visualize_sorting(sort_field, sort_direction, field) %}
+    {% if sort_field == field %}
+        {% if sort_direction == 'asc' %}
+        {% set other_direction = 'desc' %}
+        {% else %}
+        {% set other_direction = 'asc' %}
+        {% endif %}
+        <a class="text-reset text-decoration-none" href="{{ url_for('.event_frame_detail', seriesid=series.series_id, type=event_frame_type, startDate=start_date, endDate=end_date, status=status, explanation=explanation, sort=field, direction=other_direction, binid=current_bin.db_id) }}">
+            {{ caller() }}
+            {% if sort_direction == 'desc' %}
+            <svg class="bi" width="16" height="16" fill="currentColor">
+                <use xlink:href="/static/dist/bootstrap-icons.svg#caret-down-fill"/>
+            </svg>
+            {% else %}
+            <svg class="bi" width="16" height="16" fill="currentColor">
+                <use xlink:href="/static/dist/bootstrap-icons.svg#caret-up-fill"/>
+            </svg>
+            {% endif %}
+        </a>
+    {% else %}
+        <a class="text-reset text-decoration-none" href="{{ url_for('.event_frame_detail', seriesid=series.series_id, type=event_frame_type, startDate=start_date, endDate=end_date, status=status, explanation=explanation, sort=field, direction=sort_direction, binid=current_bin.db_id) }}">
+            {{ caller() }}
+            {% if sort_direction == 'desc' %}
+            <svg class="bi text-secondary" width="16" height="16" fill="currentColor">
+                <use xlink:href="/static/dist/bootstrap-icons.svg#caret-down"/>
+            </svg>
+            {% else %}
+            <svg class="bi text-secondary" width="16" height="16" fill="currentColor">
+                <use xlink:href="/static/dist/bootstrap-icons.svg#caret-up"/>
+            </svg>
+            {% endif %}
+        </a>
+    {% endif %}
+{% endmacro %}
+
+{% set title = 'Event frames' %}
+{% block menu %}
+{{ data_service_series_menu(title) }}
+{% endblock %}
+
+{% block series_title %}
+<h2 class="h4">{{ event_frame_type }}</h2>
+{% endblock %}
+
+{% block series_action %}
+<button type="submit"
+        class="btn btn-primary me-2"
+        form="eventframeselection"
+        formmethod="POST"
+        formaction="{{ url_for('data_services.export_event_frames') }}">
+        Export to XLSX
+</button>
+{% endblock %}
+
+{% block series_content %}
+{% if checks_metadata|count > 0 %}
+{{ display_event_frame_checks(checks_metadata) }}
+{% endif %}
+
+{% if kpi %}
+ <div class="mb-3">
+     <small class="text-muted">
+         Showing event frames for the <b>{{kpi}}</b> KPI.
+         {% if event_frame_duration %}
+         Minimal duration: {{event_frame_duration}}.
+         {% else %}
+         No filter configured.
+         {% endif %}
+     </small>
+ </div>
+ {% endif %}
+
+<form class="mb-3" id="eventframeselection">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="kpi" value="{{ kpi }}">
+    <input type="hidden" name="seriesid" value="{{ series.series_id }}">
+    <input type="hidden" name="sort" value="{{ sort_field }}">
+    <input type="hidden" name="direction" value="{{ sort_direction }}">
+    <input type="hidden" name="type" value="{{ event_frame_type }}">
+    <input type="hidden" name="binid" value="{{ current_bin.db_id }}">
+    <div class="row align-items-end gx-2">
+        <div class="col-xl-3 col-lg-6">
+            <label for="startDateInput" class="col-form-label">Start date</label>
+            <input type="datetime-local" step="1" class="form-control" id="startDateInput" name="startDate" data-ts-datetime-value="{{ start_date }}">
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <label for="endDateInput" class="col-form-label">End date</label>
+            <input type="datetime-local" step="1" class="form-control" id="endDateInput" name="endDate" data-ts-datetime-value="{{ end_date }}">
+        </div>
+        <div class="col-xl-2 col-lg-6">
+          <label for="statusInput" class="form-label">Status</label>
+          <select class="form-select" id="statusInput" name="status">
+            <option {% if not status %}selected{% endif %}value=""></option>
+            {% for status_type in event_frame_status %}
+            <option {% if status_type.value == status %}selected{% endif %} value="{{ status_type.value }}">{{ status_type.value|capitalize }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-xl-2 col-lg-4">
+            <label for="explanationInput" class="form-label">Explanation</label>
+            <select class="form-select" id="explanationInput" name="explanation">
+                <option></option>
+                <option value="without" {% if explanation is not none and explanation == "without" %}selected{% endif %}>Without explanation</option>
+                <option value="with" {% if explanation is not none and explanation == "with" %}selected{% endif %}>With explanation</option>
+            </select>
+        </div>
+        <div class="col mt-lg-0 mt-2">
+            <button type="submit" class="btn btn-secondary">Filter</button>
+        </div>
+    </div>
+
+</form>
+
+{% if event_frames %}
+{{ pagination(
+    paging,
+    url_for('.event_frame_detail', seriesid=series.series_id, type=event_frame_type, startDate=start_date, endDate=end_date, status=status, explanation=explanation, page=paging.page-1, sort=sort_field, direction=sort_direction, binid=current_bin.db_id),
+    url_for('.event_frame_detail', seriesid=series.series_id, type=event_frame_type, startDate=start_date, endDate=end_date, status=status, explanation=explanation, page=paging.page+1, sort=sort_field, direction=sort_direction, binid=current_bin.db_id)
+) }}
+<table class="ts-table table ts-table-button table-borderless">
+    <thead class="thead-secondary">
+        <tr class="border-top border-bottom">
+            <th scope="col">
+                {% call visualize_sorting(sort_field, sort_direction, 'start_date') %}
+                    Start date
+                {% endcall %}
+            </th>
+            <th scope="col">
+                {% call visualize_sorting(sort_field, sort_direction, 'end_date') %}
+                    End date
+                {% endcall %}
+            </th>
+            <th scope="col">
+                {% call visualize_sorting(sort_field, sort_direction, 'duration') %}
+                    Duration
+                {% endcall %}
+            </th>
+            <th scope="col">Status</th>
+            <th scope="col">Explanation</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for frame in event_frames %}
+        <tr class="border-bottom hover-menu">
+            <td>{{ frame.start_date|ts_datetime }}</td>
+            {% if frame.end_date is not none %}
+            <td>{{ frame.end_date|ts_datetime }}</td>
+            <td>{{ (frame.end_date - frame.start_date)|timedeltaformat }}</td>
+            {% else %}
+            <td>-</td>
+            <td>-</td>
+            {% endif %}
+            <td>{{ (frame.status or '-')|capitalize }}</td>
+            {% if frame.explanation is not none and frame.explanation != ''%}
+            <td>{{ info_popover(frame.explanation, 'chat-left-text-fill', 'text-info ts-popover', trigger='click') }}</td>
+            {% else %}
+            <td>-</td>
+            {% endif %}
+            <td>
+                {% set offcanvas_id = 'details-' + frame.db_id|string %}
+                <div class="btn-group row-hover-menu-button">
+                    <a class="btn btn-black dropdown-toggle-no-arrow"
+                        href="#"
+                        role="button"
+                        id="{{frame.id}}-menu"
+                        data-bs-toggle="dropdown">
+                        {{bootstrap_icon('three-dots', 'btn-black align-middle')}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="{{frame.id}}-menu">
+                        <button class="dropdown-item"
+                                data-bs-toggle="offcanvas"
+                                href="#{{ offcanvas_id }}"
+                                aria-expanded="false">
+                            {{ 'Add' if frame.explanation is none or frame.explanation == '' else 'Edit'}} context
+                        </button>
+                        {% if frame.type_class.value == 'univariate' %}
+                        <form action="{{ url_for('data_services.chart') }}">
+                            <input type="hidden" name="seriesid" value="{{ series.series_id }}">
+                            <input type="hidden" name="startDate" value="{{ frame.start_date }}">
+                            {% if frame.end_date %}
+                            <input type="hidden" name="endDate" value="{{ frame.end_date }}">
+                            {% endif %}
+                            <input type="hidden" name="binid" value="{{ current_bin.db_id }}">
+                            <input type="hidden" name="context" value="10">
+                            <input type="submit" class="dropdown-item" value="Visualize">
+                        </form>
+                        {% elif frame.type_class.value == 'bivariate' %}
+                        <form action="{{ url_for('data_services.show_series_bivariate_chart') }}">
+                            <input type="hidden" name="seriesid" value="{{ series.series_id }}">
+                            <input type="hidden" name="eventframeid" value="{{ frame.db_id }}">
+                            <input type="hidden" name="startDate" value="{{ frame.start_date }}">
+                            {% if frame.end_date %}
+                            <input type="hidden" name="endDate" value="{{ frame.end_date }}">
+                            {% endif %}
+                            <input type="hidden" name="binid" value="{{ current_bin.db_id }}">
+                            <input type="hidden" name="context" value="10">
+                            <input type="submit" class="dropdown-item" value="Visualize">
+                        </form>
+                    </div>
+                </div>
+
+                {% endif %}
+            </td>
+        </tr>
+        {{ data_service_event_frame_details(frame, current_bin, offcanvas_id, event_frame_status) }}
+        {% endfor %}
+    </tbody>
+</table>
+{{ pagination(
+    paging,
+    url_for('.event_frame_detail', seriesid=series.series_id, type=event_frame_type, startDate=start_date, endDate=end_date, status=status, explanation=explanation, page=paging.page-1, sort=sort_field, direction=sort_direction, binid=current_bin.db_id),
+    url_for('.event_frame_detail', seriesid=series.series_id, type=event_frame_type, startDate=start_date, endDate=end_date, status=status, explanation=explanation, page=paging.page+1, sort=sort_field, direction=sort_direction, binid=current_bin.db_id)
+) }}
+{% else %}
+<div class="alert alert-info">
+    No event frames available in this time frame.
+</div>
+{% endif %}
+
+{% endblock %}}

@@ -1,0 +1,35 @@
+{% extends 'timeseer.html' %}
+{% from 'macros.html' import menu_back %}
+
+{% block csp_style %}
+'self' 'unsafe-inline'
+{% endblock %}
+
+
+{% block menu %}
+{{ menu_back(url_for('flows.edit_flow', flowname=block.flow.name, sourcename=source_name)) }}
+{% endblock %}
+
+{% block main %}
+
+<div data-ts-interactive="interpolate"
+    data-update-block-url="{{ url_for('flows.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-series-set-url="{{ url_for('flows.get_series_from_series_set', flowname=block.flow.name, seriessetname=series_set_name) }}"
+    data-chart-url="{{ url_for('.chart_data') }}"
+    data-blocks='{{ block_definitions|tojson|safe }}'
+    data-interpolation-types='{{ interpolation_types|tojson|safe }}'
+    data-validate-configuration-url="{{ url_for('.validate_interpolate_block') }}"
+
+    {% if block_evaluation is not none %}
+    data-block-evaluation='{{ block_evaluation.to_data()|tojson|safe }}'
+    data-flow-evaluation-group='{{ block_evaluation.flow_evaluation.group.to_data()|tojson|safe }}'
+    data-series-set-names='{{ series_set_names|tojson|safe }}'
+    data-current-series-set-name="{{ block_evaluation.flow_evaluation.series_set_name }}"
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts_bottom %}
+<script src="{{ url_for('static', filename='dist/interpolate-interactive.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}

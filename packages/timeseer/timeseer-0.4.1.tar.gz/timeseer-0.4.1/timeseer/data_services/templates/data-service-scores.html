@@ -1,0 +1,164 @@
+{% extends 'timeseer.html' %}
+{% from 'data-service-header.html' import data_service_breadcrumb, data_service_header with context %}
+{% from 'macros.html' import bootstrap_icon, visualize_check_score, visualize_series_name, pagination %}
+{% from 'data-service-menu.html' import data_service_menu with context %}
+
+{% block menu %}
+{{ data_service_menu(kpi.name) }}
+{% endblock %}
+
+{% set title = score.name|capitalize %}
+
+{% block breadcrumb %}
+{{
+    data_service_breadcrumb(current_bin, [
+        (kpi.name, url_for('data_services.kpi_report', binid=current_bin.db_id, kpi=kpi.name, sourcename=source_name)),
+        title
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+{% call data_service_header(current_bin, title) %}
+<div class="row">
+    <div class="col-md-auto gx-4 gx-lg-0">
+        <form method="POST" action="{{ url_for('.generate_csv', page=paging.page, sourcename=source_name) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="kpi" value="{{ kpi.name }}">
+            <input type="hidden" name="score" value="{{ score.name }}">
+            <input type="hidden" name="binid" value="{{ current_bin.db_id }}">
+            <button type="submit" class="btn btn-secondary">
+                Generate CSV
+            </button>
+        </form>
+    </div>
+    <div class="col-md-auto mt-2 mt-md-0">
+        <a  href="{{ url_for('.score_evolution', sourcename=source_name, kpi=kpi.name, score=score.name, binid=current_bin.db_id) }}"
+            class="btn btn-primary">
+            History
+        </a>
+    </div>
+</div>
+{% endcall %}
+
+<div class="pt-3 my-3">
+    {% if score.short_help_text %}
+    <p>
+        {{ score.short_help_text }}
+        <a data-bs-toggle="offcanvas"
+           href="#score-help-text"
+           aria-controls="score-help-text"
+           aria-expanded="false">
+            {{ bootstrap_icon('question-circle') }}
+        </a>
+    </p>
+
+    <div class="ts-help-sidebar offcanvas offcanvas-end" tabindex="-1" id="score-help-text">
+        <div class="offcanvas-header">
+            <h3 class="offcanvas-title h5">{{ score.name }}</h3>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+        {{ score.html_help_text|safe }}
+        </div>
+    </div>
+    {% endif %}
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('.score_summary', binid=current_bin.db_id, kpi=kpi.name, score=score.name, sourcename=source_name) }}">
+                Summary
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ url_for('.score_report', binid=current_bin.db_id, kpi=kpi.name, score=score.name, sourcename=source_name) }}">
+                Time series
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('.score_event_frames', binid=current_bin.db_id, kpi=kpi.name, score=score.name, sourcename=source_name) }}">
+                Event frames
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="my-3">
+    {% if series_scores|count > 0 %}
+
+    {{ pagination(
+        paging,
+        url_for('.score_report', sourcename=source_name, kpi=kpi.name, score=score.name, page=paging.page-1, binid=current_bin.db_id),
+        url_for('.score_report', sourcename=source_name, kpi=kpi.name, score=score.name, page=paging.page+1, binid=current_bin.db_id)
+    ) }}
+
+    <table class="ts-table table table-borderless align-middle">
+        <thead class="thead-secondary">
+            <tr class="border-top border-bottom">
+                <th scope="col">Series name</th>
+                <th scope="col">
+                    Result
+                    {% if score.data_type != 'bool' %}
+                    (higher is better)
+                    {% endif %}
+                </th>
+                {% if event_frame_types|count > 0 %}
+                <th scope="col">Event frames</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for score_value, all_scores in series_scores|groupby('score.score') %}
+            {% for score in all_scores|sort(attribute='series.name') %}
+            {% set series = score.series %}
+            {% set value = score.score %}
+            <tr class="border-bottom">
+                <td>
+                    <a class="ts-table-link text-dark fw-normal text-decoration-none" href="{{ url_for('.show_event_frames', seriesid=series.series_id, binid=current_bin.db_id) }}">
+                        {{ visualize_series_name(series.name) }}
+                    </a>
+                </td>
+                {{ visualize_check_score(value) }}
+                {% if event_frame_types|count > 0 %}
+                <td>
+                    {% if event_frame_types|count == 1 %}
+                    <a href="{{ url_for('data_services.event_frame_detail', seriesid=series.series_id, type=event_frame_types[0], binid=current_bin.db_id) }}"
+                        class="btn btn-sm btn-secondary">
+                        List event frames
+                    </a>
+                    {% else %}
+                    <div class="dropdown">
+                        <button type="button"
+                                class="btn btn-sm btn-secondary dropdown-toggle"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            List event frames
+                        </button>
+                        <div class="dropdown-menu">
+                            {% for type in event_frame_types %}
+                            <a class="dropdown-item"
+                               href="{{ url_for('data_services.event_frame_detail', seriesid=series.series_id, type=type, binid=current_bin.db_id) }}">
+                                {{ type }}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ pagination(
+        paging,
+        url_for('.score_report', sourcename=source_name, kpi=kpi.name, score=score.name, page=paging.page-1, binid=current_bin.db_id),
+        url_for('.score_report', sourcename=source_name, kpi=kpi.name, score=score.name, page=paging.page+1, binid=current_bin.db_id)
+    ) }}
+    {% else %}
+    <div class="alert alert-info">No issues detected.</div>
+    {% endif %}
+</div>
+{% endblock %}

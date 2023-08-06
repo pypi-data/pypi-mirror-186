@@ -1,0 +1,417 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import alerter %}
+{% from 'resources.html' import resource_breadcrumb, resource_menu with context %}
+
+{% block menu %}
+{{ resource_menu('KPIs') }}
+{% endblock %}
+
+{% block styles %}
+<style nonce="{{ csp_nonce }}">
+    .kpi-table {
+        table-layout: fixed;
+    }
+
+    .ts-score-column {
+        min-width: 6rem;
+    }
+
+    .collapse-input-section {
+        max-width: 90%;
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block breadcrumb %}
+{{
+    resource_breadcrumb([
+        ("KPIs", url_for('kpis.show_kpis', sourcename=source_name)),
+        kpi.name,
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section pb-3 mb-3">
+    <div class="row align-items-center gx-2">
+        <div class="col-sm">
+            <h2 class="h4">Configure KPI</h2>
+            <p class="h6 text-break">{{ kpi.name }}</p>
+        </div>
+        {% if kpi.origin.value == 'ui' %}
+        <div class="col-sm-auto">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="dropdown">
+                    <a class="btn btn-primary me-2 mb-2 mb-sm-0" data-bs-toggle="offcanvas" href="#scoresAddOffCanvas">
+                        Add score
+                    </a>
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="editDropdown" data-bs-toggle="dropdown">
+                        Edit
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="editDropdown">
+                        <li>
+                            <a class="dropdown-item {%if kpi.origin.value != "ui" %}disabled{% endif %}" href="{{ url_for('.rename_kpi', kpiid=kpi.db_id, sourcename=source_name) }}">
+                                Rename
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {%if kpi.origin.value != "ui" %}disabled{% endif %}"
+                            href="{{ url_for('.remove_kpi', kpiid=kpi.db_id, sourcename=source_name) }}">
+                                Remove
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if kpi.short_help_text != "" or kpi.origin.value == 'ui' %}
+<div class="pt-3 my-3">
+    {% if kpi.short_help_text != "" %}
+    <p>
+        {{ kpi.short_help_text }}
+        <a data-bs-toggle="offcanvas"
+           href="#kpi-help-text"
+           aria-controls="kpi-help-text"
+           aria-expanded="false">
+            {{ bootstrap_icon('question-circle') }}
+        </a>
+    </p>
+    {% else %}
+        {% if kpi.origin.value == 'ui' %}
+        <p>
+            No description provided
+            <a href="{{ url_for('.edit_kpi_help_text', kpiid=kpi.db_id, sourcename=source_name) }}">
+                (add)
+            </a>.
+        </p>
+        {% endif %}
+    {% endif %}
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="kpi-help-text">
+        <div class="offcanvas-header">
+            <h3 class="offcanvas-title h5">{{ kpi.name }}</h3>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <p>{{ kpi.short_help_text }}</p>
+            <div>{{ kpi.html_help_text|safe }}</div>
+            {% if kpi.origin.value == 'ui' %}
+            <p class="mt-3">
+                <a class="btn btn-primary" href="{{ url_for('.edit_kpi_help_text', kpiid=kpi.db_id, sourcename=source_name) }}">
+                    Edit description
+                </a>
+            </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="offcanvas offcanvas-end {% if keep_offcanvas_open %}show{% endif %}" tabindex="-1" id="scoresAddOffCanvas">
+    <div class="offcanvas-header">
+        <h3 class="offcanvas-title h5">Add score weights</h3>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form method="POST" action="{{ url_for('.add_scores_to_kpi', sourcename=source_name) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="kpiid" value="{{ kpi.db_id }}">
+
+            <div class="my-3">
+                <label for="scorenameSelect" class="form-label">Select score</label>
+                <select class="form-select" id="scorenameSelect" name="scorename">
+                    {% for score_weight in score_weights|sort(attribute='name') %}
+                    {% if score_weight.name not in weights|map(attribute='name') %}
+                    <option value="{{ score_weight.name }}">{{ score_weight.name|capitalize }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="my-3">
+                <label for="scoreweight" class="form-label">Add weight</label>
+                <a data-bs-toggle="collapse"
+                    href="#score-offcanvas-help-text"
+                    aria-controls="score-weights-help-text"
+                    aria-expanded="false">
+                    {{ bootstrap_icon('question-circle') }}
+                </a>
+
+                <div class="input-group">
+                    <span class="input-group-text">{{ bootstrap_icon('square-fill', 'text-warning align-middle', 12) }}</span>
+                    <input
+                        class="form-control ts-weight-input"
+                        type="number"
+                        id="scoreweight"
+                        step="0.1"
+                        min="0.0"
+                        value="1.0"
+                        name="scoreweight">
+
+                </div>
+
+
+            </div>
+
+            <div class="collapse form-text" id="score-offcanvas-help-text">
+                <p>Weight values determine the relative weight of the score for one check in the KPI total.</p>
+                <p>Additionally, weight values affect the color used when showing event frames in the bad actors heatmap:</p>
+                <ul>
+                    <li>Event frames detected using scores with weights equal to or less than 1 appear in yellow.</li>
+                    <li>Event frames detected using scores with weights greater than 1 appear in red.</li>
+                </ul>
+            </div>
+
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="addanother" name="addanother" {% if keep_offcanvas_open %}checked{% endif %}>
+                <label for="addanother" class="form-check-label">Add another</label>
+            </div>
+
+            <div class="my-3">
+                <button type="submit" class="btn btn-primary">Add score</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="score-weight-help-text">
+    <div class="offcanvas-header">
+        <h3 class="offcanvas-title h5">Score weights</h3>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p>Weight values determine the relative weight of the score for one check in the KPI total.</p>
+        <p>Additionally, weight values affect the color used when showing event frames in the bad actors heatmap:</p>
+        <ul>
+            <li>Event frames detected using scores with weights equal to or less than 1 appear in yellow.</li>
+            <li>Event frames detected using scores with weights greater than 1 appear in red.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="minimal-duration-help-text">
+    <div class="offcanvas-header">
+        <h3 class="offcanvas-title h5">Minimal Duration</h3>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p>Set the minimal duration an event frame of this type should have to be considered during the score calculation for this KPI.</p>
+    </div>
+</div>
+
+<div class="my-3 py-3">
+    {{ alerter() }}
+    {% if weights|count > 0 %}
+    {% if kpi.origin.value == 'ui' %}
+    <div class="row gx-2 mb-3">
+        <div class="col-sm-auto">
+            <div class="btn-group ts-dropdown-select-button">
+                <a class="btn border border-secondary dropdown-toggle"
+                    href="#"
+                    role="button"
+                    id="selectionDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="selectionDropdown">
+                    <button type="submit"
+                            class="dropdown-item ts-dropdown-action"
+                            form="weightselection"
+                            formmethod="POST"
+                            formaction="{{ url_for('.remove_multiple_weights_from_kpi', sourcename=source_name) }}"
+                            >
+                            Remove selected
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <form id="weightselection" method="POST" action="{{ url_for('.configure_kpi', kpiname=kpi.name, sourcename=source_name) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {% if source_name %}
+        <input type="hidden" name="sourcename" value="{{ source_name }}">
+        {% endif %}
+        <input type="hidden" name="kpiid" value="{{ kpi.db_id }}">
+        <table class="ts-table {% if kpi.origin.value == 'ui' %}ts-table-checkbox ts-table-button kpi-table {% endif %} table table-borderless mt-3"  data-ts-target="selectionDropdown">
+            <thead class="table-secondary">
+                <tr class="border-bottom">
+                    {% if kpi.origin.value == 'ui' %}
+                    <th scope="col" class="table-check">
+                        <input class="form-check-input" type="checkbox">
+                    </th>
+                    {% endif %}
+                    <th scope="col">Score name</th>
+                    <th scope="col" class="ts-score-column">
+                      Weight
+                      <a data-bs-toggle="offcanvas"
+                         href="#score-weight-help-text"
+                         aria-controls="score-weight-help-text"
+                         aria-expanded="false">
+                        {{ bootstrap_icon('question-circle') }}
+                      </a>
+                    </th>
+                    {% if kpi.origin.value == 'resource' %}
+                    <th scope="col">
+                        Minimal Duration
+                    </th>
+                    {% endif %}
+                    {% if kpi.origin.value == 'ui' %}
+                    <th scope="col" class="table-check"></th>
+                    {% endif %}
+                </tr>
+            </thead>
+            {% for weight in weights|sort(attribute='name') %}
+            <tr>
+                {% if kpi.origin.value == 'ui' %}
+                <td class="align-middle">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="{{ weight.name }}">
+                    </div>
+                </td>
+                {% endif %}
+                <td class="align-middle">
+                    <input type="hidden" name="weightnames" value="{{ weight.name }}">
+                    <label class="mb-0" for="{{ weight.name|htmlid }}">
+                        {{ weight.name|capitalize }}
+                    </label>
+                </td>
+                <td>
+                    {% if kpi.origin.value == 'ui' %}
+                    <div class="input-group">
+                        {% if weight.weight <= 1 %}
+                        <span class="input-group-text">{{ bootstrap_icon('square-fill', 'text-warning align-middle', 12) }}</span>
+                        {% else %}
+                        <span class="input-group-text">{{ bootstrap_icon('square-fill', 'text-danger align-middle', 12) }}</span>
+                        {% endif %}
+                        <input
+                            type="number"
+                            step="0.1"
+                            min="0.1"
+                            class="form-control ts-weight-input"
+                            id="{{ weight.name|htmlid }}"
+                            name="check-{{ weight.name }}"
+                            value="{{ weight.weight }}"
+                            placeholder="{{ weight.weight }}">
+                    </div>
+                    {% else %}
+                    {% if weight.weight <= 1 %}
+                    {{ bootstrap_icon('square-fill', 'text-warning align-baseline me-1', 12) }}
+                    {% else %}
+                    {{ bootstrap_icon('square-fill', 'text-danger align-baseline me-1', 12) }}
+                    {% endif %}
+                    {{ weight.weight }}
+                    {% endif %}
+                </td>
+                {% if kpi.origin.value == 'resource' %}
+                <td>
+                    {{weight.event_frame_duration if weight.event_frame_duration else '-'}}
+                </td>
+                {% endif %}
+                {% if kpi.origin.value == 'ui' %}
+                <td>
+                    <button
+                        type="button"
+                        class="btn {% if weight.event_frame_duration %} btn-primary {% else %} btn-secondary {% endif %} w-100 filter-toggle-button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapse-details-{{ loop.index }}"
+                        role="button"
+                        aria-expanded="false"
+                        aria-controls="collapse-details-{{ loop.index }}"
+                    >{{ bootstrap_icon('filter', 'align-text-bottom', 14) }}</button>
+                </td>
+                {% endif %}
+            </tr>
+            <tr class="border-bottom">
+                <td class="p-0"></td>
+                <td class="p-0" colspan="2">
+                    <div class="collapse" id="collapse-details-{{ loop.index }}">
+                        <div class="d-flex justify-content-end p-2">
+                            <div class="my-3 collapse-input-section">
+                                <label class="form-label" for="minimumEventFrameDuration-{{ loop.index }}">
+                                    Minimal duration
+                                    <a data-bs-toggle="offcanvas"
+                                       href="#minimal-duration-help-text"
+                                       aria-controls="minimal-duration-help-text"
+                                       aria-expanded="false">
+                                      {{ bootstrap_icon('question-circle') }}
+                                    </a>
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control mb-1"
+                                    id="minimumEventFrameDuration-{{ loop.index }}"
+                                    name="minimumEventFrameDuration-{{weight.name}}"
+                                    value="{{weight.event_frame_duration if weight.event_frame_duration}}">
+                                <small class="form-text">Use format "1d2h3m4s" where the number preceding 'd' is the days, 'h' is the hours, 'm' the minutes and 's' the seconds to define the minimal duration of an event frame.</small>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% if kpi.origin.value == 'ui' %}
+        <button id="savechanges" type="submit" class="btn btn-primary d-none">Save changes</button>
+        {% endif %}
+    </form>
+    {% else %}
+    <p class="alert alert-info">
+        No score weights in the KPI.
+    </p>
+    {% endif %}
+</div>
+
+<script nonce="{{ csp_nonce }}">
+    document.addEventListener("change", function (ev) {
+        if (ev.target.classList && ev.target.classList.contains("ts-weight-input")) {
+            var value = parseFloat(ev.target.value);
+            var icon = ev.target.parentNode.querySelector("svg");
+            if (value > 1) {
+                icon.classList.remove("text-warning");
+                icon.classList.add("text-danger");
+            } else {
+                icon.classList.remove("text-danger");
+                icon.classList.add("text-warning");
+            }
+        }
+    });
+
+    (function () {
+        var displaySaveButton = function (ev) {
+            var submitButton = document.getElementById("savechanges")
+            if (ev.target.classList && ev.target.classList.contains("ts-weight-input")) {
+                submitButton.classList.remove("d-none");
+            }
+            if (ev.target.name && ev.target.name.startsWith("minimumEventFrameDuration")) {
+                submitButton.classList.remove("d-none");
+            }
+        };
+
+        document.addEventListener("change", displaySaveButton);
+        document.addEventListener("keyup", displaySaveButton);
+    })();
+
+    const buttons = document.querySelectorAll(".filter-toggle-button");
+    buttons.forEach(button => {
+        const input = document.querySelector(`${button.dataset.bsTarget} input`)
+        input.addEventListener("keyup", (event) => {
+            if(event.target.value) {
+                button.classList.add("btn-primary")
+                button.classList.remove("btn-secondary")
+            } else {
+                button.classList.remove("btn-primary")
+                button.classList.add("btn-secondary")
+            }
+        });
+    });
+</script>
+{% endblock %}

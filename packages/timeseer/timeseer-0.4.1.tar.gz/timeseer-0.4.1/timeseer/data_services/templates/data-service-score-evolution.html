@@ -1,0 +1,82 @@
+{% extends 'timeseer.html' %}
+{% from 'data-service-header.html' import data_service_breadcrumb, data_service_header with context %}
+{% from 'macros.html' import bootstrap_icon, menu_back %}
+
+{% block csp_style %}
+'self' 'unsafe-inline'
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='dist/charts.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}
+
+{% block menu %}
+{{ menu_back(back_url) }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{
+    data_service_breadcrumb(current_bin, [
+        (kpi.name, url_for('data_services.kpi_report', binid=current_bin.db_id, kpi=kpi.name, sourcename=source_name)),
+        (score.name|capitalize, url_for('data_services.score_event_frames', binid=current_bin.db_id, kpi=kpi.name, score=score.name, sourcename=source_name)),
+        'History',
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+{{ data_service_header(current_bin, score.name|capitalize + ' history') }}
+
+<div class="pt-3 my-3">
+    {% if score.short_help_text %}
+    <p>
+        {{ score.short_help_text }}
+        <a data-bs-toggle="offcanvas"
+           href="#score-help-text"
+           aria-controls="score-help-text"
+           aria-expanded="false">
+            {{ bootstrap_icon('question-circle') }}
+        </a>
+    </p>
+
+    <div class="ts-help-sidebar offcanvas offcanvas-end" tabindex="-1" id="score-help-text">
+        <div class="offcanvas-header">
+            <h3 class="offcanvas-title h5">{{ score.name }}</h3>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+        {{ score.html_help_text|safe }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if evolution|count > 1 %}
+    <div class="report-evolution">
+        <table class="visually-hidden">
+            {% for view_score in evolution %}
+            <tr data-report-url="{{ url_for('.open_report', binid=view_score.view_bin.data_service_view.db_id, sourcename=source_name) }}">
+                <td class="report-date" data-date="{{ view_score.view_bin.data_service_view.last_evaluation_date.isoformat() }}">{{ view_score.view_bin.data_service_view.last_evaluation_date|ts_datetime }}</td>
+                <td class="report-score">{{ view_score.score }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+    <p>
+        Contribute "{{ current_bin.data_service_view.data_service.name }}" multiple times to visualize the history of "{{ score.name }}".
+    </p>
+    {% endif %}
+</div>
+<script nonce="{{ csp_nonce }}">
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover({
+            placement : 'right',
+            trigger : 'hover'
+        });
+    });
+
+    {% if evolution|count > 1 %}
+    {% include 'scripts/score-evolution.js' %}
+    {% endif %}
+</script>
+{% endblock %}

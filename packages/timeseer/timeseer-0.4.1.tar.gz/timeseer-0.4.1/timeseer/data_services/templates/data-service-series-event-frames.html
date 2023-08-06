@@ -1,0 +1,148 @@
+{% extends 'data-service-series-layout.html' %}
+
+{% from 'macros.html' import bootstrap_icon %}
+
+{% macro event_frame_count_row(type, count, kpi) %}
+<tr class="border-bottom">
+    <td>
+        <input type="checkbox" class="form-check-input" name="{{ type }}">
+    </td>
+    <td>
+        <input type="hidden" name="eventframetypes" value="{{ type }}">
+        <a class="ts-table-link text-decoration-none text-dark" href="{{ url_for('data_services.event_frame_detail', seriesid=series.series_id, type=type, startDate=start_date, endDate=end_date, binid=current_bin.db_id, kpi=kpi)}}">
+            {{ type }}
+        </a>
+    </td>
+    <td>
+      {% if not event_frame_weights_per_kpi.get(kpi).get(type) %}
+      <span class="align-middle">{{ bootstrap_icon('square-fill', 'text-success align-baseline me-1', 12) }}</span>
+      {% elif event_frame_weights_per_kpi.get(kpi).get(type) <= 1 %}
+      <span class="align-middle">{{ bootstrap_icon('square-fill', 'text-warning align-baseline me-1', 12) }}</span>
+      {% else %}
+      <span class="align-middle">{{ bootstrap_icon('square-fill', 'text-danger align-baseline me-1', 12) }}</span>
+      {% endif %}
+      {{ count }}
+    </td>
+</tr>
+{% endmacro %}
+
+{% macro no_kpi_event_frame_count_row(type) %}
+<tr class="border-bottom">
+    <td>
+        <input type="checkbox" class="form-check-input" name="{{ type }}">
+    </td>
+    <td>
+        <input type="hidden" name="eventframetypes" value="{{ type }}">
+        <a class="ts-table-link text-decoration-none text-dark" href="{{ url_for('data_services.event_frame_detail', seriesid=series.series_id, type=type, startDate=start_date, endDate=end_date, binid=current_bin.db_id)}}">
+            {{ type }}
+        </a>
+    </td>
+    <td>
+      <span class="align-middle">{{ bootstrap_icon('square-fill', 'text-success align-baseline me-1', 12) }}</span>
+      {{ no_kpi_event_frames_count[type] }}
+    </td>
+</tr>
+{% endmacro %}
+
+{% set title = 'Event frames' %}
+
+{% block menu %}
+{{ data_service_series_menu(title) }}
+{% endblock %}
+
+{% block series_title %}
+<h2 class="h4">Event frame count</h2>
+{% endblock %}
+
+{% block series_content %}
+<form class="mb-3">
+    <input type="hidden" name="seriesid" value="{{ series.series_id }}">
+    <input type="hidden" name="sort" value="{{ sort_field }}">
+    <input type="hidden" name="direction" value="{{ sort_direction }}">
+    <input type="hidden" name="type" value="{{ event_frame_type }}">
+    <input type="hidden" name="binid" value="{{ current_bin.db_id }}">
+    <div class="row align-items-end gx-2">
+        {% if counts_per_kpi|count > 0 or no_kpi_event_frames_count|count > 0 %}
+        <div class="col-sm-auto">
+            <div class="btn-group ts-dropdown-select-button">
+                <a class="btn btn-primary dropdown-toggle"
+                    href="#"
+                    role="button"
+                    id="selectionDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="selectionDropdown">
+                    <button type="submit"
+                            class="dropdown-item ts-dropdown-action"
+                            form="eventframetypeselection"
+                            formmethod="GET"
+                            formaction="{{ url_for('data_services.event_frames_details') }}"
+                            >
+                            Show details
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="col-lg">
+            <label for="startDateInput" class="col-form-label">Start date</label>
+            <input type="datetime-local" step="1" class="form-control" id="startDateInput" name="startDate" data-ts-datetime-value="{{ start_date }}">
+        </div>
+        <div class="col-lg">
+            <label for="endDateInput" class="col-form-label">End date</label>
+            <input type="datetime-local" step="1" class="form-control" id="endDateInput" name="endDate" data-ts-datetime-value="{{ end_date }}">
+        </div>
+        <div class="col-lg-auto mt-lg-0 mt-2">
+            {% if event_frames_count %}
+            <button type="submit" class="btn btn-secondary">Count</button>
+            {% else %}
+            <button type="submit" class="btn btn-primary">Count</button>
+            {% endif %}
+        </div>
+    </div>
+
+</form>
+
+{% if counts_per_kpi|count > 0 or no_kpi_event_frames_count|count > 0 %}
+<form id="eventframetypeselection">
+    <input type="hidden" name="seriesid" value="{{ series.series_id }}">
+    <input type="hidden" name="startDate" value="{{ start_date }}">
+    <input type="hidden" name="endDate" value="{{ end_date }}">
+    <input type="hidden" name="binid" value="{{ current_bin.db_id }}">
+    <table class="ts-table ts-table-checkbox table table-borderless score-table" data-ts-target="selectionDropdown">
+        <thead class="thead-secondary">
+            <tr class="border-top border-bottom">
+                <th scope="col" class="checkbox">
+                    <input type="checkbox" class="form-check-input">
+                </th>
+                <th scope="col">Event frame type</th>
+                <th scope="col" class="score">Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if counts_per_kpi|count > 0 %}
+            {% for kpi, counts in counts_per_kpi|dictsort %}
+            <th colspan="3">{{ kpi }}</th>
+            {% for type, count in counts|dictsort%}
+            {{ event_frame_count_row(type, count, kpi) }}
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
+
+            {% if no_kpi_types|count > 0 %}
+            <th colspan="3">Not included in KPI set</th>
+            {% for type in no_kpi_types if type in no_kpi_event_frames_count %}
+            {{ no_kpi_event_frame_count_row(type) }}
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</form>
+{% else %}
+<div class="alert alert-info">
+    No event frames available.
+</div>
+{% endif %}
+{% endblock series_content %}

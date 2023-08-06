@@ -1,0 +1,62 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import menu_back %}
+
+{% block menu %}
+{{ menu_back(url_for('.edit_flow', flowname=flow.name, sourcename=source_name)) }}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <h2 class="h4">Edit data caching for {{ flow.name }}</h2>
+</div>
+
+<form class="pt-3 my-3" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="flowname" value="{{ flow.name }}">
+    {% if source_name %}
+    <input type="hidden" name="sourcename" value="{{ source_name }}">
+    {% endif %}
+
+    <div class="mb-3">
+        <label class="form-label" for="dataCacheSelect">
+            Choose a data caching strategy
+        </label>
+        <select class="form-select" id="dataCacheSelect" name="datacache">
+            {% for caching_strategy in caching_strategies %}
+            <option
+                value="{{ caching_strategy.value }}"
+                {% if flow.data_cache == caching_strategy %}
+                selected
+                {% endif %}
+                >
+                {{ caching_strategy.value|capitalize }}
+            </option>
+            {% endfor %}
+        </select>
+        <p class="form-text">
+            The default data caching strategy of <code>Yes</code> compromises between disk usage and data fetching.
+            Data for all time series is fetched at the beginning of the flow evaluation and kept on-disk while the flow is evaluating.
+        </p>
+        <p class="form-text">
+            Selecting a data caching strategy of <code>No</code> reduces disk space using during flow evaluation,
+            at the cost of additional time spent on fetching data from the original source,
+            as each block in the flow will have to query the source again.
+        </p>
+        <p class="form-text">
+            The <code>Smart</code> data caching strategy minimizes the time spent on fetching data from the original source.
+            Data is cached between flow evaluations and only new data for the current time range is requested.
+        </p>
+    </div>
+    <div class="my-3">
+        <button class="btn btn-primary" type="submit">
+            Update
+        </button>
+        <a class="btn btn-secondary" href="{{ url_for('.edit_flow', flowname=flow.name, sourcename=source_name) }}">
+            Cancel
+        </a>
+    </div>
+</form>
+{% endblock %}
+
+

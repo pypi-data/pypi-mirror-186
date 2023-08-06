@@ -1,0 +1,426 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import alerter, visualize_series_name, visualize_series %}
+{% from 'resources.html' import resource_breadcrumb, resource_menu with context %}
+
+{% block styles %}
+<style nonce="{{ csp_nonce }}">
+  #description-toggle[aria-expanded="true"] {
+    display: none;
+  }
+</style>
+{% endblock %}
+
+{% block menu %}
+{{ resource_menu('Data sets') }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{
+    resource_breadcrumb([
+        ("Data sets", url_for('data_sets.list_data_sets', sourcename=source_name)),
+        data_set.name,
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section pb-3 mb-3">
+  <div class="row {% if not is_uploaded %}justify-content-between {% endif %}">
+      <h2 class="col-sm-8 h4">Manage series for "{{ data_set.name }}" </h2>
+      {% if show_toolbar and not is_uploaded %}
+      <div class="col-sm-auto">
+          <a
+              class="btn btn-primary me-2 mb-2 mb-sm-0"
+              data-bs-toggle="offcanvas" data-bs-target="#addSeriesCanvas"
+              >
+              Add series
+          </a>
+          <a
+              class="btn btn-secondary"
+              data-bs-toggle="offcanvas" data-bs-target="#updateDataSetOffCanvas"
+              >
+              Edit
+          </a>
+      </div>
+      {% endif %}
+    </div>
+    <div class="align-items-center">
+        <span class="fw-bold me-1">Date range</span>
+        <span class="text-muted">
+        {{ data_set.start_date|ts_datetime }}
+        {{ bootstrap_icon('arrow-right-short', 'text-dark') }}
+        {{ data_set.end_date|ts_datetime }}
+        </span>
+    </div>
+</div>
+<div class="pt-3 my-3">
+    {% if data_set.help_text != "" and not is_uploaded %}
+    <p>
+        {{ data_set.short_help_text }}
+        <a data-bs-toggle="offcanvas"
+              href="#offcanvas-help-text"
+              aria-controls="help_text"
+              aria-expanded="false">
+          {{ bootstrap_icon('question-circle') }}
+        </a>
+    </p>
+    {% else%}
+    No description provided.
+    {% endif %}
+</div>
+
+<div class="my-3 py-3">
+    {{ alerter() }}
+
+    <form class="pb-3">
+        {% if source_name %}
+        <input type="hidden" name="sourcename" value="{{ source_name }}">
+        {% endif %}
+        <input type="hidden" name="datasetid" value="{{ data_set.db_id }}">
+        <div class="row g-2">
+            {% if data_set_series and show_toolbar %}
+            <div class="col-sm-auto">
+                <div class="btn-group ts-dropdown-select-button">
+                    <a class="btn border border-secondary dropdown-toggle"
+                    href="#"
+                    role="button"
+                    id="seriesSelectionDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="seriesSelectionDropdown">
+                        <button type="submit"
+                                class="dropdown-item ts-dropdown-action"
+                                form="seriesselection"
+                                formmethod="POST"
+                                formaction="{{ url_for('.remove_series', sourcename=source_name) }}"
+                                >
+                                Remove selected
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if data_set_series|count > 1 or pattern %}
+            <div class="col">
+                <label class="visually-hidden" for="setFilterInput">Filter series by name</label>
+                <input class="form-control" id="setFilterInput" name="seriespattern" value="{{ pattern }}" placeholder="Filter series by name">
+            </div>
+            <div class="col-sm-auto">
+                <button class="btn btn-secondary" type="submit">Filter</button>
+            </div>
+            {% endif %}
+        </div>
+    </form>
+    {% if data_set_series %}
+    <form id="seriesselection">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="datasetid" value="{{ data_set.db_id }}">
+        {% if source_name %}
+        <input type="hidden" name="sourcename" value="{{ source_name }}">
+        {% endif %}
+
+        <table class="ts-table ts-table-checkbox table table-borderless mt-3" data-ts-target="seriesSelectionDropdown">
+            <thead class="thead-secondary">
+                <tr class="border-top border-bottom">
+                    {% if show_toolbar %}
+                    <th scope="col">
+                        <input type="checkbox" class="form-check-input">
+                    </th>
+                    {% endif %}
+                    <th scope="col">Series name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for series in data_set_series|sort(attribute='name') %}
+                <tr class="border-bottom" data-ts-series-source="{{ series.source }}" data-ts-series-name="{{ series.name }}">
+                    {% if show_toolbar %}
+                    <td>
+                        <input class="form-check-input" type="checkbox" name="{{ series.series_id }}" {% if checked %}checked{% endif %}>
+                    </td>
+                    {% endif %}
+                    <td>
+                        <input type="hidden" name="seriesids" value="{{ series.series_id }}">
+                        <a class="ts-series-details ts-table-link text-decoration-none text-dark"
+                            data-series-url="{{ url_for('metadata.get_metadata', seriesid=series.series_id) }}"
+                            data-sensor-spec-url="{{ url_for('sensor_specs.update_sensor_specs', seriesid=series.series_id) }}"
+                            href="#">
+                            {{ visualize_series_name(series.name) }}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    {% else %}
+    <p class="alert alert-info">No series found.</p>
+    {% endif %}
+</div>
+<div class="offcanvas offcanvas-end {% if keep_offcanvas_open %}show{% endif %}" tabindex="-1" id="addSeriesCanvas">
+    <div class="offcanvas-header ts-section bg-light">
+        <h4 class="offcanvas-title">Add series</h4>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link {% if current_tab == "search" %}active{% endif %}" id="searchPanelOption" data-bs-toggle="tab" data-bs-target="#searchPanel" type="button" role="tab" aria-controls="searchPanel" aria-selected="true">
+                    From search
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link {% if current_tab == "seriesset" %}active{% endif %}" id="seriesSetPanelOption" data-bs-toggle="tab" data-bs-target="#seriesSetPanel" type="button" role="tab" aria-controls="seriesSetPanel" aria-selected="false">
+                    From series set
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane {% if current_tab == "search" %}active{% endif %}" id="searchPanel" role="tabpanel" aria-labelledby="seriesAddTabLabel">
+                <form method="POST" action="{{url_for('.add_series')}}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="dataset" value="{{ data_set.name }}">
+
+                    <div class="my-3">
+                        <label for="sourcenameSelect" class="form-label">Select time series source</label>
+                        <select class="form-select" id="sourcenameSelect" name="sourcename">
+                            {% for source in sources %}
+                            <option {% if source == source_name %}selected{% endif %}>{{ source }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="my-3">
+                        <label for="seriesnameInput" class="form-label">Select time series</label>
+                        <input type="text"
+                               class="form-control"
+                               id="seriesnameInput"
+                               name="seriesname"
+                               value=""
+                               autocomplete="off"
+                               placeholder="Type to search time series"
+                               required>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="addanother" name="addanother" {% if keep_offcanvas_open %}checked{% endif %}>
+                        <label for="addanother" class="form-check-label">Add another</label>
+                    </div>
+
+                    <div class="my-3">
+                        <button type="submit" class="btn btn-primary">Add series</button>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane {% if current_tab == "seriesset" %}active{% endif %}" id="seriesSetPanel" role="tabpanel" aria-labelledby="seriesSetTabLabel">
+                <form>
+                    <input type="hidden" name="datasetid" value="{{ data_set.db_id }}">
+                    <input type="hidden" name="currenttab" value="seriesset">
+                    {% if source_name is not none %}
+                      <input type="hidden" name="sourcename" value="{{ source_name }}">
+                    {% endif %}
+                    <input type="hidden" name="keep_offcanvas_open" value="true">
+
+                    <div class="my-3">
+                        <label for="sourcenameSelect" class="form-label">Select series set</label>
+                        <select class="form-select" id="sourcenameSelect" name="seriesset">
+                            {% for series_set in series_sets|sort %}
+                            <option {% if series_set == selected_series_set.name %}selected{% endif %}>{{ series_set }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="my-3">
+                        <button type="submit" class="btn btn-secondary">Preview</button>
+                        {% if series_set_series|length > 0 %}
+                        <div class="btn-group ts-dropdown-select-button">
+                            <a class="btn btn-primary dropdown-toggle"
+                               href="#"
+                               role="button"
+                               id="selectionDropdown"
+                               data-bs-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="selectionDropdown">
+                                <button type="submit"
+                                        class="dropdown-item ts-dropdown-action"
+                                        form="addseriesselection">
+                                        Add selected series
+                                </button>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </form>
+
+                    <form id="addseriesselection" method="POST" action="{{ url_for('.add_series_from_series_set') }}">
+                    {% if series_set_series|length > 0 %}
+                        <p>{{ series_set_series|length }} series found.</p>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="dataset" value="{{ data_set.name }}">
+                        {% if source_name is not none %}
+                          <input type="hidden" name="sourcename" value="{{ source_name }}">
+                        {% endif %}
+                        <table class="ts-table ts-table-checkbox table table-borderless series-table" data-ts-target="selectionDropdown">
+                            <thead class="thead-secondary">
+                                <tr class="border-top border-bottom">
+                                    <th scope="col">
+                                        <input class="form-check-input" type="checkbox">
+                                    </th>
+                                    <th scope="col">Series name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for series in series_set_series|sort(attribute='name') %}
+                                <tr class="border-bottom">
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" name="seriesinclude-{{ loop.index0 }}" checked>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        <a class="ts-series-details ts-table-link text-decoration-none text-dark"
+                                            data-series-url="{{ url_for('metadata.get_metadata', seriesid=series.series_id) }}"
+                                            data-sensor-spec-url="{{ url_for('sensor_specs.update_sensor_specs', seriesid=series.series_id) }}"
+                                            href="#">
+                                            {{ visualize_series(series) }}
+                                        </a>
+                                        <input type="hidden" name="seriesid" value="{{ series.series_id }}">
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else%}
+                    <p>No series found.</p>
+                    {% endif %}
+                    </form>
+
+                </div>
+        </div>
+    </div>
+</div>
+{% if data_set.help_text != "" or not is_uploaded %}
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-help-text">
+    <div class="offcanvas-header">
+        <h3 class="offcanvas-title h5">{{ data_set.name }}</h3>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        {% if data_set.help_text == "" %}
+        <p>No description provided</p>
+        {% else %}
+        <p>{{ data_set.short_help_text }}</p>
+        <div>{{ data_set.html_help_text|safe }}</div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+<script src="{{ url_for('static', filename='dist/autocomplete.js') }}" nonce="{{ csp_nonce }}"></script>
+<script nonce="{{ csp_nonce }}">
+    (function () {
+        var existingSeries = [];
+        for (const series of document.querySelectorAll('[data-ts-series-name]')) {
+            existingSeries.push({source: series.getAttribute('data-ts-series-source'), name: series.getAttribute('data-ts-series-name')});
+        }
+        $('#seriesnameInput').autoComplete({
+            bootstrapVersion: '4',
+            minLength: 1,
+            noResultsText: 'No matching series known.',
+            resolver: 'custom',
+            formatResult: AutoComplete.formatSeries,
+            events: {
+                search: function (pattern, callback) {
+                    var sourceName = $('#sourcenameSelect').val();
+                    var params = {
+                        'source': sourceName,
+                        'pattern': pattern,
+                        'page': 0,
+                        'pageSize': 100,
+                    };
+                    $.ajax('{{ url_for("api.search_series_names") }}', {data: params})
+                    .done(function(data) {
+                        var seriesInSource = existingSeries
+                            .filter(function (series) {return series.source === sourceName;})
+                            .map(function (series) {return series.name;});
+                        callback(data.filter(function (series) {return !seriesInSource.includes(series.name);}));
+                    });
+                },
+            },
+        });
+    })();
+</script>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="updateDataSetOffCanvas">
+    <div class="offcanvas-header ts-section bg-light">
+        <h4 class="offcanvas-title">Update {{ data_set.name }}</h4>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div id="define-data-set">
+            <form id="updatedataset" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="datasetid" value="{{ data_set.db_id }}">
+                {% if source_name is not none %}
+                <input type="hidden" name="sourcename" value="{{ source_name }}">
+                {% endif %}
+                <div class="mb-3">
+                    <label class="form-label" for="datasetName">Name</label>
+                    <input class="form-control" id="datasetName" name="name" value="{{ data_set.name }}" autofocus required>
+                </div>
+                <a
+                  id="description-toggle"
+                  data-bs-toggle="collapse"
+                  href="#descriptionSection"
+                  role="button"
+                  aria-expanded="{% if data_set.help_text != "" %}true{% else %}false{% endif %}"
+                  aria-controls="descriptionSection"
+                >+ Add description
+                </a>
+                  <div class="collapse {% if data_set.help_text != "" %}show{% endif %}" id="descriptionSection">
+                    <label class='form-label' for='description'>
+                      Description
+                    </label>
+                    <textarea
+                      class='form-control'
+                      name='description'
+                      id='description'
+                      rows='10'>{{data_set.help_text}}</textarea>
+                    <div class='form-text'>
+                      The description will appear as help text wherever the flow is used.
+                      For maximum effect,
+                      use a one-liner with a general description,
+                      followed by a blank line,
+                      followed by longer explanation of why the flow is important.
+                      The longer explanation can contain HTML markup.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <label for="startDateInput" class="col-form-label">Start date</label>
+                        <input type="datetime-local" step="1" class="form-control" id="startDateInput" name="startdate" data-ts-datetime-value="{{data_set.start_date}}" required>
+                    </div>
+                    <div class="col-sm">
+                        <label for="endDateInput" class="col-form-label">End date</label>
+                        <input type="datetime-local" step="1" class="form-control" id="endDateInput" name="enddate" data-ts-datetime-value="{{data_set.end_date}}" required>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button
+                        class="btn btn-primary me-2"
+                        form="updatedataset"
+                        type="submit"
+                        formmethod="POST"
+                        formaction="{{ url_for('.update_data_set') }}"
+                        >
+                         Update
+                    </button>
+                    <a data-bs-dismiss="offcanvas" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

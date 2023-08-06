@@ -1,0 +1,81 @@
+{% extends 'timeseer.html' %}
+{% from 'flows.html' import flows_breadcrumb, flows_header with context %}
+{% from 'macros.html' import visualize_score, visualize_series_name, pagination %}
+{% from 'flow-menu.html' import flow_menu with context %}
+
+{% block menu %}
+{{ flow_menu('Time series') }}
+{% endblock %}
+
+{% set title = 'Time series' %}
+
+{% block breadcrumb %}
+{{
+    flows_breadcrumb(block_evaluation, [
+        title,
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+{% call flows_header(block_evaluation, title) %}
+<form>
+    <input type="hidden" name="flowname" value="{{ block_evaluation.flow_evaluation.group.flow.name }}">
+    <div class="btn-toolbar" role="group">
+        <a class="btn btn-secondary me-2" href="{{ url_for('data_services.import_in_data_service', blockevaluationid=block_evaluation.db_id, sourcename=source_name) }}">
+            Import in data service
+        </a>
+    </div>
+</form>
+{% endcall %}
+<div class="pt-3 my-3">
+    <form class="row mb-3">
+        <input type="hidden" name="blockevaluationid" value="{{ block_evaluation.db_id }}">
+        <div class="col">
+            <label class="visually-hidden" for="setFilterInput">Filter series by name</label>
+            <input class="form-control" id="setFilterInput" name="pattern" value="{{ pattern }}" placeholder="Filter time series by name">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary" type="submit">Filter</button>
+            {% if pattern != "" %}
+            <a class="btn btn-secondary"
+                href="{{ url_for('.series_report', blockevaluationid=block_evaluation.db_id, sourcename=source_name) }}"
+                role="button">
+                Clear
+            </a>
+            {% endif %}
+        </div>
+    </form>
+
+    {% if many_series|count > 0 %}
+    {{ pagination(
+        paging,
+        url_for('.series_report', sourcename=source_name, page=paging.page-1, blockevaluationid=block_evaluation.db_id, pattern=pattern),
+        url_for('.series_report', sourcename=source_name, page=paging.page+1, blockevaluationid=block_evaluation.db_id, pattern=pattern)
+    ) }}
+    <table class="ts-table table table-borderless">
+        <thead class="thead-secondary">
+            <tr class="border-top border-bottom">
+                <th scope="col">Series name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for series in many_series %}
+            <tr class="border-bottom">
+                <td>
+                    <a class="ts-table-link text-dark fw-normal text-decoration-none" href="{{ url_for('.show_checks', seriesid=series.series_id, blockevaluationid=block_evaluation.db_id) }}">
+                        {{ visualize_series_name(series.name) }}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ pagination(
+        paging,
+        url_for('.series_report', page=paging.page-1, blockevaluationid=block_evaluation.db_id, pattern=pattern),
+        url_for('.series_report', page=paging.page+1, blockevaluationid=block_evaluation.db_id, pattern=pattern)
+    ) }}
+    {% endif %}
+</div>
+{% endblock %}

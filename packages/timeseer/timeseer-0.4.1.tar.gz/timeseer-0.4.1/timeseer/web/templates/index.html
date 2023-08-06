@@ -1,0 +1,243 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import visualize_split_kpi_score, bootstrap_icon %}
+
+{% block csp_style %}
+'self' 'unsafe-inline'
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='dist/charts.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <h2 class="h4">Quality dashboard</h2>
+</div>
+
+{% if data_service_views|count > 1 or pattern %}
+<div class="ts-section pb-3">
+    <form class="row align-items-center justify-content-start g-2">
+        <div class="col-md-3">
+            <label class="visually-hidden" for="setFilterInput">Filter by name</label>
+            <input class="form-control" id="setFilterInput" name="dataservicepattern" value="{{ pattern }}" placeholder="Filter by name">
+        </div>
+        <div class="col-sm-auto">
+            <button class="btn btn-secondary" type="submit">Filter</button>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+{% if data_service_views|count == 0 and not pattern %}
+<div>
+    <div class="text-center mt-5 mb-3">
+        <img width="50" src="{{ url_for('static', filename='icon.png') }}">
+    </div>
+    <h4 class="text-center">Welcome to Timeseer.</h4>
+    <div class="row justify-content-center">
+        <div class="col-sm-6">
+            <p class="text-center">
+                Define
+                <a href="{{ url_for('sources.display_configuration', sourcename=source_name) }}">sources</a>
+                or
+                <a href="{{ url_for('data_sets.list_data_sets', sourcename=source_name) }}">data sets</a>,
+                <br>
+                set up
+                <a href="{{ url_for('flows.list_flows', sourcename=source_name) }}">flows</a>
+                to process data,
+                <br>
+                configure
+                <a href="{{ url_for('data_services.list_data_services', sourcename=source_name) }}">data services</a>
+                to populate this dashboard.
+            </p>
+        </div>
+    </div>
+    <p class="text-center">
+        <a href="{{ url_for('data_services.list_data_services', sourcename=source_name) }}" class="btn btn-primary">
+            Get started
+        </a>
+    </p>
+</div>
+{% endif %}
+
+{% if data_service_views|count == 0 and pattern %}
+<div class="alert alert-info my-3">
+    No matching data services.
+</div>
+{% endif %}
+
+<div class="row my-3 py-3">
+    {% for data_service_name, views in data_service_views.items() %}
+    <div class="{% if views|count > 1 %}col-lg-12 {% else %} col-lg-6 {% endif %} mb-3">
+        <div class="card shadow-sm h-100" data-e2e="improve">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-md">
+                        <div class="row">
+                            <div class="col-md-auto">
+                                <div class="fw-bold">
+                                    {{ data_service_name }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-auto">
+                        <div class="dropdown">
+                            <button type="button"
+                                    class="btn btn-sm btn-secondary"
+                                    data-bs-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                {{ bootstrap_icon("list") }}
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item"
+                                    href="{{ url_for('data_services.configure_data_service', dataservicename=data_service_name, sourcename=source_name) }}">
+                                    Data service configuration
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body {% if views|count > 1 %} p-0 {% endif %}">
+                {% if views|count == 0 %}
+                <div class="text-muted text-center p-1">
+                    No flow contributed to the data service.
+                </div>
+                {% else %}
+                    {% if views|count == 1 %}
+                    {% if state[views[0].db_id].is_defined() and not state[views[0].db_id].is_completed() %}
+                    <div class="text-muted text-center p-1">Evaluation in progress</div>
+                    {% else %}
+                    <div class="row position-relative p-1">
+                        {% if favorite_kpi_scores[views[0].db_id]|count > 0 %}
+                        {% for score in favorite_kpi_scores[views[0].db_id]|sort(attribute='name') %}
+                        <div class="col-md-3 mb-2">
+                            {{ visualize_split_kpi_score(score.score) }}
+                            <div class="row"><small class="text-muted">{{ score.name|capitalize }}</small></div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="text-center text-muted">No results</div>
+                        {% endif %}
+                        <a href="{{ url_for('data_services.show_data_service_view', viewid=views[0].db_id, sourcename=source_name) }}" class="stretched-link"></a>
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <table class="ts-table table table-borderless">
+                        <thead class="thead-secondary">
+                            <tr class="border-top border-bottom">
+                                <th scope="col">Series set name</th>
+                                {% set ns = namespace(header_added=false) %}
+                                {% for data_service_view in views|sort(attribute="series_set_name") %}
+                                    {% if state[data_service_view.db_id].is_completed() and favorite_kpi_scores[data_service_view.db_id]|count > 0 and not ns.header_added %}
+                                        {% set ns.header_added = true %}
+                                        {% for score in favorite_kpi_scores[data_service_view.db_id]|sort(attribute='name') %}
+                                        <th scope="col">{{ score.name|capitalize }} {{isHeaderPresent}}</th>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                                <th scope="col"></th>
+                            </tr>
+                            <tr class="border-bottom">
+                                <th scope="col"></th>
+                                {% set ns = namespace(header_added=false) %}
+                                {% for data_service_view in views|sort(attribute="series_set_name") %}
+                                    {% if state[data_service_view.db_id].is_completed() and not ns.header_added %}
+                                        {% set ns.header_added = true %}
+                                        {% for bar_names, bar_values in data_service_rel_bar_scores[data_service_name]|dictsort %}
+                                        <th scope="col">
+                                            <div class="score-bar" data-height="30" data-width="100" show-labels="false">
+                                                <table class="visually-hidden">
+                                                    <tbody>
+                                                        {% for score in bar_values %}
+                                                        <tr>
+                                                            <td class="bar-value">{{ score }}</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </th>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                                <th scope="col">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data_service_view in views|sort(attribute="series_set_name") %}
+                            {% if state[data_service_view.db_id].is_defined() and not state[data_service_view.db_id].is_completed() %}
+                                <tr class="border-bottom">
+                                    <td>{{ data_service_view.series_set_name }}</td>
+                                    <td class="text-muted" colspan="2">Evaluation in progress</td>
+                                </tr>
+                            {% else %}
+                                {% if favorite_kpi_scores[data_service_view.db_id]|count > 0 %}
+                                <tr class="border-bottom">
+                                    <td>{{ data_service_view.series_set_name }}</td>
+                                    {% for score in favorite_kpi_scores[data_service_view.db_id]|sort(attribute='name') %}
+                                    <td>
+                                        {{ visualize_split_kpi_score(score.score) }}
+                                    </td>
+                                    {% endfor %}
+                                    <td class="text-muted">
+                                        <a href="{{ url_for('data_services.show_data_service_view', viewid=data_service_view.db_id, sourcename=source_name) }}">
+                                        {{ bootstrap_icon('arrow-right', 'text-dark fw-bolder') }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr class="border-bottom">
+                                    <td>{{ data_service_view.series_set_name }}</td>
+                                    <td class="text-muted" colspan="2">No results</td>
+                                </tr>
+                                {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% if views|count == 1 %}
+            <div class="card-footer">
+                <div class="text-end text-muted">
+                    <small>Last run: {{ views[0].last_evaluation_date|ts_datetime }}</small>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if inconsistencies|count > 0 %}
+<div class="ts-inconsistensies position-fixed bottom-0 end-0 p-3">
+    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-bs-autohide="false" data-bs-show="toast">
+        <div class="toast-header">
+        <strong class="me-auto">Inconsistent configuration</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <a href="{{ url_for('home.configure', sourcename=source_name) }}" class="text-reset text-decoration-none">
+                {% if inconsistencies|count == 1 %}
+                There is {{inconsistencies|count}} inconsistency in the configuration.
+                {% else %}
+                There are {{inconsistencies|count}} inconsistencies in the configuration.
+                {% endif %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<script nonce="{{ csp_nonce }}">
+    (function () {
+    {% include 'scripts/stacked_bar.js' %}
+    })();
+</script>
+{% endblock %}

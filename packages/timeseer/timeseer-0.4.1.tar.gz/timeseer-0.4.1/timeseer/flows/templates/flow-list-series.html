@@ -1,0 +1,56 @@
+{% extends 'timeseer.html' %}
+{% from 'macros.html' import bootstrap_icon, menu_back, visualize_series %}
+
+{% block menu %}
+{{ menu_back(url_for('flows.display_flow', flowevaluationid=flow_evaluation.db_id, sourcename=source_name)) }}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <div class="row justify-content-between">
+        <h2 class="col-sm-6 h4">Time series</h2>
+        <p class="h6">
+            {{ flow_evaluation.group.flow.name }}
+        </p>
+        <p class="text-muted">
+            For
+            {% if series_set %}
+            <a href="{{ url_for('series_sets.manage_series_set', seriessetname=series_set.name, sourcename=source_name) }}"
+               target="_blank">
+                {{ series_set.name }}
+                <sup>{{ bootstrap_icon('box-arrow-up-right') }}</sup>
+            </a>
+            {% elif data_set is not none %}
+            <a href="{{ url_for('data_sets.series_management', datasetid=data_set.db_id, sourcename=source_name) }}"
+               target="_blank">
+                {{ data_set.name }} <sup>{{ bootstrap_icon('box-arrow-up-right') }}</sup>
+            </a>
+            {% else %}
+            {{ flow_evaluation.series_set_name }}
+            in
+            <a href="{{ url_for('series_sets.preview_template', templatename=series_set_template.name, sourcename=source_name) }}"
+               target="_blank">
+                {{ series_set_template.name }}
+                <sup>{{ bootstrap_icon('box-arrow-up-right') }}</sup>
+            </a>
+            {% endif %}
+            at {{ flow_evaluation.group.date|ts_datetime }}.
+        </p>
+    </div>
+</div>
+
+<div class="pt-3 my-3">
+    <ul class="list-group">
+        {% for series in all_series|sort(attribute='source,name') %}
+        <li class="list-group-item">
+            <a class="ts-series-details ts-table-link text-decoration-none text-dark"
+                data-series-url="{{ url_for('metadata.get_metadata', seriesid=series.series_id) }}"
+                data-sensor-spec-url="{{ url_for('sensor_specs.update_sensor_specs', seriesid=series.series_id) }}"
+                href="#">
+                {{ visualize_series(series) }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

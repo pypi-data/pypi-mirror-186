@@ -1,0 +1,68 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import alerter, description_explanations %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <h2 class="h4">Create a new data service</h2>
+</div>
+
+<div class="pt-3 my-3">
+    {{ alerter() }}
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="row">
+            <input type="hidden" name="sourcename" value="{{ source_name }}">
+            <div class="mb-3">
+                <label for="dataServiceNameInput" class="form-label">New data service name</label>
+                <input class="form-control" id="dataServiceNameInput" name="dataservicename" autofocus required>
+            </div>
+            <div class="mb-3">
+                <label for="dataServiceDescription" class="form-label">Description</label>
+                <textarea id="dataServiceDescription" name="dataservicedescription" class="form-control" rows="10"></textarea>
+                {{ description_explanations(resource) }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="KPISetSelect">KPI set name</label>
+                <select class="form-select" name="kpisetname" id="KPISetSelect">
+                    {% for kpi_set in kpi_sets|sort(attribute='name') %}
+                    <option>{{ kpi_set.name }}</option>
+                    {% endfor %}
+                </select>
+                <div class="form-text">
+                    Select the KPI set to use when displaying results.
+                </div>
+            </div>
+            <div class="select-time-range mb-3" data-relative-dates='{{ relative_dates|tojson|safe }}'>
+                <div class="form-group">
+                    <label for="relativeDateSelect">Relative time range</label>
+                    <select class="form-select" name="relativeDate" id="relativeDateSelect">
+                        {% for relative_date in relative_dates %}
+                        {% if relative_date == 'Last 7 days' %}
+                        <option selected>{{ relative_date }}</option>
+                        {% else %}
+                        <option>{{ relative_date }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="btn-toolbar">
+            <button class="btn btn-primary me-2" type="submit">Create</button>
+            <a class="btn btn-secondary"
+                href="{{ url_for('data_services.list_data_services', sourcename=source_name) }}"
+                role="button">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+
+{% block scripts_bottom %}
+<script src="{{ url_for('static', filename='dist/time-range.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}

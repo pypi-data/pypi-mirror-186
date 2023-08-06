@@ -1,0 +1,325 @@
+{% extends 'timeseer.html' %}
+{% from 'data-service-header.html' import data_service_breadcrumb, data_service_header with context %}
+{% from 'macros.html' import info_popover, menu_back, visualize_series %}
+
+{% macro visualize_series_count(count, total) %}
+    {% if count is none %}
+    <td class="ts-score-percentage-none align-middle"></td>
+    {% elif count / total < 0.2 %}
+    <td class="align-middle" title="Out of {{ total }} series">{{ bootstrap_icon('circle-fill', 'text-success align-baseline me-1', 12) }} {{ count }}</td>
+    {% elif count / total < 0.4 %}
+    <td class="align-middle" title="Out of {{ total }} series">{{ bootstrap_icon('circle-fill', 'text-warning align-baseline me-1', 12) }} {{ count }}</td>
+    {% else %}
+    <td class="align-middle" title="Out of {{ total }} series">{{ bootstrap_icon('circle-fill', 'text-danger align-baseline me-1', 12) }} {{ count }}</td>
+    {% endif %}
+{% endmacro %}
+
+{% macro compare_kpi(a, b) %}
+    {% if a == b %}
+    <span>=</span>
+    {% elif a > b %}
+    <span class="text-success">{{ b - a }}</span>
+    {% else %}
+    <span class="text-danger">+{{ b - a }}</span>
+    {% endif %}
+</td>
+{% endmacro %}
+
+{% block styles %}
+<style nonce="{{ csp_nonce }}">
+    .comparison-table {
+        table-layout: fixed;
+    }
+    .comparison-table .score {
+        width: 25%;
+    }
+    .comparison-table .evolution {
+        width: 15%;
+    }
+</style>
+{% endblock %}
+
+{% block menu %}
+{{ menu_back(url_for('.list_bins', sourcename=source_name, binid=current_bin.db_id)) }}
+{% endblock %}
+
+{% set title = 'Compare bins' %}
+
+{% block breadcrumb %}
+{{
+    data_service_breadcrumb(current_bin, [
+        ('Bins', url_for('.list_bins', sourcename=source_name, binid=current_bin.db_id)),
+        title
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+{{ data_service_header(current_bin, title) }}
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="aggregated-series">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Number of series with quality issues</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        {% if series_added|count > 0 %}
+        <h6>Quality decreased <span class="text-danger">+{{ series_added|count }} series</span></h6>
+        <ul>
+            {% for series in series_added|sort(attribute="name") %}
+            <li>
+                <a class="ts-table-link text-dark fw-normal text-decoration-none" href="{{ url_for('data_services.show_event_frames', seriesid=series.series_id, binid=current_bin.db_id) }}">
+                    {{ visualize_series(series) }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if series_removed|count > 0 %}
+        <h6>Quality increased <span class="text-success">-{{ series_removed|count }} series</span></h6>
+        <ul>
+            {% for series in series_removed|sort(attribute="name") %}
+            <li>
+                <a class="ts-table-link text-dark fw-normal text-decoration-none" href="{{ url_for('data_services.show_event_frames', seriesid=series.series_id, binid=current_bin.db_id) }}">
+                    {{ visualize_series(series) }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+
+<div class="pt-3 my-3">
+    <p>
+        Comparing evaluation on
+        <a href="{{ url_for('.show_data_service_view_bin', binid=compare_bin.db_id, sourcename=source_name) }}">
+            {{ comparison.date|ts_datetime }}
+        </a>
+        to
+        <a href="{{ url_for('.show_data_service_view_bin', binid=current_bin.db_id, sourcename=source_name) }}">
+            {{ report.date|ts_datetime }}
+        </a>
+        .
+    </p>
+
+    <ul class="nav nav-tabs mb-3">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('.compare_bins', binid=current_bin.db_id, comparebinid=compare_bin.db_id, sourcename=source_name) }}">
+                Compare scores
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ url_for('.compare_bins_series_count', binid=current_bin.db_id, comparebinid=compare_bin.db_id, sourcename=source_name) }}">
+                Compare series counts
+            </a>
+        </li>
+    </ul>
+
+    <table class="ts-table table table-borderless comparison-table">
+        <thead class="thead-secondary">
+            <tr class="border-top border-bottom">
+                <th scope="col">Count</th>
+                <th scope="col" class="score">{{ comparison.date|ts_datetime }}</th>
+                <th scope="col" class="score">{{ report.date|ts_datetime }}</th>
+                <th scope="col" class="evolution">Evolution</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="border-bottom">
+                <th scope="row" class="fw-normal">Number of series with quality issues</th>
+                {{ visualize_series_count(comparison.total_count, comparison.series_count) }}
+                {{ visualize_series_count(report.total_count, report.series_count) }}
+                <td>
+                    {% if series_removed|count > 0 or series_added|count > 0 %}
+                    <a class="ts-table-link text-decoration-none" data-bs-toggle="offcanvas" href="#aggregated-series">
+                        {% if series_removed|count > 0 %}
+                        <span class="text-success pe-1">-{{ series_removed|count }}</span>
+                        {% endif %}
+                        {% if series_added|count > 0 %}
+                        <span class="text-danger">+{{ series_added|count }}</span>
+                        {% endif %}
+                    </a>
+                    {% else %}
+                    <span class="text-black">=</span>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% for kpi in entries|map(attribute='kpi') %}
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="kpi-series-{{ loop.index }}">
+      <div class="offcanvas-header">
+          <h5 class="offcanvas-title">Number of series with quality issues of {{ kpi.name }}</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+          {% if series_added_per_kpi[kpi]|count > 0 %}
+          <h6>Quality decreased <span class="text-danger">+{{ series_added_per_kpi[kpi]|count }} series</span></h6>
+          <ul>
+              {% for series in series_added_per_kpi[kpi]|sort(attribute="name") %}
+              <li>
+                  <a class="ts-table-link text-dark fw-normal text-decoration-none" href="{{ url_for('data_services.show_event_frames', seriesid=series.series_id, binid=current_bin.db_id) }}">
+                      {{ visualize_series(series) }}
+                  </a>
+              </li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+
+          {% if series_removed_per_kpi[kpi]|count > 0 %}
+          <h6>Quality increased <span class="text-success">-{{ series_removed_per_kpi[kpi]|count }} series</span></h6>
+          <ul>
+              {% for series in series_removed_per_kpi[kpi]|sort(attribute="name") %}
+              <li>
+                  <a class="ts-table-link text-dark fw-normal text-decoration-none" href="{{ url_for('data_services.show_event_frames', seriesid=series.series_id, binid=current_bin.db_id) }}">
+                      {{ visualize_series(series) }}
+                  </a>
+              </li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+      </div>
+    </div>
+    {% set outer_index = loop.index %}
+    {% for count in report.kpi_score_counts[kpi.name]|sort(attribute='metadata.name') %}
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="kpi-series-{{ outer_index }}-{{ loop.index }}">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title">Number of series with quality issues of {{ count.metadata.name }} in {{ kpi.name }}</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            {% if series_added_per_score[kpi.name][count.metadata.name]|count > 0 %}
+            <h6>Quality decreased <span class="text-danger">+{{ series_added_per_score[kpi.name][count.metadata.name]|count }} series</span></h6>
+            <ul>
+                {% for series in series_added_per_score[kpi.name][count.metadata.name]|sort(attribute="name") %}
+                <li>
+                    <a class="ts-table-link text-dark fw-normal text-decoration-none" href="{{ url_for('data_services.show_event_frames', seriesid=series.series_id, binid=current_bin.db_id) }}">
+                        {{ visualize_series(series) }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if series_removed_per_score[kpi.name][count.metadata.name]|count > 0 %}
+            <h6>Quality increased <span class="text-success">-{{ series_removed_per_score[kpi.name][count.metadata.name]|count }} series</span></h6>
+            <ul>
+                {% for series in series_removed_per_score[kpi.name][count.metadata.name]|sort(attribute="name") %}
+                <li>
+                    <a class="ts-table-link text-dark fw-normal text-decoration-none" href="{{ url_for('data_services.show_event_frames', seriesid=series.series_id, binid=current_bin.db_id) }}">
+                        {{ visualize_series(series) }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    {% endfor %}
+
+    <table class="ts-table table table-borderless comparison-table">
+        <thead class="thead-secondary">
+            <tr class="border-top border-bottom">
+                <th scope="col">KPI</th>
+                <th scope="col" class="score">{{ comparison.date|ts_datetime }}</th>
+                <th scope="col" class="score">{{ report.date|ts_datetime }}</th>
+                <th scope="col" class="evolution">Evolution</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for kpi in entries|map(attribute='kpi') %}
+            <tr class="border-bottom">
+                <th scope="row" class="fw-normal">
+                    {{ kpi.name }}
+                    {{ info_popover(kpi.short_help_text) }}
+                </th>
+                {% if kpi in comparison.kpi_counts %}
+                {{ visualize_series_count(comparison.kpi_counts[kpi], comparison.series_count) }}
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                {% if kpi in report.kpi_counts %}
+                {{ visualize_series_count(report.kpi_counts[kpi], report.series_count) }}
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                {% if kpi in comparison.kpi_counts and kpi in report.kpi_counts %}
+                <td>
+                    {% if series_removed_per_kpi[kpi]|count > 0 or series_added_per_kpi[kpi]|count > 0 %}
+                    <a class="ts-table-link text-decoration-none" data-bs-toggle="offcanvas" href="#kpi-series-{{ loop.index }}">
+                        {% if series_removed_per_kpi[kpi]|count > 0 %}
+                        <span class="text-success pe-1">-{{ series_removed_per_kpi[kpi]|count }}</span>
+                        {% endif %}
+                        {% if series_added_per_kpi[kpi]|count > 0 %}
+                        <span class="text-danger">+{{ series_added_per_kpi[kpi]|count }}</span>
+                        {% endif %}
+                    </a>
+                    {% else %}
+                    <span class="text-black">=</span>
+                    {% endif %}
+                </td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% for kpi in entries|map(attribute='kpi') %}
+    <table class="ts-table table table-borderless comparison-table">
+        <thead class="thead-secondary">
+            <tr class="border-top border-bottom">
+                <th scope="col">{{ kpi.name }}</th>
+                <th scope="col" class="score">{{ comparison.date|ts_datetime }}</th>
+                <th scope="col" class="score">{{ report.date|ts_datetime }}</th>
+                <th scope="col" class="evolution">Evolution</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set outer_index = loop.index %}
+            {% for score in report.kpi_score_counts[kpi.name]|sort(attribute='metadata.name') %}
+            <tr class="border-bottom">
+                <th scope="row" class="fw-normal">
+                    {{ score.metadata.name|capitalize }}
+                    {% if score.metadata.short_help_text %}
+                    {{ info_popover(score.metadata.short_help_text) }}
+                    {% endif %}
+                </th>
+                {% set comparison_scores = comparison.kpi_score_counts[kpi.name]|selectattr('metadata.name', 'eq', score.metadata.name)|list %}
+                {% if comparison_scores|count > 0 %}
+                {{ visualize_series_count(comparison_scores|first|attr('series')|count, comparison.series_count) }}
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                {{ visualize_series_count(score.series|count, report.series_count) }}
+                {% if kpi.name in comparison.kpi_score_counts and kpi.name in report.kpi_score_counts %}
+                <td>
+                    {% if series_removed_per_score[kpi.name][score.metadata.name]|count > 0 or series_added_per_score[kpi.name][score.metadata.name]|count > 0 %}
+                    <a class="ts-table-link text-decoration-none"
+                       data-bs-toggle="offcanvas" href="#kpi-series-{{ outer_index }}-{{ loop.index }}">
+                        {% if series_removed_per_score[kpi.name][score.metadata.name]|count > 0 %}
+                        <span class="text-success pe-1">-{{ series_removed_per_score[kpi.name][score.metadata.name]|count }}</span>
+                        {% endif %}
+                        {% if series_added_per_score[kpi.name][score.metadata.name]|count > 0 %}
+                        <span class="text-danger">+{{ series_added_per_score[kpi.name][score.metadata.name]|count }}</span>
+                        {% endif %}
+                    </a>
+                    {% else %}
+                    <span class="text-black">=</span>
+                    {% endif %}
+                </td>
+                {% else %}
+                <td>-</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+{% endblock %}

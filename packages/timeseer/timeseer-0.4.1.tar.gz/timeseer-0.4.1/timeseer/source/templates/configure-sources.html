@@ -1,0 +1,104 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import alerter, progress_bar %}
+{% from 'configure.html' import configure_menu with context %}
+
+{% block menu %}
+{{ configure_menu('Sources') }}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <h2 class="h4">Configure time series sources</h2>
+    {% if sources|count > 0 %}
+    <form>
+        <div class="row mb-3 gx-2 align-items-center">
+            <label for="sourcenameSelect" class="visually-hidden">Source</label>
+            <div class="col-lg mt-2">
+                <select class="form-select" id="sourcenameSelect" name="sourcename">
+                    {% for source in sources %}
+                    <option {% if source == source_name %}selected{% endif %}>{{ source }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-auto mt-2">
+                {% if source_name %}
+                <button type="submit" class="btn btn-secondary">Configure</button>
+                {% else %}
+                <button type="submit" class="btn btn-primary">Configure</button>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+    {% endif %}
+</div>
+
+{% if sources|count == 0 %}
+<div class="pt-3 my-3">
+    <p class="alert alert-info">Define sources in <code>Timeseer.toml</code>.</p>
+</div>
+{% endif %}
+
+<div class="my-3">
+    {{ alerter() }}
+</div>
+
+{% if source_name %}
+{% if source_name in exposed_sources %}
+    <div class="my-3 py-3">
+        <form method="POST" action="{{ url_for('.remove_exposed_source', sourcename=source_name) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="sourcename" value="{{ source_name }}">
+            <button type="submit" class="btn btn-primary col-sm-auto">Remove {{ source_name }}</button>
+        </form>
+    </div>
+{% else %}
+<div class="ts-section my-3 py-3" data-e2e="metadata">
+    <h5>Metadata</h5>
+
+    {% call progress_bar(metadata_state, url_for('.get_source_metadata_state', sourcename=source_name), 'jobs', 'metadata-progress') %}
+    Metadata update
+    {% endcall %}
+
+    <form method="POST" action="{{ url_for('.update_metadata', sourcename=source_name) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="sourcename" value="{{ source_name }}">
+        {% if last_update_datetime is not none %}
+        <div class="mb-3">Last update: {{ last_update_datetime|ts_datetime }}</div>
+        {% endif %}
+        {% if series_count == 0 %}
+        <div class="mb-3">
+            No time series known in "{{ source_name }}".
+        </div>
+        {% else %}
+        <div class="mb-3">
+            {{ series_count }} time series in "{{ source_name }}".
+        </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary col-sm-auto">Update {{ source_name }}</button>
+        <a class="btn btn-secondary" href="{{ url_for('metadata.metadata_audit_trail', sourcename=source_name) }}">
+            Audit trail
+        </a>
+    </form>
+</div>
+
+{% if enable_timeseries_management %}
+<div class="ts-section my-3 py-3" data-e2e="timeseries">
+    <h5>Time series</h5>
+    <p>
+        {{series_count}} time series found for {{ source_name }}.
+    </p>
+    <a class="btn btn-primary col-sm-auto" href="{{ url_for('timeseries.timeseries_management', sourcename=source_name) }}">Manage time series</a>
+</div>
+{% endif %}
+{% endif %}
+{% else %}
+<div class="alert alert-info">
+    Select a source to configure.
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts_bottom %}
+<script src="{{ url_for('static', filename='dist/sources.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}

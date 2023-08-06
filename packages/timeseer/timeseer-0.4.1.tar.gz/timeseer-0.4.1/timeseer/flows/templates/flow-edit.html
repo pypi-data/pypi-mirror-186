@@ -1,0 +1,531 @@
+{% extends 'timeseer.html' %}
+{% from 'macros.html' import alerter, bootstrap_icon, info_popover, menu_back, visualize_series, schedule_popover %}
+{% from 'flows.html' import help_text_icon, help_text_side_panel with context %}
+{% from 'resources.html' import resource_breadcrumb %}
+
+{% macro block_card_header(block, title, interactive_link) %}
+    <div class="card-header">
+        <div class="row align-items-center">
+            <div class="col-auto">{{ bootstrap_icon('code-slash') }}</div>
+            <div class="col">
+                {% if missing_dependencies[block.db_id]|count > 0 %}
+                    {{ info_popover('Missing a dependency on a block with type: ' + missing_dependencies[block.db_id]|join(', '), 'exclamation-triangle', 'text-warning', placement='top') }}
+                {% endif %}
+                {{ title }}
+            </div>
+            <div class="col-auto btn-toolbar" role='group'>
+                {% if interactive_link is not none %}
+                <a class="btn btn-secondary me-2" href="{{ interactive_link }}">
+                    Edit interactively
+                </a>
+                {% endif %}
+                <form method="POST" action="{{ url_for('.delete_block', sourcename=source_name) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type='hidden' name='blockid' value='{{ block.db_id }}'>
+                    <button class="btn btn-secondary" type='submit'>
+                        Remove block
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro block_card(block, title, interactive_link=None) %}
+<div class="my-3 shadow-sm card {% if missing_dependencies[block.db_id]|count > 0 %} border-danger {% endif %}">
+    {{ block_card_header(block, title, interactive_link) }}
+    <div class="card-body">
+        {{ caller() }}
+    </div>
+</div>
+{% endmacro %}
+
+{% block styles %}
+<style nonce="{{ csp_nonce }}">
+.ts-score-card {
+    width: 25rem;
+}
+.ts-score-column {
+    width: 5.5rem;
+}
+
+#timeseries_source_score {
+    max-width: 30rem;
+    max-height: 20rem;
+}
+
+</style>
+{% endblock %}
+
+{% block menu %}
+{% if flow_evaluation_groups|count == 0 %}
+{{ menu_back(url_for('.list_flows', sourcename=source_name)) }}
+{% else %}
+{{ menu_back(url_for('.display_flow', flowname=flow.name, sourcename=source_name)) }}
+{% endif %}
+{% endblock %}
+
+{% block breadcrumb %}
+{% if flow_evaluation_groups|count == 0 %}
+{{
+    resource_breadcrumb([
+        ('Flows', url_for('flows.list_flows', sourcename=source_name)),
+        flow.name,
+        'Edit',
+    ])
+}}
+{% else %}
+{{
+    resource_breadcrumb([
+        ('Flows', url_for('flows.list_flows', sourcename=source_name)),
+        (flow.name, url_for('.display_flow', flowname=flow.name, sourcename=source_name)),
+        'Edit',
+    ])
+}}
+{% endif %}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <div class="row align-items-center">
+        <div class="col">
+            <h2 class="col-sm-6 h4">
+                {{ flow.name }}
+                {% if flow.schedule is not none %}
+                <span class="align-top">
+                    {{ schedule_popover(flow.schedule) }}
+                </span>
+                {% endif %}
+                {{ help_text_icon(flow) }}
+            </h2>
+            {% if flow.origin.value == 'ui' and data_set is none %}
+            <p>
+                <a class="ts-table-link text-decoration-none text-muted" href="{{ url_for('.edit_flow_time_range', flowname=flow.name, sourcename=source_name) }}">
+                    {% if flow.time_range.relative_date %}
+                    {{ flow.time_range.relative_date }}
+                    {% elif flow.time_range.has_no_time_range() is true %}
+                    -
+                    {% else %}
+                    From {{ flow.time_range.start_date|ts_datetime }} to {{ flow.time_range.end_date|ts_datetime }}
+                    {% endif %}
+                </a>
+            </p>
+            {% else %}
+            <p class="text-muted">
+                {% if flow.time_range.relative_date %}
+                {{ flow.time_range.relative_date }}
+                {% elif flow.time_range.has_no_time_range() is true %}
+                -
+                {% else %}
+                From {{ flow.time_range.start_date|ts_datetime }} to {{ flow.time_range.end_date|ts_datetime }}
+                {% endif %}
+            </p>
+            {% endif %}
+        </div>
+        {{ help_text_side_panel(flow, allow_edit=True) }}
+        <div class="col-lg-auto">
+                <div class="btn-toolbar" role="group">
+                    <form>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="flowname" value="{{ flow.name }}">
+
+                      <div
+                          {% if flow.schedule is not none %}
+                          data-toggle="tooltip"
+                          title="Scheduled flows cannot be manually triggered"
+                          tabindex="0"
+                          {% endif %}
+                        >
+                            <button type="submit"
+                                class="btn btn-primary me-2"
+                                formmethod="POST"
+                                formaction="{{ url_for('.evaluate', sourcename=source_name) }}"
+                                {% if missing_dependencies.values()|sum(start=[])|count > 0 or flow.schedule is not none %}
+                                disabled
+                                {% endif %}>
+                                Evaluate
+                            </button>
+                        </div>
+                    </form>
+                    {% if flow.origin.value in ['ui', 'control loop'] %}
+                    <div class="btn-group">
+                        <a class="btn btn-secondary dropdown-toggle"
+                            href="#"
+                            role="button"
+                           id="editDropdownLink"
+                           data-bs-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">
+                            Edit
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="editDropdownLink">
+                            <button class="dropdown-item"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#addBlockModal">
+                                Add block
+                            </button>
+                            {% if data_set is none %}
+                            <a class="dropdown-item"
+                               href="{{ url_for('.edit_flow_time_range', flowname=flow.name, sourcename=source_name) }}"
+                               >
+                                Edit time range
+                            </a>
+                            {% else %}
+                            <a class="dropdown-item disabled">
+                                Edit time range
+                            </a>
+                            {% endif %}
+                            <a class="dropdown-item"
+                               href="{{ url_for('.edit_flow_data_cache', flowname=flow.name, sourcename=source_name) }}"
+                               >
+                                Edit data caching
+                            </a>
+                            <form>
+                                <input type="hidden" name="flowname" value="{{ flow.name }}">
+                                {% if source_name %}
+                                <input type="hidden" name="sourcename" value="{{ source_name }}">
+                                {% endif %}
+                                <button type="submit"
+                                        class="dropdown-item"
+                                        formmethod="GET"
+                                        formaction="{{ url_for('.rename_flow') }}">
+                                    Rename flow
+                                </button>
+                            </form>
+                            <a class="dropdown-item" data-bs-toggle="offcanvas" href="#scheduleOffcanvas">
+                              {% if flow.schedule is none %}
+                              Schedule flow
+                              {% else %}
+                              Edit Schedule
+                              {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+        </div>
+    </div>
+</div>
+
+{% if flow.origin.value in ['ui', 'control loop'] %}
+<div class="modal fade" id="addBlockModal" tabindex="-1" aria-labelledby="addBlockLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-md-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addBlockLabel">Add block</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div data-ts-form="add-block"
+                    data-save-url="{{ url_for('.add_block', flowname=flow.name) }}"
+                    data-blocks='{{ block_definitions|tojson|safe }}'
+                    data-default-block-definitions='{{ default_block_definitions|tojson|safe }}'
+                    data-block-types='{{ block_types|tojson|safe }}'>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="pt-1">
+    {{ alerter() }}
+
+    {% if flow.origin.value in ['default', 'ui', 'control loop'] %}
+    <div class="row pb-3">
+        {% if flow.origin.value in ['ui', 'control loop'] %}
+        <div class="col-md">
+            <form class="shadow-sm card h-100">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            Time series
+                        </div>
+                    </div>
+                </div>
+                <div
+                    data-ts-form="series-set"
+                        {% if selected_series_sets|count > 0 %}
+                        data-selector-type="series-set"
+                        data-selector-name="arrow"
+                        data-selector-series-sets='{{ selected_series_sets|sort|tojson|safe }}'
+                        {% elif series_set_template is not none %}
+                        data-selector-type="series-set-template"
+                        data-selector-name="{{ series_set_template.name }}"
+                        {% else %}
+                        data-selector-type="data-set"
+                        data-selector-name="{{ data_set.name }}"
+                        {% endif %}
+                        data-series-sets='{{ series_sets|sort(attribute="name")|tojson|safe }}'
+                        data-series-set-templates='{{ series_set_templates|sort(attribute="name")|tojson|safe }}'
+                        data-data-sets='{{ data_sets|sort(attribute="name")|tojson|safe }}'
+                        data-edit-series-set-url='{{ url_for('.edit_series_set', flowname=flow.name, sourcename=source_name) }}'>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="ts-help-sidebar offcanvas offcanvas-end" tabindex="-1" id="scheduleOffcanvas" aria-labelledby="scheduleOffcanvas">
+        <div class="offcanvas-header">
+            <h3 class="offcanvas-title h5">Flow settings</h3>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form method="POST" id="update-schedule">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="flowname" value="{{ flow.name }}">
+                {% if flow.schedule is not none %}
+                {% set selected_interval = flow.schedule.interval.value %}
+                {% set selected_frequency = flow.schedule.frequency %}
+                {% set initial_date = flow.schedule.initial_date %}
+                {% endif %}
+                <h4>Schedule flow</h4>
+                <span class="form-text">Choose when and how often the flow runs.</span>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label for="initialDateInput" class="col-form-label">Run this flow starting:</label>
+                        <input
+                            type="datetime-local"
+                            step="1"
+                            class="form-control"
+                            id="initialDateInput"
+                            name="initialdate"
+                            data-ts-datetime-value="{{ initial_date.isoformat() if initial_date else schedule_default_date }}"
+                        >
+                    </div>
+                    <label for="schedulefrequency">Run every:</label>
+                    <div class="col">
+                        <input
+                          type="number"
+                          class="form-control bg-white"
+                          id="schedulefrequency"
+                          name="schedulefrequency"
+                          min=1
+                          value="{{ selected_frequency }}"
+                          required
+                        >
+                    </div>
+                    <div class="col">
+                        <select class="form-select gb-white" id="scheduleinterval" name="scheduleinterval" required>
+                            {% for interval in schedule_intervals %}
+                                <option
+                                    value="{{interval.value}}"
+                                    {% if interval.value == selected_interval%}selected{% endif %}
+                                >{{ interval.value|capitalize }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </form>
+
+            <p class="my-3 text-muted" id="schedulepreviewtext"></p>
+
+            {% if flow.schedule is not none %}
+            <form method="POST" id="remove-schedule" action="{{ url_for('.remove_schedule_flow', sourcename=source_name) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="flowname" value="{{ flow.name }}">
+            </form>
+            {% endif %}
+
+            <div class="my-3">
+              <button type="submit" form="update-schedule" class="btn btn-primary " formaction={{ url_for('.schedule_flow') }}>Schedule</button>
+              {% if flow.schedule is not none %}
+              <button type="submit" class="btn btn-secondary " form="remove-schedule">Remove schedule</button>
+              {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+{% if flow.origin.value in ['ui', 'control loop'] %}
+{% for block in blocks %}
+{% if block.type.name == 'UNIVARIATE_ANALYSIS' %}
+{% if "control_loop_univariate_checks" in block.configuration.moduleTypes %}
+    {% set module_types = control_loop_univariate_module_types + univariate_module_types %}
+{% else %}
+    {% set module_types = univariate_module_types %}
+{% endif %}
+{% call block_card(block, "Univariate analysis") %}
+<div data-ts-form="univariate-analysis-types"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'
+    data-available-module-types='{{ module_types|tojson|safe }}'
+    data-background-sources='{{ background_sources|map(attribute="value")|list|tojson|safe }}'
+    data-data-service-names='{{ data_services|tojson|safe }}'>
+</div>
+{% endcall %}
+{% elif block.type.name == 'COMPARISON' %}
+{% call block_card(block, "Comparison") %}
+<div data-ts-form="comparison"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'>
+</div>
+{% endcall %}
+{% elif block.type.name == 'MULTIVARIATE_ANALYSIS' %}
+{% if "control_loop_multivariate_checks" in block.configuration.moduleTypes %}
+    {% set module_types = control_loop_multivariate_module_types + multivariate_module_types %}
+{% else %}
+    {% set module_types = multivariate_module_types %}
+{% endif %}
+
+{% call block_card(block, "Multivariate analysis") %}
+<div data-ts-form="multivariate-analysis-types"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'
+    data-available-module-types='{{ module_types|tojson|safe }}'>
+</div>
+{% endcall %}
+{% elif block.type.name == 'FILTER' %}
+{% call block_card(block, "Filter", interactive_link=url_for('filters.edit_interactive', blockid=block.db_id, sourcename=source_name)) %}
+<div data-ts-form="filters"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'
+    data-series-set-url="{{ url_for('.get_series_from_series_set', flowname=flow.name) }}"
+    data-get-previous-event-frame-types-url="{{ url_for('filters.get_previous_event_frame_types', blockid=block.db_id) }}"
+    data-series-set-names='{{ series_set_names|tojson|safe }}'
+    data-augmentation-strategies='{{ augmentation_strategies|tojson|safe }}'
+    data-univariate-event-frame-types='{{ univariate_event_frame_types|sort|tojson|safe }}'
+    data-multivariate-event-frame-types='{{ multivariate_event_frame_types|sort|tojson|safe }}'>
+</div>
+{% endcall %}
+{% elif block.type.name == 'EXPORT' %}
+{% call block_card(block, "Export") %}
+<div data-ts-form="exports"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'
+    data-available-exports='{{ exports|sort|tojson|safe }}'>
+</div>
+{% endcall %}
+{% elif block.type.name == 'FLIGHT_EXPOSE' %}
+{% call block_card(block, "Expose using Apache Arrow Flight") %}
+<div data-ts-form="flight-expose"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'>
+</div>
+{% endcall %}
+{% elif block.type.name == 'DATA_SERVICE_EXPOSE' %}
+{% call block_card(block, "Expose as a data service") %}
+<div data-ts-form="data-service-expose"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'>
+</div>
+{% endcall %}
+{% elif block.type.name == 'INTERPOLATE' %}
+{% call block_card(block, "Interpolate", interactive_link=url_for('interpolate.edit_interactive', blockid=block.db_id, sourcename=source_name)) %}
+<div data-ts-form="interpolate"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block='{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'
+    data-interpolation-types='{{ interpolation_types|tojson|safe }}'
+    data-validate-configuration-url="{{ url_for('interpolate.validate_interpolate_block') }}">
+</div>
+{% endcall %}
+{% elif block.type.name == 'SCALING' %}
+{% call block_card(block, "Scaling") %}
+<div data-ts-form="scaling"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'
+    data-scaling-types='{{ scaling_types|tojson|safe }}'>
+</div>
+{% endcall %}
+{% elif block.type.name == 'FIX_TIMESTAMP_ISSUES' %}
+{% call block_card(block, "Fix timestamp issues") %}
+<div data-ts-form="fix-timestamp-issues"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'
+    data-out-of-order-strategies='{{ out_of_order_strategies|map(attribute="value")|list|tojson|safe }}'>
+</div>
+{% endcall %}
+{% elif block.type.name == 'DATA_SERVICE_CONTRIBUTE' %}
+{% call block_card(block, "Contribute to a data service") %}
+<div data-ts-form="data-service-contribute"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'
+    data-data-service-options='{{ data_services|tojson|safe }}'>
+</div>
+{% endcall %}
+{% elif block.type.name == 'CREATE_DATA_SET' %}
+{% call block_card(block, "Create a data set") %}
+<div data-ts-form="create-data-service"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'>
+</div>
+{% endcall %}
+{% elif block.type.name == 'SEGMENT' %}
+{% call block_card(block, "Segment") %}
+<div data-ts-form="segment"
+    data-update-block-url="{{ url_for('.edit_block', blockid=block.db_id) }}"
+    data-current-block = '{{ block.to_data()|tojson|safe }}'
+    data-blocks='{{ block_definitions|tojson|safe }}'
+    data-sources='{{ source_names|tojson|safe }}'
+    data-source-name='{{ source_name }}'
+    data-series-url='{{ url_for("api.search_series_names") }}'>
+</div>
+{% endcall %}
+{% endif %}
+{% if not loop.last %}
+<div class="text-center text-secondary">{{ bootstrap_icon('caret-down-fill') }}</div>
+{% endif %}
+{% if loop.last %}
+<div class="d-flex justify-content-center m-3">
+    <button type="button" class="ts-btn-circle btn-primary" data-bs-toggle="modal" data-bs-target="#addBlockModal">
+        {{ bootstrap_icon('plus') }}
+    </button>
+</div>
+{% endif %}
+{% endfor %}
+</div>
+{% elif flow.origin.value == 'resource' %}
+<div class="alert alert-info">
+    Evaluate the flow to display results.
+</div>
+{% endif %}
+{% endblock %}
+
+
+{% block scripts_bottom %}
+<script src="{{ url_for('static', filename='dist/edit-flow.js') }}" nonce="{{ csp_nonce }}"></script>
+
+<script nonce="{{ csp_nonce }}">
+    document.addEventListener("change", function(ev) {
+        if (["initialDateInput", "schedulefrequency", "scheduleinterval"].includes(ev.target.id)) {
+          [initialDate, initialTime] = document.getElementById("initialDateInput").value.split("T")
+          scheduleFrequency = document.getElementById("schedulefrequency").value
+          scheduleInterval = document.getElementById("scheduleinterval").value
+
+          if (scheduleFrequency > 1) {
+              frequencyText = `Flow will be evaluated every ${scheduleFrequency} ${scheduleInterval}s`
+          }
+          else {
+              frequencyText = `Flow will be evaluated every ${scheduleInterval}`
+          }
+
+          if (["day", "week", "month"].includes(scheduleInterval)) {
+              [initialHour, initialMinute, initialSecond] = initialTime.split(":")
+              startTimeText = `. Evaluations will start at ${initialHour}h ${initialMinute}m`
+              if (initialSecond) {
+                  startTimeText = `${startTimeText} ${initialSecond}s`
+              }
+          }
+          else {
+              startTimeText =  ""
+          }
+
+          previewText = `${frequencyText} starting from ${initialDate}${startTimeText}.`
+          document.getElementById("schedulepreviewtext").textContent = previewText
+        }
+    });
+</script>
+{% endblock %}

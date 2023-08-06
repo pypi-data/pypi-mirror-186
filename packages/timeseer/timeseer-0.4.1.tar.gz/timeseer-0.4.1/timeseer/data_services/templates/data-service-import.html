@@ -1,0 +1,45 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import alerter, menu_back %}
+
+{% block menu %}
+{{ menu_back(back_url) }}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <h2 class="h4">Import data into a data service</h2>
+</div>
+
+<div class="pt-3 my-3">
+    {{ alerter() }}
+    {% if data_services|count > 0 %}
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="blockevaluationid" value="{{ block_evaluation.db_id }}">
+        <div class="mb-3">
+            <label for="dataServiceSelect" class="form-label">Data service</label>
+            <select class="form-select" name="dataservicename" id="dataServiceSelect">
+                {% for data_service in data_services|sort(attribute='name') %}
+                <option>{{ data_service.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="btn-toolbar mt-2">
+            <button type="submit" class="btn btn-primary me-2">Import</button>
+            <a class="btn btn-secondary"
+               href="{{ back_url }}"
+               role="button">
+                Cancel
+            </a>
+        </div>
+    </form>
+    {% else %}
+    <div class="alert alert-info">
+        No data services available.
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}

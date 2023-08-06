@@ -1,0 +1,157 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import menu %}
+
+{% macro help_menu(active) %}
+{{
+    menu(
+        'Help',
+        [
+            ('Getting started', url_for('help.display_help', sourcename=source_name)),
+            ('Admin documentation', url_for('help.display_admin_help', sourcename=source_name)),
+            ('Source documentation', url_for('sources.display_documentation_index', sourcename=source_name)),
+            ('Score documentation', url_for('help.display_score_help', sourcename=source_name)),
+            ('Compliance report', url_for('help.compliance_report', sourcename=source_name)),
+        ],
+        active,
+    )
+}}
+{% endmacro %}
+
+{% block menu %}
+{{ help_menu('Getting started') }}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <h2 class="h4">Getting started</h2>
+</div>
+
+<div class="my-4">
+    <a class="btn btn-primary" href="mailto:feedback@timeseer.ai">Make a wish</a>
+    <a class="btn btn-primary" href="mailto:bugs@timeseer.ai">Report a bug</a>
+</div>
+
+<div class="my-5">
+    <h3 class="h5">Release notes</h3>
+    <h4 class="h6">0.4.0</h4>
+    <ul>
+        <li>
+            Modules in a flow now have a configurable statistics background.
+            Possible backgrounds:
+            <ul>
+                <li>Use a background calculated in the current flow evaluation (the default).</li>
+                <li>Use a background that is updated by each evaluation of a flow.</li>
+                <li>Use a background stored in a data service.</li>
+            </ul>
+        </li>
+        <li>
+            KPI sets no longer apply to flows.
+            Flows profile and transform the data.
+            Data quality insights are provided by data services.
+        </li>
+        <li>
+            The 'Expose as data service' and 'Expose using Arrow Flight' blocks are no longer available.
+            They are replaced by data services.
+        </li>
+        <li>
+            Python SDK
+            <ul>
+                <li>
+                    The <a href="https://pypi.org/project/timeseer/">Python SDK</a> has been modularized.
+                    There is no longer one <code>Client</code> class that contained everything,
+                    but one class for each concept in Timeseer (.e.g <code>Resources</code>, <code>Flows</code>, <code>DataServices</code>, ...).
+                </li>
+                <li>
+                    Event frames returned by de SDK now support time series references that use the IoT data model.
+                </li>
+                <li>
+                    Statistics and calculated metadata stored in data services can now be queried.
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <h4 class="h6">0.3.9</h4>
+    <ul>
+        <li>Bad actors of data services are now available in the REST API.</li>
+    </ul>
+    <h4 class="h6">0.3.8</h4>
+    <ul>
+        <li>Smart interpolation available in filter blocks to impute data in the best possible way.</li>
+        <li><a href="{{ url_for('data_sets.list_data_sets', sourcename=source_name) }}">Data sets</a> can be defined in the user interface.</li>
+        <li>
+            Data services
+            <ul>
+                <li>automatically generate historical bins based on the chosen time range</li>
+                <li>make data available to consumers (SDK).</li>
+            </ul>
+        </li>
+    </ul>
+    <h4 class="h6">0.3.7</h4>
+    <ul>
+        <li>The order of filters in a filter block can now be changed.</li>
+        <li>Improved formatting of metadata audit trails.</li>
+        <li>
+            Data sets can now be created.
+            A data set contains the data for a specific set of time series in a predefined time period.
+        </li>
+        <li>
+            Series sets can be created based on multiple conditions.
+            It is now possible to only include series with a specific field.
+        </li>
+    </ul>
+    <h4 class="h6">0.3.6</h4>
+    <ul>
+        <li>
+            Improved univariate and multivariate analysis blocks:
+            <ul>
+                <li>
+                    Allow configuring a general sensitivity.
+                    This influences the number of event frames that are generated.
+                </li>
+                <li>
+                    Added "Base on previous evaluation".
+                    When this setting is enabled,
+                    only new event frames compared to the previous flow evaluation are found by a flow evaluation.
+                </li>
+                <li>Added ranges and default values for module parameters, along with validation.</li>
+            </ul>
+        </li>
+        <li>Added a block to create a potentially filtered or interpolated data set.</li>
+    </ul>
+    <h4 class="h6">0.3.5</h4>
+    <ul>
+        <li>Support for <a href="{{ url_for('sources.display_documentation', page='azure_data_explorer.asciidoc') }}">Azure Data Explorer</a> sources.</li>
+        <li>Allow configuring module parameters in the UI.</li>
+        <li>Allow filtering of metadata audit trails by time range.</li>
+        <li>Resources can now be removed using the <a href="https://pypi.org/project/timeseer/">Python SDK</a>.</li>
+        <li>
+            As an alternative to IIS, a custom reverse proxy that handles HTTPS is now included.
+            SAML support will only be available using this custom reverse proxy in future versions.
+        </li>
+    </ul>
+    <h4 class="h6">0.3.4</h4>
+    <ul>
+        <li>
+            Allow selection of individual modules in univariate and multivariate blocks.
+        </li>
+        <li>
+            <a href="{{ url_for('config.manage_resources', sourcename=source_name) }}">Import and export of resources</a> from and to YAML is now possible.
+        </li>
+        <li>
+            The <a href="https://pypi.org/project/timeseer/">Python SDK</a> has been extended:
+            <ul>
+                <li>Allow creating resources from code, YAML, TOML or JSON.</li>
+                <li>Allow listing all sources exposed by a flow.</li>
+                <li>
+                    Uploading data does no longer require a source of type <code>upload</code>.
+                    When uploading,
+                    a <a href="{{ url_for('data_sets.list_data_sets', sourcename=source_name) }}">data set</a> will be created.
+                    Data sets can be used in flows and series sets.
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+{% endblock %}

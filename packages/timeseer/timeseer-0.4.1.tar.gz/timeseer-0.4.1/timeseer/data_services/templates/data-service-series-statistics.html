@@ -1,0 +1,21 @@
+{% extends 'data-service-series-layout.html' %}
+
+{% set title = 'Statistics' %}
+
+{% block menu %}
+{{ data_service_series_menu(title) }}
+{% endblock %}
+
+{% block series_title %}
+<h2 class="h4">Statistics</h2>
+{% endblock %}
+
+{% block series_content %}
+{% if statistics|count > 0 %}
+{% include 'fragments/statistics-table.html' %}
+{% else %}
+<div class="alert alert-info">
+    No statistics available.
+</div>
+{% endif %}
+{% endblock series_content %}

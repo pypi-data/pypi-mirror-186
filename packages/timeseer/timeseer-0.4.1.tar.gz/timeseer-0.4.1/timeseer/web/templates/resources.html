@@ -1,0 +1,26 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import breadcrumb, menu %}
+
+{% macro resource_menu(active) %}
+{{
+    menu(
+        'Resources',
+        [
+            ('Data services', url_for('data_services.list_data_services', sourcename=source_name)),
+            ('Data sets', url_for('data_sets.list_data_sets', sourcename=source_name)),
+            ('Flows', url_for('flows.list_flows', sourcename=source_name)),
+            ('KPIs', url_for('kpis.show_kpis', sourcename=source_name)),
+            ('KPI sets', url_for('kpi_sets.show_kpi_sets', sourcename=source_name)),
+            ('Series sets', url_for('series_sets.show_series_sets', sourcename=source_name)),
+            ('Series set templates', url_for('series_sets.list_templates', sourcename=source_name)),
+            ('Manage resources', url_for('config.manage_resources', sourcename=source_name)),
+        ],
+        active,
+    )
+}}
+{% endmacro %}
+
+{% macro resource_breadcrumb(items) %}
+{{ breadcrumb(["Resources"] + items) }}
+{% endmacro %}

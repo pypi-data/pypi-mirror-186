@@ -1,0 +1,16 @@
+--depends: 018__event_frame_staging
+
+create index fe_data_service_views on DataServiceViews(data_service_id);
+
+create index view_evaluation_fe_id on DataServiceViewEvaluations(data_service_view_id);
+create index event_frame_fe_id on EventFrameDataServiceViews(data_service_view_id);
+
+create index favorite_kpis_fe_id on FavoriteKPIScores(data_service_view_evaluation_id);
+create index bad_actors_fe_id on DataServiceBadActorScore(data_service_view_evaluation_id);
+create index subscores_fe_id on Subscores(data_service_view_evaluation_id);
+create index scores_fe_id on Scores(data_service_view_evaluation_id);
+create index view_evaluation_contribution_fe_id on DataServiceViewEvaluationContributions(data_service_view_evaluation_id);
+create index excel_exports_fe_id on ExcelExports(view_evaluation_id);
+create index bad_actor_kpi_scores_fe_id on DataServiceBadActorKPIScore(data_service_view_evaluation_id);
+
+create index excel_export_event_frames_fe_id on ExcelExport_EventFrames(excel_export_id);

@@ -1,0 +1,3 @@
+--depends: 014__add_explanation_and_status_to_ef
+
+CREATE INDEX event_frames_data_service_views_id on EventFrameDataServiceViews(data_service_view_id);

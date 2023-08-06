@@ -1,0 +1,76 @@
+{% extends 'timeseer.html' %}
+{% from 'data-service-header.html' import data_service_breadcrumb, data_service_header with context %}
+{% from 'macros.html' import bootstrap_icon, menu_back %}
+
+{% block csp_style %}
+'self' 'unsafe-inline'
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='dist/charts.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}
+
+{% block menu %}
+{{ menu_back(url_for('.kpi_report', sourcename=source_name, kpi=kpi.name, binid=current_bin.db_id)) }}
+{% endblock %}
+
+{% set title = kpi.name + ' history' %}
+
+{% block breadcrumb %}
+{{
+    data_service_breadcrumb(current_bin, [
+        (kpi.name, url_for('data_services.kpi_report', binid=current_bin.db_id, kpi=kpi.name, sourcename=source_name)),
+        title
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+{{ data_service_header(current_bin, title) }}
+
+<div class="pt-3 my-3">
+    {% if kpi.short_help_text != "" %}
+    <p>
+        {{ kpi.short_help_text }}
+        <a data-bs-toggle="offcanvas"
+           href="#kpi-help-text"
+           aria-controls="kpi-help-text"
+           aria-expanded="false">
+            {{ bootstrap_icon('question-circle') }}
+        </a>
+    </p>
+    {% endif %}
+
+    <div class="ts-help-sidebar offcanvas offcanvas-end" tabindex="-1" id="kpi-help-text">
+        <div class="offcanvas-header">
+            <h3 class="offcanvas-title h5">{{ kpi.name }}</h3>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+        {{ kpi.html_help_text|safe }}
+        </div>
+    </div>
+
+    {% if evolution|count > 1 %}
+    <div class="report-evolution">
+        <table class="visually-hidden">
+            {% for view_score in evolution %}
+            <tr data-report-url="{{ url_for('.open_report', binid=view_score.view_bin.db_id, sourcename=source_name) }}">
+                <td class="report-date" data-date="{{ view_score.view_bin.data_service_view.last_evaluation_date.isoformat() }}">{{ view_score.view_bin.data_service_view.last_evaluation_date|ts_datetime }}</td>
+                <td class="report-score">{{ view_score.score }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+    <p>
+        Contribute to "{{ current_bin.data_service_view.data_service.name }}" multiple times to visualize the {{ kpi.name }} history.
+    </p>
+    {% endif %}
+</div>
+<script nonce="{{ csp_nonce }}">
+    {% if evolution|count > 1 %}
+    {% include 'scripts/score-evolution.js' %}
+    {% endif %}
+</script>
+{% endblock %}

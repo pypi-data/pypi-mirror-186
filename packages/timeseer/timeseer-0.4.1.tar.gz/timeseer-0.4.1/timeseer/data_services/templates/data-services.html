@@ -1,0 +1,121 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import alerter, bootstrap_icon %}
+{% from 'resources.html' import resource_breadcrumb, resource_menu with context %}
+
+{% block menu %}
+{{ resource_menu('Data services') }}
+{% endblock %}
+
+{% block breadcrumb %}
+{{
+    resource_breadcrumb(["Data services"])
+}}
+{% endblock %}
+
+
+{% block main %}
+<div class="ts-section pb-3 mb-3">
+    <div class="row justify-content-between">
+        <h2 class="col-sm-6 h4">Manage data services</h2>
+        <div class="col-sm-auto">
+            <a  href="{{ url_for('.create_data_service', sourcename=source_name) }}"
+                class="btn btn-primary">
+                Create new
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="my-3 py-3">
+    {{ alerter() }}
+
+    <form class="pb-3">
+        {% if source_name %}
+        <input type="hidden" name="sourcename" value="{{ source_name }}">
+        {% endif %}
+        <div class="row g-2">
+            {% if data_services and data_services|selectattr('origin.value', '==', 'ui')|list|count > 0 %}
+            <div class="col-sm-auto">
+                <div class="btn-group ts-dropdown-select-button">
+                    <a class="btn border border-secondary dropdown-toggle"
+                       href="#"
+                       role="button"
+                       id="selectionDropdown"
+                       data-bs-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="selectionDropdown">
+                        <button type="submit"
+                                class="dropdown-item ts-dropdown-action"
+                                form="dataserviceselection"
+                                formmethod="POST"
+                                formaction="{{ url_for('.remove_multiple_data_services', sourcename=source_name) }}"
+                                >
+                                Remove selected
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if data_services|count > 1 or pattern %}
+            <div class="col">
+                <div class="input-group">
+                    <label class="visually-hidden" for="setFilterInput">Filter data services by name</label>
+                    <input class="form-control" id="setFilterInput" name="dataservicepattern" value="{{ pattern }}" placeholder="Filter data services by name">
+                    <button id="clearSearch" class="btn btn-secondary" type="button">{{ bootstrap_icon('x-lg') }}</button>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </form>
+
+    <form id="dataserviceselection">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {% if source_name %}
+        <input type="hidden" name="sourcename" value="{{ source_name }}">
+        {% endif %}
+        <table id="dataServicesTable" class="ts-table ts-table-checkbox table table-borderless mt-3" data-ts-target="selectionDropdown">
+            <thead class="thead-secondary">
+                <tr class="border-top border-bottom">
+                    <th scope="col">
+                        {% if data_services|selectattr('origin.value', '==', 'ui')|list|count > 0 %}
+                        <input type="checkbox" class="form-check-input">
+                        {% endif %}
+                    </th>
+                    <th scope="col">Data service name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data_service in data_services|sort(attribute='name') %}
+                <tr class="border-bottom">
+                    <td>
+                        {% if data_service.origin.value == 'ui' %}
+                        <input class="form-check-input" type="checkbox" name="{{ data_service.name }}" {% if checked %}checked{% endif %}>
+                        {% else %}
+                        {{ bootstrap_icon('lock', 'text-muted') }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <input type="hidden" name="dataservicenames" value="{{ data_service.name }}">
+                        <a class="ts-table-link text-decoration-none text-dark" href="{{ url_for('.configure_data_service', dataservicename=data_service.name, sourcename=source_name) }}">
+                            {{ data_service.name }}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    <div id="noDataServicesMsg" class="alert alert-info {% if data_services|length %}d-none{% endif %}">
+        No data services found.
+    </div>
+</div>
+
+{% if data_services|count > 0 %}
+<script nonce="{{ csp_nonce }}">
+    window.useTableFilter('#dataServicesTable', '#noDataServicesMsg', '#setFilterInput', '#clearSearch')
+</script>
+{% endif %}
+{% endblock %}

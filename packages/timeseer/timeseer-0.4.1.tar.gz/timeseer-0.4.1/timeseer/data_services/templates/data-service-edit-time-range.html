@@ -1,0 +1,34 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import menu_back %}
+
+{% block menu %}
+{{ menu_back(url_for('.configure_data_service', dataservicename=data_service.name, sourcename=source_name)) }}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <h2 class="h4">Edit time range for {{ data_service.name }}</h2>
+</div>
+
+{% if data_service.time_range.is_relative() and data_service.time_range.relative_date not in relative_dates %}
+<div class="pt-3 my-3">
+    <div class="alert alert-info">
+        The current date "{{ data_service.time_range.relative_date }}" is a custom relative date. Only default time ranges can be selected below.
+    </div>
+</div>
+{% endif %}
+
+<div id="edit-data-service-time-range"
+    data-data-service-name='{{ data_service.name }}'
+    data-time-range='{{ data_service.time_range.to_data()|tojson|safe }}'
+    data-relative-dates='{{ relative_dates|tojson|safe }}'
+    data-create-url="{{ url_for('.edit_data_service_time_range', dataservicename=data_service.name, sourcename=source_name) }}"
+    data-cancel-url="{{ url_for('.configure_data_service', dataservicename=data_service.name, sourcename=source_name) }}">
+</div>
+{% endblock %}
+
+
+{% block scripts_bottom %}
+<script src="{{ url_for('static', filename='dist/edit-data-service-time-range.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}

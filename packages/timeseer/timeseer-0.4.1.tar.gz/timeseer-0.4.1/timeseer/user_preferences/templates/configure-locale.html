@@ -1,0 +1,43 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import alerter %}
+{% from 'configure.html' import configure_menu with context %}
+
+{% block menu %}
+{{ configure_menu('Locale') }}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <h2 class="h4">Manage locale</h2>
+</div>
+
+<div class="my-3 py-3">
+    {{ alerter() }}
+
+    <div class="alert alert-info">
+        Locale settings are user specific.
+        Changing them here does not change them for other users.
+    </div>
+
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="mb-3">
+            <label class='form-label' for="locale">Locale</label>
+            {% if has_locale %}
+            <input type="text" class="form-control" id="locale" name="locale" aria-describedby="localeHelp" value="{{ locale }}" list="localeList">
+            {% else %}
+            <input type="text" class="form-control" id="locale" name="locale" aria-describedby="localeHelp" placeholder="{{ locale }}" list="localeList">
+            {% endif %}
+            <small id="localeHelp" class="form-text text-muted">The locale controls the formatting of numbers.</small>
+
+            <datalist id="localeList">
+                {% for value in available_locales %}
+                <option>{{ value }}</option>
+                {% endfor %}
+            </datalist>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

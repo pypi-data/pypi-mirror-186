@@ -1,0 +1,37 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import alerter, menu_back, description_explanations %}
+
+{% block menu %}
+{{ menu_back(url_for('.display_flow', flowname=flow.name, sourcename=source_name)) }}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <h2 class="h4">Edit description of {{ flow.name }}</h2>
+</div>
+
+<div class="pt-3 my-3">
+    {{ alerter() }}
+
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="flowid" value="{{ flow.db_id }}">
+
+        <div class="mb-3">
+            <label for="flowDescription" class="form-label">Description</label>
+            <textarea id="flowDescription" name="flowdescription" class="form-control" rows="10">{{ flow.help_text or "" }}</textarea>
+            {{ description_explanations(resource) }}
+        </div>
+
+        <div class="btn-toolbar">
+            <button type="submit" class="btn btn-primary me-2">Update</button>
+            <a class="btn btn-secondary"
+                href="{{ url_for('.display_flow', flowname=flow.name, sourcename=source_name) }}"
+                role="button">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

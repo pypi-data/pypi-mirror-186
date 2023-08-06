@@ -1,0 +1,181 @@
+{% extends 'timeseer.html' %}
+{% from 'data-service-header.html' import data_service_breadcrumb, data_service_header with context %}
+{% from 'macros.html' import bootstrap_icon, menu, visualize_score %}
+{% from 'data-service-menu.html' import data_service_menu with context %}
+
+{% block csp_style %}
+'self' 'unsafe-inline'
+{% endblock %}
+
+{% block styles %}
+<style nonce="{{ csp_nonce }}">
+    .score-table {
+        table-layout: fixed;
+    }
+</style>
+{% endblock %}
+
+{% block menu %}
+{{ data_service_menu(kpi.name) }}
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='dist/charts.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}
+
+{% set title = kpi.name %}
+
+{% block breadcrumb %}
+{{
+    data_service_breadcrumb(current_bin, [
+        title
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+{% call data_service_header(current_bin, title) %}
+<a  href="{{ url_for('.kpi_evolution', sourcename=source_name, kpi=kpi.name, binid=current_bin.db_id) }}"
+    class="btn btn-primary">
+    History
+</a>
+{% endcall %}
+
+{% if kpi.short_help_text != "" %}
+<div class="pt-3 my-3">
+    <p>
+        {{ kpi.short_help_text }}
+        <a data-bs-toggle="offcanvas"
+           href="#kpi-help-text"
+           aria-controls="kpi-help-text"
+           aria-expanded="false">
+            {{ bootstrap_icon('question-circle') }}
+        </a>
+    </p>
+
+    <div class="ts-help-sidebar offcanvas offcanvas-end" tabindex="-1" id="kpi-help-text">
+        <div class="offcanvas-header">
+            <h3 class="offcanvas-title h5">{{ kpi.name }}</h3>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+        {{ kpi.html_help_text|safe }}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if scores|count > 0 %}
+<div class="my-3">
+    <table class="ts-table table table-borderless score-table">
+        <thead class="thead-secondary">
+            <tr class="border-top border-bottom">
+                <th scope="col">Check</th>
+                <th scope="col">Score (higher is better)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in scores %}
+            <tr class="border-bottom">
+                <td>
+                    {% if result.metadata.name in multivariate_checks %}
+                    {{ result.metadata.name|capitalize }}
+                    {% else %}
+                    <a class="ts-table-link text-dark fw-normal text-decoration-none" href="{{ url_for('.score_event_frames', sourcename=source_name, kpi=kpi.name, score=result.metadata.name, binid=current_bin.db_id) }}">
+                        {{ result.metadata.name|capitalize }}
+                    </a>
+                    {% endif %}
+                    {% if result.metadata.short_help_text %}
+                    <span data-bs-toggle="popover"
+                          data-bs-placement="right"
+                          data-bs-trigger="hover"
+                          data-bs-content="{{ result.metadata.short_help_text }}">
+                        <svg class="bi" width="16" height="16" fill="currentColor">
+                            <use xlink:href="/static/dist/bootstrap-icons.svg#question-circle"/>
+                        </svg>
+                    </span>
+                    {% endif %}
+                </td>
+                {{ visualize_score(result.score) }}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="my-3">
+    <div class="alert alert-info">
+        No results to display.
+    </div>
+</div>
+{% endif %}
+{% if current_bin.data_service_view.data_service.time_range.has_no_time_range() is false %}
+<div class="mt-4" id="bad-actor-visualization-container">
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h3 class="mb-0 h5">Bad actor visualization</h3>
+        </div>
+        <div class="row gx-0">
+        <div id="bad-actor-visualization">
+            <div class="alert alert-primary mt-2">
+                <div class="row align-items-center">
+                    <div class="col">
+                        Loading chart...
+                    </div>
+                    <div class="col-auto">
+                        <div class="spinner-border text-primary" role="status"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<script nonce="{{ csp_nonce }}">
+{% include 'scripts/flow-bad-actor-visualization.js' %}
+
+fetch('{{ url_for("data_services_api.bad_actors_kpi_data") }}?' + new URLSearchParams({
+    binid: '{{ current_bin.db_id }}',
+    includelinks: true,
+    kpi: '{{ kpi.name }}'
+}))
+    .then(function (response) {
+        if (response.status === 200) {
+            return response.json();
+        } else if (response.status === 408 || response.status === 504) {
+            throw new Error('Timeout while loading bad actors visualization data.')
+        } else {
+            throw new Error('Failed to load bad actors visualization data.')
+        }
+    }).then(function (data) {
+        var chartEl = document.getElementById('bad-actor-visualization');
+        while (chartEl.firstChild) {
+            chartEl.removeChild(chartEl.lastChild);
+        }
+        if (data.length == 0) {
+           document.getElementById('bad-actor-visualization').innerHTML = `
+                <div class="text-muted text-center p-1">No results to display.</div>
+           `
+        } else {
+            const unhealthyBadActors = updateBadActorsScores(data).filter(badActor => 
+                badActor.tiles.some(tile => tile.score > 0)
+            )
+            if (unhealthyBadActors.length == 0) {
+                document.getElementById('bad-actor-visualization').innerHTML = `
+                    <div class="text-muted text-center p-1">
+                        {{ bootstrap_icon('circle-fill', 'text-success align-baseline me-1', 12) }}
+                        All series are healthy.
+                    </div>
+                `
+            } else {
+                plotBadActors(unhealthyBadActors);
+            }
+        }
+    }, function (exception) {
+        document.getElementById('bad-actor-visualization').innerHTML = `
+            <div class="alert alert-danger mt-2">${exception.message}</div>
+        `;
+    });
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import menu_back, visualize_series_name %}
+
+{% block menu %}
+{{ menu_back(url_for('.show_optimization', optimizationid=optimization.db_id, sourcename=source_name)) }}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <h2 class="h4">Remove compression optimization</h2>
+    <p class="h6 text-break">
+        <a class="ts-series-details ts-table-link text-decoration-none text-dark"
+            data-series-url="{{ url_for('metadata.get_metadata', seriesid=optimization.series.series_id) }}"
+            data-sensor-spec-url="{{ url_for('sensor_specs.update_sensor_specs', seriesid=optimization.series.series_id) }}"
+            href="#">
+            {{ visualize_series_name(optimization.series.name) }}
+        </a>
+        <small class="text-muted">{{ optimization.series.source }}</small>
+    </p>
+</div>
+
+<div class="pt-3 my-3">
+    <form method="POST" action="{{ url_for('.remove_optimization', sourcename=source_name) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="optimizationid" value="{{ optimization.db_id }}">
+        <div class="btn-toolbar">
+            <button type="submit" class="btn btn-primary me-2">
+                Yes
+            </button>
+            <a class="btn btn-secondary" href="{{ url_for('.show_optimization', optimizationid=optimization.db_id, sourcename=source_name) }}">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

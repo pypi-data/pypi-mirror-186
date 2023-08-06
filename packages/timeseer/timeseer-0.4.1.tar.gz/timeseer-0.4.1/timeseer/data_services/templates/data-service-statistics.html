@@ -1,0 +1,53 @@
+{% extends 'timeseer.html' %}
+{% from 'data-service-header.html' import data_service_breadcrumb, data_service_header with context %}
+{% from 'macros.html' import menu_back, visualize_series %}
+
+{% block styles %}
+<style nonce="{{ csp_nonce }}">
+    .score-table {
+        table-layout: fixed;
+    }
+    .score-table .score-grouping {
+        width: 20%;
+    }
+    .score-table .score {
+        width: 20%;
+    }
+</style>
+{% endblock %}
+
+{% block menu %}
+{{ menu_back(url_for('data_services.show_data_service_view_bin', binid=current_bin.db_id, sourcename=source_name)) }}
+{% endblock %}
+
+{% set title = 'Statistics' %}
+
+{% block breadcrumb %}
+{{
+    data_service_breadcrumb(current_bin, [title])
+}}
+{% endblock %}
+
+{% block csp_style %}
+'self' 'unsafe-inline'
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='dist/charts.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}
+
+{% block main %}
+{{ data_service_header(current_bin, title) }}
+
+{% if statistics|count > 0 %}
+    {% include 'fragments/statistics-table.html' %}
+{% else %}
+<div class="alert alert-info">
+    <p>No multivariate statistics available for this series set.</p>
+    <div>
+        For statistics on individual series,
+        navigate to the <a href="{{ url_for('.series_score_report', binid=current_bin.db_id, sourcename=source_name) }}">corresponding page</a> for the series first.
+    </div>
+</div>
+{% endif %}
+{% endblock %}

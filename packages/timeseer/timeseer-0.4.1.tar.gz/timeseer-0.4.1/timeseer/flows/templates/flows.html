@@ -1,0 +1,75 @@
+{% from 'macros.html' import bootstrap_icon %}
+{% from 'resources.html' import resource_breadcrumb %}
+{% macro flows_breadcrumb(block_evaluation, items=[]) %}
+{{
+    resource_breadcrumb([
+        ('Flows', url_for('flows.list_flows', sourcename=source_name)),
+        (block_evaluation.flow_evaluation.group.flow.name, url_for('flows.display_flow', flowname=block_evaluation.flow_evaluation.group.flow.name, sourcename=source_name))
+    ] + items)
+}}
+{% endmacro %}
+
+{% macro flows_header(block_evaluation, title) %}
+<div class="ts-section py-3 my-3">
+    <div class="row align-items-center">
+        <div class="col">
+            <h2 class="h4">
+                {{ title }}
+            </h2>
+            <p class="h6">
+                <a href="{{ url_for('flows.list_series', flowevaluationid=block_evaluation.flow_evaluation.db_id, sourcename=source_name) }}">{{ block_evaluation.flow_evaluation.series_set_name }}</a> ({{ block_evaluation.flow_evaluation.group.flow.name }}) {{ help_text_icon(block_evaluation.flow_evaluation.group.flow) }}
+            </p>
+            <p class="text-muted">
+                {% if block_evaluation.flow_evaluation.group.time_range.has_no_time_range() is true %}
+                -
+                {% else %}
+                From {{ block_evaluation.flow_evaluation.group.time_range.start_date|ts_datetime }} to {{ block_evaluation.flow_evaluation.group.time_range.end_date|ts_datetime }}
+                {% endif %}
+            </p>
+        </div>
+        {% if caller is defined %}
+        <div class="col-lg-auto">
+            {{ caller() }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{{ help_text_side_panel(block_evaluation.flow_evaluation.group.flow, allow_edit=False) }}
+{% endmacro %}
+
+{% macro help_text_icon(flow) %}
+{% if flow.short_help_text != "" or flow.origin.value == 'ui' %}
+<a data-bs-toggle="offcanvas"
+   href="#flow-help-text"
+   aria-controls="flow-help-text"
+   aria-expanded="false">
+    {{ bootstrap_icon('question-circle') }}
+</a>
+{% endif %}
+{% endmacro %}
+
+{% macro help_text_side_panel(flow, allow_edit=True) %}
+{% if flow.short_help_text != "" or flow.origin.value == 'ui' %}
+<div class="offcanvas offcanvas-end" tabindex="-1" id="flow-help-text">
+    <div class="offcanvas-header">
+        <h3 class="offcanvas-title h5">{{ flow.name }}</h3>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        {% if flow.short_help_text == "" %}
+        <p>No description provided</p>
+        {% else %}
+        <p>{{ flow.short_help_text }}</p>
+        <div>{{ flow.html_help_text|safe }}</div>
+        {% endif %}
+        {% if flow.origin.value == 'ui' and allow_edit == True %}
+        <p class="mt-3">
+            <a class="btn btn-primary" href="{{ url_for('flows.edit_flow_help_text', flowid=flow.db_id, sourcename=source_name) }}">
+                Edit description
+            </a>
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endmacro %}

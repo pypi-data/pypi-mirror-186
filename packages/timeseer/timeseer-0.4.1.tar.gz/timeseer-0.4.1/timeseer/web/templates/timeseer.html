@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+{% from 'macros.html' import bootstrap_icon %}
+
+<head>
+    <meta charset="utf-8">
+    {% if tsai_disable_csp is not defined or not tsai_disable_csp %}
+    {% block csp %}
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'strict-dynamic' 'nonce-{{ csp_nonce }}'; style-src {% block csp_style %}'nonce-{{ csp_nonce }}' 'sha256-9bmWdGmvTt451agEWLIAsVFCBRcb7DCL88W88F5JDHs='{% endblock %}; img-src 'self' data:">
+    {% endblock csp %}
+    {% endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+
+    <script nonce="{{ csp_nonce }}">
+        window.csrfToken = "{{ csrf_token() }}";
+    </script>
+    <script nonce="{{ csp_nonce }}">
+        window.cspNonce = "{{ csp_nonce }}";
+    </script>
+    <script src="{{ url_for('static', filename='dist/lib.js') }}" nonce="{{ csp_nonce }}"></script>
+
+    {% block scripts %}{% endblock %}
+    {% block styles %}{% endblock %}
+    <title>{% block title %}Timeseer.AI{% endblock %}</title>
+</head>
+
+<body>
+    <div class="d-md-flex">
+
+        <div class="ts-nav align-self-start d-md-flex">
+            <nav class="ts-side-bar text-center">
+                <div class="d-flex flex-column align-items-start">
+                    <div class="d-none d-md-block">
+                        <a class="ts-side-bar-logo d-flex justify-content-center align-items-center"
+                            href="{{ url_for('home.home_page', sourcename=source_name) }}">
+                            <img src="{{ url_for('static', filename='icon.png') }}">
+                        </a>
+                    </div>
+                    <div class="ts-side-bar-nav">
+                        <a href="{{ url_for('home.home_page', sourcename=source_name) }}">
+                            {{ bootstrap_icon('house-door-fill', size=16) }}
+                            Home
+                        </a>
+                        <a href="{{ url_for('flows.list_flows', sourcename=source_name) }}">
+                            {{ bootstrap_icon('bricks', size=16) }}
+                            Resources
+                        </a>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#createApplicationModal">
+                            {{ bootstrap_icon('grid-3x3-gap-fill', size=16) }}
+                            Apps
+                        </a>
+                        <a href="{{ url_for('home.configure', sourcename=source_name) }}">
+                            {{ bootstrap_icon('gear-fill', size=16) }}
+                            Configure
+                        </a>
+                        <a href="{{ url_for('help.display_help', sourcename=source_name) }}">
+                            {{ bootstrap_icon('question-circle-fill', size=16) }}
+                            Help
+                        </a>
+                        <a href="{{ url_for('home.feedback', sourcename=source_name) }}">
+                            {{ bootstrap_icon('mic-fill', size=16) }}
+                            Feedback
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            {% block menu %}
+            {% endblock %}
+        </div>
+
+        <main class="flex-grow-1 px-md-5 overflow-auto">
+            <div class="container-fluid">
+                {% block breadcrumb %}{% endblock %}
+                {% block main %}{% endblock %}
+                <div id="series-details"></div>
+            </div>
+        </main>
+        {% block sidebar_right %}
+        {% endblock %}
+    </div>
+    {% block scripts_bottom %}{% endblock %}
+    {% include 'apps-modal.html' %}
+</body>
+
+</html>

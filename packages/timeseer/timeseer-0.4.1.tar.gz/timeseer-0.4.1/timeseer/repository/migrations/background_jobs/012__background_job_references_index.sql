@@ -1,0 +1,1 @@
+create index background_jobs_references_reference_id on BackgroundJobReferences(reference);

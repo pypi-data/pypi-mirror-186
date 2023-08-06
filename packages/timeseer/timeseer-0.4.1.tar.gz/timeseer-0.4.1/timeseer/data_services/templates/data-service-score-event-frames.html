@@ -1,0 +1,289 @@
+{% extends 'timeseer.html' %}
+{% from 'data-service-header.html' import data_service_breadcrumb, data_service_header with context %}
+{% from 'macros.html' import bootstrap_icon, pagination, visualize_series, visualize_series, data_service_event_frame_details, info_popover, visualize_series_name %}
+{% from 'data-service-menu.html' import data_service_menu with context %}
+
+{% macro visualize_sorting(sort_field, sort_direction, field) %}
+    {% if sort_field == field %}
+        {% if sort_direction == 'asc' %}
+        {% set other_direction = 'desc' %}
+        {% else %}
+        {% set other_direction = 'asc' %}
+        {% endif %}
+        <a class="text-reset text-decoration-none" href="{{ url_for('.score_event_frames', binid=current_bin.db_id, kpi=kpi.name, score=score.name, startDate=start_date, endDate=end_date, status=status, explanation=explanation, sort=field, direction=other_direction) }}">
+            {{ caller() }}
+            {% if sort_direction == 'desc' %}
+            <svg class="bi" width="16" height="16" fill="currentColor">
+                <use xlink:href="/static/dist/bootstrap-icons.svg#caret-down-fill"/>
+            </svg>
+            {% else %}
+            <svg class="bi" width="16" height="16" fill="currentColor">
+                <use xlink:href="/static/dist/bootstrap-icons.svg#caret-up-fill"/>
+            </svg>
+            {% endif %}
+        </a>
+    {% else %}
+        <a class="text-reset text-decoration-none" href="{{ url_for('.score_event_frames', binid=current_bin.db_id, kpi=kpi.name, score=score.name, startDate=start_date, endDate=end_date, status=status, explanation=explanation, sort=field, direction=sort_direction) }}">
+            {{ caller() }}
+            {% if sort_direction == 'desc' %}
+            <svg class="bi text-secondary" width="16" height="16" fill="currentColor">
+                <use xlink:href="/static/dist/bootstrap-icons.svg#caret-down"/>
+            </svg>
+            {% else %}
+            <svg class="bi text-secondary" width="16" height="16" fill="currentColor">
+                <use xlink:href="/static/dist/bootstrap-icons.svg#caret-up"/>
+            </svg>
+            {% endif %}
+        </a>
+    {% endif %}
+{% endmacro %}
+
+{% block menu %}
+{{ data_service_menu(kpi.name) }}
+{% endblock %}
+
+{% set title = score.name|capitalize %}
+
+{% block breadcrumb %}
+{{
+    data_service_breadcrumb(current_bin, [
+        (kpi.name, url_for('data_services.kpi_report', binid=current_bin.db_id, kpi=kpi.name, sourcename=source_name)),
+        title
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+{% call data_service_header(current_bin, title) %}
+<div class="row">
+    <div class="col-md-auto mt-2 mt-md-0">
+        <a  href="{{ url_for('.score_evolution', sourcename=source_name, kpi=kpi.name, score=score.name, binid=current_bin.db_id) }}"
+            class="btn btn-primary">
+            History
+        </a>
+    </div>
+</div>
+{% endcall %}
+
+<div class="pt-3 my-3">
+    <div class="row">
+        <div class="col">
+            {% if score.short_help_text %}
+            <p>
+                {{ score.short_help_text }}
+                <a data-bs-toggle="offcanvas"
+                href="#score-help-text"
+                aria-controls="score-help-text"
+                aria-expanded="false">
+                    {{ bootstrap_icon('question-circle') }}
+                </a>
+            </p>
+
+            <div class="ts-help-sidebar offcanvas offcanvas-end" tabindex="-1" id="score-help-text">
+                <div class="offcanvas-header">
+                    <h3 class="offcanvas-title h5">{{ score.name }}</h3>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                {{ score.html_help_text|safe }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% if current_bin.data_service_view.data_service.origin.value in ['ui', 'control loop'] and event_frames|count > 0 and all_flow_names|count > 0 %}
+        <div class="col-lg-auto">
+            <a class="btn btn-primary"
+                data-bs-toggle="offcanvas"
+                href="#add-filter-canvas"
+                aria-controls="add-filter-canvas"
+                aria-expanded="false">
+                Add filter
+            </a>
+        </div>
+        <div class="ts-help-sidebar offcanvas offcanvas-end" tabindex="-1" id="add-filter-canvas">
+            <div class="offcanvas-header">
+                <h3 class="offcanvas-title h5">Add filter</h3>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div id="add-filters"
+                    data-all-flow-names='{{ all_flow_names|tojson|safe }}'
+                    data-flow-filter-block-names='{{ flow_filter_block_names|tojson|safe }}'
+                    data-event-frame-types='{{ event_frame_types|tojson|safe }}'
+                    data-augmentation-strategies='{{ augmentation_strategies|tojson|safe }}'
+                    data-all-series='{{ all_series|tojson|safe }}'
+                    data-event-frame-type-categories='{{ event_frame_type_categories|tojson|safe }}'
+                    data-add-filter-url="{{ url_for('filters.add_data_service_filter', sourcename=source_name, kpi=kpi.name, score=score.name, binid=current_bin.db_id) }}">
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('.score_summary', binid=current_bin.db_id, kpi=kpi.name, score=score.name, sourcename=source_name) }}">
+                Summary
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('.score_report', binid=current_bin.db_id, kpi=kpi.name, score=score.name, sourcename=source_name) }}">
+                Time series
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ url_for('.score_event_frames', binid=current_bin.db_id, kpi=kpi.name, score=score.name, sourcename=source_name) }}">
+                Event frames
+            </a>
+        </li>
+    </ul>
+</div>
+
+<form class="mb-3" id="eventframeselection">
+    <input type="hidden" name="score" value="{{ score.name }}">
+    <input type="hidden" name="kpi" value="{{ kpi.name }}">
+    <input type="hidden" name="sort" value="{{ sort_field }}">
+    <input type="hidden" name="direction" value="{{ sort_direction }}">
+    <input type="hidden" name="binid" value="{{ current_bin.db_id }}">
+    <div class="row align-items-end gx-2">
+        <div class="col-xl-3 col-lg-6">
+            <label for="startDateInput" class="col-form-label">Start date</label>
+            <input type="datetime-local" step="1" class="form-control" id="startDateInput" name="startDate" data-ts-datetime-value="{{ start_date }}">
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <label for="endDateInput" class="col-form-label">End date</label>
+            <input type="datetime-local" step="1" class="form-control" id="endDateInput" name="endDate" data-ts-datetime-value="{{ end_date }}">
+        </div>
+        <div class="col-xl-2 col-lg-6">
+          <label for="statusInput" class="form-label">Status</label>
+          <select class="form-select" id="statusInput" name="status">
+            <option {% if not status %}selected{% endif %}value=""></option>
+            {% for status_type in event_frame_status %}
+            <option {% if status_type.value == status %}selected{% endif %} value="{{ status_type.value }}">{{ status_type.value|capitalize }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-xl-2 col-lg-4">
+            <label for="explanationInput" class="form-label">Explanation</label>
+            <select class="form-select" id="explanationInput" name="explanation">
+                <option></option>
+                <option value="without" {% if explanation is not none and explanation == "without" %}selected{% endif %}>Without explanation</option>
+                <option value="with" {% if explanation is not none and explanation == "with" %}selected{% endif %}>With explanation</option>
+            </select>
+        </div>
+        <div class="col mt-lg-0 mt-2">
+            <button type="submit" class="btn btn-secondary">Filter</button>
+        </div>
+    </div>
+</form>
+
+{% if event_frames %}
+{{ pagination(
+    paging,
+    url_for('.score_event_frames', binid=current_bin.db_id, kpi=kpi.name, score=score.name, startDate=start_date, endDate=end_date, status=status, explanation=explanation, page=paging.page-1, sort=sort_field, direction=sort_direction),
+    url_for('.score_event_frames', binid=current_bin.db_id, kpi=kpi.name, score=score.name, startDate=start_date, endDate=end_date, status=status, explanation=explanation, page=paging.page+1, sort=sort_field, direction=sort_direction)
+) }}
+<table class="ts-table table table-borderless ts-table-button">
+    <thead class="thead-secondary">
+        <tr class="border-top border-bottom">
+            <th scope="col">
+                    Series
+            </th>
+            <th scope="col">
+                {% call visualize_sorting(sort_field, sort_direction, 'start_date') %}
+                    Start date
+                {% endcall %}
+            </th>
+            <th scope="col">
+                {% call visualize_sorting(sort_field, sort_direction, 'end_date') %}
+                    End date
+                {% endcall %}
+            </th>
+            <th scope="col">
+                {% call visualize_sorting(sort_field, sort_direction, 'duration') %}
+                    Duration
+                {% endcall %}
+            </th>
+            <th scope="col">Status</th>
+            <th scope="col">Explanation</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for frame in event_frames %}
+        <tr class="border-bottom hover-menu">
+            <td class="series-cell">
+              {% for reference in frame.reference %}
+                <div>
+                    <a
+                        class="ts-table-link text-dark fw-normal text-decoration-none text-break"
+                        href="{{ url_for('data_services.show_event_frames', seriesid=reference.series_id, binid=current_bin.db_id) }}"
+                        >{{ visualize_series_name(reference.name) }}
+                    </a>
+                </div>
+              {% endfor %}
+            </td>
+            <td>{{ frame.start_date|ts_datetime }}</td>
+            {% if frame.end_date is not none %}
+            <td>{{ frame.end_date|ts_datetime }}</td>
+            <td>{{ (frame.end_date - frame.start_date)|timedeltaformat }}</td>
+            {% else %}
+            <td>-</td>
+            <td>-</td>
+            {% endif %}
+            <td>{{ (frame.status or '-')|capitalize }}</td>
+            {% if frame.explanation is not none and frame.explanation != '' %}
+            <td>{{ info_popover(frame.explanation, 'chat-left-text-fill', 'text-info ts-popover', trigger='click') }}</td>
+            {% else %}
+            <td>-</td>
+            {% endif %}
+            <td>
+                {% set offcanvas_id = 'details-' + frame.db_id|string %}
+                <div class="btn-group row-hover-menu-button">
+                    <a class="btn btn-black dropdown-toggle-no-arrow"
+                        href="#"
+                        role="button"
+                        id="{{frame.id}}-menu"
+                        data-bs-toggle="dropdown">
+                        {{bootstrap_icon('three-dots', ' align-middle')}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="{{frame.id}}-menu">
+                        <button class="dropdown-item"
+                                data-bs-toggle="offcanvas"
+                                href="#{{ offcanvas_id }}"
+                                aria-expanded="false">
+                            {{ 'Add' if frame.explanation is none or frame.explanation == '' else 'Edit'}} context
+                        </button>
+                        {% if frame.reference is not none and frame.reference|count == 1 %}
+                        <a class="dropdown-item" href="{{ url_for('data_services.chart', binid=current_bin.db_id, seriesid=frame.reference[0].series_id, startDate=frame.start_date, endDate=frame.end_date, context=10) }}">
+                            Visualize
+                        </a>
+                        {% elif frame.reference|count > 1 %}
+                        <a class="dropdown-item" href="{{ url_for('data_services.show_bivariate_chart', eventframeid=frame.db_id, binid=current_bin.db_id, seriesid=frame.reference[0].series_id, startDate=frame.start_date, endDate=frame.end_date, context=10) }}">
+                            Visualize
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {{ data_service_event_frame_details(frame, current_bin, offcanvas_id, event_frame_status) }}
+        {% endfor %}
+    </tbody>
+</table>
+{{ pagination(
+    paging,
+    url_for('.score_event_frames', binid=current_bin.db_id, kpi=kpi.name, score=score.name, startDate=start_date, endDate=end_date, status=status, explanation=explanation, page=paging.page-1, sort=sort_field, direction=sort_direction),
+    url_for('.score_event_frames', binid=current_bin.db_id, kpi=kpi.name, score=score.name, startDate=start_date, endDate=end_date, status=status, explanation=explanation, page=paging.page+1, sort=sort_field, direction=sort_direction)
+) }}
+{% else %}
+<div class="alert alert-info">
+    No event frames available in this time frame.
+</div>
+{% endif %}
+{% endblock %}
+
+
+{% block scripts_bottom %}
+<script src="{{ url_for('static', filename='dist/add-filters.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}

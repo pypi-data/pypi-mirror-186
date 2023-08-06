@@ -1,0 +1,38 @@
+{% from 'resources.html' import resource_breadcrumb %}
+
+{% macro data_service_breadcrumb(current_bin, items=[]) %}
+{{
+    resource_breadcrumb([
+        ("Data services", url_for('data_services.list_data_services', sourcename=source_name)),
+        (current_bin.data_service_view.data_service.name, url_for('data_services.configure_data_service', dataservicename=current_bin.data_service_view.data_service.name, sourcename=source_name)),
+        (current_bin.data_service_view.series_set_name, url_for('data_services.show_data_service_view_bin', binid=current_bin.db_id, sourcename=source_name))
+    ] + items)
+}}
+{% endmacro %}
+
+{% macro data_service_header(current_bin, title) %}
+<div class="ts-section py-3 my-3">
+    <div class="row align-items-center">
+        <div class="col">
+            <h2 class="h4">
+                {{ title }}
+            </h2>
+            <p class="h6">
+                {{current_bin. data_service_view.data_service.series_set_name }} ({{ current_bin.data_service_view.data_service.name }})
+            </p>
+            <p class="text-muted">
+                {% if current_bin.data_service_view.data_service.time_range.has_no_time_range() is true %}
+                -
+                {% else %}
+                From {{ current_bin.start_date|ts_datetime }} to {{ current_bin.end_date|ts_datetime }}
+                {% endif %}
+            </p>
+        </div>
+        {% if caller is defined %}
+        <div class="col-lg-auto">
+            {{ caller() }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}

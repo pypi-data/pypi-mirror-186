@@ -1,0 +1,28 @@
+{% extends 'timeseer.html' %}
+
+{% from 'macros.html' import alerter, menu_back %}
+
+{% block menu %}
+{{ menu_back(url_for('.list_smart_taggings', sourcename=source_name)) }}
+{% endblock %}
+
+{% block main %}
+<div class="ts-section py-3 my-3">
+    <h2 class="h4">Smart tagging for {{ series_set_name }}</h2>
+</div>
+{{alerter()}}
+
+<div class="smart-tagging"
+    data-state-url="{{ url_for('.get_ui_state', seriessetname=series_set_name) }}"
+    data-next-prediction-url="{{ url_for('.get_next_prediction', seriessetname=series_set_name) }}"
+    data-push-label-url="{{ url_for('.push_labels', seriessetname=series_set_name)}}"
+    data-results-url="{{ url_for('.results', seriessetname=series_set_name)}}"
+    data-series-set-url="{{ url_for('series_sets.manage_series_set', seriessetname=series_set_name)}}"
+    data-total-series="{{ series_count }}">
+</div>
+{% endblock %}
+
+
+{% block scripts_bottom %}
+<script src="{{ url_for('static', filename='dist/smart-tagging.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}

@@ -1,0 +1,159 @@
+---
+- name: "Consistency"
+  helpText: |
+    Scores basic consistency between units of measurements and data values.
+
+    Inconsistencies may be an indication of incorrect meta data, corrupted data, or sensor issues.
+  type: KPI
+  weights:
+    "Values outside unit range": 2
+
+- name: "Completeness"
+  helpText: |
+    Provides a basic indication of data availability / completeness.
+
+    Missing data can be a sign for an underlying connectivity issue or sensor failure.
+  type: KPI
+  weights:
+    "NaNs": 2
+    "Data available": 2
+
+- name: "Validity"
+  helpText: |
+    Indicates whether all data are values within the value domain specified by the business.
+
+    Includes comparison to data types, bounds, etc."
+  type: KPI
+  weights:
+    "Out-of-bounds (lower, physical)": 2
+    "Out-of-bounds (upper, physical)": 2
+    "Values in dictionary": 2
+    "Data matches data type": 2
+
+- name: "Integrity"
+  helpText: |
+    Indicates whether data are consistent with structural expectations (eg. no duplicate timestamps).
+
+    Breaking of integrity means that downstream analytics might be unreliable even if the actual data is correct. For example, duplicate timestamps or out-of-orde samples will break most time-series analytics.
+  type: KPI
+  weights:
+    "Source bad quality flags": 2
+    "No out-of-order samples": 2
+    "No duplicate timestamps": 2
+
+- name: "Timeliness"
+  helpText: |
+    Indicates whether new updates are coming in timely.
+
+    If the data capturing process is interrupted for a larger period of time (e.g. due to network issues) than it is possible the system can't recover from this causing gaps or longer periods without updates in the archived data.
+  type: KPI
+  weights:
+    "Recently updated": 2
+
+- name: "Metadata"
+  helpText: |
+    Scores basic metadata completeness.
+
+    Complete and correct metadata are important to make your data discoverable and essential for interpretation, comparison and transformation of data. These should include operating ranges, limits, units and overall a view on asset relations.
+  type: KPI
+  weights:
+    "Unit - Physical": 1
+    "Limits - Physical": 1
+    "Description": 1
+    "Dictionary": 1
+
+- name: "Accuracy"
+  helpText: |
+    Indicates how accurately data reflect the underlying physical reality.
+
+    In particular, data compression artefacts will affect the score of this KPI.
+  type: KPI
+  weights:
+    "Compression - flat archival rate": 1
+    "Compression - value dependent archival rate": 1
+
+- name: "Consistency+"
+  helpText: |
+    Scores consistency between meta data (eg. limits, units) and data.
+
+    Inconsistencies may be an indication of incorrect meta data, corrupted data, or sensor issues.
+  type: KPI
+  weights:
+    "Values outside unit range": 2
+    "Improbable Limits": 1
+
+- name: "Completeness+"
+  helpText: |
+    Provides a basic indication of data availability / completeness.
+
+    Missing data can be a sign for an underlying connectivity issue or sensor failure.
+  type: KPI
+  weights:
+    "NaNs": 2
+    "Data available": 2
+
+- name: "Validity+"
+  helpText: |
+    Indicates whether all data are values within the value domain specified by the business.
+
+    Includes comparison to data types, bounds, etc."
+  type: KPI
+  weights:
+    "Out-of-bounds (lower, physical)": 2
+    "Out-of-bounds (upper, physical)": 2
+    "Values in dictionary": 2
+    "Data matches data type": 2
+    "Out-of-bounds (lower)": 1
+    "Out-of-bounds (lower, accuracy)": 1
+    "Out-of-bounds (lower, physical, accuracy)": 1
+    "Out-of-bounds (upper)": 1
+    "Out-of-bounds (upper, accuracy)": 1
+    "Out-of-bounds (upper, physical, accuracy)": 1
+
+- name: "Integrity+"
+  helpText: |
+    Indicates whether data are consistent with structural expectations (eg. no duplicate timestamps).
+
+    Breaking of integrity means that downstream analytics might be unreliable even if the actual data is correct. For example, duplicate timestamps or out-of-orde samples will break most time-series analytics.
+  type: KPI
+  weights:
+    "Source bad quality flags": 2
+    "No out-of-order samples": 2
+    "No duplicate timestamps": 2
+
+- name: "Timeliness+"
+  helpText: |
+    Indicates whether new updates are coming in timely, and sensors give regular updates.
+
+    If the data capturing process is interrupted for a larger period of time (e.g. due to network issues) than it is possible the system can't recover from this causing gaps or longer periods without updates in the archived data.
+  type: KPI
+  weights:
+    "Recently updated": 2
+    "Increased archival step size": 1
+    "Stale data (distribution)": 1
+
+- name: "Metadata+"
+  helpText: |
+    Scores basic metadata completeness.
+
+    Complete and correct metadata are important to make your data discoverable and essential for interpretation, comparison and transformation of data. These should include operating ranges, limits, units and overall a view on asset relations.
+  type: KPI
+  weights:
+    "Unit - Physical": 1
+    "Limits - Physical": 1
+    "Description": 1
+    "Dictionary": 1
+    "Interpolation Type": 1
+    "Unit - Functional": 1
+    "Limits - Functional": 1
+
+- name: "Control loops"
+  helpText: |
+    Scores key metrics to score control loop data (eg. saturation, oscillation, valve stiction).
+
+    Control loops are used to maintain process variables (PVs) at a desired value or set point (SP). Control loops are important for maintaining the stability of a system, and for consistently producing the desired outcome of a process. Bad data from control loops can be indicative for valve issues, suboptimal tuning, or incorrect sizing of the control mechanism system.
+  type: KPI
+  weights:
+    "Control Loop Oscillation": 1
+    "Stiction": 1
+    "Saturation": 1

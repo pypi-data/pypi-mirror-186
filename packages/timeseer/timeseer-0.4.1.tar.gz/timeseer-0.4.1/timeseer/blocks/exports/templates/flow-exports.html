@@ -1,0 +1,53 @@
+{% extends 'timeseer.html' %}
+{% from 'flows.html' import flows_breadcrumb, flows_header with context %}
+{% from 'macros.html' import menu_back %}
+
+{% block menu %}
+{{ menu_back(url_for('flows.display_flow', flowevaluationid=block_evaluation.flow_evaluation.db_id, sourcename=source_name)) }}
+{% endblock %}
+
+{% set title = 'Exports' %}
+
+{% block breadcrumb %}
+{{
+    flows_breadcrumb(block_evaluation, [
+        (block_evaluation.name, url_for('exports.list_exports', blockevaluationid=block_evaluation.db_id, sourcename=source_name)),
+        title,
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+{{ flows_header(block_evaluation, title) }}
+
+{% if exports|count > 0 %}
+<ul class="list-group"></ul>
+{% for export in exports|sort(attribute='date', reverse=True) %}
+{% if export.date %}
+    <li class="list-group-item">
+        <form method='POST' action="{{ url_for('.download') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="fileid" value="{{ export.db_id }}">
+            <input type="hidden" name="blockevaluationid" value="{{ block_evaluation.db_id }}">
+            <div class="row align-items-center">
+                <div class="col-lg">
+                    <div class="row">
+                        <span>{{ export.filename }}</span>
+                    </div>
+                    <div class="row">
+                        <small class='text-muted'>{{ export.date|ts_datetime }}</small>
+                    </div>
+                </div>
+                <div class="col-lg-auto mt-lg-0 mt-2">
+                    <button type='submit' class="btn btn-primary">Download</button>
+                </div>
+            </div>
+        </form>
+    </li>
+{% endif %}
+{% endfor %}
+</ul>
+{% else %}
+<p class="alert alert-info">No exports found.</p>
+{% endif %}
+{% endblock %}

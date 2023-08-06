@@ -1,0 +1,114 @@
+{% extends 'timeseer.html' %}
+{% from 'data-service-header.html' import data_service_breadcrumb, data_service_header with context %}
+{% from 'macros.html' import alerter, menu_back %}
+
+{% block csp_style %}
+'self' 'unsafe-inline'
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='dist/charts.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}
+
+{% block styles %}
+<style nonce="{{ csp_nonce }}">
+    .report-table {
+        table-layout: fixed;
+    }
+    .report-table .action, .report-table .score {
+        width: 20%;
+    }
+</style>
+{% endblock %}
+
+{% block menu %}
+{{ menu_back(url_for('.show_data_service_view_bin', binid=current_bin.db_id, sourcename=source_name)) }}
+{% endblock %}
+
+{% set title = 'Bins' %}
+
+{% block breadcrumb %}
+{{
+    data_service_breadcrumb(current_bin, [
+        title
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+{{ data_service_header(current_bin, title) }}
+
+<div class="pt-3 my-3">
+    {{ alerter() }}
+
+    {% if evolution|count > 1 %}
+    <div class="report-evolution">
+        <table class="visually-hidden">
+            {% for view_score in evolution|sort(attribute='view_bin.start_date', reverse=True) %}
+            <tr data-report-url="{{ url_for ('.show_data_service_view_bin', sourcename=source_name, binid=view_score.view_bin.db_id, comparebinid=current_bin.db_id) }}">
+                <td class="report-date" data-date="{{ view_score.view_bin.start_date.isoformat() }}">{{ view_score.view_bin.start_date|ts_datetime }}</td>
+                <td class="report-score">{{ view_score.score }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+
+    {% if evolution|count > 0 %}
+    <table class="ts-table table table-borderless report-table">
+        <thead class="thead-secondary">
+            <tr class="border-top border-bottom">
+                <th scope="col">Bin</th>
+                {% if evolution|count > 1 %}
+                <th scope="col">Compare to</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for view_score in evolution|sort(attribute='view_bin.start_date', reverse=True) %}
+            {% set view_bin = view_score.view_bin %}
+            <tr class="border-bottom">
+                <td class="align-middle">
+                    <a class="ts-table-link text-dark fw-normal text-decoration-none" href="{{ url_for ('.show_data_service_view_bin', sourcename=source_name, binid=view_bin.db_id) }}">
+                        {{ view_bin.start_date|ts_datetime }} - {{ view_bin.end_date|ts_datetime }}
+                    </a>
+                </td>
+                {% if evolution|count > 1 %}
+                <td>
+                    <form action="{{ url_for('.compare_bins') }}">
+                        <input type="hidden" name="binid" value="{{ view_bin.db_id }}">
+                        {% if source_name %}
+                        <input type="hidden" name="sourcename" value="{{ source_name }}">
+                        {% endif %}
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-select form-select-sm" name="comparebinid">
+                                    {% for other_view_score in evolution|sort(attribute='view_bin.start_date', reverse=true) if other_view_score.view_bin.db_id != view_bin.db_id %}
+                                    <option class="ts-option-bin" value="{{ other_view_score.view_bin.db_id }}">{{ other_view_score.view_bin.start_date.isoformat() }} - {{ other_view_score.view_bin.end_date.isoformat() }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    Compare
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No time windows with scores found.</p>
+    {% endif %}
+</div>
+
+{% if evolution|count > 1 %}
+<script nonce="{{ csp_nonce }}">
+{% include 'scripts/score-evolution.js' %}
+</script>
+{% endif %}
+{% endblock %}

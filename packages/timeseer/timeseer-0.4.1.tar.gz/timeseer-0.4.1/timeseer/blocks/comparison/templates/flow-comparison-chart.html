@@ -1,0 +1,210 @@
+{% extends "timeseer.html" %}
+{% from 'flows.html' import flows_breadcrumb, flows_header with context %}
+{% from 'macros.html' import menu_back, visualize_series %}
+
+{% block csp_style %}
+'self' 'unsafe-inline'
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='dist/charts.js') }}" nonce="{{ csp_nonce }}"></script>
+{% endblock %}
+
+{% block menu %}
+{{ menu_back(url_for('.show_comparison', blockevaluationid=block_evaluation.db_id, sourcename=source_name)) }}
+{% endblock %}
+
+{% set title = 'Before/after special event comparison' %}
+
+{% block breadcrumb %}
+{{
+    flows_breadcrumb(block_evaluation, [
+        (block_evaluation.name, url_for('flow_comparison.show_comparison', blockevaluationid=block_evaluation.db_id, sourcename=source_name)),
+        title,
+    ])
+}}
+{% endblock %}
+
+{% block main %}
+{{ flows_header(block_evaluation, title) }}
+
+<div class="py-3 my-3">
+    <div>
+        Comparison of <a href="{{ url_for('flow_univariate.redirect_series', seriesid=series.series_id, blockevaluationid=block_evaluation.db_id) }}">{{ visualize_series(series) }}</a> between
+        {{ reference_time_range.start_date|ts_datetime }} to {{ reference_time_range.end_date|ts_datetime }}
+        and
+        {{ block_evaluation.flow_evaluation.group.time_range.start_date|ts_datetime }} to {{ block_evaluation.flow_evaluation.group.time_range.end_date|ts_datetime }}
+    </div>
+</div>
+
+<div class="pt-3 my-3">
+    <div id="comparison-chart-status">
+        <div class="alert alert-primary">
+            <div class="row align-items-center">
+                <div class="col">
+                    Loading chart...
+                </div>
+                <div class="col-auto">
+                    <div class="spinner-border text-primary" role="status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="comparison-chart-data" class="d-none">
+        <h4>
+            <label for="advanced-chart-0">Reference</label>
+        </h4>
+        <div id="advanced-chart-0"></div>
+        <h4>
+            <label for="advanced-chart-1">Comparison</label>
+        </h4>
+        <div id="advanced-chart-1"></div>
+    </div>
+</div>
+
+<script nonce="{{ csp_nonce }}">
+
+function mapNaNs(point) {
+    let y = point.y;
+    if (point.y === "nan") {
+        y = Number.NaN
+    }
+    return {
+        t: point.t,
+        y: y,
+    }
+}
+
+function plot(plotDatas) {
+    var metadata = {{ metadata.to_data()|tojson }};
+    for(i = 0, len = plotDatas.length; i < len; i++){
+        var plotData = plotDatas[i].map(mapNaNs)
+
+        if (metadata.interpolationType && metadata.interpolationType === 'STEPPED') {
+            var shape = 'hv';
+            var accuracyShape = 'hv';
+        } else {
+            var shape = 'linear';
+            var accuracyShape = 'linear';
+        }
+
+        if (metadata.dictionary && metadata.dictionary.length > 0) {
+            var mapping = {};
+            metadata.dictionary.forEach(function (pair) {
+                mapping[pair[0]] = pair[1];
+            });
+            plotData = plotData.map(function (point) {
+                return {
+                    t: point['t'],
+                    y: mapping[point['y']],
+                };
+            });
+        }
+
+        var original = {
+            x: plotData.map(point => {return point['t']}),
+            y: plotData.map(point => {return point['y']}),
+            type: 'scatter',
+            name: metadata.series.name,
+            line: {
+                color: '#2e5984',
+                shape: shape,
+            },
+        };
+
+        var data = [original];
+
+        if (metadata.hasOwnProperty("accuracy") && metadata.accuracy !== null) {
+            var accuracy = metadata.accuracy;
+            var timestamps = plotData.map(point => {return point["t"]});
+
+            var upperTrace = {
+                x: timestamps,
+                y: plotData.map(point => {return point["y"] + accuracy}),
+                type: 'scatter',
+                name: 'accuracy (high)',
+                legendgroup: 'accuracy',
+                connectgaps: true,
+                fill: 'tonexty',
+                line: {
+                    color: '#abbccd',
+                    shape: accuracyShape,
+                },
+            };
+            var lowerTrace = {
+                x: timestamps,
+                y: plotData.map(point => {return point["y"] - accuracy}),
+                type: 'scatter',
+                name: 'accuracy (low)',
+                legendgroup: 'accuracy',
+                connectgaps: true,
+                fill: 'none',
+                line: {
+                    color: '#abbccd',
+                    shape: accuracyShape,
+                },
+            };
+
+            data = [original, lowerTrace, upperTrace];
+        }
+
+        var layout = {
+            hovermode: 'x',
+            legend: {
+                yanchor: 'top',
+                y: -0.1,
+                xanchor: 'right',
+                x: 1,
+            },
+            margin: {
+                r: 0,
+                t: 0,
+            },
+            xaxis: {
+                spikemode: 'across+toaxis',
+                spikesnap: 'cursor',
+                spikedash: 'solid',
+                spikecolor: 'grey'
+            },
+        }
+
+        if (metadata.dictionary && metadata.dictionary.length > 0) {
+            layout.yaxis = {
+                type: 'category',
+                categoryorder: 'array',
+                categoryarray: metadata.dictionary.map(function (pair) {
+                    return pair[1];
+                }),
+            };
+        }
+
+        Plotly.newPlot('advanced-chart-' + i, data, layout, {responsive: true});
+    }
+}
+
+fetch('{{ url_for(".get_chart_data") }}?' + new URLSearchParams({
+    blockevaluationid: '{{ block_evaluation.db_id }}',
+    seriesid: '{{ series.series_id }}',
+}))
+    .then(function (response) {
+        if (response.status === 200) {
+            return response.json();
+        } else if (response.status === 408 || response.status === 504) {
+            throw new Error('Timeout while loading chart data.')
+        } else {
+            throw new Error('Failed to load chart data.')
+        }
+    }).then(function (data) {
+        var statusEl = document.getElementById('comparison-chart-status');
+        statusEl.parentNode.removeChild(statusEl);
+        document.getElementById('comparison-chart-data').classList.toggle('d-none');
+        plot(data);
+    }, function (exception) {
+        document.getElementById('comparison-chart-status').innerHTML = `
+            <div class="alert alert-danger">${exception.message}</div>
+        `;
+    });
+</script>
+
+{% endblock main %}
