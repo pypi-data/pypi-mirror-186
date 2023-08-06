@@ -1,0 +1,19 @@
+item = _{ SOI ~ line* ~ EOI } 
+line = _{ pair | other }
+
+WHITESPACE = { " " | "\t" | NEWLINE }
+
+other = ${ !(pair) ~ ANY }
+
+line_comment  = _{ "//" ~ (!NEWLINE ~ ANY)* }
+block_comment = _{ "/*" ~ (!"*/" ~ ANY)* ~ "*/"}
+COMMENT       = ${ line_comment | block_comment }
+
+pair = _{ key ~ assignment_operator ~ string }
+key = @{ string }
+assignment_operator = @{ "=" }
+
+string       = @{ inner_string }
+inner_string = _{ 
+  "\"" ~ (!(NEWLINE | "\"") ~ ANY)* ~ "\""
+}

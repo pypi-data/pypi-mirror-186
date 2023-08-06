@@ -1,0 +1,25 @@
+item = _{ SOI ~ line* ~ EOI } 
+line = _{ regexp | string | other }
+
+other = ${ !(string) ~ ANY }
+
+WHITESPACE = { " " | "\t" | NEWLINE }
+
+line_comment  = _{ "#" ~ (!(NEWLINE) ~ ANY)* }
+block_comment = _{ "\"\"\"" ~ (!("\"\"\"") ~ ANY)* ~ "\"\"\"" }
+COMMENT       = ${ line_comment | block_comment }
+
+string = ${ 
+  inner_string 
+  | ("\"\"\"" ~ (!("\"\"\"") ~ ANY)* ~ "\"\"\"") 
+  | ("~" ~ ("s" | "c") ~ "(" ~ (!(NEWLINE | ")") ~ ANY)* ~ ")") 
+}
+inner_string = _{
+  ("'" ~ (!(inner_string | "'") ~ ANY)* ~ "'") 
+  | ("\"" ~ (!(inner_string | "\"") ~ ANY)* ~ "\"") 
+}
+
+regexp = ${
+  ( "~r/" ~ (!(inner_string | "/") ~ ANY)* ~ "/" )
+  | ("Regex.compile(" ~ " "* ~ inner_string ~  (!")" ~ ANY)* ~ ")")
+}
