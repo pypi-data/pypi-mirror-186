@@ -1,0 +1,118 @@
+#!/bin/bash
+
+function help() {
+  printf "  \n"
+  printf "  NAME\n"
+  printf "      create-pipeline\n"
+  printf "  \n"
+  printf "  SYNPOSIS\n"
+  printf "      create-pipeline --name PIPELINENAME\n"
+  printf "  \n"
+  printf "  DESCRIPTION\n"
+  printf "  Creates pipeline directory. Creates test directory. Prepares templates and meta.json\n"
+  printf "  \n"
+  printf "      -h|--help                      prints help\n"
+  printf "      -n|--name [name]               name of pipeline to be set up\n"
+  printf "      -v|--version [0.0.0]           version of pipeline\n"
+  printf "      -q|--quiet                     quiet logs\n"
+  printf "  \n"
+}
+
+export -f help
+
+export PROJECT_DIR=$(git rev-parse --show-toplevel)
+export SRC_DIR="${PROJECT_DIR}/src/main/wdl/pipelines/"
+export REPOSITORY="intelliseqngs/"
+
+VERBOSE=TRUE
+VERSION="latest"
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+    -h|--help)
+    help
+    exit 0
+    shift # past argument
+    ;;
+    -q|--quiet)
+    export VERBOSE=FALSE
+    shift # past argument
+    ;;
+    -n|--name)
+    export NAME="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -v|--version)
+    export VERSION="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    *)    # unknown option
+    POSITIONAL+=("$1") # save it in an array for later
+    shift # past argument
+    ;;
+esac
+done
+
+set -- "${POSITIONAL[@]}" # restore positional parameters
+if [ -d "${PROJECT_DIR}/src/main/wdl/pipelines/$NAME" ]; then
+  printf "pipeline with this name already exists \n"
+else
+
+
+if [ ! -z "$NAME" ]; then
+  echo "preparing template for $NAME"
+else
+  help
+  printf "  ERROR:\n"
+  printf "  Name parameter must be specified:\n"
+  printf "    -n|--name \n"
+  printf "  \n"
+  exit
+fi
+
+  SOURCE="${BASH_SOURCE[0]}"
+
+  while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+  done
+  SRC_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+cd $SRC_DIR/..
+UNDERSCORED_NAME=$(echo $NAME | sed 's/-/_/g')
+
+export GIT_USERNAME="https://gitlab.com/"$(git config user.name)""
+echo "for gitlab user: "$GIT_USERNAME
+mkdir -p ${PROJECT_DIR}/src/main/wdl/pipelines/$NAME
+
+resources_path=$(realpath $(find . -type d -name "createtools"))
+
+cat $resources_path/pipeline-template/pipeline-name.wdl | \
+  sed "s/pipeline_name_TAG/$UNDERSCORED_NAME/g" | \
+  sed "s|gitlab_TAG|$GIT_USERNAME|" | sed "s|latest|$VERSION|"> ${PROJECT_DIR}/src/main/wdl/pipelines/$NAME/$NAME.wdl
+
+  mkdir -p ${PROJECT_DIR}/src/test/wdl/pipelines/$NAME
+  cat $resources_path/pipeline-template/test.sh > ${PROJECT_DIR}/src/test/wdl/pipelines/$NAME/test.sh
+    chmod +x ${PROJECT_DIR}/src/test/wdl/pipelines/$NAME/test.sh
+  cat $resources_path/pipeline-template/test.json | sed "s|wdltaskpath|\$\{ROOTDIR\}\/src\/main\/wdl\/pipelines\/$NAME\/$NAME.wdl|" > ${PROJECT_DIR}/src/test/wdl/pipelines/$NAME/test.json
+    chmod +x ${PROJECT_DIR}/src/test/wdl/pipelines/$NAME/test.sh
+
+echo \
+"{
+\"name\": \"$NAME\",
+\"author\": \"$GIT_USERNAME\",
+\"copyright\": \"Copyright 2019-2020 Intelliseq\",
+\"description\": \"\",
+\"changes\": {\"1.0.0\": \"First version\"}
+}" > ${PROJECT_DIR}/src/main/wdl/pipelines/$NAME/meta.json
+
+cd ${PROJECT_DIR}/src/main/wdl/pipelines/$NAME/
+ln -s ../../../../test/wdl/pipelines/$NAME/ test_directory
+cd -
+fi
