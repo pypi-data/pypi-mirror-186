@@ -1,0 +1,73 @@
+import logging
+import termcolor
+import sys
+
+class BeautifulFormatter(logging.Formatter):
+
+    mformat = "[{asctime}] {coloredlevel} @ {filename}:{lineno:<4d}: {message}"
+
+    colors = {
+        logging.DEBUG : ("grey", "", []),
+        logging.INFO  : ("green", "", []),
+        logging.WARNING  : ("green", "on_yellow", []),
+        logging.ERROR  : ("green", "on_red", []),
+        logging.CRITICAL  : ("white", "on_red", ["bold"]),
+    }
+
+    def get_colored_level(self, level, levelname) :
+        if(level in self.colors) :
+            (fontc, backc, attrs) = self.colors[level]
+            if(fontc!="" and backc!=""):
+                return termcolor.colored(" {:8s} ".format(levelname), fontc, backc, attrs=attrs)
+            elif(fontc!=""):
+                return termcolor.colored(" {:8s} ".format(levelname), fontc, attrs=attrs)
+            elif(backc!=""):
+                return termcolor.colored(" {:8s} ".format(levelname), backc, attrs=attrs)
+            elif(attrs!=[]):
+                return termcolor.colored(" {:8s} ".format(levelname), attrs=attrs)
+            else:
+                return " {:8s} ".format(levelname)
+        else:
+            return " {:8s} ".format(levelname)
+
+    def format(self, record):
+        record.coloredlevel=self.get_colored_level(record.levelno, record.levelname) 
+        formatter = logging.Formatter(self.mformat, style='{')
+        return formatter.format(record)
+
+
+
+def make_beautiful(handler : logging.Handler) -> None:
+    handler.setFormatter(BeautifulFormatter())
+
+
+def setup_beautiful_logging(logfile:str ="log.txt", logmode:str ="a"):
+    global stderr_handler
+    global log_handler
+    global rootLogger
+    rootLogger = logging.getLogger()
+    rootLogger.setLevel(0)
+    stderr_handler = logging.StreamHandler(stream=sys.stderr)
+    log_handler = logging.FileHandler(filename = logfile, mode = logmode)
+    log_handler.setLevel(0)
+    stderr_handler.setLevel(0)
+    log_handler.formatter=logging.Formatter('[%(asctime)s] %(name)s - %(levelname)s - %(message)s @ %(filename)s:%(lineno)s')
+    make_beautiful(stderr_handler)
+    rootLogger.addHandler(stderr_handler)
+    rootLogger.addHandler(log_handler)
+    addLevel(25, "FOCUS", "green", "on_magenta")
+
+def addLevel(level, levelname, font_color="", background_color="", attrs=[]):
+    stderr_handler=logging.getLogger().handlers[0]
+    logging.addLevelName(level, levelname.upper())
+    stderr_handler.formatter.colors[level]=(font_color, background_color, attrs)
+
+    def writeLog(self, msg):
+        self.log(level, msg)
+
+    setattr(logging.Logger, levelname.lower(), writeLog)
+
+def setColor(level, font_color="", background_color="", attrs=[]):
+    stderr_handler=logging.getLogger().handlers[0]
+    stderr_handler.formatter.colors[level]=(font_color, background_color, attrs)
+
