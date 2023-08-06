@@ -1,0 +1,53 @@
+{% extends 'generic/object.html' %}
+{% load helpers %}
+{% load plugins %}
+{% load render_table from django_tables2 %}
+{% load perms %}
+
+{% block controls %}
+{{ block.super }}
+{% endblock controls %}
+
+{% block breadcrumbs %}
+{{ block.super }}
+{% endblock %}
+
+{% block tabs %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h5 class="card-header">Drives</h5>
+            <div class="card-body">
+                <table class="table table-hover attr-table">
+                    <tr>
+                        <th scope="row">Identifier</th>
+                        <td>{{ object.identifier }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Virtual Machine</th>
+                        <td>{{ object.virtual_machine|linkify|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Size (GB)</th>
+                        <td>{{ object.size }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Storage Cluster</th>
+                        <td>{{ object.cluster|linkify|placeholder }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>{{ object.description }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        {% include 'inc/panels/custom_fields.html' %}
+    </div>
+</div>
+
+{% endblock %}
