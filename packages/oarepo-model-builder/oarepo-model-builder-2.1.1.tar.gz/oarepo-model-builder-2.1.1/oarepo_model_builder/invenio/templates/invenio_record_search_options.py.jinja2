@@ -1,0 +1,36 @@
+from invenio_records_resources.services import SearchOptions as InvenioSearchOptions
+from . import facets
+
+def _(x):
+    """Identity function for string extraction."""
+    return x
+
+{% for b in python.record_search_options_bases %}
+from {{ b|package_name }} import {{ b|base_name }}
+{% endfor %}
+
+class {{ python.record_search_options_class|base_name }}({% for b in python.record_search_options_bases %}{{ b|base_name }}, {% endfor %}InvenioSearchOptions):
+    """{{ python.record_class|base_name }} search options."""
+
+    facets = {
+{% for dict in facets_definition %}
+{% for key, value in dict.items()%}
+    '{{ key }}': {{ value }},
+{% endfor %}
+{% endfor %}
+    }
+    sort_options = {
+        {% if python.record_search_options_bases %}
+        **{{ python.record_search_options_bases[0]|base_name }}.sort_options,
+        {% else %}
+        **InvenioSearchOptions.sort_options,
+        {% endif %}
+{% for dict in sort_definition %}
+{% for key, value in dict.items()%}
+    '{{ key }}': {{ value }},
+{% endfor %}
+{% endfor %}
+    }
+
+
+{{ settings.python.invenio_record_search_options_extra_code }}
