@@ -1,0 +1,143 @@
+{# templates/psp22.txt -#}
+
+#![cfg_attr(not(feature = "std"), no_std)]
+#![feature(min_specialization)]
+
+#[openbrush::contract]
+pub mod my_psp22 {
+
+    // imports from openbrush
+    {% if basic -%}
+	use openbrush::contracts::psp22::*;
+    {% endif -%}
+    {% if pausable -%}
+    use openbrush::contracts::pausable::*;
+    use openbrush::contracts::psp22::Transfer;
+    {% endif -%}
+    use openbrush::traits::Storage;
+    {% if metadata -%}
+    use openbrush::traits::String;
+    use openbrush::contracts::psp22::extensions::metadata::*;
+    {% endif -%}
+    {% if mintable -%}
+    use openbrush::contracts::psp22::extensions::mintable::*;
+    {% endif -%}
+    {% if burnable -%}
+    use openbrush::contracts::psp22::extensions::burnable::*;
+    {% endif -%}
+    {% if wrapper -%}
+    use openbrush::contracts::psp22::extensions::wrapper::*;
+    {% endif -%}
+    {% if flashmint -%}
+    use openbrush::contracts::psp22::extensions::flashmint::*;
+    {% endif %}
+    #[ink(storage)]
+    #[derive(Default, Storage)]
+    pub struct {{contract_name}} {
+    	#[storage_field]
+		psp22: psp22::Data,
+        {% if metadata -%}
+        #[storage_field]
+		metadata: metadata::Data,
+        {% endif -%}
+        {% if wrapper -%}
+        #[storage_field]
+		wrapper: wrapper::Data,
+        {% endif -%}
+        {% if pausable -%}
+        #[storage_field]
+		pausable: pausable::Data,
+        {% endif -%}
+        {% if capped -%}
+        #[storage_field]
+        cap: Balance,
+        {% endif %}
+    }
+
+    // Section contains default implementation without any modifications
+	impl PSP22 for {{contract_name}} {}
+    {% if metadata -%}
+    impl PSP22Metadata for {{contract_name}} {}
+    {% endif -%}
+    {% if mintable -%}
+    impl PSP22Mintable for {{contract_name}} {}
+    {% endif -%}
+    {% if burnable -%}
+    impl PSP22Burnable for {{contract_name}} {}
+    {% endif -%}
+    {% if wrapper -%}
+    impl PSP22Wrapper for {{contract_name}} {}
+    {% endif -%}
+    {% if flashmint -%}
+    impl FlashLender for {{contract_name}} {}
+    {% endif -%}
+    {% if pausable -%}
+    impl Pausable for {{contract_name}} {}
+    {% endif %}
+    {% if pausable and not capped %}
+    impl Transfer for Contract {
+		#[openbrush::modifiers(when_not_paused)]
+		fn _before_token_transfer(
+            &mut self,
+            _from: Option<&AccountId>,
+			_to: Option<&AccountId>,
+			_amount: &Balance
+        ) -> Result<(), PSP22Error> {}
+	}
+    {% endif -%}
+    {% if capped -%}
+    impl Transfer for Contract {
+		#[openbrush::modifiers(when_not_paused)]
+		fn _before_token_transfer(
+            &mut self,
+            _from: Option<&AccountId>,
+			_to: Option<&AccountId>,
+			_amount: &Balance
+        ) -> Result<(), PSP22Error> {
+			if _from.is_none() && (self.total_supply() + _amount) > self.cap() {
+                return Err(PSP22Error::Custom(String::from("Cap exceeded")))
+            }
+            Ok(())
+		}
+	}
+    {% endif %}
+    impl {{contract_name}} {
+        #[ink(constructor)]
+        pub fn new(initial_supply: Balance{% if metadata %}, name: Option<String>, symbol: Option<String>, decimal: u8{% endif %}) -> Self {
+            let mut _instance = Self::default();
+			_instance._mint_to(_instance.env().caller(), initial_supply).expect("Should mint");
+            {% if metadata -%}
+            _instance.metadata.name = name;
+			_instance.metadata.symbol = symbol;
+			_instance.metadata.decimals = decimal;
+            {% endif -%}
+			_instance
+        }
+
+    {% if pausable -%}
+        #[ink(message)]
+		#[openbrush::modifiers(only_role(MANAGER))]
+		pub fn change_state(&mut self) -> Result<(), PSP22Error> {
+			if self.paused() {
+                self._unpause()
+            } else {
+                self._pause()
+            }
+		}
+    {% endif -%}
+    {% if capped -%}
+        #[ink(message)]
+		pub fn cap(&self) -> Balance {
+			self.cap
+		}
+
+		fn _init_cap(&mut self, cap: Balance) -> Result<(), PSP22Error> {
+			if cap <= 0 {
+                return Err(PSP22Error::Custom(String::from("Cap must be above 0")))
+            }
+            self.cap = cap;
+            Ok(())
+		}
+    {% endif -%}
+    }
+}

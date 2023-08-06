@@ -1,0 +1,71 @@
+{# templates/psp37.txt -#}
+
+#![cfg_attr(not(feature = "std"), no_std)]
+#![feature(min_specialization)]
+
+#[openbrush::contract]
+pub mod my_psp37 {
+    
+    // imports from openbrush
+    {% if basic -%}
+	use openbrush::contracts::psp37::*;
+    {% endif -%}
+    {% if batch -%}
+    use openbrush::contracts::psp37::extensions::batch::*;
+    {% endif -%}
+    {% if metadata -%}
+    use openbrush::traits::String;
+    use openbrush::contracts::psp37::extensions::metadata::*;
+    {% endif -%}
+    {% if mintable -%}
+    use openbrush::contracts::psp37::extensions::mintable::*;
+    {% endif -%}
+    {% if burnable -%}
+    use openbrush::contracts::psp37::extensions::burnable::*;
+    {% endif -%}
+    {% if enumrable -%}
+    use openbrush::contracts::psp37::extensions::enumerable::*;
+    {% endif -%}
+	use openbrush::traits::Storage;
+
+    #[ink(storage)]
+    #[derive(Default, Storage)]
+    pub struct {{contract_name}} {
+    	#[storage_field]
+        {% if enumrable -%}
+        psp37: psp37::Data<Balances>,
+        {% else -%}
+        psp37: psp37::Data,
+        {% endif -%}
+        {% if metadata -%}
+        #[storage_field]
+		metadata: metadata::Data,
+        {% endif -%}
+    }
+    
+    // Section contains default implementation without any modifications
+    {% if batch -%}
+    impl PSP37Batch for {{contract_name}} {}
+    {% endif -%}
+    {% if metadata -%}
+    impl PSP37Metadata for {{contract_name}} {}
+    {% endif -%}
+    {% if mintable -%}
+    impl PSP37Mintable for {{contract_name}} {}
+    {% endif -%}
+    {% if burnable -%}
+    impl PSP37Burnable for {{contract_name}} {}
+    {% endif -%}
+    {% if enumrable -%}
+    impl PSP37Enumerable for {{contract_name}} {}
+    {% endif -%}
+	impl PSP37 for {{contract_name}} {}
+     
+    impl {{contract_name}} {
+        #[ink(constructor)]
+        pub fn new() -> Self {
+            let mut _instance = Self::default();
+			_instance
+        }
+    }
+}
