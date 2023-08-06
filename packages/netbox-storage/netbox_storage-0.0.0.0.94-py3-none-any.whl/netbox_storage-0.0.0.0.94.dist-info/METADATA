@@ -1,0 +1,111 @@
+Metadata-Version: 2.1
+Name: netbox-storage
+Version: 0.0.0.0.94
+Summary: Netbox Storage Plugin
+Author: Tim Rhomberg
+Author-email: timrhomberg@hotmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Description-Content-Type: text/markdown
+
+### Directory structure
+
+```
++- api - The API type
++- filters - Filters of the models
++- forms - The ModelForm, ModelFilterForm, ModelImportForm, ModelBulkEditForm
++- migrations - DB Django Migration
++- tables - The ModelBaseTable, ModelTable, RelatedModelTable
++- templates
+  +- netbox_disk - The detail view of each model
+    +- disk - The template content box in the Virtual Machine Model
++- views - PhysicalvolumeListView, PhysicalvolumeView, PhysicalvolumeEditView, PhysicalvolumeDeleteView, 
+           PhysicalvolumeBulkImportView, PhysicalvolumeBulkEditView, PhysicalvolumeBulkDeleteView
+```
+### Models
+#### ERM
+
+
+#### Drive
+The drive has 4 parameter:
+
+| Name           |           Example Value           |
+|:---------------|:---------------------------------:|
+| Virtualmachine | test-vm (Link zu virtual machine) |
+| Identifer      |           Festplatte 1            |
+| Cluster        |   STOR2000000 (Link zu cluster)   |
+| Size           |               50GB                |
+| System         |                No                 |
+
+#### Filesystem
+The filesystem has 1 parameter:
+
+| Name | Example Value |
+|:-----|:-------------:|
+| fs   |     EXT4      |
+
+#### Linux Volume
+The linux volume has 1 parameter:
+
+| Name            |       Example Value       |
+|:----------------|:-------------------------:|
+| vg_name         |          docker           |
+| lv_name         |          docker           |
+| Path            |      /var/lib/docker      |
+| Filesystem      | NTFS (Link zu Filesystem) |
+
+
+#### Windows Volume
+The linux volume has 1 parameter:
+
+| Name       |        Example Value        |
+|:-----------|:---------------------------:|
+| drive_name |          (D, E, F)          |
+| Filesystem |  NTFS (Link zu Filesystem)  |
+
+
+
+Basis:
+- pv:
+  - size
+  - Storage Cluster
+  - virtual_machine
+
+Windows Form:
+- drive_name (D, E, F)
+- filesystem (ntfs)
+
+Linux Form:
+- vg name
+- lv name
+- path
+- filesystem
+
+
+
+
+Extra Filesystem Model & als ChoiceField ausgeben
+
+# Build
+poetry publish --build
+
+docker-compose build --no-cache && docker-compose build --no-cache && docker-compose up -d
+
+ab 0.0.0.0.0.0.30 many to many
+
+git add . && git commit -m "0.0.0.0.0.1" && git push
+
+
+--- Squash TM
+Werden PVC geupdatet
+Wie wird netzwerkeingerichtet
+Wie wird sso eingerichtet
+
+To Do
+Dokumentation
+Verantwortlichkeiten
