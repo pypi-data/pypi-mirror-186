@@ -1,0 +1,101 @@
+Metadata-Version: 2.1
+Name: roseau-load-flow
+Version: 0.2.1
+Summary: Three-phase load flow solver
+Home-page: https://github.com/RoseauTechnologies/Roseau_Load_Flow/
+License: Proprietary
+Author: Sébastien Vallet
+Author-email: sebastien.vallet@roseautechnologies.com
+Maintainer: Sébastien Vallet
+Maintainer-email: sebastien.vallet@roseautechnologies.com
+Requires-Python: >=3.9,<3.11
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering :: Physics
+Requires-Dist: Shapely (>=1.8.0,<2.0.0)
+Requires-Dist: geopandas (>=0.10.2)
+Requires-Dist: numpy (>=1.21.5,<2.0.0)
+Requires-Dist: pandas (>=1.4.0,<2.0.0)
+Requires-Dist: pint (>=0.19.2)
+Requires-Dist: pygeos (>=0.12.0)
+Requires-Dist: regex (>=2022.1.18)
+Requires-Dist: requests (>=2.28.1,<3.0.0)
+Requires-Dist: rich (>=11.0.0)
+Project-URL: Repository, https://github.com/RoseauTechnologies/Roseau_Load_Flow/
+Description-Content-Type: text/markdown
+
+![CI](https://github.com/RoseauTechnologies/Roseau_Load_Flow/workflows/CI/badge.svg)
+
+# Roseau Load Flow #
+
+## Installation ##
+
+The simplest way is to download the docker container attached to this repository and to start it. I will start a
+Jupyterlab session with the package installed.
+
+## Usage ##
+
+There are 2 main ways to execute a load flow with thunders:
+
+### From files ###
+
+By giving path to the needed files:
+
+```python
+from roseau.load_flow import ElectricalNetwork
+
+en = ElectricalNetwork.from_dgs(path=path)  # DGS
+
+en = ElectricalNetwork.from_json(path=path)  # Json
+
+en.solve_load_flow(auth=("username", "password"))
+```
+
+### From code ###
+
+By describing the network and its components, here is a simple example:
+
+```python
+from roseau.load_flow import Ground, VoltageSource, Bus, PowerLoad, PotentialRef, SimplifiedLine, ElectricalNetwork, LineCharacteristics
+import numpy as np
+
+ground = Ground()
+vn = 400 / np.sqrt(3)
+voltages = [vn, vn * np.exp(-2 / 3 * np.pi * 1j), vn * np.exp(2 / 3 * np.pi * 1j)]
+vs = VoltageSource(
+    id="source",
+    n=4,
+    ground=ground,
+    source_voltages=voltages,
+)
+load_bus = Bus(id="load bus", n=4)
+load = PowerLoad(id="power load", n=4, bus=load_bus, s=[100 + 0j, 100 + 0j, 100 + 0j])
+line_characteristics = LineCharacteristics(type_name="test", z_line=np.eye(4, dtype=complex))
+line = SimplifiedLine(
+    id="line",
+    n=4,
+    bus1=vs,
+    bus2=load_bus,
+    line_characteristics=line_characteristics,
+    length=10  # km
+)
+p_ref = PotentialRef(element=ground)
+
+en = ElectricalNetwork(buses=[vs, load_bus], branches=[line], loads=[load], special_elements=[p_ref, ground])
+# or
+# en = ElectricalNetwork.from_element(vs)
+
+en.solve_load_flow(auth=("username", "password"))
+```
+
+<!-- Local Variables: -->
+<!-- mode: gfm -->
+<!-- coding: utf-8-unix -->
+<!-- ispell-local-dictionary: "british" -->
+<!-- End: -->
+
