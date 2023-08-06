@@ -1,0 +1,50 @@
+[tool.poetry]
+name = "planobs"
+version = "0.6.1"
+description = "Plan observations with the Zwicky Transient Facility"
+authors = ["Simeon Reusch <simeon.reusch@desy.de>"]
+maintainers = ["Simeon Reusch <simeon.reusch@desy.de>"]
+license = "BSD-3-Clause"
+repository = "https://github.com/simeonreusch/planobs"
+readme = "README.md"
+classifiers = [
+        "License :: OSI Approved :: BSD License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.10",
+]
+keywords = ["astroparticle physics", "science", "multimessenger astronomy", "ZTF"]
+
+[tool.poetry.dependencies]
+cligj = "^0.7.2"
+python = ">=3.10,<3.12"
+astroplan = ">=0.7"
+astropy = "^5.0"
+Flask = "^2.1.3"
+geopandas = ">=0.11,<0.13"
+pandas = "^1.4.3"
+penquins = "^2.1.0"
+lxml = "^4.9.1"
+matplotlib = "^3.5.2"
+Shapely = "^1.8.2"
+slack = "^0.0.2"
+slackeventsapi = "^3.0.1"
+tqdm = "^4.64.0"
+ztfquery = "^1.18.4"
+slackclient = "^2.9.4"
+gunicorn = "^20.1.0"
+bs4 = "^0.0.1"
+mypy = "^0.991"
+pydantic = "^1.10.2"
+types-requests = "^2.28.11.5"
+
+[tool.poetry.dev-dependencies]
+coveralls = "^3.3.1"
+pytest = "^7.2.0"
+
+[tool.poetry.extras]
+slack = ["Flask", "slack", "slackeventsapi"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
