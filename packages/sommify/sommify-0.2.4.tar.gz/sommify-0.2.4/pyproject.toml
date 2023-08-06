@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[project]
+name = "sommify"
+version = "0.2.4"
+authors = [
+  { name="Tomas Bedej", email="tomas@sommify.ai" },
+]
+description = "A package for recipe parsing"
+dependencies = [
+  "inflect==6.0.0",
+  "numpy>=1.23.2",
+  "pandas>=1.5.0",
+  "spacy>=3.0.0,<4.0.0"
+]
+readme = "README.md"
+requires-python = ">=3.8.13"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
