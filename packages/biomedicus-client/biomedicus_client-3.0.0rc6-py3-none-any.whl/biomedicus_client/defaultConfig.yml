@@ -1,0 +1,34 @@
+acronym:
+  labelOtherSenses: yes
+  useAlignment: no
+  expansionsModel: ${BIOMEDICUS_DATA}/acronym/expansions.txt
+  alignmentModel: ${BIOMEDICUS_DATA}/acronym-alignment/alignment.yml
+  cutoffScore: 0.001
+  vector:
+    model: ${BIOMEDICUS_DATA}/acronym/vectorSpace.yml
+  senseMap:
+    senseVectors: ${BIOMEDICUS_DATA}/acronym/senseVectors
+    inMemory: no
+  orthographicModel: ${BIOMEDICUS_DATA}/acronym-orthographic/orthographicModel.yml
+concepts:
+  db: ${BIOMEDICUS_DATA}/concepts
+  inMemory: no
+  normalizeLocally: yes
+  windowSize: 6
+normalization:
+  db: ${BIOMEDICUS_DATA}/normalization
+  inMemory: no
+sentences:
+  hparamsFile: ${BIOMEDICUS_DATA}/sentences/1579713474.213175.yml
+  modelFile: ${BIOMEDICUS_DATA}/sentences/1579713474.213175.pt
+  charsFile: ${BIOMEDICUS_DATA}/sentences/chars.txt
+  wordEmbeddings: ${BIOMEDICUS_DATA}/sentences/mimic100.vec
+tnt:
+  trigram: ${BIOMEDICUS_DATA}/tnt/trigram.yml
+  word:
+    inMemory: no
+    db: ${BIOMEDICUS_DATA}/tnt/words
+    metadata: ${BIOMEDICUS_DATA}/tnt/wordMetadata.yml
+  beam.threshold: 2.0
+sections:
+  headersFile: ${BIOMEDICUS_DATA}/sections/header_patterns.txt
