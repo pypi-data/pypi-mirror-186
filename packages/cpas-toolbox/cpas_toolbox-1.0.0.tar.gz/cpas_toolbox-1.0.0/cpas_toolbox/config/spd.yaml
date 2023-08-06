@@ -1,0 +1,10 @@
+name: SPD
+method_type: cpas_toolbox.cpas_methods.spd.SPD
+config_dict:
+  num_categories: 6
+  num_shape_points: 1024 
+  num_input_points: 1024
+  image_size: 192
+  model_file: ~/.cpas_toolbox/models/spd/model_50.pth
+  mean_shape_file: ~/.cpas_toolbox/models/spd/mean_points_emb.npy
+  device: cuda
