@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "micropub"
+version = "0.1.0"
+description = "utilities to help implement Micropub servers and clients"
+keywords = ["IndieWeb", "Micropub"]
+authors = ["Angelo Gladding <angelo@ragt.ag>"]
+license = "0BSD"
+
+[tool.poetry.scripts]
+micropub = "micropub.__main__:main"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+requests = "^2.28.1"
+txtint = ">=0.0"
+microformats = ">=0.0"
+indieauth = ">=0.0"
+requests-toolbelt = "^0.10.1"
+
+[tool.poetry.group.dev.dependencies]
+nuitka = "^1.2.6"
+zstandard = "^0.19.0"
+ordered-set = "^4.1.0"
+gmpg = {path="../gmpg", develop=true}
+txtint = {path="../txtint", develop=true}
+microformats = {path="../python-microformats", develop=true}
+indieauth = {path="../python-indieauth", develop=true}
+sqlyte = {path="../sqlyte", develop=true}
+webcli = {path="../webcli", develop=true}
+
+# [[tool.poetry.source]]
+# name = "main"
+# url = "https://ragt.ag/code/pypi"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
