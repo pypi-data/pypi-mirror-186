@@ -1,0 +1,21 @@
+[tool.ruff]
+line-length = 120
+select = ["E", "F", "C"]
+
+[tool.poetry]
+name = "cly-why"
+version = "0.3.7"
+description = "A super simple functional cli helper lib"
+authors = [
+		"00il",
+]
+readme = "README.md"
+packages = [{include = "cly_why"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
