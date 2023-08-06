@@ -1,0 +1,11 @@
+## Include
+include README.md LICENSE NOTICE requirements.txt
+recursive-include compiler *.py *.tl *.tsv *.txt
+recursive-include tests *.py
+
+## Exclude
+prune geezlibs/errors/exceptions
+prune geezlibs/raw/functions
+prune geezlibs/raw/types
+prune geezlibs/raw/base
+exclude geezlibs/raw/all.py
