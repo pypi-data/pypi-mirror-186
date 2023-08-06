@@ -1,0 +1,85 @@
+[tool.poetry]
+name = "werkit"
+version = "0.29.0"
+description = "Toolkit for encapsulating Python-based computation into deployable and distributable tasks"
+authors = ["Paul Melnikow <github@paulmelnikow.com>", "Metabolize"]
+license = "MIT"
+include = ["CHANGELOG.md"]
+exclude = ["**/test_*.py"]
+homepage = "https://werkit.readthedocs.io/en/stable/"
+repository = "https://github.com/lace/werkit"
+documentation = "https://ounce.readthedocs.io/en/werkit/"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: System :: Distributed Computing",
+    "Topic :: Scientific/Engineering",
+    "Operating System :: OS Independent",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.7,<4"
+# https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html
+boto3 = {version = "1.20.32", optional = true}
+click = {version = "^8.0.3", optional = true}
+executor = {version = ">=21.0", optional = true}
+harrison = {version = "^2.0", optional = true}
+# Pin to 0.18.0 to work around a Poetry install problem with 0.18.1 on OS X 10.15.7.
+# https://github.com/tobgu/pyrsistent/issues/241
+pyrsistent = {version = "0.18.0", optional = true}
+rds-graphile-worker-client = {version = "^0.1.1", optional = true}
+semver = "3.0.0.dev4"
+simplejson = "^3.17.5"
+jsonschema = "^4.1.2"
+artifax = {version = "0.5", optional = true}
+# artifax = {git = "https://github.com/curvewise-forks/artifax.git", rev = "3cd288a1698a798c0e488eba31e8e9ce3f075e1c", optional = true}
+# Temporarily declare artifax dependencies until we publish an artifax fork.
+# pathos = {version = "*", optional = true}
+# exos = {version = "*", optional = true}
+
+[tool.poetry.extras]
+aws_lambda_build = ["executor"]
+client = ["boto3"]
+# compute_graph = ["artifax"]
+compute_graph = ["artifax", "pathos", "exos"]
+lambda_common = ["harrison"]
+cli = ["click"]
+rds_graphile_worker = ["rds-graphile-worker-client"]
+
+[tool.poetry.dev-dependencies]
+black = "22.12.0"
+click = "8.0.3"
+coverage = "7.0.1"
+executor = "23.2"
+flake8 = "5.0.4"
+flake8-import-order = "0.18.2"
+freezegun = "1.2.2"
+mypy = "0.991"
+pytest = "7.2.0"
+pytest-cov = "4.0.0"
+python-dotenv = "0.21.0"
+twine = "4.0.2"
+types-freezegun = "1.1.10"
+types-simplejson = "3.18.0.0"
+
+[build-system]
+# Lint requires setuptools.
+requires = ["setuptools", "poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+markers = ["slow"]
+norecursedirs = ["build", "node_modules"]
+
+[tool.coverage.report]
+omit = [
+    "**/test_*.py",
+    "werkit/orchestrator/testing/worker_service/*.py",
+]
+
+[[tool.mypy.overrides]]
+module = "werkit.compute.graph.*"
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true

@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: werkit
+Version: 0.29.0
+Summary: Toolkit for encapsulating Python-based computation into deployable and distributable tasks
+Home-page: https://werkit.readthedocs.io/en/stable/
+License: MIT
+Author: Paul Melnikow
+Author-email: github@paulmelnikow.com
+Requires-Python: >=3.7,<4
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: System :: Distributed Computing
+Provides-Extra: aws-lambda-build
+Provides-Extra: cli
+Provides-Extra: client
+Provides-Extra: compute-graph
+Provides-Extra: lambda-common
+Provides-Extra: rds-graphile-worker
+Requires-Dist: artifax (==0.5); extra == "compute-graph"
+Requires-Dist: boto3 (==1.20.32); extra == "client"
+Requires-Dist: click (>=8.0.3,<9.0.0); extra == "cli"
+Requires-Dist: executor (>=21.0); extra == "aws-lambda-build"
+Requires-Dist: harrison (>=2.0,<3.0); extra == "lambda-common"
+Requires-Dist: jsonschema (>=4.1.2,<5.0.0)
+Requires-Dist: pyrsistent (==0.18.0)
+Requires-Dist: rds-graphile-worker-client (>=0.1.1,<0.2.0); extra == "rds-graphile-worker"
+Requires-Dist: semver (==3.0.0.dev4)
+Requires-Dist: simplejson (>=3.17.5,<4.0.0)
+Project-URL: Documentation, https://ounce.readthedocs.io/en/werkit/
+Project-URL: Repository, https://github.com/lace/werkit
