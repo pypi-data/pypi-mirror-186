@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "firecore"
+version = "0.4.0"
+description = ""
+authors = ["SunDoge <384813529@qq.com>"]
+license = "Apache 2.0"
+readme = "README.md"
+
+# lower the numpy version if conflict with pytorch/oneflow/tensorflow
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "^1.24.0"
+rjsonnet = "^0.4.5"
+structlog = "^22.3.0"
+rich = "^12.6.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+autopep8 = "^2.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
