@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Should not trigger no-tabs rules
+      ansible.builtin.lineinfile:
+        path: some.txt
+        regexp: ^\t$
+        line: string with \t inside
+    - name: Foo
+      ansible.builtin.debug:
+        msg: "Presence of \t should trigger no-tabs here."

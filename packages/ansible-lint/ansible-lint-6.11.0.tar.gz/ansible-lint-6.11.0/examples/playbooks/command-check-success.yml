@@ -1,0 +1,60 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Command with creates check
+      ansible.builtin.command: echo blah
+      args:
+        creates: Z
+
+    - name: Command with removes check
+      ansible.builtin.command: echo blah
+      args:
+        removes: Z
+
+    - name: Command with changed_when
+      ansible.builtin.command: echo blah
+      changed_when: false
+
+    - name: Command with inline creates
+      ansible.builtin.command: creates=Z echo blah
+
+    - name: Command with inline removes
+      ansible.builtin.command: removes=Z echo blah
+
+    - name: Command with cmd
+      command:
+        cmd: echo blah
+      args:
+        creates: Z
+
+    - name: Use shell with creates check
+      shell: echo blah
+      args:
+        creates: Z
+
+    - name: Use shell with removes check
+      shell: echo blah
+      args:
+        removes: Z
+
+    - name: Use shell with changed_when
+      shell: echo blah
+      changed_when: false
+
+    - name: Use shell with inline creates
+      shell: creates=Z echo blah
+
+    - name: Use shell with inline removes
+      shell: removes=Z echo blah
+
+    - name: Use shell with cmd
+      shell:
+        cmd: echo blah
+      args:
+        creates: Z
+
+- hosts: localhost
+  handlers:
+    - name: Restart something
+      command: do something
+    - include: handlers/included-handlers.yml
