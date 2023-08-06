@@ -1,0 +1,7 @@
+recursive-include pysimlink *.py *.cpp *.hpp *.tpp
+recursive-include tests *.py
+include *.*
+prune dist/*
+
+prune */__pycache__
+global-exclude *.pyc *.pyo *.pyd *.swp *.bak *~ *.o
