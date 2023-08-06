@@ -1,0 +1,27 @@
+**Insert in the main body of the paper:**
+
+We use the CTI calibration software `PyAutoCTI` https://github.com/Jammy2211/PyAutoCTI) [@pyautocti] [@Nightingale2023] to...
+
+**At the end of the paper (delete as appropriate, see https://pyautofit.readthedocs.io/en/latest/general/citations.html):**
+
+# Software Citations
+
+This work uses the following software packages:
+
+- `Astropy` https://github.com/astropy/astropy [@astropy1] [@astropy2]
+- `corner.py` https://github.com/dfm/corner.py [@corner]
+- `dynesty` https://github.com/joshspeagle/dynesty [@dynesty]
+- `emcee` https://github.com/dfm/emcee [@emcee]
+- `matplotlib` https://github.com/matplotlib/matplotlib [@matplotlib]
+- `numba` https://github.com/numba/numba [@numba]
+- `NumPy` https://github.com/numpy/numpy [@numpy]
+- `PyAutoFit` https://github.com/rhayes777/PyAutoFit [@pyautofit]
+- `PyAutoCTI` https://github.com/rhayes777/PyAutoCTI [@pyautocti]
+- `PySwarms` https://github.com/ljvmiranda921/pyswarms [@pyswarms]
+- `Python` https://www.python.org/ [@python]
+- `scikit-image` https://github.com/scikit-image/scikit-image [@scikit-image]
+- `scikit-learn` https://github.com/scikit-learn/scikit-learn [@scikit-learn]
+- `Scipy` https://github.com/scipy/scipy [@scipy]
+- `SQLite` https://www.sqlite.org/index.html [@sqlite]
+- `UltraNest` https://github.com/JohannesBuchner/UltraNest [@ultranest]
+- `Zeus` https://github.com/minaskar/zeus [@zeus1] [@zeus2]
