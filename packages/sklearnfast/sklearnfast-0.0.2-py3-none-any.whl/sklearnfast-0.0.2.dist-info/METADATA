@@ -1,0 +1,61 @@
+Metadata-Version: 2.1
+Name: sklearnfast
+Version: 0.0.2
+Summary: fastsklearn is a package that makes it easy to test different models on different datasets. 
+Home-page: https://github.com/rhcproc/fast-sklearn
+Author: rhcproc
+Author-email: rhcproc@gmail.com
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# sklearnfast
+
+### Description
+
+sklearnfast is a python package that allows you to test your scikit-learn models with a single line of code. It is designed to be used in Jupyter Notebooks and is inspired by the [fastai](https://github.com/fastai/fastai) library.
+
+### Installation
+
+```bash
+pip install sklearnfast
+```
+
+### Usage
+
+```python
+from sklearnfast.test import classification_test
+from sklearn.datasets import load_breast_cancer
+from sklearn.ensemble import RandomForestClassifier
+import pandas as pd
+
+data = load_breast_cancer()
+df = pd.DataFrame(data.data, columns=data.feature_names)
+df['target'] = data.target
+
+model = RandomForestClassifier()
+result = classification_test(model, df, 'target')
+print(result)
+
+# {'f1': 0.972972972972973,
+#  'accuracy': 0.9649122807017544,
+#  'precision': 0.9722222222222222,
+#  'recall': 0.9736842105263158}
+```
+
+### Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+### License
+
+[MIT](https://choosealicense.com/licenses/mit/)
