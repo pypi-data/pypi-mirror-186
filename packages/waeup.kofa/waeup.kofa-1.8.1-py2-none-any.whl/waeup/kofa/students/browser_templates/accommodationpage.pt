@@ -1,0 +1,29 @@
+<tal:choice condition="python: view.desired_hostel and view.with_hostel_selection">
+<p>
+  <strong i18n:translate="">Favoured Hostel:</strong>
+  <span tal:replace="view/desired_hostel"></span>
+</p>
+</tal:choice>
+
+<h3 i18n:domain="waeup.kofa" i18n:translate="">Bookings</h3>
+<br />
+
+<table class="kofa-data-table dataTable">
+  <thead>
+  <tr>
+    <th i18n:translate="">Session</th>
+    <th i18n:translate="">Booking Date</th>
+    <th i18n:translate="">Bed Coordinates</th>
+    <th i18n:translate="">Bed Type</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr tal:repeat="cl context/values">
+      <td> <a tal:attributes="href python: view.url(cl)">
+      <span tal:content="python: cl.getSessionString()">PID</span></a></td>
+      <td tal:content="python: layout.formatDatetime(cl.booking_date)">DATE</td>
+      <td tal:content="cl/display_coordinates">COORDINATES</td>
+      <td tal:content="cl/bed_type">TYPE</td>
+    </tr>
+  </tbody>
+</table>

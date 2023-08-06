@@ -1,0 +1,53 @@
+<form  i18n:domain="waeup.kofa"  method="POST">
+  <p i18n:translate="">
+    Please pick the certificate, session and level
+    for which the report should be generated.
+    The report will be processed and then made available for you
+    to view/download.
+  </p>
+  <br />
+
+  <label for="certificate" i18n:translate="">Certificate</label>
+  <input id="filterbox" class="kofa-filterbox form-control half"
+         placeholder="Enter search text, then select item below."
+         type="text" i18n:translate=""/>
+  <br />
+  <select id="filteredselect" name="faccode_depcode_certcode"
+          class="form-control" size=5>
+      <span tal:repeat="items view/faccode_depcode_certcode"
+          tal:omit-tag="">
+      <option
+          tal:define="name python: items[1]; title python: items[0]"
+          tal:attributes="value name">
+        <span tal:replace="title">TITLE</span>
+      </option>
+    </span>
+  </select>
+  <br />
+  <label for="session">Academic Session</label>
+  <select name="session" class="form-control half">
+    <span tal:repeat="items view/sessions" tal:omit-tag="">
+      <option
+          tal:define="name python: items[1]; title python: items[0]"
+          tal:attributes="value name">
+        <span tal:replace="title">TITLE</span>
+      </option>
+    </span>
+  </select>
+  <br />
+  <label for="level">Level</label>
+  <select name="level" class="form-control half">
+    <span tal:repeat="items view/levels" tal:omit-tag="">
+      <option
+          tal:define="name python: items[1]; title python: items[0]"
+          tal:attributes="value name">
+        <span tal:replace="title">TITLE</span>
+      </option>
+    </span>
+  </select>
+  <br />
+  <input i18n:translate="" type="submit" class="btn btn-primary"
+         name="CREATE" value="Create" />
+  <a class="btn btn-default" href=""
+     tal:attributes="href view/parent_url">Cancel</a>
+</form>

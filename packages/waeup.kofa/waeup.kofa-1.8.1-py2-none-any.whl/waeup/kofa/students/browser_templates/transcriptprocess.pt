@@ -1,0 +1,82 @@
+<form method="POST" i18n:domain="waeup.kofa">
+
+  <ul class="tabs nav nav-tabs" data-tabs="tabs">
+    <li class="active">
+      <a href="#tab1" data-toggle="tab">
+        <span i18n:translate="">Process request</span>
+      </a>
+    </li>
+    <li>
+      <a href="#tab2" data-toggle="tab">
+        <span i18n:translate="">View correspondence</span>
+      </a>
+    </li>
+    <li>
+      <a href="#tab3" data-toggle="tab">
+        <span i18n:translate="">View signatures</span>
+      </a>
+    </li>
+    <li>
+      <a href="#tab4" data-toggle="tab">
+        <span i18n:translate="">View remarks</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="tab1" class="active tab-pane">
+
+      <table class="form-table">
+        <tbody>
+          <tr>
+            <td class="fieldname" i18n:translate="">
+            Comment:
+            </td>
+            <td>
+            <textarea cols="60" name="comment" rows="6"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <br />
+              <input
+                data-toggle="tooltip"
+                title="Comments will be added to the correspondence.
+                  They can't be edited or removed after saving."
+                onclick="return window.confirm('Are you really sure?')"
+                type="submit" name="SAVE" class="btn btn-primary"
+                tal:condition="view/buttonname1"
+                tal:attributes="value view/buttonname1" />
+              <input
+                data-toggle="tooltip"
+                title="Comments will be added to the correspondence.
+                  They can't be edited or removed after saving and
+                  transcript validation."
+                onclick="return window.confirm('Are you really sure?')"
+                type="submit" name="SUBMIT" class="btn btn-primary"
+                     tal:attributes="value view/buttonname2" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="tab2" class="tab-pane">
+      <br /><p tal:content="structure view/correspondence"></p>
+    </div>
+
+    <div id="tab3" class="tab-pane">
+      <br /><p tal:content="structure view/signees"></p>
+    </div>
+
+    <div id="tab4" class="tab-pane">
+      <br />
+      <table class="table-condensed">
+        <tbody>
+          <span tal:omit-tag="" tal:content="structure view/remarks"></span>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</form>

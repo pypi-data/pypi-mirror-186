@@ -1,0 +1,21 @@
+<form action="." tal:attributes="action request/URL" method="POST"
+      i18n:domain="waeup.kofa" enctype="multipart/form-data">
+
+  <p i18n:translate="">In Kofa a study level is a container for courses,
+  which means it can list the courses taken by the student at a certain level.
+  The container also
+  stores and provides the information when and by whom the course list was
+  validated, in which session the level was taken and which verdict the
+  student finally obtained.
+  </p>
+
+  <div class="actionButtons" tal:condition="view/availableActions">
+    <span tal:repeat="action view/actions"
+          tal:omit-tag="">
+      <input tal:replace="structure action/render"/>
+    </span>
+  </div>
+</form>
+
+
+

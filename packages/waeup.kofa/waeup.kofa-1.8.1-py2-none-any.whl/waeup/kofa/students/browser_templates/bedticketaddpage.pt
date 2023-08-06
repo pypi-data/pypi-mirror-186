@@ -1,0 +1,56 @@
+<form method="POST" i18n:domain="waeup.kofa">
+  <table class="form-table">
+    <tbody>
+      <tal:show_available_beds condition="view/show_available_beds">
+        <tr>
+          <td i18n:translate="" colspan="2">
+            Select your bed before booking acommodation.
+            Your choice cannot be changed afterwards.
+          </td>
+        </tr>
+        <tr>
+          <td i18n:translate="">
+            Desired Bed Space:
+          </td>
+          <td>
+          <span class="form-inline">
+            <select class="form-control" id="bed" name="bed">
+              <option tal:repeat="bed view/getAvailableBeds"
+                      tal:attributes="value bed/bed_id">
+              <span tal:replace="bed/temp_bed_coordinates">BED</span>
+              </option>
+            </select>
+          </span>
+          </td>
+        </tr>
+      </tal:show_available_beds>
+      <tal:with_ac condition="view/with_ac">
+        <tr>
+          <td i18n:translate="">
+          Activation Code:
+          </td>
+          <td>
+          <span tal:replace="view/ac_prefix">PIN Prefix</span> -
+          <input name="ac_series" type="text" maxlength="3"
+                 class="ac-input ac-series"
+                 value="" tal:attributes="value view/ac_series"/> -
+          <input name="ac_number" type="text" maxlength="10"
+                 class="ac-input ac-number"
+                 value="" tal:attributes="value view/ac_number" />
+          <font color="red"><span tal:replace="view/notice">Notice</span>
+          </font>
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td i18n:translate="">
+          The activation code can be found on the payment slip.
+          </td>
+        </tr>
+      </tal:with_ac>
+    </tbody>
+  </table>
+  <br />
+  <input type="submit" name="SUBMIT" class="btn btn-primary"
+         tal:attributes="value view/buttonname" />
+</form>

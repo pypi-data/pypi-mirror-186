@@ -1,0 +1,21 @@
+<form action="." tal:attributes="action request/URL" method="post"
+    i18n:domain="waeup.kofa" enctype="multipart/form-data">
+
+  <table class="form-table">
+    <tbody>
+      <tal:widgets content="structure provider:widgets" />
+    </tbody>
+  </table>
+  <p i18n:translate="">
+    Your student record will be looked up and
+    your login credentials will be sent to the email address given above.
+    To be able to proceed you must provide a valid email address!
+  </p>
+  <div tal:content="structure view/captcha_code"></div>
+  <br />
+  <div tal:condition="view/availableActions">
+    <input tal:repeat="action view/actions"
+           tal:replace="structure action/render"
+           />
+  </div>
+</form>

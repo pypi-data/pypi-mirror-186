@@ -1,0 +1,21 @@
+<div i18n:domain="waeup.kofa">
+  <tal:success condition="view/successful">
+    <strong i18n:translate="">Successfully created records:</strong>
+    <br />
+    <div  tal:replace="structure view/successful">
+    </div>
+    <br />
+  </tal:success>
+  <tal:fail condition="view/failed">
+    <strong i18n:translate="">Failed records:</strong>
+    <br />
+    <div  tal:repeat="value view/failed">
+      <a tal:attributes="href python:value[1]" tal:content="python:value[0]"> ID</a>
+      (<span tal:content="python:value[2]">MSG</span>)
+    </div>
+  </tal:fail>
+  <tal:norecord i18n:translate=""
+       condition="python:not view.failed and not view.successful">
+      No record found.
+  </tal:norecord>
+</div>
