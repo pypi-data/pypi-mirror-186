@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: SRPAstro
+Version: 4.8.2
+Summary: Astronomical Data Analysis Tools
+Home-page: https://pypi.python.org/pypi/SRPAstro
+Author: Stefano Covino
+Author-email: stefano.covino@inaf.it
+Keywords: astronomy data analysis
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Unix
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: mysql-connector-python
+Requires-Dist: py-postgresql
+Requires-Dist: requests
+Requires-Dist: astroquery
+Requires-Dist: astropy (>=0.4)
+Requires-Dist: scipy
+Requires-Dist: astlib (>=0.4)
+Requires-Dist: matplotlib
+Requires-Dist: atpy
+Requires-Dist: asciitable
+Requires-Dist: ephem
+Requires-Dist: numpy (>=1.1)
+Requires-Dist: dust-extinction
+
+# Swift Reduction Package
+
+Background
+The Swift Reduction Package (hereafter SRP) is a packet of command line tools to solve problems (e.g. basic reduction and analysis tasks of optical/NIR astronomical data, quick cosmological computations, units conversions, etc.) often met in astronomical research activities.
+
+SRP was originally developed in the context of the Swift follow-up activities of the Milan GRB team at the INAF/Brera Astronomical Observatory. The package is designed to be an aid to any researcher to drive further observation of a followed-up GRB counterpart and “swift” can therefore be read simply as “rapid”, “agile”, etc.
+ 
+ Some technical comment
+ This package, written in Python (v. 3.x), has been widely tested only on PC-Linux and on Mac OS X workstations. 
