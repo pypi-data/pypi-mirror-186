@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+        <title>FCM SETTINGS DOWNLOAD</title>
+        <style>
+            h1 {
+                font-size: 28px;
+                font-weight: 700;
+                margin-bottom: 5px;
+            }
+
+            .price {
+                margin-bottom: 10px;
+            }
+
+            .wrapper {
+                margin: 0 auto;
+                width: 860px;
+            }
+
+            .columns {
+                margin: 0 auto;
+                max-width: 900px;
+            }
+
+            .details {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                float: left;
+            }
+
+            .thumbnail-container {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                float: left;
+            }
+
+            .price {
+                font-size: 20px;
+                color: #777474;
+            }
+
+            .wishlist-container {
+                padding-left: 0;
+            }
+
+            #header {
+                width: 100%;
+                text-align: center;
+                background: white;
+                padding: 5px;
+                /*box-shadow: 0 10px 17px 0px #c0c0c0;*/
+                box-shadow: 0 5px 10px 0px #dbd7d7;
+            }
+            #header img {
+                max-width: 30px;
+            }
+
+            .columns {
+                margin-top: 30px;
+            }
+
+            .button {
+                width: 100%;
+                border-radius: 0;
+            }
+
+            .select,
+            select {
+                width: 100%;
+                border-radius: 0 !important;
+            }
+
+            #wishlist-container {
+                padding-left: 0;
+            }
+
+            #buy-container {
+                padding-right: 0;
+            }
+
+            .small-text {
+                font-size: 14px;
+            }
+
+            .small-text span {
+                font-weight: bold;
+            }
+
+            .buy-button {
+                background: #ff6900;
+                color: white;
+                border: none;
+            }
+
+            .buy-button:hover,
+            .buy-button:active,
+            .buy-button:focus {
+                color: white;
+                opacity: 0.9;
+            }
+
+            a {
+                color: #ff6900;
+            }
+            a:hover {
+                color: #ff6900;
+                opacity: 0.8;
+            }
+
+            @media only screen and (max-width: 769px) {
+                #wishlist-container,
+                #buy-container {
+                    padding: 0 0 15px 0;
+                }
+            }
+        </style>
+        <script>
+            new Drift(document.querySelector(".drift-demo-trigger"), {
+                paneContainer: document.querySelector(".details"),
+                inlinePane: 769,
+                inlineOffsetY: -85,
+                containInline: true,
+                hoverBoundingBox: true,
+            });
+        </script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+        {% block body %}
+
+        <div class="container-fluid">
+            <div id="header">
+                <br>
+                <br>
+            </div>
+
+            <div class="container">
+                <br><br>
+                <div class="row">
+                     <div class="col-8">
+                    <div class="thumbnail-container">
+                        <img class="drift-demo-trigger" data-zoom="https://firebase.google.com/images/brand-guidelines/logo-built_white.png" src="https://firebase.google.com/images/brand-guidelines/logo-built_white.png" />
+                    </div>
+                </div>
+
+                    <div class="col-4">
+                        <div class="details">
+                            <h1>{% if fcm %}{{ fcm.version }} {% else %} <span class="danger"> NO FIREBASE INFORMATION FOUND </span>{% endif %}</h1>
+                            <p class="price">{% if fcm.created_user %}{{ fcm.created_user }} {% endif %}</p>
+                            <p class="description">Download the HTML file if all <strong>Firebase Information correct</strong>, and include into base HTML file.</p>
+
+                            <div class="columns">
+                                <div class="column" id="buy-container">
+                                    {% if fcm %}
+                                    <a href="/download-fcm-settings/html/download_file/">
+                                    <button class="button buy-button">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-shopping-bag"></i>
+                                        </span>
+                                        <span>DOWNLOAD HTML FILE</span>
+                                    </button>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+{#                            <p class="small-text"><span>Standard delivery</span> 2-5 working days</p>#}
+{#                            <p class="small-text"><span>Next day delivery</span> order before 2pm</p>#}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="small-text" style="text-align: center; padding-top: 30px; padding-bottom: 15px;">Developed by: <a href="https://github.com/dkkundu/" target="_blank">Dipto K Kundu</a></p>
+        </div>
+        {% endblock body %}
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>
