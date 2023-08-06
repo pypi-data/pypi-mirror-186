@@ -1,0 +1,25 @@
+{
+    "settings": {
+        "filename": "country_dict2.csv",
+        "layout": "complex_key_hashed",
+        "lifetime_seconds": 5,
+        "output_columns": [
+            {
+                "name": "country",
+                "datatype": {
+                    "type": "string"
+                }
+            },
+            {
+                "name": "id",
+                "datatype": {
+                    "type": "uint64"
+                }
+            }
+        ],
+        "primary_key": [
+            "id"
+        ],
+        "format": "CSVWithNames"
+    }
+}
