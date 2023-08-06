@@ -1,0 +1,124 @@
+Metadata-Version: 2.1
+Name: junifer
+Version: 0.0.2.dev77
+Summary: JUelich NeuroImaging FEature extractoR
+Author-email: Fede Raimondo <f.raimondo@fz-juelich.de>, Synchon Mandal <s.mandal@fz-juelich.de>
+Maintainer-email: Fede Raimondo <f.raimondo@fz-juelich.de>, Synchon Mandal <s.mandal@fz-juelich.de>
+License: AGPL-3.0-only
+Project-URL: homepage, https://juaml.github.io/junifer
+Project-URL: documentation, https://juaml.github.io/junifer
+Project-URL: repository, https://github.com/juaml/junifer
+Keywords: neuroimaging
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved
+Classifier: Natural Language :: English
+Classifier: Topic :: Software Development
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+License-File: AUTHORS.rst
+Requires-Dist: click (<8.2,>=8.1.3)
+Requires-Dist: numpy (<1.24,>=1.22)
+Requires-Dist: datalad (<0.18,>=0.15.4)
+Requires-Dist: pandas (<1.6,>=1.4.0)
+Requires-Dist: nibabel (<4.1,>=3.2.0)
+Requires-Dist: nilearn (<1.0,>=0.9.0)
+Requires-Dist: sqlalchemy (<=1.5.0,>=1.4.27)
+Requires-Dist: pyyaml (<7.0,>=5.1.2)
+Requires-Dist: importlib-metadata ; python_version < "3.10"
+Provides-Extra: dev
+Requires-Dist: tox ; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: seaborn (<0.12,>=0.11.2) ; extra == 'docs'
+Requires-Dist: Sphinx (<5.4,>=5.3.0) ; extra == 'docs'
+Requires-Dist: sphinx-gallery (<0.12,>=0.11.0) ; extra == 'docs'
+Requires-Dist: furo (<2023.0.0,>=2022.9.29) ; extra == 'docs'
+Requires-Dist: sphinx-multiversion (<0.3,>=0.2.4) ; extra == 'docs'
+Requires-Dist: numpydoc (<1.6,>=1.5.0) ; extra == 'docs'
+Requires-Dist: julearn (==0.2.5) ; extra == 'docs'
+
+![Junifer logo](docs/images/junifer_logo.png "junifer logo")
+
+# junifer - JUelich NeuroImaging FEature extractoR
+
+![PyPI](https://img.shields.io/pypi/v/junifer?style=flat-square)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/junifer?style=flat-square)
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/junifer?style=flat-square)
+![GitHub](https://img.shields.io/github/license/juaml/junifer?style=flat-square)
+![Codecov](https://img.shields.io/codecov/c/github/juaml/junifer?style=flat-square)
+
+## About
+
+junifer is a data handling and feature extraction library targeted towards neuroimaging data specifically functional MRI data.
+
+It is curently being developed and maintained at the [Applied Machine Learning](https://www.fz-juelich.de/en/inm/inm-7/research-groups/applied-machine-learning-aml) group at [Forschungszentrum Juelich](https://www.fz-juelich.de/en), Germany. Although the library is designed for people working at [Institute of Neuroscience and Medicine - Brain and Behaviour (INM-7)](https://www.fz-juelich.de/en/inm/inm-7), it is designed to be as modular as possible thus enabling others to extend it easily.
+
+The documentation is available at [https://juaml.github.io/junifer](https://juaml.github.io/junifer/main/index.html).
+
+## Repository Organization
+
+* `docs`: Documentation, built using sphinx.
+* `examples`: Examples, using sphinx-gallery. File names of examples that create visual output must start with `plot_`, otherwise, with `run_`.
+* `junifer`: Main library directory.
+  * `api`: User API module.
+  * `configs`: Module for pre-defined configs for most used computing clusters.
+  * `data`: Module that handles data required for the library to work (e.g. parcels, coordinates).
+  * `datagrabber`: DataGrabber module.
+  * `datareader`: DataReader module.
+  * `markers`: Markers module.
+  * `pipeline`: Pipeline module.
+  * `preprocess`: Preprocessing module.
+  * `storage`: Storage module.
+  * `testing`: Testing components module.
+  * `utils`: Utilities module (e.g. logging)
+
+
+## Installation
+
+Use `pip` to install from PyPI like so:
+
+```
+pip install junifer
+```
+
+## Citation
+
+If you use junifer in a scientific publication, we would appreciate if you cite our work. Currently, we do not have a publication, so feel free to use the project [URL](https://juaml.github.io/junifer).
+
+## Funding
+
+We thank the [Helmholtz Imaging Platform](https://helmholtz-imaging.de/) and
+[SMHB](https://www.fz-juelich.de/en/smhb) for supporting development of Junifer.
+(The funding sources had no role in the design, implementation and evaluation of the pipeline.)
+
+## Contribution
+
+Contributions are welcome and greatly appreciated. Please read the [guidelines](https://juaml.github.io/junifer/main/contributing.html) to get started.
+
+## License
+
+junifer is released under the AGPL v3 license:
+
+junifer, FZJuelich AML neuroimaging feature extraction library.
+Copyright (C) 2022, authors of junifer.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
