@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "hcloud-selfdestruct"
+version = "0.0.2"
+description = "cli tool to self destruct a hetzner cloud server"
+authors = ["worldworm"]
+readme = "README.md"
+repository = "https://github.com/worldworm/hcloud-selfdestruct"
+homepage = "https://github.com/worldworm/hcloud-selfdestruct"
+keywords = ["selfdestruct", "hcloud", "hetzner"]
+license = "MIT"
+packages = [{include = "hcloud_selfdestruct"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+hcloud = "^1.18.2"
+apprise = "^1.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+hcloud-selfdestruct = 'hcloud_selfdestruct:main'
