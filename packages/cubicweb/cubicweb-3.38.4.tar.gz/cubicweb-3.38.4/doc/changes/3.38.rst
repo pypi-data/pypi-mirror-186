@@ -1,0 +1,134 @@
+3.38.4 (2023-01-17)
+===================
+🎉 New features
+--------------
+
+- skeleton: remove format=pylint option from tox because it's better without it
+
+3.38.3 (2023-01-12)
+===================
+👷 Bug fixes
+-----------
+
+- avoid risking new cubes to install pre-release version of black
+- formrenderers: use UStringIO instead of list to keep the same api as self.w (https://forge.extranet.logilab.fr/cubicweb/cubicweb/-/issues/597)
+- schema_exporters: Add missing description field for relations (e.g `in_state`) to schema exporter
+
+🤷 Various changes
+-----------------
+
+- changelog/3.38: add instruction on how to use 3.38/cubicweb_web_imports.py
+
+3.38.2 (2023-01-03)
+===================
+👷 Bug fixes
+-----------
+
+- sobjects/notifications: keep RecipientsFinder class and subclass in the components registry for retrocompatibility
+
+3.38.1 (2022-12-05)
+===================
+🎉 New features
+--------------
+
+- schema: Export relations options on the schema (merge from 3.37)
+
+👷 Bug fixes
+-----------
+
+- schema_exporters: Add missing description field for relations (e.g `in_state`) to schema exporter (merge from 3.37)
+
+3.38.0 (2022-11-22)
+===================
+
+This is the last major release of the 3.* before the 4 branch.
+
+In this release the whole cubicweb.web module and the cubicweb/view.py file
+have been extracted in the cubicweb_web cube which is a dependency of cubicweb
+now. Automatic backward compatibility is provided by imports so your projects
+should work with this new version without modifications.
+
+A script to help migrating to this version is available in this repository in the 3.38 folder
+https://forge.extranet.logilab.fr/cubicweb/cw_versions_migration_tools
+This script will change all the imports to match the news one for CubicWeb
+3.38 and the cube cubicweb_web. **It will not change your dependencies in your
+setup.py or __pkginfo__.py**, you have to do this yourself.
+
+Its usage, once the dependencies has been installed (only RedBaron), is the following::
+
+    python 3.38/cubicweb_web_imports.py <path to my project>
+
+It will hopefully save you quite some time.
+
+🎉 New features
+--------------
+
+- the cubicweb_web cube is now a dependency of cubicweb
+- add adapter_regid as parameter on add_entity_to_graph (#535)
+- add relation constraints to schema export
+- cubicweb.web extraction: change all import of cubicweb.web to cubicweb_web
+- cubicweb.web removal: add deprecation warning in view module
+- cubicweb.web removal: add generic deprecation warning in all web modules
+- cwctl: don't check if we need to upgrade anything when running cwctl versions (https://forge.extranet.logilab.fr/cubicweb/cubicweb/-/issues/563)
+- doc: clarify when `rich` had been removed
+- export relation options in schema options key
+- pkg: upgrade version of waitress to 2.1.1 or more, for security reason. (https://forge.extranet.logilab.fr/cubicweb/cubicweb/-/issues/543)
+- rdf: use entity.absolute_url instead of cwuri in RDF adapters (#534)
+- redirection: pyramid redirection now keep parameters by default (https://forge.extranet.logilab.fr/cubicweb/cubicweb/-/issues/566)
+- rql: Add "IRQLInterface" adapter to force defining a rql interface which is available on RQL projection varaibles
+- rql: Add entities function and attribute from RQL queries
+- serverctl: add a command to list all unused indexes
+- test/content-negociation: display rdf body on failing tests for easier debugging
+- test: use testing.cubicweb instead of testing.fr in test (https://forge.extranet.logilab.fr/cubicweb/cubicweb/-/issues/374)
+  *BREAKING CHANGE*: use testing.cubicweb instead of testing.fr in test
+
+👷 Bug fixes
+-----------
+
+- add retrocompatibility for anonymized_request that is now in cubicweb_web
+- base64.decodestring is deprecated and has been removed
+- cubicweb_web/deprecations: increase warning stack level to show correct line
+- cubicweb_web: change magic modules imports to uses cubicweb_web
+- cwconfig: Ensure the cube web is available with cubicweb-ctl commands
+- CWRelation.rtype api is different from CWRelation.relation_type api
+- ensure that the "web" cube is in the list of cubes dependencies
+- hook: Search the notification view from the good registry
+- htmlwidgets: BoxLink rendering is broken
+- make i18ncube load web cube's appobjects
+- mod: Load sobjects.notification and sobjects.supervising even if no cubicweb_web
+- notification: Make NotificationView inherits from AppObject
+- pyramid: adapt TestApp.post_json method to CSRF
+- pyramid: adapt TestApp.put_json method to CSRF
+- pyramid: try to get "/login" if "/" is forbidden
+- req: add missing set_log_methods on CubicWebRequestBase
+- schema_exporters: handle symmetrical relation in schema export. (https://forge.extranet.logilab.fr/cubicweb/cubicweb/-/issues/568)
+- supervising: Adapt SupervisingView for the NotificationView API
+- supervising: Uses the NotificationView for the supervising instead of component
+- test-instance-creation: cubicweb now needs the web cube to be installed
+
+🤖 Continuous integration
+------------------------
+
+Most python test have been splitted to speed up the CI speed.
+
+- .gitlab-ci.yml: refactoring py3 tests declaration using a base template
+- add check-dependencies-resolution job
+- add mypy job
+- add safety job
+- add twine-check job
+- fix: "base" in py3-server-base clashed with "py3-base", use "core" instead
+- fix: py3-auto-test-views jobs wrongly launched py3-server-bases tests
+- migrate to v2 of templates
+- move to bullseye and pg13
+- split py3-misc into several different tests
+- split py3-server into several different tests
+- test-instance-creation: pip --use-feature=in-tree-build is deprecated, remove it
+- use .retry base template in (nearly) all jobs
+
+🤷 Various changes
+-----------------
+
+- [cubicweb 3.38] RequestSessionBase is deprecated, use RequestSessionAndConnectionBase instead
+- remove mailing-list from "how to contribute" since it's no more used (https://forge.extranet.logilab.fr/cubicweb/cubicweb/-/issues/395)
+- supervising: Refactor to not using self.w from NotificationView
+- Unknown config option: log_print
