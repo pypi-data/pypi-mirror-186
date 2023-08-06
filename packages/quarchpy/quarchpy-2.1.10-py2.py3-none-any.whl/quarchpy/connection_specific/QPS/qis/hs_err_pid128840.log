@@ -1,0 +1,346 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x000000006b60db80, pid=128840, tid=0x0000000000017b40
+#
+# JRE version: OpenJDK Runtime Environment (8.0_265-b01) (build 1.8.0_265-b01)
+# Java VM: OpenJDK 64-Bit Server VM (25.265-b01 mixed mode windows-amd64 compressed oops)
+# Problematic frame:
+# C  [libusb-1.0.dll+0xdb80]
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please include
+# instructions on how to reproduce the bug and visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000022a52000):  JavaThread "nioEventLoopGroup-4-2" [_thread_in_native, id=97088, stack(0x0000000020b20000,0x0000000020c20000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x0000000000000020
+
+Registers:
+RAX=0x0000000000000000, RBX=0x0000000022556d60, RCX=0x00000000ffffffff, RDX=0x0000000022556d30
+RSP=0x0000000020c1e060, RBP=0x0000000020c1e090, RSI=0x0000000022556d30, RDI=0x0000000022556d58
+R8 =0x0000000020c1dfc8, R9 =0x0000000020c1e090, R10=0x0000000000000000, R11=0x0000000000000246
+R12=0x0000000000000200, R13=0x0000000022b54130, R14=0x0000000000000082, R15=0x0000000022a52000
+RIP=0x000000006b60db80, EFLAGS=0x0000000000010297
+
+Top of Stack: (sp=0x0000000020c1e060)
+0x0000000020c1e060:   0000000022556d30 000000006b6073eb
+0x0000000020c1e070:   0000000022556d60 000000006b602271
+0x0000000020c1e080:   0000000000000000 0000000000000be0
+0x0000000020c1e090:   0000000020c1e120 000000006b60544d
+0x0000000020c1e0a0:   0000000020c1e0f0 000000006b60198a
+0x0000000020c1e0b0:   0000000020c1e0f0 000000006b606302
+0x0000000020c1e0c0:   0000000022556d58 0000000022544320
+0x0000000020c1e0d0:   0000000020c1e120 0000000020c1e1ac
+0x0000000020c1e0e0:   00000000225442b0 0000000022556d60
+0x0000000020c1e0f0:   0000000020c1e180 000000006b606a1b
+0x0000000020c1e100:   0000000022a6b000 0000000022556d30
+0x0000000020c1e110:   000000000002f16e 000000003d5ff9a0
+0x0000000020c1e120:   000000006b616631 0000000022556200
+0x0000000020c1e130:   0000000000000002 0000000022556d60
+0x0000000020c1e140:   0000000022556200 0000000000000002
+0x0000000020c1e150:   0000000020c1e1b0 000000006b606aae 
+
+Instructions: (pc=0x000000006b60db80)
+0x000000006b60db60:   55 48 89 e5 48 83 ec 30 0f b6 41 3a 84 c0 74 63
+0x000000006b60db70:   3c 03 77 2c 48 8b 41 30 48 89 ca b9 ff ff ff ff
+0x000000006b60db80:   48 8b 40 20 48 8b 40 6c 48 8b 80 90 00 00 00 48
+0x000000006b60db90:   83 c4 30 5d 48 ff e0 66 0f 1f 84 00 00 00 00 00 
+
+
+Register to memory mapping:
+
+RAX=0x0000000000000000 is an unknown value
+RBX=0x0000000022556d60 is an unknown value
+RCX=0x00000000ffffffff is an unknown value
+RDX=0x0000000022556d30 is an unknown value
+RSP=0x0000000020c1e060 is pointing into the stack for thread: 0x0000000022a52000
+RBP=0x0000000020c1e090 is pointing into the stack for thread: 0x0000000022a52000
+RSI=0x0000000022556d30 is an unknown value
+RDI=0x0000000022556d58 is an unknown value
+R8 =0x0000000020c1dfc8 is pointing into the stack for thread: 0x0000000022a52000
+R9 =0x0000000020c1e090 is pointing into the stack for thread: 0x0000000022a52000
+R10=0x0000000000000000 is an unknown value
+R11=0x0000000000000246 is an unknown value
+R12=0x0000000000000200 is an unknown value
+R13=0x0000000022b54130 is an unknown value
+R14=0x0000000000000082 is an unknown value
+R15=0x0000000022a52000 is a thread
+
+
+Stack: [0x0000000020b20000,0x0000000020c20000],  sp=0x0000000020c1e060,  free space=1016k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libusb-1.0.dll+0xdb80]
+C  [libusb-1.0.dll+0x544d]
+C  [libusb-1.0.dll+0x6a1b]
+C  [libusb-1.0.dll+0x6aae]
+C  [libusb-1.0.dll+0x6e08]
+C  [libusb4java.dll+0x3736]
+C  0x0000000003400ecd
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J 1155  org.usb4java.LibUsb.bulkTransfer(Lorg/usb4java/DeviceHandle;BLjava/nio/ByteBuffer;Ljava/nio/IntBuffer;J)I (0 bytes) @ 0x0000000003400e4f [0x0000000003400dc0+0x8f]
+J 1160 C1 src.com.quarch.beUSB.USBInterface$USBInfoBlock.readUSB(BI)Lsrc/com/quarch/devices/DeviceDataBuffer; (109 bytes) @ 0x00000000034085c4 [0x0000000003408040+0x584]
+J 1162 C1 src.com.quarch.beUSB.USBInterface$USBInfoBlock.readUSBReply(I)Lsrc/com/quarch/devices/DeviceDataBuffer; (57 bytes) @ 0x0000000003409f04 [0x0000000003409e60+0xa4]
+j  src.com.quarch.beUSB.USBInterface$USBInfoBlock.doTextIO(Lsrc/com/quarch/beCommandData/CmdStruct;)V+32
+j  src.com.quarch.beUSB.USBInterface$USBInfoBlock.executeCommand(Lsrc/com/quarch/beCommandData/CmdStruct;)V+46
+j  src.com.quarch.beWrapper.QbeInterfaceWrapper.executeCommand(Lsrc/com/quarch/deviceInterface/DeviceListEntry;Lsrc/com/quarch/beCommandData/CmdStruct;)V+5
+j  src.com.quarch.beWrapper.QbeInterfaceWrapper.processCommand(Lsrc/com/quarch/beCommandData/CmdStruct;Lsrc/com/quarch/deviceInterface/DeviceListEntry;)V+63
+J 1496 C1 src.com.quarch.beWrapper.QbeInterfaceWrapper.forwardCommand(Lsrc/com/quarch/beCommandData/CmdStruct;)V (240 bytes) @ 0x00000000034f436c [0x00000000034f36c0+0xcac]
+j  commandProcessor.CmdProcessorSingleton.cmdDecode(Lsrc/com/quarch/beCommandData/CmdStruct;)Z+425
+j  frontEnd.Telnet.TelnetServerHandler.channelRead0(Lio/netty/channel/ChannelHandlerContext;Ljava/lang/String;)V+75
+j  frontEnd.Telnet.TelnetServerHandler.channelRead0(Lio/netty/channel/ChannelHandlerContext;Ljava/lang/Object;)V+6
+j  io.netty.channel.SimpleChannelInboundHandler.channelRead(Lio/netty/channel/ChannelHandlerContext;Ljava/lang/Object;)V+17
+J 1334 C1 io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(Ljava/lang/Object;)V (40 bytes) @ 0x0000000003484204 [0x0000000003483e60+0x3a4]
+J 1272 C1 io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(Lio/netty/channel/AbstractChannelHandlerContext;Ljava/lang/Object;)V (45 bytes) @ 0x0000000003463a34 [0x0000000003463540+0x4f4]
+J 1312 C1 io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(Ljava/lang/Object;)Lio/netty/channel/ChannelHandlerContext; (10 bytes) @ 0x0000000003472c84 [0x0000000003472b40+0x144]
+j  io.netty.handler.codec.MessageToMessageDecoder.channelRead(Lio/netty/channel/ChannelHandlerContext;Ljava/lang/Object;)V+75
+J 1334 C1 io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(Ljava/lang/Object;)V (40 bytes) @ 0x0000000003484204 [0x0000000003483e60+0x3a4]
+J 1272 C1 io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(Lio/netty/channel/AbstractChannelHandlerContext;Ljava/lang/Object;)V (45 bytes) @ 0x0000000003463a34 [0x0000000003463540+0x4f4]
+J 1312 C1 io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(Ljava/lang/Object;)Lio/netty/channel/ChannelHandlerContext; (10 bytes) @ 0x0000000003472c84 [0x0000000003472b40+0x144]
+j  io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(Lio/netty/channel/ChannelHandlerContext;Lio/netty/handler/codec/CodecOutputList;I)V+13
+j  io.netty.handler.codec.ByteToMessageDecoder.channelRead(Lio/netty/channel/ChannelHandlerContext;Ljava/lang/Object;)V+175
+J 1334 C1 io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(Ljava/lang/Object;)V (40 bytes) @ 0x0000000003484204 [0x0000000003483e60+0x3a4]
+J 1272 C1 io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(Lio/netty/channel/AbstractChannelHandlerContext;Ljava/lang/Object;)V (45 bytes) @ 0x0000000003463a34 [0x0000000003463540+0x4f4]
+J 1312 C1 io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(Ljava/lang/Object;)Lio/netty/channel/ChannelHandlerContext; (10 bytes) @ 0x0000000003472c84 [0x0000000003472b40+0x144]
+j  io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(Lio/netty/channel/ChannelHandlerContext;Ljava/lang/Object;)V+2
+J 1334 C1 io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(Ljava/lang/Object;)V (40 bytes) @ 0x0000000003484204 [0x0000000003483e60+0x3a4]
+J 1272 C1 io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(Lio/netty/channel/AbstractChannelHandlerContext;Ljava/lang/Object;)V (45 bytes) @ 0x0000000003463a34 [0x0000000003463540+0x4f4]
+j  io.netty.channel.DefaultChannelPipeline.fireChannelRead(Ljava/lang/Object;)Lio/netty/channel/ChannelPipeline;+5
+j  io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read()V+175
+j  io.netty.channel.nio.NioEventLoop.processSelectedKey(Ljava/nio/channels/SelectionKey;Lio/netty/channel/nio/AbstractNioChannel;)V+69
+j  io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized([Ljava/nio/channels/SelectionKey;)V+38
+J 1445 C1 io.netty.channel.nio.NioEventLoop.processSelectedKeys()V (33 bytes) @ 0x00000000034cdccc [0x00000000034cdb60+0x16c]
+j  io.netty.channel.nio.NioEventLoop.run()V+115
+j  io.netty.util.concurrent.SingleThreadEventExecutor$2.run()V+13
+j  io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run()V+4
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+=>0x0000000022a52000 JavaThread "nioEventLoopGroup-4-2" [_thread_in_native, id=97088, stack(0x0000000020b20000,0x0000000020c20000)]
+  0x0000000022a52800 JavaThread "nioEventLoopGroup-4-1" [_thread_in_native, id=70196, stack(0x0000000020720000,0x0000000020820000)]
+  0x0000000022a4e800 JavaThread "Thread-10" [_thread_blocked, id=145236, stack(0x0000000023f10000,0x0000000024010000)]
+  0x0000000022a4e000 JavaThread "Thread-8" [_thread_blocked, id=53116, stack(0x0000000023d10000,0x0000000023e10000)]
+  0x0000000022a46800 JavaThread "TimerQueue" daemon [_thread_blocked, id=164612, stack(0x0000000023b10000,0x0000000023c10000)]
+  0x000000001ff2e000 JavaThread "Thread-6" [_thread_blocked, id=164492, stack(0x0000000023a10000,0x0000000023b10000)]
+  0x000000001fdbd000 JavaThread "nioEventLoopGroup-3-1" [_thread_in_native, id=164548, stack(0x0000000022440000,0x0000000022540000)]
+  0x000000001fdbc800 JavaThread "nioEventLoopGroup-2-1" [_thread_in_native, id=164552, stack(0x0000000022340000,0x0000000022440000)]
+  0x000000001fa9d800 JavaThread "ErrorCatch TelnetServer" [_thread_blocked, id=50040, stack(0x0000000022040000,0x0000000022140000)]
+  0x000000001fa9a000 JavaThread "ErrorCatch RESTServer" [_thread_blocked, id=145204, stack(0x0000000021f40000,0x0000000022040000)]
+  0x000000001fa24000 JavaThread "AWT-EventQueue-0" [_thread_blocked, id=32264, stack(0x0000000020820000,0x0000000020920000)]
+  0x000000001f8f2000 JavaThread "AWT-Windows" daemon [_thread_in_native, id=128380, stack(0x0000000020470000,0x0000000020570000)]
+  0x000000001f8ef000 JavaThread "AWT-Shutdown" [_thread_blocked, id=125784, stack(0x0000000020370000,0x0000000020470000)]
+  0x000000001f8ee800 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=145208, stack(0x0000000020270000,0x0000000020370000)]
+  0x000000001e8db800 JavaThread "Service Thread" daemon [_thread_blocked, id=69828, stack(0x000000001f530000,0x000000001f630000)]
+  0x000000001e8c3000 JavaThread "C1 CompilerThread3" daemon [_thread_blocked, id=37308, stack(0x000000001f430000,0x000000001f530000)]
+  0x000000001e8a5000 JavaThread "C2 CompilerThread2" daemon [_thread_blocked, id=164388, stack(0x000000001f330000,0x000000001f430000)]
+  0x000000001e86d000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=164416, stack(0x000000001f230000,0x000000001f330000)]
+  0x000000001e864800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=88368, stack(0x000000001f130000,0x000000001f230000)]
+  0x000000001e863000 JavaThread "Attach Listener" daemon [_thread_blocked, id=32400, stack(0x000000001f030000,0x000000001f130000)]
+  0x000000001e862800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=20844, stack(0x000000001ef30000,0x000000001f030000)]
+  0x000000001e851800 JavaThread "Finalizer" daemon [_thread_blocked, id=126176, stack(0x000000001ed30000,0x000000001ee30000)]
+  0x0000000003028800 JavaThread "Reference Handler" daemon [_thread_blocked, id=126568, stack(0x000000001ec30000,0x000000001ed30000)]
+  0x0000000002f2e000 JavaThread "main" [_thread_blocked, id=45972, stack(0x0000000002d60000,0x0000000002e60000)]
+
+Other Threads:
+  0x000000001ca58800 VMThread [stack: 0x000000001e730000,0x000000001e830000] [id=25976]
+  0x000000001e8dc000 WatcherThread [stack: 0x000000001f630000,0x000000001f730000] [id=34320]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+heap address: 0x00000006c1a00000, size: 4070 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x00000007c0000000
+
+Heap:
+ PSYoungGen      total 76288K, used 38323K [0x000000076b380000, 0x0000000770880000, 0x00000007c0000000)
+  eden space 65536K, 58% used [0x000000076b380000,0x000000076d8ecf20,0x000000076f380000)
+  from space 10752K, 0% used [0x000000076fe00000,0x000000076fe00000,0x0000000770880000)
+  to   space 10752K, 0% used [0x000000076f380000,0x000000076f380000,0x000000076fe00000)
+ ParOldGen       total 175104K, used 0K [0x00000006c1a00000, 0x00000006cc500000, 0x000000076b380000)
+  object space 175104K, 0% used [0x00000006c1a00000,0x00000006c1a00000,0x00000006cc500000)
+ Metaspace       used 20365K, capacity 20586K, committed 20864K, reserved 1067008K
+  class space    used 2522K, capacity 2594K, committed 2688K, reserved 1048576K
+
+Card table byte_map: [0x00000000123f0000,0x0000000012bf0000] byte_map_base: 0x000000000ede3000
+
+Marking Bits: (ParMarkBitMap*) 0x000000006a168810
+ Begin Bits: [0x0000000013940000, 0x00000000178d8000)
+ End Bits:   [0x00000000178d8000, 0x000000001b870000)
+
+Polling page: 0x0000000001340000
+
+CodeCache: size=245760Kb used=4973Kb max_used=4984Kb free=240786Kb
+ bounds [0x0000000003030000, 0x0000000003520000, 0x0000000012030000]
+ total_blobs=2083 nmethods=1525 adapters=470
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 18.403 Thread 0x000000001e8c3000 1521       3       io.netty.util.internal.InternalThreadLocalMap::charsetEncoderCache (24 bytes)
+Event: 18.403 Thread 0x000000001e8c3000 nmethod 1521 0x0000000003505010 code [0x00000000035051a0, 0x00000000035055d0]
+Event: 18.430 Thread 0x000000001e8c3000 1522       3       io.netty.handler.codec.string.StringEncoder::encode (11 bytes)
+Event: 18.431 Thread 0x000000001e8c3000 nmethod 1522 0x0000000003508b50 code [0x0000000003508d80, 0x0000000003509a08]
+Event: 18.431 Thread 0x000000001e8c3000 1523       3       io.netty.handler.codec.string.StringEncoder::encode (35 bytes)
+Event: 18.432 Thread 0x000000001e8c3000 nmethod 1523 0x0000000003507810 code [0x0000000003507a20, 0x0000000003508548]
+Event: 18.432 Thread 0x000000001e8c3000 1524       3       io.netty.buffer.AbstractByteBufAllocator::buffer (19 bytes)
+Event: 18.432 Thread 0x000000001e8c3000 nmethod 1524 0x000000000350ded0 code [0x000000000350e0a0, 0x000000000350e858]
+Event: 18.531 Thread 0x000000001e864800 1525       4       java.util.ArrayList$Itr::hasNext (20 bytes)
+Event: 18.531 Thread 0x000000001e864800 nmethod 1525 0x0000000003504cd0 code [0x0000000003504e00, 0x0000000003504e98]
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (9 events):
+Event: 0.963 Thread 0x0000000002f2e000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000000000329a18c method=java.util.HashMap.getNode(ILjava/lang/Object;)Ljava/util/HashMap$Node; @ 129
+Event: 0.966 Thread 0x0000000002f2e000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000000000330cbb8 method=java.util.HashMap.getNode(ILjava/lang/Object;)Ljava/util/HashMap$Node; @ 129
+Event: 0.968 Thread 0x0000000002f2e000 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x000000000332ab6c method=java.util.HashMap.putVal(ILjava/lang/Object;Ljava/lang/Object;ZZ)Ljava/lang/Object; @ 203
+Event: 0.969 Thread 0x0000000002f2e000 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x000000000332ab6c method=java.util.HashMap.putVal(ILjava/lang/Object;Ljava/lang/Object;ZZ)Ljava/lang/Object; @ 203
+Event: 0.969 Thread 0x0000000002f2e000 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x000000000332ab6c method=java.util.HashMap.putVal(ILjava/lang/Object;Ljava/lang/Object;ZZ)Ljava/lang/Object; @ 203
+Event: 0.970 Thread 0x0000000002f2e000 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x000000000332ab6c method=java.util.HashMap.putVal(ILjava/lang/Object;Ljava/lang/Object;ZZ)Ljava/lang/Object; @ 203
+Event: 0.981 Thread 0x0000000002f2e000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000003271c24 method=java.lang.AbstractStringBuilder.append(Ljava/lang/String;)Ljava/lang/AbstractStringBuilder; @ 1
+Event: 0.982 Thread 0x0000000002f2e000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000003263e50 method=java.lang.AbstractStringBuilder.append(Ljava/lang/String;)Ljava/lang/AbstractStringBuilder; @ 1
+Event: 1.030 Thread 0x0000000002f2e000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000031daa40 method=java.lang.CharacterData.of(I)Ljava/lang/CharacterData; @ 4
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (10 events):
+Event: 0.961 Thread 0x0000000002f2e000 Exception <a 'java/lang/ClassNotFoundException': RootPane> (0x000000076c9b5720) thrown at [C:\ws\89P\Corretto8Src\installers\windows\zip\corretto-build\buildRoot\src\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 215]
+Event: 0.981 Thread 0x0000000002f2e000 Implicit null exception at 0x0000000003271854 to 0x0000000003271c0d
+Event: 0.982 Thread 0x0000000002f2e000 Implicit null exception at 0x0000000003263a96 to 0x0000000003263e39
+Event: 1.553 Thread 0x0000000022a53800 Exception <a 'java/net/SocketTimeoutException': Receive timed out> (0x000000076cc20e88) thrown at [C:\ws\89P\Corretto8Src\installers\windows\zip\corretto-build\buildRoot\src\hotspot\src\share\vm\prims\jni.cpp, line 738]
+Event: 2.064 Thread 0x0000000022a53800 Exception <a 'java/net/SocketTimeoutException': Receive timed out> (0x000000076cc21ce0) thrown at [C:\ws\89P\Corretto8Src\installers\windows\zip\corretto-build\buildRoot\src\hotspot\src\share\vm\prims\jni.cpp, line 738]
+Event: 2.573 Thread 0x0000000022a53800 Exception <a 'java/net/SocketTimeoutException': Receive timed out> (0x000000076cc22b38) thrown at [C:\ws\89P\Corretto8Src\installers\windows\zip\corretto-build\buildRoot\src\hotspot\src\share\vm\prims\jni.cpp, line 738]
+Event: 3.082 Thread 0x0000000022a53800 Exception <a 'java/net/SocketTimeoutException': Receive timed out> (0x000000076cc23990) thrown at [C:\ws\89P\Corretto8Src\installers\windows\zip\corretto-build\buildRoot\src\hotspot\src\share\vm\prims\jni.cpp, line 738]
+Event: 3.596 Thread 0x0000000022a53800 Exception <a 'java/net/SocketTimeoutException': Receive timed out> (0x000000076cc247e8) thrown at [C:\ws\89P\Corretto8Src\installers\windows\zip\corretto-build\buildRoot\src\hotspot\src\share\vm\prims\jni.cpp, line 738]
+Event: 4.110 Thread 0x0000000022a53800 Exception <a 'java/net/SocketTimeoutException': Receive timed out> (0x000000076cc25640) thrown at [C:\ws\89P\Corretto8Src\installers\windows\zip\corretto-build\buildRoot\src\hotspot\src\share\vm\prims\jni.cpp, line 738]
+Event: 4.621 Thread 0x0000000022a53800 Exception <a 'java/net/SocketTimeoutException': Receive timed out> (0x000000076cc26498) thrown at [C:\ws\89P\Corretto8Src\installers\windows\zip\corretto-build\buildRoot\src\hotspot\src\share\vm\prims\jni.cpp, line 738]
+
+Events (10 events):
+Event: 16.620 loading class java/lang/Throwable$WrappedPrintStream done
+Event: 16.845 loading class frontEnd/Telnet/TelnetServerHandler$1
+Event: 16.845 loading class frontEnd/Telnet/TelnetServerHandler$1 done
+Event: 16.846 Executing VM operation: RevokeBias
+Event: 16.846 Executing VM operation: RevokeBias done
+Event: 18.009 Executing VM operation: RevokeBias
+Event: 18.009 Executing VM operation: RevokeBias done
+Event: 18.009 Thread 0x0000000022a4d000 Thread exited: 0x0000000022a4d000
+Event: 18.371 loading class java/nio/DirectByteBuffer$1
+Event: 18.371 loading class java/nio/DirectByteBuffer$1 done
+
+
+Dynamic libraries:
+0x00007ff73ff30000 - 0x00007ff73ff65000 	E:\Applications\CorettoJava\jdk1.8.0_265\bin\java.exe
+0x00007ffc4c7d0000 - 0x00007ffc4c9c5000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffc4aa50000 - 0x00007ffc4ab0e000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffc49ec0000 - 0x00007ffc4a189000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffc4b510000 - 0x00007ffc4b5bc000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffc4b940000 - 0x00007ffc4b9de000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffc4ab10000 - 0x00007ffc4abab000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffc4a850000 - 0x00007ffc4a97a000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffc4c230000 - 0x00007ffc4c3d1000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffc4a720000 - 0x00007ffc4a742000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffc4c180000 - 0x00007ffc4c1ab000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffc4a220000 - 0x00007ffc4a32b000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffc4a750000 - 0x00007ffc4a7ed000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffc4a540000 - 0x00007ffc4a640000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffc37560000 - 0x00007ffc377fa000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1110_none_60b5254171f9507e\COMCTL32.dll
+0x00007ffc4c6d0000 - 0x00007ffc4c700000 	C:\WINDOWS\System32\IMM32.DLL
+0x000000006a970000 - 0x000000006aa42000 	E:\Applications\CorettoJava\jdk1.8.0_265\jre\bin\msvcr100.dll
+0x0000000069930000 - 0x000000006a1ea000 	E:\Applications\CorettoJava\jdk1.8.0_265\jre\bin\server\jvm.dll
+0x00007ffc4b080000 - 0x00007ffc4b088000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ffc2be60000 - 0x00007ffc2be87000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffc34d70000 - 0x00007ffc34d79000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffc414e0000 - 0x00007ffc414ea000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffc4abc0000 - 0x00007ffc4ac2b000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffc45790000 - 0x00007ffc4579f000 	E:\Applications\CorettoJava\jdk1.8.0_265\jre\bin\verify.dll
+0x00007ffc2f070000 - 0x00007ffc2f099000 	E:\Applications\CorettoJava\jdk1.8.0_265\jre\bin\java.dll
+0x00007ffc44bc0000 - 0x00007ffc44bd6000 	E:\Applications\CorettoJava\jdk1.8.0_265\jre\bin\zip.dll
+0x00007ffc4b9e0000 - 0x00007ffc4c11f000 	C:\WINDOWS\System32\SHELL32.dll
+0x00007ffc47fc0000 - 0x00007ffc48750000 	C:\WINDOWS\SYSTEM32\windows.storage.dll
+0x00007ffc4b5e0000 - 0x00007ffc4b935000 	C:\WINDOWS\System32\combase.dll
+0x00007ffc49910000 - 0x00007ffc4993c000 	C:\WINDOWS\SYSTEM32\Wldp.dll
+0x00007ffc4c620000 - 0x00007ffc4c6ce000 	C:\WINDOWS\System32\SHCORE.dll
+0x00007ffc4c120000 - 0x00007ffc4c175000 	C:\WINDOWS\System32\shlwapi.dll
+0x00007ffc49e00000 - 0x00007ffc49e1f000 	C:\WINDOWS\SYSTEM32\profapi.dll
+0x00007ffbf1810000 - 0x00007ffbf19a8000 	E:\Applications\CorettoJava\jdk1.8.0_265\jre\bin\awt.dll
+0x00007ffc4a980000 - 0x00007ffc4aa4d000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ffc471a0000 - 0x00007ffc47230000 	C:\WINDOWS\SYSTEM32\apphelp.dll
+0x00007ffc475c0000 - 0x00007ffc4765e000 	C:\WINDOWS\system32\uxtheme.dll
+0x00007ffc4ac30000 - 0x00007ffc4ad45000 	C:\WINDOWS\System32\MSCTF.dll
+0x00007ffc4c3e0000 - 0x00007ffc4c50a000 	C:\WINDOWS\System32\ole32.dll
+0x00007ffc48790000 - 0x00007ffc487a2000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffc4a190000 - 0x00007ffc4a213000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffc47790000 - 0x00007ffc477bf000 	C:\WINDOWS\system32\DWMAPI.DLL
+0x00007ffc1ed60000 - 0x00007ffc1ee85000 	C:\WINDOWS\system32\opengl32.dll
+0x00007ffc1ecf0000 - 0x00007ffc1ed1c000 	C:\WINDOWS\SYSTEM32\GLU32.dll
+0x00007ffc179b0000 - 0x00007ffc17a4e000 	E:\Applications\CorettoJava\jdk1.8.0_265\jre\bin\freetype.dll
+0x00007ffc2ecb0000 - 0x00007ffc2ecfb000 	E:\Applications\CorettoJava\jdk1.8.0_265\jre\bin\fontmanager.dll
+0x00007ffc41550000 - 0x00007ffc415fe000 	C:\WINDOWS\SYSTEM32\mscms.dll
+0x00007ffc49dc0000 - 0x00007ffc49dee000 	C:\WINDOWS\SYSTEM32\USERENV.dll
+0x00007ffc41840000 - 0x00007ffc41851000 	C:\WINDOWS\SYSTEM32\ColorAdapterClient.dll
+0x00007ffc2e6a0000 - 0x00007ffc2e6e3000 	C:\WINDOWS\SYSTEM32\icm32.dll
+0x00007ffc35830000 - 0x00007ffc3584a000 	E:\Applications\CorettoJava\jdk1.8.0_265\jre\bin\net.dll
+0x00007ffc49670000 - 0x00007ffc496da000 	C:\WINDOWS\system32\mswsock.dll
+0x00007ffc2ec00000 - 0x00007ffc2ec12000 	E:\Applications\CorettoJava\jdk1.8.0_265\jre\bin\nio.dll
+0x00007ffc49860000 - 0x00007ffc49878000 	C:\WINDOWS\SYSTEM32\CRYPTSP.dll
+0x00007ffc48f20000 - 0x00007ffc48f54000 	C:\WINDOWS\system32\rsaenh.dll
+0x00007ffc4a640000 - 0x00007ffc4a667000 	C:\WINDOWS\System32\bcrypt.dll
+0x00007ffc49880000 - 0x00007ffc4988c000 	C:\WINDOWS\SYSTEM32\CRYPTBASE.dll
+0x00007ffc49310000 - 0x00007ffc4934b000 	C:\WINDOWS\SYSTEM32\IPHLPAPI.DLL
+0x00007ffc4abb0000 - 0x00007ffc4abb8000 	C:\WINDOWS\System32\NSI.dll
+0x00007ffc45120000 - 0x00007ffc45137000 	C:\WINDOWS\SYSTEM32\dhcpcsvc6.DLL
+0x00007ffc45050000 - 0x00007ffc4506d000 	C:\WINDOWS\SYSTEM32\dhcpcsvc.DLL
+0x00007ffc49360000 - 0x00007ffc4942c000 	C:\WINDOWS\SYSTEM32\DNSAPI.dll
+0x000000006b600000 - 0x000000006b62f000 	C:\Users\anorrie\AppData\Local\Temp\usb4java179361136322293178.tmp\libusb-1.0.dll
+0x0000000070880000 - 0x0000000070897000 	C:\Users\anorrie\AppData\Local\Temp\usb4java179361136322293178.tmp\libusb4java.dll
+0x00007ffc4a4f0000 - 0x00007ffc4a53e000 	C:\WINDOWS\System32\Cfgmgr32.dll
+0x00007ffc4b090000 - 0x00007ffc4b502000 	C:\WINDOWS\System32\SetupAPI.dll
+0x00007ffc28f00000 - 0x00007ffc28f0c000 	C:\WINDOWS\SYSTEM32\WinUSB.DLL
+0x00007ffc48750000 - 0x00007ffc4875d000 	C:\WINDOWS\SYSTEM32\hid.dll
+0x00007ffc49c60000 - 0x00007ffc49c94000 	C:\WINDOWS\SYSTEM32\DEVOBJ.dll
+0x00007ffc4a330000 - 0x00007ffc4a390000 	C:\WINDOWS\System32\WINTRUST.dll
+0x00007ffc4a390000 - 0x00007ffc4a4e6000 	C:\WINDOWS\System32\CRYPT32.dll
+0x00007ffc49aa0000 - 0x00007ffc49ab2000 	C:\WINDOWS\SYSTEM32\MSASN1.dll
+0x00007ffc47db0000 - 0x00007ffc47f94000 	C:\WINDOWS\SYSTEM32\dbghelp.dll
+
+VM Arguments:
+java_command: qis.jar -logging=ON
+java_class_path (initial): qis.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=E:\Applications\CorettoJava\jdk1.8.0_265
+PATH=E:\Applications\CorettoJava\jdk1.8.0_265\bin;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\Scripts\;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\;C:\Program Files (x86)\Microchip\mplabc18\v3.45\mpasm;C:\Program Files (x86)\Microchip\mplabc18\v3.45\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\Perl64\site\bin;C:\Perl64\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Microchip\MCC18\mpasm;C:\Program Files (x86)\Microchip\MCC18\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Microchip\MPLAB C32 Suite\bin;C:\Python37;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Pico Technology\PicoScope6\;C:\Program Files\fio\;C:\Program Files\SafeNet\Authentication\SAC\x64;C:\Program Files\SafeNet\Authentication\SAC\x32;C:\Program Files (x86)\Microchip\xc8\v2.10\bin;C:\Program Files (x86)\Microchip\xc32\v2.30\bin;C:\Program Files\TortoiseSVN\bin;c:\maven-3.6.3\bin;C:\Program Files\dotnet\;C:\Program Files (x86)\Quarch Technology\Cable Tester Studio\jre8\bin;C:\Users\anorrie\.dotnet\tools
+USERNAME=anorrie
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 158 Stepping 9, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10.0 , 64 bit Build 19041 (10.0.19041.1202)
+
+CPU:total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 158 stepping 9, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, rtm, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx
+
+Memory: 4k page, physical 16666692k(6464288k free), swap 33443908k(16974848k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.265-b01) for windows-amd64 JRE (1.8.0_265-b01), built on Jul 28 2020 21:14:30 by "Administrator" with MS VC++ 10.0 (VS2010)
+
+time: Wed Oct 06 17:14:16 2021
+timezone: GMT Summer Time
+elapsed time: 18 seconds (0d 0h 0m 18s)
+
