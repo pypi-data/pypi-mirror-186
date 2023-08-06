@@ -1,0 +1,1 @@
+from stabledefaults.decorator import stabledefaults
