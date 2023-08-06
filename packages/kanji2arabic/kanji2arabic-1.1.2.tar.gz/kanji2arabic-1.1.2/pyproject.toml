@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "kanji2arabic"
+version = "1.1.2"
+description = "Convert Kanji numerals to Arabic numerals."
+authors = ["hgs-interman <system@interman.co.jp>"]
+maintainers = ["hgs-interman <system@interman.co.jp>"]
+readme = 'README.md'
+repository = 'https://github.com/interman-corp/kanji2arabic'
+keywords = ['Japanese', 'kanji', 'int2kanji', 'kanji2int', 'convert']
+license = "MIT"
+classifiers=[
+    'License :: OSI Approved :: MIT License',
+
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
