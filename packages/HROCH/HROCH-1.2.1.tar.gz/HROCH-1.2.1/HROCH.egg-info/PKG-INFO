@@ -1,0 +1,91 @@
+Metadata-Version: 2.1
+Name: HROCH
+Version: 1.2.1
+Summary: Symbolic regression
+Home-page: https://github.com/janoPig/HROCH/
+Author: Jano
+Author-email: hroch.regression@gmail.com
+License: MIT
+Project-URL: Documentation, https://github.com/janoPig/HROCH/tree/main/docs
+Project-URL: Source, https://github.com/janoPig/HROCH
+Project-URL: Tracker, https://github.com/janoPig/HROCH/issues
+Keywords: machine-learning,numpy,symbolic-regression,fuzzy
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+
+# HROCH  
+
+**High-Performance python symbolic regression library based on parallel late acceptance hill-climbing**
+
+- Zero hyperparameter tunning.
+- Accurate results in seconds or minutes, in contrast to slow GP-based methods.
+- Small models size.
+- Support mathematic equations and fuzzy logic operators.
+- Support 32 and 64 bit floating point arithmetic.
+- Work with unprotected version of math operators (log, sqrt, division)
+- Speedup search by using feature importances computed from bbox model
+- CLI
+
+|**Supported instructions**||
+| ----------- | ----------- |
+|**math**|add, sub, mul, div, inv, minv, sq2, pow, exp, log, sqrt, cbrt, aq|
+|**goniometric**|sin, cos, tan, asin, acos, atan, sinh, cosh, tanh|
+|**other**|nop, max, min, abs, floor, ceil, lt, gt, lte, gte|
+|**fuzzy**|f_and, f_or, f_xor, f_impl, f_not, f_nand, f_nor, f_nxor, f_nimpl|
+
+## Dependencies
+
+- AVX2 instructions set(all modern CPU support this)
+- numpy
+
+## Installation
+
+```sh
+pip install HROCH
+```
+
+## Usage
+
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/janoPig/HROCH/blob/main/examples/Symbolic_Regression_Demo.ipynb)
+
+```python
+from HROCH import PHCRegressor
+
+reg = PHCRegressor(num_threads=8, time_limit=60.0, problem='math', precision='f64')
+reg.fit(X_train, y_train)
+yp = reg.predict(X_test)
+```
+
+## Changelog
+
+### v1.2
+
+- Features probability as input parameter
+- Custom instructions set
+- Parallel hilclimbing parameters
+  
+### v1.1
+
+- Improved late acceptance hillclimbing
+
+### v1.0
+
+- First release
+
+
+## SRBench
+
+
+![image](https://user-images.githubusercontent.com/75015989/212561560-39393068-8d72-48f4-b11c-7a14db029faf.png)
+
