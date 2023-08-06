@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simple-mecab"
+description = "Use MeCab with simple code."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Keisuke Magara", email = "Keisuke-Magara.dev@outlook.com" },
+]
+keywords = ["mecab", "NLP", "morphological-analysis"]
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: Japanese",
+]
+requires-python = ">=3.7"
+dependencies = ["mecab>=0.996"]
+dynamic = ["version"]
+
+[project.urls]
+repository = "https://github.com/Keisuke-Magara/simple-mecab"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.dynamic]
+version = { attr = "setuptools_scm.get_version" }
+
+[tool.setuptools_scm]
+write_to = "src/simple_mecab/_version.py"
+version_scheme = "guess-next-dev"
+local_scheme = "no-local-version"
