@@ -1,0 +1,145 @@
+[tool.poetry]
+name = "libtmux"
+version = "0.20.0a0"
+description = "Typed scripting library / ORM / API wrapper for tmux"
+license = "MIT"
+authors = ["Tony Narlock <tony@git-pull.com>"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: POSIX",
+  "Operating System :: MacOS :: MacOS X",
+  "Environment :: Web Environment",
+  "Framework :: Pytest",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Utilities",
+  "Topic :: System :: Shells",
+  "Typing :: Typed",
+]
+
+keywords = ["tmux", "session manager", "terminal", "ncurses"]
+homepage = "http://github.com/tmux-python/libtmux/"
+readme = "README.md"
+packages = [
+  { include = "*", from = "src" },
+]
+include = [
+  { path = "CHANGES", format = "sdist" },
+  { path = ".tmuxp.yaml", format = "sdist" },
+  { path = "tests", format = "sdist" },
+  { path = "docs", format = "sdist" },
+  { path = "conftest.py", format = "sdist" },
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/tmux-python/libtmux/issues"
+Documentation = "https://libtmux.git-pull.com"
+Repository = "https://github.com/tmux-python/libtmux"
+Changes = "https://github.com/tmux-python/libtmux/blob/master/CHANGES"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+### Docs ###
+sphinx = "*"
+furo = "*"
+gp-libs = "~0.0.1a17"
+sphinx-autobuild = "*"
+sphinx-autodoc-typehints = "*"
+sphinx-inline-tabs = { version = "*", python = "^3.7" }
+sphinxext-opengraph = "*"
+sphinx-copybutton = "*"
+sphinxext-rediraffe = "*"
+myst_parser = ">=0.18.1"
+docutils = "*"
+
+### Testing ###
+pytest = "*"
+pytest-rerunfailures = "*"
+pytest-mock = "*"
+pytest-watcher = "*"
+
+### Coverage ###
+codecov = "*"
+coverage = "*"
+pytest-cov = "*"
+
+### Format ###
+black = "*"
+isort = "*"
+
+### Lint ###
+flake8 = [
+  { version = "*", python = "^3.7" },
+  { version = ">=5", python = "^3.8" },
+]
+flake8-bugbear = "*"
+flake8-comprehensions = "*"
+mypy = "*"
+
+### Quirks ###
+importlib-metadata = "<5"  # https://github.com/PyCQA/flake8/issues/1701
+
+[tool.poetry.extras]
+docs = [
+  "docutils",
+  "sphinx",
+  "sphinx-autodoc-typehints",
+  "sphinx-autobuild",
+  "sphinx-copybutton",
+  "sphinxext-opengraph",
+  "sphinx-inline-tabs",
+  "sphinxext-rediraffe",
+  "myst_parser",
+  "furo",
+  "gp-libs",
+]
+test = ["pytest", "pytest-rerunfailures", "pytest-mock", "pytest-watcher"]
+coverage = ["codecov", "coverage", "pytest-cov"]
+format = ["black", "isort"]
+lint = ["flake8", "flake8-bugbear", "flake8-comprehensions", "mypy"]
+
+[tool.poetry.plugins.pytest11]
+libtmux = "libtmux.pytest_plugin"
+
+[tool.mypy]
+strict = true
+files = [
+  "src",
+  "tests"
+]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+  "*/_compat.py",
+  "docs/conf.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "raise NotImplementedError",
+  "return NotImplemented",
+  "def parse_args",
+  "if TYPE_CHECKING:",
+  "if t.TYPE_CHECKING:",
+  "@overload( |$)",
+]
+
+[build-system]
+requires = ["poetry_core>=1.0.0", "setuptools>50"]
+build-backend = "poetry.core.masonry.api"
