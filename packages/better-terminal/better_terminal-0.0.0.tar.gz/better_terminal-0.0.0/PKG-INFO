@@ -1,0 +1,115 @@
+Metadata-Version: 2.1
+Name: better_terminal
+Version: 0.0.0
+Summary: A to create a better ui with your terminal.
+Home-page: https://github.com/imperior-dev/better_terminal.git
+Author: Pie
+Author-email: owner@imperior.me
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+
+# Better Terminal
+
+A simple pip library to make your terminal simpler
+
+## Documentation
+
+### Installation
+```bash
+pip install better_terminal
+```
+
+### Creating a template
+A template is just a simple string where you can add variables as placeholders.
+```py
+from better_terminal import Terminal
+
+terminal = Terminal.New("@RED@Launching Rocket in @BRIGHT_YELLOW@#countdown#.")
+```
+If you run the script now, the place holder will stay as it is.
+To change that we need to create variable for those place holder.\
+[NOTE: Notice the @ colors @, we will talk about that later]
+
+### Creating variables
+**.create_variable()** requires two arguments, the name of the placeholder and a default value for the variable.
+```py
+countdown = terminal.create_variable("countdown", 5)
+```
+As soon as we create the variable the placeholders will automatically update.
+
+### Using the variable
+You can get the current value of the variable with **.value** method
+```py
+print(variable.value)
+```
+To update the variable use **.update()** which requires one argument, that is the new value of the variable\
+Lets see an example with a simple countdown
+```py
+while True:
+    sleep(2)
+    countdown.update(countdown.value - 1)
+    if(countdown.value == 0):    
+        terminal.update_template("@GREEN@ROCKET LAUNCHED!") 
+        sleep(10)
+        break
+```
+Yay!
+
+### Changing template
+You don't need to be stuck with a sinple template. You can change your template with **.update_template()** function which accepts one arguemnt that is the new template.
+
+### Colors
+Ever thought that terminals were boring, well lets decorate them with colors.
+
+You can use the **.COLOR["COLOR_NAME"]** property of Terminal class to get or color string.
+```py
+Terminal.New(Terminal.COLOR["GREEN"] + "Hello World")
+```
+This will change the text after color to green.\
+
+[NOTE: There color value ever works with the variable value]\
+
+Or you can just use the color name with "@"on both sides.
+```py
+Terminal.New("@GREEN@Hello World")
+```
+
+To switch to the default color, use @CLEAR@ or **Terminal.COLOR["CLEAR"]**.
+
+### Example Code
+```py
+from better_terminal import Terminal
+from time import sleep
+
+terminal = Terminal.New("@RED@Launching Rocket in @BRIGHT_YELLOW@#countdown#.")
+
+countdown = terminal.create_variable("countdown", 5)
+
+while True:
+    sleep(2)
+    countdown.update(countdown.value - 1)
+    if(countdown.value == 0):    
+        terminal.update_template("@GREEN@ROCKET LAUNCHED!") 
+        sleep(10)
+        break
+```
+## License
+
+We use the [MIT License](https://choosealicense.com/licenses/mit/) for this project
+
+
+## FAQ
+
+#### When will be the next update?
+
+Quite Soon
+
+#### When will the new update bring?
+
+The new update will bring integration of terminal input with the whole system.
+
