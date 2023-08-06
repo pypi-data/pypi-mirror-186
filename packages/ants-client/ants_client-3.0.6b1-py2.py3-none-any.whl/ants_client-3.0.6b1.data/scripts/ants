@@ -1,0 +1,265 @@
+#!python
+
+"""ants
+====
+
+
+Run ansible-pull with a set of defined parameters
+and log the content of these runs.
+"""
+
+__version__ = "3.0.6b1"
+
+__author__ = "Balz Aschwanden"
+__email__ = "balz.aschwanden@unibas.ch"
+__copyright__ = "Copyright 2017-2023, University of Basel"
+
+__credits__ = ["Balz Aschwanden", "Jan Welker"]
+__license__ = "GPL"
+
+
+import datetime
+import os
+import shutil
+import subprocess
+import sys
+from distutils.spawn import find_executable
+
+from antslib import argparser, configer, logger
+from antslib.pre_run_checker import check_run_requirements
+
+CFG = configer.read_config("main")
+
+ANTS_PATH = os.path.dirname(os.path.realpath(__file__))
+DESTINATION = os.path.expanduser(CFG["destination"])
+_ROOT = os.path.abspath(os.path.dirname(__file__))
+_PROJECT_ROOT = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
+_PYTHON_EXECUTABLE_PATH = os.path.dirname(sys.executable)
+
+
+def parse_proc(proc):
+    """Read subprocess output and dispatch it to logger. Return rc of process.
+
+
+    Cases handled separately:
+        * task_line
+            * Line with the name of a task.
+            * Printed directly befor the task status.
+        * recap_line
+            * A single line a the end of an Ansible run.
+            * It indicates the number of failes/changed/ok tasks.
+            * The line after 'PLAY RECAP' contains the recap
+    """
+    task_line = None
+    recap_line = None
+    get_recap = False
+    start_run_time = datetime.datetime.now()
+    for line in iter(proc.stdout.readline, b""):
+        line = line.decode("utf-8")
+        logger.write_log(line, task_line)
+        if line.startswith("TASK"):
+            task_line = line
+        if get_recap:
+            recap_line = line
+        get_recap = bool(line.startswith("PLAY RECAP"))
+
+    # https://stackoverflow.com/questions/37942022/returncode-of-popen-object-is-none-after-the-process-is-terminated
+    proc.stdout.close()
+    rc = proc.wait()
+    end_run_time = datetime.datetime.now()
+    logger.log_recap(start_run_time, end_run_time, recap_line, rc)
+    return rc
+
+
+def run_ansible(args):
+    """Run ansible-pull and return rc of subprocess.
+
+
+    The ansible python api is provided as is and the core team
+    reserve the right to push breakting changed.
+
+    Hence, we call the cli directly and do not attempt to work with the api.
+
+    Documentation:
+    https://docs.ansible.com/ansible/latest/dev_guide/developing_api.html
+    """
+    # Create dedicated env for this subprocess. Source: https://stackoverflow.com/a/4453495
+    subprocess_env = os.environ.copy()
+    path = subprocess_env["PATH"]
+    path = f"{_PYTHON_EXECUTABLE_PATH}:{path}"
+
+    ansible_pull_exe = args.ansible_pull_exe
+    if not ansible_pull_exe:
+        logger.console_logger.debug(
+            f"Variable ansible_pull_exe is not set. Searching in PATH: {path}"
+        )
+        ansible_pull_exe = find_executable("ansible-pull", path=path)
+
+    if not os.path.isfile(ansible_pull_exe):
+        logger.console_logger.debug(
+            f"Variable ansible_pull_exe not found at {ansible_pull_exe}. Searching in PATH: {path}"
+        )
+        ansible_pull_exe = find_executable("ansible-pull", path=path)
+
+    if not ansible_pull_exe:
+        sys.exit("Could not find executable ansible-pull. Aborting.")
+    if not os.access(ansible_pull_exe, os.X_OK):
+        sys.exit(f"File is not executable at {ansible_pull_exe}. Aborting.")
+    logger.console_logger.debug(f"Using {ansible_pull_exe}")
+
+    inventory = args.inventory
+    if not os.path.isfile(inventory):
+        sys.exit(f"Could not find file at {inventory}. Aborting.")
+
+    if not os.access(inventory, os.X_OK):
+        logger.console_logger.debug(f"Inventory file at {inventory} is not executable.")
+        logger.console_logger.debug(f"Using static inventory file at {inventory}.")
+
+    cmd = [
+        ansible_pull_exe,
+        "--clean",
+        "-f",
+        "-i",
+        inventory,
+        "-d",
+        args.destination,
+        "-U",
+        args.git_repo,
+        "-C",
+        args.branch,
+        args.playbook,
+    ]
+
+    if os.path.isfile(args.ssh_key):
+        logger.console_logger.debug(f"Found ssh key at {args.ssh_key}")
+        cmd.append("--private-key")
+        cmd.append(args.ssh_key)
+    else:
+        logger.console_logger.debug(f"No key found at {args.ssh_key}")
+
+    if args.verbose:
+        cmd.append("-%s" % ("v" * args.verbose))
+
+    if args.check:
+        cmd.append("--check")
+
+    if not args.stricthostkeychecking:
+        logger.console_logger.debug(
+            "Strict host key checking for ansible-pull is disabled."
+        )
+        cmd.append("--accept-host-key")
+
+    if args.wait:
+        logger.console_logger.debug(
+            f"Running ansible-pull with a random wait intervall of {CFG['wait_interval']} sec"
+        )
+        cmd.append("-s")
+        cmd.append(CFG["wait_interval"])
+
+    if args.tags:
+        cmd.append("--tags")
+        cmd.append(args.tags)
+
+    if args.skip_tags:
+        cmd.append("--skip-tags")
+        cmd.append(args.skip_tags)
+
+    # Add user configured search path and default search path for callback plugins
+    ANSIBLE_CALLBACK_PLUGINS = CFG["ansible_callback_plugins_base_path"]
+    if args.ansible_callback_plugins:
+        ANSIBLE_CALLBACK_PLUGINS = (
+            f"{args.ansible_callback_plugins}:{ANSIBLE_CALLBACK_PLUGINS}"
+        )
+    logger.console_logger.debug(
+        f"Add env variable ANSIBLE_CALLBACK_PLUGINS: {ANSIBLE_CALLBACK_PLUGINS}"
+    )
+    subprocess_env["ANSIBLE_CALLBACK_PLUGINS"] = ANSIBLE_CALLBACK_PLUGINS
+
+    # Only add python interpreter env variable if the given path exists and is executable
+    ANSIBLE_PYTHON_INTERPRETER = args.ansible_python_interpreter
+    if os.path.isfile(ANSIBLE_PYTHON_INTERPRETER) and os.access(
+        ANSIBLE_PYTHON_INTERPRETER, os.X_OK
+    ):
+        logger.console_logger.debug(
+            f"Add env variable ANSIBLE_PYTHON_INTERPRETER: {ANSIBLE_PYTHON_INTERPRETER}"
+        )
+        subprocess_env["ANSIBLE_PYTHON_INTERPRETER"] = ANSIBLE_PYTHON_INTERPRETER
+    else:
+        logger.console_logger.warning(
+            f"File not found or not executable\n\tANSIBLE_PYTHON_INTERPRETER: {ANSIBLE_PYTHON_INTERPRETER}"
+        )
+
+    if CFG["ansible_callback_whitelist"]:
+        logger.console_logger.debug(
+            f"Add env variable ANSIBLE_CALLBACK_WHITELIST: {args.ansible_callback_whitelist}"
+        )
+        subprocess_env["ANSIBLE_CALLBACK_WHITELIST"] = args.ansible_callback_whitelist
+        cfg_callback_plugins = configer.read_config("callback_plugins")
+        for key, value in cfg_callback_plugins.items():
+            logger.console_logger.debug(f"Add env variable: {key}: {value}")
+            subprocess_env[key] = value
+
+    if CFG["ansible_git_directory"]:
+        logger.console_logger.debug(
+            f"Using the following git path: {CFG['ansible_git_directory']}. Updating PATH."
+        )
+        if not CFG["ansible_git_directory"] in subprocess_env["PATH"]:
+            subprocess_env[
+                "PATH"
+            ] = f"{CFG['ansible_git_directory']}:{subprocess_env['PATH']}"
+        logger.console_logger.debug(f"PATH is now: {subprocess_env['PATH']}")
+
+    # Make sure the new macOS versioning is used. Based on work by Greg Neagle
+    # Source: https://macsysadmin.se/slides/ThisOneGoesTo11.pdf
+    subprocess_env["SYSTEM_VERSION_COMPAT"] = "0"
+
+    # The ansible git module will fail with git version 2.27.0 if the HOME variable is not set.
+    # See https://github.com/ansible/ansible/issues/72321
+    if not subprocess_env.get("HOME"):
+        subprocess_env["HOME"] = CFG["ansible_home"]
+
+    check_run_requirements(args, subprocess_env)
+    logger.console_logger.debug("Running ansible-pull as subprocess:")
+    logger.console_logger.debug(cmd)
+    proc = subprocess.Popen(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=subprocess_env,
+    )
+    return parse_proc(proc)
+
+
+def __main__():
+    args = argparser.parse_args(
+        __version__, os.path.join(CFG["log_dir"], "recap.log"), DESTINATION, CFG
+    )
+    if args.verbose:
+        logger.console_logger.setLevel(logger.logging.DEBUG)
+    if args.quiet:
+        logger.console_logger.disabled = True
+    if not configer.is_root():
+        sys.exit("Script must be run as root")
+    logger.console_logger.debug("Running ansible-pull in verbose mode")
+    logger.status_file_rollover()
+
+    if args.refresh:
+        if os.path.exists(args.destination):
+            msg = f"Deleting local git repo at {args.destination}"
+            logger.console_logger.info(msg)
+            logger.logfile_logger.info(
+                "************************************************************************"
+            )
+            logger.logfile_logger.info("Running ants client in refresh mode")
+            logger.logfile_logger.info(msg)
+            logger.logfile_logger.info(
+                "************************************************************************"
+            )
+            try:
+                shutil.rmtree(args.destination)
+            except OSError as error:
+                logger.console_logger.error(error)
+                raise
+
+    run_ansible(args)
+
+
+if __name__ == "__main__":
+    __main__()
