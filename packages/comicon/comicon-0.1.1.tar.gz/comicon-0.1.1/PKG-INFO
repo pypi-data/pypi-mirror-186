@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: comicon
+Version: 0.1.1
+Summary: A simple comic conversion library between CBZ/EPUB/PDF
+Home-page: https://github.com/potatoeggy/comicon
+License: MIT
+Keywords: converter,comic,cbz,epub,pdf
+Author: Daniel Chen
+Author-email: danielchen04@hotmail.ca
+Requires-Python: >=3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: ebooklib (>=0.18,<0.19)
+Requires-Dist: lxml (>=4.9.2,<5.0.0)
+Requires-Dist: pillow (>=9.4.0,<10.0.0)
+Requires-Dist: pypdf[image] (>=3.2.1,<4.0.0)
+Project-URL: Documentation, https://github.com/potatoeggy/comicon
+Project-URL: Repository, https://github.com/potatoeggy/comicon
+Description-Content-Type: text/markdown
+
+# Comicon
+
+Comicon is a lightweight comic converter library between CBZ, PDF, and EPUB.
+
+## Usage
+
+```python
+import comicon
+
+comicon.convert("comic.cbz", "comic.epub")
+```
+
+## Installation
+
+Comicon is available from PyPI:
+
+```
+pip install comicon
+```
+
+## Supported conversions
+
+| Format | Convert from? | Convert to? |
+| --- | --- | --- |
+| CBZ | :heavy_check_mark: | :heavy_check_mark: |
+| EPUB | :heavy_check_mark: | :heavy_check_mark: |
+| PDF | :heavy_check_mark: | :heavy_check_mark: |
+
