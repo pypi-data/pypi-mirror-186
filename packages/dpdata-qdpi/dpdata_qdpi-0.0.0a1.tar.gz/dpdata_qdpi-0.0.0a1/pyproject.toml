@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel", "setuptools_scm[toml]>=6.0.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dpdata_qdpi"
+dynamic = ["version"]
+description = "The dpdata plugin for QDPi."
+license = {file = "LICENSE"}
+classifiers = [
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+]
+dependencies = [
+  "dpdata",
+  "ase",
+  "deepmd-kit",
+]
+requires-python = ">=3.7"
+readme = "README.md"
+
+[project.optional-dependencies]
+cpu = ["deepmd-kit[cpu]>=2.2.0b0"]
+gpu = ["deepmd-kit[gpu]>=2.2.0b0"]
+test = [
+    'pytest',
+    'pytest-cov',
+]
+
+[project.urls]
+Homepage = "https://github.com/njzjz/dpdata_qdpi"
+
+[project.entry-points."dpdata.plugins"]
+dftb3 = "dpdata_qdpi:DFTB3Driver"
+qdpi = "dpdata_qdpi:QDPiDriver"
+
+[tool.setuptools.package-data]
+qdpi = ["3ob/skfiles/*.skf"]
+
+[tool.setuptools_scm]
