@@ -1,0 +1,12 @@
+image: python:latest
+
+pages:
+  stage: deploy
+  script:
+  - pip install '.[doc]'
+  - sphinx-build -b html docs public
+  artifacts:
+    paths:
+    - public
+  only:
+  - main

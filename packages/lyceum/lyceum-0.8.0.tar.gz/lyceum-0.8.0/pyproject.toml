@@ -1,0 +1,36 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["watchdog", "flit", "black", "flake8", "isort"]
+doc = ["sphinx", "sphinx_rtd_theme", "myst_nb"]
+test = ["pytest>=6.2.5"]
+
+[metadata]
+name = 'lyceum'
+license = "ISC license"
+url = 'https://framagit.org/benabel/lyceum'
+
+[project]
+name = "lyceum"
+authors = [{ name = "Benjamin Abel", email = "dev.abel@free.fr" }]
+dynamic = ["version", "description"]
+classifiers = [
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Education',
+    'License :: OSI Approved :: ISC License (ISCL)',
+    'Natural Language :: French',
+    'Programming Language :: Python :: 3'
+]
+readme = "README.rst"
+
+[project.urls]
+Home = "https://framagit.org/benabel/lyceum-py"
+Documentation = "https://benabel.frama.io/lyceum-py"
+Source = "https://framagit.org/benabel/lyceum-py"
+
+[tool.pytest.ini_options]
+addopts = "--ignore=setup.py"
+testpaths = ["tests"]
