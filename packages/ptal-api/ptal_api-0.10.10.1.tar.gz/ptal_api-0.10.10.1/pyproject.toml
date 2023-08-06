@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "ptal-api"
+version = "0.10.10.1"
+description = "TALISMAN API adapter"
+authors = ["Evgeny Bechkalo <bechkalo@ispras.ru>", "Ivan Medvedev <medvedev.iv@ispras.ru>", "Alexey Isakov <isakov@ispras.ru>"]
+readme = "README.md"
+packages = [{include = "ptal_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+sgqlc = "16.0"
+python-keycloak = "2.6.0"
+graphql-core = "3.2.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "7.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
