@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: tra-yan
+Version: 0.1.0
+Home-page: https://github.com/re1von/tra-yan
+Author: re1von project
+Author-email: re1von_project@bk.ru
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: httpx[socks] (>=0.23.3)
+Requires-Dist: aiofiles (>=22.0.1)
+
+# tra-yan
+awesome free asynchronous translator for python
+
+## Installation
+`pip install -U tra-yan`
+
+## Usage
+```python
+async def use():
+    from trayan import (
+        TraYan, AsyncTraYan,
+        detect, translate,
+        async_detect, async_translate,
+        get_supported_langs
+    )
+    from trayan.models.translator import Language
+
+    ru = 'РєСЂР°СЃРёРІС‹Р№ РјСѓР¶С‡РёРЅР° РІ РѕС‚Р»РёС‡РЅС‹С… С‚СЂСѓСЃР°С…'
+    en = 'a handsome man in great underpants'
+    proxy = None  # 'scheme://login:password@ip:port'
+
+    with TraYan() as t:
+        print(f'{ru} вЂ” {t.detect(ru, Language.RU)}')
+        print(f'ru-en вЂ” {t.translate(ru, Language.RU, Language.EN)}')
+
+    print(f'{en} вЂ” {detect(en)}')
+    print(f'en-ru вЂ” {translate(en)}')
+
+    async with AsyncTraYan(proxy=proxy) as t:
+        print(f'{en} вЂ” {await t.detect(en, (Language.RU,))}')
+        print(f'en-ru вЂ” {await t.translate(en, Language.EN, Language.RU)}')
+
+    print(f'{ru} вЂ” {await async_detect(ru, proxy=proxy)}')
+    print(f'ru-en вЂ” {await async_translate(ru, proxy=proxy)}')
+
+    print(f'РїРѕРґРґРµСЂР¶РёРІР°РµРјС‹Рµ СЏР·С‹РєРё: {TraYan.supported_langs}')
+
+    print(f'supported langs: {get_supported_langs()}')
+
+
+if __name__ == '__main__':
+    import asyncio
+
+    asyncio.run(use())
+```
