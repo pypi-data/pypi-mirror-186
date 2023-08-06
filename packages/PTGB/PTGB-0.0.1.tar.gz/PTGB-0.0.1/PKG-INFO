@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: PTGB
+Version: 0.0.1
+Summary: A package for sending Telegram messages
+Home-page: https://github.com/kalanakt/PTGB
+Author: kalanakt
+Author-email: e19198@eng.pdn.ac.lk
+Keywords: telegram api
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# PTGB
+
+A Fast Telegram API for Lighweight bots
+
+## Installation
+
+To install this package, use pip:
+
+
+```
+pip install PTGB
+```
+
+## Usage
+
+Here is an example of how to use the package:
+
+```py
+from PTGB.telegram import Telegram
+
+token = 'BOT_TOJJEN' # bot token from bot father
+chatid = 'CHAT_ID'  # chat id of user | group | channel
+
+bot = Telegram(token)
+bot.send_message(chatid, 'Hello, World!') # bot set message to chatid
+```
+
+## Documentation
+
+For more detailed information about how to use this package, please refer to the full documentation at
+
+## Contributing
+
+We welcome contributions to this package. To contribute, please fork the repository, make your changes, and submit a pull request.
+
+## License
+
+This package is open-sourced under the MIT license
+
+## Issues
+
+If you encounter any issues or bugs, please open an issue in the issue tracker.
