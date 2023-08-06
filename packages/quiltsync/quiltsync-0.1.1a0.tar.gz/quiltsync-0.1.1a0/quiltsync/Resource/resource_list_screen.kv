@@ -1,0 +1,62 @@
+<ResourceList>:
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: app.theme_cls.bg_dark
+        padding: [rel_space]
+
+        MDTopAppBar:
+            id: app_toolbar
+            elevation: widget_elevation
+            title: "Local Packages"
+            anchor_title: "left"
+            right_action_items: [["dots-vertical", lambda ref: app.menu.click(ref)]]
+
+        ScrollView:
+            size_hint_y: .8
+
+            MDList:
+                id: resourcelist
+                adaptive_height: True
+                spacing: list_space
+                md_bg_color: app.theme_cls.bg_dark
+
+    MDFloatingActionButton:
+        id: add_btn
+        icon: "plus-thick"
+        pos: root.width - self.width - (rel_space * 2), rel_space * 2
+#        elevation: widget_elevation
+        on_release: root.handle_addnew()
+
+    MDSpinner:
+        id: loading
+        size_hint: None, None
+        size: dp(46), dp(46)
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        active: False
+
+
+<Resource>:
+    size_hint_y: None
+    height: list_item.height
+
+    MDCardSwipeLayerBox:
+        padding: [dp(16)]
+
+        MDIconButton:
+            id: del_btn
+            icon: 'trash-can'
+            pos_hint: {"center_y": .5}
+            on_release: root.handle_delete()
+
+    MDCardSwipeFrontBox:
+        TwoLineIconListItem:
+            id: list_item
+            text: root.text
+            secondary_text: root.secondary_text
+            on_release: root.handle_package(root.resource_id)
+
+            IconLeftWidgetWithoutTouch:
+                icon: "book-open"
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.primary_light
+                on_release: root.handle_package(root.resource_id)
