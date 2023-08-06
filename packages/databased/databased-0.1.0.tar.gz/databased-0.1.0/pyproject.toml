@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dataBased"
+authors = [{name="Matt Manes"}]
+description = "Wrapper for the standard library Sqlite3 module to make setting up and using a database quicker and easier."
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+	"tabulate"
+]
+readme = "README.md"
+keywords = [
+    "database",
+    "sqlite",
+    "sqlite3"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/matt-manes/dataBased"
+"Documentation" = "https://github.com/matt-manes/dataBased/docs"
+"Source code" = "https://github.com/matt-manes/dataBased/src/dataBased"
