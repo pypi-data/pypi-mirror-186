@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: ptal-api
+Version: 0.10.10.1
+Summary: TALISMAN API adapter
+Author: Evgeny Bechkalo
+Author-email: bechkalo@ispras.ru
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: graphql-core (==3.2.3)
+Requires-Dist: python-keycloak (==2.6.0)
+Requires-Dist: sgqlc (==16.0)
+Description-Content-Type: text/markdown
+
+# ptal-api
+
+Python adapter for Talisman-based app
+
+How to create trivial adapter:
+
+    graphql_url = 'https://demo.talisman.ispras.ru/graphql' # or another talisman-based app
+    auth_url = 'https://demo.talisman.ispras.ru/auth/'
+    realm = 'demo'
+    client_id = 'web-ui'
+    client_secret = '<some-secret>'
+
+    gql_client = KeycloakAwareGQLClient(
+        graphql_url, 10000, 5,
+        auth_url=auth_url,
+        realm=realm, client_id=client_id, user='admin', pwd='admin',
+        client_secret=client_secret
+    ).__enter__()
+
+    adapter = TalismanAPIAdapter(gql_client, {})
+
+    c = adapter.get_concept('ОК-123456')
+
