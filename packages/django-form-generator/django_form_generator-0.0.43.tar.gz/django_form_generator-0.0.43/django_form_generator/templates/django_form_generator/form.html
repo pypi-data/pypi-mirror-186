@@ -1,0 +1,63 @@
+{% extends 'django_form_generator/base.html' %}
+
+{% block extra_head %}
+{% if form.instance.direction == 'ltr' %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+{% else %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.rtl.min.css" 
+integrity="sha384-OXTEbYDqaX2ZY/BOaZV/yFGChYHtrXH2nyXJ372n2Y8abBhrqacCEe+3qhSHtLjy" crossorigin="anonymous">
+{% endif %}
+{{ form.media }}
+{% endblock extra_head %}
+
+{% block content %}
+<div id="hx-django_form_generator" class="g-3" hx-target="this" hx-swap="outerHTML">
+    <form dir="{{form.instance.direction}}" id="form-generator_{{form.instance.id}}" enctype="multipart/form-data" method='post'>{% csrf_token %}
+        {{form.as_p}}
+    </form>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    function onElementChange(arg){
+        var current = $(arg);
+        var objId = null;
+        if (current.attr('type') == "radio"){
+            objId = current.attr('value')
+        }
+        else if(current[0].type == 'select-one'  || current.attr('type') == 'checkbox'){
+            objId = current.val()
+        }
+        else{
+            objId = current.attr('instance_id')
+        }
+        $(`*[parent_object_id=${objId}][parent_content_type=${current.attr('content_type')}]`).each(function(index, element) {
+            element.setAttribute('parent_answer', current.attr('instance_id'))
+            if(current[0].type == 'select-one' || current.attr('type') == 'checkbox'){
+                element.setAttribute('parent_value_answer', current.val())
+                if($(`*[value=${element.getAttribute('parent_value_answer')}][content_type=value]`).is(':checked')){
+                    element.removeAttribute('disabled');
+                }else{
+                    element.setAttribute('disabled', true);
+                }
+            }else{
+                element.removeAttribute('disabled');
+            }
+        });
+        
+            if ((current.attr('type') == 'checkbox')){
+                $(`*:not([parent_value_answer=${current.val()}])[parent_content_type=${current.attr('content_type')}][parent_answer=${current.attr('instance_id')}]`).each(function(index, element) {
+                    if (element.getAttribute('disabled') == false)
+                        element.setAttribute('disabled', true);
+                });
+            }else {
+
+                $(`*:not([parent_object_id=${objId}])[parent_content_type=${current.attr('content_type')}][parent_answer=${current.attr('instance_id')}]`).each(function(index, element) {
+                    element.setAttribute('disabled', true);
+                });
+            };
+    };
+</script>
+{% endblock %}
