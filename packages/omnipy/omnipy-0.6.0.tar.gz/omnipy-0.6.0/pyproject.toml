@@ -1,0 +1,70 @@
+[tool.poetry]
+name = "omnipy"
+version = "0.6.0"
+description = ""
+authors = ["Sveinung Gundersen <sveinugu@gmail.com>", "Federico Bianchini <fredebi@uio.no>", "Ahmed Ghanem <ahmedg@uio.no>", "Joshua Baskaran <joshuaba@uio.no>"]
+readme = "README.md"
+packages = [{include = "omnipy", from = "src"}]
+
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+#python = ">=3.8.1,<4.0"
+pandas = "^1.2.4"
+requests = "^2.25.1"
+prefect = "^2.6.9"
+pydantic = "^1.10.2"
+mypy = "^0.991"
+pytest-asyncio = "^0.20.2"
+aiostream = "^0.4.5"
+pytest-cases = "^3.6.13"
+orjson = "^3.8.0"
+jq = "^1.3.0"
+
+# Potential dependencies
+#dpath = "^2.1.0"
+#beartype = "^0.11.0"
+#typing-extensions = "^4.4.0"
+#phantom-types = "^1.1.0"
+greenlet = "^2.0.1"
+python-slugify = "^7.0.0"
+inflection = "^0.5.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.1.0"
+pytest-pycharm = "^0.7.0"
+yapf = "^0.32.0"
+flake8 = "^6.0.0"
+isort = "^5.10.1"
+flake8-quotes = "^3.3.1"
+deepdiff = "^6.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.yapf]
+based_on_style = "google"
+align_closing_bracket_with_visual_indent = true
+blank_line_before_nested_class_or_def = false
+column_limit = 100
+indent_dictionary_value = true
+join_multiple_lines = true
+split_all_comma_separated_values = false
+split_all_top_level_comma_separated_values = true
+split_before_expression_after_opening_paren = true
+split_before_arithmetic_operator = true
+
+[tool.isort]
+profile = "google"
+force_single_line = false
+multi_line_output = 1
+src_paths = ["src/omnipy", "tests"]
+line_length = 100
+
+[flows]
+checkpointing = true
+
+[tool.mypy]
+python_version = "3.10"
+mypy_path = "src:tests"
