@@ -1,0 +1,35 @@
+@startuml 
+
+class ASDProtein {
+    str id 
+    str organism
+    str uniprot_id
+    list[str] inhibitors
+    list[str] activators
+    list[str] regulators
+
+    list allosteric_sites
+}
+
+class AllostericSite {
+    str modulator_name
+    str site_residues
+    str pdb_id
+}
+
+class PDB {
+    str id
+    str pdb_url
+    str has_ligand
+}
+
+class PTM {
+    int position
+    str type
+}
+
+ASDProtein o-- AllostericSite
+ASDProtein o-- PDB
+ASDProtein o-- PTM
+
+@enduml
