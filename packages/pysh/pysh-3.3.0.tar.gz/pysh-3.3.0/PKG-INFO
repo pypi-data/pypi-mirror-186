@@ -1,0 +1,89 @@
+Metadata-Version: 2.1
+Name: pysh
+Version: 3.3.0
+Summary: A library of small functions that simplify scripting in python
+Home-page: https://github.com/Ovsyanka83/pysh
+License: MIT
+Keywords: python,shell,bash,script,scripting,pysh
+Author: Stanislav Zmiev
+Author-email: szmiev2000@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Shells
+Classifier: Topic :: Utilities
+Project-URL: Repository, https://github.com/Ovsyanka83/pysh
+Description-Content-Type: text/markdown
+
+# pysh
+
+A library of small functions that simplify scripting in python
+
+## Installation
+
+```bash
+pip install pysh
+```
+
+## Usage
+
+### sh
+
+Run a shell command and display the output:
+
+```python
+sh("git status")
+```
+
+Capture the output of a shell command:
+
+```python
+res = sh("git status", capture=True)
+print(res.stdout)
+```
+
+### cd
+
+Change the current working directory:
+
+```python
+cd("path/to/dir")
+```
+
+Change the current working directory temporarily:
+
+```python
+with cd("path/to/dir"):
+    sh("git status")
+```
+
+### env
+
+Set an environment variable:
+
+```python
+env(var="value")
+```
+
+Set an environment variable temporarily:
+
+```python
+with env(PGPASSWORD="MyPassword", PGUSER="postgres"):
+    sh("createdb -h localhost -p 5432 -O postgres mydb")
+```
+
+### which
+
+Checks whether an executable/script/builtin is available:
+
+```python
+git_is_installed = which("git")
+```
+
