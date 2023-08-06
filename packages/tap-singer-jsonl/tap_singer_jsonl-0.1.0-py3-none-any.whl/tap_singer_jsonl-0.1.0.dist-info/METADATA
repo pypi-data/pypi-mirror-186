@@ -1,0 +1,23 @@
+Metadata-Version: 2.1
+Name: tap-singer-jsonl
+Version: 0.1.0
+Summary: A Singer.io tap fro reading raw singer-formatted JSONL files from local and remote sources (e.g. s3).
+License: MIT
+Keywords: ELT,Singer.io
+Author: Ken Payne
+Author-email: ken@meltano.com
+Requires-Python: >=3.10,<3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: singer-sdk (>=0.16.0,<0.17.0)
+Requires-Dist: smart-open[s3] (>=6.3.0,<7.0.0)
+Description-Content-Type: text/markdown
+
+# tap-singer-jsonl
+
+This is a [Singer](https://singer.io) tap that reads JSON-formatted data
+following the [Singer
+spec](https://github.com/singer-io/getting-started/blob/master/SPEC.md) from JSONL files.
+
