@@ -1,0 +1,9 @@
+{% extends "page_base.jinja2" %}
+
+{% block resources %}
+    <script defer src="{{ "schema.min.js"|static }}"></script>
+    <link rel="stylesheet" href="{{ "schema.min.css"|static }}"/>
+    {% if settings['styles']['schema'] != None %}
+        <link rel="stylesheet" href="{{ settings['styles']['schema']|static }}"/>
+    {% endif %}
+{% endblock %}
