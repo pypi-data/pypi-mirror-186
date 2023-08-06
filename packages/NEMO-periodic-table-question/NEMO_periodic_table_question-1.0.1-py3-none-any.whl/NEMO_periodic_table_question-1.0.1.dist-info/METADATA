@@ -1,0 +1,50 @@
+Metadata-Version: 2.1
+Name: NEMO-periodic-table-question
+Version: 1.0.1
+Summary: Install Periodic table question plugin for NEMO
+Home-page: https://gitlab.com/nemo-community/prometheus-computing/nemo-periodic-table-question
+Author: Prometheus Computing LLC
+Author-email: nemo@prometheuscomputing.com
+License: MIT
+Keywords: NEMO
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: NEMO (>=4.3.0)
+Requires-Dist: django
+
+# NEMO Periodic Table Question
+
+This plugin for NEMO allows to use a `periodic_table` type of question in post usage questions or reservation questions.
+
+# Installation
+
+`pip install NEMO-periodic-table-question`
+
+# Add NEMO Periodic Table Question
+
+in `settings.py` add to `INSTALLED_APPS`:
+
+```python
+INSTALLED_APPS = [
+    '...',
+    'NEMO_periodic_table_question',
+    '...'
+]
+```
+
+# Usage
+Use `type: "peridodic-table"` in Tool post usage questions or Reservation questions.
+
+Options:
+ - required: true or false (default: false)
+ - collapsible: true or false (default: false)
+ - collapsed: true or false (default: false)
+ - help: "Some help text to display under the periodic table"
+
+**Important note**:<br>
+The `collapsible`/`collapsed` options aren't supported in the admin preview but should work in the calendar.

@@ -1,0 +1,181 @@
+{% load static %}
+<div class="form-group">
+	<div style="white-space: pre-wrap" id="question_{{ form_name }}" data-toggle="collapse" data-target="#periodic_{{ form_name }}" {% if collapsible %}style="cursor: pointer" onclick="toggle_details(this)"{% endif %}>{% if collapsible %}<span class="glyphicon glyphicon-chevron-{% if collapsed %}right{% else %}down{% endif %} pull-left chevron"></span>{% endif %} {{ question_title|safe }}{{ required_span|safe }}</div>
+	<div id="periodic_{{ form_name }}" class="collapse {% if not collapsed %}in{% endif %}">
+		{# Add a invisible checkbox to control when this is required #}
+		<input aria-label="hidden field used for required answer" id="required_{{ form_name }}" type="checkbox" value="" style="display: none" {% if required_span %}required{% endif %}/>
+		{% with required_onclick=required_span|yesno:"check_required()," %}
+			<table class="periodic-table">
+				<tr>
+					<td class="element non-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="H">H</label></td>
+					<td colspan="17"></td>
+					<td class="element noble-gas"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="He">He</label></td>
+				</tr>
+				<tr>
+					<td class="element alkali-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Li">Li</label></td>
+					<td class="element alkaline-earth-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Be">Be</label></td>
+					<td colspan="11"></td>
+					<td class="element metalloid"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="B">B</label></td>
+					<td class="element non-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="C">C</label></td>
+					<td class="element non-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="N">N</label></td>
+					<td class="element non-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="O">O</label></td>
+					<td class="element non-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="F">F</label></td>
+					<td class="element noble-gas"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ne">Ne</label></td>
+				</tr>
+				<tr>
+					<td class="element alkali-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Na">Na</label></td>
+					<td class="element alkaline-earth-metal"><label><input type="checkbox" name="{{ form_name }}"onclick="{{ required_onclick }}" value="Mg">Mg</label></td>
+					<td colspan="11"></td>
+					<td class="element post-transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Al">Al</label></td>
+					<td class="element metalloid"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Si">Si</label></td>
+					<td class="element non-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="P">P</label></td>
+					<td class="element non-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="S">S</label></td>
+					<td class="element non-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Cl">Cl</label></td>
+					<td class="element noble-gas"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ar">Ar</label></td>
+				</tr>
+				<tr>
+					<td class="element alkali-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="K">K</label></td>
+					<td class="element alkaline-earth-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ca">Ca</label></td>
+					<td></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Sc">Sc</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ti">Ti</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="V">V</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Cr">Cr</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Mn">Mn</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Fe">Fe</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Co">Co</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ni">Ni</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Cu">Cu</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Zn">Zn</label></td>
+					<td class="element post-transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ga">Ga</label></td>
+					<td class="element metalloid"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ge">Ge</label></td>
+					<td class="element metalloid"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="As">As</label></td>
+					<td class="element non-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Se">Se</label></td>
+					<td class="element non-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Br">Br</label></td>
+					<td class="element noble-gas"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Kr">Kr</label></td>
+				</tr>
+				<tr>
+					<td class="element alkali-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Rb">Rb</label></td>
+					<td class="element alkaline-earth-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Sr">Sr</label></td>
+					<td style="width: 7px"></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Y">Y</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Zr">Zr</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Nb">Nb</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Mo">Mo</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Tc">Tc</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ru">Ru</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Rh">Rh</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Pd">Pd</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ag">Ag</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Cd">Cd</label></td>
+					<td class="element post-transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="In">In</label></td>
+					<td class="element post-transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Sn">Sn</label></td>
+					<td class="element metalloid"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Sb">Sb</label></td>
+					<td class="element metalloid"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Te">Te</label></td>
+					<td class="element non-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="I">I</label></td>
+					<td class="element noble-gas"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Xe">Xe</label></td>
+				</tr>
+				<tr>
+					<td class="element alkali-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Cs">Cs</label></td>
+					<td class="element alkaline-earth-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ba">Ba</label></td>
+					<td></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Lu">Lu</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Hf">Hf</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ta">Ta</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="W">W</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Re">Re</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Os">Os</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ir">Ir</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Pt">Pt</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Au">Au</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Hg">Hg</label></td>
+					<td class="element post-transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Tl">Tl</label></td>
+					<td class="element post-transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Pb">Pb</label></td>
+					<td class="element post-transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Bi">Bi</label></td>
+					<td class="element post-transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Po">Po</label></td>
+					<td class="element post-transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="At">At</label></td>
+					<td class="element noble-gas"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Rn">Rn</label></td>
+				</tr>
+				<tr>
+					<td class="element alkali-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Fr">Fr</label></td>
+					<td class="element alkaline-earth-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ra">Ra</label></td>
+					<td></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Lr">Lr</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Rf">Rf</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Db">Db</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Sg">Sg</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Bh">Bh</label></td>
+					<td class="element transition-metal"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Hs">Hs</label></td>
+					<td class="element unknown"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Mt">Mt</label></td>
+					<td class="element unknown"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ds">Ds</label></td>
+					<td class="element unknown"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Rg">Rg</label></td>
+					<td class="element unknown"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Cn">Cn</label></td>
+					<td class="element unknown"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Nh">Nh</label></td>
+					<td class="element unknown"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Fl">Fl</label></td>
+					<td class="element unknown"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Mc">Mc</label></td>
+					<td class="element unknown"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Lv">Lv</label></td>
+					<td class="element unknown"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ts">Ts</label></td>
+					<td class="element unknown"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Og">Og</label></td>
+				</tr>
+				<tr>
+					<td colspan="18" style="height: 7px"></td>
+				</tr>
+				<tr>
+					<td colspan="3"></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="La">La</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ce">Ce</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Pr">Pr</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Nd">Nd</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Pm">Pm</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Sm">Sm</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Eu">Eu</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Gd">Gd</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Tb">Tb</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Dy">Dy</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ho">Ho</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Er">Er</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Tm">Tm</label></td>
+					<td class="element lanthanide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Yb">Yb</label></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td colspan="3"></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Ac">Ac</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Th">Th</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Pa">Pa</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="U">U</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Np">Np</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Pu">Pu</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Am">Am</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Cm">Cm</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Bk">Bk</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Cf">Cf</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Es">Es</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Fm">Fm</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="Md">Md</label></td>
+					<td class="element actinide"><label><input type="checkbox" name="{{ form_name }}" onclick="{{ required_onclick }}" value="No">No</label></td>
+					<td colspan="2"></td>
+				</tr>
+			</table>
+		{% endwith %}
+		{% if help %}<div style="font-size:smaller;color:#999;max-width: 600px;">{{ help }}</div>{% endif %}
+	</div>
+</div>
+<script>
+	if (!$) { $ = django.jQuery; }
+    if (!$('link[href="{% static "NEMO_periodic_table_question/periodic_table.css" %}"]').length)
+    {
+        $('<link href="{% static "NEMO_periodic_table_question/periodic_table.css" %}" rel="stylesheet">').appendTo("head");
+    }
+    function check_required()
+    {
+        if ($("input[name={{ form_name }}]:checkbox:checked").length > 0)
+        {
+            $("#required_{{ form_name }}").prop("checked", true).change();
+		}
+        else
+        {
+            $("#required_{{ form_name }}").prop("checked", false).change();
+		}
+	}
+</script>
