@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "dataprep-ml"
+version = "0.0.8"
+description = "Automated dataframe analysis for Machine Learning pipelines."
+authors = ["MindsDB Inc. <hello@mindsdb.com>"]
+license = "GPL-3.0"
+readme = "README.md"
+packages = [{include = "dataprep_ml"}]
+
+[tool.poetry.dependencies]
+python = ">=3.7,<3.10"
+numpy = "^1"
+pandas = "^1"
+pydateinfer = "0.3.0"
+python-dateutil = ">=2.1"
+scipy = ">=1.5.4"
+type-infer = ">=0.0.7"
+dataclasses-json = "^0.5.4"
+colorlog = "^6.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
