@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: voxScribe
+Version: 0.1.1
+Summary: Extract text from .wav and .mp3 files.
+Project-URL: Homepage, https://github.com/matt-manes/voxScribe
+Project-URL: Documentation, https://github.com/matt-manes/voxScribe/docs
+Project-URL: Source code, https://github.com/matt-manes/voxScribe/src/voxScribe
+Author: Matt Manes
+License-File: LICENSE.txt
+Keywords: audio,speech,text
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: pydub
+Requires-Dist: requests
+Requires-Dist: speechrecognition
+Requires-Dist: whosyouragent
+Description-Content-Type: text/markdown
+
+# voxScribe
+Extract text from .wav and .mp3 files. <br>
+Install with:
+<pre>pip install voxScribe</pre>
+FFmpeg also needs to be installed and in your PATH.<br>
+It can be obtained here: https://ffmpeg.org/ <br>
+Usage:<br>
+<pre>
+from voxScribe import getTextFromUrl, getTextFromWav, getTextFromMp3
+# For web hosted audio (mp3 or wav needs to be specified in the second argument)
+text = getTextFromUrl('https://somewebsite.com/the-page-where-we-keep-sounds/guess-what-im-saying.mp3', '.mp3')
+#For local files
+text = getTextFromMp3('some/filePath/someAudio.mp3')
+#or
+text = getTextFromWav('some/other/filePath/someOtherAudio.wav')
+</pre>
