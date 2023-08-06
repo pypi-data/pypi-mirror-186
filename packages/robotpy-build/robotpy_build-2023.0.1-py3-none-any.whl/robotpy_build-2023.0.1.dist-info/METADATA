@@ -1,0 +1,67 @@
+Metadata-Version: 2.1
+Name: robotpy-build
+Version: 2023.0.1
+Summary: Build tool for RobotPy projects
+Home-page: https://github.com/robotpy/robotpy-build
+Author: Dustin Spicuzza
+Author-email: robotpy@googlegroups.com
+License: BSD-3-Clause
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: setuptools (<64,>=45)
+Requires-Dist: setuptools-scm (>=6.2)
+Requires-Dist: header2whatever (>=0.4.8)
+Requires-Dist: robotpy-cppheaderparser (>=5.1)
+Requires-Dist: sphinxify (>=0.7.3)
+Requires-Dist: pydantic (>=1.7.0)
+Requires-Dist: tomli
+Requires-Dist: tomli-w
+Requires-Dist: toposort
+Requires-Dist: pyyaml (>=5.1)
+Requires-Dist: patch (==1.*)
+Requires-Dist: pybind11-stubgen (>=0.10.5)
+Requires-Dist: delocate ; platform_system == "Darwin"
+Requires-Dist: distro ; platform_system == "Linux"
+Requires-Dist: dataclasses ; python_version < "3.7"
+
+robotpy-build
+=============
+
+This is a build tool designed to meet the needs of RobotPy's various wrapper
+libraries build needs, chiefly around:
+
+* Managing upstream binary dependencies
+* Autogenerating pybind11 wrappers around those dependencies
+* Building wheels from those generated wrappers
+
+robotpy-build is intended to be a generally useful build tool for any python
+project that has binary dependencies. If you find that isn't the case, please
+report a bug on github.
+
+Requires Python 3.6+
+
+Documentation
+-------------
+
+Documentation can be found at https://robotpy-build.readthedocs.io/
+
+Author
+------
+
+Dustin Spicuzza is the primary author of robotpy-build, but it is the
+culmination of many years of experimentation with automated wrapper
+generation by members of the RobotPy community.
+
+robotpy-build is available under the BSD 3-clause license.
