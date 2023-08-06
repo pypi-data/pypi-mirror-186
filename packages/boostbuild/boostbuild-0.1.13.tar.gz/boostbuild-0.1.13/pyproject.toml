@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "boostbuild"
+version = "0.1.13"
+description = "Boost is a simple build system that aims to create an interface for shell command substitution across different operative systems."
+authors = ["David Lopez <davidlopez.hellin@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7.2"
+pyyaml = "^6.0"
+colorama = "^0.4.6"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.15.5"
+black = "^22.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+boost = "boostbuild.main:main"
+
+[tool.pylint.'MESSAGES CONTROL']
+max-line-length = 119
