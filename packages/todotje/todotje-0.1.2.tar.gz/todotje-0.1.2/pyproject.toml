@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "todotje"
+version = "0.1.2"
+authors = [
+  { name="Tom Edwards"},
+]
+description = "A command-line todo list."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[project.scripts]
+todo = "todo:todo"
