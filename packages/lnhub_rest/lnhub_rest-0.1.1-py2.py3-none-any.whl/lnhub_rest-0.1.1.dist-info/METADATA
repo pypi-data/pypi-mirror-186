@@ -1,0 +1,79 @@
+Metadata-Version: 2.1
+Name: lnhub_rest
+Version: 0.1.1
+Summary: Rest API for the hub.
+Author-email: Lamin Labs <laminlabs@gmail.com>
+Description-Content-Type: text/markdown
+Requires-Dist: nbproject
+Requires-Dist: lndb_setup>=0.30.0
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: pre-commit ; extra == "dev"
+Requires-Dist: nox ; extra == "dev"
+Requires-Dist: pytest>=6.0 ; extra == "test"
+Requires-Dist: pytest-cov ; extra == "test"
+Requires-Dist: nbproject ; extra == "test"
+Project-URL: Home, https://github.com/laminlabs/lnhub-rest
+Provides-Extra: dev
+Provides-Extra: test
+
+# lnhub-rest: Cross-instance management
+
+Note: For more extensive documentation, see [docs/content](docs/content.md).
+
+## Installation
+
+1. Clone this repository
+2. Navigate to the repository and run:
+
+   ```
+   pip install .
+   ```
+
+## Start the server
+
+Start the server by running:
+
+```
+python3 ./lnhub_rest/main.py
+```
+
+or
+
+```
+./devops/run.sh
+```
+
+## Run in a docker container
+
+Run the server in a docker container:
+
+```
+./devops/docker-run.sh
+```
+
+## Deployment
+
+Push on the `main` branch to deploy in production.
+End point url:
+
+```
+https://lnhub-rest-cloud-run-main-xv4y7p4gqa-uc.a.run.app
+```
+
+## Usage
+
+Access API documentation from these endpoints.
+
+Locally:
+
+```
+http://localhost:8000/docs
+```
+
+On production server:
+
+```
+https://lnhub-rest-cloud-run-main-xv4y7p4gqa-uc.a.run.app/docs
+```
+
