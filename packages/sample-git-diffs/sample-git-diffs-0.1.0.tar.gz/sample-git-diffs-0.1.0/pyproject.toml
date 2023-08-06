@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "sample-git-diffs"
+version = "0.1.0"
+description = ""
+authors = ["ninpnin <vainoyrjanainen@icloud.com>"]
+packages = [{include = "sample_git_diffs"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pandas = "^1.4.0"
+
+[tool.poetry.scripts]
+sample-git-diffs = "sample_git_diffs.sample_git_diffs:cli"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
