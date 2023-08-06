@@ -1,0 +1,76 @@
+
+name: Publish Python 🐍 distributions 📦 to PyPI and TestPyPI
+# https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
+on: 
+  push:
+    tags:
+      - "v*"
+jobs:
+  build-n-publish:
+    environment: PYPI  
+    name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Set up Python 3.X
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+    - name: Install pypa/build
+      run: >-
+        python -m
+        pip install
+        build
+        --user
+    - name: Build a binary wheel and a source tarball
+      run: >-
+        python -m
+        build
+        --sdist
+        --wheel
+        --outdir dist/
+        .
+#     - name: Publish distribution 📦 to Test PyPI
+#       uses: pypa/gh-action-pypi-publish@master
+#       with:
+#         password: ${{ secrets.TOKEN }}
+#         repository_url: https://test.pypi.org/legacy/
+    
+    - name: Publish distribution 📦 to PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.TOKEN }}
+
+#
+#name: push new release to pypi server  
+#
+#on:
+#  push:
+#    tags: 
+#      - 'v*'
+#jobs:
+#  build-n-publish:
+#    name: Build and publish Python 🐍 distributions 📦 to PyPI 
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: Set up Python 3.x
+#      uses: actions/setup-python@v2 
+#      with:
+#        python-version: '3.x'
+#        architecture: 'x64'
+#
+#    - name: "Installs dependencies"
+#      run: |
+#        python -m pip install --upgrade pip
+#        python -m pip install setuptools wheel twine
+#
+#    - name: "Builds and uploads to PyPI"
+#      run: |
+#        python setup.py sdist bdist_wheel
+#        python -m twine upload dist/*
+#      env:
+#        TWINE_USERNAME: __token__
+#        TWINE_PASSWORD: ${{ secrets.TWINE_TOKEN }}
+#
+#
