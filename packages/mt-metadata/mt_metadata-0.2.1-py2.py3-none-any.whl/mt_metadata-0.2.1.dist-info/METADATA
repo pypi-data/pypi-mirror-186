@@ -1,0 +1,325 @@
+Metadata-Version: 2.1
+Name: mt-metadata
+Version: 0.2.1
+Summary: Metadata for magnetotelluric data
+Home-page: https://github.com/kujaku11/mt_metadata
+Author: Jared Peacock
+Author-email: jpeacock@usgs.gov
+License: MIT license
+Keywords: mt_metadata
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: concurrent-log-handler
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: pyyaml
+Requires-Dist: obspy
+Requires-Dist: matplotlib
+Requires-Dist: xarray
+
+# mt_metadata version 0.2.1
+ Standard MT metadata
+
+[![PyPi version](https://img.shields.io/pypi/v/mt_metadata.svg)](https://pypi.python.org/pypi/mt-metadata)
+[![Latest conda|conda-forge version](https://img.shields.io/conda/v/conda-forge/mt-metadata.svg)](https://anaconda.org/conda-forge/mt-metadata)
+[![codecov](https://codecov.io/gh/kujaku11/mt_metadata/branch/main/graph/badge.svg?token=1WYF0G1L3D)](https://codecov.io/gh/kujaku11/mt_metadata)
+![example workflow name](https://github.com/kujaku11/mt_metadata/workflows/TestingInConda/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![DOI](https://zenodo.org/badge/324097765.svg)](https://zenodo.org/badge/latestdoi/324097765)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/kujaku11/mt_metadata/main)
+
+# Description
+
+MT Metadata is a project led by [IRIS-PASSCAL MT Software working group](https://www.iris.edu/hq/about_iris/governance/mt_soft>) and USGS to develop tools that standardize magnetotelluric metadata, well, at least create tools for standards that are generally accepted.  This include the two main types of magnetotelluric data
+
+- **Time Series** 
+    - Structured as:
+        - Experiment -> Survey -> Station -> Run -> Channel
+    - Supports translation to/from **StationXML**
+        
+- **Transfer Functions**
+    - Supports (will support) to/from:
+        - **EDI** (most common format)
+        - **ZMM** (Egberts EMTF output)
+        - **JFILE** (BIRRP output)
+        - **EMTFXML** (Kelbert's format)
+        - **AVG** (Zonge output)
+
+Most people will be using the transfer functions, but a lot of that metadata comes from the time series metadata.  This module supports both and has tried to make them more or less seamless to reduce complication.
+
+* **Version**: 0.2.1
+* **Free software**: MIT license
+* **Documentation**: https://mt-metadata.readthedocs.io.
+* **Examples**: Click the `Binder` badge above and Jupyter Notebook examples are in **mt_metadata/examples/notebooks** and **docs/source/notebooks**
+* **Suggested Citation**: Peacock, J. R., Kappler, K., Ronan, T., Heagy, L.,  Kelbert, A., Frassetto, A. (2022) MTH5: An archive and exchangeable data format for magnetotelluric time series data, *Computers & Geoscience*, **162**, doi:10.1016/j.cageo.2022.105102
+
+
+# Installation
+
+## From Source
+
+`git clone git://github.com/kujaku11/mt_metadata`
+
+`python setup.py install`
+
+You can add the flag `-e` if you want to change the code.
+
+## PIP
+`pip install mt_metadata`
+
+## Conda
+
+`conda install mt_metadata`
+
+# Standards
+
+Each metadata keyword has an associated standard that goes with it.  These are stored internally in JSON file.  The JSON files are read in when the package is loaded to initialize the standards.  Each keyword is described by:  
+
+- **type** - How the value should be represented based on very basic types
+
+    - *string*
+    - *number* (float or integer)
+    - *boolean*
+
+- **required** -  A boolean (True or False) denoting whether the metadata key word required to represent the data.
+- **style** - How the value should be represented within the type.  For instance is the value a controlled string where there are only a few options, or is the value a controlled naming convention where only a 5 character alpha-numeric string is allowed.  The styles are
+
+    - *Alpha Numeric* a string with alphabetic and numberic characters
+    - *Free Form* a free form string
+    - *Controlled Vocabulary* only certain values are allowed according to **options**
+    - *Date* a date and/or time string in ISO format
+    - *Number* a float or integer
+    - *Boolean* the value can only be True or False 
+
+- **units** - Units of the value
+- **description** - Full description of what the metadata key is meant to convey.
+- **options** - Any options of a **Controlled Vocabulary** style.
+- **alias** - Any aliases that may represent the same metadata key.
+- **example** - An example value to inform the user.
+
+All input values are internally validated according to the definition providing a robust way to standardize metadata.
+
+Each metadata object is based on a Base class that has methods:
+
+- to/from_json
+- to/from_xml
+- to_from_dict
+- attribute_information
+
+And each object has a doc string that describes the standard: 
+
+
+| **Metadata Key**                             | **Description**                               | **Example**    |
+|----------------------------------------------|-----------------------------------------------|----------------|
+| **key**                                      | description of what the key describes         |  example value |
+|                                              |                                               |                |
+| Required: False                              |                                               |                |
+|                                              |                                               |                |
+| Units: None                                  |                                               |                |
+|                                              |                                               |                |
+| Type: string                                 |                                               |                |
+|                                              |                                               |                |
+| Style: controlled vocabulary                 |                                               |                |
+
+
+The time series module is more mature than the transfer function module at the moment, and this is still a work in progress.
+
+
+# Example
+
+```
+from mt_metadata import timeseries
+x = timeseries.Instrument()
+
+```
+# Help
+```
+help(x)
+
++----------------------------------------------+-----------------------------------------------+----------------+
+| **Metadata Key**                             | **Description**                               | **Example**    |
++==============================================+===============================================+================+
+| **id**                                       | instrument ID number can be serial number or  | mt01           |
+|                                              | a designated ID                               |                |
+| Required: True                               |                                               |                |
+|                                              |                                               |                |
+| Units: None                                  |                                               |                |
+|                                              |                                               |                |
+| Type: string                                 |                                               |                |
+|                                              |                                               |                |
+| Style: free form                             |                                               |                |
++----------------------------------------------+-----------------------------------------------+----------------+
+| **manufacturer**                             | who manufactured the instrument               | mt gurus       |
+|                                              |                                               |                |
+| Required: True                               |                                               |                |
+|                                              |                                               |                |
+| Units: None                                  |                                               |                |
+|                                              |                                               |                |
+| Type: string                                 |                                               |                |
+|                                              |                                               |                |
+| Style: free form                             |                                               |                |
++----------------------------------------------+-----------------------------------------------+----------------+
+| **type**                                     | instrument type                               | broadband      |
+|                                              |                                               | 32-bit         |
+| Required: True                               |                                               |                |
+|                                              |                                               |                |
+| Units: None                                  |                                               |                |
+|                                              |                                               |                |
+| Type: string                                 |                                               |                |
+|                                              |                                               |                |
+| Style: free form                             |                                               |                |
++----------------------------------------------+-----------------------------------------------+----------------+
+| **model**                                    | model version of the instrument               | falcon5        |
+|                                              |                                               |                |
+| Required: False                              |                                               |                |
+|                                              |                                               |                |
+| Units: None                                  |                                               |                |
+|                                              |                                               |                |
+| Type: string                                 |                                               |                |
+|                                              |                                               |                |
+| Style: free form                             |                                               |                |
++----------------------------------------------+-----------------------------------------------+----------------+
+```
+
+## Fill in metadata
+```
+x.model = "falcon 5"
+x.type = "broadband 32-bit"
+x.manufacturer = "MT Gurus"
+x.id = "f176"
+```
+
+## to JSON
+```
+print(x.to_json())
+{
+    "instrument": {
+        "id": "f176",
+        "manufacturer": "MT Gurus",
+        "model": "falcon 5",
+        "type": "broadband 32-bit"
+    }
+}
+```
+
+## to XML
+```
+print(x.to_xml(string=True))
+<?xml version="1.0" ?>
+<instrument>
+    <id>f176</id>
+    <manufacturer>MT Gurus</manufacturer>
+    <model>falcon 5</model>
+    <type>broadband 32-bit</type>
+</instrument>
+
+```
+
+
+Credits
+-------
+
+This project is in cooperation with the Incorporated Research Institutes of Seismology, the U.S. Geological Survey, and other collaborators.  Facilities of the IRIS Consortium are supported by the National Science Foundationâ€™s Seismological Facilities for the Advancement of Geoscience (SAGE) Award under Cooperative Support Agreement EAR-1851048.  USGS is partially funded through the Community for Data Integration and IMAGe through the Minerals Resources Program. 
+
+
+History
+=========
+
+
+0.1.0 (2020-12-30)
+------------------
+
+* First release on PyPI.
+
+0.1.3 (2021-06-25)
+-------------------
+
+* Added time series filters
+
+ - PoleZeroFilter
+ - CoefficientFilter
+ - FIRFilter
+ - TimeDelayFilter
+ - FrequencyAmplitudePhaseFilter
+
+* Added translations to/from StationXML
+* Updated tests
+* Fixed minor bugs
+* Updated documentation	
+
+0.1.5 (2021-11-13)
+-------------------
+
+* Bug fixes
+* Updated how units are handled
+* If survey.id is None set it to fdsn.network if available (mainly an IRIS DMC fix)
+* Updated translation of Experiment to StationXML
+* Updated tests
+
+0.1.6 (2021-12-07)
+--------------------
+
+* Bug fixes (mainly in mt_metadata.timeseries.filters)
+* Updated tests
+* Channel codes are handled "better"
+* Updating translation between Experiment and StationXML
+* Updated how filters are plotted
+* Adding notebooks to documentation
+
+0.1.7 (2022-01-10)
+--------------------
+
+* Updating how transfer functions are handled
+* Added readers and metadata standards for
+    - EDI files
+	- Z-files 
+	- J-Files
+	- AVG file
+	- EMTF XML files
+* Added tests for transfer functions
+* Updated mt_metadata.transfer_functions.core.TF
+* Added documentation on transfer functions
+
+0.1.8 (2022-04-07)
+--------------------
+
+* Bug fixes (mainly in the transfer functions)
+* Combined timeseries and transfer_function metadata where similar, so now transfer_function metadata imports from timeseries when applicable.  Reduces files and redundancy.
+* Updated documentation
+
+0.2.0 (2022-09-10)
+---------------------
+
+* minor bug fixes
+* update reading .AVG files
+
+0.2.1 (2023-01-18)
+---------------------
+
+* Update setup.py 
+* updating reading emtfxml files 
+* Fix issue 95 
+* Add model error 
+* Make sure filter names are unique 
+* Fix Empty Z file
+* Add metadata 
+* added test for multiple networks in stationxml 
+* updating to make mth5 work with single metadata object in ChannelTS and RunTS 
+* added test for null channel component 
+* Mth5 patch129 fixes 
+* Update edi.py 
+* add a line to allow aux channel component to be empty 
+* Update edi.py 
+* Mth5 patch129 fixes 
+
