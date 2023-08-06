@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: sfdevtools
+Version: 1.2.0
+Summary: 
+Author: SulfredLee
+Author-email: sflee1112@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: logging-json (>=0.2.1,<0.3.0)
+Description-Content-Type: text/markdown
+
+## How to publish to pypi
+```bash
+# set up pypi token
+poetry config pypi-token.pypi my-token
+
+# build the project
+poetry build
+
+# publish the project
+poetry publish
+
+# DONE
+```
+
