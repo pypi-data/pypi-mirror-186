@@ -1,0 +1,18 @@
+name: Lint
+
+on: [pull_request]
+
+jobs:
+  lint:
+    name: Linting through tox
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install tox
+        run: pip install tox
+      - name: Run style
+        run: tox -e style
