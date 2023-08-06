@@ -1,0 +1,141 @@
+Metadata-Version: 2.1
+Name: MyClickUp
+Version: 0.1.0
+Summary: The MyClickUp class allows you to encapsulate the integration with the ClickUp API
+Home-page: UNKNOWN
+Author: Jose Cordeiro
+License: MIT
+Platform: UNKNOWN
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+
+=================
+MyClickUp
+=================
+
+2022/january/1 - Jose Cordeiro
+
+The MyClickUp class allows you to encapsulate the integration with the ClickUp API.
+
+To connect:
+
+    myClickUp = MyClickUp(token="18942493_f3779a347ec29bbd3f5e9d9c9e151bfc63462695")
+
+
+**getTeam()**: Returns a dict with the data of users registered in ClickUp. See ClickUp API documentation for details of the structure of this data.
+
+    team = myClickUp.getTeam()
+
+**getSpace(spaceId)**: Returns a dict with data from a Space. See ClickUp API documentation for details of the structure of this data.
+
+    space = myClickUp.getSpace(spaceId="1236")
+
+**getSpaceFolders(spaceId)**: Returns a list with the Folders of a Space. See ClickUp API documentation for details of the structure of this data.
+
+    folders = myClickUp.getSpaceFolders(spaceId="1236")
+
+**getFolder(folderId)**: Returns a dict with data from a Folder. See ClickUp API documentation for details of the structure of this data.
+
+    folder = myClickUp.getFolder(folderId="1236")
+
+**getFolderByName(folderName, spaceId)**: Returns a list with the Folders of a Space. See ClickUp API documentation for details of the structure of this data.
+
+    folder = myClickUp.getFolderByName(folderName="Folder ABC", spaceId="1236")
+
+**getFolderLists(folderId)**: Returns a list with the Lists of a Folder. See ClickUp API documentation for details of the structure of this data.
+
+    lists = myClickUp.getFolderLists(folderId="1236")
+
+**getList(listId)**: Returns a dict with data from a List. See ClickUp API documentation for details of the structure of this data.
+
+    task = myClickUp.getList(listId="1236")
+
+**getListsByName(listName, folderId)**: Returns a dict with data from a List. See ClickUp API documentation for details of the structure of this data.
+
+    task = myClickUp.getList(listName="List A", folderId="1236")
+
+**getListTasks(listId)**: Returns a list with the Tasks of a List. See ClickUp API documentation for details of the structure of this data.
+
+    tasks = myClickUp.getListTasks(listId="1236")
+
+**getTask(taskId, flagSubtasks)**: Returns a dict with data from a Task. See ClickUp API documentation for details of the structure of this data.
+
+    task = myClickUp.getTasksByName(taskId="1236", flagSubtasks=True)
+
+**getTasksByName(taskName, listId)**: Returns a dict with data from a Task. See ClickUp API documentation for details of the structure of this data.
+
+    field = myClickUp.getTasksByName(taskName="Test", listId="1236")
+
+**getListCustomFields(listId)**: Returns a list with the Custom Fields of a List. See ClickUp API documentation for details of the structure of this data.
+
+    fields = myClickUp.getListCustomFields(listId="1236")
+
+**getListCustomFieldByName(listId, fieldName)**: Returns a dict with the details of a Custom Fields of a List. See ClickUp API documentation for details of the structure of this data.
+
+    field = myClickUp.getListCustomFieldByName(listId="1236", fieldName="CATEGORY")
+
+**getCustomFieldOption(listId, fieldName, optionName)**: Returns a list with the options of a Custom Fields of a List. See ClickUp API documentation for details of the structure of this data.
+
+    options = myClickUp.getCustomFieldOption(listId="1236", fieldName="CATEGORY", optionName="abc")
+
+**getUser(userId)**: Returns a dict with a Users's data. See ClickUp API documentation for details of the structure of this data.
+
+    user = myClickUp.getUser(userId=1236)
+
+**createFolder(folderJson, spaceId)**: Creates a Folder in a given Space, the Folder details are specified in the dict "folderJson", according to the ClickUp API . See ClickUp API documentation for details of the structure of this data.
+
+**createList(listJson, folderId)**: Creates a List in a given Folder, the List details are specified in the dict "listJson", according to the ClickUp API. See ClickUp API documentation for details of the structure of this data.
+
+    myList = {
+	
+        "name": "BLA BLA BLA",
+        "content": "BLA BLA BLA",
+        "due_date": 1567780450202,
+        "due_date_time": False,
+        "priority": 1,
+        "assignee": 183,
+        "status": "red"
+		
+    }
+    resp = myClickUp.createList(listJson=myList, folderId="115031109")
+
+**createTask(taskJson, listId, parentTaskId)**: Creates a Task in a given Folder, the Task details are specified in the dict "taskJson", according to the ClickUp API. See ClickUp API documentation for details of the structure of this data.
+
+    task = {
+	
+        "name": activityName,
+        "description": descr,
+        "assignees": [3247672, 18904985],
+        "status": "To do",
+        "priority": 3,  # normal
+        "due_date": dueDate,
+        "due_date_time": False,
+        "time_estimate": timeEstimate,
+        "start_date": None,
+        "start_date_time": False,
+        "notify_all": True,
+        "links_to": None
+		
+    }
+
+    newTask = myClickUp.createTask(taskJson=task, listId=listId)
+
+**updateFolder(folderJson, folderId)**: Updates the Folder properties, the Folder details are specified in the dict "folderJson", according to the ClickUp API. See ClickUp API documentation for details of the structure of this data.
+
+**updateList(listJson, listId)**: Updates the List properties, the List details are specified in the dict "listJson", according to the ClickUp API. See ClickUp API documentation for details of the structure of this data.
+
+**updateTask(taskJson, taskId)**: Updates the Task properties, the Task details are specified in the dict "taskJson", according to the ClickUp API. See ClickUp API documentation for details of the structure of this data.
+
+**deleteFolder(folderId)**: Delete a Folder. See ClickUp API documentation for details of the structure of this data.
+
+    myClickUp.deleteFolder(folderId="1249")
+
+**deleteList(listId)**: Delete a List. See ClickUp API documentation for details of the structure of this data.
+
+    myClickUp.deleteList(listId="1249")
+
+**deleteTask(taskId)**: Delete a Task. See ClickUp API documentation for details of the structure of this data.
+
+    myClickUp.deleteTask(taskId="1249")
+
+
