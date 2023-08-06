@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "websocket-rpcs"
+version = "0.1.0"
+description = "rpc over websocket uses protobuf to serialize data"
+authors = ["jawide <jawide@qq.com>"]
+readme = "README.md"
+packages = [{include = "wrpc"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+websockets = "^10.4"
+protobuf = "^4.21.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
