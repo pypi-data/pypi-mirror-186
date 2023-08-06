@@ -1,0 +1,225 @@
+/* Notification styles */
+.notification {
+  position: absolute;
+  padding: 20px;
+  width: 340px;
+  background: #fff;
+  z-index: 9;
+  left: 50%;
+  top: 30%;
+  border-radius: 4px;
+  color: #575757;
+  font-size: 1.1em;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: 60px;
+}
+
+.notification .titleContainer {
+  display: flex;
+  border-bottom: 2px solid #fa7946;
+  margin-top: -10px;
+  z-index: 1;
+  position: relative;
+}
+
+.notification .titleContainer button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.notification .titleContainer h1 {
+  font-size: 20px;
+  text-align: left;
+  margin: 0 0 0 10px;
+  height: 30px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.notification h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.notification-SIMPLE_OK {
+  overflow: auto;
+}
+
+.notification-SIMPLE_OK .notification-body{
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.notification-overlay {
+  background: rgba(24, 25, 26, 0.6);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 8;
+  top: 0;
+}
+
+.notification-form {
+  margin: 0 auto;
+  width: 300px;
+  padding: 40px;
+}
+
+.notification-form input {
+  display: block;
+  width: 250px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  font-size: 1.1em;
+  padding: 8px;
+}
+
+.notification-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.notification-RELEASE_NOTES .notification-exit-button {
+  width: 40px;
+  height: 30px;
+  margin: 0;
+}
+
+.notification-SIMPLE_OK .notification-form-buttons button,
+.notification-RELEASE_NOTES button {
+  background: #81d636;
+  color: #fffffc;
+  width: 100px;
+  height: 40px;
+  font-size: 16px;
+  border: 0;
+  border-radius: 20px;
+  white-space: nowrap;
+  margin-right: 10px;
+}
+
+.notification-SIMPLE_OK button:hover,
+.notification-RELEASE_NOTES button:hover {
+  opacity: 0.8;
+}
+
+.notification-SIMPLE_OK .notification-form-buttons button.outline-button,
+.notification-RELEASE_NOTES button.outline-button {
+  border: 1px #575757 solid;
+  background: #fff;
+  color: #575757;
+}
+
+.notification-form-buttons button{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  cursor: pointer;
+}
+
+.notification .notification-image {
+  width: calc(100% + 40px);
+  margin: -50px -20px 0 -20px;
+  z-index: 0;
+  position: relative;
+}
+
+.notification-RELEASE_NOTES {
+  width: 280px;
+  height: 360px;
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  left: auto;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25), 0px 0px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  overflow: auto;
+  color: #575757;
+}
+
+.notification-RELEASE_NOTES .notification-body {
+  width: 280px;
+  font-size: 16px;
+  white-space: normal;
+  text-overflow: clip;
+  overflow-wrap: break-word;
+}
+
+.notification-RELEASE_NOTES ul {
+  margin-top: 0;
+}
+
+.notification-RELEASE_NOTES li {
+  padding-left: 1em;
+  margin-top: 5px;
+  font-size: 14px;
+  text-indent: -1em;
+}
+
+.notification-RELEASE_NOTES li::before {
+  content: "// ";
+  color: #ff4a3f;
+}
+
+.notification-RELEASE_NOTES-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  right: 20px;
+  top: 5px;
+  border: none;
+  background-color: #fff;
+  width: 33px;
+  height: 33px;
+  border-radius: 33px;
+  z-index: 99;
+}
+
+.notification-RELEASE_NOTES-button:hover {
+  cursor: pointer;
+}
+
+@media (max-witdh: 600px) {
+  .notification {
+    width: auto;
+    max-width: 500px;
+    min-width: 200px;
+  }
+}
+
+@font-face {
+  font-family: 'notifications-font';
+  src: url('../font/notificationsfont.woff') format('woff'), url('../font/notificationsfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="notifications-font"],
+[class*="notifications-font"] {
+  font-family: 'notifications-font' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.notifications-font-bell:before {
+  content: "\e900";
+}
+.notifications-font-times:before {
+  content: "\e901";
+}
