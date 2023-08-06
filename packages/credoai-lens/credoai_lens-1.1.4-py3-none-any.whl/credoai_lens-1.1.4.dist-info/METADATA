@@ -1,0 +1,147 @@
+Metadata-Version: 2.1
+Name: credoai-lens
+Version: 1.1.4
+Summary: Lens: comprehensive assessment framework for AI systems
+Home-page: 
+Download-URL: https://github.com/credo-ai/credoai_lens
+Author: Ian Eisenberg
+Author-email: ian@credo.ai
+Maintainer: Ian Eisenberg
+Maintainer-email: ian@credo.ai
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: absl-py (>=1.0.0)
+Requires-Dist: cloudpickle (>=2.0.0)
+Requires-Dist: credoai-connect (>=0.0.7)
+Requires-Dist: fairlearn (>=0.7.0)
+Requires-Dist: json-api-doc (>=0.15.0)
+Requires-Dist: matplotlib (>=3.0)
+Requires-Dist: nest-asyncio (>=1.5.4)
+Requires-Dist: protobuf (~=3.19.0)
+Requires-Dist: python-dotenv (>=0.19.2)
+Requires-Dist: requests (>=2.25.1)
+Requires-Dist: scikit-learn (>=0.24)
+Requires-Dist: scipy (>=1.8.1)
+Requires-Dist: pandas-profiling (==3.3.0)
+Requires-Dist: adversarial-robustness-toolbox (>=1.10.1)
+Requires-Dist: torch (>=1.12.1)
+Requires-Dist: lifelines (>=0.27.3)
+Requires-Dist: shap (>=0.41.0)
+Requires-Dist: deepchecks (>=0.9.1)
+Requires-Dist: finsfairauditing (>=0.0.2)
+Requires-Dist: tensorflow (==2.10.0) ; sys_platform != "darwin"
+Requires-Dist: tensorflow-macos (==2.10.0) ; sys_platform == "darwin"
+Provides-Extra: dev
+Requires-Dist: black (==22.10.0) ; extra == 'dev'
+Requires-Dist: pytest (>=6.2.5) ; extra == 'dev'
+Requires-Dist: pytest-cov (>=3.0.0) ; extra == 'dev'
+Requires-Dist: pytest-watch (>=4.2) ; extra == 'dev'
+Requires-Dist: responses (>=0.21.0) ; extra == 'dev'
+Requires-Dist: pytest-mock (>=3.8) ; extra == 'dev'
+Requires-Dist: pytest-assume (>=2.4.3) ; extra == 'dev'
+Requires-Dist: ipykernel ; extra == 'dev'
+Requires-Dist: furo (==2022.3.4) ; extra == 'dev'
+Requires-Dist: nbsphinx (==0.8.7) ; extra == 'dev'
+Requires-Dist: pandoc (==1.1.0) ; extra == 'dev'
+Requires-Dist: prompt-toolkit (<3.0.0) ; extra == 'dev'
+Requires-Dist: pydata-sphinx-theme (==0.6.3) ; extra == 'dev'
+Requires-Dist: sphinx (==4.3.0) ; extra == 'dev'
+Requires-Dist: sphinx-autodoc-typehints (==1.12.0) ; extra == 'dev'
+Requires-Dist: sphinx-copybutton (==0.5.0) ; extra == 'dev'
+Requires-Dist: sphinx-gallery (==0.10.1) ; extra == 'dev'
+Requires-Dist: sphinx-rtd-theme (==1.0.0) ; extra == 'dev'
+Requires-Dist: sphinx-exec-code (==0.8) ; extra == 'dev'
+Requires-Dist: numpy (==1.23.3) ; extra == 'dev'
+Requires-Dist: scipy (==1.9.1) ; extra == 'dev'
+Requires-Dist: scikit-learn (==1.1.2) ; extra == 'dev'
+Requires-Dist: pandas (==1.4.4) ; extra == 'dev'
+Requires-Dist: fairlearn (==0.7.0) ; extra == 'dev'
+Requires-Dist: lifelines (>=0.27.3) ; extra == 'dev'
+Requires-Dist: credoai-connect ; extra == 'dev'
+Requires-Dist: tensorflow (==2.10.0) ; extra == 'dev'
+
+<img src="https://raw.githubusercontent.com/credo-ai/credoai_lens/develop/docs/_static/images/credo_ai-lens.png" width="250" alt="Credo AI Lens"><br>
+
+![Workflow](https://github.com/credo-ai/credoai_lens/actions/workflows/test-reports.yml/badge.svg)
+![Tests](https://credoai-cicd-public-artifacts.s3.us-west-2.amazonaws.com/credoai_lens/main/tests-badge.svg)
+[![Coverage](https://credoai-cicd-public-artifacts.s3.us-west-2.amazonaws.com/credoai_lens/main/coverage-badge.svg)](https://credoai-cicd-public-artifacts.s3.us-west-2.amazonaws.com/credoai_lens/main/html/index.html)
+
+--------------------------------------
+
+# Lens by Credo AI - Responsible AI Assessment Framework
+
+Lens is a comprehensive assessment framework for AI systems. 
+Lens standardizes model and data assessment, and acts as a central gateway to assessments 
+created in the open source community. In short, Lens connects arbitrary AI models and datasets
+with Responsible AI tools throughout the ecosystem.
+
+Lens can be run in a notebook, a CI/CD pipeline, or anywhere else you do your ML analytics.
+It is extensible, and easily customized to your organizations assessments if they are not 
+supported by default. 
+
+Though it can be used alone, Lens shows its full value when connected to your organization's 
+[Credo AI App](https://www.credo.ai/product). Credo AI is an end-to-end AI Governance
+App that supports multi-stakeholder alignment, AI assessment (via Lens) and AI risk assessment.
+
+
+
+## Dependencies
+
+- Credo AI Lens supports Python 3.8+
+- Sphinx (optional for local docs site)
+
+
+## Installation
+
+The latest stable release (and required dependencies) can be installed from PyPI.
+
+```
+pip install credoai-lens
+```
+
+Additional installation instructions can be found in our [setup documentation](https://credoai-lens.readthedocs.io/en/stable/notebooks/quickstart.html)
+
+## Getting Started
+
+To get started, see the [quickstart demo](https://credoai-lens.readthedocs.io/en/stable/notebooks/quickstart.html).
+
+If you are using the Credo AI Governance App, also check out the [governance integration demo](https://credoai-lens.readthedocs.io/en/stable/notebooks/governance_integration.html).
+
+## Documentation
+
+Documentation is hosted by [readthedocs](https://credoai-lens.readthedocs.io/en/stable/).
+
+For dev documentation, see [latest](https://credoai-lens.readthedocs.io/en/stable/index.html).
+
+## AI Governance
+
+As an assessment framework, Lens is an important component of your overall **AI Governance** strategy.
+But it's not the only component! Credo AI, the developer of Lens, also develops
+tools to satisfy your general AI Governance needs, which integrate easily with Lens.
+
+To connect to [Credo AI's Governance App](https://www.credo.ai/product), see the Governance
+tutorial on [readthedocs](https://credoai-lens.readthedocs.io/en/stable/notebooks/governance_integration.html).
+ 
+# For Lens developers
+
+## Running tests
+
+
+Running a test
+
+```shell
+scripts/test.sh
+```
+
+Running tests with pytest-watch
+
+```shell
+ptw --runner "pytest -s"
+```
