@@ -1,0 +1,901 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * purchase_landed_cost
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: odoomrp-wip (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-23 16:33+0000\n"
+"PO-Revision-Date: 2023-01-18 09:46+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"Language-Team: Italian (http://www.transifex.com/oca/odoomrp-wip-8-0/"
+"language/it/)\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1\n"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_affected_lines
+msgid "Affected lines"
+msgstr "Righe coinvolte"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_total_amount
+msgid "Amount line"
+msgstr "Importo riga"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+msgid "Are you sure that you want to update product prices?"
+msgstr "Sei sicuro di voler aggiornare il costo del prodotto?"
+
+#. module: purchase_landed_cost
+#: selection:purchase.expense.type,calculation_method:0
+msgid "By amount of the line"
+msgstr "Per l'importo della riga"
+
+#. module: purchase_landed_cost
+#: selection:purchase.expense.type,calculation_method:0
+msgid "By product price"
+msgstr "Per il costo del prodotto"
+
+#. module: purchase_landed_cost
+#: selection:purchase.expense.type,calculation_method:0
+msgid "By product quantity"
+msgstr "Per la quantità del prodotto"
+
+#. module: purchase_landed_cost
+#: selection:purchase.expense.type,calculation_method:0
+msgid "By product volume"
+msgstr "Per il volume del prodotto"
+
+#. module: purchase_landed_cost
+#: selection:purchase.expense.type,calculation_method:0
+msgid "By product weight"
+msgstr "Per il peso del prodotto"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+msgid "Calculate"
+msgstr "Calcolo"
+
+#. module: purchase_landed_cost
+#: selection:purchase.cost.distribution,state:0
+msgid "Calculated"
+msgstr "Calcolato"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_form
+msgid "Calculated Cost"
+msgstr "Costo Calcolato"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_calculation_method
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type_calculation_method
+msgid "Calculation method"
+msgstr "Metodo di calcolo"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.import_invoice_line_wizard_view
+#: model:ir.ui.view,arch_db:purchase_landed_cost.import_landed_cost_pickings_wizard_view
+#: model:ir.ui.view,arch_db:purchase_landed_cost.picking_import_wizard_view
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+#: selection:purchase.cost.distribution,state:0
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: purchase_landed_cost
+#: model:ir.actions.act_window,help:purchase_landed_cost.action_purchase_cost_distribution
+msgid "Click to create a draft purchase expenses distribution."
+msgstr "Click per creare una bozza di distribuzione dei costi di acquisto."
+
+#. module: purchase_landed_cost
+#: model:ir.actions.act_window,help:purchase_landed_cost.action_purchase_expense_type
+msgid "Click to create a new expense type."
+msgstr "Click per creare un nuovo tipo di costo."
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_company_id
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_company_id
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_company_id
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_company_id
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type_company_id
+msgid "Company"
+msgstr "Azienda"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,help:purchase_landed_cost.field_purchase_cost_distribution_line_expense_picking_date_done
+msgid "Completion Date of Transfer"
+msgstr "Data completamento del movimento"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_form
+msgid "Cost Line Expenses"
+msgstr "Spese per righe di costo"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_cost_update_type
+msgid "Cost Update Type"
+msgstr "Tipo di Aggiornamento"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_amount
+msgid "Cost amount"
+msgstr "Importo del costo"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_distribution
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_distribution
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+msgid "Cost distribution"
+msgstr "Distribuzione del costo"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_expense_invoice_form
+msgid "Cost distribution expenses"
+msgstr "Distribuzione spese del costo"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_distribution_line
+msgid "Cost distribution line"
+msgstr "Distribuzione riga di costo"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_form
+msgid "Cost distribution line information"
+msgstr "Informazioni sulla distribuzione righe di costo"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+msgid "Cost distribution notes..."
+msgstr "Note Distribuzione ..."
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type_note
+msgid "Cost documentation"
+msgstr "Documentazione del costo"
+
+#. module: purchase_landed_cost
+#: code:addons/purchase_landed_cost/models/purchase_cost_distribution.py:309
+#, python-format
+msgid ""
+"Cost update cannot be undone because there has been a later update. Restore "
+"correct price and try again."
+msgstr ""
+"L'aggiornamento del costo non può essere annullato per un successivo "
+"aggiornamento. Ripristina il prezzo corretto e prova nuovamente."
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+msgid "Costs distribution picking lines"
+msgstr "Distribuzione costi righe di picking"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.menu,name:purchase_landed_cost.menu_purchase_cost_control
+msgid "Costs distributions"
+msgstr "Distribuzione costi"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_invoice_line_wizard_create_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_landed_cost_pickings_wizard_create_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_picking_import_wizard_create_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_create_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_create_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_create_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_create_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type_create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_invoice_line_wizard_create_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_landed_cost_pickings_wizard_create_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_picking_import_wizard_create_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_create_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_create_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_create_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_create_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type_create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_currency_id
+msgid "Currency"
+msgstr "Valuta"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_date
+msgid "Date"
+msgstr "Data"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_picking_date_done
+msgid "Date of Transfer"
+msgstr "Data del movimento"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type_default_expense
+msgid "Default Expense"
+msgstr "Spesa di default"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type_default_amount
+msgid "Default amount"
+msgstr "Importo di default"
+
+#. module: purchase_landed_cost
+#: model:ir.actions.act_window,help:purchase_landed_cost.action_purchase_expense_type
+msgid ""
+"Define the type of the calculation of each purchase expense\n"
+"                used for calculating the distribution between lines."
+msgstr ""
+"Definire il tipo di calcolo per ogni spesa d'acquisto\n"
+".............usato per il calcolo della distribuzione tra le righe"
+
+#. module: purchase_landed_cost
+#: selection:purchase.cost.distribution,cost_update_type:0
+msgid "Direct Update"
+msgstr "Aggiornamento Diretto"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_invoice_line_wizard_display_name
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_landed_cost_pickings_wizard_display_name
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_picking_import_wizard_display_name
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_display_name
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_display_name
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_display_name
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_display_name
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type_display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_distribution_expense
+msgid "Distribution expense"
+msgstr "Distribuzione spese"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_cost_lines
+msgid "Distribution lines"
+msgstr "Distribuzione righe"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_name
+msgid "Distribution number"
+msgstr "Distribuzione numero"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_note
+msgid "Documentation for this order"
+msgstr "Documentazione per questo ordine"
+
+#. module: purchase_landed_cost
+#: selection:purchase.cost.distribution,state:0
+msgid "Done"
+msgstr "Fatto"
+
+#. module: purchase_landed_cost
+#: selection:purchase.cost.distribution,state:0
+msgid "Draft"
+msgstr "Bozza"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_expense_invoice_form
+msgid "Duplicate expense"
+msgstr "Duplica spese"
+
+#. module: purchase_landed_cost
+#: selection:purchase.expense.type,calculation_method:0
+msgid "Equally to all lines"
+msgstr "Uguale per tutte le righe"
+
+#. module: purchase_landed_cost
+#: selection:purchase.cost.distribution,state:0
+msgid "Error"
+msgstr "Errore"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_expense_amount
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_expense_amount
+msgid "Expense amount"
+msgstr "Importos pese"
+
+#. module: purchase_landed_cost
+#: model:ir.actions.act_window,name:purchase_landed_cost.action_purchase_cost_distribution_line_expense
+#: model:ir.ui.menu,name:purchase_landed_cost.menu_purchase_cost_distribution_line_expense
+msgid "Expense distribution lines"
+msgstr "Distribuzione righe di spesa"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_invoice_line_wizard_expense_type
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_type
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_type
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_expense_search
+msgid "Expense type"
+msgstr "Tipo spese"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_lines
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+msgid "Expenses"
+msgstr "Spese"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_lines
+msgid "Expenses distribution lines"
+msgstr "Distribuzione righe di spesa"
+
+#. module: purchase_landed_cost
+#: model:ir.actions.act_window,name:purchase_landed_cost.action_purchase_expense_type
+#: model:ir.ui.menu,name:purchase_landed_cost.menu_purchase_expense_type
+msgid "Expenses types"
+msgstr "Tipi di spese"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_product_weight
+msgid "Gross weight"
+msgstr "Peso lordo"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_expense_search
+msgid "Group By"
+msgstr "Group By"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_invoice_line_wizard_id
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_landed_cost_pickings_wizard_id
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_picking_import_wizard_id
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_id
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_id
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_id
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_id
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type_id
+msgid "ID"
+msgstr "ID"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,help:purchase_landed_cost.field_purchase_expense_type_default_amount
+msgid ""
+"If set, this amount is put in the expense line when you select this expense "
+"type"
+msgstr ""
+"Se impostato, questo importo è inserito nelle righe di spesa quando "
+"selezioni questo tipo di spesa"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.import_invoice_line_wizard_view
+#: model:ir.ui.view,arch_db:purchase_landed_cost.import_landed_cost_pickings_wizard_view
+#: model:ir.ui.view,arch_db:purchase_landed_cost.picking_import_wizard_view
+msgid "Import"
+msgstr "Importa"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.invoice_supplier_form
+msgid "Import from pickings"
+msgstr "Importa dai pickings"
+
+#. module: purchase_landed_cost
+#: model:ir.actions.act_window,name:purchase_landed_cost.action_picking_import_wizard
+#: model:ir.model,name:purchase_landed_cost.model_picking_import_wizard
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+msgid "Import incoming shipment"
+msgstr "Importa consegne in arrivo"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+msgid "Import invoice line"
+msgstr "Importa righe di fattura"
+
+#. module: purchase_landed_cost
+#: model:ir.actions.act_window,name:purchase_landed_cost.action_import_landed_cost_pickings_wizard
+msgid "Import landed cost from pickings"
+msgstr "Importa costi distribuzione dai picking"
+
+#. module: purchase_landed_cost
+#: model:ir.actions.act_window,name:purchase_landed_cost.action_import_invoice_line_wizard
+#: model:ir.model,name:purchase_landed_cost.model_import_invoice_line_wizard
+msgid "Import supplier invoice line"
+msgstr "Importa righe di fattura fornitore"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_imported_lines
+msgid "Imported lines"
+msgstr "Righe importate"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_picking_import_wizard_pickings
+msgid "Incoming shipments"
+msgstr "Spedizioni in arrivo"
+
+#. module: purchase_landed_cost
+#: model:ir.model,name:purchase_landed_cost.model_account_invoice
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_invoice_line_wizard_invoice
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_invoice_id
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: purchase_landed_cost
+#: model:ir.model,name:purchase_landed_cost.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Riga Fattura"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_invoice_line_wizard_invoice_line
+msgid "Invoice line"
+msgstr "Riga fattura"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_account_invoice_expense_line_ids
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_account_invoice_line_expense_line_ids
+#: model:ir.ui.view,arch_db:purchase_landed_cost.invoice_supplier_form
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_order_form
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_picking_form
+msgid "Landed costs"
+msgstr "Costi accessori"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_invoice_line_wizard___last_update
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_landed_cost_pickings_wizard___last_update
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_picking_import_wizard___last_update
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution___last_update
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense___last_update
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line___last_update
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense___last_update
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type___last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_invoice_line_wizard_write_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_landed_cost_pickings_wizard_write_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_picking_import_wizard_write_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_write_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_write_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_write_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_write_uid
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type_write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_invoice_line_wizard_write_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_landed_cost_pickings_wizard_write_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_picking_import_wizard_write_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_write_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_write_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_write_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_write_date
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type_write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_total_volume
+msgid "Line volume"
+msgstr "Volume riga"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_total_weight
+msgid "Line weight"
+msgstr "Riga peso"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_name
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_expense_type_name
+msgid "Name"
+msgstr "Nome"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_standard_price_new
+msgid "New cost"
+msgstr "Nuovo costo"
+
+#. module: purchase_landed_cost
+#: code:addons/purchase_landed_cost/models/purchase_cost_distribution.py:201
+#, python-format
+msgid "No valid distribution type."
+msgstr "Tipo distribuzione non valido."
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.import_landed_cost_pickings_wizard_view
+msgid "Only the pickings with expenses are allowed to be selected here."
+msgstr "Solo i pickings con costi sono ammessi alla selezione."
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_picking_id
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_picking_id
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_expense_search
+msgid "Picking"
+msgstr "Picking"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_move_id
+msgid "Picking line"
+msgstr "Riga di picking"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+msgid "Picking lines"
+msgstr "Righe di picking"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_expense_search
+msgid "Picking transfer date"
+msgstr "Picking data movimento"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_landed_cost_pickings_wizard_picking_ids
+msgid "Pickings"
+msgstr "Pickings"
+
+#. module: purchase_landed_cost
+#: code:addons/purchase_landed_cost/models/purchase_cost_distribution.py:222
+#, python-format
+msgid "Please enter an amount for all the expenses"
+msgstr "Per favore inserisci un importo per tutte le spese"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_landed_cost_pickings_wizard_possible_picking_ids
+msgid "Possible pickings"
+msgstr "Picking possibile"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_picking_import_wizard_prev_pickings
+msgid "Prev pickings"
+msgstr "Picking precedente"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_standard_price_old
+msgid "Previous cost"
+msgstr "Costo precedente"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_product_id
+msgid "Product"
+msgstr "Prodotto"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_form
+msgid "Product information"
+msgstr "Informazione sul prodotto"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_form
+msgid "Purchase Cost Line"
+msgstr "Riga costo d'acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.model,name:purchase_landed_cost.model_purchase_order
+msgid "Purchase Order"
+msgstr "Ordine di acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_calendar
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_graph
+msgid "Purchase cost distribution"
+msgstr "Suddivisione dei costi di acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.model,name:purchase_landed_cost.model_purchase_cost_distribution_line
+msgid "Purchase cost distribution Line"
+msgstr "Distribuzione delle righe costi d'acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.model,name:purchase_landed_cost.model_purchase_cost_distribution_expense
+msgid "Purchase cost distribution expense"
+msgstr "Distribuzione spese costi d'acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.model,name:purchase_landed_cost.model_purchase_cost_distribution_line_expense
+msgid "Purchase cost distribution line expense"
+msgstr "Distribuzione delle righe di spesa costi d'acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_expense_tree
+msgid "Purchase cost distribution lines"
+msgstr "Distribuzione dei costi d'acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.actions.act_window,name:purchase_landed_cost.action_purchase_cost_distribution
+#: model:ir.ui.menu,name:purchase_landed_cost.menu_purchase_cost_distribution
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_tree
+msgid "Purchase cost distributions"
+msgstr "Distribuzione costi d'acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.model,name:purchase_landed_cost.model_purchase_expense_type
+msgid "Purchase cost type"
+msgstr "Tipo costo d'acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_expense_type_tree
+msgid "Purchase expense types"
+msgstr "Tipo spesa d'acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_form
+msgid "Purchase information"
+msgstr "Informazioni d'acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.model,name:purchase_landed_cost.model_purchase_cost_distribution
+msgid "Purchase landed costs distribution"
+msgstr "Distribuzione costi d'acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_purchase_id
+msgid "Purchase order"
+msgstr "Ordine d'acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_purchase_line_id
+msgid "Purchase order line"
+msgstr "Riga ordine di acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,help:purchase_landed_cost.field_purchase_cost_distribution_expense_affected_lines
+msgid ""
+"Put here specific lines that this expense is going to be distributed across. "
+"Leave it blank to use all imported lines."
+msgstr ""
+"Inserisci righe delle spese che verranno distribuite. Lasciare vuoto per "
+"importare tutte le righe."
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_product_qty
+msgid "Quantity"
+msgstr "Quantità"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+msgid "Recalculate"
+msgstr "Ricalcolo"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_ref
+msgid "Reference"
+msgstr "Riferimento"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_search
+msgid "Search purchase costs distributions"
+msgstr "Ricerca distribuzione costi d'acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.import_landed_cost_pickings_wizard_view
+msgid ""
+"Select here the pickings for those you want to add their expenses lines."
+msgstr ""
+"Seleziona il picking per i quali vuoi aggiungere le relative righe di spese."
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.picking_import_wizard_view
+msgid "Select incoming shipment wizard"
+msgstr "Wizard di selezione spedizioni  in arrivo"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.import_invoice_line_wizard_view
+msgid "Select supplier invoice line wizard"
+msgstr "Wizard di selezione righe di fattura"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,help:purchase_landed_cost.field_purchase_expense_type_default_expense
+msgid ""
+"Specify if the expense will be automatically added in a purchase cost "
+"distribution."
+msgstr ""
+"Specifica se le spese verranno automaticamente aggiunte nella distribuzione "
+"costi d'acquisto."
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_state
+msgid "Status"
+msgstr "Stato"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_import_invoice_line_wizard_supplier
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_picking_import_wizard_supplier
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_partner
+msgid "Supplier"
+msgstr "Fornitore"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_expense_invoice_line
+msgid "Supplier invoice line"
+msgstr "Riga fattura fornitore"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,help:purchase_landed_cost.field_purchase_cost_distribution_line_product_price_unit
+msgid ""
+"Technical field used to record the product cost set by the user during a "
+"picking confirmation (when costing method used is 'average price' or "
+"'real'). Value given in company currency and in product uom."
+msgstr ""
+"Campo tecnico usato per registrare il costo del prodotto impostato "
+"dall'utente durante la conferma del picking (quando il metodo di costo usato "
+"è 'prezzo medio' o 'reale'). Valore in valuta della società e unità di "
+"misura del prodotto."
+
+#. module: purchase_landed_cost
+#: code:addons/purchase_landed_cost/models/purchase_cost_distribution.py:207
+#, python-format
+msgid ""
+"The cost for the line '%s' can't be distributed because the calculation "
+"method doesn't provide valid data"
+msgstr ""
+"Il costo della riga '%s' non può essere distribuito perchè il metodo di "
+"calcolo non fornisce dati validi"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,help:purchase_landed_cost.field_purchase_cost_distribution_line_product_weight
+msgid "The gross weight in Kg."
+msgstr "Peso lordo in Kg."
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,help:purchase_landed_cost.field_purchase_cost_distribution_line_total_weight
+msgid "The line gross weight in Kg."
+msgstr "Riga peso lordo in Kg."
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,help:purchase_landed_cost.field_purchase_cost_distribution_line_total_volume
+msgid "The line volume in m3."
+msgstr "Riga volume in m3."
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,help:purchase_landed_cost.field_purchase_cost_distribution_line_product_volume
+msgid "The volume in m3."
+msgstr "Volume in m3."
+
+#. module: purchase_landed_cost
+#: code:addons/purchase_landed_cost/models/purchase_cost_distribution.py:226
+#, python-format
+msgid "There is no picking lines in the distribution"
+msgstr "Nella distribuzione non ci sono righe di picking"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+msgid ""
+"This will undo the product price update (only if current value matches with "
+"the calculated price in this distribution). Do you want to continue?"
+msgstr ""
+"Questo annulla l'aggiornamento del prezzo (solo se il valore attuale "
+"rispecchia il prezzo calcolato in questa distribuzione). Vuoi continuare?"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_amount_total
+msgid "Total"
+msgstr "Totale"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_form
+msgid "Total Expenses"
+msgstr "Spese Totali"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_total_expense
+msgid "Total expenses"
+msgstr "Spese totali"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_total_weight
+msgid "Total gross weight"
+msgstr "Peso lordo totale"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_total_price_unit
+msgid "Total price unit"
+msgstr "Prezzo totale unitario"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_total_purchase
+msgid "Total purchase"
+msgstr "Totale acquisto"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_total_uom_qty
+msgid "Total quantity"
+msgstr "Quantità totale"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_total_volume
+msgid "Total volume"
+msgstr "Volume totale"
+
+#. module: purchase_landed_cost
+#: model:ir.model,name:purchase_landed_cost.model_stock_picking
+msgid "Transfer"
+msgstr "Trasferimento"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_cost_ratio
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_expense_cost_ratio
+msgid "Unit cost"
+msgstr "Costo unitario"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_product_uom
+msgid "Unit of measure"
+msgstr "Unità di misura"
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_product_price_unit
+msgid "Unit price"
+msgstr "Prezzo unitario"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.purchase_cost_distribution_form
+msgid "Update Cost"
+msgstr "Aggiornamento costi"
+
+#. module: purchase_landed_cost
+#: model:ir.actions.act_window,help:purchase_landed_cost.action_purchase_cost_distribution
+msgid ""
+"Use this menu to control the cost of purchases by expense type\n"
+"                such as transport, insurance, freight customs, etc."
+msgstr ""
+"Usa questo menu per controllare il costo d'acquisto tramite tipo di spesa\n"
+"                come un trasporto, assicurazione, dazi doganali, ecc."
+
+#. module: purchase_landed_cost
+#: model:ir.actions.act_window,help:purchase_landed_cost.action_purchase_expense_type
+msgid ""
+"Use this menu to create types of purchase expenses.\n"
+"                The types marked by default will be added to the cost\n"
+"                distribution automatically."
+msgstr ""
+"Usa questo menu per creare tipi di spese d'acquisto.\n"
+"                Il tipo indicato di default verrà aggiunto al costo di\n"
+"                distribuzione automaticamente."
+
+#. module: purchase_landed_cost
+#: model:ir.model.fields,field_description:purchase_landed_cost.field_purchase_cost_distribution_line_product_volume
+msgid "Volume"
+msgstr "Volume"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.view_purchase_cost_distribution_line_form
+msgid "Warehouse information"
+msgstr "Informazioni di magazzino"
+
+#. module: purchase_landed_cost
+#: model:ir.actions.act_window,help:purchase_landed_cost.action_purchase_cost_distribution
+msgid ""
+"You can add one or more receipts which share the same expenses\n"
+"                and update cost price of product."
+msgstr ""
+"Tu puoi aggiungere una o più regole che dividono le stesse spese\n"
+"                e aggiornare il costo del prodotto."
+
+#. module: purchase_landed_cost
+#: code:addons/purchase_landed_cost/models/purchase_cost_distribution.py:132
+#, python-format
+msgid "You can't delete a confirmed cost distribution"
+msgstr "Non puoi cancellare il costo distribuito confermato"
+
+#. module: purchase_landed_cost
+#: code:addons/purchase_landed_cost/models/purchase_cost_distribution.py:153
+#, python-format
+msgid ""
+"You can't delete a cost line if it's an affected line of any expense line."
+msgstr ""
+"Non puoi cancellare una riga di costo se è collegata a una riga di spese."
+
+#. module: purchase_landed_cost
+#: model:ir.model,name:purchase_landed_cost.model_import_landed_cost_pickings_wizard
+msgid "import.landed.cost.pickings.wizard"
+msgstr "import.landed.cost.pickings.wizard"
+
+#. module: purchase_landed_cost
+#: model:ir.ui.view,arch_db:purchase_landed_cost.import_invoice_line_wizard_view
+#: model:ir.ui.view,arch_db:purchase_landed_cost.import_landed_cost_pickings_wizard_view
+#: model:ir.ui.view,arch_db:purchase_landed_cost.picking_import_wizard_view
+msgid "or"
+msgstr "o"
