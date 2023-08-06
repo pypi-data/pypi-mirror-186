@@ -1,0 +1,26 @@
+Metadata-Version: 2.1
+Name: gen-gender
+Version: 0.1.1
+Summary: 
+Author: vmerkurev
+Author-email: v.merkurev@promo-bot.ru
+Requires-Python: >=3.8,<3.9
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Requires-Dist: stanza (>=1.4.2,<2.0.0)
+Description-Content-Type: text/markdown
+
+# gen_gender
+
+Пакет позволяет сменить род ответов с мужского на женский.
+
+## Пример
+
+```python
+>>> gen_gender.swap("Я тот самый учитель.")
+"Я та самая учительница"
+
+>>> gen_gender.swap("Я не женат. У меня два брата и одна сестра.")
+"Я не замужем, у меня два брата и одна сестра."
+```
+
