@@ -1,0 +1,1388 @@
+
+    def on_current_row_changed(self):
+        ###self.current_row_changed_signal.emit(self.list_widget.currentRow())
+
+        current_row_int = self.list_widget.currentRow()
+        # if current_row_int != NO_QUESTION_INT:
+        current_question_qli = self.list_widget.item(current_row_int)
+        customqlabel_widget = self.list_widget.itemWidget(current_question_qli)
+        if customqlabel_widget is not None:
+            wbd.wbd_global.active_question_id_it = customqlabel_widget.question_entry_id
+            self.current_row_changed_signal.emit()
+        # else:
+        # pass
+        ######wbd.bwbglobal.active_question_id_it = None
+
+
+
+
+    @staticmethod
+    def get_all_for_question_and_month(
+            i_question_id_it, i_start_of_month_as_unix_time_it,
+            i_number_of_days_in_month_it, i_reverse_bl=False):
+        ret_diary_list = []
+        db_connection = DbHelperM.get_db_connection()
+        db_cursor = db_connection.cursor()
+        db_cursor_result = db_cursor.execute(
+            "SELECT * FROM " + DbSchemaM.DiaryEntryTable.name
+            + " WHERE " + DbSchemaM.DiaryEntryTable.Cols.date_added + ">=" + str(i_start_of_month_as_unix_time_it)
+            + " AND " + DbSchemaM.DiaryEntryTable.Cols.date_added + "<"
+            + str(i_start_of_month_as_unix_time_it + 24 * 3600 * i_number_of_days_in_month_it)
+            + " AND " + DbSchemaM.DiaryEntryTable.Cols.question_ref + "=" + str(i_question_id_it)
+            + " ORDER BY " + DbSchemaM.DiaryEntryTable.Cols.date_added
+        )
+        diary_db_te_list = db_cursor_result.fetchall()
+        for diary_db_te in diary_db_te_list:
+            ret_diary_list.append(DiaryEntryM(*diary_db_te))
+        db_connection.commit()
+
+        if i_reverse_bl:
+            ret_diary_list.reverse()
+        return ret_diary_list
+
+
+
+            """
+            if wbd.wbd_global.active_question_id_it != wbd.wbd_global.NO_ACTIVE_QUESTION_INT:
+                active_journalm = wbd.model.QuestionM.get(wbd.wbd_global.active_question_id_it)
+                self.view_type_qll.setText("<h3>" + active_journalm.title_str + "</h3>")
+            """
+
+
+    """
+    class ReminderTable:
+        name = "reminder"
+
+        class Cols:
+            id = "id"  # key
+            title = "title"
+            reminder = "reminder"
+
+    class JournalTable:
+        name = "journal"
+
+        class Cols:
+            id = "id"  # key
+            sort_order = "sort_order"
+            title = "title"
+            description = "description"
+    """
+
+
+
+class ReminderM:
+    def __init__(self, i_id_int: int, i_title_str: str, i_reminder_str: str) -> None:
+        self.id_int = i_id_int
+        self.title_str = i_title_str
+        self.reminder_str = i_reminder_str
+
+    @staticmethod
+    def add(i_title_str: str, i_reminder_str: str) -> None:
+        db_connection = wbd.db.DbHelperM.get_db_connection()
+        db_cursor = db_connection.cursor()
+        db_cursor.execute(
+            "INSERT INTO " + wbd.db.DbSchemaM.ReminderTable.name + "("
+            + wbd.db.DbSchemaM.ReminderTable.Cols.title + ", "
+            + wbd.db.DbSchemaM.ReminderTable.Cols.reminder
+            + ") VALUES (?, ?)", (i_title_str, i_reminder_str)
+        )
+
+        db_connection.commit()
+
+    @staticmethod
+    def get(i_id_int: int):
+        db_connection = wbd.db.DbHelperM.get_db_connection()
+        db_cursor = db_connection.cursor()
+        db_cursor_result = db_cursor.execute(
+            "SELECT * FROM " + wbd.db.DbSchemaM.ReminderTable.name
+            + " WHERE " + wbd.db.DbSchemaM.ReminderTable.Cols.id + "=" + str(i_id_int)
+        )
+        reminder_db_te = db_cursor_result.fetchone()
+        db_connection.commit()
+
+        return ReminderM(*reminder_db_te)
+
+    @staticmethod
+    def get_all():
+        ret_reminder_list = []
+        db_connection = wbd.db.DbHelperM.get_db_connection()
+        db_cursor = db_connection.cursor()
+        db_cursor_result = db_cursor.execute(
+            "SELECT * FROM " + wbd.db.DbSchemaM.ReminderTable.name
+        )
+        reminder_db_te_list = db_cursor_result.fetchall()
+        for diary_db_te in reminder_db_te_list:
+            ret_reminder_list.append(ReminderM(*diary_db_te))
+        db_connection.commit()
+        return ret_reminder_list
+
+    @staticmethod
+    def remove(i_id_int):
+        db_connection = wbd.db.DbHelperM.get_db_connection()
+        db_cursor = db_connection.cursor()
+        db_cursor.execute(
+            "DELETE FROM " + wbd.db.DbSchemaM.ReminderTable.name
+            + " WHERE " + wbd.db.DbSchemaM.ReminderTable.Cols.id + "=" + str(i_id_int)
+        )
+        db_connection.commit()
+
+
+
+    ReminderM.add("Inter-being",
+        "All things in the universe inter-are, our suffering and happiness inter-is with the suffernig and happiness of others")
+    ReminderM.add("No Mud, no lotus",
+        "A lotus flower cannot grow on marble!")
+
+
+
+
+    """
+        + DbSchemaM.TagTable.Cols.default_journal_ref
+        + " INTEGER REFERENCES " + DbSchemaM.QuestionTable.name + "(" + DbSchemaM.QuestionTable.Cols.id + ")"
+        + " NOT NULL DEFAULT '" + str(wbd.wbd_global.NO_ACTIVE_JOURNAL_INT) + "'"
+
+        + DbSchemaM.EntryTable.Cols.habit_ref
+        + " INTEGER REFERENCES " + DbSchemaM.QuestionTable.name + "(" + DbSchemaM.QuestionTable.Cols.id + ")"
+        + " NOT NULL DEFAULT '" + str(wbd.wbd_global.NO_ACTIVE_HABIT_INT) + "',"
+        + DbSchemaM.EntryTable.Cols.journal_ref
+        + " INTEGER REFERENCES " + DbSchemaM.QuestionTable.name + "(" + DbSchemaM.QuestionTable.Cols.id + ")"
+        + " NOT NULL DEFAULT '" + str(wbd.wbd_global.NO_ACTIVE_JOURNAL_INT) + "'"
+        + ")"
+
+        i_db_conn.execute(
+            "CREATE INDEX " + DbSchemaM.EntryTable.name + "("
+            + ")"
+        )
+    """
+
+        """
+        if is_favorite_int == wbd..SQLITE_FALSE:
+            is_favorite_int = wbd.model.SQLITE_TRUE
+        elif is_favorite_int == wbd.model.SQLITE_TRUE:
+            is_favorite_int = wbd.model.SQLITE_FALSE
+        else:
+            raise ValueError("This value should not be possible")
+        """
+
+
+
+        """
+        # ..column 2
+        self.hashtags_composite = TagBoxCompositeWidget("Hashtags", "#")
+        vbox1.addWidget(self.hashtags_composite)
+        self.hashtags_composite.current_row_changed_signal.connect(self.on_tags_current_row_changed)
+
+        # ..calendar
+        calendar_dock_qdw2 = QtWidgets.QDockWidget("Calendar", self)
+        calendar_dock_qdw2.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea)
+        calendar_dock_qdw2.setFeatures(QtWidgets.QDockWidget.NoDockWidgetFeatures)
+        self.custom_calendar_w3 = wbd.gui.calendar.CompositeCalendarWidget()
+        self.custom_calendar_w3.setFixedHeight(240)
+        self.custom_calendar_w3.calendar_widget.selectionChanged.connect(self.on_calendar_selection_changed)
+        # -TODO: Move this into the calendar widget class
+        ### self.custom_calendar_w3.calendar_widget.currentPageChanged.connect(self.on_calendar_page_changed)
+        calendar_dock_qdw2.setWidget(self.custom_calendar_w3)
+        self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, calendar_dock_qdw2)
+        """
+
+        # self.custom_calendar_w3.update_gui()
+
+        """
+        # Row 1
+        hbox2 = QtWidgets.QHBoxLayout()
+        vbox1.addLayout(hbox2)
+        # ..column 1
+        self.joy_composite = TagBoxCompositeWidget("Sources of joy", "[joy]")
+        hbox2.addWidget(self.joy_composite)
+        self.joy_composite.current_row_changed_signal.connect(self.on_tags_current_row_changed)
+        # ..column 2
+        self.friends_composite = TagBoxCompositeWidget("Friends (by time)", "@")
+        hbox2.addWidget(self.friends_composite)
+        self.friends_composite.current_row_changed_signal.connect(self.on_tags_current_row_changed)
+        # Row 2
+        hbox2 = QtWidgets.QHBoxLayout()
+        vbox1.addLayout(hbox2)
+        # ..column 1
+        self.places_composite = TagBoxCompositeWidget("Places (by time)", "^")
+        hbox2.addWidget(self.places_composite)
+        self.places_composite.current_row_changed_signal.connect(self.on_tags_current_row_changed)
+        # ..column 2
+        self.hashtags_composite = TagBoxCompositeWidget("Hashtags", "#")
+        hbox2.addWidget(self.hashtags_composite)
+        self.hashtags_composite.current_row_changed_signal.connect(self.on_tags_current_row_changed)
+        # Row 3
+        hbox2 = QtWidgets.QHBoxLayout()
+        vbox1.addLayout(hbox2)
+        # ..column 1
+        self.feelings_composite = TagBoxCompositeWidget("Feelings (pos and neg) (by time)", "*")
+        hbox2.addWidget(self.feelings_composite)
+        self.feelings_composite.current_row_changed_signal.connect(self.on_tags_current_row_changed)
+        # ..column 2
+        self.needs_composite = TagBoxCompositeWidget("Needs", "+")
+        hbox2.addWidget(self.needs_composite)
+        self.needs_composite.current_row_changed_signal.connect(self.on_tags_current_row_changed)
+        """
+
+
+
+        # reading tags from the db
+        #self.hashtags_composite.update_gui()
+        """
+        self.feelings_composite.update_gui()
+        self.needs_composite.update_gui()
+        self.joy_composite.update_gui()
+        self.friends_composite.update_gui()
+        self.places_composite.update_gui()
+        """
+
+
+        self.archive_phrase_qpb = QtWidgets.QPushButton()
+        self.archive_phrase_qpb.setIcon(QtGui.QIcon(wbd.wbd_global.get_icon_path("box-2x.png")))
+        self.archive_phrase_qpb.setToolTip(self.tr("Archive the selected question"))
+        self.archive_phrase_qpb.clicked.connect(self.on_context_menu_archive)
+        hbox_l3.addWidget(self.archive_phrase_qpb)
+
+
+
+            if self.edit_dialog.is_sheduled_bool:
+                hour_int = self.edit_dialog.hour_qte.time().hour()
+            else:
+                hour_int = wbd.model.TIME_NOT_SET
+            wbd.model.QuestionM.update_hour(wbd.wbd_global.active_question_id_it, hour_int)
+
+
+    def on_show_archived_button_toggled(self, i_new_state_bool):
+        self.show_archived_questions_bool = i_new_state_bool
+        self.update_gui()
+
+
+
+    """
+            row_item = QtWidgets.QListWidgetItem()
+
+            question_title_str = question.title_str
+            all_for_active_day_list = wbd.model.DiaryEntryM.get_for_question_and_active_day(question.id_int)
+            if len(all_for_active_day_list) > 0:
+                question_title_str = "<b>" + question.title_str + "</b>"
+
+            question_title_qll = CustomQLabel(question_title_str, question.id_int)
+            question_title_qll.mouse_pressed_signal.connect(
+                self.on_list_row_label_mouse_pressed
+            )
+            self.list_widget.addItem(row_item)
+            self.list_widget.setItemWidget(row_item, question_title_qll)
+
+    """
+
+
+        if not self.show_archived_qpb.isChecked():
+            archive_action = QtGui.QAction("Archive")
+            archive_action.triggered.connect(self.on_context_menu_archive)
+            self.right_click_menu.addAction(archive_action)
+
+
+
+        """
+        hbox_l5 = QtWidgets.QHBoxLayout()
+        vbox_l4.addLayout(hbox_l5)
+
+        self.activity_qll = QtWidgets.QLabel("Activity")
+        # self.activity_qll.setFixedHeight(30)
+        self.activity_qll.setSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
+        hbox_l5.addWidget(self.activity_qll)
+
+        hbox_l5.addStretch(1)
+
+        self.clear_qpb = QtWidgets.QPushButton("Clear")
+        # self.clear_qpb.setSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
+        self.clear_qpb.clicked.connect(self.on_clear_clicked)
+        hbox_l5.addWidget(self.clear_qpb)
+        """
+
+        """
+        self.journals_qcb = QtWidgets.QComboBox()
+        self.journals_qcb.setMaximumWidth(100)
+        for journal in wbd.model.JournalM.get_all():
+            self.journals_qcb.addItem(journal.title_str)
+        self.journals_qcb.activated.connect(self.journals_activated)
+        edit_diary_entry_vbox_l4.addWidget(self.journals_qcb)
+        """
+
+        ###diary_entry_label = QtWidgets.QLabel("<h4>New diary entry </h4>")
+        ###edit_diary_entry_vbox_l4.addWidget(diary_entry_label)
+
+
+
+
+    def journals_activated(self, i_index: int):
+        journal_text_str = self.journals_qcb.itemText(i_index)
+
+        journal_text_edited_str = wbd.wbd_global.format_to_hashtag(journal_text_str)
+
+        logging.debug("journal_text = " + journal_text_edited_str)
+        prev_text_cursor = self.diary_entry_textedit_w6.textCursor()
+        self.diary_entry_textedit_w6.moveCursor(QtGui.QTextCursor.End)
+        self.diary_entry_textedit_w6.insertPlainText(journal_text_edited_str)
+        self.diary_entry_textedit_w6.setTextCursor(prev_text_cursor)
+
+        # Please note: There can be advantages of having the hashtags/journals on a new line, but if we want to
+        # have it on the same line as the user is on (without a new line) this can help us:
+        # https://stackoverflow.com/a/18134824/2525237
+
+
+    def on_journal_button_toggled(self):
+        wbd.wbd_global.active_question_id_it = self.journal_qbuttongroup.checkedId()
+        self.update_gui()
+        self.journal_button_toggled_signal.emit()
+
+
+"""
+class CustomPushButton(QtWidgets.QWidget):
+    def __init__(self, i_journal_name_str, i_journal_id_int):
+        super.__init__(self, i_journal_name_str)
+        self.journal_id_it = i_journal_id_int
+"""
+
+===================================
+
+
+
+    # noinspection PyUnresolvedReferences
+    def contextMenuEvent(self, i_qcontextmenuevent):
+        """
+        Overridden
+        Docs: http://doc.qt.io/qt-5/qwidget.html#contextMenuEvent
+        """
+        self.right_click_menu = QtWidgets.QMenu()
+
+        rename_action = QtGui.QAction("Rename")
+        rename_action.triggered.connect(self.on_context_menu_rename)
+        self.right_click_menu.addAction(rename_action)
+
+        delete_action = QtGui.QAction("Delete")
+        delete_action.triggered.connect(self.on_context_menu_delete)
+        self.right_click_menu.addAction(delete_action)
+
+        change_date_action = QtGui.QAction("Change date")
+        change_date_action.triggered.connect(self.on_context_menu_change_date)
+        self.right_click_menu.addAction(change_date_action)
+
+        self.right_click_menu.exec_(QtGui.QCursor.pos())
+
+    def on_context_menu_delete(self):
+        message_box_reply = QtWidgets.QMessageBox.question(
+            self, "Remove diary entry?", "Are you sure that you want to remove this diary entry?"
+        )
+        if message_box_reply == QtWidgets.QMessageBox.Yes:
+            wbd.model.EntryM.remove(int(self.last_entry_clicked_id_it))
+            self.update_gui()
+            self.context_menu_delete_signal.emit()
+        else:
+            pass  # -do nothing
+
+    def on_context_menu_rename(self):
+        last_clicked_row_dbkey_it = int(self.last_entry_clicked_id_it)
+        diary_entry = wbd.model.EntryM.get(last_clicked_row_dbkey_it)
+        text_input_dialog = QtWidgets.QInputDialog()
+        new_text_qstring = text_input_dialog.getText(
+            self, "Rename dialog", "New name: ", text=diary_entry.diary_text)
+        # -Docs: http://doc.qt.io/qt-5/qinputdialog.html#getText
+        if new_text_qstring[0]:
+            logging.debug("new_text_qstring = " + str(new_text_qstring))
+            wbd.model.EntryM.update_note(last_clicked_row_dbkey_it, new_text_qstring[0])
+            self.update_gui()
+        else:
+            pass  # -do nothing
+
+    def on_context_menu_change_date(self):
+        last_clicked_row_dbkey_it = int(self.last_entry_clicked_id_it)
+        diary_item = wbd.model.EntryM.get(last_clicked_row_dbkey_it)
+        updated_time_unix_time_it = wbd.gui.date_time_dialog.DateTimeDialog.get_date_time_dialog(diary_item.date_added_it)
+        if updated_time_unix_time_it != -1:
+            wbd.model.EntryM.update_date(diary_item.id, updated_time_unix_time_it)
+            self.update_gui()
+            self.context_menu_change_date_signal.emit()
+        else:
+            pass  # -do nothing
+
+    def on_context_menu_toggle_favorite(self):
+        last_clicked_row_dbkey_it = int(self.last_entry_clicked_id_it)
+        diary_item = wbd.model.EntryM.get(last_clicked_row_dbkey_it)
+
+        is_favorite_int = diary_item.favorite_it
+        logging.debug("is_favorite_int = " + str(is_favorite_int))
+
+        wbd.model.EntryM.update_rating(diary_item.id, is_favorite_int)
+
+        self.context_menu_change_date_signal.emit()
+        self.update_gui()
+
+
+===================================
+
+
+
+
+class TagBoxCompositeWidget(QtWidgets.QWidget):
+    current_row_changed_signal = QtCore.Signal(str)
+
+    def __init__(self, i_title: str, i_prefix: str):
+        super().__init__()
+        # , i_ref_search_qle
+
+        self.prefix_str = i_prefix
+        # self.ref_search_qle = i_ref_search_qle
+
+        vbox = QtWidgets.QVBoxLayout()
+        self.setLayout(vbox)
+        self.tags_qll = QtWidgets.QLabel(i_title)
+        vbox.addWidget(self.tags_qll)
+        self.tags_qlw = QtWidgets.QListWidget()
+        vbox.addWidget(self.tags_qlw)
+        self.tags_qlw.currentRowChanged.connect(self.on_tags_current_row_changed)
+
+    def on_tags_current_row_changed(self):
+        current_row_int = self.tags_qlw.currentRow()
+        current_row_qli = self.tags_qlw.item(current_row_int)
+        search_text_str = current_row_qli.text() if current_row_qli else None
+        # self.ref_search_qle.setText(search_text_str)
+        self.current_row_changed_signal.emit(search_text_str)
+
+    def update_gui(self):
+        self.tags_qlw.clear()
+        self.tags_qlw.addItems(
+            [tag for (tag, id_list) in wbd.model.EntryM.get_all_tags_or_friends(self.prefix_str)]
+        )
+
+
+
+
+    @staticmethod
+    def get_all_tags_or_friends(i_special_char_str: str) -> list:
+        ret_tag_tuple_list_list = []
+        # ret_tag_tuple_list_list: [("#tag1", [id1, id2, ___]), ("#tag2", [id1, id3, ___]), ___]
+        db_connection = wbd.db.DbHelperM.get_db_connection()
+        db_cursor = db_connection.cursor()
+        db_cursor_result = db_cursor.execute(
+            "SELECT * FROM " + wbd.db.DbSchemaM.EntryTable.name
+            + " WHERE " + wbd.db.DbSchemaM.EntryTable.Cols.text
+            + " LIKE " + '"%' + i_special_char_str + '%"'
+        )
+        # -http://sqlite.org/lang_expr.html#like
+        diary_db_te_list = db_cursor_result.fetchall()
+        for diary_db_te in diary_db_te_list:
+            diary_entry = EntryM(*diary_db_te)
+            string_with_hashtag_str = diary_entry.diary_text
+            t_diary_id_int = diary_entry.id
+            regexp_pattern_obj = re.compile("\\" + i_special_char_str + r"\w+")
+            # Please note: we need to escape the caret ("^") character becase this is a
+            # special character ("literal")
+            regexp_search_result_list = regexp_pattern_obj.findall(string_with_hashtag_str)
+            # https://docs.python.org/3/library/re.html
+
+            for t_re_tag_str in regexp_search_result_list:
+                # -regexp_search_result_list: ["#tag1", "#tag2", ___]
+                flag_boolean = False
+                for (t_ret_tag_str, t_ret_diary_id_list) in ret_tag_tuple_list_list:
+                    if t_re_tag_str == t_ret_tag_str:
+                        t_ret_diary_id_list.append(t_diary_id_int)
+                        flag_boolean = True
+                        break
+                if flag_boolean:
+                    break
+                else:
+                    ret_tag_tuple_list_list.append((t_re_tag_str, [t_diary_id_int]))
+
+        db_connection.commit()
+
+        # TODO: Removing duplicates
+
+        return ret_tag_tuple_list_list
+
+
+
+
+
+        """
+        # ..practice details
+        practice_details_dock_qw2 = QtWidgets.QDockWidget("Journal Details", self)
+        self.practice_details_composite_w3 = bwb_practice_details.PracticeCompositeWidget()
+        practice_details_dock_qw2.setWidget(self.practice_details_composite_w3)
+        self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, practice_details_dock_qw2)
+        self.practice_details_composite_w3.time_of_day_state_changed_signal.connect(
+            self.on_practice_details_time_of_day_state_changed)
+        """
+        # ..quotes
+        # TODO: A stackedwidget, perhaps with two arrows above for going back and fwd (or just one to switch randomly)
+        """
+        # ..help
+        help_dock_qw2 = QtWidgets.QDockWidget("Help", self)
+        self.help_composite_w3 = bwb_help.HelpCompositeWidget()
+        help_dock_qw2.setWidget(self.help_composite_w3)
+        self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, help_dock_qw2)
+        """
+        # ..wisdom
+        """
+        wisdom_dock_qw2 = QtWidgets.QDockWidget("Wisdom", self)
+        self.wisdom_composite_w3 = wbd.wisdom.WisdomCompositeWidget()
+        wisdom_dock_qw2.setWidget(self.wisdom_composite_w3)
+        self.addDockWidget(QtCore.Qt.RightDockWidgetArea, wisdom_dock_qw2)
+        wisdom_dock_qw2.setAllowedAreas(QtCore.Qt.RightDockWidgetArea)
+        wisdom_dock_qw2.hide()
+        """
+        """
+        # ..image
+        image_qll = QtWidgets.QLabel()
+        image_qll.setPixmap(QtGui.QPixmap("Gerald-G-Yoga-Poses-stylized-1-300px-CC0.png"))
+        image_dock_qw2 = QtWidgets.QDockWidget("Image", self)
+        image_dock_qw2.setWidget(image_qll)
+        self.addDockWidget(QtCore.Qt.RightDockWidgetArea, image_dock_qw2)
+        """
+
+
+
+        """
+        # ..reminders
+        reminders_dock_qw2 = QtWidgets.QDockWidget("Reminders", self)
+        self.reminders_composite_w3 = wbd.gui.reminders.CompositeRemindersWidget()
+        reminders_dock_qw2.setWidget(self.reminders_composite_w3)
+        self.addDockWidget(QtCore.Qt.RightDockWidgetArea, reminders_dock_qw2)
+        reminders_dock_qw2.setAllowedAreas(QtCore.Qt.RightDockWidgetArea)
+        reminders_dock_qw2.setFixedHeight(300)  # TODO: Change to dynamic
+        # ..quotes
+        quotes_dock_qw2 = QtWidgets.QDockWidget("Quotes", self)
+        self.quotes_composite_w3 = wbd.gui.quotes.CompositeQuotesWidget()
+        quotes_dock_qw2.setWidget(self.quotes_composite_w3)
+        self.addDockWidget(QtCore.Qt.RightDockWidgetArea, quotes_dock_qw2)
+        quotes_dock_qw2.setAllowedAreas(QtCore.Qt.RightDockWidgetArea | QtCore.Qt.LeftDockWidgetArea)
+        """
+
+        # self.setStyleSheet("selection-background-color:#72ba5e; font-size:10.5pt")
+
+
+        # self.views_dock_qw2 = QtWidgets.QDockWidget("Views", self)
+        # self.views_dock_qw2.setWidget(self.views_composite_w3)
+        # self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, self.views_dock_qw2)
+        # self.questions_dock_qw2 = QtWidgets.QDockWidget("Questions", self)
+        # self.tags_dock_qw2.setFeatures(QtWidgets.QDockWidget.DockWidgetMovable | QtWidgets.QDockWidget.DockWidgetFloatable)
+        # self.questions_dock_qw2.setWidget(self.questions_composite_w3)
+        # self.addDockWidget(QtCore.Qt.LeftDockWidgetArea, self.questions_dock_qw2)
+        # self.tags_dock_qw2 = QtWidgets.QDockWidget("Tags", self)
+        # self.tags_composite_w3.item_selection_changed_signal.connect(self.on_practice_item_selection_changed)
+        # self.tags_dock_qw2.setWidget(self.tags_composite_w3)
+        # self.addDockWidget(QtCore.Qt.RightDockWidgetArea, self.tags_dock_qw2)
+        # self.tags_dock_qw2.setAllowedAreas(QtCore.Qt.RightDockWidgetArea)
+
+        ##diary_widget.add_text_to_diary_button_pressed_signal.connect(self.on_diary_add_entry_button_pressed)
+
+
+        ### dear_buddha_qaction = QtGui.QAction("Prepend diary entries with \"Dear Buddha\"", self)
+        ### dear_buddha_qaction.triggered.connect(self.toggle_dear_buddha_text)
+        # quotes_window_qaction = quotes_dock_qw2.toggleViewAction()
+        # reminder_window_qaction = reminders_dock_qw2.toggleViewAction()
+
+
+    def keyPressEvent(self, iQKeyEvent):
+        """
+        Important: Some key presses are not captured when focusing on certain widgets. For example
+        if the list widget has focus key_up and key_down will be captured by the list widget rather
+        than here in the main window. However please note that that when using modifiers these will be considered as
+        separate from the "plain" pressing of a button, so we can for example use alt+key_up even
+        if the widget that has focus is a list widget
+        :param iQKeyEvent:
+        :return:
+        """
+        logging.debug("keyPressEvent in Main Window")
+
+
+
+    def toggle_dear_buddha_text(self):
+        old_text_str = self.edit_entry_cw.diary_entry_textedit_w6.toPlainText()
+        new_text_str = "Dear Buddha, "
+        if old_text_str.startswith(new_text_str):
+            new_text_str_length_int = len(new_text_str)
+            new_text_str = old_text_str[new_text_str_length_int:]
+        self.edit_entry_cw.diary_entry_textedit_w6.setText(new_text_str)
+
+
+
+    def on_calendar_selection_changed(self):
+        """
+        if not wbd.wbd_global.diary_view_locked_bool:
+            wbd.wbd_global.active_view_viewenum = wbd.wbd_global.ViewEnum.daily_overview
+        """
+        logging.debug("Selected date: " + str(self.custom_calendar_w3.calendar_widget.selectedDate()))
+        wbd.wbd_global.active_date_qdate = self.custom_calendar_w3.calendar_widget.selectedDate()
+        self.update_gui(EventSource.calendar_changed)
+
+    """
+    def on_calendar_page_changed(self):
+        wbd.wbd_global.shown_month_1to12_it = self.custom_calendar_w3.calendar_widget.monthShown()
+        wbd.wbd_global.shown_year_it = self.custom_calendar_w3.calendar_widget.yearShown()
+        self.update_gui(EventSource.calendar_selection_changed)
+    """
+
+
+=======================
+
+        self.edit_entry_cw.diary_entry_textedit_w6.key_press_0_9_for_question_list_signal.connect(
+            self.on_central_key_press_0_9_for_question_list
+        )
+        self.edit_entry_cw.diary_entry_textedit_w6.key_press_up_for_question_list_signal.connect(
+            self.on_central_key_press_up_for_question_list
+        )
+        self.edit_entry_cw.diary_entry_textedit_w6.key_press_down_for_question_list_signal.connect(
+            self.on_central_key_press_down_for_question_list
+        )
+
+    def on_central_key_press_0_9_for_question_list(self, i_int):
+        logging.debug("Entered on_central_key_press_for_question_list")
+        self.questions_composite_w3.questions_qlw.setCurrentRow(i_int)
+
+    def on_central_key_press_up_for_question_list(self):
+        questions_current_row_int = self.questions_composite_w3.questions_qlw.currentRow()
+        if questions_current_row_int <= 0:
+            return
+        self.questions_composite_w3.questions_qlw.setCurrentRow(questions_current_row_int - 1)
+
+    def on_central_key_press_down_for_question_list(self):
+        questions_current_row_int = self.questions_composite_w3.questions_qlw.currentRow()
+        if questions_current_row_int >= self.questions_composite_w3.questions_qlw.count() - 1:
+            return
+        self.questions_composite_w3.questions_qlw.setCurrentRow(questions_current_row_int + 1)
+
+=======================
+
+
+    # noinspection PyUnresolvedReferences
+    def contextMenuEvent(self, i_qcontextmenuevent):
+        """
+        Overridden
+        Docs: http://doc.qt.io/qt-5/qwidget.html#contextMenuEvent
+        """
+
+        if self.last_entry_clicked_id_int == wbd.wbd_global.NO_ACTIVE_QUESTION_INT:
+            return
+
+        self.right_click_menu = QtWidgets.QMenu()
+
+        delete_action = QtGui.QAction("Delete")
+        delete_action.triggered.connect(self.on_context_menu_delete)
+        self.right_click_menu.addAction(delete_action)
+
+        move_up_action = QtGui.QAction("Move up")
+        move_up_action.triggered.connect(self.on_context_menu_move_up)
+        self.right_click_menu.addAction(move_up_action)
+
+        move_down_action = QtGui.QAction("Move down")
+        move_down_action.triggered.connect(self.on_context_menu_move_down)
+        self.right_click_menu.addAction(move_down_action)
+
+        self.right_click_menu.exec_(QtGui.QCursor.pos())
+
+
+=======================
+
+            """
+            all_for_active_day_list = wbd.model.EntryM.get_for_question_and_active_day(tag.id_int)
+            if len(all_for_active_day_list) > 0:
+                question_title_str = "<b>" + question_title_str + "</b>"
+            """
+            # TODO: Use the relation table above for setting text in bold
+
+
+
+            elif iQKeyEvent.key() >= QtCore.Qt.Key_1 or iQKeyEvent.key() >= QtCore.Qt.Key_9:
+                logging.debug("AltModifier + Key_0-9")
+                new_row_int = 0
+                if iQKeyEvent.key() == QtCore.Qt.Key_1:
+                    new_row_int = 0
+                elif iQKeyEvent.key() == QtCore.Qt.Key_2:
+                    new_row_int = 1
+                elif iQKeyEvent.key() == QtCore.Qt.Key_3:
+                    new_row_int = 2
+                elif iQKeyEvent.key() == QtCore.Qt.Key_4:
+                    new_row_int = 3
+                elif iQKeyEvent.key() == QtCore.Qt.Key_5:
+                    new_row_int = 4
+                elif iQKeyEvent.key() == QtCore.Qt.Key_6:
+                    new_row_int = 5
+                elif iQKeyEvent.key() == QtCore.Qt.Key_7:
+                    new_row_int = 6
+                elif iQKeyEvent.key() == QtCore.Qt.Key_8:
+                    new_row_int = 7
+                elif iQKeyEvent.key() == QtCore.Qt.Key_9:
+                    new_row_int = 8
+                ### self.questions_composite_w3.list_widget.setCurrentRow(new_row_int)
+                self.key_press_0_9_for_question_list_signal.emit(new_row_int)
+                return
+
+
+===================================
+
+        self.time_of_day_qte = QtWidgets.QTimeEdit()
+        # self.time_of_day_qte.setDisplayFormat("HH:MM")
+        datetime_vbox_l4.addWidget(self.time_of_day_qte)
+
+        minute_grid_l5 = QtWidgets.QGridLayout()
+        datetime_vbox_l4.addLayout(minute_grid_l5)
+        MINUTE_BUTTON_WIDTH_INT = 32
+        self.minute_0_qpb = QtWidgets.QPushButton("00")
+        qfont = self.minute_0_qpb.font()
+        qfont.setPointSize(8)
+        self.minute_0_qpb.setFont(qfont)
+        self.minute_0_qpb.setFixedWidth(MINUTE_BUTTON_WIDTH_INT)
+        minute_grid_l5.addWidget(self.minute_0_qpb, 0, 0)
+        # datetime_vbox_l4.addWidget(self.minute_0_qpb)
+        self.minute_15_qpb = QtWidgets.QPushButton("15")
+        self.minute_15_qpb.setFont(qfont)
+        self.minute_15_qpb.setFixedWidth(MINUTE_BUTTON_WIDTH_INT)
+        minute_grid_l5.addWidget(self.minute_15_qpb, 0, 1)
+        # datetime_vbox_l4.addWidget(self.minute_15_qpb)
+        self.minute_30_qpb = QtWidgets.QPushButton("30")
+        self.minute_30_qpb.setFont(qfont)
+        self.minute_30_qpb.setFixedWidth(MINUTE_BUTTON_WIDTH_INT)
+        minute_grid_l5.addWidget(self.minute_30_qpb, 1, 0)
+        # datetime_vbox_l4.addWidget(self.minute_30_qpb)
+        self.minute_45_qpb = QtWidgets.QPushButton("45")
+        self.minute_45_qpb.setFont(qfont)
+        self.minute_45_qpb.setFixedWidth(MINUTE_BUTTON_WIDTH_INT)
+        minute_grid_l5.addWidget(self.minute_45_qpb, 1, 1)
+        # datetime_vbox_l4.addWidget(self.minute_45_qpb)
+
+
+
+===================================
+
+
+
+    def save_entry(self):
+        selected_rating_int = self.rating_qbuttongroup.checkedId()
+        time_qdatetime = self.get_qdatetime_from_widgets()
+        unix_ts_int = time_qdatetime.toSecsSinceEpoch()
+        logging.debug("unix_ts_int = " + str(unix_ts_int))
+
+        if wbd.wbd_global.active_diary_entry_id != wbd.wbd_global.NO_DIARY_ENTRY_EDITING_INT:
+            # Editing entry
+            logging.debug(
+                "EDITING for wbd.wbd_global.active_diary_entry_id = "
+                + str(wbd.wbd_global.active_diary_entry_id)
+            )
+            # -editing a diary entry
+            # TODO: Add the possibility of editing more things here, like the time and date
+            # TODO: remove and add again?
+
+            wbd.model.EntryM.update_entry_text(wbd.wbd_global.active_diary_entry_id, notes_sg)
+            wbd.model.update_entry_date(wbd.wbd_global.active_diary_entry_id, unix_ts_int)
+            wbd.model.EntryM.update_entry_rating(wbd.wbd_global.active_diary_entry_id, selected_rating_int)
+            wbd.model.update_image(wbd.wbd_global.active_diary_entry_id, self.image_path_str)
+
+            # TODO: Tags - remove and add new?
+        else:
+            # Adding a new entry
+            entry_id_int = wbd.model.EntryM.add_entry(
+                unix_ts_int,
+                notes_sg,
+                selected_rating_int,
+                self.image_path_str
+            )
+            for selected_tag_item in self.tags_for_entry_qlw.selectedItems():
+                tag_name_str = selected_tag_item.text()
+                tag = wbd.model.TagM.get_tag_by_title(tag_name_str)
+                tag_id_int = tag.id_int
+                logging.debug("tag.id_int = " + str(tag.id_int))
+                # logging.debug("wbd.wbd_global.active_question_id_it = " + str(wbd.wbd_global.active_question_id_it))
+                wbd.model.add_tag_entry_relation(tag_id_int, entry_id_int)
+                logging.debug("Relation between tag " + str(tag_id_int) + " and entry " + str(entry_id_int) + " added")
+
+        self.diary_entry_cpte.clear()
+        self.image_path_qll.setText("")
+
+        # self.update_gui()
+        self.entry_added_or_edited_signal.emit()
+
+
+===================
+
+
+        # Checking if the entry has been edited in a relevant way..
+        diary_entry = wbd.model.EntryM.get_entry(wbd.wbd_global.active_diary_entry_id)
+        tag_references_list = wbd.model.get_all_tags_referenced_by_entry(wbd.wbd_global.active_diary_entry_id)
+        nr_of_tag_references_int = len(tag_references_list)
+        if diary_entry.diary_text_str == "" or diary_entry.image_file_name_str == "" or nr_of_tag_references_int == 0:
+            # ..if so we remove the entry
+            wbd.model.EntryM.remove_entry(wbd.wbd_global.active_diary_entry_id)
+        else:
+            logging.debug("diary_entry.diary_text_str = " + diary_entry.diary_text_str)
+            logging.debug("diary_entry.image_file_name_str = " + diary_entry.image_file_name_str)
+            logging.debug("nr_of_tag_references_int = " + str(nr_of_tag_references_int))
+
+===================
+
+    # System tray
+    tray_icon = QtWidgets.QSystemTrayIcon(QtGui.QIcon("icon.png"), app)
+    tray_menu = QtWidgets.QMenu()
+    tray_restore_action = QtGui.QAction("Restore")
+    # noinspection PyUnresolvedReferences
+    tray_restore_action.triggered.connect(main_window.show)
+    tray_menu.addAction(tray_restore_action)
+    tray_quit_action = QtGui.QAction("Quit")
+    # noinspection PyUnresolvedReferences
+    tray_quit_action.triggered.connect(sys.exit)
+    tray_menu.addAction(tray_quit_action)
+    tray_icon.setContextMenu(tray_menu)
+    tray_icon.show()
+
+
+=================
+
+
+        """
+        if wbd_global.active_view_viewenum == wbd_global.ViewEnum.tag_view:
+            diary_list = wbd.model.EntryM.get_all_for_question(
+                wbd_global.active_question_id_it,
+                wbd.wbd_global.active_state.current_page_number_int
+            )
+        elif wbd_global.active_view_viewenum == wbd_global.ViewEnum.daily_overview:
+            diary_list = wbd.model.get_all_entries_for_active_day()
+        elif wbd_global.active_view_viewenum == wbd_global.ViewEnum.search_view:
+            diary_list = wbd.model.get_all_entries_for_search_term(
+                wbd.wbd_global.search_string_str,
+                wbd.wbd_global.active_state.current_page_number_int,
+                wbd.wbd_global.active_rating_filter_int
+            )
+        else:
+            raise Exception("Can not get here")
+        """
+
+=================
+
+class CustomQLabel(QtWidgets.QLabel):
+    NO_DIARY_ENTRY_SELECTED = -1
+    diary_entry_id = NO_DIARY_ENTRY_SELECTED
+    mouse_pressed_signal = QtCore.Signal(QtGui.QMouseEvent, int)
+
+    def __init__(self, i_text_sg, i_diary_entry_id=NO_DIARY_ENTRY_SELECTED):
+        super().__init__(i_text_sg)
+        self.diary_entry_id = i_diary_entry_id
+
+    # Overridden
+    # Please note that this is the event handler (not an event!)
+    def mousePressEvent(self, i_qmouseevent):
+        super(CustomQLabel, self).mousePressEvent(i_qmouseevent)
+        self.mouse_pressed_signal.emit(i_qmouseevent, self.diary_entry_id)
+
+=================
+
+
+class CustomPlainTextEdit(QtWidgets.QPlainTextEdit):
+    key_press_up_for_question_list_signal = QtCore.Signal()
+    key_press_down_for_question_list_signal = QtCore.Signal()
+
+    def __init__(self):
+        super().__init__()
+
+    def keyPressEvent(self, iQKeyEvent):
+        if QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.ControlModifier:
+            if iQKeyEvent.key() == QtCore.Qt.Key_Enter or iQKeyEvent.key() == QtCore.Qt.Key_Return:
+                logging.debug("CtrlModifier + Enter/Return")
+                self.ref_central.save_entry()
+                self.key_press_down_for_question_list_signal.emit()
+                # -TODO: Change name of signals to focus on goal rather than origin
+                return
+        elif QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.AltModifier:
+            if iQKeyEvent.key() == QtCore.Qt.Key_Down:
+                logging.debug("AltModifier + Key_Down")
+                self.key_press_down_for_question_list_signal.emit()
+                return
+            elif iQKeyEvent.key() == QtCore.Qt.Key_Up:
+                logging.debug("AltModifier + Key_Up")
+                self.key_press_up_for_question_list_signal.emit()
+                return
+        elif QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.ShiftModifier:
+            pass
+        else: # -no keyboard modifier
+            if iQKeyEvent.key() == QtCore.Qt.Key_Enter or iQKeyEvent.key() == QtCore.Qt.Key_Return:
+                # -http://doc.qt.io/qt-5/qguiapplication.html#keyboardModifiers
+                # -Please note that the modifiers are placed directly in the QtCore.Qt namespace
+                # Alternatively:
+                # if QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.ShiftModifier:
+                # -using bitwise and to find out if the shift key is pressed
+                logging.debug("enter or return key pressed in textedit area")
+                self.ref_central.save_entry()
+                return
+
+        QtWidgets.QPlainTextEdit.keyPressEvent(self, iQKeyEvent)
+        # -if we get here it means that the key has not been captured elsewhere (or possibly
+        # (that the key has been captured but that we want "double handling" of the key event)
+
+=================
+
+            if diary_entry.rating_int >= 2:
+                # -TODO: Change to rating 1-3 here
+                listitem_cqll.setStyleSheet("background-color:rgba(180,230,180,0.3);")  # #d0e8c9 rgba(0,255,0,0.3);
+
+=================
+
+            # listitem_cqll.mouse_pressed_signal.connect(self.on_custom_label_mouse_pressed)
+            # listitem_cqll.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)  # -important
+
+
+def is_same_year(i_first_date_it, i_second_date_it):
+    first_date = datetime.datetime.fromtimestamp(i_first_date_it)
+    second_date = datetime.datetime.fromtimestamp(i_second_date_it)
+    return first_date.year == second_date.year  # - == operator works for "datetime" type
+
+
+=================
+
+    db_cursor_result = wbd.db.db_exec(
+        "SELECT " + wbd.db.DbSchemaM.EntryTable.name + ".*"
+        + " FROM " + wbd.db.DbSchemaM.EntryTable.name
+        + " INNER JOIN " + wbd.db.DbSchemaM.TagEntryRelationTable.name
+        + " ON " + wbd.db.DbSchemaM.EntryTable.name + "." + wbd.db.DbSchemaM.EntryTable.Cols.id
+        + " = " + wbd.db.DbSchemaM.TagEntryRelationTable.Cols.tag_id_ref
+        + " WHERE " + wbd.db.DbSchemaM.TagEntryRelationTable.Cols.tag_id_ref + " = ?"
+        + " AND " + wbd.db.DbSchemaM.EntryTable.Cols.text + " LIKE ?"
+        + " AND " + wbd.db.DbSchemaM.EntryTable.Cols.rating + ">= ?"
+        + " AND " + wbd.db.DbSchemaM.EntryTable.Cols.datetime_added + ">= ?"
+        + " AND " + wbd.db.DbSchemaM.EntryTable.Cols.datetime_added + "< ?"
+        + " ORDER BY " + wbd.db.DbSchemaM.EntryTable.Cols.datetime_added + " ASC LIMIT ? OFFSET ?",
+        (
+            "%" + i_search_term_str + "%",
+            i_rating,
+            time_start_ts_int,
+            time_end_ts_int,
+            wbd.wbd_global.diary_entries_per_page_int,
+            i_page_number_int * wbd.wbd_global.diary_entries_per_page_int,
+            i_tag_id
+        )
+    )
+
+
+=================
+
+def get_start_of_day_as_ts(i_time_ts) -> int:
+    python_datetime = datetime.datetime.now()
+    if i_time_ts != -1:
+        python_datetime = datetime.datetime.fromtimestamp(i_time_ts)
+    beggining_of_day_pdt = datetime.datetime(
+        year=python_datetime.year,
+        month=python_datetime.month,
+        day=python_datetime.day
+    )
+    ret_as_ts_int = int(datetime.datetime.timestamp(beggining_of_day_pdt))
+    return ret_as_ts_int
+
+=================
+
+    def on_clear_filters_clicked(self):
+        self.updating_gui_bool = True
+
+        self.tag_filter_qcb.setChecked(False)
+        self.rating_filter_qcb.setChecked(False)
+        self.search_filter_qcb.setChecked(False)
+        self.date_filter_qcb.setChecked(False)
+
+        wbd.wbd_global.active_state.filters.tag_active_bool = False
+        wbd.wbd_global.active_state.filters.rating_active_bool = False
+        wbd.wbd_global.active_state.filters.search_active_bool = False
+        wbd.wbd_global.active_state.filters.datetime_active_bool = False
+
+        self.updating_gui_bool = False
+        self.filters_changed_signal.emit()
+
+=================
+
+def delete_image_file(i_image_file_name: str) -> None:
+    if i_image_file_name:
+        image_file_path_str = get_user_images_path(i_image_file_name)
+        os.remove(image_file_path_str)
+
+=================
+
+                self.list_clw.insertItem(current_row_number_int - 1, current_list_widget_item)
+                self.list_clw.setItemWidget(current_list_widget_item, item_widget_cql)
+                self.list_clw.setCurrentRow(current_row_number_int - 1)
+                # -the above three lines doesn't work. They move the row but the row has no text and
+                #  also the details (description) is not updated when selecting the row
+
+            # if main_sort_order_int == 0 or main_sort_order_int > len(QuestionM.get_all()):
+            # if main_sort_order_int < 0 or main_sort_order_int >= len(QuestionM.get_all()):
+
+=================
+
+        # self.title_qll.setText('<span style="font-size: 14pt">' + tag.title_str + '</span>')
+        # new_description_str = wbd.wbd_global.create_links_using_delimiters(description_str, "<", ">")
+        # new_description_str = re.sub(r'<(.*?)>', r'<a href="\1">\1</a>', description_str)
+        new_description_str = description_str
+        logging.debug("new_description_str = " + new_description_str)
+        # html_str = ("<span>" + " " + new_description_str + "</span>")
+        html_str = new_description_str
+        # + " " + re.sub("(<[.]+>)", '<a href="$1>$1</a>', tag.description_str)
+
+=================
+
+        # self.qframe = QtWidgets.QFrame()
+        # self.qpte.point.setFontPointSize(12)
+        # QTextBrowser: setOpenExternalLinks(True)
+
+=================
+
+    # QtCore.QDateTime.currentDateTime()
+    # today_qd = QtCore.QDate.from
+    # now_qdt = QtCore.QDateTime.fromSecsSinceEpoch(i_time_as_ts)
+
+    """
+    https://stackoverflow.com/questions/4228530/pil-thumbnail-is-rotating-my-image
+    https://coderwall.com/p/nax6gg/fix-jpeg-s-unexpectedly-rotating-when-saved-with-pil
+    """
+
+    """
+    now_pdt = datetime.datetime.strptime(i_datetime_string, PY_DATETIME_FORMAT_STR)
+    datetime_as_string_str = now_pdt.strftime("%Y-%m-%d_%H-%M-%S")
+    file_suffix_str = ".jpg"
+
+    counter_int = 1
+    outfile_name_str = ""
+    while True:
+        outfile_name_str = datetime_as_string_str + "-" + str(counter_int) + file_suffix_str
+        outfile_path_str = get_user_images_path(outfile_name_str)
+        counter_int += 1
+        if not os.path.exists(outfile_path_str):
+            break
+    """
+
+=================
+
+def create_links_using_delimiters(i_original: str, i_start_delimiter: str, i_end_delimiter: str):
+    # i_start_replace_before: str, i_start_replace_after: str, i_end_replace: str
+    new_str = ""
+    count = 0
+    start_int = 0
+    while count < len(i_original):
+        character_outer = i_original[count]
+        if character_outer == i_start_delimiter:
+            new_str += i_original[start_int:count]
+            start_int = count + 1
+            while count < len(i_original):
+                character_inner = i_original[count]
+                if character_inner == i_end_delimiter:
+                    link_str = i_original[start_int:count]
+                    new_str += '<a href="' + link_str + '">' + link_str + '</a>'
+                    start_int = count + 1
+                    break
+                count += 1
+        count += 1
+    new_str += i_original[start_int:count]
+    return new_str
+
+=================
+
+def resize_image(i_image_qlabel_ref, i_max_height):
+    image_width_int = i_image_qlabel_ref.pixmap().width()
+    image_height_int = i_image_qlabel_ref.pixmap().height()
+    if image_width_int == 0:
+        return
+    height_relation_float = i_max_height / image_height_int
+
+    new_height = i_max_height
+    new_width = image_width_int * height_relation_float
+
+    i_image_qlabel_ref.setFixedWidth(new_width)
+    i_image_qlabel_ref.setFixedHeight(new_height)
+
+=================
+
+# archived = "archived"
+# hour = "hour"  # -for activities
+# Do we want a special table for activities?
+# days_of_week = "days_of_week"
+# Favorite? Similar to archived?
+
+
+=================
+
+
+class ViewButtonsCw(QtWidgets.QWidget):
+    button_clicked = QtCore.Signal(int)
+
+    def __init__(self):
+        super().__init__()
+
+        self.vbox_l2 = QtWidgets.QVBoxLayout()
+        self.setLayout(self.vbox_l2)
+
+        self.views_qbg = QtWidgets.QButtonGroup()
+
+        # self._add_view_widget(1, "States of mind")
+        # self._add_view_widget(2, "Needs")
+        # self._add_view_widget(3, "Friends")
+        # self._add_view_widget(1, "Noble 8-fold Path")
+
+        self.views_qbg.buttonClicked.connect(self.on_view_button_clicked)
+
+    def _add_view_widget(self, i_id: int, i_title: str):
+        view_qpb = QtWidgets.QPushButton(i_title)
+        view_qpb.setCheckable(True)
+        self.views_qbg.addButton(view_qpb, i_id)
+        # do we need to store view_qpb in a list?
+        self.vbox_l2.addWidget(view_qpb)
+
+    def on_view_button_clicked(self, i_abstract_button: QtWidgets.QAbstractButton):
+        # -this function is overloaded, but i don't know how to get the alternative version
+        id_int = self.views_qbg.id(i_abstract_button)
+        logging.debug("on_view_button_clicked id = " + str(id_int))
+        self.button_clicked.emit(id_int)
+
+    def update_gui(self):
+        for view_qpb in self.views_qbg.buttons():
+            self.views_qbg.removeButton(view_qpb)
+        wbd.wbd_global.clear_widget_and_layout_children(self.vbox_l2)
+        view_list: typing.List[wbd.model.ViewM] = wbd.model.get_all_views()
+        for view in view_list:
+            self._add_view_widget(view.id_int, view.title_str)
+
+
+=================
+
+    """
+    def reinitiate(self, i_new_entry: bool=False):
+        if wbd.wbd_global.active_diary_entry_id == wbd.wbd_global.NO_DIARY_ENTRY_EDITING_INT:
+            return
+        diary_entry = wbd.model.EntryM.get_entry(wbd.wbd_global.active_diary_entry_id)
+        wbd.model.EntryM.update_entry_image(wbd.wbd_global.active_diary_entry_id, diary_entry.image_file_name_str)
+        # if i_focus_on_text_area:
+        self.diary_entry_cpte.setFocus()
+        if i_new_entry:
+            self.now_qpb.click()
+            self.rating_one_qrb.setChecked(True)
+    """
+
+
+=================
+        """
+        # Button text
+        if wbd.wbd_global.active_diary_entry_id == wbd.wbd_global.NO_DIARY_ENTRY_EDITING_INT:
+            self.save_qpb.setText(ADD_DIARY_BN_TEXT_STR)
+            # self.cancel_editing_qbn_w3.hide()
+        else:
+            self.save_qpb.setText(EDIT_DIARY_BN_TEXT_STR)
+            # self.cancel_editing_qbn_w3.show()
+        """
+
+        """
+        self.setSizePolicy(
+            self.sizePolicy().horizontalPolicy(),
+            QtWidgets.QSizePolicy.Maximum
+        )
+        """
+
+=================
+
+        """
+        wbd.model.update_entry_all_day(
+            wbd.wbd_global.active_diary_entry_id,
+            self.all_day_qcb.isChecked()
+        )
+        # self.update_gui()
+        """
+
+=================
+
+
+    def delete_item(self):
+        if wbd.wbd_global.active_state.question_id != wbd.wbd_global.NO_ACTIVE_QUESTION_INT:
+            active_question = wbd.model.QuestionM.get(wbd.wbd_global.active_state.question_id)
+            conf_result_bool = wbd.gui.safe_confirmation_dlg.SafeConfirmationDlg.get_safe_confirmation_dialog(
+                "Are you sure that you want to remove this entry?<br><i>Please type the name to confirm</i>",
+                active_question.title_str
+            )
+            if conf_result_bool:
+                self.list_clw.clearSelection()
+                wbd.model.QuestionM.remove(wbd.wbd_global.active_state.question_id)
+                wbd.wbd_global.active_state.question_id = wbd.wbd_global.NO_ACTIVE_QUESTION_INT
+                self.current_row_changed_or_edited_signal.emit()
+                self.update_gui()
+                self.populate_list()
+        else:
+            raise Exception("Should not be possible to get here")
+
+    def on_move_to_top_clicked(self):
+        current_row_number_int = self.list_clw.currentRow()
+        self.update_row_item(current_row_number_int, 0)
+        self.update_db_sort_order_for_all_rows()
+        self.update_gui()
+
+    def move_item_up(self):
+        self.move_current_row_up_down(wbd.wbd_global.MoveDirectionEnum.up)
+        self.update_gui()
+
+    def move_item_down(self):
+        self.move_current_row_up_down(wbd.wbd_global.MoveDirectionEnum.down)
+        self.update_gui()
+
+    def update_db_sort_order_for_all_rows(self):
+        logging.debug("update_db_sort_order_for_all_rows")
+        i = 0
+        while i < self.list_clw.count():
+            q_list_item_widget = self.list_clw.item(i)
+            custom_label: CustomQLabel = self.list_clw.itemWidget(q_list_item_widget)
+            id_int = custom_label.id_int
+            row_int = self.list_clw.row(q_list_item_widget)
+            wbd.model.QuestionM.update_sort_order(id_int, row_int)
+            logging.debug("id_int = " + str(id_int) + ", row_int = " + str(row_int))
+            i += 1
+
+    def move_current_row_up_down(self, i_move_direction: wbd.wbd_global.MoveDirectionEnum) -> None:
+        current_row_number_int = self.list_clw.currentRow()
+        position_int = NO_POS_SET_INT
+        if i_move_direction == wbd.wbd_global.MoveDirectionEnum.up:
+            if current_row_number_int >= 0:
+                position_int = current_row_number_int - 1
+        elif i_move_direction == wbd.wbd_global.MoveDirectionEnum.down:
+            if current_row_number_int < self.list_clw.count():
+                position_int = current_row_number_int + 1
+        if position_int != NO_POS_SET_INT:
+            current_row_number_int = self.list_clw.currentRow()
+            self.update_row_item(current_row_number_int, position_int)
+            self.update_db_sort_order_for_all_rows()
+
+
+    def update_row_item(self, i_start_pos: int, i_end_pos: int):
+        current_list_widget_item = self.list_clw.item(i_start_pos)
+        item_widget_cql: CustomQLabel = self.list_clw.itemWidget(current_list_widget_item)
+        self.list_clw.takeItem(i_start_pos)
+        # -IMPORTANT: item is removed from list only after the item widget has been extracted.
+        #  The reason for this is that if we take the item away from the list the associated
+        #  widget (in our case a CustomLabel) will not come with us (which makes sense
+        #  if the widget is stored in the list somehow)
+        question = wbd.model.QuestionM.get(item_widget_cql.id_int)
+        question_label_qll = CustomQLabel(question.title_str, question.id_int)
+        row_item = QtWidgets.QListWidgetItem()
+        self.list_clw.insertItem(i_end_pos, row_item)
+        self.list_clw.setItemWidget(row_item, question_label_qll)
+        self.list_clw.setCurrentRow(i_end_pos)
+
+
+=================
+
+
+        (accepted_bool, friend_email_list, text_to_share_str) = (
+            wbd.gui.email_friend_selection_dlg.EmailFriendSelectionDlg.show_dlg_and_return_emails(i_entry_id)
+        )
+
+        if accepted_bool:
+            try:
+                user_email_str = "tord.dellsen@gmail.com"
+                to_email_str = "tord.dellsen@gmail.com"
+                subject_email_str = "Something that happened today [from WBD]"
+                # Possible things to include:
+                # WBD (or well-being diary)
+                # time and date!
+                # tags
+                # snippet of text from the beginning
+                body_email_str = text_to_share_str
+
+                # message_composition_str = "to='tord.dellsen@gmail.com,'" + "subject='Testing subject'," + "body='Text inside email body'"
+                message_composition_str = "to='" + user_email_str + "',"
+
+                message_composition_str += "bcc='"
+                for friend_email_str in friend_email_list:
+                    # message_composition_str += "bcc='"+friend_email_str+"',"
+                    message_composition_str += friend_email_str + ","
+                message_composition_str += "',"
+
+                message_composition_str += "subject='" + subject_email_str + "'," + "body='" + body_email_str + "'"
+
+                logging.debug(message_composition_str)
+
+                # message_composition_str = "to='"+to_email_str+"',bcc='"+to_email_str+"',subject='"+subject_email_str+"'," + "body='"+body_email_str+"'"
+
+                if diary_entry.image_file_bytes:
+                    # if photo_available: then transform from binary db data into file for attachment
+                    # smaller images are more popular because they put less strain on the inboxes of people,
+                    # and also it puts more focus on the text itself (rather than the image)
+                    # attachment=
+                    image_path_str = wbd.wbd_global.get_user_tmp_email_attachments_path("attached-image.png")
+                    with open(image_path_str, 'wb') as image_file:
+                        # -the 'b' means that we are opening the file in binary mode
+                        image_file.write(diary_entry.image_file_bytes)
+                    message_composition_str += ",attachment='" + image_path_str + "'"
+
+                popen_id_int = subprocess.Popen(["thunderbird", "-compose", message_composition_str])
+                # logging.info("popen_id_int = " + str(popen_id_int))
+                # INFO: popen_id_int = <subprocess.Popen object at 0x7efee1d665c0>
+                # thunderbird -compose "to='tord.dellsen@gmail.com',subject='Testing subject',body='Text inside email body',attachment='/home/sunyata/Nextcloud/Photos/DSC_0351.JPG'"
+
+                # thunderbird -compose "to='tord.dellsen@gmail.com',subject='Testing subject',body='Text inside email body',attachment='/home/sunyata/Nextcloud/Photos/DSC_0351.JPG'"
+
+            except FileNotFoundError:
+                # TODO: If thunderbird is not available
+                # then: using mailto and without attachment but instead the path to the file at the top of the email
+                # (so that the user can insert the image file herself)
+                # Python's webbrowser:
+                to_send_str = 'mailto:?to:tord.dellsen@gmail.com&to:tord.dellsen@gmail.com&subject=Test subject&body=test body text&attach=icon.png'
+                # Please note: Different email clients can have different policies with this
+                webbrowser.open(to_send_str.replace(' ', '%20'), new=1)
+
+
+
+
+===============
+
+
+
+def process_and_get_image_file_path_from_bytes(i_image: bytes) -> str:
+    image_byte_stream = io.BytesIO(i_image)
+    image_pillow = PIL.Image.open(image_byte_stream)
+    file_path_str = "filename.jpg"
+    image_pillow.save(file_path_str)
+    return file_path_str
+
+
+    # Configuration file
+    config = configparser.ConfigParser()
+    config.read("settings.ini")
+    # wbd.wbd_global.background_image_path = config["general"]["background-image-path"]
+    # wbd.wbd_global.diary_text_size_ft = float(config["general"]["diary-text-size"])
+
+
+
+NO_REFERENCE_INT = -1
+
+
+==================
+
+    @staticmethod
+    def add_with_id(i_id: int, i_datetime_added: str, i_sort_order: int=0, i_diary_text: str="", i_rating: int=1, i_image_file: bytes=None) -> int:
+        db_cursor = wbd.db.db_exec(
+            "INSERT INTO " + wbd.db.DbSchemaM.EntryTable.name
+            + "(" + wbd.db.DbSchemaM.EntryTable.Cols.id
+            + ", " + wbd.db.DbSchemaM.EntryTable.Cols.datetime_added
+            + ", " + wbd.db.DbSchemaM.EntryTable.Cols.sort_order
+            + ", " + wbd.db.DbSchemaM.EntryTable.Cols.text
+            + ", " + wbd.db.DbSchemaM.EntryTable.Cols.rating
+            + ", " + wbd.db.DbSchemaM.EntryTable.Cols.image_file
+            + ") VALUES (?, ?, ?, ?, ?, ?)",
+            (i_id, i_datetime_added, i_sort_order, i_diary_text, i_rating, i_image_file)
+        )
+        entry_id_int = db_cursor.lastrowid
+        return entry_id_int
+
+
+
+
+===============
+
+        """
+        custom_qlabel_widget: CustomQLabel = self.itemWidget(current_item_qli)
+        if custom_qlabel_widget is not None:
+            wbd.wbd_global.active_tag_id_int = custom_qlabel_widget.id_int
+
+        if id_int is None:
+            wbd.exception_handling.error("id_int is None", "id_int is None")
+        """
+
+
+

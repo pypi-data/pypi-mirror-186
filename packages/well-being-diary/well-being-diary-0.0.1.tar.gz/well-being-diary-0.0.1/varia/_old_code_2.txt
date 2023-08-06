@@ -1,0 +1,213 @@
+
+    def update_db_sort_order_for_all_rows(self):
+        logging.debug("update_db_sort_order_for_all_rows")
+        i = 0
+        while i < self.all_tags_clw.count():
+            q_list_item_widget = self.all_tags_clw.item(i)
+            custom_label: CustomQLabel = self.all_tags_clw.itemWidget(q_list_item_widget)
+            id_int = custom_label.id_int
+            row_int = self.all_tags_clw.row(q_list_item_widget)
+            wbd.model.TagM.TagM.update_sort_order(id_int, row_int)
+            logging.debug("id_int = " + str(id_int) + ", row_int = " + str(row_int))
+            i += 1
+
+    def move_current_row_up_down(self, i_move_direction: wbd.wbd_global.MoveDirectionEnum) -> None:
+        current_row_number_int = self.all_tags_clw.currentRow()
+        position_int = NO_POS_SET_INT
+        if i_move_direction == wbd.wbd_global.MoveDirectionEnum.up:
+            if current_row_number_int >= 0:
+                position_int = current_row_number_int - 1
+        elif i_move_direction == wbd.wbd_global.MoveDirectionEnum.down:
+            if current_row_number_int < self.all_tags_clw.count():
+                position_int = current_row_number_int + 1
+        if position_int != NO_POS_SET_INT:
+            current_row_number_int = self.all_tags_clw.currentRow()
+            self.update_row_item(current_row_number_int, position_int)
+            self.update_db_sort_order_for_all_rows()
+
+
+    def on_move_to_top_clicked(self):
+        current_row_number_int = self.all_tags_clw.currentRow()
+        self.update_row_item(current_row_number_int, 0)
+        self.update_db_sort_order_for_all_rows()
+        self.update_gui()
+
+    def move_item_up(self):
+        self.move_current_row_up_down(wbd.wbd_global.MoveDirectionEnum.up)
+        self.update_gui()
+
+    def move_item_down(self):
+        self.move_current_row_up_down(wbd.wbd_global.MoveDirectionEnum.down)
+        self.update_gui()
+
+
+
+        self.move_to_top_qpb = QtWidgets.QPushButton()
+        self.move_to_top_qpb.setIcon(QtGui.QIcon(wbd.wbd_global.get_icon_path("data-transfer-upload-2x.png")))
+        self.move_to_top_qpb.setToolTip(self.tr("Move to top"))
+        self.move_to_top_qpb.clicked.connect(self.on_move_to_top_clicked)
+        hbox_l3.addWidget(self.move_to_top_qpb)
+        self.move_up_qpb = QtWidgets.QPushButton()
+        self.move_up_qpb.setIcon(QtGui.QIcon(wbd.wbd_global.get_icon_path("arrow-top-2x.png")))
+        self.move_up_qpb.setToolTip(self.tr("Move up"))
+        self.move_up_qpb.clicked.connect(self.move_item_up)
+        hbox_l3.addWidget(self.move_up_qpb)
+        self.move_down_qpb = QtWidgets.QPushButton()
+        self.move_down_qpb.setIcon(QtGui.QIcon(wbd.wbd_global.get_icon_path("arrow-bottom-2x.png")))
+        self.move_down_qpb.setToolTip(self.tr("Move down"))
+        self.move_down_qpb.clicked.connect(self.move_item_down)
+        hbox_l3.addWidget(self.move_down_qpb)
+
+
+
+
+    def update_row_item(self, i_start_pos: int, i_end_pos: int):
+        current_list_widget_item = self.all_tags_clw.item(i_start_pos)
+        item_widget_cql: CustomQLabel = self.all_tags_clw.itemWidget(current_list_widget_item)
+        self.all_tags_clw.takeItem(i_start_pos)
+        # -IMPORTANT: item is removed from list only after the item widget has been extracted.
+        #  The reason for this is that if we take the item away from the list the associated
+        #  widget (in our case a CustomLabel) will not come with us (which makes sense
+        #  if the widget is stored in the list somehow)
+        tag = wbd.model.TagM.get(item_widget_cql.id_int)
+        tag_label_qll = CustomQLabel(tag.title_str, tag.id_int)
+        row_item = QtWidgets.QListWidgetItem()
+        self.all_tags_clw.insertItem(i_end_pos, row_item)
+        self.all_tags_clw.setItemWidget(row_item, tag_label_qll)
+        self.all_tags_clw.setCurrentRow(i_end_pos)
+
+
+
+class CustomQLabel(QtWidgets.QLabel):
+    def __init__(self, i_text: str, i_id: int):
+        super().__init__(i_text)
+        self.id_int = i_id
+        # logging.debug("CustomQLabel i_text = " + i_text + " i_id = " + str(i_id))
+
+
+
+
+        """
+        current_item_qli = self.all_tags_clw.item(current_row_int)
+        custom_qlabel_widget: CustomQLabel = self.all_tags_clw.itemWidget(current_item_qli)
+        if custom_qlabel_widget is not None:
+            wbd.wbd_global.active_state.tag_id = custom_qlabel_widget.id_int
+            self.current_row_changed_signal.emit()
+            # -sending the ctrl state with the signal
+            adsf
+        """
+
+
+
+
+    """
+    def populate_all_tags_list(self):
+        self.all_tags_clw.clear()
+        current_index_int = self.sort_qcb.currentIndex()
+        sort_order_enum = wbd.wbd_global.SortType(current_index_int)
+        for tag in wbd.model.TagM.get_all(sort_order_enum):
+            tag_qll = CustomQLabel(tag.title_str, tag.id_int)
+            row_item = QtWidgets.QListWidgetItem()
+            self.all_tags_clw.addItem(row_item)
+            self.all_tags_clw.setItemWidget(row_item, tag_qll)
+    """
+
+
+            """
+            self.all_tags_clw.clear()
+            current_index_int = self.sort_qcb.currentIndex()
+            sort_type_enum = wbd.wbd_global.SortType(current_index_int)
+            for tag in wbd.model.TagM.get_all(sort_type_enum):
+                tag_qll = CustomQLabel(tag.title_str, tag.id_int)
+                row_item = QtWidgets.QListWidgetItem()
+                self.all_tags_clw.addItem(row_item)
+                self.all_tags_clw.setItemWidget(row_item, tag_qll)
+            """
+
+
+
+==============
+
+    def on_friends_checked_changed(self, i_list_item: QtWidgets.QListWidgetItem):
+        self.selected_email_addresses_list = []
+        i = 0
+        while i < self.friends_qlw.count():
+            # https://stackoverflow.com/questions/12222594/how-can-i-iterate-through-qlistwidget-items-and-work-with-each-item
+            list_item = self.friends_qlw.item(i)
+            if list_item.checkState() == QtCore.Qt.Checked:
+                friend_email_str = list_item.text().split("\n")[1]
+                sel_friends_list = wbd.wbd_global.active_state.selected_friends_id_list
+
+                self.selected_email_addresses_list.append(friend_email_str)
+            else:
+                pass
+            i += 1
+        self.email_addresses_to_use_qll.setText(", ".join(self.selected_email_addresses_list))
+
+
+=================
+
+def get_all_tags_referenced_by_question(i_question_id: int) -> (TagM, bool):
+    db_cursor_result = wbd.db.db_exec(
+        "SELECT " + wbd.db.DbSchemaM.TagTable.name + ".*"
+        + ", " + wbd.db.DbSchemaM.TagQuestionRelationTable.name + "."
+        + wbd.db.DbSchemaM.TagQuestionRelationTable.Cols.tag_is_preselected
+        + " FROM " + wbd.db.DbSchemaM.TagTable.name
+        + " INNER JOIN " + wbd.db.DbSchemaM.TagQuestionRelationTable.name
+        + " ON " + wbd.db.DbSchemaM.TagTable.name + "." + wbd.db.DbSchemaM.TagTable.Cols.id
+        + " = " + wbd.db.DbSchemaM.TagQuestionRelationTable.Cols.tag_id_ref
+        + " WHERE " + wbd.db.DbSchemaM.TagQuestionRelationTable.Cols.question_id_ref + " = ?",
+        (i_question_id,)
+    )
+    db_te_list = db_cursor_result.fetchall()
+
+    # [:-1] [-1]
+    ret_tags_and_preselected_list: List[Tuple[TagM, bool]] = []
+    for db_te in db_te_list:
+        tag = TagM(*db_te[:-1])
+        preselected_bool = False
+        preselected_as_int = db_te[-1]
+        if preselected_as_int == wbd.db.SQLITE_TRUE_INT:
+            preselected_bool = True
+        tags_and_preselected_tuple = (tag, preselected_as_int)
+        ret_tags_and_preselected_list.append(tags_and_preselected_tuple)
+
+    # ret_tags_and_preselected_list = [(TagM(*db_te[:-1]), db_te[-1]) for db_te in db_te_list]
+    logging.debug("ret_tags_and_preselected_list = " + str(ret_tags_and_preselected_list))
+    return ret_tags_and_preselected_list
+
+===================
+
+
+
+        for tag in wbd.model.TagM.get_all():
+            # tag_qll = CustomQLabel(tag.title_str, tag.id_int)
+            row_item = QtWidgets.QListWidgetItem(tag.title_str)
+            row_item.setData(QtCore.Qt.UserRole, tag.id_int)
+            self.all_tags_qlw.addItem(row_item)
+            # self.all_tags_qlw.setItemWidget(row_item, tag_qll)
+        self.dest_tags_qlw.clear()
+        tags_and_preselected_list = wbd.model.get_all_tags_referenced_by_question(wbd.wbd_global.active_state.question_id)
+        for (tag, preselected_bool) in tags_and_preselected_list:
+            tag_qll = CustomQLabel(tag.title_str, tag.id_int)
+            row_item = QtWidgets.QListWidgetItem()
+            self.dest_tags_qlw.addItem(row_item)
+            self.dest_tags_qlw.setItemWidget(row_item, tag_qll)
+
+
+
+    def populate_lists(self):
+        self.all_tags_qlw.clear()
+        for tag in wbd.model.TagM.get_all():
+            tag_qll = CustomQLabel(tag.title_str, tag.id_int)
+            row_item = QtWidgets.QListWidgetItem()
+            self.all_tags_qlw.addItem(row_item)
+            self.all_tags_qlw.setItemWidget(row_item, tag_qll)
+        self.dest_tags_qlw.clear()
+        tag_list = wbd.model.get_all_tags_referenced_by_question(wbd.wbd_global.active_state.question_id)
+        for tag_obj in tag_list:
+            tag_qll = CustomQLabel(tag.title_str, tag.id_int)
+            row_item = QtWidgets.QListWidgetItem()
+            self.dest_tags_qlw.addItem(row_item)
+            self.dest_tags_qlw.setItemWidget(row_item, tag_qll)
+

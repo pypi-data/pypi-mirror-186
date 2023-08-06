@@ -1,0 +1,430 @@
+import enum
+import sys
+import logging
+import typing
+from PySide6 import QtGui
+from PySide6 import QtCore
+from PySide6 import QtWidgets
+import wbd.gui.entry_edit_cw
+import wbd.model
+import wbd.gui.questions_cw
+import wbd.wbd_global
+import wbd.gui.tags_cw
+import wbd.gui.filters_cw
+import wbd.gui.export_dlg
+import wbd.gui.image_selection_dlg
+
+
+class EventSource(enum.Enum):
+    undefined = -1
+    page_changed = 0
+    filters_changed = 1
+    question_activated = 2
+    tags_changed = 5
+    importing = 6
+
+
+class MainWindow(QtWidgets.QMainWindow):
+    """
+    The main window of the application
+    Suffix explanation:
+    _w: widget
+    _l: layout
+    _# (number): The level in the layout stack
+    """
+    # noinspection PyArgumentList,PyUnresolvedReferences
+    def __init__(self):
+        super().__init__()
+
+        # Initializing window
+        self.setGeometry(40, 30, 1200, 700)
+        self.showMaximized()
+        if wbd.wbd_global.testing_bool:
+            data_storage_str = "{data stored (temporarily) in memory}"
+        else:
+            data_storage_str = "{data stored on hard drive}"
+        self.setWindowTitle(
+            wbd.wbd_global.WBD_APPLICATION_NAME_STR
+            + " [" + wbd.wbd_global.WBD_APPLICATION_VERSION_STR + "] "
+            + data_storage_str
+        )
+        self.setWindowIcon(QtGui.QIcon("icon.png"))
+        self.setStyleSheet("* {selection-background-color:#72ba5e;};")
+
+        # Setup of widgets..
+        layout_widget_l1 = QtWidgets.QWidget()
+        self.setCentralWidget(layout_widget_l1)
+        main_hbox_l2 = QtWidgets.QHBoxLayout()
+        layout_widget_l1.setLayout(main_hbox_l2)
+
+        # ..left side..
+        left_vbox_l3 = QtWidgets.QVBoxLayout()
+        main_hbox_l2.addLayout(left_vbox_l3, stretch=1)
+
+        # ..pages
+        self.pages_cw = PagesCw()
+        self.pages_cw.page_changed_signal.connect(self.on_page_changed)
+        left_vbox_l3.addWidget(self.pages_cw)
+
+        # ..filters
+        self.filters_cw3 = wbd.gui.filters_cw.FiltersCw()
+        self.filters_cw3.filters_changed_signal.connect(self.on_filters_changed)
+        self.filters_cw3.activated_signal.connect(self.on_diary_view_activated)
+        left_vbox_l3.addWidget(self.filters_cw3, stretch=1)
+
+        # ..questions
+        self.questions_cw3 = wbd.gui.questions_cw.QuestionsCw()
+        self.questions_cw3.current_row_changed_signal.connect(self.on_question_item_row_changed)
+        self.questions_cw3.write_entry_signal.connect(self.on_question_view_write_entry)
+        left_vbox_l3.addWidget(self.questions_cw3, stretch=2)
+
+        # ..central area..
+        self.entry_stack_list = []
+        self.central_qsw = QtWidgets.QStackedWidget()
+        main_hbox_l2.addWidget(self.central_qsw, stretch=2)
+
+        # ..diary entries (inside a QStackedWidget)
+        self.diary_widget = wbd.gui.diary_entries_cw.DiaryEntriesCw()
+        self.diary_widget.diary_entry_edit_signal.connect(self.on_diary_entry_edit)
+        self.diary_widget.context_menu_delete_signal.connect(self.update_gui)
+        self.diary_widget_nr_int = self.central_qsw.addWidget(self.diary_widget)
+        # self.central_qsw.addWidget(self.diary_widget)
+        # -this will be kept and never removed, it will be at the "base of the stack"
+
+        """
+        # ..edit for entries (inside a QStackedWidget)
+        self.edit_entry_cw = wbd.gui.entry_edit_cw.EntryEditCw()
+        self.edit_entry_cw.close_signal.connect(self.on_entry_area_close)
+        # self.edit_entry_nr_int = self.central_qsw.addWidget(self.edit_entry_cw)
+        self.central_qsw.addWidget(self.edit_entry_cw)
+        """
+
+        self.central_qsw.setCurrentIndex(self.diary_widget_nr_int)
+
+        # ..right side..
+        # ..tags
+        self.tags_cw3 = wbd.gui.tags_cw.TagsCw()
+        self.tags_cw3.add_tag_for_entry_signal.connect(self.on_tags_add_tag_for_entry)
+        main_hbox_l2.addWidget(self.tags_cw3, stretch=1)
+
+        # Creating the menu bar..
+        self.menu_bar = self.menuBar()
+        # ..file menu
+        file_menu = self.menu_bar.addMenu("&File")
+        export_qaction = QtGui.QAction("Export", self)
+        export_qaction.triggered.connect(self.on_export_action_triggered)
+        file_menu.addAction(export_qaction)
+        import_qaction = QtGui.QAction("Import", self)
+        import_qaction.triggered.connect(self.on_import_action_triggered)
+        file_menu.addAction(import_qaction)
+        import_images_qaction = QtGui.QAction("Import Multiple Images", self)
+        import_images_qaction.triggered.connect(self.on_import_images_action_triggered)
+        file_menu.addAction(import_images_qaction)
+        exit_qaction = QtGui.QAction("Exit", self)
+        exit_qaction.triggered.connect(sys.exit)  # -alt: lambda x: sys.exit()
+        file_menu.addAction(exit_qaction)
+        backup_qaction = QtGui.QAction("Backup db", self)
+        backup_qaction.triggered.connect(wbd.model.backup_db_file)
+        file_menu.addAction(backup_qaction)
+        # ..debug menu
+        debug_menu = self.menu_bar.addMenu("Debu&g")
+        redraw_qaction = QtGui.QAction("Redraw", self)
+        redraw_qaction.triggered.connect(self.update_gui)
+        debug_menu.addAction(redraw_qaction)
+        # ..help menu
+        help_menu = self.menu_bar.addMenu("&Help")
+        about_qaction = QtGui.QAction("About", self)
+        about_qaction.triggered.connect(self.show_about_box)
+        help_menu.addAction(about_qaction)
+        manual_qaction = QtGui.QAction("Manual", self)
+        manual_qaction.triggered.connect(self.show_user_guide)
+        help_menu.addAction(manual_qaction)
+
+        self.updating_gui_bool = False
+        self.update_gui()
+
+    # Menu actions
+
+    def on_export_action_triggered(self):
+        result_bool = wbd.gui.export_dlg.ExportDlg.open_export_dialog()
+
+    def on_import_images_action_triggered(self):
+        file_paths_list: typing.List[str] = wbd.gui.image_selection_dlg.ImageFileDialog.open_dlg_and_get_image_paths()
+        logging.debug("file_paths_list = " + str(file_paths_list))
+        for file_path_str in file_paths_list:
+            # self.central_qsw.setCurrentIndex(self.edit_entry_nr_int)
+            datetime_string = wbd.wbd_global.get_today_datetime_string()
+            (image_file_bytes, image_taken_qdatetime) = wbd.wbd_global.process_image(file_path_str)
+            if image_taken_qdatetime is not None:
+                datetime_string = image_taken_qdatetime.toString(wbd.wbd_global.QT_DATETIME_FORMAT_STR)
+            wbd.wbd_global.active_diary_entry_id = wbd.model.EntryM.add_entry(datetime_string, i_image_file=image_file_bytes)
+
+        # wbd.wbd_global.active_view = wbd.wbd_global.ViewEnum.entry
+        wbd.wbd_global.active_view = wbd.wbd_global.ViewEnum.diary
+        self.update_gui()
+
+    def on_import_action_triggered(self):
+        import_file_path_str, _ = QtWidgets.QFileDialog.getOpenFileName(filter="CSV files (*.csv)")
+        wbd.model.import_entries_from_csv(import_file_path_str)
+        self.update_gui(EventSource.importing)
+        self.tags_cw3.populate_list()
+
+    def show_user_guide(self):
+        with open("docs/user_guide.content.html", "r") as user_guide_file:
+            QtWidgets.QMessageBox.information(self, "User Guide", user_guide_file.read())
+        # TODO: We will need a custom box here with a scrollbar
+
+    def show_about_box(self):
+        message_box = QtWidgets.QMessageBox.about(
+            self, "About " + wbd.wbd_global.WBD_APPLICATION_NAME_STR,
+            (
+                '<p>Concept and programming by Tord Dellsén (SunyataZero) and'
+                '<a href="https://gitlab.com/SunyataZero/well-being-diary/graphs/master">other contrbitors</a></p>'
+                '<p>Photography (for icons) by Torgny Dellsén - '
+                '<a href="https://torgnydellsen.zenfolio.com/">torgnydellsen.zenfolio.com</a></p>'
+                '<p>Software License: GPLv3</p>'
+                '<p>Photo license: CC BY-SA 4.0</p>'
+                "<p>Art license: CC PD</p>"
+            )
+        )
+
+    # Widgets..
+
+    # ..filters
+
+    def on_diary_view_activated(self):
+        self.check_and_delete_active_entry()
+        wbd.wbd_global.active_question_id_int = wbd.wbd_global.NO_ACTIVE_QUESTION_INT
+        wbd.wbd_global.active_view = wbd.wbd_global.ViewEnum.diary
+        self.update_gui()
+
+    def on_page_changed(self):
+        self.check_and_delete_active_entry()
+        wbd.wbd_global.active_question_id_int = wbd.wbd_global.NO_ACTIVE_QUESTION_INT
+        wbd.wbd_global.active_view = wbd.wbd_global.ViewEnum.diary
+        self.update_gui(EventSource.page_changed)
+
+    def on_filters_changed(self):
+        self.check_and_delete_active_entry()
+        wbd.wbd_global.active_question_id_int = wbd.wbd_global.NO_ACTIVE_QUESTION_INT
+        wbd.wbd_global.active_view = wbd.wbd_global.ViewEnum.diary
+        # wbd.wbd_global.active_state.current_page_number_int = 1  # -resetting
+        self.update_gui(EventSource.filters_changed)
+
+    # ..questions
+
+    def on_question_view_write_entry(self):
+        self.check_and_delete_active_entry()
+        # -could also be called "entry view"
+
+        wbd.wbd_global.active_question_id_int = wbd.wbd_global.NO_ACTIVE_QUESTION_INT
+
+        # self.central_qsw.setCurrentIndex(self.diary_widget_nr_int)
+
+        time_as_iso_str = wbd.wbd_global.get_today_datetime_string()
+        wbd.wbd_global.active_diary_entry_id = wbd.model.EntryM.add_entry(time_as_iso_str)
+
+        # self.edit_entry_cw.reinitiate()
+
+        wbd.wbd_global.active_view = wbd.wbd_global.ViewEnum.entry
+        self.central_qsw
+
+        self.update_gui(EventSource.question_activated)
+        # self.edit_entry_cw.reinitiate(True)
+
+    def on_question_item_row_changed(self):
+        self.check_and_delete_active_entry()
+
+        wbd.wbd_global.active_view = wbd.wbd_global.ViewEnum.entry
+        # self.central_qsw.setCurrentIndex(self.edit_entry_nr_int)
+        today_datetime_string = wbd.wbd_global.get_today_datetime_string()
+        wbd.wbd_global.active_diary_entry_id = wbd.model.EntryM.add_entry(today_datetime_string)
+        self.update_gui(EventSource.question_activated)
+        # self.update_gui(EventSource.question_activated)
+
+    # ..diary
+
+    def on_diary_entry_edit(self, i_diary_entry_id: int):
+        if i_diary_entry_id is None:
+            return
+
+        wbd.wbd_global.active_diary_entry_id = i_diary_entry_id
+        wbd.wbd_global.active_view = wbd.wbd_global.ViewEnum.entry
+
+        # self.edit_entry_cw.reinitiate()
+        self.update_gui()  # -so that the button texts are updated
+
+    # ..entry
+
+    def on_entry_area_close(self):
+        self.check_and_delete_active_entry()
+        wbd.wbd_global.active_diary_entry_id = wbd.wbd_global.NO_DIARY_ENTRY_EDITING_INT
+        wbd.wbd_global.active_view = wbd.wbd_global.ViewEnum.diary
+        self.update_gui()
+
+    # ..tags
+
+    def on_tags_add_tag_for_entry(self):
+        self.edit_entry_cw.add_active_tag()
+
+    # overridden
+    def closeEvent(self, QCloseEvent):
+        logging.info("MainWindow - closeEvent <----------------------------------")
+        self.check_and_delete_active_entry()
+        wbd.model.export_to_csv(wbd.model.ExportTypeEnum.all)
+
+    def check_and_delete_active_entry(self):
+        if wbd.wbd_global.active_diary_entry_id == wbd.wbd_global.NO_DIARY_ENTRY_EDITING_INT:
+            logging.debug("check_and_delete_active_entry - NO_DIARY_ENTRY_EDITING_INT")
+            return
+        if not wbd.model.does_entry_exist(wbd.wbd_global.active_diary_entry_id):
+            logging.debug("check_and_delete_active_entry - entry doesn't exist")
+            return
+        # Checking if the entry has been edited in a relevant way..
+        diary_entry = wbd.model.EntryM.get_entry(wbd.wbd_global.active_diary_entry_id)
+        tag_references_list = wbd.model.get_all_tags_referenced_by_entry(wbd.wbd_global.active_diary_entry_id)
+        nr_of_tag_refs_int = len(tag_references_list)
+        if diary_entry.diary_text_str == "" and diary_entry.image_file_bytes is None:
+            # Removed: and nr_of_tag_refs_int == 0
+            # ..if so we remove the entry
+            wbd.model.EntryM.remove_entry(wbd.wbd_global.active_diary_entry_id)
+            logging.debug(
+                "check_and_delete_active_entry - entry removed, id = " + str(wbd.wbd_global.active_diary_entry_id)
+            )
+        else:
+            logging.debug("diary_entry.diary_text_str = " + diary_entry.diary_text_str)
+            # logging.debug("diary_entry.image_file_name_str = " + diary_entry.image_file_bytes)
+            logging.debug("nr_of_tag_refs_int = " + str(nr_of_tag_refs_int))
+
+    def update_gui(self, i_event_source=EventSource.undefined):
+        self.updating_gui_bool = True
+
+        # Filters
+        if i_event_source != EventSource.filters_changed:
+            self.filters_cw3.update_gui()
+
+        # Questions
+        """
+        if i_event_source == EventSource.undefined:
+            self.questions_composite_w3.update_gui()
+            # -it's important that we don't run this update when other widgets are selected, because
+            # then we will loose the selection in the questions list
+        """
+        # if i_event_source != EventSource.question_activated
+        self.questions_cw3.update_gui()
+
+        # Central area..
+
+        """
+        self.central_qsw.setCurrentIndex(self.diary_widget_nr_int)
+        self.central_qsw.setCurrentIndex(self.edit_entry_nr_int)
+        """
+
+        if self.central_qsw.currentIndex() == self.diary_widget_nr_int:
+            # ..Diary
+            if i_event_source != EventSource.page_changed:
+                diary_entry_list_and_max_pages = wbd.model.get_entry_list_and_max_page_nr(
+                    wbd.wbd_global.active_state.filters.tag_active_bool, wbd.wbd_global.active_state.filters.tag_id_int,
+                    wbd.wbd_global.active_state.filters.search_active_bool, wbd.wbd_global.active_state.filters.search_term_str,
+                    wbd.wbd_global.active_state.filters.rating_active_bool, wbd.wbd_global.active_state.filters.rating_int,
+                    wbd.wbd_global.active_state.filters.datetime_active_bool,
+                    wbd.wbd_global.active_state.filters.start_datetime_string,
+                    wbd.wbd_global.active_state.filters.end_datetime_string,
+                    wbd.model.LAST_PAGE_INT
+                )
+            else:
+                diary_entry_list_and_max_pages = wbd.model.get_entry_list_and_max_page_nr(
+                    wbd.wbd_global.active_state.filters.tag_active_bool, wbd.wbd_global.active_state.filters.tag_id_int,
+                    wbd.wbd_global.active_state.filters.search_active_bool, wbd.wbd_global.active_state.filters.search_term_str,
+                    wbd.wbd_global.active_state.filters.rating_active_bool, wbd.wbd_global.active_state.filters.rating_int,
+                    wbd.wbd_global.active_state.filters.datetime_active_bool,
+                    wbd.wbd_global.active_state.filters.start_datetime_string,
+                    wbd.wbd_global.active_state.filters.end_datetime_string,
+                    wbd.wbd_global.active_state.current_page_number_int
+                )
+            diary_entry_list = diary_entry_list_and_max_pages[0]
+            max_pages_int = diary_entry_list_and_max_pages[1]
+            self.pages_cw.setEnabled(True)
+            if i_event_source != EventSource.page_changed:
+                self.pages_cw.set_max_pages_and_go_to_last_page(max_pages_int)
+            self.diary_widget.update_gui(diary_entry_list)
+        else:
+            # ..Entry area
+            # self.edit_entry_cw.update_gui()
+            self.pages_cw.setEnabled(False)
+        self.central_qsw.currentWidget().update_gui()
+        # -using duck typing!
+
+        # Tags
+        if i_event_source != EventSource.tags_changed:
+            if i_event_source != EventSource.importing:
+                self.tags_cw3.populate_list()
+            self.tags_cw3.update_gui()
+
+        self.updating_gui_bool = False
+
+
+class PagesCw(QtWidgets.QWidget):
+    page_changed_signal = QtCore.Signal()
+
+    def __init__(self):
+        super().__init__()
+
+        vbox1 = QtWidgets.QVBoxLayout()
+        self.setLayout(vbox1)
+
+        pages_hbox_l2 = QtWidgets.QHBoxLayout()
+        vbox1.addLayout(pages_hbox_l2)
+        pages_hbox_l2.addStretch(1)
+        self.first_page_qpb = QtWidgets.QPushButton("|<")
+        self.first_page_qpb.setFixedWidth(30)
+        self.first_page_qpb.clicked.connect(self.on_first_page_button_clicked)
+        pages_hbox_l2.addWidget(self.first_page_qpb)
+        self.prev_page_qpb = QtWidgets.QPushButton("<")
+        self.prev_page_qpb.setFixedWidth(30)
+        self.prev_page_qpb.clicked.connect(self.on_prev_page_button_clicked)
+        pages_hbox_l2.addWidget(self.prev_page_qpb)
+        self.page_number_qll = QtWidgets.QLabel("-")
+        pages_hbox_l2.addWidget(self.page_number_qll)
+        self.next_page_qpb = QtWidgets.QPushButton(">")
+        self.next_page_qpb.setFixedWidth(30)
+        self.next_page_qpb.clicked.connect(self.on_next_page_button_clicked)
+        pages_hbox_l2.addWidget(self.next_page_qpb)
+        self.last_page_qpb = QtWidgets.QPushButton(">| (Now)")
+        # self.last_page_qpb.setFixedWidth(30)
+        self.last_page_qpb.clicked.connect(self.on_last_page_button_clicked)
+        pages_hbox_l2.addWidget(self.last_page_qpb)
+
+    def on_next_page_button_clicked(self):
+        wbd.wbd_global.active_state.current_page_number_int += 1
+        if wbd.wbd_global.active_state.current_page_number_int > self.max_pages_int:
+            wbd.wbd_global.active_state.current_page_number_int = self.max_pages_int
+        self.page_changed_signal.emit()
+        self.update_gui()
+
+    def on_first_page_button_clicked(self):
+        wbd.wbd_global.active_state.current_page_number_int = 1
+        self.page_changed_signal.emit()
+        self.update_gui()
+
+    def on_last_page_button_clicked(self):
+        wbd.wbd_global.active_state.current_page_number_int = self.max_pages_int
+        self.page_changed_signal.emit()
+        self.update_gui()
+
+    def on_prev_page_button_clicked(self):
+        if wbd.wbd_global.active_state.current_page_number_int > 1:
+            wbd.wbd_global.active_state.current_page_number_int -= 1
+        self.page_changed_signal.emit()
+        self.update_gui()
+
+    def set_max_pages_and_go_to_last_page(self, i_max_pages: int):
+        self.max_pages_int = i_max_pages
+        wbd.wbd_global.active_state.current_page_number_int = i_max_pages
+        self.update_gui()
+
+    def update_gui(self):
+        current_page_str = str(wbd.wbd_global.active_state.current_page_number_int)
+        max_page_str = str(self.max_pages_int)
+        self.page_number_qll.setText(current_page_str + " / " + max_page_str)
+

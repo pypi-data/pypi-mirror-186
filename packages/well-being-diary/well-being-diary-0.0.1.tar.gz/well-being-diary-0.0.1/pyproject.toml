@@ -1,0 +1,51 @@
+[build-system]
+requires = ["pip>=22", "setuptools>=61", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "well-being-diary"
+dynamic = ["version"]
+description = "Remembering is a reminder application for things we'd like to stay aware of during the day when using the computer"
+readme = "README.md"
+authors = [
+    { name = "Tord Dellsén", email = "tord.dellsen@gmail.com" }
+]
+license = { file = "LICENSE.txt" }
+# alt: text = "GNU General Public License v3 (GPLv3)"
+classifiers = [
+    'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: End Users/Desktop',
+    'Topic :: Other/Nonlisted Topic'
+]
+keywords = ["self-care"]
+dependencies = ["PySide6>=6.0", "Pillow"]  # 6.2 adds QtMultimedia
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = ["build", "wheel", "twine", "pyinstaller",
+    "pytest", "pytest-qt", "pytest-xvfb",
+    "coverage", "mypy", "prospector[with_everything]",
+]
+# install using `pip3 install .[dev]`
+
+[project.urls]
+GitLab = "https://gitlab.com/SunyataZero/well-being-diary/"
+
+[tool.setuptools]
+packages = ["wbd"]
+
+[tool.setuptools.dynamic]
+version = { file = "wbd/version.txt" }
+
+[tool.pytest.ini_options]
+# https://docs.pytest.org/en/7.1.x/reference/customize.html
+minversion = "7.0"
+testpaths = ["tests"]
+qt_api = "pyside6"
+qt_log_level_fail = "CRITICAL"
+
+[project.scripts]
+remembering = "wbd.__main__:main"

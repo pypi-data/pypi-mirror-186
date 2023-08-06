@@ -1,0 +1,39 @@
+sunyata@sunyata-gratitude:~$ python -m smtpd -n -c DebuggingServer localhost:1025
+---------- MESSAGE FOLLOWS ----------
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Subject: Test subject
+From: tord@disroot.org
+To: tord.dellsen@gmail.com
+X-Peer: 127.0.0.1
+
+message body text
+------------ END MESSAGE ------------
+---------- MESSAGE FOLLOWS ----------
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Subject: Test subject
+From: tord@disroot.org
+To: tord@disroot.org
+X-Peer: 127.0.0.1
+
+message body text
+------------ END MESSAGE ------------
+---------- MESSAGE FOLLOWS ----------
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Subject: Test subject
+From: tord@disroot.org
+To: tord@disroot.org
+X-Peer: 127.0.0.1
+
+
+message body text
+------------ END MESSAGE ------------
+
+
+
+^Csunyata@sunyata-gratitude:~$ 
