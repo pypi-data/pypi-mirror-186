@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: swaystatus
+Version: 0.3.1
+Summary: Generates a status line for swaybar
+Project-URL: Homepage, https://github.com/jmcantrell/swaystatus
+Project-URL: Bug Tracker, https://github.com/jmcantrell/swaystatus/-/issues
+Author-email: Jeremy Cantrell <jmcantrell@gmail.com>
+License-File: LICENSE.md
+Keywords: status,sway,wm
+Classifier: Environment :: Console
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.10
+Requires-Dist: toml>=0.10
+Description-Content-Type: text/markdown
+
+# swaystatus
+
+Generates a status line for [swaybar][swaybar-protocol].
+
+## Installation
+
+### Python
+
+Install as a python package:
+
+```sh
+pip install swaystatus
+```
+
+### Repository
+
+To install in the default location (`/usr/local`):
+
+```sh
+sudo ./scripts/install
+```
+
+To install in a different location:
+
+```sh
+PREFIX=/usr sudo ./scripts/install
+```
+
+## Testing
+
+To run the included tests:
+
+```sh
+./scripts/test
+```
+
+[swaybar-protocol]: https://man.archlinux.org/man/swaybar-protocol.7
