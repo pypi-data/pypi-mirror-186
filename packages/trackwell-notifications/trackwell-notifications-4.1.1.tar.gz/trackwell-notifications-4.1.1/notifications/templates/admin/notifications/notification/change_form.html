@@ -1,0 +1,35 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls staticfiles %}
+{% block object-tools-items %}
+    <script type="text/javascript" src="{% static "notifications/js/NotificationsOnlyAPI.js" %}"></script>
+    <link rel="stylesheet" href="{% static "notifications/css/notifications.css" %}" type="text/css" />
+    <script>
+      var APIUrl = window.notificationEndpoint || '/api2/notifications/';
+      document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById("testbutton").onclick = function () {
+          var nc = new NotificationClient();
+          var id = window.location.href.split('/')[6];
+          nc.dismissNotification = function() {
+            this.modalContainer.parentNode.removeChild(this.modalContainer);
+            this.overlay.parentNode.removeChild(this.overlay);
+            this.modalContainer = null;
+            this.overlay = null;
+          };
+          var request = nc.setupRequest(function (request) {
+            var package = {notification: JSON.parse(request.responseText)};
+            nc.showModal(package);
+          });
+          request.open('GET', APIUrl + id);
+          request.send()
+        };
+      });
+
+    </script>
+    <li>
+        <a href="{% url opts|admin_urlname:'history' original.pk|admin_urlquote %}"
+           class="historylink">{% trans "History" %}</a>
+    </li>
+    <li>
+        <a id="testbutton" href="#" class="testlink">Test</a>
+    </li>
+{% endblock %}
