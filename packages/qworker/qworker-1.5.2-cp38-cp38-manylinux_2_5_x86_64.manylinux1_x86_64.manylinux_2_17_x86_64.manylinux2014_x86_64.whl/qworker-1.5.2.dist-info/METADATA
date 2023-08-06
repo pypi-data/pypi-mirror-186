@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: qworker
+Version: 1.5.2
+Summary: QueueWorker is asynchronous Task Queue implementation built on to of Asyncio.Can you spawn distributed workers to run functions inside workers.
+Home-page: https://github.com/phenobarbital/qworker
+Author: Jesus Lara
+Author-email: jesuslara@phenobarbital.info
+License: MIT
+Project-URL: Source, https://github.com/phenobarbital/qworker
+Project-URL: Funding, https://paypal.me/phenobarbital
+Project-URL: Say Thanks!, https://saythanks.io/to/phenobarbital
+Keywords: distributed objects,workers,asyncio,task queue,RPC,remote method call
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: Topic :: Software Development :: Object Brokering
+Classifier: Topic :: System :: Distributed Computing
+Classifier: Topic :: System :: Networking
+Classifier: Operating System :: OS Independent
+Classifier: Environment :: Web Environment
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Framework :: AsyncIO
+Requires-Python: >=3.8.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: asyncio (==3.4.3)
+Requires-Dist: uvloop (==0.17.0)
+Requires-Dist: ciso8601 (>=2.2.0)
+Requires-Dist: navconfig[default] (>=1.0.8)
+Requires-Dist: asyncdb[default] (>=2.1.33)
+Requires-Dist: cloudpickle (==2.2.0)
+Requires-Dist: jsonpickle (==3.0.1)
+Requires-Dist: cchardet (==2.1.7)
+Requires-Dist: aiofile (==3.8.1)
+Requires-Dist: beautifulsoup4
+Requires-Dist: aioredis (==2.0.1)
+Requires-Dist: async-timeout (==4.0.2)
+Requires-Dist: msgpack (==1.0.4)
+
+# QueueWorker #
+
+[![pypi](https://img.shields.io/pypi/v/asyncdb?style=plastic)](https://pypi.org/project/asyncdb/)
+[![versions](https://img.shields.io/pypi/pyversions/blacksheep.svg?style=plastic)](https://github.com/phenobarbital/qworker)
+[![MIT licensed](https://img.shields.io/github/license/phenobarbital/qworker?style=plastic)](https://raw.githubusercontent.com/phenobarbital/qworker/master/LICENSE)
+
+
+QueueWorker is asynchronous Task Queue implementation built to
+work with ``asyncio``.
+Can you spawn distributed workers to run functions inside workers and outside of
+event loop.
+
+``QueueWorker`` requires Python 3.8+ and is distributed under MIT license.
+
+### How do I get set up? ###
+
+First, you need to instal QueueWorker:
+
+.. code-block ::
+
+    pip install qworker
+
+Then, you can start several workers (even sharing the same port):
+
+.. code-block ::
+
+   qw --host <hostname> --port <port-number> --worker <num-workers>
+
+where
+
+- ``<hostname>`` is a hostname of the server
+- ``<port-number>`` is a port that server will listen on
+- ``<num-workers>`` is a number of worker processes
+
+
+### License ###
+
+QueueWorker is copyright of Jesus Lara (https://phenobarbital.info) and is under MIT license. I am providing code in this repository under an open source license, remember, this is my personal repository; the license that you receive is from me and not from my employeer.
