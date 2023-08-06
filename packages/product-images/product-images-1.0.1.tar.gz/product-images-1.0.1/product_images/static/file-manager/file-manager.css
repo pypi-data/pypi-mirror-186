@@ -1,0 +1,62 @@
+
+.field-images select[name=images] {
+    display: none; !important;
+}
+
+.files {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.files .file-preview {
+    position: relative;
+    border: 1px solid #adadad;
+    width: 100px;
+    height: 100px;
+    display: block;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.files .file-preview img {
+    max-width: 98px;
+    max-height: 98px;
+}
+
+.files .remove-btn {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    box-sizing: border-box;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 20px;
+    height: 20px;
+    border: 2px solid #dd1144;
+    border-radius: 20px
+}
+
+.files .remove-btn::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background: #dd1144;
+    border-radius: 5px;
+    top: 7px;
+    left: 3px
+}
+
+.drop-section {
+    width: 200px;
+    height: 150px;
+    padding: 20px;
+    float: left;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    margin-right: 10px;
+    text-align: center;
+    background: #fff;
+}

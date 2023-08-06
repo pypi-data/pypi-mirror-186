@@ -1,0 +1,41 @@
+
+{% load i18n %}
+
+{{ form.images }}
+{{ form.errors }}
+
+<div data-role="images-container">
+
+    <div data-role="drop-files-section" class="dropzone drop-section">
+        <div class="dz-default dz-message">{% trans 'Drag files here' %}</div>
+    </div>
+
+    <div class="drop-section" data-role="drop-link-section">
+        <div style="margin-top: 30px">
+            {% trans 'Drag images here' %}
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="files" data-role="files"></div>
+
+</div>
+
+{{ form.media }}
+
+<script>
+    Dropzone.autoDiscover = false;
+
+    (function ($) {
+        $(document).ready(function () {
+            new FileManager({
+                $select: $('#{{ form.images.auto_id }}'),
+                uploadUrl: '{{ form.upload_url }}',
+                removeUrl: '{{ form.remove_url }}',
+                initial: {{ form.serialized_images|safe }},
+                removeMessage: '{% trans "Do you really want to delete image ?" %}'
+            });
+        });
+    })(django.jQuery);
+</script>
