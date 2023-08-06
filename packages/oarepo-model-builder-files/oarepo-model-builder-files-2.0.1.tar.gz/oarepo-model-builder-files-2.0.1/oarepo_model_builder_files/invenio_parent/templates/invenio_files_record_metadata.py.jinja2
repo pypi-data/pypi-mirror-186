@@ -1,0 +1,6 @@
+from invenio_files_rest.models import Bucket
+from sqlalchemy_utils import UUIDType
+
+class {{ parent_settings.python.record_metadata_class|base_name }}:
+    bucket_id = db.Column(UUIDType, db.ForeignKey(Bucket.id))
+    bucket = db.relationship(Bucket)

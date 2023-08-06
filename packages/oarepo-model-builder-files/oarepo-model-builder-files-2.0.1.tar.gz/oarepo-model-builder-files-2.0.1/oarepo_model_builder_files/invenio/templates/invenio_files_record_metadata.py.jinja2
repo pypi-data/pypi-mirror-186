@@ -1,0 +1,4 @@
+from {{ parent_settings.python.record_metadata_class|package_name }} import {{ parent_settings.python.record_metadata_class|base_name }}
+
+class {{ python.record_metadata_class|base_name }}:
+    __record_model_cls__ = {{ parent_settings.python.record_metadata_class|base_name }}

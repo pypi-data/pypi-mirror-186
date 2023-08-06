@@ -1,0 +1,19 @@
+from invenio_records_resources.services import FileLink
+from {{ parent_settings.python.record_class|package_name }} import {{ parent_settings.python.record_class|base_name }}
+
+class {{ python.record_service_config_class|base_name }}:
+    record_cls = {{ parent_settings.python.record_class|base_name }}
+    # todo remove links property
+    @property
+    def file_links_list(self):
+        return {
+            "self": RecordLink("{self.url_prefix}{id}/files"),
+        }
+
+    @property
+    def file_links_item(self):
+        return {
+            "self": FileLink("{self.url_prefix}{id}/files/{key}"),
+            "content": FileLink("{self.url_prefix}{id}/files/{key}/content"),
+            "commit": FileLink("{self.url_prefix}{id}/files/{key}/commit"),
+        }
