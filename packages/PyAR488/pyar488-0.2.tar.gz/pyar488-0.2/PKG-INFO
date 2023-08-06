@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: PyAR488
+Version: 0.2
+Summary: module to interface AR488 boards
+Project-URL: Homepage, https://github.com/pypa/sampleproject
+Project-URL: Bug Tracker, https://github.com/pypa/sampleproject/issues
+Author-email: Manuel Minutello <author@example.com>
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+
+package to interact with AR488 interface boards, adds a bit of abstraction to simplify interactions. also can be passed as an argument cto custom classes to isentify instruments in your code like :
+
+    class HP3468A:
+        def __init__(gpib_addrs:int, interface:AR488):
+            self.address = gpib_addrs
+            self.interface = interface
+
+        def read_measurement():
+            return self.interface.read()
+
+
+    my_awesome_interface = AR488('COM5')  # open the interface
+    my_swesome_meter = HP3468A(22 , my_awesome_interface)  # create the interument object
+
+    reading = my_awesome_meter.read_measurement()  #read measurement
+    print(reading)
