@@ -1,0 +1,239 @@
+# Actions tracking API
+
+## Installation
+
+```sh
+pip install px-django-actions-tracker
+```
+
+In `settings.py`:
+
+```python
+INSTALLED_APPS += [
+  'pxd_actions_tracker',
+  # If wouldn't use database storage - do not add this application here:
+  'pxd_actions_tracker.storages.db',
+]
+
+MIDDLEWARE = [
+  # Tracking key generation middleware should be "as first as possible" in your
+  # middlewares list. It generates base tracking code.
+  'pxd_actions_tracker.middleware.tracking_middleware',
+  *MIDDLEWARE,
+]
+
+# To configure tracker you my pass different values, instead of defaults here:
+PXD_ACTIONS_TRACKER = {
+  # Determines how to commit logs:
+  'OPERATE': 'straight', # 'straight' | 'threading'
+  # Method that used to save data.
+  'SAVER': 'pxd_actions_tracker.storages.db.storage.save',
+  # Set of fields that should be replaced with a placeholder:
+  'SENSITIVE_FIELDS': {
+    'api',
+    'token',
+    'key',
+    'secret',
+    'password',
+    'signature',
+    'authorization',
+  },
+  # Placeholder to replace sensitive data with.
+  'SENSITIVE_PLACEHOLDER': '*******',
+}
+```
+
+## Usage
+
+### Requests tracking
+
+We have a builtin tracker for python `requests` library. As it is a commonly-used way to do something using http.
+
+```python
+import requests
+
+from pxd_actions_tracker.trackers import track_requests
+
+from ..const import DOMAIN
+
+# It returns response object and newly created log identifier.
+response, log_id = track_requests.track(
+  # Any domain for request "tagging".
+  DOMAIN | 'SOME-URL-REQUEST',
+  # Resolver function that returns a `requests` library response instance.
+  lambda: requests.post(url, json={}, allow_redirects=True),
+  # Additional arguments for passed resolvers:
+  args=(),
+  # Additional keyword arguments for passed resolvers:
+  kwargs={},
+  # Message formatter function:
+  message_format=track_requests.MESSAGE_FORMAT,
+  # Resolver whether this response should be tracked or not:
+  # Be default it's logging only if response is not 200.
+  should_track=track_requests.should_track_non_200,
+  # There is also a built in checker to log every request:
+  should_track=track_requests.should_track_all,
+  # Function that parses response into a saved `detail` dict.
+  # You may replace it to save additional info or decrease that information.
+  detail_resolver=track_requests.resolve_log_detail,
+)
+```
+
+### Django view tracker
+
+There are three ways of handling django views:
+
+#### 1. Most "low-level": `track`
+
+It can be used manually whenever you need. But with a small cost of additional "handling" code.
+
+```python
+import requests
+
+from pxd_actions_tracker.trackers import track_views
+
+from ..const import DOMAIN
+
+# It returns log identifier.
+log_id = track_views.track(
+  # Any domain for request "tagging".
+  DOMAIN | 'SOME-REQUEST',
+  # Django's request.
+  request,
+  # Django's response. Optional.
+  response=response,
+  # Exception, if occurred.
+  error=None or Exception(),
+  # Additional arguments for passed resolvers:
+  args=(),
+  # Additional keyword arguments for passed resolvers:
+  kwargs={},
+  # Message formatter function:
+  message_format=track_views.MESSAGE_FORMAT,
+  # Resolver whether this action should be tracked or not:
+  # Be default it's logging only if response is not 200. And no `error` passed.
+  should_track=track_views.should_track_non_200,
+  # There is also a built in checker to log every request:
+  should_track=track_views.should_track_all,
+  # Function that parses response into a saved `detail` dict.
+  # You may replace it to save additional info or decrease that information.
+  detail_resolver=track_views.resolve_log_detail,
+)
+```
+
+Or without additional boilerplate code you may track is as `track_requests.track` mechanics with response resolver:
+
+
+```python
+# It returns log identifier.
+response, log_id = track_views.track_middleware(
+  # Any domain for request "tagging".
+  DOMAIN | 'SOME-REQUEST',
+  # Response resolver. It can be a view function, for example.
+  lambda request, *a, **k: HttpResponse(''),
+  # Django's request.
+  request,
+  # Other tracking function(for example with `partial` parameters).
+  tracker=track_views.track,
+  # Additional arguments for passed resolvers:
+  args=(),
+  # Additional keyword arguments for passed resolvers:
+  kwargs={},
+)
+```
+
+#### 2. Decorator: `decorate`
+
+Just a view function decorator:
+
+```python
+@track_views.decorate(
+  # Any domain for view "tagging".
+  DOMAIN | 'SOME-VIEW',
+  # Other tracking function(for example with `partial` parameters).
+  tracker=track_views.track,
+)
+def view(request: HttpRequest):
+  return HttpResponse('')
+```
+
+#### 3. Middleware factory: `create_middleware`
+
+Or you may just create a middleware that will handle all your views:
+
+```python
+from px_domains import Domain
+
+view_request_logger_middleware = track_views.create_middleware(
+  # Base domain for a tracked views
+  Domain('VIEW'),
+  # Other tracking function(for example with `partial` parameters).
+  tracker=track_views.track,
+)
+```
+
+And in `settings.py`:
+```python
+MIDDLEWARE = [
+  *MIDDLEWARE,
+  'your_app.middleware.view_request_logger_middleware',
+]
+```
+
+### Tracking logger
+
+There is also a built in logging class to track any log messages you need:
+
+```python
+LOGGING = {
+  'version': 1,
+  'disable_existing_loggers': False,
+  'handlers': {
+    # Adding handler class, for example for error logging:
+    'actions_tracker': {
+      'level': 'ERROR',
+      'class': 'pxd_actions_tracker.trackers.track_logs.ActionsTrackerHandler',
+    },
+  },
+  'root': {
+    'handlers': ['actions_tracker'],
+    'level': 'DEBUG',
+  },
+}
+```
+
+
+### Tracking codes
+
+You may add additional tracking codes to understand better what user used to do before/after.
+
+```python
+from pxd_actions_tracker.cases import track, uuid_track
+
+with track('TRACKING-CODE'):
+  do_something()
+
+# Same track but with uuid code:
+with uuid_track():
+  do_something()
+```
+
+### Signals
+
+```python
+# General
+
+# Fires when new log entry created.
+pxd_actions_tracker.signals.log_created
+
+# Fires when new tracking code added to a stack.
+pxd_actions_tracker.signals.tracking_enter
+
+# Fires when new tracking code removed from a stack.
+pxd_actions_tracker.signals.tracking_exit
+
+# DB storage
+
+# Fires when new log entry stored in database.
+pxd_actions_tracker.storages.db.signals.log_stored
+```
