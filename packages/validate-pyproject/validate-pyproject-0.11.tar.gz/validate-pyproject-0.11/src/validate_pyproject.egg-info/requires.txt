@@ -1,0 +1,25 @@
+fastjsonschema<=3,>=2.16.2
+
+[:python_version < "3.7"]
+importlib-resources
+
+[:python_version < "3.8"]
+importlib-metadata
+
+[all]
+packaging>=20.4
+trove-classifiers>=2021.10.20
+
+[all:python_version < "3.11"]
+tomli>=1.2.1
+
+[testing]
+setuptools
+pytest
+pytest-cov
+pytest-xdist
+pytest-randomly
+
+[typecheck]
+mypy
+importlib-resources
