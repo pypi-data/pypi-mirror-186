@@ -1,0 +1,61 @@
+name: Product
+description: Project level product
+parents:
+  - BaseProduct
+schema: '1.6'
+metadata:
+    type:
+        default: Product
+    startDate:
+        id_zh_cn: 产品的标称起始时间
+        fits_keyword: DATE-OBS
+        data_type: finetime
+        description: Nominal start time  of this product.
+        description_zh_cn: 产品标称的起始时间
+        default: 0
+        valid: ''
+        valid_zh_cn: ''
+        typecode:
+    endDate:
+        id_zh_cn: 产品的标称结束时间
+        fits_keyword: DATE-END
+        data_type: finetime
+        description: Nominal end time  of this product.
+        description_zh_cn: 产品标称的结束时间
+        default: 0
+        valid: ''
+        valid_zh_cn: ''
+        typecode:
+    instrument:
+        id_zh_cn: 观测仪器名称
+        data_type: string
+        description: Instrument that generated data of this product
+        description_zh_cn: 观测仪器名称
+        default: UNKNOWN
+        valid: ''
+        valid_zh_cn: ''
+        typecode: B
+    modelName:
+        id_zh_cn: 样机名称
+        fits_keyword: MODEL
+        data_type: string
+        description: Model name of the instrument of this product
+        description_zh_cn: 观测仪器样机名称
+        default: UNKNOWN
+        valid: ''
+        valid_zh_cn: ''
+        typecode: B
+    mission:
+        id_zh_cn: 任务名称
+        fits_keyword: TELESCOP
+        data_type: string
+        description: Name of the mission.
+        description_zh_cn: 任务名称
+        default: _AGS
+        valid: ''
+        valid_zh_cn: ''
+        typecode: B
+    FORMATV:
+        default: '1.6.0.10'
+datasets:
+  

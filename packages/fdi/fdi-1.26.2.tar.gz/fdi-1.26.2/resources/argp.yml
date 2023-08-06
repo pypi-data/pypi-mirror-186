@@ -1,0 +1,91 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: vtse-level-1b-
+  namespace: svom
+spec:
+  entrypoint: Parallel-1
+  serviceAccountName: argo
+  arguments:
+    parameters:
+      - name: param1
+        value: "oss:///e2e/files.txt"
+      - name: param2
+        value: test_e2e_oss
+      - name: image_version
+        value: "v220811_1422"
+  imagePullSecrets:
+    - name: satellite-china-vo-secert
+  templates:
+  - name: Parallel-1
+    steps:
+    - - name: Start
+        template: Start
+        arguments:
+          parameters:
+          - name: param1
+            value: "{{workflow.parameters.param1}}"
+          - name: param2
+            value: "{{workflow.parameters.param2}}"
+          - name: image_version
+            value: "{{workflow.parameters.image_version}}"
+  
+  - name: Start
+    inputs:
+      parameters:
+        - name: param1
+        - name: param2
+    container:
+      image: registry.cn-beijing.aliyuncs.com/svom/svom_csc:{{workflow.parameters.image_version}}
+      env:
+      - name: OSS_ACCESS_KEY_ID
+        value: LTAI5tSTKfVhYhWf428UmBcc
+      - name: OSS_ACCESS_KEY_SECRET
+        value: 'O760bux4vn53m6quKZsrLVMH06qXQU'
+      - name: OSS_ENDPOINT
+        value: 'http://oss-cn-beijing.aliyuncs.com'
+      - name: OSS_BUCKET
+        value: 'svom'
+      command: [/bin/bash, -c]
+      args: 
+        - |
+          python3 csc/rabbitmq/common/mq/start.py -t 'debug/vtse' -m "==== `date` ===="
+          (python3 csc/vtse/svom/pipelines/vtse/L1B_vtse.py \
+          -d call://{{workflow.parameters.param1}} -f '*5045*dat' -w -n -1 -F -1 \
+          -u http://123.56.102.90:31702/fdi-dev/v0.15/{{workflow.parameters.param2}} \
+          -q -m \
+          -U rw -P only6% ) 2>&1 | \
+          python3 csc/rabbitmq/common/mq/start.py -t 'debug/vtse' -m -
+  - name: Simple
+    inputs:
+      parameters:
+        - name: param1
+        - name: param2
+    container:
+      image: registry.cn-beijing.aliyuncs.com/svom/svom_csc:{{workflow.parameters.image_version}}
+      env:
+      - name: MQ_USER1
+        value: "svguest1"
+      command: [/bin/bash, -c]
+      args: ["cd csc/tooreq && make 02boss 2>&1 | python3 csc/rabbitmq/common/mq/start.py -t 'debug/voe' -m - "]
+  - name: Debug
+    inputs:
+      parameters:
+        - name: param1
+        - name: param2
+    container:
+      image: registry.cn-beijing.aliyuncs.com/svom/svom_csc:{{workflow.parameters.image_version}}
+      env:
+      - name: MQ_USER1
+        value: "svguest1"
+      command: [/bin/bash, -c]
+      args: ["python3 csc/rabbitmq/common/mq/start.py -t 'debug/{{workflow.parameters.param1}}' -m \"{{workflow.parameters.param2}}$(date; env|sort; curl -i http://123.56.102.90:31702/fdi/v0.14/ 2>&1; echo cat .config/pnslocal.py)\""]
+
+#     args: ["python3 csc/rabbitmq/common/mq/start.py -t 'debug/voe' -m \"$(csc/tooreq/svom/pipelines/tooreq/L1_voe.py -u voe_test -d mqtt://voevent/broadcast 2>&1)\""]
+#["-c", "cd /home/csc/csc/rabbitmq && python3 common/mq/start.py -t proc/c -m hello..\$PNS_IP.. "]
+
+#[ "-c","cd /home/csc/csc/tooreq && python3 svom/products/l0_to_l1_voe.py -u http://123.56.102.90:31702/fdi/v0.12/voe_test -d mqtt://voevent/broadcast -v 1"]
+#      args: ["{{workflow.parameters.param1}}","{{workflow.parameters.param2}}"]
+
+
+
