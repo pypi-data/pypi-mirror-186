@@ -1,0 +1,128 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "zema_emc_annotated"
+version = "0.4.0"
+description = "API to the annotated ZeMA dataset about an electro-mechanical cylinder"
+authors = [
+    "Bjoern Ludwig <bjoern.ludwig@ptb.de>",
+    "Tanja Dorst",
+    "Maximilian Gruber <maximilian.gruber@ptb.de>",
+    "Anupam Prasad Vedurmudi <anupam.vedurmudi@ptb.de>",
+]
+readme = "README.md"
+packages = [{include = "zema_emc_annotated", from = "src"}]
+keywords = [
+    "FAIR data",
+    "measurement uncertainty",
+]
+license = "MIT"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+h5py = "^3.7.0"
+numpy = "^1.24.1"
+pooch = "^1.6.0"
+tqdm = "^4.64.1"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2.0"
+pytest-cov = "^4.0.0"
+pytest-custom-exit-code = "^0.3.0"
+hypothesis = {extras = ["numpy"], version = "^6.61.0"}
+
+[tool.poetry.group.lint]
+optional = true
+
+[tool.poetry.group.lint.dependencies]
+mypy = "^0.991"
+pylint = "^2.15.9"
+flake8 = "^6.0.0"
+flake8-pyproject = "^1.2.2"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+black = {extras = ["jupyter"], version = "^22.12.0"}
+
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+ipython = "^8.7.0"
+nbsphinx = "^0.8.10"
+myst-parser = "^0.18.1"
+sphinx = "^5.3.0"
+sphinx-rtd-theme = "^1.1.1"
+
+[tool.poetry.group.release]
+optional = true
+
+[tool.poetry.group.release.dependencies]
+python-semantic-release = "^7.32.2"
+
+[tool.poetry.group.examples]
+optional = true
+
+[tool.poetry.group.examples.dependencies]
+notebook = "^6.5.2"
+jupyter-nbextensions-configurator = "^0.6.1"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "--strict-markers --suppress-no-test-exit-code --color=yes"
+filterwarnings = "error"
+markers = "webtest: mark a test as requiring internet connecttion"
+
+[tool.mypy]
+exclude = ["^build/", "^venv/"]
+scripts_are_modules = true
+warn_unused_ignores = true
+show_error_codes = true
+enable_error_code = "ignore-without-code"
+strict = true
+
+[[tool.mypy.overrides]]
+module = ["setuptools.*", "h5py.*", "pooch.*", "hypothesis.*", "pytest.*"]
+ignore_missing_imports = true
+
+[tool.semantic_release]
+branch = "main"
+version_toml = "pyproject.toml:tool.poetry.version"
+version_variable = "docs/conf.py:version"
+major_on_zero = false
+changelog_sections = "feature,fix,breaking,documentation,performance"
+changelog_components = "semantic_release.changelog.changelog_headers,semantic_release.changelog.compare_url"
+upload_to_repository = false
+upload_to_release = true
+hvcs = "gitlab"
+hvcs_domain = "gitlab1.ptb.de"
+commit_author= "Bjoern Ludwig <bjoern.ludwig@ptb.de>"
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203"
+exclude = "venv"
+
+[tool.pylint.format]
+# Maximum number of characters on a single line.
+max-line-length = 88
+
+[tool.pylint.typecheck]
+# List of members which are set dynamically and missed by pylint inference
+# system, and so shouldn't trigger E1101 when accessed. Python regular
+# expressions are accepted.
+#generated-members = "<package-name>.*"
