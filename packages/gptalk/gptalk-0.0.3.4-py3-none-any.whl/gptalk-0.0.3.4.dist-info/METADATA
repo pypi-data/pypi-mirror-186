@@ -1,0 +1,193 @@
+Metadata-Version: 2.1
+Name: gptalk
+Version: 0.0.3.4
+Summary: Interact with GPT-3 using your voice instead of text, in any language
+Author: 0ut0flin3
+Author-email: 0ut0flin3 <0ut0flin3@protonmail.com>
+License: MIT License
+        
+        Copyright (c) 2022 0ut0flin3
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/0ut0flin3/gptalk
+Keywords: speech-recognition,tts,gpt3,chatgpt,speech-to-text,ai
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: aiohttp (==3.8.3)
+Requires-Dist: aiosignal (==1.3.1)
+Requires-Dist: async-timeout (==4.0.2)
+Requires-Dist: attrs (==22.2.0)
+Requires-Dist: certifi (==2022.12.7)
+Requires-Dist: charset-normalizer (==2.1.1)
+Requires-Dist: click (==8.1.3)
+Requires-Dist: frozenlist (==1.3.3)
+Requires-Dist: gTTS (==2.3.1)
+Requires-Dist: idna (==3.4)
+Requires-Dist: multidict (==6.0.4)
+Requires-Dist: openai (==0.26.1)
+Requires-Dist: playsound (==1.3.0)
+Requires-Dist: PyAudio (==0.2.13)
+Requires-Dist: requests (==2.28.2)
+Requires-Dist: SpeechRecognition (==3.9.0)
+Requires-Dist: tqdm (==4.64.1)
+Requires-Dist: urllib3 (==1.26.14)
+Requires-Dist: yarl (==1.8.2)
+
+# GPTalk
+
+<img src="https://user-images.githubusercontent.com/114559605/213072836-213cd555-68fc-496a-8613-23c8dcf4c06c.png" height="250" width="250">
+
+
+**[JOIN DISCORD](https://discord.gg/mettNtATzW)** **|** **[TWITTER](https://twitter.com/gptalk1)** **|** **[DONATE](https://github.com/0ut0flin3/GPTalk#donate)**
+
+Interact with GPT-3 using your voice instead of text, in any language.
+
+
+
+
+
+[REQUIREMENTS](https://github.com/0ut0flin3/GPTalk#requirments)
+
+[INSTALLATION](https://github.com/0ut0flin3/GPTalk#nstallation)
+
+[USAGE](https://github.com/0ut0flin3/GPTalk#usage)
+
+[LIST OF SUPPORTED LANGUAGES](https://github.com/0ut0flin3/GPTalk#languages)
+
+
+
+## REQUIREMENTS
+
+
+-In order to use GPTalk you need to :
+
+-have your OpenAI's Api key inside the OPENAI_API_KEY environment variable.
+
+-install `mpg321` (a mp3 player for linux) only if you are on Linux.
+
+
+## INSTALLATION
+
+Install GPTalk using PIP: `pip install -U gptalk`
+
+Always use `-U` in order to install the latest version available.
+
+Upgrade gptalk from time to time with pip install -U so that you always use the updated and bugfixed version.
+
+## USAGE
+
+Some examples:
+
+***>>>***`import gptalk`
+
+***>>>***`app = gptalk.CONFIGURE()`
+
+***>>>***`app.AI_NAME = "Alice"`
+
+***>>>***`app.AI_GENRE = "female"`
+
+***>>>***`app.save() #will create a memories.json file in the same folder. Will be replaced every time you run this command`
+
+***>>>***`app.run()`
+
+Start talking.
+
+Say `goodbye` to quit.
+
+Set language with `app.language=<LANGUAGE_TICKER>`
+
+
+More examples on the GPTalk Discord Server >> https://discord.gg/mettNtATzW
+
+
+
+## LANGUAGES
+
+```
+ar-SA Arabic Saudi Arabia
+cs-CZ Czech Czech Republic
+da-DK Danish Denmark
+de-DE German Germany
+el-GR Modern Greek Greece
+en-AU English Australia
+en-GB English United Kingdom
+en-IE English Ireland
+en-US English United States
+en-ZA English South Africa
+es-ES Spanish Spain
+es-MX Spanish Mexico
+fi-FI Finnish Finland
+fr-CA French Canada
+fr-FR French France
+he-IL Hebrew Israel
+hi-IN Hindi India
+hu-HU Hungarian Hungary
+id-ID Indonesian Indonesia
+it-IT Italian Italy
+ja-JP Japanese Japan
+ko-KR Korean Republic of Korea
+nl-BE Dutch Belgium
+nl-NL Dutch Netherlands
+no-NO Norwegian Norway
+pl-PL Polish Poland
+pt-BR Portuguese Brazil
+pt-PT Portuguese Portugal
+ro-RO Romanian Romania
+ru-RU Russian Russian Federation
+sk-SK Slovak Slovakia
+sv-SE Swedish Sweden
+th-TH Thai Thailand
+tr-TR Turkish Turkey
+zh-CN Chinese China
+zh-HK Chinese Hong Kong
+zh-TW Chinese Taiwan
+```
+
+### memories.json : 
+Initially it is empty, every question and answer given with the AI is added to the file and every time the speeches are added to the prompt automatically
+so it will remember what you said.
+**IF YOU WANT TO RESET THE MEMORY JUST OVERWRITE ALL THE CONTENT OF THE FILE WITH `{}` (so it must not be completely empty but contain `{}` otherwise it will cause an error)**
+
+
+## DONATE
+
+If you found this software useful please consider a donation:
+
+
+Bitcoin:  `17AnP1zuvLV9cQrGQi6H6qMLeWeujHzAYX`
+
+Monero: `82qjYLZj6XeTGjeUNm9AQVB78hVGStZd8YU1UKuvWz8QKAzFWZpBpEQFho3jrvUCNQPSqC9nYeEN3b7FQ5REPffNSA2WSDH`
+
+Solana: `6RX2ADdcNWZfaUfuGeHg86AYAoMuLF45Lbgfu3oNGh9i`
+
+Litecoin: `ltc1q4ft4ltjnyt8auqq4m5u7raatftu6mt5snst493`
+
+Ethereum: `0xF3A0246690947669A0bf68147Ba82AC8de576a56`
+
+Polygon / MYST : `0x45320b5B2a8f6073f4a92FFDF149861aBade4B4b`
+
+
+
+Thank you :-)
+
