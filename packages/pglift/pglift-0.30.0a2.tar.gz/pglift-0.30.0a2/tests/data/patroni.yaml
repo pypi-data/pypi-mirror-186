@@ -1,0 +1,79 @@
+bootstrap:
+  dcs:
+    loop_wait: 10
+  initdb:
+  - locale: C
+  - encoding: UTF8
+  - data-checksums
+  pg_hba:
+  - local   all             postgres                                peer
+  - local   all             all                                     peer
+  - host    all             all             127.0.0.1/32            password
+  - host    all             all             ::1/128                 password
+  - local   replication     replication                              peer
+  - host    replication     replication      127.0.0.1/32            password
+  - host    replication     replication      ::1/128                 password
+  pg_ident:
+  - '# MAPNAME       SYSTEM-USERNAME         PG-USERNAME'
+etcd3:
+  cacert: /path/to/cacert.pem
+  cert: /path/to/host.pem
+  hosts:
+  - server:123
+  key: /path/to/host.key
+  protocol: https
+name: pg1
+postgresql:
+  authentication:
+    replication:
+      password: rrr
+      username: replication
+    rewind:
+      username: postgres
+    superuser:
+      username: postgres
+  bin_dir: .
+  connect_address: pghost.test:5432
+  data_dir: test-datadir
+  listen: '*:5432'
+  parameters:
+    archive_command: /usr/bin/pgbackrest --config-path=/cfg/pgbackrest --stanza=ha
+      archive-push %p
+    archive_mode: true
+    cluster_name: test
+    effective_cache_size: 4 GB
+    lc_messages: C
+    lc_monetary: C
+    lc_numeric: C
+    lc_time: C
+    log_checkpoints: true
+    log_connections: true
+    log_destination: stderr
+    log_disconnections: false
+    log_min_duration_statement: 3s
+    logging_collector: true
+    port: 5432
+    shared_buffers: 257MB
+    shared_preload_libraries: passwordcheck, pg_qualstats, pg_stat_statements, pg_stat_kcache
+    unix_socket_directories: /tmp/tests
+    wal_level: replica
+  pg_hba:
+  - local   all             postgres                                peer
+  - local   all             all                                     peer
+  - host    all             all             127.0.0.1/32            password
+  - host    all             all             ::1/128                 password
+  - local   replication     replication                              peer
+  - host    replication     replication      127.0.0.1/32            password
+  - host    replication     replication      ::1/128                 password
+  pg_ident:
+  - '# MAPNAME       SYSTEM-USERNAME         PG-USERNAME'
+  use_unix_socket: true
+  use_unix_socket_repl: true
+restapi:
+  connect_address: localhost:8080
+  listen: localhost:8080
+scope: test-scope
+watchdog:
+  device: /dev/watchdog
+  mode: required
+  safety_margin: 5
