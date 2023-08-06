@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "textworker"
+version = "1.6a"
+requires-python = ">=3.8"
+description = "A simple, cross-platform text editor."
+readme = "README.md"
+classifiers = [
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: Python",
+    "Topic :: Text Editors",
+]
+dependencies = [
+    "configparser",
+    "darkdetect",
+    "packaging",
+    "wxpython",
+]
+
+[tool.setuptools]
+package-dir = {"textworker" = "textworker"}
+
+[project.gui-scripts]
+textworker = "textworker:start_app"
