@@ -1,0 +1,2 @@
+class DQLError(RuntimeError):
+    pass
