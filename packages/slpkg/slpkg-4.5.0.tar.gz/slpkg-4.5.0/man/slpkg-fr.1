@@ -1,0 +1,161 @@
+.TH slpkg 1 "Orestiada, Grèce" "slpkg 4.5.0" dslackw
+.SH NOM
+.P
+.B slpkg - [OPTIONS] [COMMANDE] <packages>.
+.SH SYNOPSIS
+.P
+slpkg [-h|-v] [update] [upgrade] [check-updates] [configs] [clean-logs] [clean-tmp] [-b, build] [-i, install] [-d, download]
+[-r, remove] [-f, find] [-w, view] [-s, search] [-e, dependees] [-t, tracking] --yes, --jobs, --resolve-off,
+--reinstall, --skip-installed, --full-reverse, --search
+.SH DESCRIPTION
+.P
+\fBSlpkg\fP est un gestionnaire de paquets logiciels qui \fBinstalle\fP, \fBmet à jour\fP et \fBsupprime\fP les paquets pour les systèmes basés sur \fBSlackware\fP.
+Il calcule automatiquement \fBles dépendances\fP et détermine comment doit se dérouler l'installation des paquets.
+\fBSlpkg\fP facilite la maintenance de groupes de machines sans avoir à effectuer des mises à jour manuelles.
+.P
+\fBSlpkg\fP travaille en accord avec les standards de l'organisation \fBSlackBuilds.org\fP pour construire des paquets.
+Il utilise également les instructions de \fBSlackware Linux\fP pour l'installation, la mise à jour ou la suppression des paquets.
+.SH COMMANDES
+.P
+.B update --yes, --no-silent
+.RS
+Met à jour la liste des paquets et la base de données.
+.RE
+.P
+.B upgrade --yes, --jobs, --resolve-off, --reinstall, --no-silent
+.RS
+Met à niveau tous les paquets installés si une version plus récente existe dans le référentiel.
+.RE
+.P
+.B check-updates
+.RS
+Vérifie si le fichier \fBChangeLog.txt\fP du SlackBuild contient des mises à jour.
+.RE
+.P
+.B configs
+.RS
+Modifier le fichier de configuration \fB/etc/slpkg/slpkg.toml\fP.
+.RE
+.P
+.B clean-logs --yes
+.RS
+Nettoie les journaux de suivi de dépendances. \fBAttention\fP, après cette procédure vous devrez supprimer les dépendances à la main.
+.RE
+.P
+.B clean-tmp
+.RS
+Supprime tous les scripts et sources des SlackBuilds téléchargés.
+.RE
+.P
+.B -b, build --yes, --jobs, --resolve-off, --search, --no-silent
+.RS
+Construit les scripts des Slackbuilds et les ajoute au répertoire \fB/tmp\fP.
+.RE
+.P
+.B -i, install --yes, --jobs, --resolve-off, --reinstall, --skip-installed, --search, --no-silent
+.RS
+Construit et installe les paquets dans l'ordre adéquat et enregistre également les paquets avec les dépendances à utiliser pour la suppression.
+.RE
+.P
+.B -d, download --yes, --search, --no-silent
+.RS
+Télécharger les scripts et les sources des SlackBuilds sans les construire ni les installer.
+.RE
+.P
+.B -r, remove --yes, resolve-off, --search, --no-silent
+.RS
+Supprime les paquets avec leurs dépendances s'ils ont été installés avec la méthode \fB'slpkg install'\fP.
+Slpkg examine la configuration \fB'sbo_repo_tag'\fP pour trouver les paquets à supprimer.
+.RE
+.P
+.B -f, find --search
+.RS
+Trouver les paquets installés par \fBSBo\fP (taggés _SBo) sur votre distribution.
+.RE
+.P
+.B -w, view --search
+.RS
+Voir les paquets du dépôt et obtenir toutes les informations dans le terminal.
+.RE
+.P
+.B -s, search --search
+.RS
+Rechercher les paquets.
+.RE
+.P
+.B -e, dependees --full-reverse, --search
+.RS
+Montre les dépendances du paquet.
+.RE
+.P
+.B -t, tracking --search
+.RS
+Suivi des dépendances des paquets.
+.RE
+.SH OPTIONS
+.P
+--yes
+.RS
+Répondre \fBOui\fP à toutes les questions.
+.RE
+.P
+--jobs
+.RS
+Accélération des scripts SlackBuild. Lorsque l'indicateur \fB--jobs\fP est activé, slpkg détecte automatiquement le nombre de
+de processeurs et le saisit dans la variable \fBMAKEFLAGS\fP. Certains SlackBuilds échouent lorsque \fBMAKEFLAGS\fP est déclaré ou que
+le nombre de processeurs (-j) est supérieur à 1.
+.RE
+.P
+--resolve-off
+.RS
+Désactive la résolution des dépendances.
+.RE
+.P
+--reinstall
+.RS
+Utilisez cette option si vous voulez mettre à niveau tous les paquets même si la même version est déjà installée.
+Ne saute pas les paquets déjà installés.
+.RE
+.P
+--skip-installed
+.RS
+Cette option est utile si vous voulez éviter de construire et de réinstaller des paquets.
+Remarque : Cette option n'affecte que les dépendances.
+.RE
+.P
+--full-reverse
+.RS
+Dépendances inverses complètes. Ne fonctionne qu'avec la commande \fB-e, dependees\fP et montre aussi les \fBRequires\fP.
+.RE
+.P
+--search
+.RS
+Active l'utilitaire de dialogue pour rechercher des paquets dans le référentiel.
+Essayez par exemple : \fB`slpkg install python3 --search`\fP ou \fB`slpkg download python3 --search`\fP et ainsi de suite.
+.RE
+.P
+--no-silent
+.RS
+Désactivez le mode silencieux s'il est activé dans le fichier de configuration.
+.RE
+.P
+-h | --help
+.RS
+Affiche l'aide.
+.RE
+.P
+-v | --version
+.RS
+Affiche la version.
+.RE
+.SH FICHIERS DE CONFIGURATION
+.P
+Fichier de \fBconfiguration\fP : /etc/slpkg/slpkg.toml
+.RE
+Fichier \fBblacklist\fP : /etc/slpkg/blacklist.toml
+.SH RAPPORT DE BOGUES
+.P
+Veuillez signaler tout bogue trouvé à \fBhttps://gitlab.com/dslackw/slpkg/-/issues\fP.
+.SH AUTEUR
+.P
+\fBDimitris Zlatanidis\fP <d.zlatanidis@gmail.com>

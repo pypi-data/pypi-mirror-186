@@ -1,0 +1,65 @@
+[configs]
+  # OS architecture by default.
+  os_arch = "x86_64"
+
+  # Tmp path for slpkg.
+  tmp_slpkg = "/tmp/slpkg"
+
+  # Path for building source and the script
+  build_path = "/tmp/slpkg/build"
+
+  # This path working only with the command download.
+  download_only = "/tmp/slpkg"
+
+  # The path that the SLACKBUILDS.TXT file downloaded.
+  sbo_repo_path = "/var/lib/slpkg/repository"
+
+  # The name of the database. Default name is 'database.slpkg'.
+  database = "database.slpkg"
+
+  # Slackbuilds.org repository url.
+  sbo_repo_url = "http://slackbuilds.org/slackbuilds/15.0"
+
+  # The SLACKBUILDS.TXT repository file.
+  sbo_txt = "SLACKBUILDS.TXT"
+
+  # The ChangeLog.txt file.
+  sbo_chglog_txt = "ChangeLog.txt"
+
+  # The sbo tar suffix.
+  sbo_tar_suffix = ".tar.gz"
+
+  # The sbo repository tag.
+  sbo_repo_tag = "_SBo"
+
+  # Slackware install command. Instead you can
+  # use 'installpkg', if you want.
+  installpkg = "upgradepkg --install-new"
+
+  # Upgrade or reinstall slackware command.
+  reinstall = "upgradepkg --reinstall"
+
+  # Slackware command to remove packages.
+  removepkg = "removepkg"
+
+  # Cli menu colors configs. Default is false. [true/false]
+  colors = true
+
+  # Dialog is a program that will let you to present
+  # a variety of questions or display messages using
+  # dialog boxes from a shell script.
+  # Default is true. [true/false]
+  dialog = true
+
+  # Wget downloader options.
+  # -c, --continue: resume getting a partially-downloaded file.
+  # -N, --timestamping: don't re-retrieve files unless newer.
+  # -q, Turn off Wget's output.
+  # --show-progress, Force wget to display the progress bar in any verbosity.
+  # than local.
+  wget_options = "-c -N -q --show-progress"
+
+  # If silent mode is true,
+  # do not print the commands as they are executed.
+  # Default is true. [true/false]
+  silent_mode = true

@@ -1,0 +1,161 @@
+.TH slpkg 1 "Orestiada, Greece" "slpkg 4.5.0" dslackw
+.SH NAME
+.P
+.B slpkg - [OPTIONS] [COMMAND] <packages>
+.SH SYNAPSES
+.P
+slpkg [-h|-v] [update] [upgrade] [check-updates] [configs] [clean-logs] [clean-tmp] [-b, build] [-i, install] [-d, download]
+[-r, remove] [-f, find] [-w, view] [-s, search] [-e, dependees] [-t, tracking] --yes, --jobs, --resolve-off,
+--reinstall, --skip-installed, --full-reverse, --search
+.SH DESCRIPTION
+.P
+Slpkg is a software package manager that installs, updates, and removes packages on Slackware based systems.
+It automatically computes dependencies and figures out what things should occur to install packages.
+Slpkg makes it easier to maintain groups of machines without having to manually update.
+.P
+Slpkg works in accordance with the standards of the organization SlackBuilds.org to build packages.
+Also uses the Slackware Linux instructions for installation, upgrading or removing packages.
+.SH COMMANDS
+.P
+.B update --yes, --no-silent
+.RS
+Updates the package list and the database.
+.RE
+.P
+.B upgrade --yes, --jobs, --resolve-off, --reinstall, --no-silent
+.RS
+Upgrade all the installed packages if the newer version exists in the repository.
+.RE
+.P
+.B check-updates
+.RS
+Check if there is any news on the SlackBuild's ChangeLog.txt file.
+.RE
+.P
+.B configs
+.RS
+Edit the configuration /etc/slpkg/slpkg.toml file.
+.RE
+.P
+.B clean-logs --yes
+.RS
+Cleans dependencies log tracking. After that procedure you should remove dependencies by hand.
+.RE
+.P
+.B clean-tmp
+.RS
+Deletes all the downloaded SlackBuilds scripts and sources.
+.RE
+.P
+.B -b, build --yes, --jobs, --resolve-off, --search, --no-silent
+.RS
+Builds the Slackbuilds scripts and adds them to the /tmp directory.
+.RE
+.P
+.B -i, install --yes, --jobs, --resolve-off, --reinstall, --skip-installed, --search, --no-silent
+.RS
+Builds and installs the packages in the correct order and also logs the packages with dependencies to use for removal.
+.RE
+.P
+.B -d, download --yes, --search, --no-silent
+.RS
+Download the SlackBuilds scripts and the sources without building or installing it. 
+.RE
+.P
+.B -r, remove --yes, resolve-off, --search, --no-silent
+.RS
+Removes packages with dependencies if the packages was installed with 'slpkg install' method.
+Slpkg looks at the 'sbo_repo_tag' configuration to find packages for removal.
+.RE
+.P
+.B -f, find --search
+.RS
+Find sbo installed packages on your distribution.
+.RE
+.P
+.B -w, view --search
+.RS
+View packages from the repository and get everything in your terminal.
+.RE
+.P
+.B -s, search --search
+.RS
+Search and match packages from the repository.
+.RE
+.P
+.B -e, dependees --full-reverse, --search
+.RS
+Show which SlackBuilds depend on.
+.RE
+.P
+.B -t, tracking --search
+.RS
+Tracking the packages dependencies.
+.RE
+.SH OPTIONS
+.P
+--yes
+.RS
+Answer Yes to all questions.
+.RE
+.P
+--jobs
+.RS
+Acceleration of SlackBuild scripts. When the --jobs flag is set, slpkg automatically detects the number
+of processors and enters it into the MAKEFLAGS variable. Some SlackBuilds fail when MAKEFLAGS is declared or
+the number of processors (-j) is greater than one.
+.RE
+.P
+--resolve-off
+.RS
+Turns off dependency resolving.
+.RE
+.P
+--reinstall
+.RS
+Use this option if you want to upgrade all packages even if the same version is already installed.
+Do not skip installed packages.
+.RE
+.P
+--skip-installed
+.RS
+This a helpful option if you want to avoid building and reinstalling packages.
+Note: This option affects only the dependencies.
+.RE
+.P
+--full-reverse
+.RS
+Full reverse dependency. Works only with -e, dependees command and show the requires too.
+.RE
+.P
+--search
+.RS
+Enable the dialog utility to search packages from the repository.
+Example try: `slpkg install python3 --search` or `slpkg download python3 --search` and etc.
+.RE
+.P
+--no-silent
+.RS
+Disable silent mode if it is enabled in the configuration file.
+.RE
+.P
+-h | --help
+.RS
+Show help information and exit.
+.RE
+.P
+-v | --version
+.RS
+Print version and exit.
+.RE
+.SH CONFIGURATION FILES
+.P
+Configuration file in the /etc/slpkg/slpkg.toml file.
+.RE
+Blacklist file in the /etc/slpkg/blacklist.toml file.
+.SH REPORT BUGS
+.P
+Please report any found to: https://gitlab.com/dslackw/slpkg/-/issues.
+.SH AUTHOR
+.P
+Dimitris Zlatanidis <d.zlatanidis@gmail.com>
