@@ -1,0 +1,69 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+urls = { Repository = "https://github.com/Starry-OvO/aiotieba/", Documentation = "https://v-8.top/" }
+name = "aiotieba"
+description = "Asynchronous I/O Client for Baidu Tieba"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [{ name = "Starry-OvO", email = "starry.qvq@gmail.com" }]
+keywords = ["tieba", "crawler", "spider"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: AsyncIO",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: The Unlicense (Unlicense)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Internet :: WWW/HTTP :: Session",
+]
+dependencies = [
+    "beautifulsoup4<5,>=4.0.0",
+    "aiohttp<4,>=3.8.0,!=3.8.2",
+    "lxml<5,>=4.0.0",
+    "protobuf<5,>=4.12.0",
+    "pycryptodome<4,>=3.0.0",
+    "tomli<3,>=2.0.0;python_version<'3.11'",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+img = ["opencv-contrib-python-headless<4.8,>=4.6.0.66"]
+speedup = ["pysimdjson<5.1,>=5.0.0", "aiodns<4,>=3.0.0"]
+
+[tool.setuptools.packages.find]
+include = ["aiotieba*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "aiotieba.__version__.__version__" }
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+extend-exclude = ["*_pb2.py"]
+target-version = ["py38"]
+
+[tool.isort]
+profile = "black"
+line_length = 120
+py_version = "38"
+extend_skip_glob = ["*_pb2.py"]
+
+[tool.ruff]
+line-length = 120
+select = ["W", "E", "F", "I"]
+ignore = ["E402", "E501"]
+target-version = "py38"
+extend-exclude = ["*_pb2.py"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-q"
+testpaths = ["tests"]
+required_plugins = "pytest-asyncio"
+asyncio_mode = "strict"
