@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: xcnt-apispec-utils
+Version: 2022.0.3
+Summary: Helper functionality for providing OpenAPI documentation
+Home-page: https://github.com/xcnt/apispec-utils
+Author: XCNT Dev Team
+Author-email: dev-infra@xcnt.io
+License: Internal
+Project-URL: GitHub, https://github.com/xcnt/apispec-utils
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+Requires-Dist: apispec (<7,>=3)
+Provides-Extra: all
+Requires-Dist: apispec-webframeworks (<2,>=0.5.2) ; extra == 'all'
+Requires-Dist: flasgger (<1,>=0.9.5) ; extra == 'all'
+Requires-Dist: xcnt-sqlalchemy-search (>=2021) ; extra == 'all'
+Requires-Dist: marshmallow-enum ; extra == 'all'
+Provides-Extra: flasgger
+Requires-Dist: flasgger (<1,>=0.9.5) ; extra == 'flasgger'
+Provides-Extra: marshmallow-enum
+Requires-Dist: marshmallow-enum ; extra == 'marshmallow-enum'
+Provides-Extra: sqlalchemy-search
+Requires-Dist: xcnt-sqlalchemy-search (>=2021) ; extra == 'sqlalchemy-search'
+Provides-Extra: test
+Requires-Dist: apispec-webframeworks (<2,>=0.5.2) ; extra == 'test'
+Requires-Dist: apispec (<7,>=3) ; extra == 'test'
+Requires-Dist: black (>=19.3b0) ; extra == 'test'
+Requires-Dist: coverage (<8,>=7.0.5) ; extra == 'test'
+Requires-Dist: factory-boy (<4,>=2.12.0) ; extra == 'test'
+Requires-Dist: flake8 (<7,>=6) ; extra == 'test'
+Requires-Dist: flasgger (<1,>=0.9.5) ; extra == 'test'
+Requires-Dist: marshmallow-enum ; extra == 'test'
+Requires-Dist: mypy (>=0.961) ; extra == 'test'
+Requires-Dist: pre-commit (<3,>=2.2.0) ; extra == 'test'
+Requires-Dist: pytest-cases (<4,>=3.6.13) ; extra == 'test'
+Requires-Dist: pytest-mock (<4,>=3.1.0) ; extra == 'test'
+Requires-Dist: pytest (<8,==7.2.1) ; extra == 'test'
+Requires-Dist: python-dateutil (<3,>=2.8) ; extra == 'test'
+Requires-Dist: python-dotenv (>=0.10) ; extra == 'test'
+Requires-Dist: python-semantic-release (<8,>=7.19.2) ; extra == 'test'
+Requires-Dist: types-setuptools ; extra == 'test'
+Requires-Dist: xcnt-sqlalchemy-search (>=2023.2.0) ; extra == 'test'
+Provides-Extra: webframeworks
+Requires-Dist: apispec-webframeworks (<2,>=0.5.2) ; extra == 'webframeworks'
+
