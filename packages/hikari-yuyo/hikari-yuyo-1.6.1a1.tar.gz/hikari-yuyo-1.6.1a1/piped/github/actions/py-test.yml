@@ -1,0 +1,84 @@
+name: Run tests
+
+concurrency:
+  {% raw %}group: ${{ github.workflow }}-${{ github.ref }}{% endraw %}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: "0 12 * * 6"
+  workflow_dispatch:
+
+jobs:
+  py-test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: {{ OSES }}
+        python-version: [{{ PYTHON_VERSIONS | map("quoted") | join(", ") }}]
+
+    {% raw %}runs-on: ${{ matrix.os }}{% endraw %}
+
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+        with:
+          submodules: "true"
+
+      {% raw %}- name: Set up Python ${{ matrix.python-version }}{% endraw %}
+        uses: actions/setup-python@5ccb29d8773c3f3f653e1705f474dfaa8a06a912
+        with:
+          {% raw %}python-version: ${{ matrix.python-version }}{% endraw %}
+
+      - name: install prerequisites
+        run: |
+          python -m pip install --upgrade pip wheel
+          python -m pip install -r {{ NOX_DEP_PATH }}
+
+      - name: Run tests
+        run: |
+          python -m nox -s test{% if CODECLIMATE_TOKEN %}
+
+  # TODO: Could we switch over to gather coverage from the normal test runs and combining
+  # the result once https://github.com/nedbat/coveragepy/issues/1002 is fixed?
+  upload-coverage:
+    # needs: [test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+        with:
+          submodules: "true"
+
+      - name: Set up Python {{ DEFAULT_PY_VER }}
+        uses: actions/setup-python@5ccb29d8773c3f3f653e1705f474dfaa8a06a912
+        with:
+          python-version: "{{ DEFAULT_PY_VER }}"
+
+      - name: install prerequisites
+        run: |
+          python -m pip install --upgrade pip wheel
+          python -m pip install -r {{ NOX_DEP_PATH }}
+
+      - name: Record coverage
+        run: |
+          python -m nox -s test-coverage
+
+      - name: Upload coverage
+        uses: paambaati/codeclimate-action@ac3f177ece9928d220a8bd1c2f1957926fd3b67e
+        env:
+          CC_TEST_REPORTER_ID: {{ CODECLIMATE_TOKEN }}
+        with:
+          coverageLocations: .coverage.xml:coverage.py
+
+      - name: Archive coverage
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        with:
+          name: coverage
+          path: ./coverage_html
+          if-no-files-found: error{% endif %}

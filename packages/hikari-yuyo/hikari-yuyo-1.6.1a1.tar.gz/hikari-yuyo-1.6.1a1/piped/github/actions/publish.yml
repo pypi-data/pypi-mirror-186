@@ -1,0 +1,34 @@
+name: Publish a new release
+
+on:
+  release:
+    # Only use the types keyword to narrow down the activity types that will trigger your workflow.
+    types:
+      - published
+
+jobs:{% if "release_docs" in config.github_actions %}
+  publish-docs:
+    uses: ./.github/workflows/release-docs.yml
+{% endif %}
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+        with:
+          submodules: "true"
+
+      - name: Set up Python {{ DEFAULT_PY_VER }}
+        uses: actions/setup-python@5ccb29d8773c3f3f653e1705f474dfaa8a06a912
+        with:
+          python-version: "{{ DEFAULT_PY_VER }}"
+
+      - name: Install prerequisites
+        run: |
+          python -m pip install --upgrade pip wheel
+          python -m pip install -r {{ NOX_DEP_PATH }}
+
+      - name: publish
+        run: python -m nox -s publish
+        env:
+          {% raw %}PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}{% endraw %}
