@@ -1,0 +1,55 @@
+name: Python
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [x86_64]
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+        architecture: x64
+    - name: Build wheels
+      uses: PyO3/maturin-action@v1
+      with:
+        rust-toolchain: nightly
+        target: ${{ matrix.target }}
+        manylinux: auto
+        args: --release --sdist --out dist
+    - name: Install built wheel
+      if: matrix.target == 'x86_64'
+      run: |
+        pip install hidefix --no-index --find-links dist --force-reinstall
+        python -c "import hidefix"
+    - name: Upload wheels
+      uses: actions/upload-artifact@v3
+      with:
+        name: wheels
+        path: dist
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    if: "startsWith(github.ref, 'refs/tags/')"
+    needs: [ linux ]
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: wheels
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Publish to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          pip install --upgrade twine
+          twine upload --skip-existing *
