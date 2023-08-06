@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "glorious"
+version = "0.1.2"
+description = "Library to interface with Glorious devices"
+authors = ["Kavi Bidlack <ksbidlack@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/kbidlack/glorious"
+repository = "https://github.com/kbidlack/glorious"
+include = ["LICENSE"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+hidapi = "^0.13.1"
+aenum = "^3.1.11"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
