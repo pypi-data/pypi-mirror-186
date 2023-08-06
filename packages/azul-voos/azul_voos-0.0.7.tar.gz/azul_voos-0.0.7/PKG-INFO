@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: azul_voos
+Version: 0.0.7
+Summary: Scrapping de dados de voo da empresa Azul utilizando selenium
+Project-URL: Homepage, https://github.com/ricardostange/azul-voos
+Project-URL: Bug Tracker, https://github.com/ricardostange/azul-voos/issues
+Author-email: ricks <ricstange@gmail.com>
+License-File: LICENSE
+License-File: LICENSE.chromedriver
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+# azul-voos
+Scrapping de dados de voos da empresa Azul.
+
+Utiliza selenium para fazer o scrapping.
+
+## Driver utilizado
+- Chrome Driver
+
+## Instalação
+```bash
+pip install azul_voos
+```
+
+Exemplo de uso:
+```python
+from azul_voos import azul
+
+myScrapper = azul.FlightScrapper()
+query_list = [azul.Query('GRU', 'CNF', '10/02/2023'), azul.Query('GRU', 'BSB', '01/05/2023')]
+results = myScrapper.scrape(query_list)
+```
+
+
+[Project Code Structure](https://github.com/ricardostange/azul-voos/blob/main/Azul.png?raw=true "Title")
