@@ -1,0 +1,92 @@
+[tool.poetry]
+name = "aioqzone"
+version = "0.10.2.dev1"
+description = "Python wrapper for Qzone web login and Qzone http api."
+authors = ["aioqzone <zzzzss990315@gmail.com>"]
+license = "AGPL-3.0"
+readme = "README.md"
+homepage = "https://github.com/aioqzone/aioqzone"
+repository = "https://github.com/aioqzone/aioqzone"
+documentation = "https://aioqzone.github.io/aioqzone"
+keywords = ["qzone-api", "autologin", "asyncio-spider"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+
+packages = [
+    { include = "aioqzone", from = "src" },
+    { include = "jssupport", from = "src" },
+    { include = "qqqr", from = "src" },
+]
+exclude = ["*.js"]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/aioqzone/aioqzone/issues"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+httpx = "~0.23.0"
+pydantic = "^1.10.4"
+pytz = "^2022.1"
+lxml = "^4.9.1"
+cssselect = "^1.1.0"
+numpy = [
+    { version = "~1.21.6", python = ">=3.7,<3.8" },
+    { version = "^1.22.3", python = "^3.8" },
+]
+opencv-python-headless = "^4.7.0"
+rsa = "^4.8"
+
+
+# dependency groups
+[tool.poetry.group.test]
+optional = false
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2.0"
+pytest-asyncio = "~0.20.1"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^2.20.0"
+black = "^22.12.0"
+isort = "^5.11.2"
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+Sphinx = "^5.0.1"
+autodoc-pydantic = "^1.7.1"
+sphinx-autodoc-typehints = "^1.19.5"
+sphinx-rtd-theme = "^1.0.0"
+sphinx-intl = "^2.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+# customize begin
+[tool.pytest.ini_options]
+pythonpath = 'src'
+markers = [
+    "needuser: Need user interaction, DO NOT use in ci",
+    "incremental: xfail succ cases if pred case failed or skipped",
+    "upstream: Test cannot run normally due to upstream problems",
+]
+log_cli = 1
+log_cli_level = 'WARNING'
+
+[tool.isort]
+profile = "black"
+line_length = 99
+
+[tool.black]
+line-length = 99
+target-version = ['py37']
