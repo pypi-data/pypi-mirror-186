@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: keyword_explorer
+Version: 0.43a0
+Summary: A set of tools for producing and exploring keywords on Twitter and the Wikipedia
+Home-page: https://github.com/pgfeldman/KeywordExplorer
+Author: Philip Feldman
+Author-email: phil@philfeldman.com
+License: MIT
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+License-File: LICENSE
+
+Explorer Apps
+====================================
+There are six applications in this project: KeywordExplorer, TweetsCountExplorer, TweetDownloader, WikiPageviewExplorer, TweetEmbedExplorer, and ModelExplorer. They, and the classes that support them, can be installed with pip:
+
+    pip install keyword-explorer
+
+**KeywordExplorer** is a Python desktop app that lets you use the GPT-3 to search for keywords and Twitter to see if those keywords are any good.
+
+**TweetCountsExplorer** is a Python desktop app that lets you explore the quantity of tweets containing keywords over days, weeks or months.
+
+**TweetDownloader** is a Python desktop app that lets you select and download tweets containing keywords into a database. The number of Tweets can be adjusted so that they are the same for each day or proportional. Users can apply daily and overall limits for each keyword corpora.
+
+**WikiPageviewExplorer**  is a Python desktop app that lets you explore keywords that appear as articles in the Wikipedia, and chart their relative page views.
+
+**TweetEmbedExplorer** is a Python desktop app for analyzing, filtering, and augmenting tweet information. Augmented information can them be used to create a train/test corpus for finetuning language models such as the GPT-2.
+
+**ModelExplorer** is a Python desktop app that lets a user interact with a finetuned GPT-2 model trained using EmbeddingExplorer
+
+Full documentation is available at https://github.com/pgfeldman/KeywordExplorer#readme
