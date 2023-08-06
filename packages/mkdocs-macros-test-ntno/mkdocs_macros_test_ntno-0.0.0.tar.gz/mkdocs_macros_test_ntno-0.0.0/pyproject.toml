@@ -1,0 +1,54 @@
+[project]
+name = "mkdocs-macros-test-ntno"
+dynamic = [
+  "version",
+  "dependencies",
+  "license",
+  "description",
+  "authors",
+  "keywords"
+]
+
+readme = "README.md"
+
+requires-python = ">=3.7"
+
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Environment :: Web Environment",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Topic :: Documentation",
+  "Topic :: Software Development :: Documentation",
+  "Topic :: Text Processing :: Markup :: HTML",
+  "Intended Audience :: Developers"
+]
+
+[project.urls]
+Source = "https://github.com/ntno/mkdocs-macros-test"
+Issues = "https://github.com/ntno/mkdocs-macros-test/issues"
+
+
+[build-system]
+requires = [
+  "hatchling",
+  "hatch-requirements-txt",
+  "hatch-nodejs-version>=0.3.0"
+]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "nodejs"
+
+[tool.hatch.metadata.hooks.nodejs]
+fields = ["license", "description", "authors", "keywords", "urls"]
+
+[tool.hatch.metadata.hooks.requirements_txt]
+filename = "requirements.txt"
+
+[tool.hatch.build.targets.wheel]
+include = ["/mkdocs_macros_test"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/mkdocs_macros_test", "/package.json", "/requirements.txt"]
+exclude = ["package-lock.json"]
