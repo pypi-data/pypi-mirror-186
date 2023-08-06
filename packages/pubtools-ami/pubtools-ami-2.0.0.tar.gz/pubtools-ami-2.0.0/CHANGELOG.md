@@ -1,0 +1,68 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+- n/a
+
+## [2.0.0] - 2023-01-17
+
+### Changed
+
+- `pubtools-ami-push`: `--snapshot-account-ids` now uses a JSON format argument.
+
+## [1.2.1] - 2022-07-13
+
+### Changed
+
+- `pubtools-ami-push`: Removed defaults for `--snapshot-account-ids`
+
+## [1.2.0] - 2022-06-22
+
+### Added
+
+- `pubtools-ami-push`: `--snapshot-account-ids` now accepts comma-separated values.
+
+## [1.1.0] - 2022-05-13
+
+### Added
+
+- `pubtools-ami-push`: introduced the `--snapshot-account-ids` argument.
+
+## 1.0.0 - 2022-01-18
+
+### Fixed
+
+- Fixed response processing so push fails now if any of the pushitem fails
+
+### Changed
+
+- Modified images.json format updating some field names and removed null values
+
+
+## 0.1.2 - 2021-12-14
+
+### Fixed
+
+- Fixed fetching default certs from hook method get_cert_key_paths
+- Fixed incorrect product_name in RHSM's create and update image api
+
+## 0.1.1 - 2021-11-30
+
+### Fixed
+
+- Added missing dependencies `attrs` and `six`
+
+## 0.1.0 - 2021-11-17
+
+- Initial release to PyPI
+
+[Unreleased]: https://github.com/release-engineering/pubtools-ami/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/release-engineering/pubtools-ami/compare/v1.2.1...v2.0.0
+[1.2.1]: https://github.com/release-engineering/pubtools-ami/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/release-engineering/pubtools-ami/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/release-engineering/pubtools-ami/compare/v1.0.0...v1.1.0
