@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: regfex
+Version: 1.0.3
+Summary: Get regular expressions from .re files!
+Home-page: https://github.com/woidzero/regfex
+Author: woidzero
+Author-email: woidzeroo@gmail.com
+License: MIT License
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# RegFex
+Get regular expressions from .re files!
+
+[![PyPI](https://img.shields.io/pypi/v/regfex)](https://pypi.org/project/regfex)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/regfex)](https://pypi.org/project/regfex)
+[![Python Version](https://img.shields.io/badge/python-3.x-white)](https://pypi.org/project/regfex)
+
+
+## Installation
+```
+pip install regfex
+```
+
+## Usage 
+```python
+import regfex
+
+expression = regfex.loadFile("expressions.re").getKey("expr")
+
+print(expression) # Output: ^[0-9]{4}$
+```
+```yml
+expr: ^[0-9]{4}$
+```
+
+## Support
+For support [join my Discord server](https://discord.gg/js5pDBSK) or email me - [woidzeroo@gmail.com](mailto://woidzeroo@gmail.com)!
