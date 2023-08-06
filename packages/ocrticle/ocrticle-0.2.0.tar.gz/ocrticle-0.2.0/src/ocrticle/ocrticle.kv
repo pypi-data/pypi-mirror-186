@@ -1,0 +1,303 @@
+#:kivy 2.1.0
+#:import path os.path
+
+<FileSelectScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Choose an image file"
+            font_size: 24
+            size_hint: (1,0.2)
+        FileChooserIconView:
+            id: filechooser
+            path: path.expanduser('~')
+            on_selection: select_file_btn.disabled = False
+            filters: ["*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif", "*.tiff", "*.tif"]
+            on_submit:
+                root.manager.load_image(filechooser.selection)
+        Widget:
+            size_hint: (1,0.25)
+            Button:
+                id: select_file_btn
+                center_x: self.parent.center_x
+                top: self.parent.top - 10
+                height: 50
+                text: "Select"
+                disabled: True
+                on_press:
+                    root.manager.load_image(filechooser.selection)
+                    root.manager.current = 'image_preview'
+
+<ImagePreviewScreen>:
+    RelativeLayout:
+        ReturnButton:
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: "Select the article(s) from the image"
+                font_size: 24
+                size_hint: (1,0.15)
+            Image:
+                id: image_p
+                source: ""
+                opacity: 0
+            BoxLayout:
+                size_hint: (1,0.2)
+                orientation: 'horizontal'
+                GridLayout:
+                    rows: 1
+                    size_hint: (0.5, 1)
+                    Label:
+                        text: "Drawing mode:"
+                    AnchorLayout:
+                        BoxLayout:
+                            orientation: 'vertical'
+                            height: 75
+                            spacing: 5
+                            size_hint_y: None
+                            pos_hint: {'center_y': 0.5}
+                            Button:
+                                canvas.before:
+                                    Color:
+                                        rgba: 0,0.7,1,0.5
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+                                id: article_btn
+                                text: "Select article"
+                                disabled_color: 1, 1, 1, 1
+                                disabled: True
+                                on_press: 
+                                    root.current_mode = 'A'
+                                    self.disabled = True
+                                    exclude_btn.disabled = False
+                            Button:
+                                canvas.before:
+                                    Color:
+                                        rgba: 0,0.7,1,0.5
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+                                id: exclude_btn
+                                disabled_color: 1, 1, 1, 1
+                                text: "Exclude from article"
+                                on_press: 
+                                    root.current_mode = 'E'
+                                    self.disabled = True
+                                    article_btn.disabled = False
+                    AnchorLayout:
+                        size_hint_x: None
+                        width: 60
+                        BoxLayout:
+                            orientation: 'vertical'
+                            height: 75
+                            spacing: 5
+                            size_hint_y: None
+                            pos_hint: {'center_y': 0.5}
+                            Button:
+                                id: undo_article_btn
+                                text: "< Undo"
+                                disabled: True
+                                on_press: root.undo_selection(self,"A")
+                            Button:
+                                id: undo_exclude_btn
+                                text: "< Undo"
+                                disabled: True
+                                on_press: root.undo_selection(self,"E")
+                GridLayout:
+                    cols: 1
+                    size_hint: (0.3, 1)
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        Label:
+                            size_hint: (0.4, 1)
+                            text: "Brightness"
+                        Slider:
+                            size_hint: (0.6, 1)
+                            id: brightness_slider
+                            min: 0
+                            max: 200
+                            value: 100
+                            step: 1
+                            on_value: root.show_image()
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        Label:
+                            size_hint: (0.4, 1)
+                            text: "Contrast"
+                        Slider:
+                            size_hint: (0.6, 1)
+                            id: contrast_slider
+                            min: 0
+                            max: 200
+                            value: 100
+                            step: 1
+                            on_value: root.show_image()
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        Label:
+                            size_hint: (0.4, 1)
+                            text: "Saturation"
+                        Slider:
+                            size_hint: (0.6, 1)
+                            id: saturation_slider
+                            min: 0
+                            max: 200
+                            value: 100
+                            step: 1
+                            on_value: root.show_image()
+                Widget:
+                    size_hint: (0.2, 1)
+                    Button:
+                        center: self.parent.center
+                        text_size: (100,50)
+                        font_size: 20
+                        valign: 'center'
+                        halign: 'center'
+                        size: self.texture_size
+                        text: "Submit"
+                        on_press: root.submit_image()
+
+<ArticlePreviewScreen>:
+    RelativeLayout:
+        ReturnButton:
+        Label:
+            text: "Processing..."
+            center: root.center
+            id: processing_text
+        BoxLayout:
+            orientation: 'vertical'
+            size: root.size
+            Label:
+                text: "Found the following article(s):"
+                font_size: 24
+                size_hint: (1, 0.15)
+            ScrollView:
+                do_scroll_x: False
+                GridLayout:
+                    cols: 1
+                    padding: 50, 0
+                    spacing: 0, 25
+                    size_hint: (1, None)
+                    height: self.minimum_height
+                    id: articles
+            FloatLayout:
+                size_hint: (1, 0.15)
+                pos_hint: {'x': 0}
+                Button:
+                    center: self.parent.center
+                    size_hint: (None, None)
+                    text_size: (180,60)
+                    font_size: 20
+                    valign: 'center'
+                    halign: 'center'
+                    size: self.texture_size
+                    text: "Save article(s)"
+                    on_press: 
+                        root.manager.current = "save"
+                FloatLayout:
+                    x: self.parent.center_x + 150
+                    CheckBox:
+                        size_hint: (None, None)
+                        pos_hint: {'x': 0, 'center_y': 0.5}
+                        size: 20,20
+                        id: line_breaks_cb
+                        on_active:
+                            root.refresh_articles()
+                    Label:
+                        size_hint: (None, None)
+                        pos_hint: {'x': 0, 'center_y': 0.5}
+                        size: self.texture_size
+                        padding_x: 22
+                        halign: 'left'
+                        font_size: 17
+                        text: "Keep line breaks"
+
+<SaveScreen>:
+    RelativeLayout:
+        ReturnButton:
+        BoxLayout:
+            size: root.size
+            pos: root.pos
+            padding: [50, 0]
+            orientation: "vertical"
+            Label:
+                text: "Save the generated file"
+                font_size: 24
+                size_hint: (1,0.15)
+            FileChooserIconView:
+                id: filechooser
+                rootpath: path.expanduser('~')
+                filters: [lambda folder, filename: not filename.endswith('')]
+
+            BoxLayout:
+                size_hint_y: None
+                height: 30
+                orientation: 'horizontal'
+                Label:
+                    size_hint_x: None
+                    text: "File name:"
+                    text_size: self.size
+                    halign: 'right'
+                    valign: 'middle'
+                    padding: (5,0)
+                TextInput:
+                    id: text_input
+                    size_hint_y: 1
+                    multiline: False
+
+            FloatLayout:
+                size_hint_y: 0.15
+                Button:
+                    size_hint: (None, None)
+                    text: "Save"
+                    height: 50
+                    width: 80
+                    center: self.parent.center
+                    on_release: root.save(filechooser.path, text_input.text)
+        
+<MyTextInput>:
+    multiline: True
+    size_hint_y: None
+    size_hint_x: 1
+    height: self.minimum_height
+
+<MyLabel>:
+    canvas.before:
+        Color:
+            rgb: 0.85, 0.85, 0.85
+        Rectangle:
+            size: root.size
+            pos: root.pos
+    text_size: root.width, None
+    size: self.texture_size
+    height: max(self.texture_size[1], 34)
+    padding_x: 4
+    padding_y: 10
+    color: 0,0,0,1
+
+<ArticleWidget>:
+    cols: 2
+    size_hint: (1, None)
+    height: self.minimum_height
+    spacing: 0, 20
+    padding: 3, 1
+    canvas.before:
+        Color: 
+            rgb: 0.9,0.9,0.9
+        Rectangle:
+            size: root.size
+            pos: root.pos
+
+<ReturnButton>:
+    x: self.parent.x + 50
+    top: self.parent.top - 25
+    text_size: (100,50)
+    size_hint: (None, None)
+    size: self.texture_size
+    valign: 'center'
+    halign: 'center'
+    text: "< Return"
+    font_size: 16
+    on_press:
+        app.sm.return_to_prev()

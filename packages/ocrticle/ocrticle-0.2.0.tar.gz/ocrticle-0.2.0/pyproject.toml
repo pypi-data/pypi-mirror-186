@@ -1,0 +1,24 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "ocrticle"
+authors = [{name = "Sofia Santos", email = "sofiarsantos31@gmail.com"}]
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = ["License :: OSI Approved :: MIT License"]
+dynamic = ["version", "description"]
+requires-python = ">=3.10"
+dependencies = [
+    "Kivy >= 2.1.0, <3",
+    "pandas >= 1.5.1, <2",
+    "Pillow >= 9.3.0, <10",
+    "pytesseract >= 0.3.10, <1"
+    ]
+
+[tool.flit.sdist]
+exclude = ["OCR_Lab"]
+
+[project.scripts]
+ocrticle = "ocrticle.main:main"
