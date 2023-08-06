@@ -1,0 +1,17 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "pydiscomotif"
+authors = [{name = "Gabriel Cia", email = "gabriel-_cia@hotmail.com"}]
+version = "0.0.13"
+dependencies = ["numba", "click", "biopython <=1.79", "networkx", "scipy", "pandas", "numpy", "typing_extensions"]
+requires-python = ">=3.9"
+dynamic = ["description"]
+
+[project.urls]
+Home = "https://github.com"
+
+[project.scripts]
+pydiscomotif = "pydiscomotif.pydiscomotif:command_line_interface"
