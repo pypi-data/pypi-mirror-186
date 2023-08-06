@@ -1,0 +1,43 @@
+dag:
+  id: basic_example
+  description: DAG de teste
+  output_folder: 'output'
+  data_path:
+    - 'data/AI_LATA_ADDRESS_MEX_modificado.csv'
+  data_config:
+    separator: '¨'
+    engine: 'python'
+    encoding: 'utf-8'
+
+  pre_processing:
+    aliases:
+      - street: ['STREET_ADDRESS_1', 'STREET_ADDRESS_2']
+
+  feature_engineering:
+    - input:
+        columns:
+          - 'street'
+          - 'STREET_ADDRESS_1'
+        features:
+          word_embedding:
+            data_lang: 'es'
+            street:
+              dimensions: 25
+
+  model:
+    random_forest:
+      - input:
+          type: 'address'
+          columns:
+            - 'STREET_ADDRESS_1'
+            - 'street'
+          thresholds:
+            test_size: 0.3
+            n_estimators: 100
+            keyboard_smash:
+              street:
+                ksmash_sequence_vowels: 1.00
+                ksmash_sequence_consonants: 1.999
+                ksmash_sequence_special_characters: 2.2499
+                ksmash_numbers: 2.9
+                ksmash_char_frequence: 2.78
