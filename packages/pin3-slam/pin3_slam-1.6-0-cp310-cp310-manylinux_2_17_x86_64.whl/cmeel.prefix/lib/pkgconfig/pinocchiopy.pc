@@ -1,0 +1,19 @@
+prefix=${pcfiledir}/../..
+exec_prefix=${pcfiledir}/../..
+libdir=/tmp/cmeel-xzg_5nu8/pfx/cmeel.prefix/lib/python3.10/site-packages/pinocchio
+bindir=/tmp/cmeel-xzg_5nu8/pfx/cmeel.prefix/lib/python3.10/site-packages/pinocchio
+pkglibdir=${pcfiledir}/../../lib/pinocchio
+includedir=${pcfiledir}/../../include
+datarootdir=${pcfiledir}/../../share
+pkgdatarootdir=${pcfiledir}/../../share
+docdir=${pcfiledir}/../../share/doc/pinocchio
+doxygendocdir=${pcfiledir}/../../share/doc/pinocchio/doxygen-html
+
+Name: pinocchiopy
+Description: Python bindings of Pinocchio
+URL: http://github.com/stack-of-tasks/pinocchio
+Version: 2.9.1
+Requires: pinocchio, eigenpy >= 2.6.2
+Conflicts: 
+Libs: -L${libdir} -lpinocchio_pywrap -lboost_python
+Cflags: -I${includedir} -I/usr/local/include -I/opt/python/cp310-cp310/include/python3.10 -DPINOCCHIO_WITH_URDFDOM -DPINOCCHIO_WITH_HPP_FCL -DBOOST_MPL_LIMIT_LIST_SIZE=30
