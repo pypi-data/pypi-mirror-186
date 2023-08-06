@@ -1,0 +1,177 @@
+Metadata-Version: 2.1
+Name: workcell
+Version: 0.0.12
+Summary: Turn python function into microservice.
+License: Apache-2.0
+Author: jiandong
+Author-email: jiandong@weanalyze.co
+Requires-Python: >=3.8, !=2.7.*, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, !=3.6.*, !=3.7.*
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: colorama (>=0.4.6,<0.5.0)
+Requires-Dist: docker (>=6.0.1,<7.0.0)
+Requires-Dist: fastapi (>=0.85.1,<0.86.0)
+Requires-Dist: jsonpickle (>=3.0.1,<4.0.0)
+Requires-Dist: loguru (>=0.6.0,<0.7.0)
+Requires-Dist: mangum (>=0.17.0,<0.18.0)
+Requires-Dist: pandas (>=1.5.2,<2.0.0)
+Requires-Dist: plotly (>=5.12.0,<6.0.0)
+Requires-Dist: pydantic (>=1.10.2,<2.0.0)
+Requires-Dist: python-dotenv (>=0.21.0,<0.22.0)
+Requires-Dist: streamlit (>=1.15.2,<2.0.0)
+Requires-Dist: typer (>=0.3.1,<0.4.0)
+Requires-Dist: uvicorn (>=0.18.3,<0.19.0)
+Description-Content-Type: text/markdown
+
+<!-- markdownlint-disable MD033 MD041 -->
+<h1 align="center">
+    Workcell
+</h1>
+
+<p align="center">
+    <strong>Instantly turn your Python function into production-ready microservice.</strong>
+</p>
+
+<p align="center">
+    <a href="https://pypi.org/project/workcell/" title="PyPi Version"><img src="https://img.shields.io/pypi/v/workcell?color=green&style=flat"></a>
+    <a href="https://pypi.org/project/workcell/" title="Python Version"><img src="https://img.shields.io/badge/Python-3.8%2B-blue&style=flat"></a>
+    <a href="https://github.com/weanalyze/workcell/blob/main/LICENSE" title="Project License"><img src="https://img.shields.io/badge/License-Apache2.0-blue.svg"></a>
+</p>
+
+<p align="center">
+  <a href="#getting-started">Getting Started</a> •
+  <a href="#license">License</a> •
+  <a href="https://github.com/weanalyze/workcell/releases">Changelog</a>
+</p>
+
+Instantly turn your Python function into production-ready microservice, with lightweight UI to interact with. Use / Share / Publish / Collaborate with your team. 
+
+<sup>Pre-alpha Version: Not feature-complete and only suggested for experimental usage.</sup>
+
+<img align="center" style="width: 100%" src="https://github.com/weanalyze/weanalyze-resources/blob/main/assets/workcell_intro.png?raw=true"/>
+
+---
+
+## Highlights
+
+- 🪄&nbsp; Turn functions into production-ready services within seconds.
+- 🔌&nbsp; Auto-generated HTTP API based on FastAPI.
+- 📦&nbsp; Deploy microservice into weanalye FaaS cloud.
+- 🧩&nbsp; Reuse pre-defined templates & combine with existing components.
+- 📈&nbsp; Instantly deploy and scale for production usage.
+
+## Getting Started
+
+### Installation
+
+> _Requirements: Python 3.8+._
+
+```bash
+pip install workcell
+```
+
+### Usage
+
+1. A simple workcell-compatible function could look like this:
+
+    ```python
+    from pydantic import BaseModel
+
+    class Input(BaseModel):
+        message: str
+
+    class Output(BaseModel):
+        message: str
+
+    def hello_workcell(input: Input) -> Output:
+        """Returns the `message` of the input data."""
+        return Output(message=input.message)
+    ```
+
+    _💡 A workcell-compatible function is required to have an `input` parameter and return value based on [Pydantic models](https://pydantic-docs.helpmanual.io/). The input and output models are specified via [type hints](https://docs.python.org/3/library/typing.html)._
+
+2. Copy this code to a file named `app.py`, put into a folder, e.g. `hello_workcell`
+
+3. Run the HTTP API server from command-line:
+
+    ```bash
+    cd hello_workcell
+    workcell serve app:hello_workcell
+    ```
+    _In the output, there's a line that shows where your API is being served, on your local machine._
+
+4. Run the Streamlit based UI server from command-line:
+
+    ```bash
+    workcell serve-ui app:hello_workcell
+    ```
+    _In the output, there's a line that shows where your UI is being served, on your local machine._
+
+5. Deploy the service into weanalyze cloud from command-line:
+
+    ### requirements
+
+    - [Docker](https://docker.com/) installed
+    - [Dockerhub](https://hub.docker.com/) account
+    - [Weanalyze](https://weanalyze.co) account
+
+    You need both [dockerhub](https://hub.docker.com/) and [weanalyze](https://weanalyze.co) account to deploy your function.
+
+    Set environment variable `DOCKERHUB_USERNAME` as your dockerhub username:
+
+    ```bash
+    export DOCKERHUB_USERNAME={YOUR_DOCKERHUB_USERNAME}
+    ```
+
+    or save it into `.env` under your project folder. Your project dir may seems like this:
+
+    ```bash
+    hello_workcell
+    ├── .env
+    ├── app.py
+    └── requirements.txt    
+    ```
+
+    ### usage
+
+    Let's deploy your function on weanalyze cloud! 
+
+    First, login on weanalyze cloud:
+    
+    ```bash
+    # login on weanalyze cloud
+    workcell login -u {WEANALYZE_USERNAME}    
+    ```
+
+    In your project folder:
+
+    ```bash
+    # 1-click deploy!
+    workcell up app:hello_workcell
+    ```
+    _In the output, there's a line that shows where your serverless funtion is being served, on weanalyze cloud._
+
+    If you want to deploy function in multiple steps:
+    
+    ```bash
+    workcell build app:hello_workcell
+    workcell push
+    ```
+    _Build workcell into docker image, then push to dockerhub._
+
+    ```bash
+    workcell deploy
+    ```
+    _Deploy builded docker image on weanalyze cloud._
+
+
+5. Find out more usage information and get inspired by our [examples](https://github.com/weanalyze/workcell/tree/main/examples).
+
+## License
+
+Apache-2.0 License.
+
