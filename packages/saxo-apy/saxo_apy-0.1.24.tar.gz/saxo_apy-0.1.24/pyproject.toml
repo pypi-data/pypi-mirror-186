@@ -1,0 +1,46 @@
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "mypy>=0.991",
+    "black[jupyter]>=22.12.0",
+    "flake8>=5.0.4",
+    "pydocstyle>=6.2.3",
+    "pytest>=7.2.1",
+    "pytest-cov>=4.0.0",
+    "jupyter>=1.0.0",
+    "isort>=5.11.4",
+]
+
+[project]
+name = "saxo-apy"
+description = "A lightweight Python client for hassle-free tinkering with Saxo OpenAPI."
+authors = [
+    {name = "Gid", email = "giddevanderven@gmail.com"},
+]
+dependencies = [
+    "httpx>=0.23.3",
+    "pydantic>=1.10.4",
+    "flask>=2.2.2",
+    "websockets>=10.4",
+    "loguru>=0.6.0",
+]
+requires-python = ">=3.7"
+readme = "README.md"
+license = {text = "MIT"}
+dynamic = ["version"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = 'saxo_apy/version.py'
+
+[tool.pdm.scripts]
+pydocstyle = "pydocstyle ./saxo_apy"
+isort = "isort ./saxo_apy --profile black"
+black = "black ./saxo_apy"
+flake8 = "flake8 ./saxo_apy"
+mypy = "mypy ./saxo_apy"
+lint = {composite = ["pydocstyle", "isort", "black", "flake8", "mypy"]}
+test = "pytest ./tests --cov=saxo_apy --cov-report term-missing -v"
