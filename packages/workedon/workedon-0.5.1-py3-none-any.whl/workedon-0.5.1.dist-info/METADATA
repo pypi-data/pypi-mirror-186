@@ -1,0 +1,176 @@
+Metadata-Version: 2.1
+Name: workedon
+Version: 0.5.1
+Summary: CLI tool for daily work logging.
+Home-page: https://github.com/viseshrp/workedon
+Author: Visesh Prasad
+Author-email: viseshrprasad@gmail.com
+Maintainer: Visesh Prasad
+Maintainer-email: viseshrprasad@gmail.com
+License: MIT license
+Project-URL: Documentation, https://github.com/viseshrp/workedon
+Project-URL: Changelog, https://github.com/viseshrp/workedon/blob/main/CHANGELOG.rst
+Project-URL: Bug Tracker, https://github.com/viseshrp/workedon/issues
+Project-URL: Source Code, https://github.com/viseshrp/workedon
+Keywords: workedon work worklog log journal
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: click (>=8.1.1)
+Requires-Dist: colorama (>=0.4.4)
+Requires-Dist: dateparser (>=1.1.4)
+Requires-Dist: tzlocal (>=4.0)
+Requires-Dist: click-default-group (>=1.2.2)
+Requires-Dist: peewee (>=3.15.2)
+Requires-Dist: platformdirs (>=2.6.0)
+Requires-Dist: backports.zoneinfo (>=0.2.1) ; python_version < "3.9"
+
+===========
+workedon
+===========
+
+
+.. image:: https://img.shields.io/pypi/v/workedon.svg
+        :target: https://pypi.python.org/pypi/workedon
+
+.. image:: https://pepy.tech/badge/workedon
+        :target: https://pepy.tech/project/workedon
+        :alt: Downloads
+
+
+CLI utility for daily work logging.
+
+
+Installation
+------------
+
+.. code-block:: bash
+
+    $ pip install -U workedon
+
+
+Requirements
+------------
+
+Python 3.7+
+
+
+Features
+--------
+
+* Save by date or fetch work saved by date.
+
+    Examples:
+
+    .. code-block:: bash
+
+        # Saving work:
+        $ workedon studying for the SAT @ June 2010
+        $ workedon pissing my wife off @ 2pm yesterday
+        $ workedon painting the garage
+
+        # Fetching work:
+        $ workedon what
+        $ workedon what --from "2pm yesterday" --to "9am today"
+        $ workedon what --today
+        $ workedon what --past-month
+
+See all options with:
+
+.. code-block:: bash
+
+    $ workedon --help
+    $ workedon what --help
+
+Credits
+-------
+* Click_, for making writing CLI tools a complete pleasure.
+* dateparser_, for an amazing date parser.
+* jrnl_ and `fck`_ for some inspiration.
+
+.. _Click: https://click.palletsprojects.com
+.. _dateparser: https://github.com/scrapinghub/dateparser
+.. _jrnl: https://github.com/jrnl-org/jrnl
+.. _fck: https://github.com/nvbn/thefuck
+
+=======
+History
+=======
+
+0.5.1 (2023-01-18)
+------------------
+
+* fix start > end check
+* add --at to fetch work done at a particular time on a particular date/day
+
+0.5.0 (2023-01-14)
+------------------
+
+* Breaking: rename database to won.db
+
+0.4.5 (2023-01-13)
+------------------
+
+* fix error message
+
+0.4.4 (2023-01-13)
+------------------
+
+* raise if start date is greater than end date
+
+0.4.3 (2023-01-12)
+------------------
+
+* don't force color when paging
+
+0.4.2 (2023-01-12)
+------------------
+
+* Python 3.11 support
+
+0.4.1 (2023-01-12)
+------------------
+
+* ask for deletion only if there's something
+* use tz aware now() for comparison
+
+0.4.0 (2023-01-11)
+------------------
+
+* Breaking: rename database to wondb.sqlite3
+* force colored output on windows
+* use tz aware RELATIVE_BASE
+
+0.3.3 (2023-01-09)
+------------------
+
+* add --delete/-d for deletion
+* add --on to fetch work done on a particular date/day
+* add --last/-s to fetch the last entered work log
+
+0.3.2 (2023-01-08)
+------------------
+
+* make dependency versions flexible
+
+0.3.1 (2023-01-08)
+------------------
+
+* Fixed README
+
+0.3.0 (2023-01-08)
+------------------
+
+* First release on PyPI.
