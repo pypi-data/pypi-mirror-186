@@ -1,0 +1,85 @@
+# ---------------------------
+# Code Quality workflow
+# ---------------------------
+
+include:
+  # https://docs.gitlab.com/ee/user/application_security/dependency_scanning/
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+  # https://docs.gitlab.com/ee/user/compliance/license_compliance/
+  - template: Security/License-Scanning.gitlab-ci.yml
+  # https://computing.docs.ligo.org/gitlab-ci-templates/
+  - project: computing/gitlab-ci-templates
+    # https://computing.docs.ligo.org/gitlab-ci-templates/python/
+    file: python.yml
+
+# -- code quality -----------
+#
+# These jobs check the code for
+# quality issues
+#
+
+flake8:
+  stage: Code quality
+  extends:
+    # https://computing.docs.ligo.org/gitlab-ci-templates/python/#.python:flake8
+    - .python:flake8
+  needs: []
+  variables:
+    # don't fail the pipeline because of linting issues,
+    # these are presented in the code-quality box in the
+    # merge_request UI
+    FLAKE8_OPTIONS: "--exit-zero"
+  before_script:
+    # pick requirements out of the setup.cfg
+    - ${PYTHON} -m pip install setuptools --upgrade-strategy=only-if-needed
+    - |
+      REQUIREMENTS=$(${PYTHON} -c "
+      from setuptools import Distribution
+      dist = Distribution()
+      dist.parse_config_files()
+      for req in dist.extras_require['lint']:
+          print(req)
+      ")
+    # install things
+    - !reference [".python:flake8", before_script]
+
+# -- dependency scanning ----
+#
+# This job checks for dependency
+# issues
+#
+
+dependency_scanning:
+  stage: Code quality
+  needs: []
+  before_script:
+    - |
+      python -c "
+      from setuptools import Distribution
+      dist = Distribution()
+      dist.parse_config_files()
+      reqs = dist.setup_requires + dist.install_requires
+      for extra in ('test',):
+          reqs.extend(dist.extras_require[extra])
+      print('\n'.join(reqs))
+      " | sort -u > requirements.txt
+
+# -- license scanning -------
+#
+# This job checks for license
+# issues
+
+license_scanning:
+  stage: Code quality
+  needs: []
+  before_script:
+    # manually create requirements.txt
+    - apt-get -yqq update && apt-get -yqq install python3 python3-setuptools
+    - |
+      python3 -c "
+      from setuptools import Distribution
+      dist = Distribution()
+      dist.parse_config_files()
+      reqs = dist.setup_requires + dist.install_requires
+      print('\n'.join(reqs))
+      " | sort -u > requirements.txt
