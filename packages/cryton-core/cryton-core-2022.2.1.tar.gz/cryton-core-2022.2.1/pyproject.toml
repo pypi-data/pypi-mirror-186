@@ -1,0 +1,63 @@
+[tool.poetry]
+name = "cryton-core"
+version = "2022.2.1"
+description = "Advanced scheduler for attack scenarios"
+authors = [
+    "Ivo Nutár <nutar@ics.muni.cz>",
+    "Milan Boháček <bohacek@ics.muni.cz>",
+    "Jiří Rája <raja@ics.muni.cz>",
+    "Andrej Tomči <tomci@ics.muni.cz>"
+]
+maintainers = [
+    "Jiří Rája <raja@ics.muni.cz>",
+    "Milan Boháček <bohacek@ics.muni.cz>"
+]
+license = "MIT"
+homepage = "https://gitlab.ics.muni.cz/beast-public/cryton"
+repository = "https://gitlab.ics.muni.cz/beast-public/cryton/cryton-core"
+documentation = "https://beast-public.gitlab-pages.ics.muni.cz/cryton/cryton-documentation/"
+keywords = [
+    "cryton", "core", "advanced", "scheduler"
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+APScheduler = "~3.8.1"
+Django = "~4.0.1"
+django-cors-headers = "~3.11.0"
+djangorestframework = "~3.13.1"
+drf-spectacular = "~0.21.2"
+drf-spectacular-sidecar = "~2022.2.21"
+Jinja2 = "~3.0.3"
+model-bakery = "~1.4.0"
+psycopg2-binary = "~2.9.3"
+PyYAML = "~6.0"
+rpyc = "~5.0.1"
+schema = "~0.7.5"
+structlog = "~21.5.0"
+pytz = "~2021.3"
+AMQPStorm = "~2.10.4"
+uuid = "~1.30"
+SQLAlchemy = "~1.4.29"
+gunicorn = "~20.1.0"
+uvicorn = "~0.17.5"
+tzlocal = "~4.1"
+python-dotenv = "~0.20.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "~6.2.5"
+pytest-cov = "~3.0.0"
+pytest-django = "~4.5.2"
+pytest-mock = "~3.6.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+cryton-core = 'cryton_core.manage:main'
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
