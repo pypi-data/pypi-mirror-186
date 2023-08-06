@@ -1,0 +1,40 @@
+import sys
+import typing
+import bpy.types
+
+GenericType = typing.TypeVar("GenericType")
+
+
+def bake(override_context: typing.Union[typing.
+                                        Dict, 'bpy.types.Context'] = None,
+         execution_context: typing.Union[str, int] = None,
+         undo: typing.Optional[bool] = None):
+    ''' Bake fluid simulation
+
+    :type override_context: typing.Union[typing.Dict, 'bpy.types.Context']
+    :type execution_context: typing.Union[str, int]
+    :type undo: typing.Optional[bool]
+    '''
+
+    pass
+
+
+def preset_add(override_context: typing.
+               Union[typing.Dict, 'bpy.types.Context'] = None,
+               execution_context: typing.Union[str, int] = None,
+               undo: typing.Optional[bool] = None,
+               *,
+               name: typing.Union[str, typing.Any] = "",
+               remove_active: typing.Union[bool, typing.Any] = False):
+    ''' Add or remove a Fluid Preset
+
+    :type override_context: typing.Union[typing.Dict, 'bpy.types.Context']
+    :type execution_context: typing.Union[str, int]
+    :type undo: typing.Optional[bool]
+    :param name: Name, Name of the preset, used to make the path name
+    :type name: typing.Union[str, typing.Any]
+    :param remove_active: remove_active
+    :type remove_active: typing.Union[bool, typing.Any]
+    '''
+
+    pass
