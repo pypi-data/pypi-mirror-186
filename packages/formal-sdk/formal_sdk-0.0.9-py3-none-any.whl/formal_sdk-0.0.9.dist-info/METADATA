@@ -1,0 +1,105 @@
+Metadata-Version: 2.1
+Name: formal-sdk
+Version: 0.0.9
+Summary: Formal SDK
+Author-email: Formal <hello@joinformal.com>
+License: Copyright (c) 2018 The Python Packaging Authority
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+Project-URL: Homepage, https://github.com/formalco
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: grpc-interceptor (<1,>=0.15.0)
+
+
+
+# Formal Admin Python SDK
+
+
+This is the Python SDK for the Formal Admin API.
+
+
+## Installing
+
+
+    pip install formal-sdk
+
+
+## Example Use
+
+```python
+import os
+from formal_sdk import Client, admin_pb2
+
+if __name__ == '__main__':
+    path = ""
+    tagId = ""
+    datastoreId = ""
+    newClient = Client(os.environ.get('TEST_CLIENT_ID'),
+                       os.environ.get('TEST_SECRET_KEY'))
+
+    # Create Inventory Tag
+    res = newClient.InventoryService.CreateInventoryTag(
+        admin_pb2.CreateInventoryTagRequest(name='newtag')
+    )
+
+    # Get Inventory Tags
+    res = newClient.InventoryService.GetInventoryTags(
+        admin_pb2.GetInventoryTagsRequest()
+    ) 
+
+    # Delete Tag
+    res = newClient.InventoryService.DeleteInventoryTag(
+        admin_pb2.DeleteInventoryTagRequest(id=tagId)
+    )
+
+    # Create Inventory Object
+
+    res = newClient.InventoryService.CreateInventoryObject(
+        admin_pb2.CreateInventoryObjectRequest(datastore_id=datastoreId, object_type="sub-column",
+        sub_column=admin_pb2.CreateInventoryObjectRequest.SubColumn(path=path, name="name", sub_type="json"))
+    )
+
+    # Update Inventory Object Tags
+    res = newClient.InventoryService.UpdateInventoryObjectTags(
+        admin_pb2.UpdateInventoryObjectTagsRequest(datastore_id=datastoreId, path=path,
+                                                        tags=[tagId])
+    )
+
+    # Update Column Lock Status
+    res = newClient.InventoryService.UpdateColumnLockStatus(
+        admin_pb2.UpdateColumnLockStatusRequest(datastore_id=datastoreId, path=path,
+                                                     validated=True)
+    )
+
+    res = newClient.InventoryService.UpdateColumnDataLabel(
+        admin_pb2.UpdateColumnDataLabelRequest(datastore_id=datastoreId, path=path,
+                                                    data_label="email")
+    )
+
+    # Delete Inventory Object
+    res = newClient.InventoryService.DeleteInventoryObject(
+        admin_pb2.DeleteInventoryObjectRequest(
+            datastore_id=datastoreId, path=path)
+    )
+```
