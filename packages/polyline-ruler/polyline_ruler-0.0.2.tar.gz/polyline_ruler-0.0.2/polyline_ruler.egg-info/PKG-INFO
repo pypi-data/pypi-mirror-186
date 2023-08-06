@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: polyline-ruler
+Version: 0.0.2
+Summary: cubao/polyline-ruler is more than mapbox/cheap-ruler
+Home-page: https://github.com/cubao/polyline-ruler
+Author: tzx
+Author-email: dvorak4tzx@gmail.com
+Description-Content-Type: text/markdown
+Provides-Extra: test
+License-File: LICENSE
+
+# polyline-ruler
+
+Init from [mapbox/cheap-ruler](https://github.com/mapbox/cheap-ruler) but more than that.
+
+## Installation
+
+### via pip
+
+```
+pip install polyline-ruler
+```
+
+### from source
+
+```bash
+git clone --recursive https://github.com/cubao/polyline-ruler
+pip install ./polyline-ruler
+```
+
+Or
+
+```
+pip install git+https://github.com/cubao/polyline-ruler.git
+```
+
+(you can build wheels for later reuse by ` pip wheel git+https://github.com/cubao/polyline-ruler.git`)
+
+## Usage
+
+See [`tests/test_basic.py`](tests/test_basic.py).
+
+## Tests
+
+```
+python3 tests/test_basic.py
+```
