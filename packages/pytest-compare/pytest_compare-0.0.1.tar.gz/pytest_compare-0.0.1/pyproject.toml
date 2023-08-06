@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "pytest_compare"
+description = "pytest plugin for comparing call arguments."
+readme = "README.md"
+requires-python = ">=3.7"
+authors = [{ name = "Ilya Michlin", email = "ilyamichlin1@gmail.com" }]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+
+    "Intended Audience :: Developers",
+
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dynamic = ["version"]
+dependencies = [
+    "pytest",
+]
+
+
+[project.optional-dependencies]
+dataframe = ["pandas"]
+
+
+[project.urls]
+documentation = "https://github.com/IlyaMichlin/pytest-compare/blob/master/README.md"
+repository = "https://github.com/IlyaMichlin/pytest-compare/"
+
+
+[tool.setuptools.dynamic]
+version = { attr = "pytest_compare.__init__.__version__" }
+
+
+[tool.setuptools.packages.find]
+include = ["pytest_compare*"]
+namespaces = false
+
+
+[tools.black]
+force-exclude = '''
+/(
+  | /*venv*
+  | /.git
+  | /dist
+  | /pytest_compare.egg-info
+)/
+'''
