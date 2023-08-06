@@ -1,0 +1,26 @@
+version: 1
+formatters:
+  scoped:
+    format: "[%(levelname).1s] %(asctime).19s (%(name)s):\t%(message)s"
+  minimal:
+    format: "%(levelname)s: %(message)s"
+handlers:
+  cli_printer:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: minimal
+    stream: ext://sys.stdout
+  server_stdio:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: scoped
+    stream: ext://sys.stdout
+loggers:
+  autumn8.cli:
+    level: INFO
+    handlers: [cli_printer]
+    propagate: no
+
+root:
+  level: INFO
+  handlers: [server_stdio]
