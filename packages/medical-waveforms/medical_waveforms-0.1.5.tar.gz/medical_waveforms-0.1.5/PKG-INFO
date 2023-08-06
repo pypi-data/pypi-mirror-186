@@ -1,0 +1,64 @@
+Metadata-Version: 2.1
+Name: medical-waveforms
+Version: 0.1.5
+Summary: Preprocessing and analysis of physiological waveforms
+Home-page: https://github.com/UCL-Chimera/medical-waveforms
+Author: Finneas Catling
+Author-email: f.catling@imperial.ac.uk
+Requires-Python: >=3.8
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: matplotlib (>=3.5.1,<4.0.0)
+Requires-Dist: numpy (>=1.22,<2.0)
+Requires-Dist: pandas (>=1.3.4,<2.0.0)
+Requires-Dist: pyampd (>=0.0.1,<0.0.2)
+Requires-Dist: pydantic (>=1.9.2,<2.0.0)
+Requires-Dist: scipy (>=1.7.3,<2.0.0)
+Project-URL: Repository, https://github.com/UCL-Chimera/medical-waveforms
+Description-Content-Type: text/markdown
+
+![Run tests workflow](https://github.com/UCL-Chimera/medical-waveforms/actions/workflows/run_tests.yml/badge.svg) ![Linting workflow](https://github.com/UCL-Chimera/medical-waveforms/actions/workflows/lint.yml/badge.svg)
+
+# medical-waveforms
+
+**medical-waveforms** is a Python package for preprocessing and analysis of physiological waveforms.
+
+This package currently focuses on:
+
+- Splitting waveforms into individual cycles (e.g. splitting a respiratory waveform into individual breaths)
+- Extracting features from individual cycles
+- Rule-based signal quality assessment
+
+
+## Installation
+
+Install with:
+
+```
+pip install medical-waveforms
+```
+
+The package is tested on Python 3.8 - 3.11.
+
+
+## Getting started
+
+See the [tutorial notebook](https://github.com/UCL-Chimera/medical-waveforms/blob/main/examples/tutorial.ipynb) for a general introduction to using the package.
+
+The [signal quality assessment notebook](https://github.com/UCL-Chimera/medical-waveforms/blob/main/examples/signal_quality.ipynb) demonstrates customisation of the signal quality assessment process.
+
+These tutorials currently focus on arterial blood pressure waveforms, but can be adapted to other physiological waveforms.
+
+
+## Contributing to this project
+
+Contributions are very welcome! Please see [CONTRIBUTING.md](https://github.com/UCL-Chimera/medical-waveforms/blob/main/CONTRIBUTING.md) to get started.
+
+
+## Acknowledgements
+
+Our signal quality assessment pipeline is adapted from that used in the excellent [PhysioNet Cardiovascular Signal Toolbox](https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox). Many thanks to its [contributors](https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox/graphs/contributors).
+
