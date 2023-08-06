@@ -1,0 +1,54 @@
+[tool.poetry]
+name = "arkitekt"
+version = "0.4.9"
+description = "client for the arkitekt platform"
+authors = ["jhnnsrs <jhnnsrs@gmail.com>"]
+license = "CC BY-NC 3.0"
+packages = [{ include = "arkitekt" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+herre = ">=0.3.4"
+fakts = ">=0.3.5"
+rekuest = ">=0.1.16"
+mikro = ">=0.3.12"
+unlok = ">=0.1.5"
+fluss = ">=0.1.32"
+
+[tool.poetry.group.dev.dependencies]
+testcontainers = "3.7.0"
+autoflake = "^1.7.7"
+pytest = "^7.2.0"
+PyQtWebEngine = "^5.15.5"
+PyQt5 = "^5.15.6"
+pytest-qt = "^4.2.0"
+pytest-asyncio = "^0.20.2"
+turms = { version = ">=0.2.3", python = "^3.9" }
+aiohttp = "^3.8.3"
+websockets = "^10.4"
+black = "^22.10.0"
+pytest-cov = "^4.0.0"
+scikit-image = "^0.19.3"
+
+[tool.poetry.scripts]
+arkitekt = "arkitekt.cli.main:entrypoint"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+qt_api = "pyqt5"
+markers = [
+    "integration: marks tests that require a running server",
+    "qt: marks tests that require a running qt application",
+]
+
+
+[[tool.pydoc-markdown.loaders]]
+type = "python"
+search_path = ["arkitekt"]
+
+[tool.pydoc-markdown.renderer]
+type = "docusaurus"
+docs_base_path = "website/docs"
