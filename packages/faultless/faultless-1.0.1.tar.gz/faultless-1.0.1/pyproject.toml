@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "faultless"
+version = "1.0.1"
+description = "Catch segfaults as normal exceptions"
+authors = ["Sofia Lima <me@dzshn.xyz>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/dzshn/faultless"
+repository = "https://github.com/dzshn/faultless"
+keywords = ["segfault"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: Unix",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.group.dev.dependencies]
+coverage = "^7.0.5"
+tox = "^4.3.0"
+
+[tool.mypy]
+python_version = "3.8"
+strict = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
