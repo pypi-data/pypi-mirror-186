@@ -1,0 +1,71 @@
+[tool.poetry]
+name = "cosmosid_cli"
+version = "2.1.8"
+description = "Command line interface (CLI) and Python 3 client library for interacting with the CosmosID API"
+authors = ["CosmosID <support@cosmosid.com>"]
+readme = "README.md"
+license = "MIT"
+
+packages = [
+    { include = "cosmosid" }
+]
+include = ["README.md"]
+
+homepage = "https://www.cosmosid.com"
+documentation = "https://docs.cosmosid.com"
+repository = "https://github.com/CosmosID/cosmosid-cli"
+
+keywords = ["cosmosID", "cosmosid_cli", "cosmosid-cli", "cosmos"]
+
+classifiers = [
+    "Environment :: Console"
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/CosmosID/cosmosid-cli/issues"
+Changelog = "https://github.com/CosmosID/cosmosid-cli/blob/master/CHANGELOG.md"
+
+[tool.poetry.dependencies]
+python = ">=3.6.2, <4"
+requests = ">=2.27.1"
+boto3 = ">=1.21.28"
+s3transfer = ">=0.5.2"
+cliff = ">=3.10.1"
+concurrent-log-handler = "^0.9.20"
+pycurl = { version = "^7.45.1", optional = true }
+importlib_metadata = "^4.8.3"
+
+[tool.poetry.extras]
+pycurl = ["pycurl"]
+
+[tool.poetry.dev-dependencies]
+black = "^22.3.0"
+isort = "^5.10.1"
+pytest = "*"
+pytest-cov = "*"
+pylint = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+line_length = 88
+
+[tool.poetry.scripts]
+cosmosid = "cosmosid.cli:main"
+
+[tool.poetry.plugins."cosmosid"]
+files = "cosmosid.commands.files:Files"
+runs = "cosmosid.commands.runs:Runs"
+analysis = "cosmosid.commands.analysis:Analysis"
+upload = "cosmosid.commands.upload:Upload"
+reports = "cosmosid.commands.reports:Reports"
+artifacts = "cosmosid.commands.artifacts:Artifacts"
+downloads = "cosmosid.commands.downloads:Downloads"
+comparatives = "cosmosid.commands.comparatives:Comparatives"
+comparative_analyses = "cosmosid.commands.comparative_analyses:ComparativeAnalyses"
+comparative_analyses_export = "cosmosid.commands.comparative_analyses_export:ComparativeAnalysesExport"
