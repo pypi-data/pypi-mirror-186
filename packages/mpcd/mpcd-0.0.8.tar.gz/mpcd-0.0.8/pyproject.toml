@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mpcd"
+version = "0.0.8"
+authors = [
+  { name="Yuehao Wang", email="mail@yuehao.wang" },
+]
+description = "Pure Python PCD reader/writer"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+
+dependencies = [
+  'numpy',
+  'python-lzf',
+  'Pillow',
+  'opencv-python'
+]
+
+[project.urls]
+"Homepage" = "https://github.com/BossaMelon/mpcd"
+"Bug Tracker" = "https://github.com/BossaMelon/mpcd/issues"
