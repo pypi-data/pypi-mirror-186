@@ -1,0 +1,43 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel",
+]
+build-backend="setuptools.build_meta"
+
+[project]
+name = "djangocms-zb-organizations"
+version = "2.1.3"
+authors = [
+    {name="Jhony Gonzalez", email="jhonny.gonzalez@cqinversiones.co"}
+]
+description = "Zibanu Organizations Plugin for Django CMS"
+readme = "README.md"
+license = {file="LICENSE"}
+requires-python = ">=3.7"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.9",
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Environment :: Web Environment",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Application Frameworks"
+]
+dependencies = [
+    "Django>=3.2<4",
+    "django-cms>=3.9",
+    "django-filer",
+    "django-ckeditor",
+    "django-cities-light",
+    "geopandas",
+    "gdal>=3.0.4",
+    "djangorestframework-gis"
+]
+keywords = [
+    "django",
+    "zibanu",
+    "organizations",
+    "openstreetmap"
+]

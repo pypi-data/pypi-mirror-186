@@ -1,0 +1,62 @@
+{% load i18n cms_tags thumbnail %}
+<div id="content-carousel-logos">
+    {% for organization in organizations %}
+        {% if forloop.first %}
+            <div id="organizations-carousel-logo-{{ instance }}" class="carousel slide pb-5" data-interval="8000"
+                 data-ride="carousel">
+                <ol class="carousel-indicators">
+        {% endif %}
+                {% if forloop.counter|divisibleby:4 %}
+                    {% widthratio forloop.counter 4 1 as contador %}
+                    <li data-target="#organizations-carousel-logo-{{ instance }}" data-slide-to="{{ contador|add:-1 }}"
+                            {% if forloop.counter == 4 %} class="active"{% endif %} style="border: 1px solid #BABABA; border-radius:50%; width: 1rem; height: 1rem;"></li>
+                {% endif %}
+            {% if forloop.last %}
+                {% if not forloop.counter|divisibleby:4 %}
+                    <li data-target="#organizations-carousel-logo-{{ instance }}" data-slide-to="{{ contador }}"
+                            {% if forloop.counter == 4 %} class="active"{% endif %} style="border: 1px solid #BABABA; border-radius:50%; width: 1rem; height: 1rem;"></li>
+                {% endif %}
+                </ol>
+            {% endif %}
+    {% endfor %}
+    {% for organization in organizations %}
+        {% if forloop.first %}
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-interval="8000">
+                    <div class="row mb-4">
+        {% endif %}
+                        <div class="col-3 my-auto p-0 text-center">
+                            {% if organization.micro_site_organization %}
+                                <a href="{% url 'organizations:micro_site' organization.micro_site_organization.slug %}" target="_blank">
+                                    <img src="{{ organization.logo.url }}" alt="{{ organization.logo.default_alt_text }}" title="{{ organization.name }}" height="100" style="max-width:75%">
+                                </a>
+                            {% else %}
+                                <img src="{{ organization.logo.url }}"  alt="{{ organization.logo.default_alt_text }}" title="{{ organization.name }}" height="100" style="max-width:75%">
+                            {% endif %}
+                        </div>
+            {% if forloop.counter|divisibleby:4 %}
+                    </div>
+                </div>
+                {% if forloop.last %}
+                    </div>
+                {% else %}
+                    <div class="carousel-item " data-interval="8000">
+                        <div class="row mb-4">
+                {% endif %}
+            {% else %}
+                {% if forloop.last %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
+    {% empty %}
+         <div class="alert alert-info m-3" role="alert">{% trans "There are no logos of organizations or companies to display." %}</div>
+    {% endfor %}
+    </div>
+</div>
+
+
+
+
+

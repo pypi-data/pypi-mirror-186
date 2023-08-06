@@ -1,0 +1,156 @@
+{% extends "djangocms_zb_organizations/base.html" %}
+{% load i18n cms_tags %}
+{% block content %}
+    <nav class="navbar navbar-light bg-light p-3">
+        <div class="row w-100">
+            <div class="col-2 my-auto">
+                {% if organizations %}
+                    {% if not request.GET %}
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle btn btn-info d-inline" href="#" id="navbarDropdown"
+                               role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                               style="line-height: normal !important;">
+                                {% trans "Filter" %}
+                            </a>
+                            <div class="dropdown-menu" id="navbar" aria-labelledby="navbarDropdown">
+                                <form class="py-4 px-2" action="" method="post">{% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="select-search">{% trans "Filter by:" %}</label>
+                                        <select class="form-control" id="select-search" name="select-search">
+                                            <option value="0">{% trans "Select" %}</option>
+                                            <option value="subregion">{% trans "City" %}</option>
+                                            <option value="keyword">{% trans "keyword" %}</option>
+                                            <option value="category">{% trans "Category" %}</option>
+                                            <option value="service">{% trans "Product or Service" %}</option>
+                                            <option value="name">{% trans "Name" %}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="group-s-category" style="display: none;">
+                                        <label for="s-category" id="label-s-category">{% trans "Subcategories:" %}</label>
+                                        <select class="form-control" name="s-category" id="s-category">
+                                            <option value="0">Select</option>
+                                            {% for subcategory in subcategories %}
+                                                <option value="{{ subcategory.name }}">{{ subcategory }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <button type="submit" class="btn btn-primary mt-3" id="btn-send-s-category"
+                                                style="display: none">{% trans "Send" %}
+                                        </button>
+                                    </div>
+                                    <div class="form-group mb-3" id="group-input-search" style="display: none;">
+                                        <label for="input-search" id="label-input-search">{% trans "Contains:" %}</label>
+                                        <input type="text" class="form-control" id="input-search" name="input-search">
+                                        <p id="msm-keyword" style="display: none" class="small">{% trans "You can type multiple words separated by commas." %}</p><br>
+                                        <button type="submit" class="btn btn-primary mt-3" name="btn_search">{% trans "Send" %}</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="col-8 text-center">
+                <h3 class="font-weight-bold my-0 py-0">{{ instance.category }}</h3>
+            </div>
+            <div class="col-2 m-auto">
+                {% if request.POST %}
+                    <a href="{{ request.path }}" class="btn btn-danger" id="delete-filter">
+                        {% trans "Remove Filter" %}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="alert alert-warning mt-3 d-none" role="alert" id="alert-msm">
+        La organización seleccionada no tiene coordenadas registradas
+    </div>
+    <div class="row mt-4">
+        <div class="col-3">
+            <div class="list-group" id="list-tab" role="tablist" style="height:600px; overflow-y: auto; border: 1px solid #e6effd;">
+                {% for organization in organizations %}
+                    {% if organization.latitude is None or organization.longitude is None %}
+                         <a class="list-group-item list-group-item-action" id="list-organization-{{ organization.id }}"
+                       data-toggle="list" href="#list-{{ organization.id }}" role="tab"
+                       aria-controls="{{ organization.id }}" onclick="showMsm()">{% render_model organization "name" %}</a>
+                    {% else %}
+                         <a class="list-group-item list-group-item-action" id="list-organization-{{ organization.id }}"
+                       data-toggle="list" href="#list-{{ organization.id }}" role="tab"
+                       aria-controls="{{ organization.id }}" onclick="markerCenter({{ organization.id }})">{% render_model organization "name" %}</a>
+                    {% endif %}
+                {% empty %}
+                    <div class="alert alert-info m-3" role="alert">{% trans "There are no organizations or companies to display" %}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-6">
+            <div id="map" style="height: 600px; border: 1px solid #e6effd;"></div>
+        </div>
+        <div class="col-3" >
+            <div class="tab-content" id="nav-tabContent" style="height:600px; overflow-y: auto; border: 1px solid #e6effd;">
+                {% for organization in organizations %}
+                    {% render_model_block organization %}
+                    <div class="tab-pane fade show p-2" id="list-{{ organization.id }}" role="tabpanel"
+                         aria-labelledby="list-organization-{{ organization.id }}">
+                        <h6 class="font-weight-bold">{% trans "Organization or Branch Data" %}</h6>
+                        {% if organization.initial %}
+                            <h6>{{ organization.initial }}</h6>
+                        {% endif %}
+                        <p><i class="fa-light fa-map-location"></i>{% if organization.address %} {{ organization.address }}{% else %} Dirección no registrada {% endif %}</p>
+                        <p><i class="fa-light fa-map-location"></i> {{ organization.country }}</p>
+                        <p><i class="fa-light fa-map-location"></i> {{ organization.region }}</p>
+                        <p><i class="fa-light fa-map-location"></i> {{ organization.subregion }}</p>
+                        <p><i class="fa-light fa-phone-office"></i> {% if organization.phone %} {{ organization.phone }}{% else %} Teléfono no registrado {% endif %}</p>
+                        <p><i class="fa-light fa-envelopes-bulk"></i> {% if organization.email %} {{ organization.email }}{% else %} Email no registrado {% endif %}</p>
+                        {% if organization.schedule %}
+                            <h6 class="font-weight-bold">{% trans "Attention schedule" %}</h6>
+                            <p>{{ organization.schedule }}</p>
+                        {% endif %}
+                        {% if organization.micro_site_organization and organization.micro_site_organization.is_enabled %}
+                            <div class="text-center">
+                                <a href="{% url 'organizations:micro_site' organization.micro_site_organization.slug %}"
+                                   class="btn btn-info text-center" target="_blank">{% trans "See Microsite" %}</a>
+                            </div>
+                        {% endif %}
+                        <hr>
+                        {% if organization.contact_organization.all %}
+                            {% for contact in organization.contact_organization.all %}
+                                {% if contact.is_enabled %}
+                                    {% if contact and forloop.first %}
+                                        <h6 class="font-weight-bold">
+                                            {% trans "Contact" %}{{ organization.contact_organization.all|pluralize }}</h6>
+                                    {% endif %}
+                                    <p class=""><i class="fa-light fa-person"></i> {{ contact.name }}</p>
+                                    {% if contact.phone %}
+                                        <p><i class="fa-light fa-mobile-retro"></i> {{ contact.phone }}</p>
+                                    {% endif %}
+                                    {% if contact.email %}
+                                        <p><i class="fa-light fa-envelopes-bulk"></i> {{ contact.email }}</p>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <hr>
+                        {% endif %}
+                        {% for category in organization.category.all %}
+                            {% if category and forloop.first %}
+                                <h6 class="font-weight-bold">{% trans "Category" %}{{ organization.category.all|pluralize }}</h6>
+                            {% endif %}
+                            <p>{{ category }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endrender_model_block %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <p class="m-2 font-weight-bold">Total organizaciones o empresas: {{ organizations|length }} </p>
+    {% block js_extra %}
+        <script>
+            org = {{ org_js|safe }};
+        </script>
+    {% endblock js_extra %}
+{% endblock content %}
+
+
+
+
