@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "moms_apriltag"
+version = "2023.01.15"
+description = "Generate apriltags, calibration targets, and camera (mono/stereo) calibration"
+authors = ["walchko <walchko@users.noreply.github.com>"]
+readme = "readme.md"
+license = "MIT"
+homepage = "https://pypi.org/project/apriltag_gen/"
+repository = 'https://github.com/MomsFriendlyRobotCompany/apriltag_gen'
+# documentation = "http://..."
+keywords = ["apriltag", "apriltagv2", "apriltagv3", "camera", "calibration"]
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Developers',
+    "Framework :: Robot Framework :: Library",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    'License :: OSI Approved :: MIT License',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Topic :: Software Development :: Libraries',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+    'Topic :: Software Development :: Libraries :: Application Frameworks',
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Image Processing"
+]
+
+[tool.poetry.scripts]
+grab_images = 'moms_apriltag.bin.grab_images:main'
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+numpy = "*"
+opencv-contrib-python = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+
+[build-system]
+requires = ["poetry>=1.0.0"]
+build-backend = "poetry.masonry.api"
