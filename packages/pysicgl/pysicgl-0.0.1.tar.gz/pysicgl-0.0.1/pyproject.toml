@@ -1,0 +1,49 @@
+[project]
+name = "pysicgl"
+authors = [
+  {name = "oclyke", email = "oclyke@gmail.com"},
+]
+description = "sicgl for Python"
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = [
+  "sicgl",
+  "2d", "2D",
+  "small",
+  "iterator",
+  "graphics",
+  "library",
+  "c",
+  "extension",
+]
+classifiers = [
+  "Topic :: Multimedia :: Graphics",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Development Status :: 3 - Alpha",
+]
+dynamic = [
+  "version"
+]
+
+[project.urls]
+Source = "https://github.com/oclyke-dev/pysicgl"
+
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+
+[tool.cibuildwheel]
+
+[tool.black]
+include = '''
+src\/.*\.pyi?$|
+tests\/.*\.pyi?$|
+examples\/.*\.pyi?$
+'''
+exclude = '''
+third-party\/.*\.pyi?$|
+venv\/.*\.pyi?$
+'''
