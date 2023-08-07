@@ -1,0 +1,21 @@
+name: test-env-win
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - cf_xarray>=0.6
+  - dask
+  - netcdf4
+  - numpy
+  - pip
+  - requests
+  - scikit-learn  # used by xoak for tree
+  - xarray
+  # - xoak
+  - pytest
+  - pytest-benchmark
+  - pip:
+    - codecov
+    - pytest-cov
+    - coverage[toml]
+    - git+https://github.com/kthyng/xoak@include_distances
