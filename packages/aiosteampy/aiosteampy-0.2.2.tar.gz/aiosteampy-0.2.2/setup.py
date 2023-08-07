@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+from setuptools import setup
+
+packages = \
+['aiosteampy']
+
+package_data = \
+{'': ['*']}
+
+install_requires = \
+['aiohttp>=3.8.3,<4.0.0', 'beautifulsoup4>=4.10.0,<5.0.0', 'rsa>=4.9,<5.0']
+
+setup_kwargs = {
+    'name': 'aiosteampy',
+    'version': '0.2.2',
+    'description': 'Simple library to trade and interact with steam market, webapi, guard',
+    'long_description': "<!--header-start-->\n\n# AIOSTEAMPY\n\n[![Made in Ukraine](https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7)](https://stand-with-ukraine.pp.ua)\n[![steam](https://shields.io/badge/steam-1b2838?logo=steam)](https://store.steampowered.com/)\n[![license](https://img.shields.io/github/license/somespecialone/aiosteampy)](https://github.com/somespecialone/aiosteampy/blob/master/LICENSE)\n[![pypi](https://img.shields.io/pypi/v/aiosteampy)](https://pypi.org/project/aiosteampy)\n[![versions](https://img.shields.io/pypi/pyversions/aiosteampy)](https://pypi.org/project/aiosteampy)\n[![Tests](https://github.com/somespecialone/aiosteampy/actions/workflows/tests.yml/badge.svg)](https://github.com/somespecialone/aiosteampy/actions/workflows/tests.yml)\n[![Publish](https://github.com/somespecialone/aiosteampy/actions/workflows/publish.yml/badge.svg)](https://github.com/somespecialone/aiosteampy/actions/workflows/publish.yml)\n[![Docs](https://github.com/somespecialone/aiosteampy/actions/workflows/docs.yml/badge.svg)](https://github.com/somespecialone/aiosteampy/actions/workflows/docs.yml)\n[![codecov](https://codecov.io/gh/somespecialone/aiosteampy/branch/master/graph/badge.svg?token=SP7EQKPIQ3)](https://codecov.io/gh/somespecialone/aiosteampy)\n[![CodeFactor](https://www.codefactor.io/repository/github/somespecialone/aiosteampy/badge)](https://www.codefactor.io/repository/github/somespecialone/aiosteampy)\n[![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)\n\nPreviously this library was a soft fork of [bukson/steampy](https://github.com/bukson/steampy) and created only to\nprovide asynchronous methods and proxies support.\nBut now it standalone project. Created by myself for steam trading purposes mostly.\n\n---\n\n[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua)\n\n<!--header-end-->\n\n---\n\n> **See full documentation [here](https://somespecialone.github.io/aiosteampy) 📖**\n\n---\n\n<!--install-start-->\n\n## Installation\n\npip\n\n```shell\npip install aiosteampy\n```\n\npipenv\n\n```shell\npipenv install aiosteampy\n```\n\npoetry\n\n```shell\npoetry add aiosteampy\n```\n\n<!--install-end-->\n\nAlso, [aiohttp docs](https://docs.aiohttp.org/en/stable/#library-installation) recommends install speedups (`aiodns`\n, `cchardet`, ...)\n\n> Old version still available on PyPI: [asyncsteampy](https://pypi.org/project/asyncsteampy/)\n\n---\n\n<!--intro-start-->\n\nAIOSTEAMPY use [aiohttp](https://github.com/aio-libs/aiohttp) underneath to get asynchronous requests to steam servers,\nwith modern (not really for current moment 😊) async/await syntax.\nProject is similar to [Gobot1234/steam.py](https://github.com/Gobot1234/steam.py) for first look, but with some\ndifferences.\nIt uses only requests and steam apis (documented and not), while `steam.py` implement stateful steam client based on\nwebsocket\nprotobuf, same as [DoctorMcKay/node-steam-user](https://github.com/DoctorMcKay/node-steam-user).\n\n> Generally, project inspired most\n> by [DoctorMcKay/node-steamcommunity](https://github.com/DoctorMcKay/node-steamcommunity)\n> but created with additions and differences, of course.\n\n## Key features\n\n* Stateless: the main idea was a low-middle layer API wrapper of some steam services and methods like market,\n  tradeoffers, confirmations, steamguard, etc. But if you want to cache your entities data (listings, confirmations,\n  ...) there is some methods to help.\n* Declarative: there is models almost for every data.\n* Typed: for editor support most things are typed.\n* Short: I really tried to fit most important for steam trading methods.\n\n## What can I do with this\n\n* Operate with steam trade offers for any manner.\n* Sell, buy items on market. Place, cancel orders.\n* Login trough steam to 3rd party sites.\n* Fetch data from market.\n* Manipulate many accounts with proxies for each session.\n* Store and load cookies to stay logged in.\n\n## What I can't do\n\n* Chat (at least for now).\n* Get apps, packages.\n* All, that need connection to CM.\n* Interact with game servers (inspect CSGO items, ...).\n* Edit profile, social interaction(groups, clans).\n* Handle entities(listings, items, tradeoffers) lifecycle for easy if you need to store it.\n\n<!--intro-end-->\n\n---\n\n## Tests 🧪\n\n**Read [test documentation](https://somespecialone.github.io/aiosteampy/tests/) 📖**\n\n---\n\n<!--footer-start-->\n\n## Contribution 💛\n\nThere is no rules or requirements to contribute. Feedbacks, suggests, other are welcome.\nI will be very grateful for helping me get the things right.\n\n## Credits\n\n* [DoctorMcKay/node-steamcommunity](https://github.com/DoctorMcKay/node-steamcommunity)\n* [Identifying Steam items](https://dev.doctormckay.com/topic/332-identifying-steam-items/)\n* [Revadike/InternalSteamWebAPI](https://github.com/Revadike/InternalSteamWebAPI)\n* [Gobot1234/steam.py](https://github.com/Gobot1234/steam.py)\n* [somespecialone/steam-item-name-ids](https://github.com/somespecialone/steam-item-name-ids)\n* [steamapi.xpaw.me](https://steamapi.xpaw.me/)\n\n<!--footer-end-->\n",
+    'author': 'Dmytro Tkachenko',
+    'author_email': 'tkachenkodmitriy@yahoo.com',
+    'maintainer': 'None',
+    'maintainer_email': 'None',
+    'url': 'https://github.com/somespecialone/aiosteampy/',
+    'packages': packages,
+    'package_data': package_data,
+    'install_requires': install_requires,
+    'python_requires': '>=3.10,<4.0',
+}
+
+
+setup(**setup_kwargs)
