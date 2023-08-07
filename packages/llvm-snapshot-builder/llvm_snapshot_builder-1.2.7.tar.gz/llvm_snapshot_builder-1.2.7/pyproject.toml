@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "llvm_snapshot_builder"
+version = "1.2.7"
+description = "Builds LLVM snapshots on Copr"
+authors = ["Konrad Kleine <kkleine@redhat.com>"]
+maintainers = ["Konrad Kleine <kkleine@redhat.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://pypi.org/project/llvm_snapshot_builder/"
+repository = "https://github.com/kwk/llvm_snapshot_builder/"
+documentation = "https://llvm_snapshot_builder.readthedocs.io/en/latest/?badge=latest"
+keywords = [
+    "LLVM",
+    "Snapshot",
+    "Copr",
+    "Fedora",
+    "Builder"
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<4"
+copr = "^1.124"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.2.0"
+pytest-cov = "^3.0.0"
+Sphinx = "^5.1.1"
+myst-nb = "^0.16.0"
+sphinx-autoapi = "^1.9.0"
+sphinx-rtd-theme = "^1.0.0"
+python-semantic-release = "^7.33.0"
+pytest-pycodestyle = "^2.3.0"
+pylint = "^2.15.10"
+jupyter = "^1.0.0"
+
+[tool.semantic_release]
+version_variable = [
+    "pyproject.toml:version"
+]
+branch = "main"                             # branch to make releases of
+changelog_file = "CHANGELOG.md"             # changelog file
+build_command = "poetry build"              # build dists
+dist_path = "dist/"                         # where to put dists
+upload_to_release = true                    # auto-create GitHub release
+upload_to_pypi = false                      # don't auto-upload to PyPI
+remove_dist = false                         # don't remove dists
+patch_without_tag = true                    # patch release by default
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.project.urls]
+"Homepage" = "https://github.com/kwk/llvm_snapshot_builder"
+"Bug Tracker" = "https://github.com/kwk/llvm_snapshot_builder/issues"
