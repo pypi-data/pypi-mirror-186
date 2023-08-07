@@ -1,0 +1,182 @@
+This file is an overview of available sources along with descriptions and some guidance.
+
+* Extra dependencies
+Some sources require additional dependencies, which you can install if needed.
+
+#+begin_src python :dir .. :exports output :results output drawer
+print('\n') # fix github org-mode issue with drawers
+
+import setup
+for (name, description), vals in setup.DEPS_SOURCES.items():
+    # fuck org-ruby. promnesia[name] should be in quotes, but then it doesn't render as code. ugh.
+    # https://github.com/wallyqs/org-ruby/issues/45
+    print(f"- ~pip3 install --user promnesia[{name}]~")
+    print(f'   ')
+    vals = [v.split('>')[0] for v in vals]
+    print(f'   {description}: {", ".join(vals)}')
+#+end_src
+
+#+RESULTS:
+:results:
+
+
+- ~pip3 install --user promnesia[optional]~
+
+   dependencies that bring some bells & whistles: logzero, python-magic
+- ~pip3 install --user promnesia[HPI]~
+
+   dependencies for [[https://github.com/karlicoss/HPI][HPI]]: HPI
+- ~pip3 install --user promnesia[html]~
+
+   dependencies for sources.html: beautifulsoup4, lxml
+- ~pip3 install --user promnesia[markdown]~
+
+   dependencies for sources.markdown: mistletoe
+- ~pip3 install --user promnesia[org]~
+
+   dependencies for sources.org: orgparse
+- ~pip3 install --user promnesia[telegram]~
+
+   dependencies for sources.telegram: dataset
+:end:
+
+Alternatively, you can just install all of them in bulk: ~pip3 install --user promnesia[all]~.
+
+
+* Sources
+
+These are included with the current Promnesia distribution:
+
+#+begin_src python :python "with_my python3" :dir ../src :exports output :results output drawer
+print('\n') # fix github org-mode issue with drawers
+
+from pathlib import Path
+import pkgutil
+import importlib
+import inspect
+
+indent = lambda s: ''.join('  ' + l for l in s.splitlines(keepends=True))
+
+git_root = Path('.').absolute().parent
+
+from promnesia.common import Results
+
+import promnesia.sources as pkg
+for importer, name, ispkg in sorted(pkgutil.walk_packages(
+        path=pkg.__path__,
+        prefix=pkg.__name__+'.'
+), key=lambda x: x[1]):
+    if name in {
+            # TODO damn, these modules need depednencies...
+            'promnesia.sources.browser',
+            'promnesia.sources.markdown',
+            'promnesia.sources.org',
+            'promnesia.sources.plaintext',
+    }:
+        continue
+    m = importlib.import_module(name)
+    public = [(k, v) for k, v in inspect.getmembers(m) if not k.startswith('_')]
+    indexers = [(k, v) for k, v in public if getattr(v, '__annotations__', {}).get('return') == Results]
+    assert len(indexers) > 0, name
+    for k, i in indexers:
+        # print(inspect.signature(i))
+        link = '../' + str(Path(m.__file__).relative_to(git_root))
+        print(f'- [[file:{link}][{name}]]')
+        d = m.__doc__
+        if d is not None:
+            print(indent(d))
+#+end_src
+
+#+RESULTS:
+:results:
+
+
+- [[file:../src/promnesia/sources/auto.py][promnesia.sources.auto]]
+
+  - discovers files recursively
+  - guesses the format (orgmode/markdown/json/etc) by the extension/MIME type
+  - can index most of plaintext files, including source code!
+  - autodetects Obsidian vault and adds `obsidian://` app protocol support [[file:../src/promnesia/sources/obsidian.py][promnesia.sources.obsidian]]
+  - autodetects Logseq graph and adds `logseq://` app protocol support [[file:../src/promnesia/sources/logseq.py][promnesia.sources.logseq]]
+  
+- [[file:../src/promnesia/sources/fbmessenger.py][promnesia.sources.fbmessenger]]
+
+  Uses [[https://github.com/karlicoss/HPI][HPI]] for the messages data.
+
+- [[file:../src/promnesia/sources/github.py][promnesia.sources.github]]
+
+  Uses [[https://github.com/karlicoss/HPI][HPI]] github module
+
+- [[file:../src/promnesia/sources/guess.py][promnesia.sources.guess]]
+- [[file:../src/promnesia/sources/html.py][promnesia.sources.html]]
+
+  Extracts links from HTML files
+
+- [[file:../src/promnesia/sources/hypothesis.py][promnesia.sources.hypothesis]]
+
+  Uses HPI [[https://github.com/karlicoss/HPI/blob/master/doc/MODULES.org#myhypothesis][hypothesis]] module
+
+- [[file:../src/promnesia/sources/instapaper.py][promnesia.sources.instapaper]]
+
+  Uses HPI [[https://github.com/karlicoss/HPI/blob/master/doc/MODULES.org#myinstapaper][instapaper]] module
+
+- [[file:../src/promnesia/sources/pocket.py][promnesia.sources.pocket]]
+
+  Uses [[https://github.com/karlicoss/HPI][HPI]] for Pocket highlights & bookmarks
+
+- [[file:../src/promnesia/sources/reddit.py][promnesia.sources.reddit]]
+
+  Uses HPI [[https://github.com/karlicoss/HPI/blob/master/doc/MODULES.org#myreddit][reddit]] module
+
+- [[file:../src/promnesia/sources/roamresearch.py][promnesia.sources.roamresearch]]
+
+  Uses [[https://github.com/karlicoss/HPI][HPI]] for Roam Research data
+
+- [[file:../src/promnesia/sources/rss.py][promnesia.sources.rss]]
+- [[file:../src/promnesia/sources/shellcmd.py][promnesia.sources.shellcmd]]
+
+- [[file:../src/promnesia/sources/smscalls.py][promnesia.sources.smscalls]]
+
+  Uses [[https://github.com/karlicoss/HPI][HPI]] smscalls module
+
+- [[file:../src/promnesia/sources/takeout.py][promnesia.sources.takeout]]
+
+  Uses HPI [[https://github.com/karlicoss/HPI/blob/master/doc/MODULES.org#mygoogletakeoutpaths][google.takeout]] module
+
+- [[file:../src/promnesia/sources/telegram.py][promnesia.sources.telegram]]
+
+  Uses [[https://github.com/fabianonline/telegram_backup#readme][telegram_backup]] database for messages data
+
+- [[file:../src/promnesia/sources/viber.py][promnesia.sources.viber]]
+
+  Uses all local SQLite files found in your Viber Desktop configurations:
+  usually in =~/.ViberPC/**/viber.db= (one directory for each telephone number).
+
+- [[file:../src/promnesia/sources/signal.py][promnesia.sources.signal]]
+
+  When path(s) given, uses the SQLite inside Signal-Desktop's configuration directory
+  (see the sources for more parameters & location of the db-file for each platform)
+
+- [[file:../src/promnesia/sources/twitter.py][promnesia.sources.twitter]]
+
+  Uses [[https://github.com/karlicoss/HPI][HPI]] for Twitter data.
+
+- [[file:../src/promnesia/sources/vcs.py][promnesia.sources.vcs]]
+
+  Clones & indexes Git repositories (via sources.auto)
+
+- [[file:../src/promnesia/sources/website.py][promnesia.sources.website]]
+
+  Clones a website with wget and indexes via sources.auto
+
+:end:
+
+
+* Extending
+Adding your own data sources is very easy!
+One day I'll add some proper documentation, but the easiest at the moment is to use existing simple modules as a reference, for example:
+
+- [[https://github.com/karlicoss/promnesia/blob/master/src/promnesia/sources/pocket.py][pocket]], 25 lines of code
+- [[https://github.com/karlicoss/promnesia/blob/master/src/promnesia/sources/fbmessenger.py][fbmessenger]], 30 lines of code
+
+After that, you can simply import your custom source in =config.py=, and use it, same way as any builtin source.
