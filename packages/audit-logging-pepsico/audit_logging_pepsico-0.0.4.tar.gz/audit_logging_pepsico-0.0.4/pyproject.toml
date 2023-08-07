@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "audit_logging_pepsico"
+version = "0.0.4"
+authors = [
+  { name="Jatin Talati", email="jatalati@in.ibm.com" },
+]
+description = "A logging package which allows users to log in pepsico format. Specially write logs for request and response."
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = ["logging", "audit", "pepsico"]
+dependencies = [
+  "azure-core",
+  "azure-storage-blob",
+  "requests",
+  "requests-oauthlib",
+  "toml"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Development Status :: 1 - Planning",
+    "Operating System :: OS Independent",
+]
+
