@@ -1,0 +1,89 @@
+Metadata-Version: 2.1
+Name: IoddComBase
+Version: 1.6.0.post1
+Summary: IoddCom base
+Home-page: https://siogeen.com
+Author: Reimund Renner
+Author-email: reimund@siogeen.com
+License: proprietary and confidential
+Project-URL: Documentation, https://siogeen.com/doc/
+Project-URL: Help Desk, https://siogeen.com/helpdesk/
+Project-URL: Knowledge Base, https://siogeen.com/helpdesk/knowledgebase
+Project-URL: News, https://news.siogeen.com/
+Keywords: IO-Link,IODD,development,test,production
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Manufacturing
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Customer Service
+Classifier: Topic :: Software Development :: Embedded Systems
+Classifier: Topic :: Software Development :: Quality Assurance
+Classifier: Topic :: Software Development :: Testing
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.6
+Description-Content-Type: text/x-rst
+License-File: LICENSE.txt
+Requires-Dist: bitstring
+Requires-Dist: urllib3
+Requires-Dist: pyserial
+Requires-Dist: prettytable
+Requires-Dist: getmac
+
+IoddComBase - base IoddCom package
+==================================
+
+This is the base package for Siogeen IoddCom.
+
+.. _IoddComChecker: /project/IoddComChecker
+.. _IoddComCheckerGui: /project/IoddComCheckerGui
+
+For checking your IO-Link masters working with Siogeen IoddCom, please see IoddComChecker_ or IoddComCheckerGui_
+
+For full package, requests and support go to https://siogeen.com
+
+.. _request: https://siogeen.com/#contact
+
+**Copyright 2017-2023 Siogeen UG** (limited liability)
+
+Supported Platforms
+-------------------
+
+============= ===================== ===================
+**OS**         Python 2.7, 3.4-3.5   Python 3.6 - 3.11
+============= ===================== ===================
+**Windows**     [1]_                   x [2]_
+**Linux**       [1]_                   x [2]_
+**Raspberry**   [1]_                  3.7, 3.9
+**macOS**       [1]_                  3.8-3.11 (Intel)
+============= ===================== ===================
+
+.. [1] IoddCom for Python 2.7, 3.4 - 3.5 on request_.
+.. [2] IoddCom for Python 3.11: 64-bit only
+
+Support for other platforms on request_.
+
+
+Supported IO-Link masters
+-------------------------
+
+========================= ============ ============== ============== ==============
+**Master**                Windows      Linux          Raspberry Pi   macOS [3]_
+========================= ============ ============== ============== ==============
+**TMG based USB masters**      x          x              x              x
+**TMG based IP masters**       x          x              x              x
+**ifm IP masters**             x          x              x              x
+**ifm USB masters**            x         soon           soon           soon
+========================= ============ ============== ============== ==============
+
+.. [3] IoddCom for macOS with apple silicon are not included yet. Please request_ if you are interested.
+
+Support for other masters on request_.
