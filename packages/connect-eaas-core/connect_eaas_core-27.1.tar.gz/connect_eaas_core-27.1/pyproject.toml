@@ -1,0 +1,115 @@
+[tool.poetry]
+name = "connect-eaas-core"
+version = "27.1"
+description = "Connect Eaas Core"
+authors = ["CloudBlue LLC"]
+license = "Apache-2.0"
+packages = [
+    { include = "connect" },
+]
+readme = "./README.md"
+homepage = "https://connect.cloudblue.com"
+repository = "https://github.com/cloudblue/connect-eaas-core"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Utilities",
+    "Topic :: Software Development :: Libraries",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4"
+connect-openapi-client = ">=25.15"
+pydantic = "^1.9.0"
+fastapi = "^0.78.0"
+fastapi-utils = "^0.2.1"
+logzio-python-handler = "^3.1.1"
+anvil-uplink = "^0.4.0"
+toml = "^0.10.2"
+PyYAML = "^6.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = ">=6.1.2,<8"
+pytest-cov = ">=2.10.1,<5"
+pytest-mock = "^3.3.1"
+coverage = {extras = ["toml"], version = ">=5.3,<7"}
+flake8 = ">=3.8,<6"
+flake8-bugbear = ">=20,<23"
+flake8-cognitive-complexity = "^0.1"
+flake8-commas = "~2.1"
+flake8-future-import = "~0.4"
+flake8-import-order = "~0.18"
+flake8-broken-line = ">=0.3,<0.7"
+flake8-pyproject = "^1.2.2"
+pytest-asyncio = "^0.20.1"
+mock = { version = "^4.0.3", markers = "python_version < '3.8'" }
+fs = "^2.4.12"
+responses = ">=0.14.0,<1"
+pytest-httpx = ">=0.20"
+Faker = "^14.2.0"
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = "^1.4.2"
+mkdocs-material = "^8.5.3"
+mkautodoc = "^0.2.0"
+jinja2 = "3.1.0"
+mkdocs-glightbox = "^0.3.0"
+mkdocs-macros-plugin = "^0.5.0"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.plugins.pytest11]
+"pytest_eaas_core" = "connect.eaas.core.testing.fixtures"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+log_cli = true
+addopts = "--cov=connect.eaas.core --cov-report=term-missing:skip-covered --cov-report=html --cov-report=xml"
+asyncio_mode = "strict"
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+omit = [
+    "*/migrations/*",
+    "*/config/*",
+    "*/settings/*",
+    "*/manage.py",
+    "*/wsgi.py",
+    "*/urls.py"
+]
+
+exclude_lines = [
+    "pragma: no cover",
+    "def __str__",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
+
+[tool.flake8]
+exclude = [
+    ".idea",
+    ".vscode",
+    ".git",
+    "pg_data",
+    "venv",
+    "*/settings/*.py",
+    "*/migrations/*.py"
+]
+show_source = true
+max_line_length = 100
+import_order_style = "smarkets"
+application_import_names = "connect"
+max_cognitive_complexity = 15
+ignore = ["FI1", "W503", "B008"]
