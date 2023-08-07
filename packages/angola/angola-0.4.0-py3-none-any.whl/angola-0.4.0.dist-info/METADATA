@@ -1,0 +1,106 @@
+Metadata-Version: 2.1
+Name: angola
+Version: 0.4.0
+Summary: angola 
+Home-page: https://github.com/mardix/angola
+Author: Mardix
+Author-email: mardix@blackdevhub.io
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Topic :: Database
+Requires-Python: >=3.8.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Jinja2 (>=3.0)
+Requires-Dist: python-slugify
+Requires-Dist: arrow
+Requires-Dist: ulid-py
+Requires-Dist: python-arango
+
+# Angola
+
+**Angola**
+
+## API
+
+## Connection
+
+```
+import angola
+
+#--- connect
+db = angola.db(hosts="http://host:8529", username="root", password:str)
+
+#--- select collection
+coll = db.select_collection('test')
+
+#--- insert item
+coll.insert({k:v, ...})
+
+#--- insert item with custom _key
+coll.insert({k:v,...}, _key='awesome')
+
+
+```
+
+### Query 
+
+### @@CURRDATE
+
+`@@CURRDATE($format=None, $dateshifter=None) `
+
+
+
+```
+  {
+    "_modified_at": "@@CURRDATE() +2Days"
+  }
+```
+
+Format:
+
+```
+YYYY: Year
+MM: Month
+DD: Date
+HH: Hour
+mm: Min
+ss: seconds
+
+ISODATE: YYYY-MM-DDTHH:mm:ss
+
+```
+
+
+### $AND and $OR
+
+```
+filters = {
+
+  "$or": [
+    { // query between dates
+      "_created_at:$lt": "@@CURRDATE() -2days",
+      "_created_at:$gt": "@@CURRDATE() +2days"
+    }
+  ]
+}
+```
+
+### Insert
+
+### Update
+
+### Delete
+
+### Collection
+
+### SubCollection
+
+
+
+### Operators
+
+
+### Custom Operators
+
+
