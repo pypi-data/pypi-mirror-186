@@ -1,0 +1,74 @@
+Metadata-Version: 2.1
+Name: meshset
+Version: 0.9.0
+Summary: The Python package for classic domain mesh generation.
+Home-page: https://github.com/jasonmulderrig/meshset
+Author: Jason Mulderrig
+Author-email: jpm445@cornell.edu
+Maintainer: Jason Mulderrig
+Maintainer-email: jpm445@cornell.edu, mulderrig.jason@gmail.com
+License: GNU General Public License v3 or later (GPLv3+)
+Keywords: mesh
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Natural Language :: English
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: <4,>=3.7
+License-File: LICENSE
+
+#######
+meshset
+#######
+
+|build| |pyversions| |pypi| |license|
+
+The Python package for classic domain mesh generation.
+
+This package is simply a re-purposed mirror of one of the last open-sourced versions of the `meshzoo <https://pypi.org/project/meshzoo/>`_ Python package, meshzoo version 0.9.0 (under the GNU GPLv3 license) in late December 2021/early January 2022. I do not intend to alter the contents of this package whatsoever going forward.
+
+************
+Installation
+************
+
+This package can be installed using ``pip`` via the `Python Package Index <https://pypi.org/project/meshset/>`_ (PyPI),
+
+::
+
+    pip install meshset
+
+Alternatively, a branch can be directly installed using
+
+::
+
+    pip install git+https://github.com/jasonmulderrig/meshset.git@<branch-name>
+
+or after cloning a branch, moving to the main project directory (where the setup and configuration files are located), and executing ``pip install -e .`` for an editable installation or ``pip install .`` for a standard installation.
+
+***********
+Information
+***********
+
+- `License <https://github.com/jasonmulderrig/meshset/LICENSE>`__
+- `Releases <https://github.com/jasonmulderrig/meshset/releases>`__
+- `Repository <https://github.com/jasonmulderrig/meshset>`__
+
+..
+    Badges ========================================================================
+
+.. |build| image:: https://img.shields.io/github/checks-status/jasonmulderrig/meshset/main?label=GitHub&logo=github
+    :target: https://github.com/jasonmulderrig/meshset
+
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/meshset.svg?logo=python&logoColor=FBE072&color=4B8BBE&label=Python
+    :target: https://pypi.org/project/meshset/
+
+.. |pypi| image:: https://img.shields.io/pypi/v/meshset?logo=pypi&logoColor=FBE072&label=PyPI&color=4B8BBE
+    :target: https://pypi.org/project/meshset/
+
+.. |license| image:: https://img.shields.io/github/license/jasonmulderrig/meshset?label=License
+    :target: https://github.com/jasonmulderrig/meshset/LICENSE
