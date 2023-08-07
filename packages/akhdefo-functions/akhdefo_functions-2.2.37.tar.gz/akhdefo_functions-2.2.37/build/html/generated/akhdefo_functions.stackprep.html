@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>akhdefo_functions.stackprep &#8212; Akhdefo software documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="akhdefo_functions.Time_Series" href="akhdefo_functions.Time_Series.html" />
+    <link rel="prev" title="akhdefo_functions.plot_stackNetwork" href="akhdefo_functions.plot_stackNetwork.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="akhdefo-functions-stackprep">
+<h1>akhdefo_functions.stackprep<a class="headerlink" href="#akhdefo-functions-stackprep" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="akhdefo_functions.stackprep">
+<span class="sig-prename descclassname"><span class="pre">akhdefo_functions.</span></span><span class="sig-name descname"><span class="pre">stackprep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_to_flowxnFolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_toFlowynFolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dem</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'YYYYMMDD'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'YYYYMMDD'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_stackedFolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VEL_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('month',</span> <span class="pre">'year')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.125</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yres</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.125</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Velocity_shapeFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Resampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#akhdefo_functions.stackprep" title="Permalink to this definition">¶</a></dt>
+<dd><p>This program collects velocity candiate points for time-series analysis.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>path_to_flowxnFolder<span class="classifier">str</span></dt><dd><p>path to folder include east-west velocity files</p>
+</dd>
+<dt>path_toFlowynFolder<span class="classifier">str</span></dt><dd><p>path to folder include north-south velocity files</p>
+</dd>
+<dt>dem<span class="classifier">str</span></dt><dd><p>path to digital elevation model file will be used to geocode the products</p>
+</dd>
+<dt>print_list<span class="classifier">bool</span></dt><dd><p>print list of temporal proceesed dates default is False</p>
+</dd>
+<dt>start_date<span class="classifier">str</span></dt><dd><p>“YYYYMMDD”</p>
+</dd>
+<dt>end_date<span class="classifier">str</span></dt><dd><p>“YYYYMMDD”</p>
+</dd>
+</dl>
+<p>output_stackedFolder : str</p>
+<dl class="simple">
+<dt>VEL_scale<span class="classifier">str</span></dt><dd><p>“month” or “year”) at this stage you can ignore this option; will be removed from future versions</p>
+</dd>
+</dl>
+<p>xres : float</p>
+<p>yres : float</p>
+<p>Velocity_shapeFile: bool</p>
+<blockquote>
+<div><p>set to True if need to generate points for temporal deformation analysis</p>
+</div></blockquote>
+<p>Resampling : bool</p>
+<blockquote>
+<div><p>if True reduce number of measurement points but faster processing</p>
+</div></blockquote>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>ESRI Shapefile</dt><dd><p>This file include candiate velocity points for timeseries analysis</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">akhdefo</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.unzip.html">akhdefo_functions.unzip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.copyImage_Data.html">akhdefo_functions.copyImage_Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.copyUDM2_Mask_Data.html">akhdefo_functions.copyUDM2_Mask_Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.Filter_PreProcess.html">akhdefo_functions.Filter_PreProcess</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.Crop_to_AOI.html">akhdefo_functions.Crop_to_AOI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.Mosaic.html">akhdefo_functions.Mosaic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.Coregistration.html">akhdefo_functions.Coregistration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.DynamicChangeDetection.html">akhdefo_functions.DynamicChangeDetection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.plot_stackNetwork.html">akhdefo_functions.plot_stackNetwork</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">akhdefo_functions.stackprep</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#akhdefo_functions.stackprep"><code class="docutils literal notranslate"><span class="pre">stackprep()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.Time_Series.html">akhdefo_functions.Time_Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.akhdefo_ts_plot.html">akhdefo_functions.akhdefo_ts_plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.rasterClip.html">akhdefo_functions.rasterClip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.akhdefo_viewer.html">akhdefo_functions.akhdefo_viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.Akhdefo_resample.html">akhdefo_functions.Akhdefo_resample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.Akhdefo_inversion.html">akhdefo_functions.Akhdefo_inversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.utm_to_latlon.html">akhdefo_functions.utm_to_latlon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.MeanProducts_plot_ts.html">akhdefo_functions.MeanProducts_plot_ts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="akhdefo_functions.Auto_Variogram.html">akhdefo_functions.Auto_Variogram</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../api.html">&lt;no title&gt;</a><ul>
+      <li>Previous: <a href="akhdefo_functions.plot_stackNetwork.html" title="previous chapter">akhdefo_functions.plot_stackNetwork</a></li>
+      <li>Next: <a href="akhdefo_functions.Time_Series.html" title="next chapter">akhdefo_functions.Time_Series</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Mahmud Mustafa Muhammad.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/generated/akhdefo_functions.stackprep.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
