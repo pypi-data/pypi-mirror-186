@@ -1,0 +1,70 @@
+[tool.poetry]
+name = 'cogwatch'
+version = '3.2.0'
+description = 'Automatic hot-reloading for your discord.py (or other supported libaries) command files.'
+authors = ['Rob Wagner <rob@sombia.com>']
+license = 'MIT'
+readme = 'README.md'
+homepage = 'https://github.com/robertwayne/cogwatch'
+repository = 'https://github.com/robertwayne/cogwatch'
+keywords = [
+  'discord.py',
+  'discord bot',
+  'cogs',
+  'hot-reload',
+  'nextcord',
+  'py-cord',
+  'pycord',
+  'disnake',
+  'discord4py',
+]
+classifiers = [
+  'Operating System :: OS Independent',
+  'Typing :: Typed',
+  'Topic :: Communications :: Chat',
+  'Intended Audience :: Developers',
+  'Development Status :: 5 - Production/Stable',
+]
+
+[tool.poetry.scripts]
+example = 'runner:__poetry_run'
+fmt = 'scripts:fmt'
+
+[tool.poetry.dependencies]
+python = '^3.10'
+watchfiles = "^0.15"
+
+[tool.poetry.group.dev.dependencies]
+pytest = '^7.2'
+black = '^22.12'
+python-dotenv = "^0.21.0"
+discord-py = "^2.1.0"
+
+[tool.black]
+line-length = 120
+skip-string-normalization = 1
+target-version = ['py38']
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | docs
+    | assets
+    | venv
+  )/
+)
+'''
+
+[build-system]
+requires = ['poetry-core>=1.0.0']
+build-backend = 'poetry.core.masonry.api'
