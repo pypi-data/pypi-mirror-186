@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "chime-frb-api"
+version = "2.6.0"
+description = "CHIME/FRB API"
+authors = ["Shiny Brar <charanjotbrar@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/CHIMEFRB/frb-api"
+documentation = "https://github.com/CHIMEFRB/frb-api"
+classifiers = [
+	"Development Status :: 5 - Production/Stable",
+	"Intended Audience :: Developers",
+	"Intended Audience :: Education",
+	"Intended Audience :: Science/Research",
+	"Topic :: Scientific/Engineering :: Astronomy",
+	"Topic :: Software Development :: Libraries :: Python Modules",
+	"License :: OSI Approved :: MIT License",
+	"Programming Language :: Python :: 3.8",
+	"Programming Language :: Python :: 3.9",
+	"Programming Language :: Python :: 3.10",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pyjwt = "^2"
+click = ">=7"
+requests = "^2"
+python-dateutil = "^2"
+pydantic = "^1.10.2"
+attrs = "^22.2.0"
+
+# Dependencies for docs
+mkdocs-material = {version = ">=8", optional = true}
+pytkdocs = {version = ">=0.10", optional = true, extras = ["numpy-style"]}
+mkdocstrings = {version = ">=0.18", extras = ["python"], optional = true}
+mkdocstrings-python = {version = "^0.7.1", optional = true, extras = ["docs"]}
+tenacity = "^8.1.0"
+rich = "^13.1.0"
+
+[tool.poetry.extras]
+docs = ["mkdocs-material", "mkdocstrings", "pytkdocs"]
+
+[tool.poetry.scripts]
+frb-api = "chime_frb_api.cli:cli"
+workflow = "chime_frb_api.workflow.cli:cli"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^0.982"
+types-requests = "^2.28.11.2"
+pytest = ">=4"
+bson = ">=0.5"
+pyyaml = ">=5"
+docker = ">=5"
+black = ">=22"
+coverage = ">=6"
+pytest-cov = ">=4"
+pre-commit = ">=2"
+types-setuptools = "^65.7.0.1"
+
+[build-system]
+requires = ["poetry>=1.2.2"]
+build-backend = "poetry.masonry.api"
