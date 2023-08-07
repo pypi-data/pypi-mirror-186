@@ -1,0 +1,20 @@
+name: Release
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "*"
+env:
+  HATCH_INDEX_USER: __token__
+  HATCH_INDEX_AUTH: ${{ secrets.pypi_password }}
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: waylonwalker/hatch-action@v2
+        with:
+          before-command: "test-lint"
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
