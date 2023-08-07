@@ -1,0 +1,19 @@
+image: python:3.11-alpine
+
+test:
+  stage: test
+  script:
+  - pip install -r requirements.txt
+  - sphinx-build -M tangle . _build
+  - diff -u -r _build/tangle/literate_sphinx.py literate_sphinx.py
+
+pages:
+  stage: deploy
+  script:
+  - pip install -r requirements.txt
+  - sphinx-build -b html . public
+  artifacts:
+    paths:
+    - public
+  only:
+  - develop
