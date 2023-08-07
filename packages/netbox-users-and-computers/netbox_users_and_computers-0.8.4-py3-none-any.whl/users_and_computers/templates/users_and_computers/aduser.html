@@ -1,0 +1,77 @@
+{% extends 'generic/object.html' %}
+{% block content %}
+  <div class="row mb-3">
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">AD User</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Name</th>
+              <td>{{ object.name }}</td>
+            </tr>
+
+            <tr>
+              <th scope="row">sAMAccountName</th>
+              <td>{{ object.sAMAccountName }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Status</th>
+              <td>{{ object.status }}</td>
+            </tr>
+
+            <tr>
+              <th scope="row">Firstname</th>
+              <td>{{ object.firstname }}</td>
+            </tr>
+
+            <tr>
+              <th scope="row">Lastname</th>
+              <td>{{ object.lastname }}</td>
+            </tr>
+
+            <tr>
+              <th scope="row">sAMAccountName</th>
+              <td>{{ object.sAMAccountName }}</td>
+            </tr>
+            <tr>
+              <th scope="row">ad_guid</th>
+              <td>{{ object.ad_guid }}</td>
+            </tr>
+            <tr>
+              <th scope="row">ad_description</th>
+              <td>{{ object.ad_description }}</td>
+            </tr>
+            <tr>
+              <th scope="row">position</th>
+              <td>{{ object.position }}</td>
+            </tr>
+            <tr>
+              <th scope="row">department</th>
+              <td>{{ object.department }}</td>
+            </tr>
+            <tr>
+              <th scope="row">comment</th>
+              <td>{{ object.comment }}</td>
+            </tr>
+
+            <tr>
+              <th scope="row">VPN IP address</th>
+              <td>{{ object.vpnIPaddress }}</td>
+            </tr>
+
+            <tr>
+              <th scope="row">Description</th>
+              <td>{{ object.description }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% include 'inc/panels/custom_fields.html' %}
+    </div>
+    <div class="col col-md-6">
+      {% include 'inc/panels/tags.html' %}
+      {% include 'inc/panels/comments.html' %}
+    </div>
+  </div>
+{% endblock content %}
