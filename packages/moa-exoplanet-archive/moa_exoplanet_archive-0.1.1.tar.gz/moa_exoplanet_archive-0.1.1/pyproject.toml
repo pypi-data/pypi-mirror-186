@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "moa_exoplanet_archive"
+version = "0.1.1"
+description = ""
+authors = ["Greg Olmschenk <greg@olmschenk.com>"]
+readme = "README.md"
+packages = [{include = "moa_exoplanet_archive"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+backports-strenum = "^1.1.1"
+numpy = "^1.24.1"
+pandas = "^1.5.3"
+pysftp = "^0.2.9"
+tabulate = "^0.9.0"
+astropy = "^5.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+moa_exoplanet_archive_merge_transfer = "moa_exoplanet_archive.merge_transfer_cli:merge_transfer"
