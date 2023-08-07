@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: randseal
+Version: 3.1.0
+Summary: Generates a random seal image for discord.py or py-cord
+Home-page: https://github.com/mariohero24/randseal
+Author: Guard Boi
+Author-email: guard@cowbot.xyz
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENCE
+
+# randseal
+Simple package that can produce a seal image. The image is then output as a `discord.File` or `discord.Embed` for discord.py or py-cord.
+
+### Usage example. Bot can be a commands.Bot in discord.py or a discord.Bot in py-cord.
+```py
+import randseal
+import discord
+
+bot = discord.Bot(intents=discord.Intents.default())
+client = randseal.Client()
+
+@bot.command()
+async def sealimg(ctx):
+  file=await client.asyncFile()
+  await ctx.respond(file=file)
+
+@bot.command()
+async def sealembed(ctx):
+  await ctx.respond(embed=client.Embed())
+
+bot.run("token")
+```
+
+This package also contains several utility functions for making discord bots.
