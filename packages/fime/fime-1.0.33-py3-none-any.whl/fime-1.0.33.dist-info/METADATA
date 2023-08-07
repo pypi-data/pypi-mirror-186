@@ -1,0 +1,59 @@
+Metadata-Version: 2.1
+Name: fime
+Version: 1.0.33
+Summary: Simple time tracking app written with Python and Qt
+Home-page: https://git.faerb.it/faerbit/fime
+Author: Faerbit
+Author-email: faerbit@posteo.net
+License: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Requires-Dist: requests-futures
+Requires-Dist: packaging
+Requires-Dist: loguru
+Provides-Extra: qt5
+Requires-Dist: PySide2 ; extra == 'qt5'
+Provides-Extra: qt6
+Requires-Dist: PySide6 ; extra == 'qt6'
+
+# fime
+
+Simple time tracking app written with Python and Qt
+
+Some Jira integration is built in.
+
+## Installation, Qt versions and You
+Fime supports using both Qt 5 and Qt 6 via their respective PySide packages.
+
+On Linux I recommend installing the PySide package provided by the distribution.
+Install `PySide2` for Qt 5 or `PySide6` for Qt 6.
+
+Run `pip install --user fime` in that case.
+
+On other OSes or if you decide not to follow my recommendation run either
+ * `pip install --user fime[qt5]` or
+ * `pip install --user fime[qt6]`
+
+Note that it both versions of PySide are installed Qt 6 will be preferred.
+
+## Config file
+
+The file path is OS dependant. There is an error message on the first start, which will tell you the correct path for
+your OS.
+
+Format:
+```
+jira_url = https://jira.company.com
+jira_token = aBc1D34
+```
+
+The `jira_token` is a Personal Access Token. See [here](https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html) on how to get one.
+
+## License
+
+Licensed under MIT license. See License.md for more details.
