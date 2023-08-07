@@ -1,0 +1,35 @@
+Metadata-Version: 2.1
+Name: com-digitalruiz-shopify-http-client
+Version: 0.0.9
+Summary: A custom http client for shopify
+Author-email: Reyes Ruiz <reyes@digitalruiz.com>
+Project-URL: Homepage, https://github.com/reyesruiz/shopify_http_client
+Project-URL: Bug Tracker, https://github.com/reyesruiz/shopify_http_client/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Requires-Dist: python-dotenv
+Requires-Dist: com-digitalruiz-my-logger
+
+# shopify_http_client 
+
+My custom shopify http client
+
+Config file needed at ~/.Shopify-Config.json
+```
+{
+  "shopify_store_name": "YOUR-STORE-NAME",
+  "shopify_admin_api_version": "API VERSION",
+  "shopify_access_token": "ACCESS TOKEN"
+}
+```
+example use:
+
+```
+from com_digitalruiz_shopify_http_client import shopify_http_client 
+
+```
