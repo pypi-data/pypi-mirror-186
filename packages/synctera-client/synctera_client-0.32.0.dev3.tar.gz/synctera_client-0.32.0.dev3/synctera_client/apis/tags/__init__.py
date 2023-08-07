@@ -1,0 +1,48 @@
+# do not import all endpoints into this module because that uses a lot of memory and stack frames
+# if you need the ability to import all endpoints from this module, import them with
+# from synctera_client.apis.tag_to_api import tag_to_api
+
+import enum
+
+
+class TagValues(str, enum.Enum):
+    ACCOUNT_PRODUCTS = "Account Products"
+    ACCOUNTS = "Accounts"
+    ACCOUNT_TEMPLATES = "Account Templates"
+    ACH = "ACH"
+    ACH_TRANSACTION_SIMULATIONS = "ACH Transaction Simulations"
+    BAN_RULES = "Ban Rules"
+    BUSINESSES = "Businesses"
+    CARDS = "Cards"
+    EXTERNAL_CARDS_ALPHA = "External Cards (alpha)"
+    CASH_PICKUPS_ALPHA = "Cash Pickups (alpha)"
+    CUSTOMERS = "Customers"
+    DISCLOSURES = "Disclosures"
+    DISCLOSURES_DEPRECATED = "Disclosures (deprecated)"
+    DOCUMENTS = "Documents"
+    EXTERNAL_ACCOUNTS = "External Accounts"
+    INTERNAL_ACCOUNTS = "Internal Accounts"
+    KYC_VERIFICATION_DEPRECATED = "KYC Verification (deprecated)"
+    MONITORING = "Monitoring"
+    NOTES = "Notes"
+    CRONUT = "Cronut"
+    PERSONS = "Persons"
+    REMOTE_CHECK_DEPOSIT = "Remote Check Deposit"
+    RECONCILIATIONS = "Reconciliations"
+    RELATIONSHIPS = "Relationships"
+    SPEND_CONTROLS_BETA = "Spend Controls (beta)"
+    STATELY = "Stately"
+    CARD_TRANSACTION_SIMULATIONS = "Card Transaction Simulations"
+    TRANSACTIONS = "Transactions"
+    KYC_KYB_VERIFICATIONS = "KYC/KYB Verifications"
+    WAITLIST = "Waitlist"
+    WATCHLIST_DEPRECATED = "Watchlist (deprecated)"
+    CARD_WEBHOOK_SIMULATIONS = "Card Webhook Simulations"
+    WEBHOOKS = "Webhooks"
+    WIRES_ALPHA = "Wires (alpha)"
+    DIGITAL_WALLET_TOKENS = "Digital Wallet Tokens"
+    INTERNAL_TRANSFER = "Internal Transfer"
+    PAYMENT_SCHEDULES = "PaymentSchedules"
+    REMOTE_CHECK_DEPOSIT_BETA = "Remote Check Deposit (beta)"
+    SANDBOX_WIPE_ALPHA = "Sandbox Wipe (alpha)"
+    STATEMENTS = "Statements"
