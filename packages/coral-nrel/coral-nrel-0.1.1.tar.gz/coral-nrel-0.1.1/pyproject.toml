@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools", "versioneer[toml]"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 79
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
