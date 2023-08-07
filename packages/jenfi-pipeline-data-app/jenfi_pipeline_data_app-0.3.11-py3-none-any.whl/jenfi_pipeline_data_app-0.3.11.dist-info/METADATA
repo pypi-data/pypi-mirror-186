@@ -1,0 +1,42 @@
+Metadata-Version: 2.1
+Name: jenfi-pipeline-data-app
+Version: 0.3.11
+Summary: 
+Author: Justin Louie
+Author-email: 224840+nitsujri@users.noreply.github.com
+Requires-Python: >=3.10,<3.11
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Requires-Dist: SQLAlchemy (>=1.4.40,<2.0.0)
+Requires-Dist: boto3 (>=1.24.78,<2.0.0)
+Requires-Dist: numpy (>=1.23.2,<2.0.0)
+Requires-Dist: pandas (>=1.4.3,<2.0.0)
+Requires-Dist: psycopg2 (>=2.9.3,<3.0.0)
+Requires-Dist: python-dotenv (>=0.20.0,<0.21.0)
+Requires-Dist: scikit-learn (>=1.1.2,<2.0.0)
+Requires-Dist: sklearn (>=0.0,<0.1)
+Requires-Dist: sqlparse (>=0.4.2,<0.5.0)
+Description-Content-Type: text/markdown
+
+# Jenfi Pipeline Data App
+
+Designed to allow teams to access Jenfi's data sources in a Jupyter Notebook.
+
+## Docs
+
+[View public API doc](https://jenfi-eng.github.io/pipeline-data) for using in Jupyter notebook.
+
+## Basic Usage
+
+```python
+from jenfi_pipeline_data_app import PipelineDataApp as Jenfi
+
+Jenfi.ROOT_DIR # => /Your/app/root/dir
+```
+
+Setup a `.env` file in the folder of `Jenfi.ROOT_DIR`
+
+## Maintaining this repo
+
+- Build pdoc - `pdoc --html --force --output-dir ./docs jenfi_pipeline_data_app`
+
