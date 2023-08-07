@@ -1,0 +1,73 @@
+[tool.poetry]
+name = "interval-sdk"
+version = "0.37.0-dev1"
+description = "Python SDK for Interval."
+authors = [
+	"Jacob Mischka <jacob@interval.com>",
+	"Ryan Coppolo <ryan@interval.com>",
+]
+maintainers = [
+	"Jacob Mischka <jacob@interval.com>",
+	"Ryan Coppolo <ryan@interval.com>",
+]
+readme = "README.md"
+homepage = "https://interval.com"
+documentation = "https://interval.com/docs"
+repository = "https://github.com/interval/interval-py"
+keywords = ["internal tool", "app", "ui", "ui builder"]
+
+[tool.poe.tasks]
+demo = { script = 'demos:main' }
+test = "pytest -n auto --maxprocesses 8 --dist loadgroup"
+check = "pyright"
+lint = "pylint src/"
+ruff = "ruff src/"
+format = "black src/"
+dump_schema = { script = 'interval_sdk.io_schema:dump_all_methods' }
+
+[tool.poetry.dependencies]
+python = "^3.9"
+websockets = "^10.1"
+pydantic = "^1.9.0"
+aiohttp = "^3.8.1"
+aiodns = {version = "^3.0.0", optional = true}
+typing-extensions = "^4.4.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.1.0"
+pylint = "^2.12.2"
+poethepoet = "^0.13.1"
+aiodns = "^3.0.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.1.1"
+pytest-xdist = "^3.1.0"
+pytest-asyncio = "^0.18.2"
+pytest-playwright = "^0.3.0"
+playwright = "^1.20.0"
+filelock = "^3.8.2"
+faker = "^16.4.0"
+boto3 = "^1.26.51"
+
+[tool.pyright]
+exclude = [
+	"**/node_modules",
+	"**/__pycache__",
+	"**/.venv",
+	"examples",
+]
+
+[tool.ruff]
+ignore = [
+	"E501", # line length violations
+	"E722", # bare except
+	"E401", # multiple imports on same line
+]
+
+# Ignore import violations in all `__init__.py` files
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["E402", "F401", "F403"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
