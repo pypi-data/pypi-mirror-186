@@ -1,0 +1,280 @@
+spellchecker: aspell
+
+matrix:
+- name: restructedtext
+  expect_match: false
+  glob_flags: "I|N|B|G"
+  sources:
+  -
+    - "${DIR}/**/*.rst"
+    - "!${DIR}/**/change*"
+    - "!${DIR}/**/release*"
+    - "!${DIR}/**/announce*"
+    - "!${DIR}/**/news*"
+    - "!${DIR}/**/history*"
+    - "!${DIR}/**/authors*"
+    - "!${DIR}/**/contributors*"
+    - "!${DIR}/**/translations/**/*"
+    - "!${DIR}/**/htmlcov/**/*"
+    - "!${DIR}/**/*build*/**/*"
+    - "!${DIR}/**/*modules*/**/*"
+  hunspell:
+    d: en_AU
+  aspell:
+    lang: en
+  dictionary:
+    output: build/dictionary/restructured.dic
+    wordlists:
+    - "${DIR}/**/wordlist.txt"
+    - "${DIR}/**/spelling_wordlist.txt"
+  pipeline:
+  - resplendent.filters.restructuredtext:
+  - pyspelling.filters.html:
+      comments: false
+      attributes:
+      - title
+      - alt
+      ignores:
+      - code
+      - pre
+  - pyspelling.filters.url:
+  - unanimous.filters.nonwords:
+      too_short: 3
+      wordlists:
+      - "${DIR}/**/wordlist.txt"
+      - "${DIR}/**/spelling_wordlist.txt"
+
+- name: markdown
+  expect_match: false
+  glob_flags: "I|N|B|G"
+  sources:
+  -
+    - "${DIR}/**/*.md"
+    - "!${DIR}/**/change*"
+    - "!${DIR}/**/release*"
+    - "!${DIR}/**/announce*"
+    - "!${DIR}/**/news*"
+    - "!${DIR}/**/history*"
+    - "!${DIR}/**/authors*"
+    - "!${DIR}/**/contributors*"
+    - "!${DIR}/**/translations/**/*"
+    - "!${DIR}/**/htmlcov/**/*"
+    - "!${DIR}/**/*build*/**/*"
+    - "!${DIR}/**/*modules*/**/*"
+  hunspell:
+    d: en_AU
+  aspell:
+    lang: en
+  dictionary:
+    output: build/dictionary/mkdocs.dic
+    wordlists:
+    - "${DIR}/**/wordlist.txt"
+    - "${DIR}/**/spelling_wordlist.txt"
+  pipeline:
+  - pyspelling.filters.markdown:
+  - pyspelling.filters.html:
+      comments: false
+      attributes:
+      - title
+      - alt
+      ignores:
+      - code
+      - pre
+  - pyspelling.filters.url:
+  - unanimous.filters.nonwords:
+      too_short: 3
+      wordlists:
+      - "${DIR}/**/wordlist.txt"
+      - "${DIR}/**/spelling_wordlist.txt"
+
+- name: python
+  expect_match: false
+  sources:
+  -
+    - "${DIR}/**/*.py"
+    - "!${DIR}/**/dependency/**/*.py"
+    - "!${DIR}/**/dependencies/**/*.py"
+    - "!${DIR}/**/dep/**/*.py"
+    - "!${DIR}/**/deps/**/*.py"
+    - "!${DIR}/**/lib/**/*.py"
+    - "!${DIR}/**/libs/**/*.py"
+    - "!${DIR}/**/include/**/*.py"
+    - "!${DIR}/**/includes/**/*.py"
+    - "!${DIR}/**/vendor/**/*.py"
+    - "!${DIR}/**/vendored/**/*.py"
+    - "!${DIR}/**/vendors/**/*.py"
+    - "!${DIR}/**/dist/**/*.py"
+    - "!${DIR}/**/3rdparty/**/*.py"
+    - "!${DIR}/**/package/**/*.py"
+    - "!${DIR}/**/packages/**/*.py"
+    - "!${DIR}/**/translations/**/*"
+    - "!${DIR}/**/htmlcov/**/*"
+    - "!${DIR}/**/*build*/**/*"
+    - "!${DIR}/**/*modules*/**/*"
+  hunspell:
+    d: en_AU
+  aspell:
+    lang: en
+  dictionary:
+    output: build/dictionary/python.dic
+    wordlists:
+    - "${DIR}/**/wordlist.txt"
+    - "${DIR}/**/spelling_wordlist.txt"
+  pipeline:
+  - pyspelling.filters.python:
+      group_comments: true
+  - pyspelling.flow_control.wildcard:
+      allow:
+      - py-comment
+  - pyspelling.filters.context:
+      context_visible_first: true
+      delimiters:
+      # Ignore lint (noqa) and coverage (pragma) as well as shebang (#!)
+      - open: '^(?: *(?:noqa\b|pragma: no cover)|!)'
+        close: '$'
+      # Ignore Python encoding string -*- encoding stuff -*-
+      - open: '^ *-\*-'
+        close: '-\*-$'
+  - pyspelling.filters.context:
+      context_visible_first: true
+      escapes: '\\[\\`]'
+      delimiters:
+      # Ignore multiline content between fences (fences can have 3 or more back ticks)
+      # ```
+      # content
+      # ```
+      - open: '(?s)^(?P<open> *`{3,})$'
+        close: '^(?P=open)$'
+      # Ignore text between inline back ticks
+      - open: '(?P<open>`+)'
+        close: '(?P=open)'
+  - pyspelling.filters.url:
+  - unanimous.filters.nonwords:
+      too_short: 3
+      wordlists:
+      - "${DIR}/**/wordlist.txt"
+      - "${DIR}/**/spelling_wordlist.txt"
+
+- name: javascript
+  expect_match: false
+  sources:
+  -
+    - "${DIR}/**/*.js"
+    - "!${DIR}/**/dependency/**/*.js"
+    - "!${DIR}/**/dependencies/**/*.js"
+    - "!${DIR}/**/dep/**/*.js"
+    - "!${DIR}/**/deps/**/*.js"
+    - "!${DIR}/**/lib/**/*.js"
+    - "!${DIR}/**/libs/**/*.js"
+    - "!${DIR}/**/include/**/*.js"
+    - "!${DIR}/**/includes/**/*.js"
+    - "!${DIR}/**/vendor/**/*.js"
+    - "!${DIR}/**/vendored/**/*.js"
+    - "!${DIR}/**/vendors/**/*.js"
+    - "!${DIR}/**/dist/**/*.js"
+    - "!${DIR}/**/3rdparty/**/*.js"
+    - "!${DIR}/**/package/**/*.js"
+    - "!${DIR}/**/packages/**/*.js"
+    - "!${DIR}/**/doc/asset/**/*.js"
+    - "!${DIR}/**/doc/assets/**/*.js"
+    - "!${DIR}/**/docs/asset/**/*.js"
+    - "!${DIR}/**/docs/assets/**/*.js"
+    - "!${DIR}/**/**/*.min.js"
+    - "!${DIR}/**/**/*.combined.js"
+    - "!${DIR}/**/translations/**/*"
+    - "!${DIR}/**/htmlcov/**/*"
+    - "!${DIR}/**/*build*/**/*"
+    - "!${DIR}/**/*modules*/**/*"
+  hunspell:
+    d: en_AU
+  aspell:
+    lang: en
+  dictionary:
+    output: build/dictionary/python.dic
+    wordlists:
+    - "${DIR}/**/wordlist.txt"
+    - "${DIR}/**/spelling_wordlist.txt"
+  pipeline:
+  - pyspelling.filters.javascript:
+      jsdocs: true
+      line_comments: true
+      block_comments: true
+      group_comments: true
+  - pyspelling.filters.context:
+      context_visible_first: true
+      escapes: '\\[\\`]'
+      delimiters:
+      # Ignore multiline content between fences (fences can have 3 or more back ticks)
+      # ```
+      # content
+      # ```
+      - open: '(?s)^(?P<open> *`{3,})$'
+        close: '^(?P=open)$'
+      # Ignore text between inline back ticks
+      - open: '(?P<open>`+)'
+        close: '(?P=open)'
+  - pyspelling.filters.url:
+  - unanimous.filters.nonwords:
+      too_short: 3
+      wordlists:
+      - "${DIR}/**/wordlist.txt"
+      - "${DIR}/**/spelling_wordlist.txt"
+
+- name: cpp
+  expect_match: false
+  sources:
+  -
+    - "${DIR}/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/dependency/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/dependency/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/dep/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/deps/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/dependencies/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/lib/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/libs/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/include/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/includes/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/vendor/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/vendored/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/vendors/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/dist/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/3rdparty/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/package/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/packages/**/*.{cpp,hpp,c,h}"
+    - "!${DIR}/**/translations/**/*"
+    - "!${DIR}/**/htmlcov/**/*"
+    - "!${DIR}/**/*build*/**/*"
+    - "!${DIR}/**/*modules*/**/*"
+  hunspell:
+    d: en_AU
+  aspell:
+    lang: en
+  dictionary:
+    output: build/dictionary/python.dic
+    wordlists:
+    - "${DIR}/**/wordlist.txt"
+    - "${DIR}/**/spelling_wordlist.txt"
+  pipeline:
+  - pyspelling.filters.cpp:
+      line_comments: true
+      block_comments: true
+      group_comments: true
+  - pyspelling.filters.context:
+      context_visible_first: true
+      escapes: '\\[\\`]'
+      delimiters:
+      # Ignore multiline content between fences (fences can have 3 or more back ticks)
+      # ```
+      # content
+      # ```
+      - open: '(?s)^(?P<open> *`{3,})$'
+        close: '^(?P=open)$'
+      # Ignore text between inline back ticks
+      - open: '(?P<open>`+)'
+        close: '(?P=open)'
+  - pyspelling.filters.url:
+  - unanimous.filters.nonwords:
+      too_short: 3
+      wordlists:
+      - "${DIR}/**/wordlist.txt"
+      - "${DIR}/**/spelling_wordlist.txt"
