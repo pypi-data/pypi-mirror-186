@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "elm-framework-helpers"
+version = "0.1.1"
+description = ""
+authors = ["Mat <mathieu@redapesolutions.com>"]
+readme = "README.md"
+packages = [{include = "elm_framework_helpers"}]
+homepage = "https://github.com/TechSpaceAsia/elm-framework-helpers"
+repository = "https://github.com/TechSpaceAsia/elm-framework-helpers"
+license = "MIT"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+[tool.poetry.group.dev.dependencies]
+black = "^22.12.0"
+isort = "^5.11.4"
+mypy = "^0.991"
+pyright = "^1.1.290"
+pytest = "^7.2.1"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target_version = ['py310']
+include = '\.py$'
+
+[tool.isort]
+profile = "black"
+line_length = 88              # corresponds to -w  flag
+multi_line_output = 3         # corresponds to -m  flag
+include_trailing_comma = true # corresponds to -tc flag
+skip_glob = '^((?!py$).)*$'   # isort all Python files
+float_to_top = true
+
+[tool.poetry.dependencies]
+python = "^3.10"
+reactivex = "^4.0.4"
+
