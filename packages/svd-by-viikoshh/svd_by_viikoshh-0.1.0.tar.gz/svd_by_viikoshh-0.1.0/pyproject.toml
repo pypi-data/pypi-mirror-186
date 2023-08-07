@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "svd-by-viikoshh"
+version = "0.1.0"
+description = "SVD"
+authors = ["viikoshh <105398417+viikoshh@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "svd_by_viikoshh"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = "^1.24.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+run_svd = 'main:main'
