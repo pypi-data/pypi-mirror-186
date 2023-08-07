@@ -1,0 +1,15 @@
+class DataType:
+    Unknown = 0x00
+    Folder = 0x01
+    File = 0x02
+    Image = 0x04
+    Video = 0x08
+    Binary = 0x10
+    Text = 0x20
+    CSV = 0x40
+    SQL = 0x80
+    Custom = 0x100
+    Root = 0x200
+    FileList = 0x400
+    FolderList = 0x800,
+    Value = 0x1000
