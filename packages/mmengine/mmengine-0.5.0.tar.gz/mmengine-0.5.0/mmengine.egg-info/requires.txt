@@ -1,0 +1,33 @@
+addict
+matplotlib
+numpy
+pyyaml
+rich
+termcolor
+yapf
+opencv-python>=3
+
+[:sys_platform == "win32"]
+regex
+
+[all]
+addict
+matplotlib
+numpy
+pyyaml
+rich
+termcolor
+yapf
+coverage
+lmdb
+parameterized
+pytest
+
+[all:sys_platform == "win32"]
+regex
+
+[tests]
+coverage
+lmdb
+parameterized
+pytest
