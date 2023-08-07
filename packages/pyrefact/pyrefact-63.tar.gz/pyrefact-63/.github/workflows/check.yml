@@ -1,0 +1,64 @@
+name: Tests
+
+on: [push]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12.0-alpha.3", "pypy3.9"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
+    - name: Running unit tests
+      run: |
+        python ./tests/main.py
+    - name: Running on self with --safe, -s, --preserve . and variants thereof
+      run: |
+        python -m pyrefact . --safe
+        python -m pyrefact . -s
+        python -m pyrefact . --preserve .
+        python -m pyrefact . -p .
+        python -m pyrefact . --safe --preserve .
+        python -m pyrefact . -sp .
+        cat ./pyrefact/main.py | python -m pyrefact --from-stdin
+    - name: Install as editable
+      run: |
+        pip install -e .
+    - name: Rerun unit tests
+      run: |
+        python ./tests/main.py
+
+  deploy:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: technote-space/get-diff-action@v6
+      with:
+        FILES: |
+          pyproject.toml
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build
+    - name: Build package
+      run: python -m build
+    - name: Publish package
+      if: env.GIT_DIFF && env.MATCHED_FILES
+      uses: pypa/gh-action-pypi-publish@c7f29f7adef1a245bd91520e94867e5c6eedddcc
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
