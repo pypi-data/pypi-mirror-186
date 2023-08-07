@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: gyver
+Version: 0.15.0
+Summary: Toolbox for web development
+Home-page: https://github.com/guscardvs/gyver
+Author: Gustavo Correa
+Author-email: self.gustavocorrea@gmail.com
+Requires-Python: >=3.9,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Provides-Extra: cache
+Provides-Extra: db-mariadb
+Provides-Extra: db-mysql
+Provides-Extra: db-pg
+Provides-Extra: db-sqlite
+Provides-Extra: sqlalchemy
+Requires-Dist: aiomysql (>=0.1.1,<0.2.0) ; extra == "db-mysql"
+Requires-Dist: aiosqlite (>=0.17.0,<0.18.0) ; extra == "db-sqlite"
+Requires-Dist: asyncmy (>=0.2.5,<0.3.0) ; extra == "db-mariadb"
+Requires-Dist: asyncpg (>=0.27.0,<0.28.0) ; extra == "db-pg"
+Requires-Dist: context-handler (>=5.1.0,<6.0.0)
+Requires-Dist: cryptography (>=38.0.4,<39.0.0)
+Requires-Dist: orjson (>=3.8.1,<4.0.0)
+Requires-Dist: psycopg2 (>=2.9.5,<3.0.0) ; extra == "db-pg"
+Requires-Dist: pydantic[email] (>=1.10.2,<2.0.0)
+Requires-Dist: pymysql (>=1.0.2,<2.0.0) ; extra == "db-mysql" or extra == "db-mariadb"
+Requires-Dist: redis (>=4.4.0,<5.0.0) ; extra == "cache"
+Requires-Dist: sqlalchemy (>=1.4.43,<2.0.0) ; extra == "sqlalchemy"
+Requires-Dist: typing-extensions (>=4.4.0,<5.0.0)
+Requires-Dist: tzdata (>=2022.6,<2023.0) ; sys_platform != "linux"
+Project-URL: Repository, https://github.com/guscardvs/gyver
+Description-Content-Type: text/markdown
+
+
+# Gyver
+
+Toolbox for web development
+
+
+## Authors
+
+- [@guscardvs](https://www.github.com/guscardvs)
+
+
+## Installation
+
+Install gyver with pip
+
+```bash
+  pip install gyver
+```
+    
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+
+## Roadmap
+
+- Database helpers
+
+- Http helpers
+
+
