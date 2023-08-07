@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "rosrestpy"
+version = "0.2.2"
+description = "RouterOS v7 REST API python module"
+authors = ["hexatester <hexatester@protonmail.com>"]
+license = "GPL-3.0-only"
+readme = "README.md"
+repository = "https://github.com/hexatester/rosrestpy"
+packages = [
+    { include = "ros" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Networking",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+attrs = ">=21.0.0,<=23.0.0"
+requests = "^2.28.1"
+cattrs = ">=21.0.0,<=23.0.0"
+ujson = {version = "^5.5.0", optional = true}
+
+[tool.poetry.extras]
+ujson = ["ujson"]
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.2.0"
+mypy = "^0.961"
+black = "^22.6.0"
+types-requests = "^2.28.0"
+python-dotenv = "^0.20.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
