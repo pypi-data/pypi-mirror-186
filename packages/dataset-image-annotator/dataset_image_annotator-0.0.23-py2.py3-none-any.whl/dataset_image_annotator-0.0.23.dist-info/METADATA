@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: dataset-image-annotator
+Version: 0.0.23
+Summary: Image annotation tool
+Home-page: https://github.com/kamikaze/dataset-image-annotator
+Author: Oleg Korsak
+Author-email: kamikaze.is.waiting.you@gmail.com
+License: gpl-3
+Project-URL: Documentation, https://github.com/kamikaze/dataset-image-annotator/wiki
+Platform: any
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Requires-Python: >=3.10
+Description-Content-Type: text/x-rst; charset=UTF-8
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: rawpy (==0.17.3)
+Requires-Dist: Pillow (==9.4.0)
+Requires-Dist: pydantic (==1.10.4)
+Requires-Dist: tzdata (==2022.7)
+Provides-Extra: desktop
+Requires-Dist: PySide6-Essentials (==6.4.2) ; extra == 'desktop'
+Provides-Extra: testing
+Requires-Dist: pytest ; extra == 'testing'
+Requires-Dist: pytest-cov ; extra == 'testing'
+Provides-Extra: web
+Requires-Dist: alembic (==1.9.2) ; extra == 'web'
+Requires-Dist: asyncpg (==0.27.0) ; extra == 'web'
+Requires-Dist: Authlib (==1.2.0) ; extra == 'web'
+Requires-Dist: passlib (==1.7.4) ; extra == 'web'
+Requires-Dist: databases[postgresql] (==0.7.0) ; extra == 'web'
+Requires-Dist: fastapi (==0.89.1) ; extra == 'web'
+Requires-Dist: fastapi-pagination (==0.11.2) ; extra == 'web'
+Requires-Dist: fastapi-users[sqlalchemy] (==10.3.0) ; extra == 'web'
+Requires-Dist: orjson (==3.8.5) ; extra == 'web'
+Requires-Dist: PyJWT (==2.6.0) ; extra == 'web'
+Requires-Dist: python-dateutil (==2.8.2) ; extra == 'web'
+Requires-Dist: SQLAlchemy (==1.4.46) ; extra == 'web'
+Requires-Dist: uvicorn[standard] (==0.20.0) ; extra == 'web'
+Requires-Dist: uvloop (==0.17.0) ; extra == 'web'
+
+Dataset image annotator
+=======================
+
+Dataset image annotation tool
