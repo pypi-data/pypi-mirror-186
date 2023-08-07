@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "cyral"
+version = "2.0.1"
+description = "The Cyral CLI tool"
+license = "MIT"
+authors = [
+	"Deepak Gupta <deepak@cyral.com>",
+]
+readme = "DOC.md"
+
+[tool.poetry.dependencies]
+click = "^8.1"
+oauthlib = "^3.2"
+python = "^3.9"
+requests = "^2.28"
+columnar = "^1.4"
+awscli = "^1.25"
+
+[tool.poetry.dev-dependencies]
+types-requests = "^2.28"
+typing_extensions = "^4.3"
+types-setuptools = "^65.3"
+types-PyYAML = "^6.0"
+mypy = "^0.971"
+pylint = "^2.14"
+flake8 = "^5.0"
+black = "^22.6"
+bandit = "^1.7"
+
+[tool.poetry.scripts]
+cyral = "cyral.cli.__main__:main"
+
+[tool.black]
+line-length=79
+
+[build-system]
+requires = ["poetry-core>=1.1.0"]
+build-backend = "poetry.core.masonry.api"
