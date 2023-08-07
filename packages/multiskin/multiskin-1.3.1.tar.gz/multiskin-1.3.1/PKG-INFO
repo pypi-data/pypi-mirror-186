@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: multiskin
+Version: 1.3.1
+Summary: A small package for Multiskin
+Project-URL: Homepage, https://multi.skin
+Project-URL: Bug Tracker, https://multi.skin
+Author-email: Josh Elgar <joshelgar@gmail.com>
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.9
+Requires-Dist: dataclasses
+Requires-Dist: diffusers[torch]
+Requires-Dist: huggingface-hub
+Requires-Dist: pillow
+Requires-Dist: transformers
+Requires-Dist: typing
+Description-Content-Type: text/markdown
+
+### Things to remember
+1. Make sure under arm64 (check with `arch`).
+2. If not under arm64, run: `env /usr/bin/arch -arm64 /bin/zsh`
+3. Remove all (presumably wrong) reqs with: `pip freeze | xargs pip uninstall -y`
+5. Latest pip: `pip install --ugprade pip`
+4. Install requirements: `pip install -r requirements.txt`
+5. Make sure you're logged in with `huggingface-cli login`
