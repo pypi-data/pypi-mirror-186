@@ -1,0 +1,153 @@
+[tool.poetry]
+name = "abilian-devtools"
+version = "0.4.1"
+description = "A curated set of dependencies for quality software development"
+authors = ["Stefane Fermigier <sf@abilian.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "abilian_devtools", from = "src"}]
+repository = "https://github.com/abilian/abilian-devtools"
+keywords = ["qa", "testing", "linting", "typechecking", "security", "supply chain"]
+
+
+[tool.poetry.scripts]
+adt = "abilian_devtools.main:app"
+
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+typer = "*"
+
+# Git integration
+pre-commit = "*"
+
+# Testing
+pytest = "^7"
+pytest-cov = "^4"
+profilehooks = "*"
+pytest-xdist = "*"
+pytest-random-order = "*"
+# pytest-testmon = "^1.2.0"
+nox = "*"
+
+# Linting
+flake8 = "^6"
+
+# Plugins: see https://github.com/DmytroLitvinov/awesome-flake8-extensions
+flake8-bandit = "*"
+flake8-breakpoint = "*"
+flake8-cognitive-complexity = "*"
+flake8-datetimez = "*"
+flake8-functions = "*"
+flake8-if-expr = "*"
+flake8-isort = "*"
+flake8-logging-format = "*"
+flake8-mutable = "*"
+flake8-super = "*"
+flake8-super-call = "*"
+flake8-tidy-imports = "*"
+flake8-tuple = "*"
+
+# Removing these as they are made redundant by Ruf
+# (See: https://notes.crmarsh.com/ruff-the-first-200-releases)
+# flake8-bugbear = "*"
+# flake8-comprehensions = "*"
+# flake8-simplify = "*"
+# pep8-naming = "*"
+
+# Typing
+flake8-pep3101 = "*"
+flake8-no-pep420 = "*"
+flake8-pep585 = "*"
+flake8-pep604 = "*"
+
+# Testing
+flake8-assertive = "*"
+flake8-pytest = "*"
+flake8-pytest-style = "*"
+
+# Useful but later:
+# flake8-requirements = "*"
+# flake8-return = "*"
+# flake8-expression-complexity = "*"
+# flake8-print = "*"
+# flake8-use-pathlib = "*"
+# tryceratops = "^0.6"
+# flake8-pie = "*"
+# dlint = "*" <- not compatible w/ flake8 6+
+# hacking = "*" <- not compatible w/ flake8 6+
+
+ruff = "*"
+
+# Formatting
+isort = "*"
+black = "*"
+docformatter = "*"
+
+# Typechecking
+mypy = "*"
+pyright = "*"
+
+# Dependencies & supply chain
+deptry = "*"
+pip = "*"
+pip-audit = "*"
+reuse = "*"
+safety = "*"
+vulture = "*"
+# poetryup = "*"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.deptry]
+ignore_obsolete = [
+    "black",
+    "deptry",
+    "docformatter",
+    "flake8",
+    "flake8-assertive",
+    "flake8-bandit",
+    "flake8-breakpoint",
+    "flake8-bugbear",
+    "flake8-cognitive-complexity",
+    "flake8-comprehensions",
+    "flake8-datetimez",
+    "flake8-functions",
+    "flake8-if-expr",
+    "flake8-isort",
+    "flake8-logging-format",
+    "flake8-mutable",
+    "flake8-no-pep420",
+    "flake8-pep3101",
+    "flake8-pep585",
+    "flake8-pep604",
+    "flake8-pytest",
+    "flake8-pytest-style",
+    "flake8-simplify",
+    "flake8-super",
+    "flake8-super-call",
+    "flake8-tidy-imports",
+    "flake8-tuple",
+    "isort",
+    "mypy",
+    "nox",
+    "pep8-naming",
+    "pip",
+    "pip-audit",
+    "pre-commit",
+    "profilehooks",
+    "pyright",
+    "pytest",
+    "pytest-cov",
+    "pytest-random-order",
+    "pytest-xdist",
+    "reuse",
+    "ruff",
+    "safety",
+    "vulture",
+]
