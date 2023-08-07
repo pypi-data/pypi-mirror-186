@@ -1,0 +1,102 @@
+[build-system]
+requires = ["setuptools", "wheel", "setuptools-rust"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310", "py311"]
+
+[tool.cibuildwheel]
+skip = "pp* cp3{6,7}-* *musllinux*"
+
+[tool.cibuildwheel.linux]
+before-all = "yum install -y wget && {package}/tools/install_rust.sh"
+environment = 'PATH="$PATH:$HOME/.cargo/bin" CARGO_NET_GIT_FETCH_WITH_CLI="true"'
+
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "arm64"]
+
+[[tool.cibuildwheel.overrides]]
+select = "*-macosx_arm64"
+before-all = "rustup target add aarch64-apple-darwin"
+[tool.cibuildwheel.overrides.environment]
+CARGO_BUILD_TARGET = "aarch64-apple-darwin"
+_PYVER = '''$(python -c 'import sys; major, minor, *_ = sys.version_info; print(f"{major}.{minor}")')'''
+PYO3_CROSS_LIB_DIR = "/Library/Frameworks/Python.framework/Versions/$_PYVER/lib/python$_PYVER"
+
+[tool.pylint.main]
+# Minimum supported Python version.
+py-version = "3.8"
+[tool.pylint.basic]
+# Naming convention for objects that do not require docstrings.
+no-docstring-rgx = "^_"
+[tool.pylint.classes]
+# List of method names used to declare (i.e. assign) instance attributes.
+defining-attr-methods = ["__init__", "__new__", "setUp", "__post_init__"]
+# List of member names, which should be excluded from the protected access
+# warning.
+exclude-protected = ["_asdict", "_fields", "_replace", "_source", "_make"]
+# List of valid names for the first argument in a class method.
+valid-classmethod-first-arg = ["cls"]
+# List of valid names for the first argument in a metaclass class method.
+valid-metaclass-classmethod-first-arg = ["cls"]
+[tool.pylint.exceptions]
+# Exceptions that will emit a warning when caught.
+overgeneral-exceptions = ["BaseException"]
+[tool.pylint."messages control"]
+disable = [
+    "bad-indentation",
+    "bad-inline-option",
+    "deprecated-pragma",
+    "duplicate-code",
+    "file-ignored",
+    "fixme",
+    "invalid-name",
+    "line-too-long",
+    "locally-disabled",
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "missing-module-docstring",
+    "multiple-statements",
+    "no-self-use",
+    "not-context-manager",  # Too many false negatives.
+    "raw-checker-failed",
+    "redefined-builtin",
+    "redefined-outer-name",
+    "suppressed-message",
+    "too-few-public-methods",
+    "too-many-arguments",
+    "too-many-branches",
+    "too-many-instance-attributes",
+    "too-many-lines",
+    "too-many-locals",
+    "too-many-public-methods",
+    "too-many-return-statements",
+    "too-many-statements",
+    "trailing-whitespace",
+    "ungrouped-imports",
+    "unknown-option-value",
+    "unneeded-not",
+    "unspecified-encoding",
+    "unused-wildcard-import",
+    "use-implicit-booleaness-not-comparison",
+    "use-implicit-booleaness-not-len",
+    "useless-option-value",
+    "useless-suppression",
+    "wrong-import-order",
+    "wrong-import-position",
+]
+[tool.pylint.typecheck]
+extension-pkg-allow-list = ["qiskit_qasm2.core"]
+[tool.pylint.variables]
+# Tells whether unused global variables should be treated as a violation.
+allow-global-unused-variables = true
+# A regular expression matching the name of dummy variables (i.e. expected to not
+# be used).
+dummy-variables-rgx = "_.*"
+ignored-argument-names = "_.*"
+# List of qualified module names which can have objects that can redefine builtins.
+redefining-builtins-modules = ["six.moves", "past.builtins", "future.builtins", "builtins", "io"]
+
+[tool.pytest.ini_options]
+xfail_strict = true
