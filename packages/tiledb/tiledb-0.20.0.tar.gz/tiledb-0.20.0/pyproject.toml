@@ -1,0 +1,17 @@
+[build-system]
+
+# https://askubuntu.com/a/1407138
+# we encounter the above error in versions of setuptools<=58.3.0
+requires = ["setuptools>=42,<=58.3.0", "wheel", "pybind11>=2.6.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+python_classes = "*Test*"
+python_files = "test_*.py"
+testpaths = ["tiledb/tests"]
+addopts = "--ignore=tiledb/tests/perf --ignore=tiledb/tests/__pycache__"
+filterwarnings = [
+    "error",
+    "default::pytest.PytestWarning",
+    "default::DeprecationWarning:distributed",
+]
