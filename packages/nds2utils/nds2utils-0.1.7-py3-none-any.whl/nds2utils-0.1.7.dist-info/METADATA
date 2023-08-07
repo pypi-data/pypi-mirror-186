@@ -1,0 +1,276 @@
+Metadata-Version: 2.1
+Name: nds2utils
+Version: 0.1.7
+Summary: nds2 utilities for reading LIGO data quickly and easily
+Home-page: https://git.ligo.org/craig-cahillane/nds2utils
+Author: Craig Cahillane
+Author-email: ccahilla@caltech.edu
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# nds2utils
+
+nds2utils is a user interface for the python nds2 client.  
+nds2 error messages and data structures can be hard to parse.
+nds2utils provides helper functions, defaults, warnings, and error messages for users trying to get ligo data with python.
+Git repository is at [https://git.ligo.org/craig-cahillane/nds2utils](https://git.ligo.org/craig-cahillane/nds2utils)
+
+# Features
+
+- Quick and easy data acquisition using nds2. `acquire_data()`
+- Acquisition of data in real-time `stitch_real_time_data()`
+- Automatic computation of power spectral densities, cross spectral densities, transfer functions, and coherence `'get_psds(), get_csds()'`
+- Quick plotting of your data `plot_ASDs, plot_TFs_A, plot_TFs_A`
+- Interactive legend - click on line in legend to toggle it
+- Logbinning
+- Calibration using zpk
+- Examples
+- Docstrings.  If in doubt about a function, look in the docstrings, using, e.g. `nu.acquire_data?`
+
+# Installation
+
+This library requires numpy, scipy, nds2-client, python-nds2-client, and matplotlib.
+
+You can install the `nds2utils` Anaconda environment in this directory's `environment.yml` by running
+
+```
+conda env create -f environment.yml
+```
+
+Alternatively, you can either conda install or pip install
+
+```
+conda install numpy scipy nds2-client python-nds2-client matplotlib
+```
+
+```
+pip install numpy scipy nds2-client python-nds2-client matplotlib
+```
+
+Tested versions at the time of this publishing:
+
+- python              3.7.3
+- numpy               1.17.0
+- scipy               1.3.1
+- nds2-client         0.16.3
+- python-nds2-client  0.16.4
+- matplotlib          3.1.1
+
+You can install nds2utils using `pip` at <https://pypi.org/project/nds2utils/>
+
+```
+pip install nds2utils
+```
+
+*New in version 0.0.25*
+Added `.hdf5` saving and loading support using `deepdish`.
+
+If you want this functionality, please run
+
+```
+pip install deepdish
+```
+
+or `cd` to this directory on your computer and run
+
+```
+conda env update -f environment.yml
+```
+
+which will update your `nds2utils` environment to have deepdish.
+
+# Quick Start
+
+You will have to `kinit albert.einstein@LIGO.ORG` to start a kerberos authenticated session to allow you to access data.
+
+## Get raw time series data
+
+```python
+import nds2utils as nu
+
+channels = ['H1:CAL-DELTAL_EXTERNAL_DQ', 'H1:LSC-REFL_SERVO_ERR_OUT_DQ']
+gps_start = 1256771562
+gps_stop  = 1256771712
+data_dict = nu.acquire_data(channels, gps_start, gps_stop)
+
+cal_deltal_external_data = data_dict['H1:CAL-DELTAL_EXTERNAL_DQ']['data'] # this is where the data is stored
+
+# Plot raw time series data
+nu.plot_raw_data(data_dict, seconds=150, downsample=2**10)
+```
+
+## Get data and take PSDs, CSDs, and TFs of time series data
+
+```python
+import nds2utils as nu
+
+channels = ['H1:CAL-DELTAL_EXTERNAL_DQ', 'H1:PSL-ISS_SECONDLOOP_RIN_OUTER_OUT_DQ']
+gps_start = 1256771562
+gps_stop  = 1256771712
+binwidth = 0.1 # Hz, frequency vector spacing
+overlap = 0.5 # FFT overlap ratio
+
+data_dict = nu.get_csds(channels, gps_start, gps_stop, binwidth, overlap)
+
+nu.plot_asds(data_dict, title='Uncalibrated and Logbinned DARM and CARM spectra', logbin=True)
+```
+
+# Slow Start
+
+Valid Host Sever:Port Number combos:
+
+```
+host_server:port_number
+h1nds1:8088                   # only good on LHO CDS computers
+h1nds0:8088                   # only good on LHO CDS computers
+nds.ligo-wa.caltech.edu:31200 # LHO frame cache
+nds.ligo-la.caltech.edu:31200 # LLO frame cache
+nds.ligo.caltech.edu:31200    # Caltech frame cache
+```
+
+Important functions you will want to use:
+
+```python
+nu.find_channels('H1:CAL*DQ') # Accepts a channel glob, returns matching channels
+nu.acquire_data() # Accepts array of channel names, gps_start, and gps_stop.  Returns dictionary containing the data.
+```
+
+Open an ipython terminal, and import the data_utils library by running
+
+```python
+import nds2utils as nu
+```
+
+You can't remember the exact name for the calibrated DARM channel you want, so you run
+
+```python
+nu.find_channels('H1:CAL*DQ')
+```
+
+You see the channel you want in the output, `H1:CAL-DELTAL_EXTERNAL_DQ`.
+
+You want to look at the DARM and intensity noise witness channel amplitude spectral density and transfer function at the time there was excess intensity noise at LIGO Hanford.  
+You happen to know the gps times you want to look at.  
+You rerun `find_channels('H1:PSL-ISS_SECONDLOOP*DQ')` and find the out of loop intensity noise witness channel, `H1:PSL-ISS_SECONDLOOP_RIN_OUTER_OUT_DQ`:
+
+```python
+channels = np.array(['H1:CAL-DELTAL_EXTERNAL_DQ', 'H1:PSL-ISS_SECONDLOOP_RIN_OUTER_OUT_DQ'])
+gps_start = 1256805122
+duration = 100 # seconds
+gps_stop = gps_start + duration
+binwidth = 1  # Hz, frequency bin spacing for the ASDs and TFs.
+overlap = 0.5 # fraction between 0 and 1.  overlap ratio for the data window.
+
+# Get time-series of data and sampling frequency,
+# and calculate PSDs, ASDs, CSDs, and TFs between all channels
+# stored in a dictionary with channel names as keys, and dictionaries for values.
+data_dict = nu.get_csds(channels, gps_start, gps_stop, binwidth, overlap)  
+```
+
+`data_dict` is a dictionary of dictionaries.
+The top level dictionary uses channel names as keys, and returns values which are dictionaries containing the data relevant to the channel key.
+You define a second-level dictionary, `darmDict`, to look only at the darm dictionary:
+
+```python
+print(data_dict.keys())
+
+darmD_dict = data_dict['H1:CAL-DELTAL_EXTERNAL_DQ']
+
+print(darm_dict.keys())
+```
+
+`data_dict` contains the following keys:
+
+Raw data keys:
+
+- `'data'`     = the raw data from the channel
+- `'fs'`       = sampling frequency of the data
+- `'gpsStart'` = gps time representing the first data point acquired
+- `'duration'` = time length of data acquired
+
+PSD data keys:
+
+- `'averages'` = int.   number of averages for the power spectral density calculation
+- `'binwidth'` = float. Hz, frequency bin spacing for the ASDs and TFs
+- `'overlap'`  = float. fraction between 0 and 1.  overlap ratio for the data window.
+- `'fftLen'`   = float. length in seconds for the FFTs. Used in scipy.welch() PSD calculation.
+- `'nperseg'`  = int.   number of samples per FFT segment.
+- `'ff'`       = array. frequency vector for this channels PSDs
+- `'PSD'`      = array. power spectral density in units^2/Hz
+- `'df'`       = float. Hz. delta frequency vector, should be the same as binwidth.
+
+CSD and TF data keys: (names of all other channels, in this case, `'ISS_SECONDLOOP_RIN_OUTER_OUT_DQ'`:
+
+- `'H1:PSL-ISS_SECONDLOOP_RIN_OUTER_OUT_DQ'` = dictionary containing CSD, TF, and coherence info.
+
+We make another definition of the third level dictionary to get CSD and TF info:
+
+```python
+iss2darmDict = data_dict['H1:CAL-DELTAL_EXTERNAL_DQ']['H1:PSL-ISS_SECONDLOOP_RIN_OUTER_OUT_DQ']
+print(iss2darm_dict.keys())
+```
+
+`iss2darm_dict` contains the following keys:
+
+- `'ff'`       = array. frequency vector for these two channels CSDs, TFs, and coherences
+- `'CSD'`      = array. cross spectral density in units $`\mathrm{unit_a} * \mathrm{unit_b}/\mathrm{Hz}`$
+- `'TF'`       = array. transfer function in $`\mathrm{unit_b} / \mathrm{unit_b}`$
+- `'coh'`      = array. power coherence, unitless $` \gamma^2 = |\mathrm{CSD}_{AB}|^2 / (\mathrm{PSD}_A * \mathrm{PSD}_B) `$
+
+The convention for the cross spectral density: The first channel is the complex conjugated one.
+
+- `data_dict[chanB][chanA]['CSD']` = $`\mathrm{CSD}_{BA}`$ = $`\langle{b^*}\rvert{a}\rangle`$
+
+The convention for the transfer function: chanB is the first channel in the data_dict, chanA is the second:
+
+- `data_dict[chanB][chanA]['TF']` = H(f) = $`\frac{\mathrm{CSD}_{AB}}{\mathrm{PSD}_{A}}`$ = $`\frac{\langle{a^*}\rvert{b}\rangle}{\langle{a^2}\rangle}`$
+
+The convention for the coherence: coherence is the power coherence:
+
+- `data_dict[chanB][chanA]['coh']` = $`\gamma^2 = \frac{|\langle{a^*}\rvert{b}\rangle|^2}{\langle{a^2}\rangle \langle{b^2}\rangle}`$
+
+If you add a calibration using calibrate_chan(), you will have new keys in your dictionary:
+
+- `'calPSD'`
+- `'calCSD'`
+- `'calTF'`
+
+# Changelog
+
+Major changes in versions
+*0.0.25*
+
+- Added `deepdish` dependency
+
+*0.1.0*
+
+- Removed individual storage of ASDs to conserve space, only PSDs are stored now.
+- Changed `data_dict` key name `fftLen` to `fft_time` to be more descriptive.
+- Added `cummulative_rms()` function which the `RMS()` function now depends on. `cummulateive_rms()` uses `scipy.integrate.cumtrapz()` to estimate the root mean squared value from a PSD.
+- Changed the names of many functions to be more consistent, more clear, and not have `CaMElCaSE` but instead `underscore_based` names and arguments
+  - `data_PSDs` -> `calc_psds`
+  - `data_CSDs` -> `calc_csds`
+  - `data_TFs` -> `calc_tfs`
+  - `logbin_ASD` -> `logbin_psd`
+  - `linear_log_ASD` -> `linear_log_psd`
+  - `get_PSDs` -> `get_psds`
+  - `get_CSDs` -> `get_csds`
+  - `get_TFs` -> `get_tfs`
+  - `quick_ASD_grab` -> `quick_asd_grab`
+  - `quick_PSD_grab` -> `quick_psd_grab`
+  - `quick_CSD_grab` -> `quick_csd_grab`
+  - `quick_TF_grab` -> `quick_tf_grab`
+  - `plot_ASDs` -> `plot_asds`
+  - `compare_ASDs` -> `compare_asds`
+  - `plot_TF` -> `plot_tf`
+  - `plot_TFs_A` -> `plot_tfs_a`
+  - `plot_TFs_B` -> `plot_tfs_b`
+  
+  *0.1.1*
+
+- Added and partially tested conditioned spectra and partial coherence functions to `data_utils.py`.
+- Fixed `make_interactive_svg.py` to work for multiple legends on multiple subplots.
