@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yui"
+version = "0.0.3"
+authors = [
+  { name="Agavestorm Inc", email="somehownottaken@gmail.com" },
+]
+description = "Yui: git based personal task manager"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "appdata>=2",
+    "sanitize_filename>=1.2",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/agavestorm/yui"
+"Bug Tracker" = "https://github.com/agavestorm/yui/issues"
+
+[project.scripts]
+yui         = "yui:main.main"
+yui-archive = "yui:archive.main"
+yui-create  = "yui:create.main"
+yui-drop    = "yui:drop.main"
+yui-git     = "yui:git.main"
+yui-lastid  = "yui:lastid.main"
+yui-list    = "yui:list.main"
+yui-open    = "yui:open.main"
+yui-pick    = "yui:pick.main"
+yui-reset   = "yui:reset.main"
+yui-scope   = "yui:scope.main"
+
