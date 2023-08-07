@@ -1,0 +1,79 @@
+[build-system]
+requires = [
+    "robotpy-build<2024.0.0,>=2023.0.1",
+    "wpilib<2024.0.0,>=2023.2.1.0",
+    "robotpy-wpimath<2024.0.0,>=2023.2.1.0",
+]
+
+[tool.robotpy-build.metadata]
+name = "robotpy-pathplannerlib"
+description = "Python wrapper for PathPlannerLib"
+author = "RobotPy Development Team"
+author_email = "robotpy@googlegroups.com"
+url = "https://github.com/robotpy/robotpy-pathplannerlib"
+license = "BSD-3-Clause"
+install_requires = [
+    "wpilib<2024.0.0,>=2023.2.1.0",
+    "robotpy-wpimath<2024.0.0,>=2023.2.1.0",
+]
+
+[tool.robotpy-build]
+base_package = "pathplannerlib"
+
+[tool.robotpy-build.wrappers."pathplannerlib".maven_lib_download]
+artifact_id = "PathplannerLib-cpp"
+group_id = "com.pathplanner.lib"
+repo_url = "https://3015rangerrobotics.github.io/pathplannerlib/repo"
+version = "2023.3.4"
+use_sources = true
+sources = [
+    "pathplanner/lib/PathPlanner.cpp",
+    "pathplanner/lib/PathPlannerTrajectory.cpp",
+    "pathplanner/lib/controllers/PPHolonomicDriveController.cpp",
+]
+sources_classifier = "source"
+
+[[tool.robotpy-build.wrappers."pathplannerlib".maven_lib_download.patches]]
+patch = "pathplannerlib/src/sources.patch"
+strip = 1
+
+[tool.robotpy-build.wrappers."pathplannerlib"]
+name = "pathplannerlib"
+depends = [
+    "wpilibc",
+    "wpilib_core",
+    "wpimath_cpp",
+    "wpimath_geometry",
+    "wpiHal",
+    "wpiutil",
+]
+
+sources = [
+    "pathplannerlib/src/rpy/pathplannerlib.cpp"
+]
+
+generation_data = "gen"
+
+[tool.robotpy-build.wrappers."pathplannerlib".autogen_headers]
+# pathplanner/lib
+GeometryUtil = "pathplanner/lib/GeometryUtil.h"
+PathConstraints = "pathplanner/lib/PathConstraints.h"
+PathPlanner = "pathplanner/lib/PathPlanner.h"
+PathPlannerTrajectory = "pathplanner/lib/PathPlannerTrajectory.h"
+PathPoint = "pathplanner/lib/PathPoint.h"
+
+# pathplanner/lib/auto
+# BaseAutoBuilder = "pathplanner/lib/auto/BaseAutoBuilder.h"
+# MecanumAutoBuilder = "pathplanner/lib/auto/MecanumAutoBuilder.h"
+# PIDConstants = "pathplanner/lib/auto/PIDConstants.h"
+# RamseteAutoBuilder = "pathplanner/lib/auto/RamseteAutoBuilder.h"
+# SwerveAutoBuilder = "pathplanner/lib/auto/SwerveAutoBuilder.h"
+
+# pathplanner/lib/commands
+# FollowPathWithEvents = "pathplanner/lib/commands/FollowPathWithEvents.h"
+# PPMecanumControllerCommand = "pathplanner/lib/commands/PPMecanumControllerCommand.h"
+# PPRamseteCommand = "pathplanner/lib/commands/PPRamseteCommand.h"
+# PPSwerveControllerCommand = "pathplanner/lib/commands/PPSwerveControllerCommand.h"
+
+# pathplanner/lib/controllers
+PPHolonomicDriveController = "pathplanner/lib/controllers/PPHolonomicDriveController.h"

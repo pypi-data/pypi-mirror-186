@@ -1,0 +1,35 @@
+---
+
+classes:
+  PathPlanner:
+    attributes:
+      resolution:
+    methods:
+      loadPath:
+        overloads:
+          std::string&, PathConstraints, bool:
+          std::string&, units::meters_per_second_t, units::meters_per_second_squared_t, bool:
+      loadPathGroup:
+        overloads:
+          std::string&, std::initializer_list<PathConstraints>, bool:
+            ignore: true
+          std::string&, std::vector<PathConstraints>, bool:
+          std::string&, units::meters_per_second_t, units::meters_per_second_squared_t, bool:
+      generatePath:
+        overloads:
+          PathConstraints, bool, std::vector<PathPoint>:
+          units::meters_per_second_t, units::meters_per_second_squared_t, bool, std::vector<PathPoint>:
+            ignore: true  # deprecated
+          PathConstraints, std::vector<PathPoint>:
+          units::meters_per_second_t, units::meters_per_second_squared_t, std::vector<PathPoint>:
+            ignore: true  # deprecated
+          PathConstraints, bool, PathPoint, PathPoint, std::initializer_list<PathPoint>:
+            ignore: true
+          ? units::meters_per_second_t, units::meters_per_second_squared_t, bool,
+            PathPoint, PathPoint, std::initializer_list<PathPoint>
+          : ignore: true
+          PathConstraints, PathPoint, PathPoint, std::initializer_list<PathPoint>:
+            ignore: true
+          units::meters_per_second_t, units::meters_per_second_squared_t, PathPoint, PathPoint, std::initializer_list<PathPoint>:
+            ignore: true
+      getConstraintsFromPath:

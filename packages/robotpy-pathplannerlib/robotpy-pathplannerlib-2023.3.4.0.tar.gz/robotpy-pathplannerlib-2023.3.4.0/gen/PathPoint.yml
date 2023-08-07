@@ -1,0 +1,23 @@
+---
+
+classes:
+  PathPoint:
+    attributes:
+      m_position:
+      m_heading:
+      m_holonomicRotation:
+      m_velocityOverride:
+      m_prevControlLength:
+      m_nextControlLength:
+    methods:
+      PathPoint:
+        overloads:
+          frc::Translation2d, frc::Rotation2d, frc::Rotation2d, units::meters_per_second_t:
+          frc::Translation2d, frc::Rotation2d, frc::Rotation2d:
+          frc::Translation2d, frc::Rotation2d, units::meters_per_second_t:
+          frc::Translation2d, frc::Rotation2d:
+      withPrevControlLength:
+      withNextControlLength:
+      withControlLengths:
+      fromCurrentHolonomicState:
+      fromCurrentDifferentialState:
