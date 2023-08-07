@@ -1,0 +1,54 @@
+Metadata-Version: 2.1
+Name: babichjacob-oneshot-channel
+Version: 0.1.0
+Summary: TODO
+Home-page: https://github.com/babichjacob/python-oneshot-channel
+License: MIT
+Author: J or Jacob Babich
+Author-email: jacobbabichpublic+git@gmail.com
+Requires-Python: >=3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: babichjacob-option-and-result (>=0.1.2,<0.2.0)
+Project-URL: Repository, https://github.com/babichjacob/python-oneshot-channel
+Description-Content-Type: text/markdown
+
+<h1 align="center">1️⃣ One-Shot Channel</h1>
+
+This library uses documentation copied and pasted from [Tokio's `sync::oneshot` library](https://docs.rs/tokio/latest/tokio/sync/oneshot/index.html), which they have generously published under the MIT license. 🙏
+
+This is a Python implementation of [their one-shot channel](https://docs.rs/tokio/latest/tokio/sync/oneshot/fn.channel.html).
+
+## 💻 Installation
+
+This package is [published to PyPI as `babichjacob-oneshot-channel`](https://pypi.org/project/babichjacob-oneshot-channel/).
+
+## 🛠 Usage
+
+```py
+from asyncio import create_task, gather, run, sleep
+from itertools import count
+
+from oneshot_channel import oneshot_channel, Receiver, Sender
+
+# TODO: write usage guidance
+```
+
+## 😵 Help! I have a question
+
+Create an issue and I'll try to help.
+
+## 😡 Fix! There is something that needs improvement
+
+Create an issue or pull request and I'll try to fix.
+
+## 📄 License
+
+MIT
+
+## 🙏 Attribution
+
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+
