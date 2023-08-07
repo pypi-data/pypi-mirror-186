@@ -1,0 +1,145 @@
+Metadata-Version: 2.1
+Name: serotiny
+Version: 1.0.0.dev202301200159
+Summary: A framework of tools to structure, configure and drive deep learning projects
+License: BSD-3
+Author-email: Guilherme Pires <guilherme.pires@alleninstitute.org>,Ryan Spangler <ryan.spangler@alleninstitute.org>,Ritvik Vasan <ritvik.vasan@alleninstitute.org>,Theo Knijnenburg <theo.knijnenburg@alleninstitute.org>,Nick Gomez <nick.gomez@alleninstitute.org>,Caleb Chan <caleb.chan@alleninstitute.org>
+Requires-Python: >=3.8,<4.0
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: PyYAML
+Requires-Dist: PyYAML
+Requires-Dist: aicsimageio
+Requires-Dist: aicsimageio
+Requires-Dist: anndata
+Requires-Dist: anndata
+Requires-Dist: fire
+Requires-Dist: fire
+Requires-Dist: frozendict
+Requires-Dist: frozendict
+Requires-Dist: fsspec
+Requires-Dist: fsspec
+Requires-Dist: grpcio
+Requires-Dist: grpcio
+Requires-Dist: hydra-core
+Requires-Dist: hydra-core
+Requires-Dist: joblib
+Requires-Dist: joblib
+Requires-Dist: jupyter-core
+Requires-Dist: jupyter-core
+Requires-Dist: makefun
+Requires-Dist: makefun
+Requires-Dist: mlflow
+Requires-Dist: mlflow
+Requires-Dist: monai
+Requires-Dist: monai
+Requires-Dist: nbformat
+Requires-Dist: nbformat
+Requires-Dist: numpy
+Requires-Dist: numpy
+Requires-Dist: ome-zarr
+Requires-Dist: ome-zarr
+Requires-Dist: omegaconf
+Requires-Dist: omegaconf
+Requires-Dist: pandas
+Requires-Dist: pandas
+Requires-Dist: pip
+Requires-Dist: pip
+Requires-Dist: protobuf
+Requires-Dist: protobuf
+Requires-Dist: pyarrow
+Requires-Dist: pyarrow
+Requires-Dist: pycryptodome
+Requires-Dist: pycryptodome
+Requires-Dist: pytorch-lightning
+Requires-Dist: pytorch-lightning
+Requires-Dist: s3fs
+Requires-Dist: s3fs
+Requires-Dist: scikit-learn
+Requires-Dist: scikit-learn
+Requires-Dist: torch
+Requires-Dist: torch
+Requires-Dist: universal-pathlib
+Requires-Dist: universal-pathlib
+Provides-Extra: dev
+Requires-Dist: pre-commit; extra == "dev"
+Provides-Extra: docs
+Requires-Dist: furo; extra == "docs"
+Requires-Dist: m2r2; extra == "docs"
+Requires-Dist: sphinx; extra == "docs"
+Provides-Extra: modin
+Requires-Dist: modin; extra == "modin"
+Provides-Extra: test
+Requires-Dist: pre-commit; extra == "test"
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-cov; extra == "test"
+Requires-Dist: tox; extra == "test"
+Project-URL: documentation, https://allencell.github.io/serotiny
+Project-URL: homepage, https://allencell.github.io/serotiny
+Project-URL: repository, https://github.com/AllenCell/serotiny
+Description-Content-Type: text/markdown
+
+# serotiny
+
+While going about the work of building deep learning projects, several simultaneous problems seemed to emerge:
+
+* How do we reuse as much work from previous projects as possible, and focus on building the part of the project that makes it distinct?
+* How can we automate the generation of new models that are based on existing models, but vary in a crucial yet non-trivial way?
+* When generating a multiplicity of related models, how can we keep all of the results, predictions, and analyses straight?
+* How can the results from any number of trainings and predictions be compared and integrated in an insightful yet generally applicable way?
+
+Serotiny arose from the need to address these issues and convert the complexity of deep learning projects into something simple, reproducible, configurable, and automatable at scale.
+
+Serotiny is still a work-in-progress, but as we go along the solutions to these problems become more clear. Maybe you've run into similar situations? We'd love to hear from you.
+
+## Overview
+
+`serotiny` is a framework and set of tools to structure, configure and drive deep
+learning projects, developed with the intention of streamlining the lifecycle of
+deep learning projects at [Allen Institute for Cell Science](https://www.allencell.org/).
+
+It achieves this goal by:
+
+- Standardizing the structure of DL projects
+- Relying on the modularity afforded by this standard structure to make DL projects highly
+  configurable, using [hydra](https://hydra.cc) as the framework for configuration
+- Making it easy to adopt best-practices and latest-developments in DL infrastructure
+  by tightly integrating with
+    - [Pytorch Lightning](https://pytorchlightning.ai) for neural net training/testing/prediction
+    - [MLFlow](https://mlflow.org) for experiment tracking and artifact management
+
+In doing so, DL projects become reproducible, easy to collaborate on and can
+benefit from general and powerful tooling.
+
+## Getting started
+
+For more information, check our [documentation](https://allencell.github.io/serotiny),
+or jump straight into our [getting started](https://allencell.github.io/serotiny/getting_started.html)
+page, and learn how training a DL model can be as simple as:
+
+``` sh
+
+$ serotiny train data=my_dataset model=my_model
+
+```
+
+## Authors
+
+- Guilherme Pires @colobas
+- Ryan Spangler @prismofeverything
+- Ritvik Vasan @ritvikvasan
+- Caleb Chan @calebium
+- Theo Knijnenburg @tknijnen
+- Nick Gomez @gomeznick86
+
+## Citing
+
+If you find serotiny useful, please cite this repository as:
+
+```
+Serotiny Authors (2022). Serotiny: a framework of tools to structure, configure and drive deep learning projects [Computer software]. GitHub. https://github.com/AllenCellModeling/serotiny
+Free software: BSD-3-Clause
+```
+
