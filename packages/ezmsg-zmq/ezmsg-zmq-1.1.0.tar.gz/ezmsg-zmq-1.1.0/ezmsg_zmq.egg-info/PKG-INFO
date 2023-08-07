@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: ezmsg-zmq
+Version: 1.1.0
+Summary: ZeroMQ units for ezmsg
+Home-page: https://github.com/iscoe/ezmsg
+Author: Preston Peranich
+Author-email: pperanich@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Provides-Extra: test
+License-File: LICENSE.txt
+
+# ezmsg.zmq
+
+Zero-MQ pub/sub units for ezmsg
+
+## Installation
+`pip install ezmsg-sigproc`
+
+## Dependencies
+* `ezmsg`
+* `pyzmq`
+
+## Setup (Development)
+1. Install `ezmsg` either using `pip install ezmsg` or set up the repo for development as described in the `ezmsg` readme.
+2. `cd` to this directory (`ezmsg-zmq`) and run `pip install -e .`
+3. Signal processing modules are available under `import ezmsg.zmq`
