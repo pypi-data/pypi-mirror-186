@@ -1,0 +1,72 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+
+[project]
+name = "pyteseo"
+authors = [{name = "German Aragon Caminero", email = "german.aragon@unican.es"}]
+mantainers = [{name = "German Aragon Caminero", email = "german.aragon@unican.es"}]
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Development Status :: 1 - Planning",
+    "Programming Language :: Python",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dynamic = ["version", "description"]
+
+dependencies = [
+    "xarray",
+    "dask",
+    "netcdf4",
+    "bottleneck",
+    "ipykernel",
+    "matplotlib",
+    "geojson",
+    "pytest >=7",
+]
+
+
+[project.optional-dependencies]
+dev = ["flit", "black", "sphinx", "coverage[toml]", "myst-nb", "sphinx-autoapi", "sphinx_rtd_theme"]
+
+
+[project.urls]
+home = "https://ihcantabria.com/specialized-software/english-teseo/"
+documentation = "https://ihcantabria.github.io/pyteseo"
+repository = "https://github.com/IHCantabria/pyteseo"
+changelog = "https://github.com/IHCantabria/pyteseo/blob/main/CHANGELOG.md"
+
+
+[project.scripts]
+pyteseo-tests = "pyteseo.tests.__init__:run_tests"
+
+
+[tool.pytest.ini_options]
+addopts = "-v --durations=0 --durations-min=0.1"
+testpaths = "pyteseo"
+
+
+[tool.coverage.run]
+command_line = "-m pytest"
+omit = ["*/tests/*"]
+source = ["pyteseo"]
+
+
+[tool.black]
+addopts = "-v"
+
+## NOTE - Use file .flake8 for now!
+# [tool.flake8]
+# max-line-length = 88
+# ignore = ["E203", "E501", "W605"]
