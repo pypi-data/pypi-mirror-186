@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "pysnmp-lextudio"
+version = "5.0.22"
+description = ""
+authors = ["Ilya Etingof <etingof@gmail.com>", "Lex Li <support@lextudio.com>"]
+license = "BSD-2-Clause"
+repository = "https://github.com/lextudio/pysnmp"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Telecommunications Industry",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Topic :: Communications",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+readme = "README.md"
+
+packages = [
+    { include = "pysnmp" },
+]
+include = ["docs", "tests", "examples"]
+
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pysmi-lextudio = "^1.0.4"
+pyasn1 = ">=0.4.8"
+pycryptodomex = "^3.11.0"
+
+[tool.poetry.dev-dependencies]
+Sphinx = "^4.3.0"
+pytest = "^6.2.5"
+codecov = "^2.1.12"
+pytest-codecov = "^0.4.0"
+
+[tool.poetry_bumpversion.file."pysnmp/__init__.py"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
