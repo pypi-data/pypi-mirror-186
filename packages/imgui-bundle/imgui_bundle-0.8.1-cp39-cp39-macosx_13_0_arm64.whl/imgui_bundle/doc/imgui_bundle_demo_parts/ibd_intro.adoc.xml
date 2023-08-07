@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>ImGui Bundle documentation</title>
+<date>2023-01-14</date>
+</info>
+<section xml:id="_introduction">
+<title>Introduction</title>
+<section xml:id="_about_imgui_bundle">
+<title>About ImGui Bundle</title>
+<simpara><link xl:href="https://github.com/pthom/imgui_bundle">ImGui Bundle</link> is a bundle for <link xl:href="https://github.com/ocornut/imgui">Dear ImGui</link>, including various powerful libraries from its ecosystem. It enables to easily create ImGui applications in C++ and Python, under Windows, macOS, and Linux. It is aimed at application developers, researchers, and beginner developers who want to quickly get started.</simpara>
+</section>
+<section xml:id="_batteries_included">
+<title>Batteries included</title>
+<simpara>ImGui Bundle includes the following libraries:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><link xl:href="https://github.com/ocornut/imgui.git">imgui</link> : Dear ImGui, bloat-free Graphical User interface for C++ with minimal dependencies</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/epezent/implot">implot</link>: Immediate Mode Plotting</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/pthom/hello_imgui.git">Hello ImGui</link>: cross-platform Gui apps with the simplicity of a "Hello World" app</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/CedricGuillemet/ImGuizmo.git">ImGuizmo</link>: Immediate mode 3D gizmo for scene editing and other controls based on Dear ImGui</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/BalazsJako/ImGuiColorTextEdit">ImGuiColorTextEdit</link>: Colorizing text editor for ImGui</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/thedmd/imgui-node-editor">imgui-node-editor</link>: Node Editor built using Dear ImGui</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/altschuler/imgui-knobs">imgui-knobs</link>: Knobs widgets for ImGui</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/pthom/ImFileDialog.git">ImFileDialog</link>: A file dialog library for Dear ImGui</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/samhocevar/portable-file-dialogs">portable-file-dialogs</link>  Portable GUI dialogs library (C++11, single-header)</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/mekhontsev/imgui_md.git">imgui_md</link>: Markdown renderer for Dear ImGui using MD4C parser</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/dalerank/imspinner">imspinner</link>: Set of nice spinners for imgui</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/cmdwtf/imgui_toggle">imgui_toggle</link>: A toggle switch widget for Dear ImGui.</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/pthom/immvision.git">ImmVision</link>: Immediate image debugger and insights</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/andyborrell/imgui_tex_inspect">imgui_tex_inspect</link>: A texture inspector tool for Dear ImGui</simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="https://github.com/hnOsmium0001/imgui-command-palette.git">imgui-command-palette</link>: A Sublime Text or VSCode style command palette in ImGui</simpara>
+</listitem>
+</itemizedlist>
+<simpara>A big thank you to their authors for their awesome work!
+=== Easily port your code between python and C++</simpara>
+<simpara>The python bindings closely mirror the original C&#43;&#43; API, with fully typed bindings. The original code documentation is meticulously kept inside the python stubs. See for example the documentation for <link xl:href="https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/imgui/__init__.pyi">imgui</link>
+, <link xl:href="https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/implot.pyi">implot</link>, and <link xl:href="https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/hello_imgui.pyi">hello imgui</link></simpara>
+<simpara>Thanks to this, code completion in your favorite python IDE works like a charm, and porting code between Python and C++ becomes easy.</simpara>
+</section>
+</section>
+</article>

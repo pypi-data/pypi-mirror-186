@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Dear ImGui - Immediate GUI</title>
+<date>2023-01-14</date>
+</info>
+<section xml:id="_dear_imgui_immediate_gui">
+<title>Dear ImGui - Immediate GUI</title>
+<simpara>Dear ImGui is an implementation of the Immediate Gui paradigm.</simpara>
+<section xml:id="_consult_the_imgui_manual">
+<title>Consult the ImGui Manual</title>
+<simpara>Dear ImGui comes with a complete demo. It demonstrates all the widgets, together with an example code on how to use them.</simpara>
+<simpara><link xl:href="https://pthom.github.io/imgui_manual_online/manual/imgui_manual.html">ImGui Manual</link> is an easy way to consult this demo, and to see the corresponding code. The demo code is in C&#43;&#43;, but read on for "Code advices" on how to translate from C&#43;&#43; to python.</simpara>
+</section>
+<section xml:id="_example">
+<title>Example</title>
+<simpara>An example is often worth a thousand words, the following code:</simpara>
+<simpara>C++</simpara>
+<programlisting language="cpp" linenumbering="unnumbered">// Display a text
+ImGui::Text("Counter = %i", app_state.counter);
+ImGui::SameLine(); // by default ImGui starts a new line at each widget
+
+// The following line displays a button
+if (ImGui::Button("increment counter"))
+    // And returns true if it was clicked: you can *immediately* handle the click
+    app_state.counter += 1;
+
+// Input a text: in C++, InputText returns a bool and modifies the text directly
+bool changed = ImGui::InputText("Your name?", &amp;app_state.name);
+ImGui::Text("Hello %s!", app_state.name.c_str());</programlisting>
+<simpara>Python</simpara>
+<programlisting language="python" linenumbering="unnumbered"># Display a text
+imgui.text(f"Counter = {app_state.counter}")
+imgui.same_line()  # by default ImGui starts a new line at each widget
+
+# The following line displays a button
+if imgui.button("increment counter"):
+    # And returns true if it was clicked: you can *immediately* handle the click
+    app_state.counter += 1
+
+# Input a text: in python, input_text returns a tuple(modified, new_value)
+changed, app_state.name = imgui.input_text("Your name?", app_state.name)
+imgui.text(f"Hello {app_state.name}!")</programlisting>
+<simpara>Displays this:</simpara>
+</section>
+</section>
+</article>

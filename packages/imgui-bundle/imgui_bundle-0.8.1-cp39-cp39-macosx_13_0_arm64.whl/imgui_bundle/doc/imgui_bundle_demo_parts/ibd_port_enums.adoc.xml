@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>ImGui Bundle documentation</title>
+<date>2023-01-14</date>
+</info>
+<section xml:id="_enums_and_textinput">
+<title>Enums and TextInput</title>
+<simpara>In the example below, two differences are important:</simpara>
+<section xml:id="_inputtext_functions">
+<title>InputText functions:</title>
+<simpara><literal>imgui.input_text</literal> (Python) is equivalent to <literal>ImGui::InputText</literal> (C++)</simpara>
+<itemizedlist>
+<listitem>
+<simpara>In C++, it uses two parameters for the text: the text pointer, and its length.</simpara>
+</listitem>
+<listitem>
+<simpara>In Python, you can simply pass a string, and get back its modified value in the returned tuple.</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_enums_handling">
+<title>Enums handling:</title>
+<itemizedlist>
+<listitem>
+<simpara><literal>ImGuiInputTextFlags_</literal> (C++) corresponds to <literal>imgui.InputTextFlags_</literal> (python) and it is an <emphasis>enum</emphasis> (note the trailing underscore).</simpara>
+</listitem>
+<listitem>
+<simpara><literal>ImGuiInputTextFlags</literal> (C++) corresponds to <literal>imgui.InputTextFlags</literal> (python) and it is an <emphasis>int</emphasis>  (note: no trailing underscore)</simpara>
+</listitem>
+</itemizedlist>
+<simpara>You will find many similar enums.</simpara>
+<simpara>The dichotomy between int and enums, enables you to write flags that are a combinations of values from the enum (see example below).</simpara>
+</section>
+<section xml:id="_example">
+<title>Example</title>
+<simpara>C++</simpara>
+<programlisting language="cpp" linenumbering="unnumbered">void DemoInputTextUpperCase()
+{
+    static char text[64] = "";
+    ImGuiInputTextFlags flags = (
+        ImGuiInputTextFlags_CharsUppercase
+        | ImGuiInputTextFlags_CharsNoBlank
+    );
+    /*bool changed = */ ImGui::InputText("Upper case, no spaces", text, 64, flags);
+}</programlisting>
+<simpara>Python</simpara>
+<programlisting language="python" linenumbering="unnumbered">@immapp.static(text="")
+def demo_input_text_decimal() -&gt; None:
+    static = demo_input_text_decimal
+    flags:imgui.InputTextFlags = (
+            imgui.InputTextFlags_.chars_uppercase.value
+          | imgui.InputTextFlags_.chars_no_blank.value
+        )
+    changed, static.text = imgui.input_text("Upper case, no spaces", static.text, flags)</programlisting>
+<sidebar>
+<simpara>Note: in C&#43;&#43;, by using <literal>imgui_stdlib.h</literal>, it is also possible to write:</simpara>
+<programlisting language="cpp" linenumbering="unnumbered">#include "imgui/misc/cpp/imgui_stdlib.h"
+
+void DemoInputTextUpperCase_StdString()
+{
+    static std::string text;
+    ImGuiInputTextFlags flags = (
+        ImGuiInputTextFlags_CharsUppercase
+        | ImGuiInputTextFlags_CharsNoBlank
+    );
+    /*bool changed = */ ImGui::InputText("Upper case, no spaces", &amp;text, flags);
+}</programlisting>
+</sidebar>
+</section>
+</section>
+</article>
