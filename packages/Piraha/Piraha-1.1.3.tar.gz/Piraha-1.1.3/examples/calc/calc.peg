@@ -1,0 +1,23 @@
+# This is the grammar file for
+# our simple calculator.
+
+# Skipper's define the pattern
+# that applies between lexical
+# elements.
+skipper = ([ \t\r\n]|\#.*)*
+
+val = -?[0-9]+
+
+# Parenthetical expression
+paren = \( {add} \)
+
+term = ({val}|{paren})
+
+# patterns for the operators
+mulop = [*/]
+addop = [+-]
+
+mul = {term}( {mulop} {term})*
+add = {mul}( {addop} {mul})*
+
+expr = ^ {add} $
