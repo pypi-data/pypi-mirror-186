@@ -1,0 +1,35 @@
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+
+  - script: python -m pip install --upgrade pip setuptools wheel pipenv
+    displayName: 'Install tools'
+
+
+  - script: |
+      set -x
+      verLock="Pipfile-$(python.version).lock"
+      if [[ -f "$verLock" ]]
+      then
+        ln -svf "$verLock" Pipfile.lock
+      fi
+    displayName: 'Set up Pipfile-$(python.version)'
+
+  - script: pipenv --python '$(python.version)' sync --dev --keep-outdated
+    displayName: Install virtualenv using Pipenv
+
+  - script: pipenv run make lint
+    displayName: Run linters
+
+  - script: pipenv run make install
+    displayName: Install jobrunner
+
+  - script: pipenv run make check
+    displayName: Run tests
+
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+        testResultsFiles: '**/test-*.xml'
+        testRunTitle: Publish test results for $(Agent.JobName)
