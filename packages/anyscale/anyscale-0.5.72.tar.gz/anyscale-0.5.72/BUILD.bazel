@@ -1,0 +1,61 @@
+load("@py_deps//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_library")
+
+filegroup(
+    name = "anyscale_cli_sources",
+    srcs = glob(["anyscale/**/*.py"]) + [
+        "anyscale/anyscale-cloud-setup.yaml",
+        "requirements.in",
+        "setup.py",
+        "README.md",
+        "anyscale/webterminal/bash-preexec.sh",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "anyscale",
+    srcs = glob(["anyscale/**/*.py"]),
+    data = [
+        "anyscale/anyscale-cloud-setup.yaml",
+        "anyscale/shared_anyscale_utils/default_anyscale_aws.yaml",
+        "anyscale/shared_anyscale_utils/default_anyscale_gcp.yaml",
+        "anyscale/webterminal/bash-preexec.sh",
+    ],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+    deps = [
+        requirement("boto3"),
+        requirement("botocore"),
+        requirement("aiohttp"),
+        requirement("certifi"),
+        requirement("click"),
+        requirement("colorama"),
+        requirement("expiringdict"),
+        requirement("GitPython"),
+        requirement("halo"),
+        requirement("jsonpatch"),
+        requirement("jsonschema"),
+        requirement("packaging"),
+        requirement("pathspec"),
+        requirement("pydantic"),
+        requirement("python-dateutil"),
+        requirement("requests"),
+        requirement("rich"),
+        requirement("six"),
+        requirement("tabulate"),
+        requirement("urllib3"),
+        requirement("wrapt"),
+        requirement("pyyaml"),
+        requirement("tqdm"),
+        requirement("humanize"),
+        requirement("tzlocal"),
+        requirement("argon2-cffi"),
+    ],
+)
+
+exports_files([
+    "setup.py",
+    "anyscale/version.py",
+    "requirements.in",
+])
