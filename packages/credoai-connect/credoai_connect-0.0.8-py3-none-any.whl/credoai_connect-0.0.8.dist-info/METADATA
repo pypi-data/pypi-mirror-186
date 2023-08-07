@@ -1,0 +1,70 @@
+Metadata-Version: 2.1
+Name: credoai-connect
+Version: 0.0.8
+Summary: Credo AI Connect: Integration point for Credo AI Governance Platform
+Home-page: 
+Download-URL: https://github.com/credo-ai/credoai_connect
+Author: Ian Eisenberg
+Author-email: ian@credo.ai
+Maintainer: Ian Eisenberg
+Maintainer-email: ian@credo.ai
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: json-api-doc (>=0.15.0)
+Requires-Dist: python-dotenv (>=0.19.2)
+Requires-Dist: numpy (>=1.22.0)
+Requires-Dist: pandas (>=1.4.1)
+Provides-Extra: dev
+Requires-Dist: black (==22.10.0) ; extra == 'dev'
+Requires-Dist: pytest (>=6.2.5) ; extra == 'dev'
+Requires-Dist: pytest-cov (>=3.0.0) ; extra == 'dev'
+Requires-Dist: pytest-watch (>=4.2) ; extra == 'dev'
+Requires-Dist: responses (>=0.21.0) ; extra == 'dev'
+Requires-Dist: pytest-mock (>=3.8) ; extra == 'dev'
+Requires-Dist: ipykernel ; extra == 'dev'
+Requires-Dist: furo (==2022.3.4) ; extra == 'dev'
+Requires-Dist: nbsphinx (==0.8.7) ; extra == 'dev'
+Requires-Dist: pandoc (==1.1.0) ; extra == 'dev'
+Requires-Dist: prompt-toolkit (<3.0.0) ; extra == 'dev'
+Requires-Dist: pydata-sphinx-theme (==0.6.3) ; extra == 'dev'
+Requires-Dist: sphinx (==4.3.0) ; extra == 'dev'
+Requires-Dist: sphinx-autodoc-typehints (==1.12.0) ; extra == 'dev'
+Requires-Dist: sphinx-copybutton (==0.5.0) ; extra == 'dev'
+Requires-Dist: sphinx-gallery (==0.10.1) ; extra == 'dev'
+Requires-Dist: sphinx-rtd-theme (==1.0.0) ; extra == 'dev'
+
+
+--------------------------------------
+
+# Connect by Credo AI - Utility Module for Connecting to AI Governance Platform
+
+Connect is a utility module that integrates ML assessments with the Credo AI Governance Platform.
+Connect defines `evidence_containers` which function as adapters between diverse AI assessment
+frameworks (or custom analyses) and Credo AI-compatible `Evidence` objects.
+
+
+
+## Dependencies
+
+- Credo AI Connect supports Python 3.8+
+- Sphinx (optional for local docs site)
+
+
+## Installation
+
+The latest stable release (and required dependencies) can be installed from PyPI.
+
+```
+pip install credoai-connect
+```
+
+## Documentation
+
+Documentation is hosted by [readthedocs](https://credoai-connect.readthedocs.io/en/stable/).
