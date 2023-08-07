@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "stabledefaults"
+version = "0.1.4"
+description = "Allows for mutable defaults comfortably and intuitively."
+authors = ["AloizioMacedo <atsam2@hotmail.com>"]
+readme = "README.md"
+repository = "https://github.com/AloizioMacedo/stabledefaults"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
