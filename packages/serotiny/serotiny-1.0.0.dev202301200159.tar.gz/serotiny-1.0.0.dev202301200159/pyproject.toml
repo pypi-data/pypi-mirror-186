@@ -1,0 +1,136 @@
+[build-system]
+requires = [
+    "pdm-pep517>=1.0.0",
+]
+build-backend = "pdm.pep517.api"
+
+[project]
+name = "serotiny"
+version = "1.0.0.dev202301200159"
+description = "A framework of tools to structure, configure and drive deep learning projects"
+readme = "README.md"
+classifiers = [
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+authors = [
+    { name = "Guilherme Pires", email = "guilherme.pires@alleninstitute.org" },
+    { name = "Ryan Spangler", email = "ryan.spangler@alleninstitute.org" },
+    { name = "Ritvik Vasan", email = "ritvik.vasan@alleninstitute.org" },
+    { name = "Theo Knijnenburg", email = "theo.knijnenburg@alleninstitute.org" },
+    { name = "Nick Gomez", email = "nick.gomez@alleninstitute.org" },
+    { name = "Caleb Chan", email = "caleb.chan@alleninstitute.org" },
+]
+requires-python = ">=3.8,<4.0"
+dependencies = [
+    "pip",
+    "torch",
+    "fire",
+    "makefun",
+    "hydra-core",
+    "joblib",
+    "mlflow",
+    "nbformat",
+    "omegaconf",
+    "pyarrow",
+    "pytorch-lightning",
+    "PyYAML",
+    "scikit-learn",
+    "aicsimageio",
+    "numpy",
+    "pandas",
+    "universal-pathlib",
+    "s3fs",
+    "fsspec",
+    "pycryptodome",
+    "frozendict",
+    "ome-zarr",
+    "protobuf",
+    "jupyter-core",
+    "grpcio",
+    "anndata",
+    "monai",
+    "pip",
+    "torch",
+    "fire",
+    "makefun",
+    "hydra-core",
+    "joblib",
+    "mlflow",
+    "nbformat",
+    "omegaconf",
+    "pyarrow",
+    "pytorch-lightning",
+    "PyYAML",
+    "scikit-learn",
+    "aicsimageio",
+    "numpy",
+    "pandas",
+    "universal-pathlib",
+    "s3fs",
+    "fsspec",
+    "pycryptodome",
+    "frozendict",
+    "ome-zarr",
+    "protobuf",
+    "jupyter-core",
+    "grpcio",
+    "anndata",
+    "monai",
+]
+
+[project.license]
+text = "BSD-3"
+
+[project.urls]
+homepage = "https://allencell.github.io/serotiny"
+repository = "https://github.com/AllenCell/serotiny"
+documentation = "https://allencell.github.io/serotiny"
+
+[project.optional-dependencies]
+docs = [
+    "furo",
+    "m2r2",
+    "sphinx",
+]
+test = [
+    "pre-commit",
+    "pytest",
+    "pytest-cov",
+    "tox",
+]
+dev = [
+    "pre-commit",
+]
+modin = [
+    "modin",
+]
+
+[project.scripts]
+serotiny = "serotiny.cli.cli:main"
+
+[tool.pdm.build]
+includes = [
+    "serotiny",
+    "LICENSE",
+]
+excludes = [
+    "**/*.pyc",
+    "**/__pycache__",
+]
+
+[tool.flake8]
+exclude = "docs/"
+ignore = [
+    "E203",
+    "E402",
+    "W291",
+    "W503",
+]
+max-line-length = 88
