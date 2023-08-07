@@ -1,0 +1,23 @@
+Metadata-Version: 2.1
+Name: myuplink
+Version: 0.0.3
+Summary: API package for myUplink
+Home-page: https://github.com/pajzo/myuplink
+Author: Peter Winkler
+Author-email: peter@fluxi.dk
+Project-URL: Bug Tracker, https://github.com/pajzo/myuplink/issues
+Project-URL: repository, https://github.com/pajzo/myuplink
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+# myUplink
+
+## Build and pack flow
+
+``
+py -m build
+py -m twine upload dist/*
+``
