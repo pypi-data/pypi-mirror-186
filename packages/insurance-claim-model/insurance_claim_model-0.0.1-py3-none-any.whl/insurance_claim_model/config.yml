@@ -1,0 +1,35 @@
+package_name: insurance_claim_model
+
+training_data_file:  insurance_data.csv
+testing_data_file: test.csv
+pipeline_save_file: insurance-model
+
+cat_na:
+  - region
+
+num_na:
+  - age 
+
+cat_vars:
+  - gender
+  - diabetic
+  - smoker
+  - region
+
+num_vars:
+  - age
+  - bmi
+  - bloodpressure
+  - children
+
+drop_columns:
+  - index
+  - PatientID
+
+target: claim
+
+test_size:  0.2
+random_state: 0
+n_estimators: 200
+max_depth:  7
+
