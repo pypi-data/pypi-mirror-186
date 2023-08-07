@@ -1,0 +1,33 @@
+Metadata-Version: 2.1
+Name: pollination-daylight-factor
+Version: 0.8.8
+Summary: Daylight factor recipe for Pollination.
+Home-page: https://github.com/pollination/daylight-factor
+Author: ladybug-tools
+Author-email: info@ladybug.tools
+Maintainer: mostapha, ladybug-tools
+Maintainer-email: mostapha@ladybug.tools, info@ladybug.tools
+License: PolyForm Shield License 1.0.0, https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt
+Project-URL: icon, https://raw.githubusercontent.com/ladybug-tools/artwork/master/icons_components/honeybee/png/dfrecipe.png
+Project-URL: docker, https://hub.docker.com/r/ladybugtools/honeybee-radiance
+Keywords: honeybee,radiance,ladybug-tools,daylight,daylight-factor
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+Requires-Dist: pollination-honeybee-radiance (>=0.22.22)
+Requires-Dist: pollination-alias (>=0.10.9)
+Requires-Dist: pollination-path (>=0.3.2)
+Provides-Extra: viz
+Requires-Dist: pollination-honeybee-display (>=0.1.8) ; extra == 'viz'
+
+# daylight-factor
+
+Daylight factor recipe for Pollination
+
+Use this recipe to calculate daylight factor for a Honeybee model or zipped
+honeybee-radiance folder.
+
+You can only use a Honeybee model when using the `-viz` tag.
+
+[Daylight factor recipe on Pollination](https://app.pollination.cloud/ladybug-tools/recipes/daylight-factor/latest?tab=graph)
+
+
