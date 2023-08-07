@@ -1,0 +1,74 @@
+Metadata-Version: 2.1
+Name: piaf
+Version: 0.2.0
+Summary: A FIPA-compliant Agent Platform written in python.
+Home-page: https://gitlab.com/ornythorinque/piaf
+License: MIT
+Keywords: Python Agent Framework,multi-agent,asyncio
+Author: Pierre DUBAILLAY
+Author-email: pierredubaillay@outlook.fr
+Requires-Python: >=3.7,<4
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Provides-Extra: amqp-mtp
+Provides-Extra: webapi
+Requires-Dist: aioredis (>=2,<3) ; extra == "webapi"
+Requires-Dist: aiormq (>=6,<7) ; extra == "amqp-mtp"
+Requires-Dist: async-timeout (>=4,<5) ; extra == "webapi"
+Requires-Dist: fastapi (>=0.85,<0.86) ; extra == "webapi"
+Requires-Dist: python-dotenv (>=0.21,<0.22)
+Requires-Dist: yarl (>=1,<2) ; extra == "amqp-mtp"
+Project-URL: Repository, https://gitlab.com/ornythorinque/piaf
+Description-Content-Type: text/markdown
+
+# Python Intelligent Agent Framework (piaf)
+
+![pipeline status](https://gitlab.com/ornythorinque/piaf/badges/master/pipeline.svg)
+![coverage report](https://gitlab.com/ornythorinque/piaf/badges/master/coverage.svg?job=test)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/piaf)
+![PyPI - License](https://img.shields.io/pypi/l/piaf)
+![PyPI](https://img.shields.io/pypi/v/piaf)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/piaf)
+
+The aim of piaf is to provide a FIPA-compliant agent framework using Python. It uses **asyncio** to power agents.
+
+## Project status
+
+**The first official release is there!** After almost two years of development, I am now considering piaf is stable enough to start playing with it. I can't wait to see the amazing things you will do!
+
+So, what is next? Well, there are still missing features in piaf and the next version will try to add some of them (I see you FIPA SL!).
+
+## Features
+
+Although piaf made some progress, it still needs some love to be fully compliant with the [FIPA specification](http://fipa.org/repository/standardspecs.html).
+
+We provide some examples to help you understand what is possible to create with the current version, take a look at <https://gitlab.com/ornythorinque/piaf/-/tree/master/src/piaf/examples>.
+
+### Supported features
+
+- AMS (partial, only the query function)
+- DF
+- Communications within a platform
+- Communications between two **piaf platforms** (with some limitations)
+
+### Missing features
+
+- FIPA SL support (only plain Python objects are supported)
+- Federated DF
+- Name resolution
+- "Official" envelope representations (XML, bit-efficient) and MTPs (mainly HTTP, we don't plan to support IIOP)
+
+## Documentation
+
+The full documentation (both user and API) is available here: <https://ornythorinque.gitlab.io/piaf>
+It will teach you how to install and run your agents.
+
+## Author(s)
+
+* ornythorinque (pierredubaillay@outlook.fr)
+

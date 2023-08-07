@@ -1,0 +1,82 @@
+[tool.poetry]
+authors = ["Pierre DUBAILLAY <pierredubaillay@outlook.fr>"]
+description = "A FIPA-compliant Agent Platform written in python."
+keywords = ["Python Agent Framework", "multi-agent", "asyncio"]
+license = "MIT"
+name = "piaf"
+readme = "README.md"
+repository = "https://gitlab.com/ornythorinque/piaf"
+version = "0.2.0"
+
+[tool.poetry.dependencies]
+aioredis = { version = "^2", optional = true }
+aiormq = { version = "^6", optional = true }
+async-timeout = { version = "^4", optional = true }
+fastapi = { version = "^0.85", optional = true }
+python = ">=3.7,<4"
+yarl = { version = "^1", optional = true }
+python-dotenv = "^0.21"
+
+[tool.poetry.extras]
+amqp-mtp = ["aiormq", "yarl"]
+webapi = ["aioredis", "fastapi", "async-timeout"]
+
+[tool.poetry.group.dev.dependencies]
+black = "^22"
+coverage = { version = "^6", extras = ["toml"] }
+mypy = "^0"
+pytest = "^7"
+pytest-html = "^3"
+requests = "^2"
+rstcheck = "^3"
+semver = "^2"
+sphinx = "^5"
+sphinx_rtd_theme = "^1"
+uvicorn = { extras = ["standard"], version = "^0.18.3" }
+isort = "^5"
+bandit = "^1"
+pydocstyle = "^6"
+pyproject-flake8 = "^0.0.1-alpha.4"
+
+[tool.coverage.run]
+branch = true
+command_line = "-m pytest"
+data_file = ".report/coverage/data_db"
+omit = ["*/examples/*", "*/api/*"]
+source = ["piaf"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "raise NotImplementedError()",
+  "if __name__ == \"__main__\"",
+  "if TYPE_CHECKING:",
+]
+fail_under = 80
+
+[tool.coverage.html]
+directory = ".report/coverage/html"
+
+[tool.coverage.xml]
+output = ".report/coverage/xml/coverage.xml"
+
+[tool.coverage.json]
+output = ".report/coverage/json/coverage.json"
+
+[tool.pytest.ini_options]
+addopts = "--junitxml=.report/tests/xml/report.xml --html=.report/tests/html/tests.html"
+junit_family = "xunit2"
+junit_suite_name = "piaf"
+markers = ["integration: slow tests that require a running FastAPI server."]
+testpaths = "tests"
+
+[tool.isort]
+profile = "black"
+src_paths = ["src", "tests"]
+
+[tool.flake8]
+max-line-length = 88
+
+[build-system]
+build-backend = "poetry.masonry.api"
+requires = ["poetry>=0.12"]
