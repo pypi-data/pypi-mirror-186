@@ -1,0 +1,21 @@
+setuptools
+python-dateutil
+plone.rest
+plone.schema>=1.2.1
+Products.CMFPlone>=5.2
+PyJWT>=1.7.0
+pytz
+
+[:python_version < "3.8"]
+importlib-metadata
+
+[test]
+collective.MockMailHost
+plone.app.caching
+plone.app.contenttypes
+plone.app.robotframework
+plone.app.testing[robot]>=4.2.2
+plone.api
+requests
+plone.tiles
+mock
