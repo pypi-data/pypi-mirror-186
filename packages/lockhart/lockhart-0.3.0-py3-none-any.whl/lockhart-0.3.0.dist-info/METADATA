@@ -1,0 +1,61 @@
+Metadata-Version: 2.1
+Name: lockhart
+Version: 0.3.0
+Summary: generate docstrings
+Project-URL: Documentation, https://github.com/waylonwalker/lockhart#readme
+Project-URL: Issues, https://github.com/waylonwalker/lockhart/issues
+Project-URL: Source, https://github.com/walker/lockhart
+Author-email: "Waylon S. Walker" <waylon@waylonwalker.com>
+License-Expression: MIT
+License-File: LICENSE.txt
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.7
+Requires-Dist: openai
+Requires-Dist: pyperclip
+Requires-Dist: typer
+Description-Content-Type: text/markdown
+
+# Lockhart
+
+[![PyPI - Version](https://img.shields.io/pypi/v/lockhart.svg)](https://pypi.org/project/lockhart)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/lockhart.svg)](https://pypi.org/project/lockhart)
+
+---
+
+**Table of Contents**
+
+- [Installation](#installation)
+- [License](#license)
+
+## Installation
+
+```bash
+pip install lockhart
+## or with pipx
+pipx install lockhart
+```
+
+You will need an openai key, you can obtain one from their
+[website](https://beta.openai.com/account/api-keys). Once you have it then set
+your `OPENAI_API_KEY` environment variable.
+
+```bash
+export OPENAI_API_KEY='sk-***'
+```
+
+Lockhart it currently very crude, it works out of the clipboard. Copy a
+function to your clipboard, run `lockhart docstring` then paste the docstring
+in.
+
+## License
+
+`lockhart` is distributed under the terms of the
+[MIT](https://spdx.org/licenses/MIT.html) license.
