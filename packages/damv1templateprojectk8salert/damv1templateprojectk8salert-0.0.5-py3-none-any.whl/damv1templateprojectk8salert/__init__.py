@@ -1,0 +1,1 @@
+from .mytemplateproject import displayed
