@@ -1,0 +1,60 @@
+Metadata-Version: 2.1
+Name: pycob
+Version: 0.0.5
+Summary: Build web apps using just Python
+Project-URL: Homepage, https://www.pycob.com/
+Project-URL: Bug Tracker, https://github.com/pycob/pycob/issues
+Author-email: Zain Hoda <zain@pycob.com>
+License-File: LICENSE
+Keywords: crud,framework,pycob,python,web
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Requires-Dist: flask
+Requires-Dist: sqlalchemy
+Description-Content-Type: text/markdown
+
+# PyCob 
+
+![PyCob Logo on Hexagon](https://cdn.pycob.com/pycob_with_text_256.png)
+
+## Create web apps using just Python
+
+### Install PyCob
+```bash
+pip install pycob
+```
+
+### Use PyCob
+```python
+import pycob as pc
+
+app = pc.App('Test App')
+
+def test_page(server_request: pc.Request) -> pc.Page:
+    name = server_request.get_query_parameter('name')
+    page = pc.Page('Test Page')
+    page.add_header('Test Header', "2")
+    page.add_text('Test Text')
+    page.add_alert('Test Alert')
+    page.add_hero('Hello ' + name, 'Test Subtitle', 'https://source.unsplash.com/random/800x600')
+    
+    form = pc.FormComponent(action="/")
+    form.add_formtext('Name', 'name', 'Enter your name')
+    form.add_formsubmit('Submit')
+
+    page.add_component(form)
+
+    return page
+
+app.add_page('/', test_page)
+
+app.run()
+```
+
+### Quickstart
+[Quickstart Template Repo](https://github.com/pycob/quickstart)
+
+### Learn More
+[PyCob](https://www.pycob.com)
