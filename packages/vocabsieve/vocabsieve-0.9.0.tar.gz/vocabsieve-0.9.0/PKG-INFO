@@ -1,0 +1,113 @@
+Metadata-Version: 2.1
+Name: vocabsieve
+Version: 0.9.0
+Summary: A simple, effective sentence mining tool.
+Home-page: https://github.com/FreeLanguageTools/vocabsieve
+Author: FreeLanguageTools
+Author-email: pypi@5f37.8shield.net
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Classifier: Environment :: X11 Applications :: Qt
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# VocabSieve - a simple sentence mining tool
+![https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)
+![https://img.shields.io/pypi/v/vocabsieve.svg](https://img.shields.io/pypi/v/vocabsieve.svg)
+[![Downloads](https://pepy.tech/badge/ssmtool)](https://pepy.tech/project/ssmtool)
+
+Join our chat on [Matrix](https://webchat.kde.org/#/room/#flt:midov.pl) or [Telegram](https://t.me/fltchat)
+
+VocabSieve (formerly Simple Sentence Mining, `ssmtool`) is a program for sentence mining, in which sentences with target vocabulary words are collected and added into a spaced repetition system (SRS, e.g. Anki) for language learning. It is meant to help intermediate learners gain vocabulary efficiently by allowing card creation without interrupting the flow of content immersion.
+
+[![out.gif](https://i.postimg.cc/vm7frv7p/out.gif)](https://postimg.cc/xkCXYM4R)
+
+## Note
+The Mac OS build is likely broken, but I can't do anything about it because I have no way of testing it or reproducing any of the bugs. If you have a Mac and basic Python skills, please don't hesitate to reach out and help me debug!
+
+## Features
+- **Quick word lookups**: Getting definition, pronunciation, and frequency within one or two keypresses/clicks.
+- **Wide language support**: Supports all languages listed on Google Translate, though it is currently optimized for European languages.
+- **Lemmatization**: Automatically remove inflections to enhance dictionary experience (`books` -> `book`, `ran` -> `run`)
+- **Local-first**: No internet is required if you use downloaded resources. VocabSieve has no central server, so there are no fees to keep it running. 
+- **Sane defaults**: Little configuration is needed other than settings for Anki. It comes with two dictionary sources by default for most languages and one pronunciation source that should cover most needs.
+- **Local resource support**: Dictionaries in StarDict, Migaku, plain JSON, MDX, Lingvo (.dsl), CSV; frequency lists; and audio libraries.
+- **Web reader**: Read epub, fb2 books, or plain articles with one-click word lookups and Anki export.
+- **eReader integration**: Batch-import [KOReader](https://github.com/koreader/koreader) and Kindle highlights to Anki sentence cards to build vocabulary efficiently without interrupting your reading.
+
+## Tutorials
+[Wiki page](https://wiki.freelanguagetools.org/vocabsieve_setup)
+(The text originally on this document or the blog post has since been moved there, with some updates.)
+
+[New video tutorial](https://www.youtube.com/watch?v=EHW-kBLmuHU)
+
+**Windows users**: If you want to install this program, go to [Releases](https://github.com/FreeLanguageTools/vocabsieve/releases/) and from the latest release, download the appropriate file for your operating system. 
+
+For a nightly build, please check the [CI artifacts page](https://ci.appveyor.com/project/1over137/vocabsieve/build/artifacts). These are not considered ready for release and likely contain bugs. It is recommended to use the debug version to get more details when things go wrong.
+
+
+## Linux distro packages
+[![Packaging status](https://repology.org/badge/vertical-allrepos/vocabsieve.svg)](https://repology.org/project/vocabsieve/versions)
+
+<details>
+  <summary>Click to show distro-specific installation instructions</summary>
+
+### Gentoo
+
+First, you need to add the ::guru overlay. Skip this section if you have already done so.
+```
+# eselect repository enable guru
+# emaint -r guru sync
+```
+Install the package:
+`# emerge -av app-misc/vocabsieve`
+
+### Arch
+
+Use your favorite AUR helper (or manually) to install the pacakge `vocabsieve`.
+
+### Other distros
+
+At this time, there are no packages for other distributions. If you are able to create packages for them, please tell me!
+
+In the meantime, users should simply use `pip3` to install VocabSieve: `pip3 install --user vocabsieve`.
+
+This should install an executable and a desktop icon and behave like any other GUI application you may have.
+</details>
+  
+## Development
+To run from source, simply use `pip3 -r requirements.txt` and then `python3 vocabsieve.py`.
+
+Alternatively, you can also install a live version to your python package library with `pip3 install .` (Add --user if there is a permission error)
+
+For debugging purposes, set the environmental variable `VOCABSIEVE_DEBUG` to any value. This will create a separate profile (settings and databases for records and dictionaries) so you may perform tests without affecting your normal profile. For each different value of `VOCABSIEVE_DEBUG`, a separate profile is generated. This can be any number or string.
+
+Pull requests are welcome! If you want to implement a significant feature, be sure to first ask by creating an issue so that no effort is wasting on doing the same work twice.
+
+## API documentation
+If you want to leverage VocabSieve to build your own plugins/apps, you can refer to the [API Documentation](API.md).
+
+Note that VocabSieve is still alpha software. API is not guaranteed to be stable at this point.
+
+## Feedback
+You are welcome to report bugs, suggest features/enhancements, or ask for clarifications by opening a GitHub issue.
+
+## Donations
+<details><summary>Click to show donation information</summary>
+Send me some Monero to support this work! If you can [prove](https://www.getmonero.org/resources/user-guides/prove-payment.html) a payment of more than 0.05 XMR, you can receive prioritized support and consideration for feature requests (still, no guarantees!).
+
+XMR Address: `89AZiqM7LD66XE9s5G7iBu4CU3i6qUu2ieCq4g3JKacn7e1xKuwe2tvWApLFvhaMR47kwNzjC4B5VL3N32MCokE2U9tGXzX`
+
+Monero is a private, censorship-resistant cryptocurrency. Transactions are anonymous and essentially impossible to track by authorities or third-party analytics companies.
+
+[Learn more about Monero](https://www.getmonero.org/)
+
+If you do not have any Monero, a good way to get it is through [ChangeNow](https://changenow.io/) or [SimpleSwap](https://simpleswap.io/).
+</details>
+
+## Credits
+The definitions provided by the program by default come from English Wiktionary, without which this program would never have been created. [LingvaTranslate](https://github.com/thedaviddelta/lingva-translate) is used to obtain Google Translate results. Fоrvо scraping code is inspired by this [repository](https://github.com/Rascalov/Anki-Simple-Forvo-Audio). Lemmatization capabilities come from [simplemma](https://github.com/adbar/simplemma) and [pymorphy2](https://github.com/kmike/pymorphy2).
+
+App icon is made from icons by Freepik available on Flaticon.
