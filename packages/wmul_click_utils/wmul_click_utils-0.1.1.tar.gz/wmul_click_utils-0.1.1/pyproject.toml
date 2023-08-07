@@ -1,0 +1,33 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "wmul_click_utils"
+authors = [{name = "Michael Stanley", email = "stanley50@marshall.edu"}]
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console"
+]
+dynamic = ["version"]
+description = "Additional utilities for use with Python's click cli library."
+dependencies = [
+    "click"
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest", "wmul_test_utils"
+]
+tox = [
+  "tox"
+]
+
+#[project.urls]
+#Home = ""
