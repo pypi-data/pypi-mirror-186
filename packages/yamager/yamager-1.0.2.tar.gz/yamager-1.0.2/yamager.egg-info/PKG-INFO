@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: yamager
+Version: 1.0.2
+Summary: Yamager - Simple module for parsing images from Yandex and Google.
+Home-page: https://github.com/DedInc/yamager
+Author: Maehdakvan
+Author-email: visitanimation@google.com
+Project-URL: Bug Tracker, https://github.com/DedInc/yamager/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+<h1 align="center">Yamager - Simple module for parsing images from Yandex and Google.</h1>
+
+<br>
+
+<h1 align="center"> -How to use?- </h1>
+
+```python
+import yamager as yimg
+from random import choice
+
+############Yandex Images############
+images = yimg.searchYandexImages('anime') #get image previews
+previews = choice(images) #get previews of random image
+print(yimg.getBestImage(previews)) #get best image of previews with high resolution
+#####################################
+
+############Google Images############
+images = yimg.searchGoogleImages('anime')
+print(choice(images)) #get random image from search
+#####################################
+```
