@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "zeal_cli"
+version = "v2.0.0-dev2"
+description = ""
+license = "GPL-3.0-or-later"
+readme = "docs/README.md"
+repository = "https://github.com/morpheus636/zeal-cli"
+authors = ["Josh Levin <morpheus636@morpheus636.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+requests = "^2.27.1"
+beautifulsoup4 = "^4.10.0"
+lxml = "^4.9.1"
+PyYAML = "^6.0"
+
+[tool.poetry.dev-dependencies]
+black = "^22.3.0"
+flake8 = "^3.9.2"
+isort = "^5.9.3"
+pytest = "^6.2.4"
+pre-commit = "^2.13.0"
+pyinstaller = "^4.9"
+GitPython = "^3.1.27"
+
+[tool.poetry.scripts]
+zeal-cli = "zeal_cli:main"
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+include = '\.pyi'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 100
+include_trailing_comma = "True"
+force_grid_wrap = 0
+use_parentheses = "True"
+combine_as_imports = "True"
+force_alphabetical_sort_within_sections = "True"
+ensure_newline_before_comments = "True"
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+lines_after_imports = 2
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
