@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "devoud"
+version = "1.0b18"
+description = "A simple web browser written in Python using PySide6"
+authors = ["OneEyedDancer <ooeyd@ya.ru>"]
+license = "GPL-3.0-or-later"
+readme = "README.md"
+repository = "https://codeberg.org/OneEyedDancer/Devoud"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+PySide6 = "^6.4.1"
+adblockparser = "^0.7"
+requests = "^2.9.2"
+pyshortcuts = "^1.8.3"
+plyer = "^2.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+devoud = 'devoud.Devoud:main'
