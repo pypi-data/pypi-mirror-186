@@ -1,0 +1,11 @@
+# continuous deployment
+name: cd
+
+on:
+  workflow_dispatch:
+  release:
+
+jobs:
+  lint:
+    name: 'publish to pypi'
+    uses: ./.github/workflows/publish.yml

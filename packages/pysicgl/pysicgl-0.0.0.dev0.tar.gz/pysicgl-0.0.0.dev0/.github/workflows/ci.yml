@@ -1,0 +1,13 @@
+# continuous integration
+name: ci
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  lint:
+    name: 'linting'
+    uses: ./.github/workflows/lint.yml
