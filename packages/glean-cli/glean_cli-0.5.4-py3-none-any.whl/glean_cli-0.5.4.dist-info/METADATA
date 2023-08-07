@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: glean-cli
+Version: 0.5.4
+Summary: Command-line tools for interacting with Glean
+Home-page: https://glean.io/
+Author: Dan Eisenberg
+Author-email: dse@glean.io
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Click (>=8.0)
+Requires-Dist: pyyaml (>=6.0)
+Requires-Dist: requests (>=2.0)
+Requires-Dist: ruamel.yaml (>=0.17)
+Requires-Dist: yaspin (>=2.1.0)
+Provides-Extra: test
+Requires-Dist: pytest ; extra == 'test'
+
+# glean-cli
+
+Command-line tools for interacting with Glean (https://glean.io).
+
+Glean is currently in closed beta and the CLI is under active development.
+
+## Development
+
+During local development, you likely want to point the CLI at your local
+Glean web server. You can do so with the following enviroment variable:
+
+```bash
+export GLEAN_CLI_BASE_URI=http://localhost:5000
+```
+
+You should work with the Glean CLI in its own virtual enviroment. In this
+new environment, ensure you have `pip`, then do `pip install build` to get
+the correct build tool.
+
+The Glean CLI is a project built by `setuptools`. You can package it for
+publish with `python -m build`, or link it for local development by running
+`pip install --editable .` in the root folder of this repo.
+
+Once installed as an editable package, run `glean --help` to use it.
