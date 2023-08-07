@@ -1,0 +1,90 @@
+Metadata-Version: 2.1
+Name: daffi
+Version: 1.3.0
+Summary: Daffi is fast, simple and lightweight library for inter process communication
+Project-URL: Documentation, https://600apples.github.io/dafi/
+Project-URL: Source, https://github.com/600apples/dafi
+Author-email: Volodymyr Boiko <600apples@gmail.com>
+License-Expression: MIT
+License-File: LICENSE.txt
+Keywords: async,distributed,grpc,job,python,queue,rpc,stream,task
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Internet
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: Object Brokering
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: System :: Clustering
+Classifier: Topic :: System :: Distributed Computing
+Classifier: Topic :: System :: Monitoring
+Classifier: Topic :: System :: Networking
+Classifier: Topic :: System :: Systems Administration
+Requires-Python: >=3.7
+Requires-Dist: anyio>=3.6.2
+Requires-Dist: cached-property>=1.5.2
+Requires-Dist: colorama>=0.4.6; sys_platform == 'win32'
+Requires-Dist: dill>=0.3.6
+Requires-Dist: grpcio>=1.51.1
+Requires-Dist: protobuf>=4.21.12
+Requires-Dist: tblib>=1.7.0
+Requires-Dist: tenacity>=8.1.0
+Requires-Dist: typing-extensions>=4.4.0
+Requires-Dist: uvloop>=0.17.0; sys_platform != 'win32'
+Description-Content-Type: text/markdown
+
+<h1> 
+    <img src="https://600apples.github.io/dafi/images/logo.png"
+    width="40"
+    height="40"
+    style="float: left;">
+    Daffi
+</h1>
+
+
+![test and validate](https://github.com/600apples/dafi/actions/workflows/test_and_validate.yml/badge.svg)
+![publish docs](https://github.com/600apples/dafi/actions/workflows/publish_docs.yml/badge.svg)
+![coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/600apples/c64b2cee548575858e40834754432018/raw/covbadge.json)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://600apples.github.io/dafi/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
+[![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)
+[![Downloads](https://static.pepy.tech/personalized-badge/daffi?period=month&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/daffi)
+
+Daffi's goal is to move away from the traditional server-client communication approach where processes are unequal. This concept has been replaced by the controller-node principle. Each process can contain either a controller or a node, or both.
+Each daffi node gets the ability to create remote callbacks and execute callbacks created on other nodes. 
+
+This can best be described as a multiprocessing [observer](https://refactoring.guru/design-patterns/observer) pattern where there are remote subscribers to a callback and there are publishers who can trigger those callbacks remotely.
+This approach allows you to create both simple architectural solutions such as one-to-one communication between nodes and more complex schemes such as a pipeline chain or one-to-many broadcasting.
+It is worth to note that the daffi's syntax is very easy. Unlike many other similar libraries, on the surface, daffi contains only a few top-level classes for initializing the process as a node or controller. 
+
+Daffi takes the best of several worlds and can be used as a task dispatcher or for streaming.
+
+### Features
+ 
+- All processes where daffi is running have equal opportunities. Any process (Node) can trigger a remote callback on any other process (Node).
+- A centralized approach to registering callbacks in microservices. You do not need to run dozens of microservers and register callbacks separately for each, which can turn into a difficult to manage architecture.
+- Super fast and strong serialization/deserialization system based on [grpc](https://grpc.io/docs/) streams and [dill](https://pypi.org/project/dill/). You can serialize dataclasses, functions (with yield statements as well), lambdas, modules and many other types.
+- Daffi works equally well with both synchronous and asynchronous applications. You can call asynchronous remote callback from synchronous application and vice versa. [Trio](https://trio.readthedocs.io/en/stable/) support is also included.
+- Simple syntax. Calling remote callback is as simple as execution of local method. 
+- Daffi can work via TCP or via UNIX socket.
+- Daffi can either manage on demand tasks or be using for streaming.
+
+
+## Documentation
+
+View full documentation at: [https://600apples.github.io/dafi/](https://600apples.github.io/dafi/)
+
+## Installation
+
+```console
+pip install daffi
+```
