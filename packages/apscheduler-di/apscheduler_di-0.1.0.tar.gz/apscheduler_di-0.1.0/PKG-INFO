@@ -1,0 +1,100 @@
+Metadata-Version: 2.1
+Name: apscheduler-di
+Version: 0.1.0
+Summary: Lightweight and beneficial Dependency Injection plugin for apscheduler 
+License: MIT
+Author: Gleb Garanin
+Author-email: glebgar567@gmail.com
+Maintainer: GLEF1X
+Maintainer-email: glebgar567@gmail.com
+Requires-Python: >=3.7,<4.0
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Framework :: AsyncIO
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: Russian
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Typing :: Typed
+Requires-Dist: APScheduler (>=3.8.1,<4.0.0)
+Requires-Dist: rodi (>=2.0.0,<3.0.0)
+Description-Content-Type: text/markdown
+
+# Implementation of dependency injection for `apscheduler`
+[![PyPI version](https://img.shields.io/pypi/v/apscheduler-di.svg)](https://pypi.org/project/apscheduler-di/)[![codecov](https://codecov.io/gh/GLEF1X/apscheduler-di/branch/master/graph/badge.svg?token=X71JFESNL5)](https://codecov.io/gh/GLEF1X/apscheduler-di)[![Downloads](https://pepy.tech/badge/apscheduler-di/week)](https://pepy.tech/project/apscheduler-di)
+
+### Motivation:
+
+* `apscheduler-di` solves the problem since `apscheduler` doesn't support Dependency Injection
+  natively, and it's real problem for developers to pass on complicated objects to jobs without
+  corruptions
+
+## Features:
+
+* Supports type hints ([PEP 561](https://www.python.org/dev/peps/pep-0561/))
+* Extend `apscheduler` and provide handy aliases for events(such as `on_startup`, `on_shutdown` and
+  etc)
+* Provide an opportunity to implement [Dependency Inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle) SOLID principle
+
+"Under the hood" `apscheduler-di` just
+implements [Decorator](https://en.wikipedia.org/wiki/Decorator_pattern) pattern and wraps up the
+work of native `BaseScheduler` using [rodi](https://github.com/Neoteroi/rodi) lib
+
+### Quick example:
+
+```python
+import os
+from typing import Dict
+
+from apscheduler.jobstores.redis import RedisJobStore
+from apscheduler.schedulers.blocking import BlockingScheduler
+
+from apscheduler_di import ContextSchedulerDecorator
+
+# pip install redis
+job_stores: Dict[str, RedisJobStore] = {
+    "default": RedisJobStore(
+        jobs_key="dispatched_trips_jobs", run_times_key="dispatched_trips_running"
+    )
+}
+
+
+class Tack:
+
+    def tack(self):
+        print("Tack!")
+
+
+def tick(tack: Tack, some_argument: int):
+    print(tack)
+
+
+def main():
+    scheduler = ContextSchedulerDecorator(BlockingScheduler(jobstores=job_stores))
+    scheduler.ctx.add_instance(Tack(), Tack)
+    scheduler.add_executor('processpool')
+    scheduler.add_job(tick, 'interval', seconds=3, kwargs={"some_argument": 5})
+    print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
+
+    try:
+        scheduler.start()
+    except (KeyboardInterrupt, SystemExit):
+        pass
+
+
+if __name__ == '__main__':
+    main()
+
+```
+
