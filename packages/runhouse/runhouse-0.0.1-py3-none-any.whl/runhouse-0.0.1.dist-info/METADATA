@@ -1,0 +1,49 @@
+Metadata-Version: 2.1
+Name: runhouse
+Version: 0.0.1
+Summary: Runhouse: A multiplayer cloud compute and data environment, like Google Docs for ML
+Author: Runhouse Team
+License: Apache 2.0
+Project-URL: Homepage, https://run.house
+Project-URL: Issues, https://github.com/run-house/runhouse/issues/
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Distributed Computing
+Description-Content-Type: text/markdown
+Requires-Dist: wheel
+Requires-Dist: rich
+Requires-Dist: fsspec
+Requires-Dist: pyarrow
+Requires-Dist: sshtunnel
+Requires-Dist: typer
+Requires-Dist: skypilot (==0.2.2)
+Requires-Dist: awscli
+Requires-Dist: boto3
+Requires-Dist: pycryptodome (==3.12.0)
+Provides-Extra: all
+Requires-Dist: awscli ; extra == 'all'
+Requires-Dist: boto3 ; extra == 'all'
+Requires-Dist: pycryptodome (==3.12.0) ; extra == 'all'
+Requires-Dist: azure-cli (==2.31.0) ; extra == 'all'
+Requires-Dist: azure-core ; extra == 'all'
+Requires-Dist: google-api-python-client ; extra == 'all'
+Requires-Dist: google-cloud-storage ; extra == 'all'
+Requires-Dist: docker ; extra == 'all'
+Provides-Extra: aws
+Requires-Dist: awscli ; extra == 'aws'
+Requires-Dist: boto3 ; extra == 'aws'
+Requires-Dist: pycryptodome (==3.12.0) ; extra == 'aws'
+Provides-Extra: azure
+Requires-Dist: azure-cli (==2.31.0) ; extra == 'azure'
+Requires-Dist: azure-core ; extra == 'azure'
+Provides-Extra: docker
+Requires-Dist: docker ; extra == 'docker'
+Provides-Extra: gcp
+Requires-Dist: google-api-python-client ; extra == 'gcp'
+Requires-Dist: google-cloud-storage ; extra == 'gcp'
+
