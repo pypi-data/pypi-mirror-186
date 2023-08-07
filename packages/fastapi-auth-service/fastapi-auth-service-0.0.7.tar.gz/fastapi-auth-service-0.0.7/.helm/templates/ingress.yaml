@@ -1,0 +1,22 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: auth-service
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    {{- range $item := .Values.ingress.hosts }}
+    {{- if $item.host }}
+    {{- range $path := $item.paths }}
+    - match: Host(`{{ $item.host }}`) && PathPrefix(`{{ $path.path }}`)
+      kind: Rule
+      services:
+        - name: {{ $path.name }}
+          port: {{ $path.port }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+{{- end }}
