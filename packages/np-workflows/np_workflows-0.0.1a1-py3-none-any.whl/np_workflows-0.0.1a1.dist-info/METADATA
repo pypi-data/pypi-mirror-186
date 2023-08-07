@@ -1,0 +1,69 @@
+Metadata-Version: 2.1
+Name: np-workflows
+Version: 0.0.1a1
+Summary: Ecephys and behavior workflows for the Mindscope Neuropixels team.
+Author: Ben Hardcastle
+Author-email: ben.hardcastle@alleninstitute.org
+Requires-Python: >=3.9,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Provides-Extra: dev
+Requires-Dist: backoff
+Requires-Dist: black ; extra == "dev"
+Requires-Dist: fabric (>=2.7.1,<3.0.0)
+Requires-Dist: gevent (==21.1.2)
+Requires-Dist: greenlet (==1.1.2)
+Requires-Dist: isort ; extra == "dev"
+Requires-Dist: mypy ; extra == "dev"
+Requires-Dist: np_config
+Requires-Dist: np_logging
+Requires-Dist: np_session
+Requires-Dist: pip-tools ; extra == "dev"
+Requires-Dist: poetry ; extra == "dev"
+Requires-Dist: pytest ; extra == "dev"
+Requires-Dist: pyzmq (>=19.0,<20.0)
+Requires-Dist: requests
+Requires-Dist: zope-event (==4.5.0)
+Requires-Dist: zope-interface (==5.3.0)
+Description-Content-Type: text/markdown
+
+# services
+![Services](./services.drawio.svg)
+
+# requirements 
+
+**graphviz**
+    
+- 64bit .exe: https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/3.0.0/windows_10_cmake_Release_graphviz-install-3.0.0-win64.exe
+
+- homepage: https://graphviz.org/download/
+
+- install and choose option to add to path
+
+**router**
+
+- download: http://aibspi2/release/router/latest/
+
+- unzip to `C:\Program Files\AIBS_MPE\router\`
+
+- `router.exe` must be started before `workflow_launcher.exe` (router can be left running if launcher restarted)
+
+**workflow_launcher**
+
+- download: http://aibspi2/release/workflow_toolkit/latest/
+
+- unzip to `C:\Program Files\AIBS_MPE\workflow_launcher\` 
+
+## installation 
+
+run `install.bat` 
+
+launch `C:\Program Files\AIBS_MPE\workflow_launcher\workflow_launcher.exe`
+
+# notes
+
+- if 'C:\ProgramData\AIBS_MPE\wfltk\workflows\' can't be reached, try running `workflow_launcher` as admin
+
+- TextValue error displayed in WSE GUI cmay indicate an accidental capitalization, ie `type: Note` should be `type: note`
