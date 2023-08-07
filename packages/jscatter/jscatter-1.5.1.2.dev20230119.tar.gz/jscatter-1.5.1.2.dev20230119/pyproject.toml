@@ -1,0 +1,15 @@
+[build-system]
+# Minimum requirements for the build system to execute
+requires = [
+    "Cython>=0.29",
+    # lowest NumPy we can use for a given Python,
+    # In part adapted from: https://github.com/scipy/oldest-supported-numpy/blob/main/setup.cfg
+    # and MDAnalysis
+    "numpy>=1.21.0",
+    # pinned < 65.5.1 because of Log error but Log was removed but still used  https://github.com/numpy/numpy/issues/22623
+    # numpy advised <60 but this gives Cannot install into user site directory with editable source
+    # 62 just works
+    "setuptools==62.0",
+    "wheel",
+]
+
