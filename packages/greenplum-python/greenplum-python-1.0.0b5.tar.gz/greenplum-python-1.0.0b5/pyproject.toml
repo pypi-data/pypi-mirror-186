@@ -1,0 +1,21 @@
+[tool.black]
+line-length = 100
+
+[tool.isort]
+profile = "black"
+
+[tool.pyright]
+include = [
+    "greenplumpython",
+    "setup.py"
+]
+
+ignore = ["greenplumpython/util.py"]
+typeCheckingMode = "strict"
+reportUnknownMemberType = false
+reportIncompatibleMethodOverride = false
+reportOverlappingOverload = false
+reportGeneralTypeIssues = false
+reportUnusedImport = false
+reportImportCycles = false
+
