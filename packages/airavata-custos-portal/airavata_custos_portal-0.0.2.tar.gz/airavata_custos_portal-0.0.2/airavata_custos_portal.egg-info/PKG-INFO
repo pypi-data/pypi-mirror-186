@@ -1,0 +1,60 @@
+Metadata-Version: 2.1
+Name: airavata-custos-portal
+Version: 0.0.2
+Summary: The Airavata Custos Portal SDK is a library that makes it easier to develop Airavata Custos Portal customizations.
+Home-page: https://github.com/apache/airavata-custos-portal
+Author: Apache Software Foundation
+Author-email: dev@airavata.apache.org
+License: Apache License 2.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: WSGI :: Application
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# custos-demo-gateway
+
+## Project setup
+
+```
+yarn install
+```
+
+### Compiles and hot-reloads for development
+
+```
+yarn serve
+```
+
+### Compiles and minifies for production
+
+```
+yarn build
+```
+
+### Lints and fixes files
+
+```
+yarn lint
+```
+
+### Customize configuration
+
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Running the Django server locally
+
+```
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cd airavata_custos_portal/
+./manage.py migrate
+./manage.py runserver
+```
