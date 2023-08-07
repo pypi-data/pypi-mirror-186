@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: fluxwallet
+Version: 0.0.1
+Summary: A Wallet implementation for Flux (based on fluxwallet)
+License: MIT
+Author: David White
+Requires-Python: >=3.10,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: SQLAlchemy (>=1.4.28,<2.0.0)
+Requires-Dist: ecdsa (>=0.17,<0.18) ; sys_platform == "win32"
+Requires-Dist: fastecdsa (>=2.2.1,<3.0.0) ; sys_platform != "win32"
+Requires-Dist: numpy (>=1.21.0,<2.0.0)
+Requires-Dist: pycryptodome (>=3.14.1,<4.0.0)
+Requires-Dist: requests (>=2.25.0,<3.0.0)
