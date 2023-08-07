@@ -1,0 +1,49 @@
+"""Python setup.py for whook package"""
+import io
+import os
+from setuptools import find_packages, setup
+
+__version__ = "0.0.1"
+
+def read(*paths, **kwargs):
+    """Read the contents of a text file safely.
+    >>> read("project_name", "VERSION")
+    '0.1.0'
+    >>> read("README.md")
+    ...
+    """
+
+    content = ""
+    with io.open(
+        os.path.join(os.path.dirname(__file__), *paths),
+        encoding=kwargs.get("encoding", "utf8"),
+    ) as open_file:
+        content = open_file.read().strip()
+    return content
+
+
+def read_requirements(path):
+    return [
+        line.strip()
+        for line in read(path).split("\n")
+        if not line.startswith(('"', "#", "-", "git+"))
+    ]
+
+
+setup(
+    name="whook",
+    version=__version__,
+    description="A simple framework that can be used with Flask to build powerful webhooks.",
+    url="https://github.com/callope/whook/",
+    long_description=read("README.md"),
+    long_description_content_type="text/markdown",
+    author="callope",
+    packages=find_packages(exclude=["tests", ".github"]),
+    install_requires=read_requirements("requirements.txt"),
+    entry_points={
+        "whook": ["whook = whook.__main__:main"]
+    },
+    extras_require={
+        "test": read_requirements("requirements-test.txt")
+    },
+)
