@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: forge-core
+Version: 1.0.0
+Summary: Core library for Forge
+Home-page: https://www.forgepackages.com/
+License: MIT
+Keywords: django,saas,forge,framework
+Author: Dave Gaeddert
+Author-email: dave.gaeddert@dropseed.dev
+Requires-Python: >=3.8,<4.0
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 4
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: click
+Requires-Dist: python-dotenv
+Project-URL: Documentation, https://www.forgepackages.com/docs/
+Project-URL: Repository, https://github.com/forgepackages/forge-core
+Description-Content-Type: text/markdown
+
+# forge-core
+
+All Forge packages should depend on `forge-core`.
+
+It provides the following:
+
+- the `forge` CLI (autodiscovers `forge-x` commands)
+- default Django `manage.py`, `wsgi.py`, and `asgi.py` files
+- the `Forge` class with path, tmp, and executable utils
+
