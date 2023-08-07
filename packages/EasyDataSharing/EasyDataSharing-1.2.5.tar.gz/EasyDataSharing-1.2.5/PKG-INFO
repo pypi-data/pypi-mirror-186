@@ -1,0 +1,63 @@
+Metadata-Version: 2.1
+Name: EasyDataSharing
+Version: 1.2.5
+Summary: For Sharing Data between files
+Home-page: https://github.com/FriesCoin/EasyDataSharing
+Author: Damian Payano
+Author-email: damiangamesss464@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+# EasyScriptsDataSharing
+
+Share Data between Scripts.
+
+## About
+
+This package allows multiple scripts to communicate each other while running
+
+## instructions
+
+1. Install
+
+```
+pip install EasyDataSharing
+```
+
+2. Import
+
+```
+from EasyDataSharing import *
+
+```
+
+## Functions
+
+1. CreateData
+
+if New Data created leave the ScriptId blank and it will a new one
+
+```
+
+UpdateData(myScriptName,otherScriptName,dataName,Data,ScriptId)
+
+```
+
+2. GetData
+
+```
+
+getFrom(otherScriptId,dataName)
+
+```
+
+3. GetScriptId
+
+```
+
+IdFromAuthor(otherScriptName)
+
+```
