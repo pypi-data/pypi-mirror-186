@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: deltacat
+Version: 0.1.9
+Summary: A scalable, fast, ACID-compliant Data Catalog powered by Ray.
+Home-page: https://github.com/ray-project/deltacat
+Author: Ray Team
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: s3fs (==2022.1.0)
+Requires-Dist: tenacity (==8.0.1)
+Requires-Dist: ray[default] (==2.0.0)
+Requires-Dist: pandas (>=1.3.1)
+Requires-Dist: pyarrow (==8.0.0)
+Requires-Dist: pydantic (==1.10.2)
+Requires-Dist: numpy (>=1.21.1)
+Requires-Dist: boto3 (==1.20.24)
+Requires-Dist: typing-extensions (==4.4.0)
+
+# DeltaCAT
+
+DeltaCAT is a Pythonic Data Catalog powered by Ray.
+
+Its data storage model allows you to define and manage fast, scalable, 
+ACID-compliant data catalogs through git-like stage/commit APIs, and has been 
+used to successfully host exabyte-scale enterprise data lakes.
+
+DeltaCAT uses the Ray distributed compute framework together with Apache Arrow
+for common table management tasks, including petabyte-scale 
+change-data-capture, data consistency checks, and table repair.
