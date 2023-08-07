@@ -1,0 +1,60 @@
+[tool.poetry]
+name = "toolchest-client"
+version = "0.11.9"
+description = "Python client for Toolchest"
+authors = [
+    "Bryce Cai <bryce@trytoolchest.com>",
+    "Justin Herr <justin@trytoolchest.com>",
+    "Noah Lebovic <noah@trytoolchest.com",
+]
+license = "AGPL-3.0-only"
+readme = "README.md"
+homepage = "https://github.com/trytoolchest/toolchest-client-python"
+repository = "https://github.com/trytoolchest/toolchest-client-python"
+documentation = "https://docs.trytoolchest.com/"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+packages = [
+    { include = "toolchest_client" },
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/trytoolchest/toolchest-client-python/issues"
+
+[tool.poetry.dependencies]
+boto3 = "^1.18.29"
+python = "^3.7"
+requests = "^2.25.1"
+docker = "^6.0.0"
+importlib-metadata = "~=4.2"
+python-dotenv = "^0.20.0"
+typer = "^0.4.1"
+websockets = "^10.3"
+
+[tool.poetry.dev-dependencies]
+flake8 =  { version = "^5.0.4", python = ">=3.8" } # version restriction required for mkdocs-material compatibility
+pytest = "^7.1.2"
+mkdocs-material = "^8.5.6"
+
+[[tool.poetry.source]]
+name = "pypi-public"
+url = "https://pypi.org/simple/"
+
+[[tool.poetry.source]]
+name = "prod-pypi"
+url = "https://upload.pypi.org/legacy/"
+secondary = true
+
+[[tool.poetry.source]]
+name = "test-pypi"
+url = "https://test.pypi.org/legacy/"
+secondary = true
+
+[tool.poetry.scripts]
+toolchest = "toolchest_client.cli.cli:app"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
