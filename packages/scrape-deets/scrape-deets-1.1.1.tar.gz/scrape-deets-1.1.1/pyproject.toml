@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scrape-deets"
+version = "1.1.1"
+authors = [
+  { name="Nikhil Raj", email="nikhil25803@gmail.com" },
+]
+description = "Populate data of an user by scrapping the data from various platforms like GitHub, Twitter, Instagram, etc"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "bs4 >= 0.0.1",
+    "requests",
+]

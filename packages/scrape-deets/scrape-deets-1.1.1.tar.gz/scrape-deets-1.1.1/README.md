@@ -1,0 +1,1 @@
+Populate data of an user by scrapping the data from various platforms like GitHub, Twitter, Instagram, etc
