@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "wheel", "numpy"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "puan-client-db"
+requires-python = ">=3.9"
+version = "0.0.2"
+authors = [
+  { name="Our Studio Void AB", email="moa@ourstudio.se" },
+]
+description = "SDK for calling running http service of puan-server-db"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "puan>=0.5.0",
+    "requests>=2.28.2"
+]
+keywords = ["combinatorial optimization", "database", "service", "propositional logic", "optimization"]
+
+[tool.setuptools]
+packages = [
+    'puan_client_db',
+]
