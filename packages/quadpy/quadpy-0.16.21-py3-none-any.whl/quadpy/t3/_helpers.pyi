@@ -1,0 +1,16 @@
+from ..helpers import backend_to_function as backend_to_function
+from ..tn import TnScheme as TnScheme, get_vol as get_vol, transform as transform
+from _typeshed import Incomplete
+
+schemes: Incomplete
+
+def register(in_schemes) -> None: ...
+
+class T3Scheme(TnScheme):
+    symmetry_data: Incomplete
+    domain: str
+    def __init__(self, name, symmetry_data, degree, source: Incomplete | None = ..., tol: float = ..., weight_factor: Incomplete | None = ...) -> None: ...
+    def show(self, tet=..., backend: str = ..., render: bool = ...) -> None: ...
+
+def expand_symmetries_points_only(data): ...
+def expand_symmetries(data): ...

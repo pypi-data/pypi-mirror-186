@@ -1,0 +1,3 @@
+from ._helpers import C2Scheme as C2Scheme
+
+def product(scheme1d): ...

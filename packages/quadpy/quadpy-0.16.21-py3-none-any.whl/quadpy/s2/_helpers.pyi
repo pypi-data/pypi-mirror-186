@@ -1,0 +1,16 @@
+from .._exception import QuadpyError as QuadpyError
+from ..helpers import QuadratureScheme as QuadratureScheme, expand_symmetries as expand_symmetries, plot_disks as plot_disks
+from _typeshed import Incomplete
+
+schemes: Incomplete
+
+def register(in_schemes) -> None: ...
+
+class S2Scheme(QuadratureScheme):
+    domain: str
+    symmetry_data: Incomplete
+    def __init__(self, name: str, symmetry_data, degree: int, source: Incomplete | None = ..., tol: float = ..., weight_factor: Union[float, None] = ...) -> None: ...
+    def plot(self, show_axes: bool = ...) -> None: ...
+    def integrate(self, f, center, radius, dot=...): ...
+
+def get_good_scheme(degree: int) -> Union[S2Scheme, None]: ...

@@ -1,0 +1,3 @@
+from ._helpers import C3Scheme as C3Scheme
+
+def product(scheme1d): ...

@@ -1,0 +1,9 @@
+from ..helpers import article as article
+from ._helpers import T3Scheme as T3Scheme, register as register
+from _typeshed import Incomplete
+
+source: Incomplete
+
+def hammer_marlowe_stroud_1(): ...
+def hammer_marlowe_stroud_2(): ...
+def hammer_marlowe_stroud_3(): ...
