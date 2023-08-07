@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "fibberio"
+version = "1.0.0"
+description = ""
+authors = ["sethjuarez <me@sethjuarez.com>"]
+readme = "README.md"
+homepage = "https://github.com/sethjuarez/fibberio"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+click = "^8.0.3"
+PyYAML = "^6.0"
+parsimonious = "^0.8.1"
+numpy = "^1.22.2"
+pandas = "^1.4.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+flake8 = "^4.0.1"
+mypy = "^0.931"
+black = "^22.1.0"
+python-semantic-release = "^7.29.1"
+pyment = "^0.3.3"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+fibber = "fibberio.cli:cli"
+
+[tool.semantic_release]
+version_variable = [
+    "fibberio/__init__.py:__version__"
+]
+version_toml= [
+    "pyproject.toml:tool.poetry.version"
+]
+branch = "main"
+upload_to_pypi = true
+upload_to_release = true
+build_command = "pip install poetry && poetry build"
