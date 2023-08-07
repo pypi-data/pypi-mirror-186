@@ -1,0 +1,2 @@
+# Kooplearn
+The Koopman operator 
