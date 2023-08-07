@@ -1,0 +1,3 @@
+from .euler_newton import euler_newton as euler_newton
+
+def branch_switching(problem, u0, lmbda0, callback, max_steps=..., verbose: bool = ..., newton_tol: float = ..., max_newton_steps: int = ..., predictor_variant: str = ..., corrector_variant: str = ..., stepsize0: float = ..., stepsize_max=..., stepsize_aggressiveness: int = ..., cos_alpha_min: float = ..., theta0: float = ..., adaptive_theta: bool = ...) -> None: ...
