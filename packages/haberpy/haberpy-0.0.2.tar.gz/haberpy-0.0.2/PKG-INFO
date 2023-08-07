@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: haberpy
+Version: 0.0.2
+Summary: Son dakika haberleri çekebilmenize yarar.
+Home-page: 
+Author: Emre
+Author-email: rewoxirewo@gmail.com
+License: MIT
+Keywords: haberpy,haberpython,haber,haber-python,haber-py,sondakika,son-dakika
+Requires: requests
+Requires: beautifulsoup4
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# [haberpy](https://pypi.org/project/haberpy/)
+
+Son dakika haberleri Ã§ekebilmenize yarar.
+
+## Installation
+
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+
+```bash
+pip install -U haberpy
+```
+
+## Usage
+
+```python
+from haberpy import Haberler
+
+haber = Haberler()
+
+# returns 'text'
+text = haber.text(limit=1)
+"En gÃ¼ncel haber metinlerini Ã§eker."
+
+# returns 'img'
+img = haber.img(limit=1)
+"En gÃ¼ncel haberlere dair gÃ¶rselleri Ã§eker."
+
+# returns 'ornekler'
+text, img = haber.text_and_img(limit=1)
+"GÃ¼ncel haberlerin metin ve gÃ¶rselini tek istekte verir."
+
+######### Sport #####################
+
+from haber.sport import Sport
+
+spor = Sport()
+
+# returns 'title'
+spor.title(limit=1)
+"GÃ¼ncel spor haberine ait baÅŸlÄ±ÄŸÄ± Ã§eker."
+
+# returns 'about'
+spor.about(limit=1)
+"GÃ¼ncel spor haberine ait iÃ§eriÄŸi Ã§eker."
+
+# returns 'img'
+spor.img(limit=1)
+"GÃ¼ncel spor haberine ait gÃ¶rseli Ã§eker."
+```
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## Contact
+
+[Telegram](https://t.me/ReWoxi) - [Github](https://github.com/Meinos10) - Discord: ```emree#0010```
