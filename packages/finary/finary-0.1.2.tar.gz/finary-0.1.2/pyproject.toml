@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "finary"
+version = "0.1.2"
+description = "Finary se compose de différents sous-modules ayant tous pour objectif d'augmenter la productivité d'un actuaire dans ses tâches du quotidien."
+authors = ["Mathieu Clavier <mathieu.clavier@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "^1.24.1"
+pandas = "^1.5.3"
+openpyxl = "^3.0.10"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^0.991"
+ipykernel = "^6.20.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
