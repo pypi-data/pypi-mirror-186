@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "file_path": {
+      "type": "string"
+    },
+    "extension": { "enum": ["json", "csv", "parquet"] },
+    "size": {
+      "type": "object",
+      "properties": {
+        "quantity": {
+          "type": "integer"
+        },
+        "unit": { "enum": ["byte", "kilobyte", "megabyte", "gigabyte"] }
+      },
+      "required": [
+        "quantity",
+        "unit"
+      ]
+    },
+    "hash": {
+      "type": "integer"
+    },
+    "columns": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "mean": {
+              "type": ["number", "null"]
+            },
+            "continuity": {
+              "type": ["number", "null"],
+              "min": 0,
+              "max": 1
+            },
+            "minimum": {
+              "type": ["integer","number", "string", "null"]
+            },
+            "maximum": {
+              "type": ["integer","number", "string", "null"]
+            },
+            "stationarity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "relationships": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "certainty": {
+                      "type": "number",
+                      "min": 0,
+                      "max": 100
+                    },
+                    "target_file_hash": {
+                      "type": "string"
+                    },
+                    "target_column_name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "certainty",
+                    "target_file_hash",
+                    "target_column_name"
+                  ]
+                }
+              ]
+            }
+          },
+          "required": [
+            "name",
+            "relationships"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "file_path",
+    "extension",
+    "size",
+    "hash",
+    "columns"
+  ]
+}
