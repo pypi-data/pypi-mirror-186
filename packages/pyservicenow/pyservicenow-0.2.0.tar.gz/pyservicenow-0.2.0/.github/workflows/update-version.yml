@@ -1,0 +1,38 @@
+name: Update version
+
+on:
+  pull_request:
+    types:
+      - closed
+
+env:
+  VERSION: "0.1.0"
+
+jobs:
+  if_merged:
+    name: Update VERSION file properly
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v2
+    - name: get version number
+      id: get_version
+      run: |
+        echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
+    - name: Increment Semantic Version
+      if: startsWith(github.event.pull_request.head.ref, 'feature/')
+      id: bump_version
+      uses: christian-draeger/increment-semantic-version@1.0.3
+      with:
+        current-version: ${{env.VERSION}}
+        version-fragment: 'feature'
+    - name: Create/Update VERSION file
+      run: |
+        echo ${{ steps.bump_version.outputs.next-version }} > VERSION
+    - name: Update github
+      run: |
+        git config --global user.name 'Michael Canady'
+        git config --global user.email 'michaeldcanady@users.noreply.github.com'
+        git add .
+        git commit -am "Update version to ${{ steps.bump_version.outputs.next-version }}"
+        git push
