@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Build and install instructions</title>
+<date>2023-01-14</date>
+</info>
+<section xml:id="_build_and_install_instructions">
+<title>Build and install instructions</title>
+<section xml:id="_usage_with_python">
+<title>Usage with Python</title>
+<section xml:id="_install_from_pypi">
+<title>Install from pypi</title>
+<programlisting language="bash" linenumbering="unnumbered">pip install imgui-bundle
+pip install opencv-contrib-python <co xml:id="CO1-1"/></programlisting>
+<calloutlist>
+<callout arearefs="CO1-1">
+<para>in order to run the immvision module, install opencv-python or opencv-contrib-python</para>
+</callout>
+</calloutlist>
+<simpara>Note: under windows, you might need to install <link xl:href="https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022">msvc redist</link>.</simpara>
+</section>
+<section xml:id="_install_from_source">
+<title>Install from source:</title>
+<programlisting language="bash" linenumbering="unnumbered">git clone https://github.com/pthom/imgui_bundle.git
+cd imgui_bundle
+git submodule update --init --recursive <co xml:id="CO2-1"/>
+pip install -v . <co xml:id="CO2-2"/>
+pip install opencv-contrib-python</programlisting>
+<calloutlist>
+<callout arearefs="CO2-1">
+<para>Since there are lots of submodules, this might take a few minutes</para>
+</callout>
+<callout arearefs="CO2-2">
+<para>The build process might take up to 5 minutes</para>
+</callout>
+</calloutlist>
+</section>
+<section xml:id="_run_the_python_demo">
+<title>Run the python demo</title>
+<simpara>Simply run <literal>imgui_bundle_demo</literal>.</simpara>
+<simpara>The source for the demos can be found inside <link xl:href="https://github.com/pthom/imgui_bundle/tree/doc/bindings/imgui_bundle/demos_python">bindings/imgui_bundle/demos_python</link>.</simpara>
+<tip>
+<simpara>Consider <literal>imgui_bundle_demo</literal> as an always available manual for ImGui Bundle with lots of examples and related code source.</simpara>
+</tip>
+</section>
+</section>
+<section xml:id="_usage_with_c">
+<title>Usage with C++</title>
+<section xml:id="_integrate_imgui_bundle_in_your_own_project_in_5_minutes">
+<title>Integrate ImGui Bundle in your own project in 5 minutes</title>
+<simpara>The easiest way to use ImGui Bundle in an external project is to use the example provided in <link xl:href="https://github.com/pthom/imgui_bundle/tree/doc/_example_integration">example_integration</link>.
+This folder  includes everything you need to set up your own project with ImGui Bundle.</simpara>
+</section>
+<section xml:id="_build_imgui_bundle_from_source">
+<title>Build ImGui Bundle from source</title>
+<simpara>If you choose to clone this repo, follow these instructions:</simpara>
+<programlisting language="bash" linenumbering="unnumbered">git clone https://github.com/pthom/imgui_bundle.git
+cd imgui_bundle
+git submodule update --init --recursive <co xml:id="CO3-1"/>
+mkdir build
+cd build
+cmake .. -DIMMVISION_FETCH_OPENCV=ON <co xml:id="CO3-2"/>
+make -j</programlisting>
+<calloutlist>
+<callout arearefs="CO3-1">
+<para>Since there are lots of submodules, this might take a few minutes</para>
+</callout>
+<callout arearefs="CO3-2">
+<para>The flag <literal>-DIMMVISION_FETCH_OPENCV=ON</literal> is optional. If set, a minimal version of OpenCV will be downloaded a compiled at this stage (this might require a few minutes)</para>
+</callout>
+</calloutlist>
+<sidebar>
+<simpara>The <literal>immvision</literal> module will only be built if OpenCV can be found. Otherwise, it will be ignored, and no error will be emitted.</simpara>
+<simpara>If you have an existing OpenCV install, set its path via:</simpara>
+<programlisting language="bash" linenumbering="unnumbered">cmake .. -DOpenCV_DIR=/.../path/to/OpenCVConfig.cmake</programlisting>
+</sidebar>
+</section>
+<section xml:id="_run_the_c_demo">
+<title>Run the C++ demo</title>
+<simpara>If you built ImGui Bundle from source, Simply run <literal>build/bin/demo_imgui_bundle</literal>.</simpara>
+<simpara>The source for the demos can be found inside <link xl:href="https://github.com/pthom/imgui_bundle/tree/doc/bindings/imgui_bundle/demos_cpp/">bindings/imgui_bundle/demos_cpp</link>.</simpara>
+<tip>
+<simpara>Consider <literal>demo_imgui_bundle</literal> as a manual with lots of examples and related code source. It is always <link xl:href="https://traineq.org/ImGuiBundle/emscripten/bin/demo_imgui_bundle.html">available online</link></simpara>
+</tip>
+</section>
+</section>
+</section>
+</article>
