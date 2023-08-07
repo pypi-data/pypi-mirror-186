@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "sfctools"
+version = "1.0.4.13"
+description = "Framework for stock-flow consistent agent-based modeling, being developed at the German Aerospace Center (DLR) for and in the scientific context of energy systems analysis, however, it is widely applicable in other scientific fields."
+
+authors = ["Thomas Baldauf <thomas.baldauf@dlr.de>"]
+license = "MIT"
+maintainers = ["Thomas Baldauf, Benjamin Fuchs <thomas.baldauf@dlr.de, benjamin.fuchs@dlr.de>"]
+homepage = 'https://gitlab.com/dlr-ve/esy/sfctools/framework'
+documentation = 'https://sfctools-framework.readthedocs.io/en/latest/'
+readme = 'README.md'
+keywords = ["stock-flow-consistent","agent-based","agent","macroeconomics","computational economics"]
+
+packages = [
+    { include = "sfctools" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.6,<=3.12"
+pyyaml = ">=3.0.3" # ">=3.10" # >=6.0
+setuptools = ">=50.0.0"
+pandas = "*"# ">=1.3"
+numpy = "*"# ">=1.6.0"
+attrs = "*" # ">=19.3.0"
+matplotlib = ">=2.0.0" # ">=3.6"
+seaborn = "*" # ">=0.9.0" # ">=0.11.2"
+networkx = ">=2.2"
+graphviz = "*" # ">=0.19"
+PyQt5 =">=5.9"
+# pyqt5-tools ="^5.14.4.3"
+# pyqt5-plugins ="^5.14.4.2"
+# poetry = "*"
+# attrs = "^19" # "19.3.0"
+sympy= ">=1.10.0" # ">=1.10"
+scipy=">1.9.1" #  >1.9.1
+# pydot = "*" # ">=1.4"
+pyperclip = ">=1.5.0"
+openpyxl = "*" # ">=3.0.10"
+# pdflatex = "^0.1" <- compatibility problem with cattrs and pdflatex
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,79 @@
+Metadata-Version: 2.1
+Name: sfctools
+Version: 1.0.4.13
+Summary: Framework for stock-flow consistent agent-based modeling, being developed at the German Aerospace Center (DLR) for and in the scientific context of energy systems analysis, however, it is widely applicable in other scientific fields.
+Home-page: https://gitlab.com/dlr-ve/esy/sfctools/framework
+License: MIT
+Keywords: stock-flow-consistent,agent-based,agent,macroeconomics,computational economics
+Author: Thomas Baldauf
+Author-email: thomas.baldauf@dlr.de
+Maintainer: Thomas Baldauf, Benjamin Fuchs
+Maintainer-email: thomas.baldauf@dlr.de, benjamin.fuchs@dlr.de
+Requires-Python: >=3.6,<=3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Dist: PyQt5 (>=5.9)
+Requires-Dist: attrs
+Requires-Dist: graphviz
+Requires-Dist: matplotlib (>=2.0.0)
+Requires-Dist: networkx (>=2.2)
+Requires-Dist: numpy
+Requires-Dist: openpyxl
+Requires-Dist: pandas
+Requires-Dist: pyperclip (>=1.5.0)
+Requires-Dist: pyyaml (>=3.0.3)
+Requires-Dist: scipy (>1.9.1)
+Requires-Dist: seaborn
+Requires-Dist: setuptools (>=50.0.0)
+Requires-Dist: sympy (>=1.10.0)
+Project-URL: Documentation, https://sfctools-framework.readthedocs.io/en/latest/
+Description-Content-Type: text/markdown
+
+# sfctools - A toolbox for stock-flow consistent, agent-based models
+
+Sfctools is a lightweight and easy-to-use Python framework for agent-based macroeconomic, stock-flow consistent (ABM-SFC) modeling. It concentrates on agents in economics and helps you to construct agents, helps you to manage and document your model parameters, assures stock-flow consistency, and facilitates basic economic data structures (such as the balance sheet).
+
+
+## Installation
+
+We recommend to install sfctools in a fresh Python 3.8 environment. For example, with conda, do
+
+    conda create --name sfcenv python=3.8
+    conda activate sfcenv
+    conda install pip
+
+Then, in a terminal of your choice, type:
+
+    pip install sfctools
+
+see https://pypi.org/project/sfctools/
+
+## Usage with Graphical User Interface 'Attune'
+
+Type
+
+    python -m sfctools attune
+
+to start the GUI.
+
+## Usage inside Python
+
+```console
+from sfctools import Agent,World
+class MyAgent(Agent):
+    def __init__(self, a):
+        super().__init__(self)
+        self.some_attribute = a
+my_agent = MyAgent()
+print(my_agent)
+print(World().get_agents_of_type("MyAgent"))
+```
+
+
+| Author Thomas Baldauf, German Aerospace Center (DLR), Curiestr. 4 70563 Stuttgart | thomas.baldauf@dlr.de |
+

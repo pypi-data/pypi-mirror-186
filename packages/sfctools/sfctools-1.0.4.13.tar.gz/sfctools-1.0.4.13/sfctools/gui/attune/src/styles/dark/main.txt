@@ -1,0 +1,196 @@
+QMainWindow{
+    background-color:rgb(41, 41, 41);
+    color: white;
+}
+
+QMenuBar::item:selected {    
+    background-color: rgb(120,120,120);
+}
+
+QWidget{
+    background-color:rgb(41, 41, 41);
+    color: rgb(200,200,200);
+    padding: 5px;
+}
+
+QWidget:selected{
+    background-color:rgb(71, 71, 71);
+    color: rgb(200,200,200);
+}
+
+
+
+QTabBar::tab {
+	border-style: solid;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: transparent;
+	border-bottom-width: 1px;
+	border-style: solid;
+	color: white;
+	padding: 13px;
+	margin-left:13px;
+	background-color: #1e1d23;
+}
+QTabBar::tab:selected, QTabBar::tab:last:selected, QTabBar::tab:hover {
+  	border-style: solid;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: transparent;
+	border-bottom-width: 2px;
+	border-style: solid;
+	color: #FFFFFF;
+	padding-left: 13px;
+	padding-bottom: 12px;
+	margin-left:13px;
+	background-color: gray;
+}
+
+QTextEdit{
+  font-size: 12px;
+  padding: 10px 10px;
+   background-color:  rgb(38, 38, 38);
+   border-radius: 3px;
+   border: 0px;
+   color:white;
+   border-color:  rgb(100,100,100);
+   border-style: solid;
+}
+
+QTableView{
+   background-color:  rgb(100,100,100);
+   border-radius: 3px;
+   border: 0px;
+   border-color:  rgb(100,100,100);
+   border-style: solid;
+   selection-background-color: rgb(90,90,90);
+   color: white;
+}
+
+QHeaderView{
+   color:  white;
+   background-color:  rgb(41,41,41);
+   alternate-background-color: blue;
+   selection-background-color: rgb(51,51,51);
+}
+
+QHeaderView::section{
+   color: white;
+   background-color: rgb(41,41,41);
+   border:2px;
+}
+
+QGroupBox{
+   border: 0px;
+}
+
+
+
+QTableWidget{
+   background-color:  rgb(233, 234, 227);
+   border-radius: 3px;
+   border: 0px;
+   border-color:  rgb(233, 234, 227);
+   border-style: solid;
+   selection-background-color: rgb(201, 201, 201);
+   selection-color: rgb(51, 51, 51);
+}
+
+QTableWidgetItem{
+  color:  white; 
+   background-color:  rgb(233, 234, 227);
+   border-radius: 3px;
+   border: 0px;
+   border-color:  rgb(233, 234, 227);
+   border-style: solid;
+}
+
+
+
+QCheckBox{
+   font-size: 10px;
+   font-weight: 9;
+   padding: 3px;
+
+}
+
+QCheckBox::indicator::unchecked{
+background-color:transparent;
+border: 1px solid rgb(214, 214, 214);
+}
+QCheckBox::indicator::checked{
+background-color: gray;
+border: 1px solid rgb(214, 214, 214);
+}
+
+
+
+QComboBox {
+  padding: 3px 3px;
+  font-size: 11px;
+  font-weight: 9;
+  color: rgb(215, 215, 215);
+  background-color:  rgb(21, 21, 21);
+  border-color: #00AA66;
+  border-style: solid;
+ border: 0;
+ outline: 0;
+ border-radius: 2px;
+ border-bottom:1px solid rgb(222, 223, 216);
+}
+
+QLineEdit {
+  padding: 3px 3px;
+  font-size: 11px;
+  font-weight: 9;
+  color: rgb(215, 215, 215);
+  background-color: rgb(21, 21, 21);
+  border-color: #00AA66;
+  border-style: solid;
+ border: 0;
+ outline: 0;
+ border-radius: 2px;
+ border-bottom:1px solid rgb(222, 223, 216);
+}
+
+QPushButton {
+  padding: 3px 13px;
+  margin= 10px;
+  width: 15px;
+  color:  rgb(214, 214, 214);
+  background-color: rgb(44, 44, 44);
+  border-color:  rgb(126, 155, 134);
+  border-style: solid;
+  border: 0px solid rgb(222, 223, 216);
+  border-radius: 0px;
+}
+
+QPushButton:pressed {
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 9;
+  color: rgb(4, 0, 49);
+  background-color: rgb(207, 208, 202);
+  border-color: #00AA66;
+  border-style: solid;
+  border: 1px solid rgb(222, 223, 216);
+}
+
+QPushButton:disabled{
+background-color: rgb(125, 25, 25);
+color:rgb(136, 36, 36);
+font-size:10pt;
+}
+
+QTableView{
+font-size:10pt;
+background-color: transparent;
+color: white;
+padding: 8pt;}
+
+
+QTableView QTableCornerButton::section {
+ background: transparent;
+}
