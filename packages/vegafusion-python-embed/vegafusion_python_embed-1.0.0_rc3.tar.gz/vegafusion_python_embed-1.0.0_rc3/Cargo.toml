@@ -1,0 +1,42 @@
+[package]
+name = "vegafusion-python-embed"
+license = "BSD-3-Clause"
+edition = "2021"
+version = "1.0.0-rc3"
+
+[lib]
+name = "vegafusion_embed"
+crate-type = [ "cdylib",]
+
+[dependencies]
+log = "0.4.17"
+env_logger = "0.9.0"
+pythonize = "0.17.0"
+
+[dependencies.deterministic-hash]
+version = "1.0.1"
+
+[dependencies.serde]
+version = "1.0.137"
+features = [ "derive",]
+
+[dependencies.serde_json]
+version = "1.0.79"
+
+[dependencies.vegafusion-core]
+path = "local_dependencies/vegafusion-core"
+features = [ "pyo3",]
+version = "1.0.0-rc3"
+
+[dependencies.vegafusion-rt-datafusion]
+path = "local_dependencies/vegafusion-rt-datafusion"
+features = [ "pyarrow",]
+version = "1.0.0-rc3"
+
+[dependencies.tokio]
+version = "1.18.1"
+features = [ "macros", "rt-multi-thread",]
+
+[dependencies.pyo3]
+version = "0.17.1"
+features = [ "extension-module",]

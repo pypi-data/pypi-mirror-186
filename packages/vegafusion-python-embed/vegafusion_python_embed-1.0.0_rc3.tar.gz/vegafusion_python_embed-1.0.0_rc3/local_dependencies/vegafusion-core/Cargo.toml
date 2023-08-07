@@ -1,0 +1,62 @@
+[package]
+name = "vegafusion-core"
+license = "BSD-3-Clause"
+edition = "2021"
+version = "1.0.0-rc3"
+
+[features]
+tonic_support = [ "tonic", "tonic-build",]
+pyarrow = [ "pyo3", "arrow/pyarrow", "datafusion-common/pyarrow",]
+
+[dependencies]
+thiserror = "^1.0.29"
+bytes = "1.1.0"
+prost = "0.11.3"
+prost-types = "0.11.2"
+itertools = "0.10.3"
+lazy_static = "^1.4.0"
+regex = "^1.5.5"
+ordered-float = "^2.10.0"
+petgraph = "0.6.0"
+deterministic-hash = "1.0.1"
+chrono = "0.4.23"
+num-complex = "0.4.2"
+
+[dependencies.sqlgen]
+git = "https://github.com/vegafusion/sqlgen-rs.git"
+rev = "e5ac9609dfffbf98af1fd8f2bc8a07216451bb51"
+optional = true
+
+[dependencies.serde_json]
+version = "1.0.81"
+features = [ "preserve_order",]
+
+[dependencies.arrow]
+version = "29.0.0"
+default_features = false
+features = [ "ipc", "json",]
+
+[dependencies.datafusion-common]
+version = "~16.0.0"
+
+[dependencies.pyo3]
+version = "0.17.1"
+optional = true
+
+[dependencies.serde]
+version = "1.0.137"
+features = [ "derive",]
+
+[dependencies.tonic]
+version = "0.8.3"
+optional = true
+
+[build-dependencies.prost-build]
+version = "0.11.4"
+
+[build-dependencies.tonic-build]
+version = "0.8.4"
+optional = true
+
+[target."cfg(target_family = \"unix\")".build-dependencies]
+protobuf-src = "1.1.0"
