@@ -1,0 +1,46 @@
+Metadata-Version: 2.1
+Name: smoloki
+Version: 0.0.3
+Summary: Tiny library to push logs to `Grafana Loki` in `logfmt` format.
+Home-page: https://github.com/michaelkryukov/smoloki
+Author: Michael Krukov
+Author-email: krukov.michael@ya.ru
+Keywords: library,loki
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: aiohttp (~=3.8.3)
+
+# smoloki
+
+[![PyPI version](https://badge.fury.io/py/smoloki.svg)](https://badge.fury.io/py/smoloki)
+
+Tiny library to push logs to `Grafana Loki` in `logfmt` format.
+
+```py
+import smoloki
+
+
+async def as_request_completed():
+    await smoloki.push(
+        {'service': 'web'},
+        {'level': 'info', 'event': 'request_completed'},
+    )
+
+
+def as_request_completed():
+    smoloki.push_sync(
+        {'service': 'web'},
+        {'level': 'info', 'event': 'request_completed'},
+    )
+```
+
+## Configuration
+
+- `SMOLOKI_BASE_ENDPOINT` – base address of Loki server.
+- `SMOLOKI_BASE_LABELS` - base labels that will be added to logs.
+- `SMOLOKI_BASE_INFORMATION` - base information that will be added to logs.
