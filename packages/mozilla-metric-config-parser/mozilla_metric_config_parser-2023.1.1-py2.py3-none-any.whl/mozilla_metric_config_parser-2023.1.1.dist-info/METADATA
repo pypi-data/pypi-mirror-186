@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: mozilla-metric-config-parser
+Version: 2023.1.1
+Summary: Parses metric configuration files
+Home-page: https://github.com/mozilla/metric-config-parser
+Author: Mozilla Corporation
+Author-email: fx-data-dev@mozilla.org
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: attrs
+Requires-Dist: cattrs
+Requires-Dist: Click
+Requires-Dist: GitPython
+Requires-Dist: jinja2
+Requires-Dist: pytz
+Requires-Dist: requests
+Requires-Dist: toml
+Provides-Extra: testing
+Requires-Dist: coverage ; extra == 'testing'
+Requires-Dist: isort ; extra == 'testing'
+Requires-Dist: jsonschema ; extra == 'testing'
+Requires-Dist: pytest ; extra == 'testing'
+Requires-Dist: pytest-black ; extra == 'testing'
+Requires-Dist: pytest-cov ; extra == 'testing'
+Requires-Dist: pytest-flake8 ; extra == 'testing'
+Requires-Dist: mypy ; extra == 'testing'
+Requires-Dist: types-futures ; extra == 'testing'
+Requires-Dist: types-pkg-resources ; extra == 'testing'
+Requires-Dist: types-protobuf ; extra == 'testing'
+Requires-Dist: types-pytz ; extra == 'testing'
+Requires-Dist: types-PyYAML ; extra == 'testing'
+Requires-Dist: types-requests ; extra == 'testing'
+Requires-Dist: types-six ; extra == 'testing'
+Requires-Dist: types-toml ; extra == 'testing'
+
+# metric-config-parser
+
+This package parses configuration files that are compatible with [jetstream](https://github.com/mozilla/jetstream) and [opmon](https://github.com/mozilla/opmon) compatible configuration files.
+
+## Installation
+
+`pip install mozilla-metric-config-parser`
+
